@@ -113,3 +113,47 @@ R.times(i, 5);
     memoTrackedAdd(2, 1); //=> 3
     numberOfCalls; //=> 3
 })();
+
+(() => {
+    var addOneOnce = R.once(function(x){ return x + 1; });
+    addOneOnce(10); //=> 11
+    addOneOnce(addOneOnce(50)); //=> 11
+})();
+
+(() => {
+    var slashify = R.wrap(R.flip(add)('/'), function(f, x) {
+      return R.match(/\/$/, x) ? x : f(x);
+    });
+
+    slashify('a');  //=> 'a/'
+    slashify('a/'); //=> 'a/'
+})();
+
+(() => {
+    var Circle = function(r) {
+        this.r = r;
+        this.colors = Array.prototype.slice.call(arguments, 1);
+    };
+    Circle.prototype.area = function() {return Math.PI * Math.pow(this.r, 2);};
+    var circleN = R.constructN(2, Circle);
+    var c1 = circleN(1, 'red');
+    var circle = R.construct(Circle);
+    var c1 = circle(1, 'red');
+})();
+
+(() => {
+    var numbers = [1, 2, 3];
+    var add = function(a, b) {
+        return a + b
+    };
+    R.reduce(add, 10, numbers); //=> 16;
+    R.foldl(add, 10, numbers); //=> 16;
+})();
+(() => {
+    var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
+    var flattenPairs = function(acc, pair) {
+      return acc.concat(pair);
+    };
+    R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+    R.foldr(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+})();
