@@ -4,3 +4,4 @@ dist
 *.swo
 .session.vim
 .sizecache.json
+ramda-tests.js
