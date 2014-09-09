@@ -1,7 +1,4 @@
 {
     "name": "typescript-ramda",
-    "version": "0.0.1",
-    "dependencies": {
-        "ramda": ">=0.4.0"
-    }
+    "version": "0.0.1"
 }

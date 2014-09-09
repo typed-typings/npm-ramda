@@ -75,5 +75,41 @@ R.times(i, 5);
     return ([]).concat(a, b, c);
   };
   mergeThree(1, 2, 3); //=> [1, 2, 3]
-  R.flip(mergeThree)('1', 2, 3); //=> [2, 1, 3]
+  R.flip(mergeThree)(1, 2, 3); //=> [2, 1, 3]
+})();
+
+(() => {
+    var multiply = function(a, b) { return a * b; };
+    var double = R.lPartial(multiply, 2);
+    double(2); //=> 4
+
+    var greet = function(salutation, title, firstName, lastName) {
+      return salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!';
+    };
+    var sayHello = R.lPartial(greet, 'Hello');
+    var sayHelloToMs = R.lPartial(sayHello, 'Ms.');
+    sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
+
+    var greetMsJaneJones = R.rPartial(greet, 'Ms.', 'Jane', 'Jones');
+    greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
+})();
+
+(() => {
+    var numberOfCalls = 0;
+    var trackedAdd = function(a, b) {
+      numberOfCalls += 1;
+      return a + b;
+    };
+    var memoTrackedAdd = R.memoize(trackedAdd);
+
+    memoTrackedAdd(1, 2); //=> 3
+    numberOfCalls; //=> 1
+    memoTrackedAdd(1, 2); //=> 3
+    numberOfCalls; //=> 1
+    memoTrackedAdd(2, 3); //=> 5
+    numberOfCalls; //=> 2
+
+    // Note that argument order matters
+    memoTrackedAdd(2, 1); //=> 3
+    numberOfCalls; //=> 3
 })();
