@@ -157,3 +157,78 @@ R.times(i, 5);
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
     R.foldr(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
+(() => {
+    var values = { x: 1, y: 2, z: 3 };
+    var double = function(num) {
+      return num * 2;
+    };
+
+    R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
+});
+(() => {
+    var values = { x: 1, y: 2, z: 3 };
+    var prependKeyAndDouble = function(num, key, obj) {
+        return key + (num * 2);
+    };
+    R.mapObj.idx(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
+});
+(() => {
+    R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    R.of([1]); //=> [[1]]
+    R.empty([1,2,3,4,5]); //=> []
+});
+(() => {
+    var duplicate = function(n) {
+        return [n, n];
+    };
+    R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+});
+(() => {
+    R.size([]); //=> 0
+    R.size([1, 2, 3]); //=> 3
+    R.length([1, 2, 3]); //=> 3
+});
+(() => {
+    var isEven = function(n) {
+        return n % 2 === 0;
+    };
+    R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+
+    var lastTwo = function(val, idx, list) {
+      return list.length - idx <= 2;
+    };
+    R.filter.idx(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+
+    var isOdd = function(n) {
+      return n % 2 === 1;
+    };
+    R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+});
+(() => {
+    var isNotFour = function(x) {
+      return !(x === 4);
+    };
+    R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    R.take(2, [1, 2, 3, 4]); //=> [1, 2]
+});
+(() => {
+    var isTwo = function(x) {
+      return x === 2;
+    };
+    R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
+    R.skip(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
+});
+(() => {
+    var xs = [{a: 1}, {a: 2}, {a: 3}];
+    R.find(R.propEq('a', 2))(xs); //=> {a: 2}
+    R.find(R.propEq('a', 4))(xs); //=> undefined
+    R.findIndex(R.propEq('a', 2))(xs); //=> 1
+    R.findIndex(R.propEq('a', 4))(xs); //=> -1
+});
+(() => {
+    var xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
+    R.findLast(R.propEq('a', 4))(xs); //=> undefined
+    R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
+    R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
+});
