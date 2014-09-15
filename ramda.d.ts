@@ -136,7 +136,7 @@ interface RamdaStatic {
      *      var g = f(3);
      *      g(4);//=> 10
      */
-    curry(
+    curry<T, U, TResult>(
         fn: (...args: any[]) => any,
         fnArity?: number
     ): any;
@@ -176,9 +176,10 @@ interface RamdaStatic {
             fn: Function,
             ...rest: Function[]): any;
 
-    forEach<T>(
-            fn: R.ListIterator<T, void>,
-            list: R.List<T>): R.List<T>;
+    forEach: {
+        <T, TResult>(fn: (x: any) => any, list: T[]): TResult[];
+        idx: <T, TResult>(fn: (item: T, index: number, list: T[]) => any, list: T[]) => TResult[];
+    }
 
     /**
      * Creates a shallow copy of an array.
@@ -214,10 +215,10 @@ interface RamdaStatic {
             el: T,
             list: R.List<T>): R.List<T>;
 
-    head<T>(list: R.List<T>): R.List<T>;
+    head<T>(list: R.List<T>): T;
     car<T>(list: R.List<T>): R.List<T>;
 
-    last<T>(list: R.List<T>): R.List<T>;
+    last<T>(list: R.List<T>): T;
 
     tail<T>(list: R.List<T>): R.List<T>;
     cdr<T>(list: R.List<T>): R.List<T>;
@@ -333,9 +334,9 @@ interface RamdaStatic {
      *
      *      squareThenDoubleThenTriple(5); //≅ triple(double(square(5))) => 150
      */
-    compose(
-        ...Functions: Function[]
-    ): Function;
+    compose<T>(
+        ...Functions: T[]
+    ): T;
 
     /**
      * Creates a new function that runs each of the functions supplied as parameters in turn,
@@ -2325,126 +2326,90 @@ interface RamdaStatic {
 //     //         return val;
 //     //     };
 //     // };
-//
-//
-//     /**
-//      * Returns a list containing the names of all the enumerable own
-//      * properties of the supplied object.
-//      * Note that the order of the output array is not guaranteed to be
-//      * consistent across different JS platforms.
-//      *
-//      * @func
-//      * @memberOf R
-//      * @category Object
-//      * @sig {k: v} -> [k]
-//      * @param {Object} obj The object to extract properties from
-//      * @return {Array} An array of the object's own properties
-//      * @example
-//      *
-//      *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
-//      */
-//     // var keys = R.keys = (function() {
-//     //     // cover IE < 9 keys issues
-//     //     var hasEnumBug = !({toString: null}).propertyIsEnumerable('toString');
-//     //     var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString',
-//     //                               'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
-//     //
-//     //     return function _keys(obj) {
-//     //         if (!R.is(Object, obj)) {
-//     //             return [];
-//     //         }
-//     //         if (nativeKeys) {
-//     //             return nativeKeys(Object(obj));
-//     //         }
-//     //         var prop, ks = [], nIdx;
-//     //         for (prop in obj) {
-//     //             if (hasOwnProperty.call(obj, prop)) {
-//     //                 ks.push(prop);
-//     //             }
-//     //         }
-//     //         if (hasEnumBug) {
-//     //             nIdx = nonEnumerableProps.length;
-//     //             while (nIdx--) {
-//     //                 prop = nonEnumerableProps[nIdx];
-//     //                 if (hasOwnProperty.call(obj, prop) && !R.contains(prop, ks)) {
-//     //                     ks.push(prop);
-//     //                 }
-//     //             }
-//     //         }
-//     //         return ks;
-//     //     };
-//     // }());
-//
-//
-//     /**
-//      * Returns a list containing the names of all the
-//      * properties of the supplied object, including prototype properties.
-//      * Note that the order of the output array is not guaranteed to be
-//      * consistent across different JS platforms.
-//      *
-//      * @func
-//      * @memberOf R
-//      * @category Object
-//      * @sig {k: v} -> [k]
-//      * @param {Object} obj The object to extract properties from
-//      * @return {Array} An array of the object's own and prototype properties
-//      * @example
-//      *
-//      *      var F = function() { this.x = 'X'; };
-//      *      F.prototype.y = 'Y';
-//      *      var f = new F();
-//      *      R.keysIn(f); //=> ['x', 'y']
-//      */
-//     // R.keysIn = function _keysIn(obj) {
-//     //     var prop, ks = [];
-//     //     for (prop in obj) {
-//     //         ks.push(prop);
-//     //     }
-//     //     return ks;
-//     // };
-//
-//
-//     /**
-//      * Converts an object into an array of key, value arrays.
-//      * Only the object's own properties are used.
-//      * Note that the order of the output array is not guaranteed to be
-//      * consistent across different JS platforms.
-//      *
-//      * @func
-//      * @memberOf R
-//      * @category Object
-//      * @sig {k: v} -> [[k,v]]
-//      * @param {Object} obj The object to extract from
-//      * @return {Array} An array of key, value arrays from the object's own properties
-//      * @example
-//      *
-//      *      R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
-//      */
-//     // R.toPairs = pairWith(R.keys);
-//
-//
-//     /**
-//      * Converts an object into an array of key, value arrays.
-//      * The object's own properties and prototype properties are used.
-//      * Note that the order of the output array is not guaranteed to be
-//      * consistent across different JS platforms.
-//      *
-//      * @func
-//      * @memberOf R
-//      * @category Object
-//      * @sig {k: v} -> [[k,v]]
-//      * @param {Object} obj The object to extract from
-//      * @return {Array} An array of key, value arrays from the object's own
-//      *         and prototype properties
-//      * @example
-//      *
-//      *      var F = function() { this.x = 'X'; };
-//      *      F.prototype.y = 'Y';
-//      *      var f = new F();
-//      *      R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
-//      */
-//     // R.toPairsIn = pairWith(R.keysIn);
-//
+
+
+    /**
+     * Returns a list containing the names of all the enumerable own
+     * properties of the supplied object.
+     * Note that the order of the output array is not guaranteed to be
+     * consistent across different JS platforms.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {k: v} -> [k]
+     * @param {Object} obj The object to extract properties from
+     * @return {Array} An array of the object's own properties
+     * @example
+     *
+     *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+     */
+    keys(x: any): string[];
+
+
+    /**
+     * Returns a list containing the names of all the
+     * properties of the supplied object, including prototype properties.
+     * Note that the order of the output array is not guaranteed to be
+     * consistent across different JS platforms.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {k: v} -> [k]
+     * @param {Object} obj The object to extract properties from
+     * @return {Array} An array of the object's own and prototype properties
+     * @example
+     *
+     *      var F = function() { this.x = 'X'; };
+     *      F.prototype.y = 'Y';
+     *      var f = new F();
+     *      R.keysIn(f); //=> ['x', 'y']
+     */
+    keysIn(obj: any): string[];
+
+
+    /**
+     * Converts an object into an array of key, value arrays.
+     * Only the object's own properties are used.
+     * Note that the order of the output array is not guaranteed to be
+     * consistent across different JS platforms.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {k: v} -> [[k,v]]
+     * @param {Object} obj The object to extract from
+     * @return {Array} An array of key, value arrays from the object's own properties
+     * @example
+     *
+     *      R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
+     */
+    toPairs(obj: any): any[][];
+
+
+    /**
+     * Converts an object into an array of key, value arrays.
+     * The object's own properties and prototype properties are used.
+     * Note that the order of the output array is not guaranteed to be
+     * consistent across different JS platforms.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {k: v} -> [[k,v]]
+     * @param {Object} obj The object to extract from
+     * @return {Array} An array of key, value arrays from the object's own
+     *         and prototype properties
+     * @example
+     *
+     *      var F = function() { this.x = 'X'; };
+     *      F.prototype.y = 'Y';
+     *      var f = new F();
+     *      R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
+     */
+    toPairsIn(obj: any): any[][];
+
 
     /**
      * Returns a list of all the enumerable own properties of the supplied object.
@@ -3552,32 +3517,6 @@ interface RamdaStatic {
 //
 //
 //     /**
-//      * internal path function
-//      * Takes an array, paths, indicating the deep set of keys
-//      * to find.
-//      *
-//      * @private
-//      * @memberOf R
-//      * @category string
-//      * @param {Array} paths An array of strings to map to object properties
-//      * @param {Object} obj The object to find the path in
-//      * @return {Array} The value at the end of the path or `undefined`.
-//      * @example
-//      *
-//      *      path(['a', 'b'], {a: {b: 2}}); //=> 2
-//      */
-//     function path(paths, obj) {
-//         var i = -1, length = paths.length, val;
-//         if (obj == null) { return; }
-//         val = obj;
-//         while (val != null && ++i < length) {
-//             val = val[paths[i]];
-//         }
-//         return val;
-//     }
-//
-//
-//     /**
 //      * Retrieve a nested path on an object seperated by the specified
 //      * separator value.
 //      *
@@ -3610,7 +3549,7 @@ interface RamdaStatic {
      *
      *      R.path('a.b', {a: {b: 2}}); //=> 2
      */
-    path(path: string): any;
+    path(path: string, any): any;
 
 
 //
