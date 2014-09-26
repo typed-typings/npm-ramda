@@ -3171,7 +3171,7 @@ declare module R {
          *      f(11); //=> false
          *      f(12); //=> true
          */
-        allPredicates(fns: Function[], ...args: any[]): function;
+        allPredicates(fns: Function[], ...args: any[]): Function;
 
 
         /**
@@ -3194,7 +3194,7 @@ declare module R {
          *      f(8); //=> true
          *      f(9); //=> false
          */
-        anyPredicates(fns: Function[], ...args: any[]): function;
+        anyPredicates(fns: Function[], ...args: any[]): Function;
 
 
 
@@ -3412,7 +3412,7 @@ declare module R {
          *      isOdd(42); //=> 0
          *      isOdd(21); //=> 1
          */
-        R.moduloBy(a: number, b: number): number;
+        moduloBy(a: number, b: number): number;
 
 
         /**
