@@ -443,7 +443,7 @@ declare module R {
              *      var plusFive = function(num, idx, list) { list[idx] = num + 5 };
              *      R.forEach.idx(plusFive, [1, 2, 3]); //=> [6, 7, 8]
              */
-            idx: <T>(fn: (item: T, index: number, list: T[]) => any, list: T[]) => T[];
+            idx: <T>(fn: (value: T, index: number, list: T[]) => any, list: T[]) => T[];
         }
 
         /**
@@ -2050,8 +2050,8 @@ declare module R {
          *      R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
          *      R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
          */
-        pluck(p: string, list: any[]): any;
-        pluck(p: number, list: any[]): any;
+        pluck(p: string, list: any[]): any[];
+        pluck(p: number, list: any[]): any[];
 
 
 
@@ -2112,7 +2112,7 @@ declare module R {
          *      R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']);
          *      //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
          */
-        zipWith(fn: (x: any, y:any) => any, list1: any[], list2: any[]): any[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
 
 
         /**
@@ -2147,7 +2147,7 @@ declare module R {
          *
          *      R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
          */
-        zipObj<T, TResult>(keys: R.List<T>, values: any[]): TResult;
+        zipObj<TResult>(keys: any[], values: any[]): TResult;
 
 
         /**
@@ -3713,7 +3713,7 @@ declare module R {
          *
          *      R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
          */
-        match(regexp: string, str: string): any[];
+        match(regexp: RegExp, str: string): any[];
 
 
         /**
