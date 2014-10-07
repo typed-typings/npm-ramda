@@ -14,10 +14,23 @@ declare module R {
         nodeType: number;
     }
 
-    interface FuncIndex extends Function {
+    interface FuncIndex extends Arity0Fn {
         (): any;
         idx: Function;
     }
+
+    interface Arity0Fn {
+        (): any
+    }
+
+    interface Arity1Fn {
+        (a: any): any
+    }
+
+    interface Arity2Fn {
+        (a: any, b: any): any
+    }
+
     // Common interface between Arrays and jQuery objects
     interface List<T> {
         [index: number]: T;
@@ -748,7 +761,7 @@ declare module R {
          *
          *      squareThenDoubleThenTriple(5); //≅ triple(double(square(5))) => 150
          */
-        compose<T>(...fns: T[]): T;
+        compose(...fns: Function[]): Function;
 
         /**
          * Creates a new function that runs each of the functions supplied as parameters in turn,
@@ -776,7 +789,7 @@ declare module R {
          *
          *      squareThenDoubleThenTriple(5); //≅ triple(double(square(5))) => 150
          */
-        pipe<T>(...fns: T[]): T;
+        pipe(...fns: Function[]): Function;
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -799,7 +812,7 @@ declare module R {
          *
          *      R.flip([1, 2, 3]); //=> [2, 1, 3]
          */
-        flip(fn: (arg0: any, ...args: any[]) => any): any;
+        flip(fn: (arg0: any, arg1: any, ...args: any[]) => any): any;
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
@@ -1041,40 +1054,71 @@ declare module R {
 
         // --------
 
-        /**
-         * Returns a single item by iterating through the list, successively calling the iterator
-         * function and passing it an accumulator value and the current value from the array, and
-         * then passing the result to the next call.
-         *
-         * The iterator function receives two values: *(acc, value)*
-         *
-         * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
-         * the native `Array.prototype.reduce` method. For more details on this behavior, see:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a,b -> a) -> a -> [b] -> a
-         * @param {Function} fn The iterator function. Receives two values, the accumulator and the
-         *        current element from the array.
-         * @param {*} acc The accumulator value.
-         * @param {Array} list The list to iterate over.
-         * @return {*} The final, accumulated value.
-         * @example
-         *
-         *      var numbers = [1, 2, 3];
-         *      var add = function(a, b) {
-         *        return a + b;
-         *      };
-         *
-         *      R.reduce(add, 10, numbers); //=> 16
-         */
-        reduce<T, TResult>(
-            fn: (acc: TResult, elem:T) => TResult,
-            acc: TResult,
-            list: R.List<T>
-        ): TResult;
+        reduce: {
+            /**
+             * Returns a single item by iterating through the list, successively calling the iterator
+             * function and passing it an accumulator value and the current value from the array, and
+             * then passing the result to the next call.
+             *
+             * The iterator function receives two values: *(acc, value)*
+             *
+             * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
+             * the native `Array.prototype.reduce` method. For more details on this behavior, see:
+             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+             *
+             * @func
+             * @memberOf R
+             * @category List
+             * @sig (a,b -> a) -> a -> [b] -> a
+             * @param {Function} fn The iterator function. Receives two values, the accumulator and the
+             *        current element from the array.
+             * @param {*} acc The accumulator value.
+             * @param {Array} list The list to iterate over.
+             * @return {*} The final, accumulated value.
+             * @example
+             *
+             *      var numbers = [1, 2, 3];
+             *      var add = function(a, b) {
+             *        return a + b;
+             *      };
+             *
+             *      R.reduce(add, 10, numbers); //=> 16
+             */
+            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+
+
+            /**
+             * Like `reduce`, but passes additional parameters to the predicate function.
+             *
+             * The iterator function receives four values: *(acc, value, index, list)*
+             *
+             * Note: `R.reduce.idx` does not skip deleted or unassigned indices (sparse arrays),
+             * unlike the native `Array.prototype.reduce` method. For more details on this behavior,
+             * see:
+             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+             *
+             * @func
+             * @memberOf R
+             * @category List
+             * @sig (a,b,i,[b] -> a) -> a -> [b] -> a
+             * @param {Function} fn The iterator function. Receives four values: the accumulator, the
+             *        current element from `list`, that element's index, and the entire `list` itself.
+             * @param {*} acc The accumulator value.
+             * @param {Array} list The list to iterate over.
+             * @return {*} The final, accumulated value.
+             * @alias reduce.idx
+             * @example
+             *
+             *      var letters = ['a', 'b', 'c'];
+             *      var objectify = function(accObject, elem, idx, list) {
+             *        accObject[elem] = idx;
+             *        return accObject;
+             *      };
+             *
+             *      R.reduce.idx(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+             */
+            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
+        }
 
         /**
          * @func
@@ -1089,44 +1133,7 @@ declare module R {
         ): TResult;
 
 
-        /**
-         * Like `reduce`, but passes additional parameters to the predicate function.
-         *
-         * The iterator function receives four values: *(acc, value, index, list)*
-         *
-         * Note: `R.reduce.idx` does not skip deleted or unassigned indices (sparse arrays),
-         * unlike the native `Array.prototype.reduce` method. For more details on this behavior,
-         * see:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a,b,i,[b] -> a) -> a -> [b] -> a
-         * @param {Function} fn The iterator function. Receives four values: the accumulator, the
-         *        current element from `list`, that element's index, and the entire `list` itself.
-         * @param {*} acc The accumulator value.
-         * @param {Array} list The list to iterate over.
-         * @return {*} The final, accumulated value.
-         * @alias reduce.idx
-         * @example
-         *
-         *      var letters = ['a', 'b', 'c'];
-         *      var objectify = function(accObject, elem, idx, list) {
-         *        accObject[elem] = idx;
-         *        return accObject;
-         *      };
-         *
-         *      R.reduce.idx(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-         */
-        // R.reduce.idx = curry3(function _reduceIdx(fn, acc, list) {
-        //     var idx = -1, len = list.length;
-        //     while (++idx < len) {
-        //         acc = fn(acc, list[idx], idx, list);
-        //     }
-        //     return acc;
-        // });
-
+        
 
         /**
          * @func
@@ -1390,10 +1397,8 @@ declare module R {
          *
          *      R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
          */
-        ap(
-            fns: Function[],
-            vs: any[]
-        ): any;
+        ap(fns: any[]): Function;
+        ap(fns: any[], vs: any[]): any;
 
 
         /**
@@ -1415,9 +1420,7 @@ declare module R {
          *      R.of([2]); //=> [[2]]
          *      R.of({}); //=> [{}]
          */
-        of(
-            x: any
-        ): any[];
+        of(x: any): any[];
 
 
         /**
@@ -1433,9 +1436,7 @@ declare module R {
          *
          *      R.empty([1,2,3,4,5]); //=> []
          */
-        empty(
-            x: any
-        ): any[];
+        empty(x: any): any[];
 
 
         /**
@@ -1459,11 +1460,10 @@ declare module R {
          *      R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
          *
          */
-        chain(
-            fn: (n: any) => any[],
-            list: any[]
-        ): any[];
+        chain(fn: (n: any) => any[], list: any[]): any[];
 
+
+        lift(fn: Function, ...monads: any[]): any;
 
         /**
          * Returns the number of elements in the array by returning `arr.length`.
@@ -1479,9 +1479,7 @@ declare module R {
          *      R.size([]); //=> 0
          *      R.size([1, 2, 3]); //=> 3
          */
-        size(
-            list: any[]
-        ): number;
+        size(list: any[]): number;
 
         /**
          * @func
@@ -1489,9 +1487,7 @@ declare module R {
          * @category List
          * @see R.size
          */
-        length(
-            list: any[]
-        ): number;
+        length(list: any[]): number;
 
         filter: {
             /**
@@ -1606,10 +1602,7 @@ declare module R {
          *
          *      R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
          */
-        takeWhile(
-            fn: (x: any) => any,
-            list: any[]
-        ): any[];
+        takeWhile(fn: (x: any) => any, list: any[]): any[];
 
 
         /**
@@ -1624,10 +1617,7 @@ declare module R {
          * @param {Array} list The array to query.
          * @return {Array} A new array containing the first elements of `list`.
          */
-        take(
-            n: number,
-            list: any[]
-        ): any[];
+        take(n: number, list: any[]): any[];
 
         /**
          * Returns a new list containing the last `n` elements of a given list, passing each value
@@ -1878,7 +1868,7 @@ declare module R {
              * @memberOf R
              * @category List
              * @sig a -> [a] -> Number
-             * @param target The item to find.
+             * @param {*} target The item to find.
              * @param {Array} list The array to search in.
              * @return {Number} the index of the target, or -1 if the target is not found.
              *
@@ -1900,7 +1890,7 @@ declare module R {
              * @memberOf R
              * @category List
              * @sig a -> Number -> [a] -> Number
-             * @param target The item to find.
+             * @param {*} target The item to find.
              * @param {Array} list The array to search in.
              * @param {Number} fromIdx the index to start searching from
              * @return {Number} the index of the target, or -1 if the target is not found.
@@ -1932,10 +1922,7 @@ declare module R {
          *      var obj = {};
          *      R.contains(obj)([{}, obj, {}]); //=> true
          */
-        contains(
-            a: any,
-            list: any[]
-        ): boolean;
+        contains(a: any, list: any[]): boolean;
 
 
         /**
@@ -1956,11 +1943,7 @@ declare module R {
          *     R.containsWith(function(a, b) { return a.x === b.x; }, {x: 10}, xs); //=> true
          *     R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1}, xs); //=> false
          */
-        containsWith(
-            pred: (a: any, b: any) => boolean,
-            x: any,
-            list: any[]
-        ): boolean;
+        containsWith(pred: (a: any, b: any) => boolean, x: any, list: any[]): boolean;
 
 
         /**
@@ -2022,17 +2005,7 @@ declare module R {
          *      R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
          *      R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
          */
-        // uniqWith(pred: , list) {
-        //     var idx = -1, len = list.length;
-        //     var result = [], item;
-        //     while (++idx < len) {
-        //         item = list[idx];
-        //         if (!containsWith(pred, item, result)) {
-        //             result.push(item);
-        //         }
-        //     }
-        //     return result;
-        // });
+        uniqWith(pred: (x: any, a: any) => boolean, list: any[]): any[];
 
 
         /**
@@ -2147,7 +2120,7 @@ declare module R {
          *
          *      R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
          */
-        zipObj<TResult>(keys: any[], values: any[]): TResult;
+        zipObj<TResult extends {}>(keys: any[], values: any[]): TResult;
 
 
         /**
