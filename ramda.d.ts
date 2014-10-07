@@ -1118,131 +1118,117 @@ declare module R {
              *      R.reduce.idx(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
              */
             idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
+        };
+
+        foldl {
+            /**
+             * @func
+             * @memberOf R
+             * @category List
+             * @see R.reduce
+             */
+            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+
+
+            /**
+             * @func
+             * @memberOf R
+             * @category List
+             * @alias foldl.idx
+             * @see R.reduce.idx
+             */
+            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
+        };
+
+
+        reduceRight: {
+            /**
+             * Returns a single item by iterating through the list, successively calling the iterator
+             * function and passing it an accumulator value and the current value from the array, and
+             * then passing the result to the next call.
+             *
+             * Similar to `reduce`, except moves through the input list from the right to the left.
+             *
+             * The iterator function receives two values: *(acc, value)*
+             *
+             * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
+             * the native `Array.prototype.reduce` method. For more details on this behavior, see:
+             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+             *
+             * @func
+             * @memberOf R
+             * @category List
+             * @sig (a,b -> a) -> a -> [b] -> a
+             * @param {Function} fn The iterator function. Receives two values, the accumulator and the
+             *        current element from the array.
+             * @param {*} acc The accumulator value.
+             * @param {Array} list The list to iterate over.
+             * @return {*} The final, accumulated value.
+             * @example
+             *
+             *      var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
+             *      var flattenPairs = function(acc, pair) {
+             *        return acc.concat(pair);
+             *      };
+             *
+             *      R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+             */
+            <T, TResult>(fn: (acc: TResult, elem: T) => TResul, acc: TResult, list: T[]): TResult;
+
+            /**
+             * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
+             * the input list from the right to the left.
+             *
+             * The iterator function receives four values: *(acc, value, index, list)*.
+             *
+             * Note: `R.reduceRight.idx` does not skip deleted or unassigned indices (sparse arrays),
+             * unlike the native `Array.prototype.reduce` method. For more details on this behavior,
+             * see:
+             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+             *
+             * @func
+             * @memberOf R
+             * @category List
+             * @sig (a,b,i,[b] -> a -> [b] -> a
+             * @param {Function} fn The iterator function. Receives four values: the accumulator, the
+             *        current element from `list`, that element's index, and the entire `list` itself.
+             * @param {*} acc The accumulator value.
+             * @param {Array} list The list to iterate over.
+             * @return {*} The final, accumulated value.
+             * @alias reduceRight.idx
+             * @example
+             *
+             *      var letters = ['a', 'b', 'c'];
+             *      var objectify = function(accObject, elem, idx, list) {
+             *        accObject[elem] = idx;
+             *        return accObject;
+             *      };
+             *
+             *      R.reduceRight.idx(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+             */
+            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
+        };
+
+
+        foldr: {
+            /**
+             * @func
+             * @memberOf R
+             * @category List
+             * @see R.reduceRight
+             */
+            <T, TResult>(fn: (acc: TResult, elem: T) => TResul, acc: TResult, list: T[]): TResult;
+
+
+            /**
+             * @func
+             * @memberOf R
+             * @category List
+             * @alias foldr.idx
+             * @see R.reduceRight.idx
+             */
+            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
         }
-
-        /**
-         * @func
-         * @memberOf R
-         * @category List
-         * @see R.reduce
-         */
-        foldl<T, TResult>(
-            fn: (acc: TResult, elem:T) => TResult,
-            acc: TResult,
-            list: R.List<T>
-        ): TResult;
-
-
-        
-
-        /**
-         * @func
-         * @memberOf R
-         * @category List
-         * @alias foldl.idx
-         * @see R.reduce.idx
-         */
-        // R.foldl.idx = R.reduce.idx;
-
-
-        /**
-         * Returns a single item by iterating through the list, successively calling the iterator
-         * function and passing it an accumulator value and the current value from the array, and
-         * then passing the result to the next call.
-         *
-         * Similar to `reduce`, except moves through the input list from the right to the left.
-         *
-         * The iterator function receives two values: *(acc, value)*
-         *
-         * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
-         * the native `Array.prototype.reduce` method. For more details on this behavior, see:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a,b -> a) -> a -> [b] -> a
-         * @param {Function} fn The iterator function. Receives two values, the accumulator and the
-         *        current element from the array.
-         * @param {*} acc The accumulator value.
-         * @param {Array} list The list to iterate over.
-         * @return {*} The final, accumulated value.
-         * @example
-         *
-         *      var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-         *      var flattenPairs = function(acc, pair) {
-         *        return acc.concat(pair);
-         *      };
-         *
-         *      R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
-         */
-        reduceRight<T, TResult>(
-            fn: R.ListIterator<T, TResult>,
-            acc: TResult,
-            list: R.List<T>
-        ): TResult;
-
-        /**
-         * @func
-         * @memberOf R
-         * @category List
-         * @see R.reduceRight
-         */
-        foldr<T, TResult>(
-            fn: R.ListIterator<T, TResult>,
-            acc: TResult,
-            list: R.List<T>
-        ): TResult;
-
-        /**
-         * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
-         * the input list from the right to the left.
-         *
-         * The iterator function receives four values: *(acc, value, index, list)*.
-         *
-         * Note: `R.reduceRight.idx` does not skip deleted or unassigned indices (sparse arrays),
-         * unlike the native `Array.prototype.reduce` method. For more details on this behavior,
-         * see:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a,b,i,[b] -> a -> [b] -> a
-         * @param {Function} fn The iterator function. Receives four values: the accumulator, the
-         *        current element from `list`, that element's index, and the entire `list` itself.
-         * @param {*} acc The accumulator value.
-         * @param {Array} list The list to iterate over.
-         * @return {*} The final, accumulated value.
-         * @alias reduceRight.idx
-         * @example
-         *
-         *      var letters = ['a', 'b', 'c'];
-         *      var objectify = function(accObject, elem, idx, list) {
-         *        accObject[elem] = idx;
-         *        return accObject;
-         *      };
-         *
-         *      R.reduceRight.idx(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
-         */
-        // R.reduceRight.idx = curry3(function _reduceRightIdx(fn, acc, list) {
-        //     var idx = list.length;
-        //     while (idx--) {
-        //         acc = fn(acc, list[idx], idx, list);
-        //     }
-        //     return acc;
-        // });
-
-
-        /**
-         * @func
-         * @memberOf R
-         * @category List
-         * @alias foldr.idx
-         * @see R.reduceRight.idx
-         */
-        // R.foldr.idx = R.reduceRight.idx;
-
 
         /**
          * Builds a list from a seed value. Accepts an iterator function, which returns either false
@@ -1266,10 +1252,7 @@ declare module R {
          *      var f = function(n) { return n > 50 ? false : [-n, n + 10] };
          *      R.unfoldr(f, 10); //=> [-10, -20, -30, -40, -50]
          */
-        unfoldr<T, TResult>(
-            fn: (seed: TResult) => boolean,
-            seed: TResult
-        ): R.List<TResult>;
+        unfoldr<T, TResult>(fn: (seed: TResult) => boolean, seed: TResult): TResult[];
     }
 
 
