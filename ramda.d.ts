@@ -1120,7 +1120,8 @@ declare module R {
             idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
         };
 
-        foldl {
+
+        foldl: {
             /**
              * @func
              * @memberOf R
@@ -1173,7 +1174,7 @@ declare module R {
              *
              *      R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
              */
-            <T, TResult>(fn: (acc: TResult, elem: T) => TResul, acc: TResult, list: T[]): TResult;
+            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
 
             /**
              * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
@@ -1217,7 +1218,7 @@ declare module R {
              * @category List
              * @see R.reduceRight
              */
-            <T, TResult>(fn: (acc: TResult, elem: T) => TResul, acc: TResult, list: T[]): TResult;
+            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
 
 
             /**
