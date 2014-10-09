@@ -1339,7 +1339,7 @@ declare module R {
              *
              *      R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
              */
-            (fn: (value: any) => any, obj: any): any;
+            <T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
 
             /**
              * Like `mapObj`, but but passes additional arguments to the predicate function. The
@@ -1364,7 +1364,7 @@ declare module R {
              *
              *      R.mapObj.idx(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
              */
-            idx: <T, TResult>(fn: R.ObjectIterator<T, TResult>, obj: Dictionary<T>) => Dictionary<TResult>;
+            idx: <T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any) => {[index:string]: TResult};
         }
 
         /**
@@ -1381,8 +1381,8 @@ declare module R {
          *
          *      R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
          */
-        ap(fns: any[]): Function;
-        ap(fns: any[], vs: any[]): any;
+         ap(fns: Function[], vs: any[]): any[];
+         ap(fns: Function[]): Function;
 
 
         /**
@@ -1624,10 +1624,7 @@ declare module R {
          *
          *      R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
          */
-        skipUntil(
-            fn: (x: any) => any,
-            list: any[]
-        ): any[];
+        skipUntil(fn: (x: any) => any, list: any[]): any[];
 
 
         /**
@@ -1668,10 +1665,8 @@ declare module R {
          *      R.find(R.propEq('a', 2))(xs); //=> {a: 2}
          *      R.find(R.propEq('a', 4))(xs); //=> undefined
          */
-        find(
-            fn: (...args: any[]) => boolean,
-            list: any[]
-        ): any;
+        find(fn: (a: any) => boolean, list: any[]): any;
+        find(fn: (a: any) => boolean): Function;
 
 
         /**
@@ -1692,10 +1687,7 @@ declare module R {
          *      R.findIndex(R.propEq('a', 2))(xs); //=> 1
          *      R.findIndex(R.propEq('a', 4))(xs); //=> -1
          */
-        findIndex(
-            fn: (...args: any[]) => boolean,
-            list: any[]
-        ): number;
+        findIndex(fn: (...args: any[]) => boolean, list: any[]): number;
 
         /**
          * Returns the last element of the list which matches the predicate, or `undefined` if no
@@ -1715,10 +1707,7 @@ declare module R {
          *      R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
          *      R.findLast(R.propEq('a', 4))(xs); //=> undefined
          */
-        findLast(
-            fn: (...args: any[]) => boolean,
-            list: any[]
-        ): any;
+        findLast(fn: (...args: any[]) => boolean, list: any[]): any;
 
 
         /**
@@ -1739,10 +1728,7 @@ declare module R {
          *      R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
          *      R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
          */
-        findLastIndex(
-            fn: (...args: any[]) => boolean,
-            list: any[]
-        ): number;
+        findLastIndex(fn: (...args: any[]) => boolean, list: any[]): number;
 
         /**
          * Returns `true` if all elements of the list match the predicate, `false` if there are any
@@ -2027,7 +2013,7 @@ declare module R {
          *      R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
          *      //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
          */
-        flatten(x: any[]): any;
+        flatten(x: any[]): any[];
 
 
         /**
@@ -2266,8 +2252,8 @@ declare module R {
          *      spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
          *      R.join('|', [1, 2, 3]);    //=> '1|2|3'
          */
-        join(x: string): any[];
-        join(x: number): any[];
+        join(x: string, xs: any[]): string;
+        join(x: number, xs: any[]): string;
 
 
         slice: {
@@ -3183,6 +3169,8 @@ declare module R {
          */
         add(a: number, b: number): number;
         add(a: string, b: string): string;
+        add(a: number): Function;
+        add(a: string): Function;
 
 
         /**
@@ -3204,6 +3192,7 @@ declare module R {
          *      R.multiply(2, 5);  //=> 10
          */
         multiply(a: number, b: number): number;
+        multiply(a: number): Function;
 
 
         /**
@@ -3848,7 +3837,12 @@ declare module R {
          *      var hasBrownHair = R.propEq('hair', 'brown');
          *      R.filter(hasBrownHair, kids); //=> [fred, rusty]
          */
-        propEq<T>(name: string, val: T, obj: T[]): boolean;
+        propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
+        propEq<T>(name: number, val: T, obj: {[index:number]: T}): boolean;
+        propEq<T>(name: string, val: T): Function;
+        propEq<T>(name: number, val: T): Function;
+        propEq<T>(name: string): Function;
+        propEq<T>(name: number): Function;
 
 
         /**

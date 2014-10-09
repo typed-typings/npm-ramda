@@ -232,3 +232,12 @@ R.times(i, 5);
     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
 });
+(() => {
+    var abby = {name: 'Abby', age: 7, hair: 'blond'};
+    var fred = {name: 'Fred', age: 12, hair: 'brown'};
+    var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
+    var alois = {name: 'Alois', age: 15, disposition: 'surly'};
+    var kids = [abby, fred, rusty, alois];
+    var hasBrownHair = R.propEq('hair', 'brown');
+    R.filter(hasBrownHair, kids); //=> [fred, rusty]
+});
