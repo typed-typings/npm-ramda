@@ -2223,16 +2223,7 @@ declare module R {
          *      R.range(1, 5);    //=> [1, 2, 3, 4]
          *      R.range(50, 53);  //=> [50, 51, 52]
          */
-        // R.range = curry2(function _range(from, to) {
-        //     if (from >= to) {
-        //         return [];
-        //     }
-        //     var idx = 0, result = new Array(Math.floor(to) - Math.ceil(from));
-        //     for (; from < to; idx++, from++) {
-        //         result[idx] = from;
-        //     }
-        //     return result;
-        // });
+        range(from: number, to: number): number[];
 
 
         /**
