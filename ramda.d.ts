@@ -3830,10 +3830,10 @@ declare module R {
          */
         propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
         propEq<T>(name: number, val: T, obj: {[index:number]: T}): boolean;
-        propEq<T>(name: string, val: T): Function;
-        propEq<T>(name: number, val: T): Function;
-        propEq<T>(name: string): Function;
-        propEq<T>(name: number): Function;
+        propEq<T>(name: string, val: T): (...args: any[]) => boolean;
+        propEq<T>(name: number, val: T): (...args: any[]) => boolean;
+        propEq<T>(name: string): (...args: any[]) => boolean;
+        propEq<T>(name: number): (...args: any[]) => boolean;
 
 
         /**
