@@ -43,214 +43,24 @@ declare module R {
 
     interface RamdaStatic {
 
-        /**
-         * returns a subset of a string between one index and another.
-         *
-         * @func
-         * @memberOf R
-         * @category string
-         * @sig Number -> Number -> String -> String
-         * @param {Number} indexA An integer between 0 and the length of the string.
-         * @param {Number} indexB An integer between 0 and the length of the string.
-         * @param {String} The string to extract from
-         * @return {String} the extracted substring
-         * @see R.invoker
-         * @example
-         *
-         *      substring(2, 5, 'abcdefghijklm'); //=> 'cde'
-         */
-        substring(indexA: number, indexB: number, str: string): string;
-
-        /**
-         * The trailing substring of a String starting with the nth character:
-         *
-         * @func
-         * @memberOf R
-         * @category string
-         * @sig Number -> String -> String
-         * @param {Number} indexA An integer between 0 and the length of the string.
-         * @param {String} The string to extract from
-         * @return {String} the extracted substring
-         * @see R.invoker
-         * @example
-         *
-         *      substringFrom(8, 'abcdefghijklm'); //=> 'ijklm'
-         */
-        substringFrom(indexA: number, str: string): string;
-
-        /**
-         * The leading substring of a String ending before the nth character:
-         *
-         * @func
-         * @memberOf R
-         * @category string
-         * @sig Number -> String -> String
-         * @param {Number} indexA An integer between 0 and the length of the string.
-         * @param {String} str The string to extract from
-         * @return {String} the extracted substring
-         * @see R.invoker
-         * @example
-         *
-         *      substringTo(8, 'abcdefghijklm'); //=> 'abcdefgh'
-         */
-        substringTo(indexA: number, str: string): string;
-
-        /**
-         * Tests whether or not an object is similar to an array.
-         *
-         * @func
-         * @category Type
-         * @category List
-         * @param {*} val The object to test.
-         * @return {boolean} `true` if `val` has a numeric length property; `false` otherwise.
-         * @example
-         *
-         *      R.isArrayLike([]); //=> true
-         *      R.isArrayLike(true); //=> false
-         *      R.isArrayLike({}); //=> false
-         *      R.isArrayLike({length: 10}); //=> true
-         */
         isArrayLike(val: any): boolean;
 
+        op(fn: (a: any, b: any) => any): Function;
 
-        /**
-         * Converts a function into something like an infix operation, meaning that
-         * when called with a single argument, that argument is applied to the
-         * second position, sort of a curry-right.  This allows for more natural
-         * processing of functions which are really binary operators.
-         *
-         * @memberOf R
-         * @category Functions
-         * @param {function} fn The operation to adjust
-         * @return {function} A new function that acts somewhat like an infix operator.
-         * @example
-         *
-         *      var div = R.op(function (a, b) {
-         *          return a / b;
-         *      });
-         *
-         *      div(6, 3); //=> 2
-         *      div(6, _)(3); //=> 2 // note: `_` here is just an `undefined` value.  You could use `void 0` instead
-         *      div(3)(6); //=> 2
-         */
+        substring(indexA: number, indexB: number, str: string): string;
+        substringFrom(indexA: number, str: string): string;
+        substringTo(indexA: number, str: string): string;
+
+        isArrayLike(val: any): boolean;
+
         op(fn: Function): Function;
 
-
-        /**
-         * Creates a new version of `fn` with given arity that, when invoked,
-         * will return either:
-         * - A new function ready to accept one or more of `fn`'s remaining arguments, if all of
-         * `fn`'s expected arguments have not yet been provided
-         * - `fn`'s result if all of its expected arguments have been provided
-         *
-         * This function is useful in place of `curry`, when the arity of the
-         * function to curry cannot be determined from its signature, e.g. if it's
-         * a variadic function.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig Number -> (* -> a) -> (* -> a)
-         * @param {number} fnArity The arity for the returned function.
-         * @param {Function} fn The function to curry.
-         * @return {Function} A new, curried function.
-         * @see R.curry
-         * @example
-         *
-         * var addFourNumbers = function() {
-         * return R.sum([].slice.call(arguments, 0, 4));
-         * };
-         *
-         * var curriedAddFourNumbers = R.curryN(4, addFourNumbers);
-         * var f = curriedAddFourNumbers(1, 2);
-         * var g = f(3);
-         * g(4);//=> 10
-         */
         curryN(lenght: number, fn: (...args: any[]) => any): Function;
+        curry(fn: Function): Function
 
-        /**
-         * Creates a new version of `fn` that, when invoked, will return either:
-         * - A new function ready to accept one or more of `fn`'s remaining arguments, if all of
-         * `fn`'s expected arguments have not yet been provided
-         * - `fn`'s result if all of its expected arguments have been provided
-         *
-         * Optionally, you may provide an arity for the returned function.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (* -> a) -> Number -> (* -> a)
-         * @sig (* -> a) -> (* -> a)
-         * @param {Function} fn The function to curry.
-         * @param {number} [fnArity=fn.length] An optional arity for the returned function.
-         * @return {Function} A new, curried function.
-         * @example
-         *
-         *      var addFourNumbers = function(a, b, c, d) {
-         *        return a + b + c + d;
-         *      };
-         *
-         *      var curriedAddFourNumbers = curry(addFourNumbers);
-         *      var f = curriedAddFourNumbers(1, 2);
-         *      var g = f(3);
-         *      g(4);//=> 10
-         */
-        curry(fn: (...args: any[]) => any, fnArity?: number): Function;
+        nAry(n: number, fn: (...arg: any[]) => any): Function;
 
-
-        /**
-         * Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
-         * parameters. Any extraneous parameters will not be passed to the supplied function.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig Number -> (* -> a) -> (* -> a)
-         * @param {number} n The desired arity of the new function.
-         * @param {Function} fn The function to wrap.
-         * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of
-         *         arity `n`.
-         * @example
-         *
-         *      var takesTwoArgs = function(a, b) {
-         *        return [a, b];
-         *      };
-         *      takesTwoArgs.length; //=> 2
-         *      takesTwoArgs(1, 2); //=> [1, 2]
-         *
-         *      var takesOneArg = R.nAry(1, takesTwoArgs);
-         *      takesOneArg.length; //=> 1
-         *      // Only `n` arguments are passed to the wrapped function
-         *      takesOneArg(1, 2); //=> [1, undefined]
-         */
-        nAry(n: number, fn: (...arg0: any[]) => any): Function;
-
-
-        /**
-         * Wraps a function of any arity (including nullary) in a function that accepts exactly 1
-         * parameter. Any extraneous parameters will not be passed to the supplied function.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (* -> b) -> (a -> b)
-         * @param {Function} fn The function to wrap.
-         * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of
-         *         arity 1.
-         * @example
-         *
-         *      var takesTwoArgs = function(a, b) {
-         *        return [a, b];
-         *      };
-         *      takesTwoArgs.length; //=> 2
-         *      takesTwoArgs(1, 2); //=> [1, 2]
-         *
-         *      var takesOneArg = R.unary(takesTwoArgs);
-         *      takesOneArg.length; //=> 1
-         *      // Only 1 argument is passed to the wrapped function
-         *      takesOneArg(1, 2); //=> [1, undefined]
-         */
-        unary(fn: (...args: any[]) => any): Function;
+        unary<T>(fn: (a: T, ...args: any[]) => any): (a: T) => any
 
 
         /**
@@ -482,7 +292,6 @@ declare module R {
          */
         clone<T>(list: T[]): T[];
 
-
         /**
          * Creates a shallow copy of an object's own properties.
          *
@@ -497,6 +306,9 @@ declare module R {
          *     R.cloneObj({a: 1, b: 2, c: [1, 2, 3]}); // {a: 1, b: 2, c: [1, 2, 3]}
          */
         cloneObj<T>(obj: T): T;
+
+        cloneDeep(value: any): any;
+        cloneDeep(value: any[]): any[];
 
 
         /**
@@ -738,58 +550,22 @@ declare module R {
          * Creates a new function that runs each of the functions supplied as parameters in turn,
          * passing the return value of each function invocation to the next function invocation,
          * beginning with whatever arguments were passed to the initial invocation.
-         *
-         * Note that `compose` is a right-associative function, which means the functions provided
-         * will be invoked in order from right to left. In the example `var h = compose(f, g)`,
-         * the function `h` is equivalent to `f( g(x) )`, where `x` represents the arguments
-         * originally passed to `h`.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig ((y -> z), (x -> y), ..., (b -> c), (a... -> b)) -> (a... -> z)
-         * @param {...Function} functions A variable number of functions.
-         * @return {Function} A new function which represents the result of calling each of the
-         *         input `functions`, passing the result of each function call to the next, from
-         *         right to left.
-         * @example
-         *
-         *      var triple = function(x) { return x * 3; };
-         *      var double = function(x) { return x * 2; };
-         *      var square = function(x) { return x * x; };
-         *      var squareThenDoubleThenTriple = R.compose(triple, double, square);
-         *
-         *      squareThenDoubleThenTriple(5); //≅ triple(double(square(5))) => 150
-         */
-        compose(...fns: Function[]): Function;
+        */
+        compose<T>(fn: T, ...fns: Function[]): T;
 
         /**
          * Creates a new function that runs each of the functions supplied as parameters in turn,
          * passing the return value of each function invocation to the next function invocation,
          * beginning with whatever arguments were passed to the initial invocation.
-         *
-         * `pipe` is the mirror version of `compose`. `pipe` is left-associative, which means that
-         * each of the functions provided is executed in order from left to right.
-         *
-         * In some libraries this function is named `sequence`.
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig ((a... -> b), (b -> c), ..., (x -> y), (y -> z)) -> (a... -> z)
-         * @param {...Function} functions A variable number of functions.
-         * @return {Function} A new function which represents the result of calling each of the
-         *         input `functions`, passing the result of each function call to the next, from
-         *         right to left.
-         * @example
-         *
-         *      var triple = function(x) { return x * 3; };
-         *      var double = function(x) { return x * 2; };
-         *      var square = function(x) { return x * x; };
-         *      var squareThenDoubleThenTriple = R.pipe(square, double, triple);
-         *
-         *      squareThenDoubleThenTriple(5); //≅ triple(double(square(5))) => 150
          */
-        pipe(...fns: Function[]): Function;
+        pipe<T>(fn1: T): T;
+        pipe<T>(fn1: Function, fn2: T): T;
+        pipe<T>(fn1: Function, fn2: Function, fn3: T): T;
+        pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: T): T;
+        pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: T): T;
+        pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: T): T;
+        pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: T): T;
+        pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: Function, fn8: T): T;
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -869,173 +645,16 @@ declare module R {
          */
         rPartial(fn: Function, ...args: any[]): Function;
 
-        /**
-         * Creates a new function that, when invoked, caches the result of calling `fn` for a given
-         * argument set and returns the result. Subsequent calls to the memoized `fn` with the same
-         * argument set will not result in an additional call to `fn`; instead, the cached result
-         * for that set of arguments will be returned.
-         *
-         * Note that this version of `memoize` effectively handles only string and number
-         * parameters.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (a... -> b) -> (a... -> b)
-         * @param {Function} fn The function to be wrapped by `memoize`.
-         * @return {Function}  Returns a memoized version of `fn`.
-         * @example
-         *
-         *      var numberOfCalls = 0;
-         *      var tracedAdd = function(a, b) {
-         *        numberOfCalls += 1;
-         *        return a + b;
-         *      };
-         *      var memoTrackedAdd = R.memoize(trackedAdd);
-         *
-         *      memoAdd(1, 2); //=> 3 (numberOfCalls => 1)
-         *      memoAdd(1, 2); //=> 3 (numberOfCalls => 1)
-         *      memoAdd(2, 3); //=> 5 (numberOfCalls => 2)
-         *
-         *      // Note that argument order matters
-         *      memoAdd(2, 1); //=> 3 (numberOfCalls => 3)
-         */
         memoize(fn: Function): Function;
 
-        /**
-         * Accepts a function `fn` and returns a function that guards invocation of `fn` such that
-         * `fn` can only ever be called once, no matter how many times the returned function is
-         * invoked.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (a... -> b) -> (a... -> b)
-         * @param {Function} fn The function to wrap in a call-only-once wrapper.
-         * @return {Function} The wrapped function.
-         * @example
-         *
-         *      var addOneOnce = R.once(function(x){ return x + 1; });
-         *      addOneOnce(10); //=> 11
-         *      addOneOnce(addOneOnce(50)); //=> 11
-         */
         once(fn: Function): Function;
 
-         /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do
-         * other processing either before the internal function is called or with its results.
-         *    *
-         * @func
-         * @memberOf R
-         * @category Function
-         * ((* -> *) -> ((* -> *), a...) -> (*, a... -> *)
-         * @param {Function} fn The function to wrap.
-         * @param {Function} wrapper The wrapper function.
-         * @return {Function} The wrapped function.
-         * @example
-         *
-         *      var slashify = R.wrap(flip(add)('/'), function(f, x) {
-         *        return R.match(/\/$/, x) ? x : f(x);
-         *      });
-         *
-         *      slashify('a');  //=> 'a/'
-         *      slashify('a/'); //=> 'a/'
-         */
         wrap(fn: Function, wrapper: Function): Function;
 
-        /**
-         * Wraps a constructor function inside a curried function that can be called with the same
-         * arguments and returns the same type. The arity of the function returned is specified
-         * to allow using variadic constructor functions.
-         *
-         * NOTE: Does not work with some built-in objects such as Date.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig Number -> (* -> {*}) -> (* -> {*})
-         * @param {number} n The arity of the constructor function.
-         * @param {Function} Fn The constructor function to wrap.
-         * @return {Function} A wrapped, curried constructor function.
-         * @example
-         *
-         *      // Variadic constructor function
-         *      var Widget = function() {
-         *        this.children = Array.prototype.slice.call(arguments);
-         *        // ...
-         *      };
-         *      Widget.prototype = {
-         *        // ...
-         *      };
-         *      var allConfigs = {
-         *        // ...
-         *      };
-         *      map(R.constructN(1, Widget), allConfigs); // a list of Widgets
-         */
         constructN(n: number, fn: Function): Function;
 
-        /**
-         * Wraps a constructor function inside a curried function that can be called with the same
-         * arguments and returns the same type.
-         *
-         * NOTE: Does not work with some built-in objects such as Date.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (* -> {*}) -> (* -> {*})
-         * @param {Function} Fn The constructor function to wrap.
-         * @return {Function} A wrapped, curried constructor function.
-         * @example
-         *
-         *      // Constructor function
-         *      var Widget = function(config) {
-         *        // ...
-         *      };
-         *      Widget.prototype = {
-         *        // ...
-         *      };
-         *      var allConfigs = {
-         *        // ...
-         *      };
-         *      map(R.construct(Widget), allConfigs); // a list of Widgets
-         */
         construct(fn: Function): Function;
 
-        /**
-         * Accepts three functions and returns a new function. When invoked, this new function will
-         * invoke the first function, `after`, passing as its arguments the results of invoking the
-         * second and third functions with whatever arguments are passed to the new function.
-         *
-         * For example, a function produced by `converge` is equivalent to:
-         *
-         * ```javascript
-         *   var h = R.converge(e, f, g);
-         *   h(1, 2); //≅ e( f(1, 2), g(1, 2) )
-         * ```
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig ((a, b -> c) -> (((* -> a), (* -> b), ...) -> c)
-         * @param {Function} after A function. `after` will be invoked with the return values of
-         *        `fn1` and `fn2` as its arguments.
-         * @param {Function} fn1 A function. It will be invoked with the arguments passed to the
-         *        returned function. Afterward, its resulting value will be passed to `after` as
-         *        its first argument.
-         * @param {Function} fn2 A function. It will be invoked with the arguments passed to the
-         *        returned function. Afterward, its resulting value will be passed to `after` as
-         *        its second argument.
-         * @return {Function} A new function.
-         * @example
-         *
-         *      var add = function(a, b) { return a + b; };
-         *      var multiply = function(a, b) { return a * b; };
-         *      var subtract = function(a, b) { return a - b; };
-         *
-         *      //≅ multiply( add(1, 2), subtract(1, 2) );
-         *      R.converge(multiply, add, subtract)(1, 2); //=> -3
-         */
         converge(after: Function, ...fns: Function[]): Function;
 
         // List Functions
@@ -1258,112 +877,16 @@ declare module R {
 
 
     interface RamdaStatic {
-        map: {
-            /**
-             * Returns a new list, constructed by applying the supplied function to every element of the
-             * supplied list.
-             *
-             * Note: `R.map` does not skip deleted or unassigned indices (sparse arrays), unlike the
-             * native `Array.prototype.map` method. For more details on this behavior, see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a -> b) -> [a] -> [b]
-             * @param {Function} fn The function to be called on every element of the input `list`.
-             * @param {Array} list The list to be iterated over.
-             * @return {Array} The new list.
-             * @example
-             *
-             *      var double = function(x) {
-             *        return x * 2;
-             *      };
-             *
-             *      R.map(double, [1, 2, 3]); //=> [2, 4, 6]
-             */
-            (fn: (x: any) => any, list: any[]): any[];
-
-            /**
-             * Like `map`, but but passes additional parameters to the mapping function.
-             * `fn` receives three arguments: *(value, index, list)*.
-             *
-             * Note: `R.map.idx` does not skip deleted or unassigned indices (sparse arrays), unlike
-             * the native `Array.prototype.map` method. For more details on this behavior, see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a,i,[b] -> b) -> [a] -> [b]
-             * @param {Function} fn The function to be called on every element of the input `list`.
-             * @param {Array} list The list to be iterated over.
-             * @return {Array} The new list.
-             * @alias map.idx
-             * @example
-             *
-             *      var squareEnds = function(elt, idx, list) {
-             *        if (idx === 0 || idx === list.length - 1) {
-             *          return elt * elt;
-             *        }
-             *        return elt;
-             *      };
-             *
-             *      R.map.idx(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
-             */
-            idx: <T, TResult>(fn: R.ListIterator<T, TResult>, list: R.List<T>) => R.List<TResult>;
-        }
-
+        // map: {
+        //     (fn: (x: any) => any, list?: any[]): any[];
+        //     idx: <T, TResult>(fn: R.ListIterator<T, TResult>, list?: R.List<T>) => R.List<TResult>;
+        // }
+        map(fn: (x: any) => any, list: any[]): any[];
+        map(fn: (x: any) => any, obj: any): any;
+        map(fn: (x: any) => any): Function;
 
         mapObj: {
-            /**
-             * Map, but for objects. Creates an object with the same keys as `obj` and values
-             * generated by running each property of `obj` through `fn`. `fn` is passed one argument:
-             * *(value)*.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (v -> v) -> {k: v} -> {k: v}
-             * @param {Function} fn A function called for each property in `obj`. Its return value will
-             * become a new property on the return object.
-             * @param {Object} obj The object to iterate over.
-             * @return {Object} A new object with the same keys as `obj` and values that are the result
-             * of running each property through `fn`.
-             * @example
-             *
-             *      var values = { x: 1, y: 2, z: 3 };
-             *      var double = function(num) {
-             *        return num * 2;
-             *      };
-             *
-             *      R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
-             */
-            <T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
-
-            /**
-             * Like `mapObj`, but but passes additional arguments to the predicate function. The
-             * predicate function is passed three arguments: *(value, key, obj)*.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (v, k, {k: v} -> v) -> {k: v} -> {k: v}
-             * @param {Function} fn A function called for each property in `obj`. Its return value will
-             *        become a new property on the return object.
-             * @param {Object} obj The object to iterate over.
-             * @return {Object} A new object with the same keys as `obj` and values that are the result
-             *         of running each property through `fn`.
-             * @alias mapObj.idx
-             * @example
-             *
-             *      var values = { x: 1, y: 2, z: 3 };
-             *      var prependKeyAndDouble = function(num, key, obj) {
-             *        return key + (num * 2);
-             *      };
-             *
-             *      R.mapObj.idx(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
-             */
+            <T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
             idx: <T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any) => {[index:string]: TResult};
         }
 
@@ -1447,7 +970,8 @@ declare module R {
         chain(fn: (n: any) => any[], list: any[]): any[];
 
 
-        lift(fn: Function, ...monads: any[]): any;
+        lift(fn: Function, ...args: any[]): any;
+        liftN(n: number, fn: Function, ...args: any[]): any;
 
         /**
          * Returns the number of elements in the array by returning `arr.length`.
@@ -1803,7 +1327,7 @@ declare module R {
              *      R.indexOf(3, [1,2,3,4]); //=> 2
              *      R.indexOf(10, [1,2,3,4]); //=> -1
              */
-            (target: number, list: any[]): number;
+            <T>(target: T, list: T[]): number;
 
             /**
              * Returns the position of the first occurrence of an item (by strict equality) in
@@ -1825,7 +1349,7 @@ declare module R {
              *      R.indexOf.from(3, 2, [-1,0,1,2,3,4]); //=> 4
              *      R.indexOf.from(10, 2, [1,2,3,4]); //=> -1
              */
-            from: (target: any, fromIdx: number, list: any[]) => number;
+            from: <T>(target: T, fromIdx: number, list: T[]) => number;
         }
 
 
@@ -1847,7 +1371,7 @@ declare module R {
              *      R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
              *      R.lastIndexOf(10, [1,2,3,4]); //=> -1
              */
-            (target: any, list: any[]): number;
+            <T>(target: T, list: T[]): number;
 
 
             /**
@@ -1870,7 +1394,7 @@ declare module R {
              *      R.lastIndexOf.from(3, 2, [-1,3,3,0,1,2,3,4]); //=> 2
              *      R.lastIndexOf.from(10, 2, [1,2,3,4]); //=> -1
              */
-            from: (target: any, fromIdx: number, list: any[]) => number;
+            from: <T>(target: T, fromIdx: number, list: T[]) => number;
         }
 
         /**
@@ -1892,7 +1416,7 @@ declare module R {
          *      var obj = {};
          *      R.contains(obj)([{}, obj, {}]); //=> true
          */
-        contains(a: any, list: any[]): boolean;
+        contains<T>(a: T, list: T[]): boolean;
 
 
         /**
@@ -2013,7 +1537,7 @@ declare module R {
          *      R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
          *      //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
          */
-        flatten(x: any[]): any[];
+        flatten<T>(x: T[]): T[];
 
 
         /**
@@ -3140,51 +2664,14 @@ declare module R {
 
         // --------
 
-        /**
-         * Adds two numbers (or strings). Equivalent to `a + b` but curried.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @sig String -> String -> String
-         * @param {number|string} a The first value.
-         * @param {number|string} b The second value.
-         * @return {number|string} The result of `a + b`.
-         * @example
-         *
-         *      var increment = R.add(1);
-         *      increment(10);   //=> 11
-         *      R.add(2, 3);       //=>  5
-         *      R.add(7)(10);      //=> 17
-         */
         add(a: number, b: number): number;
         add(a: string, b: string): string;
-        add(a: number): Function;
-        add(a: string): Function;
+        add(a: number): (b: number) => number;
+        add(a: string): (b: string) => string;
 
 
-        /**
-         * Multiplies two numbers. Equivalent to `a * b` but curried.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} a The first value.
-         * @param {number} b The second value.
-         * @return {number} The result of `a * b`.
-         * @example
-         *
-         *      var double = R.multiply(2);
-         *      var triple = R.multiply(3);
-         *      double(3);       //=>  6
-         *      triple(4);       //=> 12
-         *      R.multiply(2, 5);  //=> 10
-         */
         multiply(a: number, b: number): number;
-        multiply(a: number): Function;
-
+        multiply(a: number): (b: number) => number;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.

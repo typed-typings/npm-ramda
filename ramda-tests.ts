@@ -1,44 +1,83 @@
 /// <reference path="ramda.d.ts" />
-import R = require('ramda');
+var double = function(x: number): number {
+    return x + x
+};
+var shout = function(x: number): string {
+    return x >= 10
+        ? 'big'
+        : 'small'
+};
+
+() => {
+    /* op */
+    var div: Function;
+    div = R.op(function (a, b) {
+        return a / b;
+    });
+}
+
+() => {
+    var x: boolean
+    x = R.isArrayLike('a');
+    x = R.isArrayLike([1,2,3]);
+    x = R.isArrayLike([]);
+}
 
 R.substring(0, 4, '1234567');
 R.substringFrom(4, '1234567');
 R.substringTo(8, 'abcdefghijklm');
 
-// R.isArray([1,2,3]);
-// R.isArrayLike([1,2,3]);
-// R.isArrayLike([]);
-
-(() => {
+() => {
     var takesNoArg = function() { return true; };
     var takesOneArg = function(a) { return [a]; };
     var takesTwoArgs = function(a, b) { return [a, b]; };
     var takesThreeArgs = function(a, b, c) { return [a, b, c]; };
 
-    var addFourNumbers = function(a, b, c, d) {
+    var addFourNumbers = function(a: number, b: number, c: number, d: number): number {
       return a + b + c + d;
     };
 
-    R.curry(addFourNumbers);
+    var x1: Function = R.curry(addFourNumbers)
+    var x2: Function = R.curry(addFourNumbers)(1,2,4)
+    var x3: Function = R.curry(addFourNumbers)(1)(2)
+    var x4: Function = R.curry(addFourNumbers)(1)(2)(3)
+    var y1: number = R.curry(addFourNumbers)(1)(2)(3)(4)
 
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
     R.nAry(1, takesTwoArgs);
     R.nAry(1, takesThreeArgs);
 
-    R.unary(takesOneArg);
-    R.unary(takesTwoArgs);
-    R.unary(takesThreeArgs);
+    var u1: {(a: any): any} = R.unary(takesOneArg);
+    var u2: {(a: any): any} = R.unary(takesTwoArgs);
+    var u3: {(a: any): any} = R.unary(takesThreeArgs);
 
     R.binary(takesTwoArgs);
     R.binary(takesThreeArgs);
 
-})();
+}
+
+/* compose */
+() => {
+    var double = function(x: number): number {
+        return x + x
+    }
+    var limit10 = function(x: number): boolean {
+        return x >= 10
+    }
+    var func: (x: number) => boolean = R.compose(limit10, double)
+    var res: boolean = R.compose(limit10, double)(10)
+}
+/* pipe */
+() => {
+
+    var func: (x: number) => string = R.pipe(double, double, shout)
+    var res: string = R.pipe(double, double, shout)(10)
+}
 
 R.invoker('charAt', String.prototype);
 R.invoker('charAt', String.prototype, 1);
 
-var double = function(y) { return y * 2; };
 var square = function(x) { return x * x; };
 var add = function(a, b) { return a + b; };
 // Adds any number of arguments together
@@ -66,7 +105,6 @@ R.times(i, 5);
 
 (() => {
   var triple = function(x: number): number { return x * 3; };
-  var double = function(x: number): number { return x * 2; };
   var square = function(x: number): number { return x * x; };
   var squareThenDoubleThenTriple = R.pipe(square, double, triple);
   squareThenDoubleThenTriple(5); //=> 150
@@ -150,6 +188,9 @@ R.times(i, 5);
     R.foldl(add, 10, numbers); //=> 16;
 })();
 (() => {
+    var plus3 = R.add(3);
+})();
+(() => {
     var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
     var flattenPairs = function(acc, pair) {
       return acc.concat(pair);
@@ -218,26 +259,26 @@ R.times(i, 5);
     R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
     R.skip(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
 });
-(() => {
-    var xs = [{a: 1}, {a: 2}, {a: 3}];
-    R.find(R.propEq('a', 2))(xs); //=> {a: 2}
-    R.find(R.propEq('a', 4))(xs); //=> undefined
-    R.findIndex(R.propEq('a', 2))(xs); //=> 1
-    R.findIndex(R.propEq('a', 4))(xs); //=> -1
-});
-(() => {
-    var xs = [{a: 1, b: 0}, {a:1, b: 1}];
-    R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
-    R.findLast(R.propEq('a', 4))(xs); //=> undefined
-    R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
-    R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-});
-(() => {
-    var abby = {name: 'Abby', age: 7, hair: 'blond'};
-    var fred = {name: 'Fred', age: 12, hair: 'brown'};
-    var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
-    var alois = {name: 'Alois', age: 15, disposition: 'surly'};
-    var kids = [abby, fred, rusty, alois];
-    var hasBrownHair = R.propEq('hair', 'brown');
-    R.filter(hasBrownHair, kids); //=> [fred, rusty]
-});
+// (() => {
+//     var xs = [{a: 1}, {a: 2}, {a: 3}];
+//     R.find(R.propEq('a', 2))(xs); //=> {a: 2}
+//     R.find(R.propEq('a', 4))(xs); //=> undefined
+//     R.findIndex(R.propEq('a', 2))(xs); //=> 1
+//     R.findIndex(R.propEq('a', 4))(xs); //=> -1
+// });
+// (() => {
+//     var xs = [{a: 1, b: 0}, {a:1, b: 1}];
+//     R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
+//     R.findLast(R.propEq('a', 4))(xs); //=> undefined
+//     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
+//     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
+// });
+// (() => {
+//     var abby = {name: 'Abby', age: 7, hair: 'blond'};
+//     var fred = {name: 'Fred', age: 12, hair: 'brown'};
+//     var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
+//     var alois = {name: 'Alois', age: 15, disposition: 'surly'};
+//     var kids = [abby, fred, rusty, alois];
+//     var hasBrownHair = R.propEq('hair', 'brown');
+//     R.filter(hasBrownHair, kids); //=> [fred, rusty]
+// });
