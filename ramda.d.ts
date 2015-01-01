@@ -1913,7 +1913,7 @@ declare module R {
          *      var diff = function(a, b) { return a - b; };
          *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
          */
-        sort(fn: (a: any, b: any) => number, list: any[]): any[];
+        sort(fn: (a: any, b: any) => boolean, list: any[]): any[];
 
 
         /**
