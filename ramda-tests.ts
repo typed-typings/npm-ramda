@@ -185,7 +185,6 @@ R.times(i, 5);
         return a + b
     };
     R.reduce(add, 10, numbers); //=> 16;
-    R.foldl(add, 10, numbers); //=> 16;
 })();
 (() => {
     var plus3 = R.add(3);
@@ -196,7 +195,6 @@ R.times(i, 5);
       return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
-    R.foldr(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
 (() => {
     var values = { x: 1, y: 2, z: 3 };
@@ -211,7 +209,7 @@ R.times(i, 5);
     var prependKeyAndDouble = function(num, key, obj) {
         return key + (num * 2);
     };
-    R.mapObj.idx(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
+    R.mapObjIndexed(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
 });
 (() => {
     R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
@@ -238,7 +236,7 @@ R.times(i, 5);
     var lastTwo = function(val, idx, list) {
       return list.length - idx <= 2;
     };
-    R.filter.idx(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
 
     var isOdd = function(n) {
       return n % 2 === 1;
@@ -258,6 +256,10 @@ R.times(i, 5);
     };
     R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
     R.skip(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
+});
+(() => {
+    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
 });
 // (() => {
 //     var xs = [{a: 1}, {a: 2}, {a: 3}];

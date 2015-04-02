@@ -1,4 +1,4 @@
-declare var R: R.RamdaStatic;
+declare var R: R.List;
 
 declare module R {
 
@@ -31,17 +31,19 @@ declare module R {
         (a: any, b: any): any
     }
 
-    // Common interface between Arrays and jQuery objects
-    interface List<T> {
-        [index: number]: T;
-        length: number;
+    interface Pred {
+        (...a: any[]): boolean;
     }
 
     interface Dictionary<T> {
         [index: string]: T;
     }
 
-    interface RamdaStatic {
+    interface List {
+
+        has(s: string, obj: any): boolean;
+
+        ifElse(fn: (...args: any[]) => boolean, onTrue: Function, onFalse: Function): Function;
 
         isArrayLike(val: any): boolean;
 
@@ -62,30 +64,11 @@ declare module R {
 
         unary<T>(fn: (a: T, ...args: any[]) => any): (a: T) => any
 
+        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
          * parameters. Any extraneous parameters will not be passed to the supplied function.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (* -> c) -> (a, b -> c)
-         * @param {Function} fn The function to wrap.
-         * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of
-         *         arity 2.
-         * @example
-         *
-         *      var takesThreeArgs = function(a, b, c) {
-         *        return [a, b, c];
-         *      };
-         *      takesThreeArgs.length; //=> 3
-         *      takesThreeArgs(1, 2, 3); //=> [1, 2, 3]
-         *
-         *      var takesTwoArgs = R.binary(takesThreeArgs);
-         *      takesTwoArgs.length; //=> 2
-         *      // Only 2 arguments are passed to the wrapped function
-         *      takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
          */
         binary(fn: (...args: any[]) => any): Function;
 
@@ -94,27 +77,6 @@ declare module R {
          * Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
          * parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,
          * functions produced by `arity` will pass all provided arguments to the wrapped function.
-         *
-         * @func
-         * @memberOf R
-         * @sig (Number, (* -> *)) -> (* -> *)
-         * @category Function
-         * @param {number} n The desired arity of the returned function.
-         * @param {Function} fn The function to wrap.
-         * @return {Function} A new function wrapping `fn`. The new function is
-         *         guaranteed to be of arity `n`.
-         * @example
-         *
-         *      var takesTwoArgs = function(a, b) {
-         *        return [a, b];
-         *      };
-         *      takesTwoArgs.length; //=> 2
-         *      takesTwoArgs(1, 2); //=> [1, 2]
-         *
-         *      var takesOneArg = R.arity(1, takesTwoArgs);
-         *      takesOneArg.length; //=> 1
-         *      // All arguments are passed through to the wrapped function
-         *      takesOneArg(1, 2); //=> [1, 2]
          */
         arity(n: number, fn: (...args: any[]) => any): Function;
 
@@ -204,112 +166,16 @@ declare module R {
         useWith(fn: Function, ...transformers: Function[]): Function;
 
 
-        forEach: {
+        forEach<T>(fn: (x: T) => void, list: T[]): T[];
+        forEachIndexed<T>(fn: (x: T, idx: number, list?: T[]) => void, list: T[]): T[];
 
-            /**
-             * Iterate over an input `list`, calling a provided function `fn` for each element in the
-             * list.
-             *
-             * `fn` receives one argument: *(value)*.
-             *
-             * Note: `R.forEach` does not skip deleted or unassigned indices (sparse arrays), unlike
-             * the native `Array.prototype.forEach` method. For more details on this behavior, see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Description
-             *
-             * Also note that, unlike `Array.prototype.forEach`, Ramda's `forEach` returns the original
-             * array. In some libraries this function is named `each`.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a -> *) -> [a] -> [a]
-             * @param {Function} fn The function to invoke. Receives one argument, `value`.
-             * @param {Array} list The list to iterate over.
-             * @return {Array} The original list.
-             * @example
-             *
-             *      var printXPlusFive = function(x) { console.log(x + 5); };
-             *      R.forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
-             *      //-> 6
-             *      //-> 7
-             *      //-> 8
-             */
-            <T>(fn: (x: any) => any, list: T[]): T[];
-
-
-            /**
-             * Like `forEach`, but but passes additional parameters to the predicate function.
-             *
-             * `fn` receives three arguments: *(value, index, list)*.
-             *
-             * Note: `R.forEach.idx` does not skip deleted or unassigned indices (sparse arrays),
-             * unlike the native `Array.prototype.forEach` method. For more details on this behavior,
-             * see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Description
-             *
-             * Also note that, unlike `Array.prototype.forEach`, Ramda's `forEach` returns the original
-             * array. In some libraries this function is named `each`.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a, i, [a] -> ) -> [a] -> [a]
-             * @param {Function} fn The function to invoke. Receives three arguments:
-             *        (`value`, `index`, `list`).
-             * @param {Array} list The list to iterate over.
-             * @return {Array} The original list.
-             * @alias forEach.idx
-             * @example
-             *
-             *      // Note that having access to the original `list` allows for
-             *      // mutation. While you *can* do this, it's very un-functional behavior:
-             *      var plusFive = function(num, idx, list) { list[idx] = num + 5 };
-             *      R.forEach.idx(plusFive, [1, 2, 3]); //=> [6, 7, 8]
-             */
-            idx: <T>(fn: (value: T, index: number, list: T[]) => any, list: T[]) => T[];
-        }
+        clone(value: any): any;
+        clone(value: any[]): any[];
 
         /**
-         * Creates a shallow copy of an array.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig [a] -> [a]
-         * @param {Array} list The list to clone.
-         * @return {Array} A new copy of the original list.
-         * @example
-         *
-         *      var numbers = [1, 2, 3];
-         *      var numbersClone = R.clone(numbers);
-         *      console.log(numbersClone); //=> [1, 2, 3]
-         *      numbers === numbersClone; //=> false
-         *
-         *      // Note that this is a shallow clone--it does not clone complex values:
-         *      var objects = [{}, {}, {}];
-         *      var objectsClone = R.clone(objects);
-         *      objects[0] === objectsClone[0]; //=> true
+         * Creates an object containing a single key:value pair.
          */
-        clone<T>(list: T[]): T[];
-
-        /**
-         * Creates a shallow copy of an object's own properties.
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig {*} -> {*}
-         * @param {Object} obj The object to clone
-         * @returns {Object} A new object
-         * @example
-         *
-         *     R.cloneObj({a: 1, b: 2, c: [1, 2, 3]}); // {a: 1, b: 2, c: [1, 2, 3]}
-         */
-        cloneObj<T>(obj: T): T;
-
-        cloneDeep(value: any): any;
-        cloneDeep(value: any[]): any[];
-
+        createMapEntry<T>(key: string, val: T): {[index: string]: T};
 
         /**
          * Reports whether an array is empty.
@@ -328,73 +194,24 @@ declare module R {
          *      R.isEmpty(); //=> true
          *      R.isEmpty(null); //=> true
          */
-        isEmpty<T>(list: T[]): boolean;
+        isEmpty(list: any[]): boolean;
 
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
          * list.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig a -> [a] -> [a]
-         * @param {*} el The item to add to the head of the output list.
-         * @param {Array} list The array to add to the tail of the output list.
-         * @return {Array} A new array.
-         * @example
-         *
-         *      R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
          */
         prepend<T>(el: T, list: T[]): T[];
 
         /**
-         * @func
-         * @memberOf R
-         * @category Array
-         * @see R.prepend
-         */
-        cons<T>(el: T, list: T[]): T[];
-
-
-        /**
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig [a] -> a
-         * @param {Array} [list=[]] The array to consider.
-         * @return {*} The first element of the list, or `undefined` if the list is empty.
-         * @example
-         *
-         *      R.head(['fi', 'fo', 'fum']); //=> 'fi'
          */
-        head<T>(list: T[]): T;
-
-
-        /**
-         * @func
-         * @memberOf R
-         * @category Array
-         * @see R.head
-         */
-        car<T>(list: T[]): T;
-
+        // if define like head<T>(list: T[]): T, then head can not be used on a tuple
+        head(list: any[]): any;
 
         /**
          * Returns the last element from a list.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig [a] -> a
-         * @param {Array} [list=[]] The array to consider.
-         * @return {*} The last element of the list, or `undefined` if the list is empty.
-         * @example
-         *
-         *      R.last(['fi', 'fo', 'fum']); //=> 'fum'
          */
         last<T>(list: T[]): T;
 
@@ -402,47 +219,12 @@ declare module R {
         /**
          * Returns all but the first element of a list. If the list provided has the `tail` method,
          * it will instead return `list.tail()`.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig [a] -> [a]
-         * @param {Array} [list=[]] The array to consider.
-         * @return {Array} A new array containing all but the first element of the input list, or an
-         *         empty list if the input list is a falsy value (e.g. `undefined`).
-         * @example
-         *
-         *      R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
          */
         tail<T>(list: T[]): T[];
-
-
-        /**
-         * @func
-         * @memberOf R
-         * @category Array
-         * @see R.tail
-         */
-        cdr<T>(list: T[]): T[];
-
 
         /**
          * Returns a new list containing the contents of the given list, followed by the given
          * element.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig a -> [a] -> [a]
-         * @param {*} el The element to add to the end of the new list.
-         * @param {Array} list The list whose contents will be added to the beginning of the output
-         *        list.
-         * @return {Array} A new list containing the contents of the old list followed by `el`.
-         * @example
-         *
-         *      R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
-         *      R.append('tests', []); //=> ['tests']
-         *      R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
          */
         append<T>(el: T, list: T[]): T[];
 
@@ -497,14 +279,6 @@ declare module R {
          *      R.identity(obj) === obj; //=> true
          */
         identity(a: any): any;
-
-        /**
-         * @func
-         * @memberOf R
-         * @category Core
-         * @see R.identity
-         */
-        I(a: any): any;
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
@@ -570,23 +344,6 @@ declare module R {
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
          * order is reversed.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig (a -> b -> c -> ... -> z) -> (b -> a -> c -> ... -> z)
-         * @param {Function} fn The function to invoke with its first two parameters reversed.
-         * @return {*} The result of invoking `fn` with its first two parameters' order reversed.
-         * @example
-         *
-         *      var mergeThree = function(a, b, c) {
-         *        ([]).concat(a, b, c);
-         *      };
-         *      var numbers = [1, 2, 3];
-         *
-         *      mergeThree(numbers); //=> [1, 2, 3]
-         *
-         *      R.flip([1, 2, 3]); //=> [2, 1, 3]
          */
         flip(fn: (arg0: any, arg1: any, ...args: any[]) => any): any;
 
@@ -673,222 +430,55 @@ declare module R {
 
         // --------
 
-        reduce: {
             /**
              * Returns a single item by iterating through the list, successively calling the iterator
              * function and passing it an accumulator value and the current value from the array, and
              * then passing the result to the next call.
-             *
-             * The iterator function receives two values: *(acc, value)*
-             *
-             * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
-             * the native `Array.prototype.reduce` method. For more details on this behavior, see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a,b -> a) -> a -> [b] -> a
-             * @param {Function} fn The iterator function. Receives two values, the accumulator and the
-             *        current element from the array.
-             * @param {*} acc The accumulator value.
-             * @param {Array} list The list to iterate over.
-             * @return {*} The final, accumulated value.
-             * @example
-             *
-             *      var numbers = [1, 2, 3];
-             *      var add = function(a, b) {
-             *        return a + b;
-             *      };
-             *
-             *      R.reduce(add, 10, numbers); //=> 16
              */
-            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
 
             /**
              * Like `reduce`, but passes additional parameters to the predicate function.
-             *
-             * The iterator function receives four values: *(acc, value, index, list)*
-             *
-             * Note: `R.reduce.idx` does not skip deleted or unassigned indices (sparse arrays),
-             * unlike the native `Array.prototype.reduce` method. For more details on this behavior,
-             * see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a,b,i,[b] -> a) -> a -> [b] -> a
-             * @param {Function} fn The iterator function. Receives four values: the accumulator, the
-             *        current element from `list`, that element's index, and the entire `list` itself.
-             * @param {*} acc The accumulator value.
-             * @param {Array} list The list to iterate over.
-             * @return {*} The final, accumulated value.
-             * @alias reduce.idx
-             * @example
-             *
-             *      var letters = ['a', 'b', 'c'];
-             *      var objectify = function(accObject, elem, idx, list) {
-             *        accObject[elem] = idx;
-             *        return accObject;
-             *      };
-             *
-             *      R.reduce.idx(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
              */
-            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
-        };
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
 
-
-        foldl: {
-            /**
-             * @func
-             * @memberOf R
-             * @category List
-             * @see R.reduce
-             */
-            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-
-
-            /**
-             * @func
-             * @memberOf R
-             * @category List
-             * @alias foldl.idx
-             * @see R.reduce.idx
-             */
-            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
-        };
-
-
-        reduceRight: {
             /**
              * Returns a single item by iterating through the list, successively calling the iterator
              * function and passing it an accumulator value and the current value from the array, and
              * then passing the result to the next call.
-             *
-             * Similar to `reduce`, except moves through the input list from the right to the left.
-             *
-             * The iterator function receives two values: *(acc, value)*
-             *
-             * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
-             * the native `Array.prototype.reduce` method. For more details on this behavior, see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a,b -> a) -> a -> [b] -> a
-             * @param {Function} fn The iterator function. Receives two values, the accumulator and the
-             *        current element from the array.
-             * @param {*} acc The accumulator value.
-             * @param {Array} list The list to iterate over.
-             * @return {*} The final, accumulated value.
-             * @example
-             *
-             *      var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-             *      var flattenPairs = function(acc, pair) {
-             *        return acc.concat(pair);
-             *      };
-             *
-             *      R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
              */
-            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
 
             /**
              * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
              * the input list from the right to the left.
-             *
-             * The iterator function receives four values: *(acc, value, index, list)*.
-             *
-             * Note: `R.reduceRight.idx` does not skip deleted or unassigned indices (sparse arrays),
-             * unlike the native `Array.prototype.reduce` method. For more details on this behavior,
-             * see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a,b,i,[b] -> a -> [b] -> a
-             * @param {Function} fn The iterator function. Receives four values: the accumulator, the
-             *        current element from `list`, that element's index, and the entire `list` itself.
-             * @param {*} acc The accumulator value.
-             * @param {Array} list The list to iterate over.
-             * @return {*} The final, accumulated value.
-             * @alias reduceRight.idx
-             * @example
-             *
-             *      var letters = ['a', 'b', 'c'];
-             *      var objectify = function(accObject, elem, idx, list) {
-             *        accObject[elem] = idx;
-             *        return accObject;
-             *      };
-             *
-             *      R.reduceRight.idx(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
              */
-            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
-        };
-
-
-        foldr: {
-            /**
-             * @func
-             * @memberOf R
-             * @category List
-             * @see R.reduceRight
-             */
-            <T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-
-
-            /**
-             * @func
-             * @memberOf R
-             * @category List
-             * @alias foldr.idx
-             * @see R.reduceRight.idx
-             */
-            idx: <T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]) => TResult;
-        }
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
 
         /**
          * Builds a list from a seed value. Accepts an iterator function, which returns either false
          * to stop iteration or an array of length 2 containing the value to add to the resulting
          * list and the seed to be used in the next call to the iterator function.
-         *
-         * The iterator function receives one argument: *(seed)*.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> [b]) -> * -> [b]
-         * @param {Function} fn The iterator function. receives one argument, `seed`, and returns
-         *        either false to quit iteration or an array of length two to proceed. The element
-         *        at index 0 of this array will be added to the resulting array, and the element
-         *        at index 1 will be passed to the next call to `fn`.
-         * @param {*} seed The seed value.
-         * @return {Array} The final list.
-         * @example
-         *
-         *      var f = function(n) { return n > 50 ? false : [-n, n + 10] };
-         *      R.unfoldr(f, 10); //=> [-10, -20, -30, -40, -50]
          */
-        unfoldr<T, TResult>(fn: (seed: TResult) => boolean, seed: TResult): TResult[];
+        unfold<T, TResult>(fn: (seed: T) => TResult, seed: T): TResult[];
     }
 
 
-    interface RamdaStatic {
+    interface List {
         // map: {
         //     (fn: (x: any) => any, list?: any[]): any[];
         //     idx: <T, TResult>(fn: R.ListIterator<T, TResult>, list?: R.List<T>) => R.List<TResult>;
         // }
-        map(fn: (x: any) => any, list: any[]): any[];
-        map(fn: (x: any) => any, obj: any): any;
-        map(fn: (x: any) => any): Function;
+        map<T, U>(fn: (x: T) => U, list: T[]): U[];
+        map<T, U>(fn: (x: T) => U, obj: any): any; // used in monads
+        map<T, U>(fn: (x: T) => U): Function;
 
-        mapObj: {
-            <T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
-            idx: <T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any) => {[index:string]: TResult};
-        }
+        mapIndexed<T, U>(fn: (val: T, key: string) => U, list: T[]): U[];
+
+        mapObj<T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
+        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
+
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
 
         /**
          * ap applies a list of functions to a list of values.
@@ -909,23 +499,10 @@ declare module R {
 
 
         /**
-         *
          * `of` wraps any object in an Array. This implementation is compatible with the
          * Fantasy-land Applicative spec, and will work with types that implement that spec.
          * Note this `of` is different from the ES6 `of`; See
          * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig a -> [a]
-         * @param x any value
-         * @return [x]
-         * @example
-         *
-         *      R.of(1); //=> [1]
-         *      R.of([2]); //=> [[2]]
-         *      R.of({}); //=> [{}]
          */
         of(x: any): any[];
 
@@ -997,53 +574,10 @@ declare module R {
          */
         length(list: any[]): number;
 
-        filter: {
-            /**
-             * Returns a new list containing only those items that match a given predicate function.
-             * The predicate function is passed one argument: *(value)*.
-             *
-             * Note that `R.filter` does not skip deleted or unassigned indices, unlike the native
-             * `Array.prototype.filter` method. For more details on this behavior, see:
-             * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Description
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a -> Boolean) -> [a] -> [a]
-             * @param {Function} fn The function called per iteration.
-             * @param {Array} list The collection to iterate over.
-             * @return {Array} The new filtered array.
-             * @example
-             *
-             *      var isEven = function(n) {
-             *        return n % 2 === 0;
-             *      };
-             *      R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
-             */
-            (fn: (n: any) => any, list: any[]): any[];
-
-            /**
-             * Like `filter`, but passes additional parameters to the predicate function. The predicate
-             * function is passed three arguments: *(value, index, list)*.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a, i, [a] -> Boolean) -> [a] -> [a]
-             * @param {Function} fn The function called per iteration.
-             * @param {Array} list The collection to iterate over.
-             * @return {Array} The new filtered array.
-             * @alias filter.idx
-             * @example
-             *
-             *      var lastTwo = function(val, idx, list) {
-             *        return list.length - idx <= 2;
-             *      };
-             *      R.filter.idx(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
-             */
-            idx: (fn: (value: any, index: number, list: any[]) => any, list: any[]) => any[];
-        };
-
+        filter(fn: (n: any) => any): (list: any[]) => any[];
+        filter(fn: (n: any) => any, list: any[]): any[];
+        filterIndexed(fn: (value: any, index: number, list: any[]) => any): (list: any[]) => any[];
+        filterIndexed(fn: (value: any, index: number, list: any[]) => any, list: any[]): any[];
 
         reject: {
             /**
@@ -1116,16 +650,10 @@ declare module R {
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
          * `n > * list.length`, returns a list of `list.length` elements.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig Number -> [a] -> [a]
-         * @param {number} n The number of elements to return.
-         * @param {Array} list The array to query.
-         * @return {Array} A new array containing the first elements of `list`.
          */
         take(n: number, list: any[]): any[];
+
+        drop(n: number, list: any[]): any[];
 
         /**
          * Returns a new list containing the last `n` elements of a given list, passing each value
@@ -1189,7 +717,7 @@ declare module R {
          *      R.find(R.propEq('a', 2))(xs); //=> {a: 2}
          *      R.find(R.propEq('a', 4))(xs); //=> undefined
          */
-        find(fn: (a: any) => boolean, list: any[]): any;
+        find<T>(fn: (a: any) => boolean, list: T[]): T;
         find(fn: (a: any) => boolean): Function;
 
 
@@ -1525,19 +1053,9 @@ declare module R {
         /**
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig [a] -> [b]
-         * @param {Array} list The array to consider.
-         * @return {Array} The flattened list.
-         * @example
-         *
-         *      R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-         *      //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
          */
-        flatten<T>(x: T[]): T[];
+        // checked
+        flatten(x: any[]): any[];
 
 
         /**
@@ -1913,7 +1431,7 @@ declare module R {
          *      var diff = function(a, b) { return a - b; };
          *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
          */
-        sort(fn: (a: any, b: any) => boolean, list: any[]): any[];
+        sort(fn: (a: any, b: any) => number, list: any[]): any[];
 
 
         /**
@@ -2055,7 +1573,8 @@ declare module R {
          *      fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
          *      //=> 'Happy'
          */
-        prop(p: string, obj: any): any;
+	// obj is optional to allow for currying. Ugly!
+        prop(p: string, obj?: any): any;
 
         /**
          * @func
@@ -2063,7 +1582,7 @@ declare module R {
          * @category Object
          * @see R.prop
          */
-        get(p: string, obj: any): any;
+        get(p: string, obj?: any): any;
 
 
         /**
@@ -2371,10 +1890,10 @@ declare module R {
          * @returns {Object} Returns the destination object.
          * @example
          *
-         *      R.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+         *      R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
          *      //=> { 'name': 'fred', 'age': 40 }
          */
-        mixin<T>(a: T, b: T): T;
+        merge(a: any, b: any): any;
 
 
         /**
@@ -3550,25 +3069,18 @@ declare module R {
 
         /**
          * Returns a list of function names of object's own and prototype functions
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig {*} -> [String]
-         * @param {Object} obj The objects with functions in it
-         * @return {Array} returns a list of the object's own properites and prototype
-         *                 properties that map to functions
-         * @example
-         *
-         *      R.functionsIn(R); // returns list of ramda's own and prototype function names
-         *
-         *      var F = function() { this.x = function(){}; this.y = 1; }
-         *      F.prototype.z = function() {};
-         *      F.prototype.a = 100;
-         *      R.functionsIn(new F()); //=> ["x", "z"]
          */
         functionsIn(obj: any): string[];
 
+        eq<T,U>(a: T, b: U): boolean;
+
+
+        cond(fn: [Pred, Function], ...fns: [Pred, Function][]): Function;
+
+        T(): boolean;
+        F(): boolean;
+
+        assoc(prop: string, val: any, obj: any): any;
     }
 }
 
