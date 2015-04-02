@@ -8,20 +8,20 @@ var shout = function(x: number): string {
         : 'small'
 };
 
-() => {
+(() => {
     /* op */
     var div: Function;
     div = R.op(function (a, b) {
         return a / b;
     });
-}
+});
 
-() => {
+(() => {
     var x: boolean
     x = R.isArrayLike('a');
     x = R.isArrayLike([1,2,3]);
     x = R.isArrayLike([]);
-}
+});
 
 R.substring(0, 4, '1234567');
 R.substringFrom(4, '1234567');
@@ -261,26 +261,158 @@ R.times(i, 5);
     var f = function(n) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
 });
-// (() => {
-//     var xs = [{a: 1}, {a: 2}, {a: 3}];
-//     R.find(R.propEq('a', 2))(xs); //=> {a: 2}
-//     R.find(R.propEq('a', 4))(xs); //=> undefined
-//     R.findIndex(R.propEq('a', 2))(xs); //=> 1
-//     R.findIndex(R.propEq('a', 4))(xs); //=> -1
-// });
-// (() => {
-//     var xs = [{a: 1, b: 0}, {a:1, b: 1}];
-//     R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
-//     R.findLast(R.propEq('a', 4))(xs); //=> undefined
-//     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
-//     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-// });
-// (() => {
-//     var abby = {name: 'Abby', age: 7, hair: 'blond'};
-//     var fred = {name: 'Fred', age: 12, hair: 'brown'};
-//     var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
-//     var alois = {name: 'Alois', age: 15, disposition: 'surly'};
-//     var kids = [abby, fred, rusty, alois];
-//     var hasBrownHair = R.propEq('hair', 'brown');
-//     R.filter(hasBrownHair, kids); //=> [fred, rusty]
-// });
+
+/*****************************************************************
+ * Math category
+ */
+() => {
+    R.add(2, 3);       //=>  5
+    R.add(7)(10);      //=> 17
+    R.add("Hello", " World");  //=>  "Hello World"
+    R.add("Hello")(" World");  //=>  "Hello World"
+}
+
+() => {
+    R.dec(42); //=> 41
+}
+
+() => {
+    R.divide(71, 100); //=> 0.71
+
+    var half = R.divide(R.__, 2);
+    half(42); //=> 21
+
+    var reciprocal = R.divide(1);
+    reciprocal(4);   //=> 0.25
+}
+
+() => {
+    R.gt(2, 6); //=> false
+    R.gt(2, 0); //=> true
+    R.gt(2, 2); //=> false
+    R.gt(R.__, 2)(10); //=> true
+    R.gt(2)(10); //=> false
+}
+
+() => {
+    R.gte(2, 6); //=> false
+    R.gte(2, 0); //=> true
+    R.gte(2, 2); //=> false
+    R.gte(R.__, 2)(10); //=> true
+    R.gte(2)(10); //=> false
+}
+
+() => {
+    R.isNaN(NaN);        //=> true
+    R.isNaN(undefined);  //=> false
+    R.isNaN({});         //=> false
+}
+
+() => {
+    R.lt(2, 6); //=> true
+    R.lt(2, 0); //=> false
+    R.lt(2, 2); //=> false
+    R.lt(5)(10); //=> true
+    R.lt(R.__, 5)(10); //=> false // right-sectioned currying
+}
+
+() => {
+    R.lte(2, 6); //=> true
+    R.lte(2, 0); //=> false
+    R.lte(2, 2); //=> true
+    R.lte(R.__, 2)(1); //=> true
+    R.lte(2)(10); //=> true
+}
+
+() => {
+    R.mathMod(-17, 5);  //=> 3
+    R.mathMod(17, 5);   //=> 2
+    R.mathMod(17, -5);  //=> NaN
+    R.mathMod(17, 0);   //=> NaN
+    R.mathMod(17.2, 5); //=> NaN
+    R.mathMod(17, 5.3); //=> NaN
+
+    var clock = R.mathMod(R.__, 12);
+    clock(15); //=> 3
+    clock(24); //=> 0
+
+    var seventeenMod = R.mathMod(17);
+    seventeenMod(3);  //=> 2
+}
+
+() => {
+    var hasName = R.has('name');
+    hasName({name: 'alice'});   //=> true
+    hasName({name: 'bob'});     //=> true
+    hasName({});                //=> false
+
+    var point = {x: 0, y: 0};
+    var pointHas = R.has(R.__, point);
+    pointHas('x');  //=> true
+    pointHas('y');  //=> true
+    pointHas('z');  //=> false
+}
+
+() => {
+    R.max([7, 3, 9, 2, 4, 9, 3]); //=> 9
+}
+
+() => {
+    function cmp(obj) { return obj.x; }
+    var a = {x: 1}, b = {x: 2}, c = {x: 3};
+    R.maxBy(cmp, [a, b, c]); //=> {x: 3}
+    R.maxBy(cmp)([a, b, c]); //=> {x: 3}
+}
+
+() => {
+    R.min([7, 3, 9, 2, 4, 9, 3]); //=> 2
+}
+
+() => {
+    function cmp(obj) { return obj.x; }
+    var a = {x: 1}, b = {x: 2}, c = {x: 3};
+    R.minBy(cmp, [a, b, c]); //=> {x: 1}
+    R.minBy(cmp)([a, b, c]); //=> {x: 1}
+}
+
+() => {
+    R.modulo(17, 3); //=> 2
+    // JS behavior:
+    R.modulo(-17, 3); //=> -2
+    R.modulo(17, -3); //=> 2
+
+    var isOdd = R.modulo(R.__, 2);
+    isOdd(42); //=> 0
+    isOdd(21); //=> 1
+}
+
+() => {
+    var double = R.multiply(2);
+    var triple = R.multiply(3);
+    double(3);       //=>  6
+    triple(4);       //=> 12
+    R.multiply(2, 5);  //=> 10
+}
+
+() => {
+    R.negate(42); //=> -42
+}
+
+() => {
+    R.product([2,4,6,8,100,1]); //=> 38400
+}
+
+() => {
+    R.subtract(10, 8); //=> 2
+
+    var minus5 = R.subtract(R.__, 5);
+    minus5(17); //=> 12
+
+    var complementaryAngle = R.subtract(90);
+    complementaryAngle(30); //=> 60
+    complementaryAngle(72); //=> 18
+}
+
+() => {
+    R.sum([2,4,6,8,100,1]); //=> 121
+}

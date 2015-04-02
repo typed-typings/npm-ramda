@@ -2,6 +2,12 @@ declare var R: R.List;
 
 declare module R {
 
+    /**
+     * A special placeholder value used to specify "gaps" within curried functions,
+     * allowing partial application of any combination of arguments, regardless of their positions.
+     */
+    type placeholder = any;
+
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
     }
@@ -41,7 +47,7 @@ declare module R {
 
     interface List {
 
-        has(s: string, obj: any): boolean;
+        __: placeholder;
 
         ifElse(fn: (...args: any[]) => boolean, onTrue: Function, onFalse: Function): Function;
 
@@ -115,53 +121,6 @@ declare module R {
          * function. When the new function is invoked, it calls the function `fn` with parameters
          * consisting of the result of calling each supplied handler on successive arguments to the
          * new function. For example:
-         *
-         * ```javascript
-         *   var useWithExample = R.useWith(someFn, transformerFn1, transformerFn2);
-         *
-         *   // This invocation:
-         *   useWithExample('x', 'y');
-         *   // Is functionally equivalent to:
-         *   someFn(transformerFn1('x'), transformerFn2('y'))
-         * ```
-         *
-         * If more arguments are passed to the returned function than transformer functions, those
-         * arguments are passed directly to `fn` as additional parameters. If you expect additional
-         * arguments that don't need to be transformed, although you can ignore them, it's best to
-         * pass an identity function so that the new function reports the correct arity.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig ((* -> *), (* -> *)...) -> (* -> *)
-         * @param {Function} fn The function to wrap.
-         * @param {...Function} transformers A variable number of transformer functions
-         * @return {Function} The wrapped function.
-         * @example
-         *
-         *      var double = function(y) { return y * 2; };
-         *      var square = function(x) { return x * x; };
-         *      var add = function(a, b) { return a + b; };
-         *      // Adds any number of arguments together
-         *      var addAll = function() {
-         *        return R.reduce(add, 0, arguments);
-         *      };
-         *
-         *      // Basic example
-         *      var addDoubleAndSquare = R.useWith(addAll, double, square);
-         *
-         *      //≅ addAll(double(10), square(5));
-         *      addDoubleAndSquare(10, 5); //=> 45
-         *
-         *      // Example of passing more arguments than transformers
-         *      //≅ addAll(double(10), square(5), 100);
-         *      addDoubleAndSquare(10, 5, 100); //=> 145
-         *
-         *      // But if you're expecting additional arguments that don't need transformation, it's best
-         *      // to pass transformer functions so the resulting function has the correct arity
-         *      var addDoubleAndSquareWithExtraParams = R.useWith(addAll, double, square, R.identity);
-         *      //≅ addAll(double(10), square(5), R.identity(100));
-         *      addDoubleAndSquare(10, 5, 100); //=> 145
          */
         useWith(fn: Function, ...transformers: Function[]): Function;
 
@@ -1500,7 +1459,8 @@ declare module R {
 
 
 
-
+    }
+    interface List {
         // Object Functions
         // ----------------
         //
@@ -1530,6 +1490,13 @@ declare module R {
         //     if (typeof fn === 'function') { fn(x); }
         //     return x;
         // });
+
+        /**
+         * Returns whether or not an object has an own property with the specified name.
+         */
+        has(s: string, obj: any): boolean;
+        has(s: string): (obj: any) => boolean;
+        has(s: placeholder, obj: any): (a: string) => boolean;
 
 
         /**
@@ -1655,18 +1622,13 @@ declare module R {
 
 
         /**
+         * Function category
+         */
+
+
+
+        /**
          * Returns a function that always returns the given value.
-         *
-         * @func
-         * @memberOf R
-         * @category Function
-         * @sig a -> (* -> a)
-         * @param {*} val The value to wrap in a function
-         * @return {Function} A Function :: * -> val
-         * @example
-         *
-         *      var t = R.always('Tee');
-         *      t(); //=> 'Tee'
          */
         always(val: any): Function;
 
@@ -2173,374 +2135,141 @@ declare module R {
          */
         anyPredicates(fns: Function[], ...args: any[]): Function;
 
+    }
 
+    interface List {
+        /**
+         * Math category
+         */
 
-
-        // Arithmetic Functions
-        // --------------------
-        //
-        // These functions wrap up the certain core arithmetic operators
-
-        // --------
-
+        /**
+         * Adds two numbers (or strings). Equivalent to a + b but curried.
+         */
         add(a: number, b: number): number;
         add(a: string, b: string): string;
         add(a: number): (b: number) => number;
         add(a: string): (b: string) => string;
 
-
-        multiply(a: number, b: number): number;
-        multiply(a: number): (b: number) => number;
-
         /**
-         * Subtracts two numbers. Equivalent to `a - b` but curried.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} a The first value.
-         * @param {number} b The second value.
-         * @return {number} The result of `a - b`.
-         * @see R.subtractN
-         * @example
-         *
-         *      var complementaryAngle = R.subtract(90);
-         *      complementaryAngle(30); //=> 60
-         *
-         *      var theRestOf = R.subtract(1);
-         *      theRestOf(0.25); //=> 0.75
-         *
-         *      R.subtract(10)(8); //=> 2
+         * Decrements its argument.
          */
-        subtract(a: number, b: number): number;
-
-
-        /**
-         * Subtracts two numbers in reverse order. Equivalent to `b - a` but
-         * curried. Probably more useful when partially applied than
-         * `subtract`.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} a The first value.
-         * @param {number} b The second value.
-         * @return {number} The result of `a - b`.
-         * @example
-         *
-         *      var complementaryAngle = R.subtractN(90);
-         *      complementaryAngle(30); //=> -60
-         *
-         *      var theRestOf = R.subtractN(1);
-         *      theRestOf(0.25); //=> -0.75
-         *
-         *      R.subtractN(10)(8); //=> -2
-         */
-        subtractN(a: number, b: number): number;
-
+        dec(n: number): number;
 
         /**
-         * Divides two numbers. Equivalent to `a / b`.
-         * While at times the curried version of `divide` might be useful,
-         * probably the curried version of `divideBy` will be more useful.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} a The first value.
-         * @param {number} b The second value.
-         * @return {number} The result of `a / b`.
-         * @see R.divideBy
-         * @example
-         *
-         *      var reciprocal = R.divide(1);
-         *      reciprocal(4);   //=> 0.25
-         *      R.divide(71, 100); //=> 0.71
+         * Divides two numbers. Equivalent to a / b.
          */
         divide(a: number, b: number): number;
-
-
-        /**
-         * Divides two numbers in reverse order. Equivalent to `b / a`.
-         * `divideBy` is the reversed version of `divide`, where the second parameter is
-         * divided by the first.  The curried version of `divideBy` may prove more useful
-         * than that of `divide`.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} a The second value.
-         * @param {number} b The first value.
-         * @return {number} The result of `b / a`.
-         * @see R.divide
-         * @example
-         *
-         *      var half = R.divideBy(2);
-         *      half(42); //=> 21
-         */
-        divideBy(a: number, b: number): number;
-
+        divide(a: number): (b: number) => number;
+        divide(a: placeholder, b: number): (b: number) => number;
 
         /**
-         * Divides the second parameter by the first and returns the remainder.
-         * The flipped version (`moduloBy`) may be more useful curried.
-         * Note that this functions preserves the JavaScript-style behavior for
-         * modulo. For mathematical modulo see `mathMod`
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} a The value to the divide.
-         * @param {number} b The pseudo-modulus
-         * @return {number} The result of `b % a`.
-         * @see R.moduloBy
-         * @see R.mathMod
-         * @example
-         *
-         *      R.modulo(17, 3); //=> 2
-         *      // JS behavior:
-         *      R.modulo(-17, 3); //=> -2
-         *      R.modulo(17, -3); //=> 2
+         * Returns true if the first parameter is greater than the second.
          */
-        modulo(a: number, b: number): number;
+        gt(a: number, b: number): boolean;
+        gt(a: number): (b: number) => boolean;
+        gt(a: placeholder, b: number): (b: number) => boolean;
 
+        /**
+         * Returns true if the first parameter is greater than or equal to the second.
+         */
+        gte(a: number, b: number): boolean;
+        gte(a: number): (b: number) => boolean;
+        gte(a: placeholder, b: number): (b: number) => boolean;
 
+        /**
+         * Increments its argument.
+         */
+        inc(n: number): number;
+
+        /**
+         * Returns true if the input value is NaN.
+         */
+        isNaN(x: any): boolean;
+
+        /**
+         * Returns true if the first parameter is less than the second.
+         */
+        lt(a: number, b: number): boolean;
+        lt(a: number): (b: number) => boolean;
+        lt(a: placeholder, b: number): (b: number) => boolean;
+
+        /**
+         * Returns true if the first parameter is less than or equal to the second.
+         */
+        lte(a: number, b: number): boolean;
+        lte(a: number): (b: number) => boolean;
+        lte(a: placeholder, b: number): (b: number) => boolean;
 
         /**
          * mathMod behaves like the modulo operator should mathematically, unlike the `%`
          * operator (and by extension, R.modulo). So while "-17 % 5" is -2,
          * mathMod(-17, 5) is 3. mathMod requires Integer arguments, and returns NaN
          * when the modulus is zero or negative.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} m The dividend.
-         * @param {number} p the modulus.
-         * @return {number} The result of `b mod a`.
-         * @see R.moduloBy
-         * @example
-         *
-         *      R.mathMod(-17, 5)  // 3
-         *      R.mathMod(17, 5)   // 2
-         *      R.mathMod(17, -5)  // NaN
-         *      R.mathMod(17, 0)   // NaN
-         *      R.mathMod(17.2, 5) // NaN
-         *      R.mathMod(17, 5.3) // NaN
          */
-       mathMod(a: number, b: number): number;
-
-
-        /**
-         * Reversed version of `modulo`, where the second parameter is divided by the first.  The curried version of
-         * this one might be more useful than that of `modulo`.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {number} m The dividend.
-         * @param {number} p the modulus.
-         * @return {number} The result of `b mod a`.
-         * @see R.modulo
-         * @example
-         *
-         *      var isOdd = R.moduloBy(2);
-         *      isOdd(42); //=> 0
-         *      isOdd(21); //=> 1
-         */
-        moduloBy(a: number, b: number): number;
-
-
-        /**
-         * Adds together all the elements of a list.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig [Number] -> Number
-         * @param {Array} list An array of numbers
-         * @return {number} The sum of all the numbers in the list.
-         * @see reduce
-         * @example
-         *
-         *      R.sum([2,4,6,8,100,1]); //=> 121
-         */
-        sum(list: number[]): number;
-
-
-        /**
-         * Multiplies together all the elements of a list.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig [Number] -> Number
-         * @param {Array} list An array of numbers
-         * @return {number} The product of all the numbers in the list.
-         * @see reduce
-         * @example
-         *
-         *      R.product([2,4,6,8,100,1]); //=> 38400
-         */
-        product(list: number[]): number;
-
-
-        /**
-         * Returns true if the first parameter is less than the second.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Boolean
-         * @param {Number} a
-         * @param {Number} b
-         * @return {Boolean} a < b
-         * @example
-         *
-         *      R.lt(2, 6); //=> true
-         *      R.lt(2, 0); //=> false
-         *      R.lt(2, 2); //=> false
-         */
-        lt(a: number, b: number): boolean;
-
-
-        /**
-         * Returns true if the first parameter is less than or equal to the second.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Boolean
-         * @param {Number} a
-         * @param {Number} b
-         * @return {Boolean} a <= b
-         * @example
-         *
-         *      R.lte(2, 6); //=> true
-         *      R.lte(2, 0); //=> false
-         *      R.lte(2, 2); //=> true
-         */
-        lte(a: number, b: number): boolean;
-
-
-        /**
-         * Returns true if the first parameter is greater than the second.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Boolean
-         * @param {Number} a
-         * @param {Number} b
-         * @return {Boolean} a > b
-         * @example
-         *
-         *      R.gt(2, 6); //=> false
-         *      R.gt(2, 0); //=> true
-         *      R.gt(2, 2); //=> false
-         */
-        gt(a: number, b: number): boolean;
-
-
-        /**
-         * Returns true if the first parameter is greater than or equal to the second.
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig Number -> Number -> Boolean
-         * @param {Number} a
-         * @param {Number} b
-         * @return {Boolean} a >= b
-         * @example
-         *
-         *      R.gte(2, 6); //=> false
-         *      R.gte(2, 0); //=> true
-         *      R.gte(2, 2); //=> true
-         */
-        gte(a: number, b: number): boolean;
-
+        mathMod(a: number, b: number): number;
+        mathMod(a: number): (b: number) => number;
+        mathMod(a: placeholder, b: number): (a: number) => number;
 
         /**
          * Determines the largest of a list of numbers (or elements that can be cast to numbers)
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig [Number] -> Number
-         * @see R.maxWith
-         * @param {Array} list A list of numbers
-         * @return {Number} The greatest number in the list
-         * @example
-         *
-         *      R.max([7, 3, 9, 2, 4, 9, 3]); //=> 9
          */
         max(list: number[]): number;
 
-
         /**
-         * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig (a -> Number) -> [a] -> a
-         * @param {Function} keyFn A comparator function for elements in the list
-         * @param {Array} list A list of comparable elements
-         * @return {*} The greatest element in the list. `undefined` if the list is empty.
-         * @see R.max
-         * @example
-         *
-         *      function cmp(obj) { return obj.x; }
-         *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
-         *      R.maxWith(cmp, [a, b, c]); //=> {x: 3}
+         * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator.
          */
-        maxWithmax<T>(keyFn: (a: T) => number, list: T[]): T;
-
-
-        /**
-         * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig (a -> Number) -> [a] -> a
-         * @param {Function} keyFn A comparator function for elements in the list
-         * @param {Array} list A list of comparable elements
-         * @see R.min
-         * @return {*} The greatest element in the list. `undefined` if the list is empty.
-         * @example
-         *
-         *      function cmp(obj) { return obj.x; }
-         *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
-         *      R.minWith(cmp, [a, b, c]); //=> {x: 1}
-         */
-        minWith<T>(keyFn: (a: T) => number, list: T[]): T;
+        maxBy<T>(keyFn: (a: T) => number, list: T[]): T;
+        maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
 
         /**
          * Determines the smallest of a list of numbers (or elements that can be cast to numbers)
-         *
-         * @func
-         * @memberOf R
-         * @category math
-         * @sig [Number] -> Number
-         * @param {Array} list A list of numbers
-         * @return {Number} The greatest number in the list
-         * @see R.minWith
-         * @example
-         *
-         *      R.min([7, 3, 9, 2, 4, 9, 3]); //=> 2
          */
         min(list: number[]): number;
 
+        /**
+         * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator.
+         */
+        minBy<T>(keyFn: (a: T) => number, list: T[]): T;
+        minBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
 
+        /**
+         * Divides the second parameter by the first and returns the remainder.
+         * The flipped version (`moduloBy`) may be more useful curried.
+         * Note that this functions preserves the JavaScript-style behavior for
+         * modulo. For mathematical modulo see `mathMod`
+         */
+        modulo(a: number, b: number): number;
+        modulo(a: placeholder, b: number): (a: number) => number;
+        modulo(a: number): (b: number) => number;
+
+        /**
+         * Multiplies two numbers. Equivalent to a * b but curried.
+         */
+        multiply(a: number, b: number): number;
+        multiply(a: placeholder, b: number): (a: number) => number;
+        multiply(a: number): (b: number) => number;
+
+        /**
+         * Negates its argument.
+         */
+        negate(n: number): number;
+
+        /**
+         * Multiplies together all the elements of a list.
+         */
+        product(list: number[]): number;
+
+        /**
+         * Subtracts two numbers. Equivalent to `a - b` but curried.
+         */
+        subtract(a: number, b: number): number;
+        subtract(a: placeholder, b: number): (a: number) => number;
+        subtract(a: number): (b: number) => number;
+
+        /**
+         * Adds together all the elements of a list.
+         */
+        sum(list: number[]): number;
 
         // String Functions
         // ----------------
