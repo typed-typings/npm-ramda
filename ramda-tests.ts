@@ -109,11 +109,7 @@ R.times(i, 5);
   var squareThenDoubleThenTriple = R.pipe(square, double, triple);
   squareThenDoubleThenTriple(5); //=> 150
 
-  var mergeThree = function(a: number, b: number, c: number): number[] {
-    return ([]).concat(a, b, c);
-  };
-  mergeThree(1, 2, 3); //=> [1, 2, 3]
-  R.flip(mergeThree)(1, 2, 3); //=> [2, 1, 3]
+
 })();
 
 (() => {
@@ -216,12 +212,7 @@ R.times(i, 5);
     R.of([1]); //=> [[1]]
     R.empty([1,2,3,4,5]); //=> []
 });
-(() => {
-    var duplicate = function(n) {
-        return [n, n];
-    };
-    R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
-});
+
 (() => {
     R.size([]); //=> 0
     R.size([1, 2, 3]); //=> 3
@@ -261,7 +252,131 @@ R.times(i, 5);
     var f = function(n) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
 });
+/*****************************************************************
+ * Function category
+ */
+ () => {
+     var nums = [1, 2, 3, -99, 42, 6, 7];
+     R.apply(Math.max, nums); //=> 42
+ }
 
+ () => {
+     var mergeThree = function(a: number, b: number, c: number): number[] {
+       return ([]).concat(a, b, c);
+     };
+     mergeThree(1, 2, 3); //=> [1, 2, 3]
+     var flipped = R.flip(mergeThree);
+     flipped(1, 2, 3); //=> [2, 1, 3]
+ }
+
+/*****************************************************************
+ * List category
+ */
+() => {
+    var lessThan2 = R.flip(R.lt)(2);
+    var lessThan3 = R.flip(R.lt)(3);
+    R.all(lessThan2)([1, 2]); //=> false
+    R.all(lessThan3)([1, 2]); //=> true
+}
+
+() => {
+    var lessThan0 = R.flip(R.lt)(0);
+    var lessThan2 = R.flip(R.lt)(2);
+    R.any(lessThan0)([1, 2]); //=> false
+    R.any(lessThan2)([1, 2]); //=> true
+}
+
+() => {
+    R.aperture(2, [1, 2, 3, 4, 5]); //=> [[1, 2], [2, 3], [3, 4], [4, 5]]
+    R.aperture(3, [1, 2, 3, 4, 5]); //=> [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+    R.aperture(7, [1, 2, 3, 4, 5]); //=> []
+}
+
+() => {
+    R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
+    R.append('tests', []); //=> ['tests']
+    R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
+}
+
+() => {
+    var duplicate = function(n) {
+        return [n, n];
+    };
+    R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+}
+
+() => {
+    var as = [[1], [3, 4]];
+    R.commute(R.of, as); //=> [[1, 3], [1, 4]]
+
+    var bs = [[1, 2], [3]];
+    R.commute(R.of, bs); //=> [[1, 3], [2, 3]]
+
+    var cs = [[1, 2], [3, 4]];
+    R.commute(R.of, cs); //=> [[1, 3], [2, 3], [1, 4], [2, 4]]
+}
+
+() => {
+    var plus10map = R.map(function(x) { return x + 10; });
+    var as = [[1], [3, 4]];
+    R.commuteMap(R.map(function(x) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
+
+    var bs = [[1, 2], [3]];
+    R.commuteMap(plus10map, R.of, bs); //=> [[11, 13], [12, 13]]
+
+    var cs = [[1, 2], [3, 4]];
+    R.commuteMap(plus10map, R.of, cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
+}
+
+() => {
+    R.concat([], []); //=> []
+    R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+    R.concat('ABC', 'DEF'); // 'ABCDEF'
+}
+
+() => {
+    R.contains(3)([1, 2, 3]); //=> true
+    R.contains(4)([1, 2, 3]); //=> false
+    R.contains({})([{}, {}]); //=> false
+    var obj = {};
+    R.contains(obj)([{}, obj, {}]); //=> true
+}
+
+() => {
+    var xs = [{x: 12}, {x: 11}, {x: 10}];
+    R.containsWith(function(a, b) { return a.x === b.x; }, {x: 10}, xs); //=> true
+    R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1}, xs); //=> false
+}
+
+() => {
+    R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
+}
+
+() => {
+    var lteTwo = function(x) {
+        return x <= 2;
+    };
+    R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
+}
+
+() => {
+
+}
+
+/*****************************************************************
+ * Object category
+ */
+() => {
+    var isPositive = function(n) {
+        return n > 0;
+    };
+    R.filterObj(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    var containsBackground = function(x) {
+        return x.bgcolor;
+    };
+    var colors = {1: {color: 'read'}, 2: {color: 'black', bgcolor: 'yellow'}};
+    R.filterObj(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
+}
 /*****************************************************************
  * Math category
  */
