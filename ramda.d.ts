@@ -6,7 +6,7 @@ declare module R {
      * A special placeholder value used to specify "gaps" within curried functions,
      * allowing partial application of any combination of arguments, regardless of their positions.
      */
-    type placeholder = any;
+    interface placeholder {}
 
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
@@ -15,6 +15,7 @@ declare module R {
     interface ObjectIterator<T, TResult> {
         (element: T, key: string, list: any): TResult;
     }
+    interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 
     interface ArrayLike {
         nodeType: number;
@@ -43,6 +44,178 @@ declare module R {
 
     interface Dictionary<T> {
         [index: string]: T;
+    }
+
+    interface List {
+        /*
+         * List category
+         */
+
+        /**
+         * Returns true if all elements of the list match the predicate, false if there are any that don't.
+         */
+        all<T>(fn: (a: T) => boolean, list: T[]): boolean;
+        all<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
+
+        /**
+         * Returns true if at least one of elements of the list match the predicate, false otherwise.
+         */
+        any<T>(fn: (a: T) => boolean, list: T[]): boolean;
+        any<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
+
+        /**
+         * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list, an empty list is returned.
+         */
+        aperture<T>(n: number, list: T): T[][];
+
+        /**
+         * Returns a new list containing the contents of the given list, followed by the given element.
+         */
+        append<T>(el: T|T[], list: T[]): T[];
+
+        /**
+         * `chain` maps a function over a list and concatenates the results.
+         * This implementation is compatible with the
+         * Fantasy-land Chain spec, and will work with types that implement that spec.
+         * `chain` is also known as `flatMap` in some libraries.
+         */
+        chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
+
+        commute<T, U>(of: (x: T) => T[], list: U[]): U[]
+
+        /*
+         * Turns a list of Functors into a Functor of a list, applying a mapping function to the elements of the list along the way.
+         */
+        //commuteMap<O, P, R, T, U>(fn: (a: U) => ((b: U) => R), of: (x: T) => T[], list: U[][]): R[][];
+
+
+        /**
+         * Returns a new list consisting of the elements of the first list followed by the elements
+         * of the second.
+         */
+        concat<T>(list1: T[], list2: T[]): T[];
+        concat<T>(list1: string, list2: string): string;
+
+        /**
+         * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
+         * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
+         */
+        contains<T>(a: T, list: T[]): boolean;
+        contains<T>(a: T): (list: T[]) => boolean;
+
+        /**
+         * Returns `true` if the `x` is found in the `list`, using `pred` as an
+         * equality predicate for `x`.
+         */
+        containsWith<T>(pred: (a: T, b: T) => boolean, x: T, list: T[]): boolean;
+
+        /**
+         * Returns a new list containing all but the first n elements of the given list.
+         */
+        drop<T>(n: number, list: T[]): T[];
+
+        /**
+         * Returns a new list containing the last n elements of a given list, passing each value to the supplied
+         * predicate function, skipping elements while the predicate function returns true.
+         */
+        dropWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
+
+        /**
+         * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
+         */
+        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+
+        /**
+         * Like filter, but passes additional parameters to the predicate function. The predicate function is passed three arguments: (value, index, list).
+         */
+        filterIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean): (list: T[]) => T[];
+        filterIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean, list: T[]): T[];
+
+        /**
+         * Returns the first element of the list which matches the predicate, or `undefined` if no
+         * element matches.
+         */
+        find<T>(fn: (a: T) => boolean, list: T[]): T;
+        find<T>(fn: (a: T) => boolean): (list: T[]) => T;
+
+
+        /**
+         * Returns the index of the first element of the list which matches the predicate, or `-1`
+         * if no element matches.
+         */
+        findIndex<T>(fn: (a: T[]) => boolean, list: T[]): number;
+        findIndex<T>(fn: (a: T[]) => boolean): (list: T[]) => number;
+
+        /**
+         * Returns the last element of the list which matches the predicate, or `undefined` if no
+         * element matches.
+         */
+        findLast<T>(fn: (a: T) => boolean, list: T[]): T;
+        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T;
+
+        /**
+         * Returns the index of the last element of the list which matches the predicate, or
+         * `-1` if no element matches.
+         */
+        findLastIndex<T>(fn: (a: T[]) => boolean, list: T[]): number;
+        findLastIndex<T>(fn: (a: T[]) => boolean): (list: T[]) => number;
+
+        /**
+         * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
+         * them in a new array, depth-first.
+         */
+        flatten<T>(x: T[]): T[];
+
+        /**
+         * Iterate over an input list, calling a provided function fn for each element in the list.
+         */
+        forEach<T>(fn: (x: T) => void, list: T[]): T[];
+        forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
+
+        /**
+         * Like forEach, but but passes additional parameters to the predicate function.
+         */
+        forEachIndexed<T>(fn: (x: T, idx?: number, list?: T[]) => void, list: T[]): T[];
+        forEachIndexed<T>(fn: (x: T, idx?: number, list?: T[]) => void): (list: T[]) => T[];
+
+        /**
+         * Creates a new object out of a list key-value pairs.
+         */
+
+        fromPairs<T extends KeyValuePair<string, V>>(pairs: T[]): {[index: string]: V};
+    }
+
+    }
+    interface Object {
+        /*
+         * Object category
+         */
+
+        filterObj<T>(fn: (v: any) => boolean, obj: T): T;
+     }
+    interface List {
+        /*
+         * Function category
+         */
+        /**
+         * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
+         * a variadic function. fn should be a bound function if context is significant.
+         */
+        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: U[]): TResult;
+
+        // flip returns a function that can be used curried. TypeScript can not handle multiple return types with the
+        // the same argument types. Therefore all be the first argument of the returned function is made optional.
+        /**
+         * Returns a new function much like the supplied one, except that the first two arguments'
+         * order is reversed.
+         */
+        // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): Function;
+        flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
+        // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0: T) => ((...args: any[]) => TResult);
+        // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U) => ((arg0: T, ...args: any[]) => TResult);
+
+        of<T>(x: T): T[];
     }
 
     interface List {
@@ -77,7 +250,6 @@ declare module R {
          * parameters. Any extraneous parameters will not be passed to the supplied function.
          */
         binary(fn: (...args: any[]) => any): Function;
-
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
@@ -125,8 +297,6 @@ declare module R {
         useWith(fn: Function, ...transformers: Function[]): Function;
 
 
-        forEach<T>(fn: (x: T) => void, list: T[]): T[];
-        forEachIndexed<T>(fn: (x: T, idx: number, list?: T[]) => void, list: T[]): T[];
 
         clone(value: any): any;
         clone(value: any[]): any[];
@@ -196,28 +366,6 @@ declare module R {
          */
         push<T>(el: T, list: T[]): T[];
 
-
-        /**
-         * Returns a new list consisting of the elements of the first list followed by the elements
-         * of the second.
-         *
-         * @func
-         * @memberOf R
-         * @category Array
-         * @sig [a] -> [a] -> [a]
-         * @param {Array} list1 The first list to merge.
-         * @param {Array} list2 The second set to merge.
-         * @return {Array} A new array consisting of the contents of `list1` followed by the
-         *         contents of `list2`. If, instead of an {Array} for `list1`, you pass an
-         *         object with a `concat` method on it, `concat` will call `list1.concat`
-         *         and it the value of `list2`.
-         * @example
-         *
-         *      R.concat([], []); //=> []
-         *      R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
-         *      R.concat('ABC', 'DEF'); // 'ABCDEF'
-         */
-        concat<T>(list1: T[], list2: T[]): T[];
 
 
         /**
@@ -300,11 +448,7 @@ declare module R {
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: Function, fn8: T): T;
 
-        /**
-         * Returns a new function much like the supplied one, except that the first two arguments'
-         * order is reversed.
-         */
-        flip(fn: (arg0: any, arg1: any, ...args: any[]) => any): any;
+
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
@@ -482,29 +626,6 @@ declare module R {
         empty(x: any): any[];
 
 
-        /**
-         * `chain` maps a function over a list and concatenates the results.
-         * This implementation is compatible with the
-         * Fantasy-land Chain spec, and will work with types that implement that spec.
-         * `chain` is also known as `flatMap` in some libraries
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> [b]) -> [a] -> [b]
-         * @param {Function}
-         * @param {Array}
-         * @return {Array}
-         * @example
-         *
-         *      var duplicate = function(n) {
-         *        return [n, n];
-         *      };
-         *      R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
-         *
-         */
-        chain(fn: (n: any) => any[], list: any[]): any[];
-
 
         lift(fn: Function, ...args: any[]): any;
         liftN(n: number, fn: Function, ...args: any[]): any;
@@ -533,10 +654,7 @@ declare module R {
          */
         length(list: any[]): number;
 
-        filter(fn: (n: any) => any): (list: any[]) => any[];
-        filter(fn: (n: any) => any, list: any[]): any[];
-        filterIndexed(fn: (value: any, index: number, list: any[]) => any): (list: any[]) => any[];
-        filterIndexed(fn: (value: any, index: number, list: any[]) => any, list: any[]): any[];
+
 
         reject: {
             /**
@@ -612,7 +730,7 @@ declare module R {
          */
         take(n: number, list: any[]): any[];
 
-        drop(n: number, list: any[]): any[];
+
 
         /**
          * Returns a new list containing the last `n` elements of a given list, passing each value
@@ -658,88 +776,6 @@ declare module R {
         ): any[];
 
 
-        /**
-         * Returns the first element of the list which matches the predicate, or `undefined` if no
-         * element matches.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> Boolean) -> [a] -> a | undefined
-         * @param {Function} fn The predicate function used to determine if the element is the
-         *        desired one.
-         * @param {Array} list The array to consider.
-         * @return {Object} The element found, or `undefined`.
-         * @example
-         *
-         *      var xs = [{a: 1}, {a: 2}, {a: 3}];
-         *      R.find(R.propEq('a', 2))(xs); //=> {a: 2}
-         *      R.find(R.propEq('a', 4))(xs); //=> undefined
-         */
-        find<T>(fn: (a: any) => boolean, list: T[]): T;
-        find(fn: (a: any) => boolean): Function;
-
-
-        /**
-         * Returns the index of the first element of the list which matches the predicate, or `-1`
-         * if no element matches.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> Boolean) -> [a] -> Number
-         * @param {Function} fn The predicate function used to determine if the element is the
-         * desired one.
-         * @param {Array} list The array to consider.
-         * @return {number} The index of the element found, or `-1`.
-         * @example
-         *
-         *      var xs = [{a: 1}, {a: 2}, {a: 3}];
-         *      R.findIndex(R.propEq('a', 2))(xs); //=> 1
-         *      R.findIndex(R.propEq('a', 4))(xs); //=> -1
-         */
-        findIndex(fn: (...args: any[]) => boolean, list: any[]): number;
-
-        /**
-         * Returns the last element of the list which matches the predicate, or `undefined` if no
-         * element matches.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> Boolean) -> [a] -> a | undefined
-         * @param {Function} fn The predicate function used to determine if the element is the
-         * desired one.
-         * @param {Array} list The array to consider.
-         * @return {Object} The element found, or `undefined`.
-         * @example
-         *
-         *      var xs = [{a: 1, b: 0}, {a:1, b: 1}];
-         *      R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
-         *      R.findLast(R.propEq('a', 4))(xs); //=> undefined
-         */
-        findLast(fn: (...args: any[]) => boolean, list: any[]): any;
-
-
-        /**
-         * Returns the index of the last element of the list which matches the predicate, or
-         * `-1` if no element matches.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> Boolean) -> [a] -> Number
-         * @param {Function} fn The predicate function used to determine if the element is the
-         * desired one.
-         * @param {Array} list The array to consider.
-         * @return {number} The index of the element found, or `-1`.
-         * @example
-         *
-         *      var xs = [{a: 1, b: 0}, {a:1, b: 1}];
-         *      R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
-         *      R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-         */
-        findLastIndex(fn: (...args: any[]) => boolean, list: any[]): number;
 
         /**
          * Returns `true` if all elements of the list match the predicate, `false` if there are any
@@ -884,47 +920,9 @@ declare module R {
             from: <T>(target: T, fromIdx: number, list: T[]) => number;
         }
 
-        /**
-         * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
-         * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig a -> [a] -> Boolean
-         * @param {Object} a The item to compare against.
-         * @param {Array} list The array to consider.
-         * @return {boolean} `true` if the item is in the list, `false` otherwise.
-         * @example
-         *
-         *      R.contains(3)([1, 2, 3]); //=> true
-         *      R.contains(4)([1, 2, 3]); //=> false
-         *      R.contains({})([{}, {}]); //=> false
-         *      var obj = {};
-         *      R.contains(obj)([{}, obj, {}]); //=> true
-         */
-        contains<T>(a: T, list: T[]): boolean;
 
 
-        /**
-         * Returns `true` if the `x` is found in the `list`, using `pred` as an
-         * equality predicate for `x`.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (x, a -> Boolean) -> x -> [a] -> Boolean
-         * @param {Function} pred :: x -> x -> Bool
-         * @param x the item to find
-         * @param {Array} list the list to iterate over
-         * @return {Boolean} `true` if `x` is in `list`, else `false`
-         * @example
-         *
-         *     var xs = [{x: 12}, {x: 11}, {x: 10}];
-         *     R.containsWith(function(a, b) { return a.x === b.x; }, {x: 10}, xs); //=> true
-         *     R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1}, xs); //=> false
-         */
-        containsWith(pred: (a: any, b: any) => boolean, x: any, list: any[]): boolean;
+
 
 
         /**
@@ -1094,20 +1092,6 @@ declare module R {
         zipObj<TResult extends {}>(keys: any[], values: any[]): TResult;
 
 
-        /**
-         * Creates a new object out of a list key-value pairs.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig [[k,v]] -> {k: v}
-         * @param {Array} An array of two-element arrays that will be the keys and values of the ouput object.
-         * @return {Object} The object made by pairing up `keys` and `values`.
-         * @example
-         *
-         *      R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
-         */
-        fromPairs(pairs: any[]): any;
 
 
         /**
