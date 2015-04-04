@@ -182,7 +182,6 @@ declare module R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-
         fromPairs<T extends KeyValuePair<string, V>>(pairs: T[]): {[index: string]: V};
     }
 

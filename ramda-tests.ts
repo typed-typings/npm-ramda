@@ -374,19 +374,54 @@ R.times(i, 5);
     };
     R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
     var lastTwoFn = R.filterIndexed(lastTwo);
-    lastTwo([8, 6, 7, 5, 3, 0, 9]);
+    lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 }
 
 () => {
-
+    var xs = [{a: 1}, {a: 2}, {a: 3}];
+    R.find(R.propEq('a', 2))(xs); //=> {a: 2}
+    R.find(R.propEq('a', 4))(xs); //=> undefined
 }
 
 () => {
-
+    var xs = [{a: 1}, {a: 2}, {a: 3}];
+    R.findIndex(R.propEq('a', 2))(xs); //=> 1
+    R.findIndex(R.propEq('a', 4))(xs); //=> -1
 }
 
 () => {
+    var xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
+    R.findLast(R.propEq('a', 4))(xs); //=> undefined
+}
 
+() => {
+    var xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
+    R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
+}
+
+() => {
+    R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
+    //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+() => {
+    var printXPlusFive = function(x: number) { console.log(x + 5); };
+    R.forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
+    R.forEach(printXPlusFive)([1, 2, 3]); //=> [1, 2, 3]
+    //-> 6
+    //-> 7
+    //-> 8
+}
+
+() => {
+    var plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
+    R.forEachIndexed(plusFive)([1, 2, 3]); //=> [6, 7, 8]
+}
+
+() => {
+    R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
