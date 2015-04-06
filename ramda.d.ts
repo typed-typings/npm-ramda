@@ -13,7 +13,7 @@ declare module R {
     }
 
     interface ObjectIterator<T, TResult> {
-        (element: T, key: string, list: any): TResult;
+        (element: T, key: string, obj: Dictionary<T>): Dictionary<TResult>;
     }
     interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 
@@ -182,16 +182,186 @@ declare module R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<T extends KeyValuePair<string, V>>(pairs: T[]): {[index: string]: V};
-    }
+        fromPairs<T extends KeyValuePair<K, V>>(pairs: T[]): {[index: string]: V};
+
+        /**
+         * Splits a list into sublists stored in an object, based on the result of
+         * calling a String-returning function
+         * on each element, and grouping the results according to values returned.
+         */
+        groupBy<T>(fn: (a: T) => string, list: T[]): {[index: string]: T[]}
+        groupBy<T>(fn: (a: T) => string): <T>(list: T[]) => {[index: string]: T[]}
+
+        /**
+         * Returns the first element in a list.
+         * In some libraries this function is named `first`.
+         */
+        head<T>(list: T[]): T;
+
+        /**
+         * Returns the position of the first occurrence of an item in an array
+         * (by strict equality),
+         * or -1 if the item is not included in the array.
+         */
+        indexOf<T>(target: T, list: T[]): number;
+
+        /**
+         * Returns all but the last element of a list.
+         */
+        init<T>(list: T): T[];
+
+        /**
+         * Inserts the supplied element into the list, at index index. Note that
+         * this is not destructive: it returns a copy of the list with the changes.
+         */
+        insert(index: number, elt: any, list: any[]): any[];
+
+        /**
+         * Inserts the sub-list into the list, at index `index`.  _Note  that this
+         * is not destructive_: it returns a copy of the list with the changes.
+         */
+        insertAll(index: number, elts: any[], list: any[]): any[];
+
+        /**
+         *
+         */
+        into<T>(acc: any, xf: Function, list: T[]): T[];
+        into<T>(acc: any, xf: Function): (list: T[]) => T[];
+        into<T>(acc: any): (xf: Function, list: T[]) => T[];
+
+
+        /**
+         * Returns `true` if all elements are unique, otherwise `false`.
+         * Uniqueness is determined using strict equality (`===`).
+         */
+        isSet(list: any[]): boolean;
+
+        /**
+         * Returns a string made by inserting the `separator` between each
+         * element and concatenating all the elements into a single string.
+         */
+        join(x: string, xs: any[]): string;
+        join(x: string): (xs: any[]) => string;
+
+        /**
+         * Returns the last element from a list.
+         */
+        last<T>(list: T[]): T;
+
+        /**
+         * Returns the position of the last occurrence of an item (by strict equality) in
+         * an array, or -1 if the item is not included in the array.
+         */
+        lastIndexOf<T>(target: T, list: T[]): number;
+
+        /**
+         * Returns the number of elements in the array by returning list.length.
+         */
+        length(list: any[]): number;
+
+        /**
+         * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
+         */
+        map<T, U>(fn: (x: T) => U, list: T[]): U[];
+        map<T, U>(fn: (x: T) => U, obj: any): any; // used in functors
+        map<T, U>(fn: (x: T) => U): Function;
+
+        /**
+         * The mapAccum function behaves like a combination of map and reduce.
+         */
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
+
+        /**
+         * The mapAccumRight function behaves like a combination of map and reduce.
+         */
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
+
+        /**
+         * Like map, but but passes additional parameters to the mapping function.
+         */
+        mapIndexed<T, U>(fn: (val: T, key: string, list: T) => U, list: T[]): U[];
+
+        /**
+         * Like mapObj, but but passes additional arguments to the predicate function.
+         */
+        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
+
+        /**
+         * Like mapObj, but but passes additional arguments to the predicate function.
+         */
+        mergeAll(list: any[]): any;
+
+        /**
+         * Returns true if no elements of the list match the predicate, false otherwise.
+         */
+        none<T>(fn: (a: T) => boolean, list: T[]): boolean;
+
+        /**
+         * Returns the nth element in a list.
+         */
+        nth<T>(n: number, list: T[]): T;
+
+        /**
+         * Takes a predicate and a list and returns the pair of lists of elements
+         * which do and do not satisfy the predicate, respectively.
+         */
+        partition<T>(fn: (a: T) => boolean, list: T): T[]
+
+        /**
+         * Returns a new list by plucking the same named property off all objects in the list supplied.
+         */
+        pluck(p: string|number, list: any[]): any[];
+        pluck(p: string|number): (list: any[]) => any[];
+
+        /**
+         * Returns a new list with the given element at the front, followed by the contents of the
+         * list.
+         */
+        prepend<T>(el: T, list: T[]): T[];
+
+
+        /**
+         * Returns a list of numbers from `from` (inclusive) to `to`
+         * (exclusive). In mathematical terms, `range(a, b)` is equivalent to
+         * the half-open interval `[a, b)`.
+         */
+        range(from: number, to: number): number[];
+
+            /**
+             * Returns a single item by iterating through the list, successively calling the iterator
+             * function and passing it an accumulator value and the current value from the array, and
+             * then passing the result to the next call.
+             */
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+
+            /**
+             * Like `reduce`, but passes additional parameters to the predicate function.
+             */
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
+
+            /**
+             * Returns a single item by iterating through the list, successively calling the iterator
+             * function and passing it an accumulator value and the current value from the array, and
+             * then passing the result to the next call.
+             */
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+
+            /**
+             * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
+             * the input list from the right to the left.
+             */
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
+
 
     }
-    interface Object {
+
+    interface List {
         /*
          * Object category
          */
 
         filterObj<T>(fn: (v: any) => boolean, obj: T): T;
+        mapObj<T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
      }
     interface List {
         /*
@@ -214,7 +384,7 @@ declare module R {
         // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0: T) => ((...args: any[]) => TResult);
         // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U) => ((arg0: T, ...args: any[]) => TResult);
 
-        of<T>(x: T): T[];
+        of<T>(x: T): T[];brew
     }
 
     interface List {
@@ -325,18 +495,8 @@ declare module R {
         isEmpty(list: any[]): boolean;
 
 
-        /**
-         * Returns a new list with the given element at the front, followed by the contents of the
-         * list.
-         */
-        prepend<T>(el: T, list: T[]): T[];
 
-        /**
-         * Returns the first element in a list.
-         * In some libraries this function is named `first`.
-         */
-        // if define like head<T>(list: T[]): T, then head can not be used on a tuple
-        head(list: any[]): any;
+
 
         /**
          * Returns the last element from a list.
@@ -531,32 +691,6 @@ declare module R {
         //     // test(3) => false, test(21) => false,
 
         // --------
-
-            /**
-             * Returns a single item by iterating through the list, successively calling the iterator
-             * function and passing it an accumulator value and the current value from the array, and
-             * then passing the result to the next call.
-             */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-
-            /**
-             * Like `reduce`, but passes additional parameters to the predicate function.
-             */
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-
-            /**
-             * Returns a single item by iterating through the list, successively calling the iterator
-             * function and passing it an accumulator value and the current value from the array, and
-             * then passing the result to the next call.
-             */
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-
-            /**
-             * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
-             * the input list from the right to the left.
-             */
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-
         /**
          * Builds a list from a seed value. Accepts an iterator function, which returns either false
          * to stop iteration or an array of length 2 containing the value to add to the resulting
@@ -567,20 +701,7 @@ declare module R {
 
 
     interface List {
-        // map: {
-        //     (fn: (x: any) => any, list?: any[]): any[];
-        //     idx: <T, TResult>(fn: R.ListIterator<T, TResult>, list?: R.List<T>) => R.List<TResult>;
-        // }
-        map<T, U>(fn: (x: T) => U, list: T[]): U[];
-        map<T, U>(fn: (x: T) => U, obj: any): any; // used in monads
-        map<T, U>(fn: (x: T) => U): Function;
 
-        mapIndexed<T, U>(fn: (val: T, key: string) => U, list: T[]): U[];
-
-        mapObj<T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
-
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
 
         /**
          * ap applies a list of functions to a list of values.
@@ -644,15 +765,6 @@ declare module R {
          *      R.size([1, 2, 3]); //=> 3
          */
         size(list: any[]): number;
-
-        /**
-         * @func
-         * @memberOf R
-         * @category List
-         * @see R.size
-         */
-        length(list: any[]): number;
-
 
 
         reject: {
@@ -728,6 +840,7 @@ declare module R {
          * `n > * list.length`, returns a list of `list.length` elements.
          */
         take(n: number, list: any[]): any[];
+        take(n: number): (list: any[]) => any[];
 
 
 
@@ -830,94 +943,8 @@ declare module R {
         ): boolean;
 
 
-        indexOf: {
-            /**
-             * Returns the position of the first occurrence of an item in an array
-             * (by strict equality),
-             * or -1 if the item is not included in the array.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig a -> [a] -> Number
-             * @param target The item to find.
-             * @param {Array} list The array to search in.
-             * @return {Number} the index of the target, or -1 if the target is not found.
-             *
-             * @example
-             *
-             *      R.indexOf(3, [1,2,3,4]); //=> 2
-             *      R.indexOf(10, [1,2,3,4]); //=> -1
-             */
-            <T>(target: T, list: T[]): number;
-
-            /**
-             * Returns the position of the first occurrence of an item (by strict equality) in
-             * an array, or -1 if the item is not included in the array. However,
-             * `indexOf.from` will only search the tail of the array, starting from the
-             * `fromIdx` parameter.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig a -> Number -> [a] -> Number
-             * @param target The item to find.
-             * @param {Number} fromIdx the index to start searching from
-             * @param {Array} list The array to search in.
-             * @return {Number} the index of the target, or -1 if the target is not found.
-             *
-             * @example
-             *
-             *      R.indexOf.from(3, 2, [-1,0,1,2,3,4]); //=> 4
-             *      R.indexOf.from(10, 2, [1,2,3,4]); //=> -1
-             */
-            from: <T>(target: T, fromIdx: number, list: T[]) => number;
-        }
 
 
-        lastIndexOf: {
-            /**
-             * Returns the position of the last occurrence of an item (by strict equality) in
-             * an array, or -1 if the item is not included in the array.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig a -> [a] -> Number
-             * @param {*} target The item to find.
-             * @param {Array} list The array to search in.
-             * @return {Number} the index of the target, or -1 if the target is not found.
-             *
-             * @example
-             *
-             *      R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
-             *      R.lastIndexOf(10, [1,2,3,4]); //=> -1
-             */
-            <T>(target: T, list: T[]): number;
-
-
-            /**
-             * Returns the position of the last occurrence of an item (by strict equality) in
-             * an array, or -1 if the item is not included in the array. However,
-             * `lastIndexOf.from` will only search the tail of the array, starting from the
-             * `fromIdx` parameter.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig a -> Number -> [a] -> Number
-             * @param {*} target The item to find.
-             * @param {Array} list The array to search in.
-             * @param {Number} fromIdx the index to start searching from
-             * @return {Number} the index of the target, or -1 if the target is not found.
-             *
-             * @example
-             *
-             *      R.lastIndexOf.from(3, 2, [-1,3,3,0,1,2,3,4]); //=> 2
-             *      R.lastIndexOf.from(10, 2, [1,2,3,4]); //=> -1
-             */
-            from: <T>(target: T, fromIdx: number, list: T[]) => number;
-        }
 
 
 
@@ -944,24 +971,6 @@ declare module R {
         uniq(list: any[]): any[];
 
 
-        /**
-         * Returns `true` if all elements are unique, otherwise `false`.
-         * Uniqueness is determined using strict equality (`===`).
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig [a] -> Boolean
-         * @param {Array} list The array to consider.
-         * @return {boolean} `true` if all elements are unique, else `false`.
-         * @example
-         *
-         *      R.isSet(['1', 1]); //=> true
-         *      R.isSet([1, 1]);   //=> false
-         *      R.isSet([{}, {}]); //=> true
-         */
-        isSet(list: any[]): boolean;
-
 
         /**
          * Returns a new list containing only one copy of each element in the original list, based
@@ -986,23 +995,7 @@ declare module R {
         uniqWith(pred: (x: any, a: any) => boolean, list: any[]): any[];
 
 
-        /**
-         * Returns a new list by plucking the same named property off all objects in the list supplied.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig String -> {*} -> [*]
-         * @param {string|number} key The key name to pluck off of each object.
-         * @param {Array} list The array to consider.
-         * @return {Array} The list of values for the given key.
-         * @example
-         *
-         *      R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-         *      R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
-         */
-        pluck(p: string, list: any[]): any[];
-        pluck(p: number, list: any[]): any[];
+
 
 
 
@@ -1190,45 +1183,7 @@ declare module R {
         // };
 
 
-        /**
-         * Returns a list of numbers from `from` (inclusive) to `to`
-         * (exclusive). In mathematical terms, `range(a, b)` is equivalent to
-         * the half-open interval `[a, b)`.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig Number -> Number -> [Number]
-         * @param {number} from The first number in the list.
-         * @param {number} to One more than the last number in the list.
-         * @return {Array} The list of numbers in tthe set `[a, b)`.
-         * @example
-         *
-         *      R.range(1, 5);    //=> [1, 2, 3, 4]
-         *      R.range(50, 53);  //=> [50, 51, 52]
-         */
-        range(from: number, to: number): number[];
 
-
-        /**
-         * Returns a string made by inserting the `separator` between each
-         * element and concatenating all the elements into a single string.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig String -> [a] -> String
-         * @param {string|number} separator The string used to separate the elements.
-         * @param {Array} xs The elements to join into a string.
-         * @return {string} The string made by concatenating `xs` with `separator`.
-         * @example
-         *
-         *      var spacer = R.join(' ');
-         *      spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
-         *      R.join('|', [1, 2, 3]);    //=> '1|2|3'
-         */
-        join(x: string, xs: any[]): string;
-        join(x: number, xs: any[]): string;
 
 
         slice: {
@@ -1294,45 +1249,7 @@ declare module R {
         remove<T>(start: number, count: number, list: T[]): T[];
 
 
-        insert: {
-            /**
-             * Inserts the supplied element into the list, at index `index`.  _Note
-             * that this is not destructive_: it returns a copy of the list with the changes.
-             * <small>No lists have been harmed in the application of this function.</small>
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig Number -> a -> [a] -> [a]
-             * @param {Number} index The position to insert the element
-             * @param elt The element to insert into the Array
-             * @param {Array} list The list to insert into
-             * @return {Array} a new Array with `elt` inserted at `index`
-             * @example
-             *
-             *      R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
-             */
-            (index: number, elt:any, list: any[]): any[];
 
-            /**
-             * Inserts the sub-list into the list, at index `index`.  _Note  that this
-             * is not destructive_: it returns a copy of the list with the changes.
-             * <small>No lists have been harmed in the application of this function.</small>
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig Number -> [a] -> [a] -> [a]
-             * @param {Number} index The position to insert the sublist
-             * @param {Array} elts The sub-list to insert into the Array
-             * @param {Array} list The list to insert the sub-list into
-             * @return {Array} a new Array with `elts` inserted starting at `index`
-             * @example
-             *
-             *      R.insert.all(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
-             */
-            all: (index: number, elts: any[], list: any[]) => any[];
-        }
 
 
         /**
@@ -1375,45 +1292,6 @@ declare module R {
          */
         sort(fn: (a: any, b: any) => number, list: any[]): any[];
 
-
-        /**
-         * Splits a list into sublists stored in an object, based on the result of calling a String-returning function
-         * on each element, and grouping the results according to values returned.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> s) -> [a] -> {s: a}
-         * @param {Function} fn Function :: a -> String
-         * @param {Array} list The array to group
-         * @return {Object} An object with the output of `fn` for keys, mapped to arrays of elements
-         *         that produced that key when passed to `fn`.
-         * @example
-         *
-         *     var byGrade = R.groupBy(function(student) {
-         *       var score = student.score;
-         *       return (score < 65) ? 'F' : (score < 70) ? 'D' :
-         *              (score < 80) ? 'C' : (score < 90) ? 'B' : 'A';
-         *     });
-         *     var students = [{name: 'Abby', score: 84},
-         *                     {name: 'Eddy', score: 58},
-         *                     // ...
-         *                     {name: 'Jack', score: 69}];
-         *     byGrade(students);
-         *     // {
-         *     //   'A': [{name: 'Dianne', score: 99}],
-         *     //   'B': [{name: 'Abby', score: 84}]
-         *     //   // ...,
-         *     //   'F': [{name: 'Eddy', score: 58}]
-         *     // }
-         */
-        // R.groupBy = curry2(function _groupBy(fn, list) {
-        //     return foldl(function(acc, elt) {
-        //         var key = fn(elt);
-        //         acc[key] = append(elt, acc[key] || (acc[key] = []));
-        //         return acc;
-        //     }, {}, list);
-        // });
 
 
         /**

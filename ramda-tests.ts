@@ -336,6 +336,7 @@ R.times(i, 5);
 
 () => {
     R.contains(3)([1, 2, 3]); //=> true
+    R.contains(3, [1, 2, 3]); //=> true
     R.contains(4)([1, 2, 3]); //=> false
     R.contains({})([{}, {}]); //=> false
     var obj = {};
@@ -422,6 +423,190 @@ R.times(i, 5);
 
 () => {
     R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
+}
+
+() => {
+  var byGrade = R.groupBy(function(student) {
+    var score = student.score;
+    return score < 65 ? 'F' :
+           score < 70 ? 'D' :
+           score < 80 ? 'C' :
+           score < 90 ? 'B' : 'A';
+  });
+  var students = [{name: 'Abby', score: 84},
+                  {name: 'Eddy', score: 58},
+                  {name: 'Jack', score: 69}];
+  byGrade(students);
+}
+
+() => {
+  R.head(['fi', 'fo', 'fum']); //=> 'fi'
+  R.head([10, 'ten']); // => 10
+  R.head(['10', 10]); // => '10'
+}
+
+() => {
+  R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
+}
+
+() => {
+  R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
+}
+
+() => {
+  R.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
+}
+
+() => {
+  var numbers = [1, 2, 3, 4];
+  var transducer = R.compose(R.map(R.add(1)), R.take(2));
+
+  R.into([], transducer, numbers); //=> [2, 3]
+
+  var intoArray = R.into([]);
+  intoArray(transducer, numbers); //=> [2, 3]
+}
+
+() => {
+  R.isSet(['1', 1]); //=> true
+  R.isSet([1, 1]);   //=> false
+  R.isSet([{}, {}]); //=> true
+}
+
+() => {
+  var spacer = R.join(' ');
+  spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
+  R.join('|', [1, 2, 3]);    //=> '1|2|3'
+}
+
+() => {
+  R.last(['fi', 'fo', 'fum']); //=> 'fum'
+}
+
+() => {
+  R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
+  R.lastIndexOf(10, [1,2,3,4]); //=> -1
+}
+
+() => {
+  R.length([]); //=> 0
+  R.length([1, 2, 3]); //=> 3
+}
+
+() => {
+  var double = function(x) {
+    return x * 2;
+  };
+  R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+}
+
+() => {
+  var digits = ['1', '2', '3', '4'];
+  var append = function(a: string, b: string): [string, string]{
+    return [a + b, a + b];
+  }
+  R.mapAccum(append, '0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
+}
+
+() => {
+  var digits = ['1', '2', '3', '4'];
+  var append = function(a, b): [string, string] {
+    return [a + b, a + b];
+  }
+
+  R.mapAccumRight(append, '0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
+}
+
+() => {
+  var squareEnds = function(elt, idx, list) {
+    if (idx === 0 || idx === list.length - 1) {
+      return elt * elt;
+    }
+    return elt;
+  };
+  R.mapIndexed(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+}
+
+() => {
+  var values = { x: 1, y: 2, z: 3 };
+  var double = function(num) {
+    return num * 2;
+  };
+  R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
+}
+
+() => {
+  R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+  R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+}
+
+() => {
+  R.none(R.isNaN, [1, 2, 3]); //=> true
+  R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
+}
+
+() => {
+  var list = ['foo', 'bar', 'baz', 'quux'];
+  R.nth(1, list); //=> 'bar'
+  R.nth(-1, list); //=> 'quux'
+  R.nth(-99, list); //=> undefined
+}
+
+() => {
+  R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']);
+  //=> [ [ 'sss', 'bars' ],  [ 'ttt', 'foo' ] ]
+}
+
+() => {
+  R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+  R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+}
+
+() => {
+  R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+}
+
+() => {
+  R.range(1, 5);    //=> [1, 2, 3, 4]
+  R.range(50, 53);  //=> [50, 51, 52]
+}
+
+() => {
+  var numbers = [1, 2, 3];
+  var add = function(a, b) {
+    return a + b;
+  };
+  R.reduce(add, 10, numbers); //=> 16
+}
+
+() => {
+  var letters = ['a', 'b', 'c'];
+  var objectify = function(accObject, elem, idx, list) {
+    accObject[elem] = idx;
+    return accObject;
+  };
+  R.reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+}
+
+() => {
+  var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
+  var flattenPairs = function(acc, pair) {
+    return acc.concat(pair);
+  };
+  R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+}
+
+() => {
+  var letters = ['a', 'b', 'c'];
+  var objectify = function(accObject, elem, idx, list) {
+    accObject[elem] = idx;
+    return accObject;
+  };
+  R.reduceRightIndexed(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+}
+
+() => {
+
 }
 
 () => {
