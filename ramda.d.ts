@@ -327,32 +327,62 @@ declare module R {
          */
         range(from: number, to: number): number[];
 
-            /**
-             * Returns a single item by iterating through the list, successively calling the iterator
-             * function and passing it an accumulator value and the current value from the array, and
-             * then passing the result to the next call.
-             */
+        /**
+         * Returns a single item by iterating through the list, successively calling the iterator
+         * function and passing it an accumulator value and the current value from the array, and
+         * then passing the result to the next call.
+         */
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
 
-            /**
-             * Like `reduce`, but passes additional parameters to the predicate function.
-             */
+        /**
+         * Like `reduce`, but passes additional parameters to the predicate function.
+         */
         reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
 
-            /**
-             * Returns a single item by iterating through the list, successively calling the iterator
-             * function and passing it an accumulator value and the current value from the array, and
-             * then passing the result to the next call.
-             */
+        /**
+         * Returns a single item by iterating through the list, successively calling the iterator
+         * function and passing it an accumulator value and the current value from the array, and
+         * then passing the result to the next call.
+         */
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
 
-            /**
-             * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
-             * the input list from the right to the left.
-             */
+        /**
+         * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
+         * the input list from the right to the left.
+         */
         reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
 
+        /**
+         * Similar to `filter`, except that it keeps only values for which the given predicate
+         * function returns falsy.
+         */
+        reject<T>(fn: (value: T) => boolean, list: T[]): T[];
 
+        /**
+         * Like `reject`, but passes additional parameters to the predicate function.
+         */
+        rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean, list: T[]): T[];
+
+
+        /**
+         * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
+         */
+        remove<T>(start: number, count: number, list: T[]): T[];
+
+        /**
+         * Returns a fixed list of size n containing a specified identical value.
+         */
+        repeat<T>(a: T, n: number): T[];
+
+        /**
+         * Returns a new list with the same elements as the original list, just in the reverse order.
+         */
+        reverse<T>(list: T[]): T[];
+        
+        /**
+         * Scan is similar to reduce, but returns a list of successively reduced values from the left.
+         */
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
     }
 
     interface List {
@@ -767,49 +797,7 @@ declare module R {
         size(list: any[]): number;
 
 
-        reject: {
-            /**
-             * Similar to `filter`, except that it keeps only values for which the given predicate
-             * function returns falsy. The predicate function is passed one argument: *(value)*.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a -> Boolean) -> [a] -> [a]
-             * @param {Function} fn The function called per iteration.
-             * @param {Array} list The collection to iterate over.
-             * @return {Array} The new filtered array.
-             * @example
-             *
-             *      var isOdd = function(n) {
-             *        return n % 2 === 1;
-             *      };
-             *      R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
-             */
-             (fn: (n: any) => any, list: any[]): any[];
 
-            /**
-             * Like `reject`, but passes additional parameters to the predicate function. The predicate
-             * function is passed three arguments: *(value, index, list)*.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig (a, i, [a] -> Boolean) -> [a] -> [a]
-             * @param {Function} fn The function called per iteration.
-             * @param {Array} list The collection to iterate over.
-             * @return {Array} The new filtered array.
-             * @alias reject.idx
-             * @example
-             *
-             *      var lastTwo = function(val, idx, list) {
-             *        return list.length - idx <= 2;
-             *      };
-             *
-             *      R.reject.idx(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
-             */
-             idx: (fn: (value: any, index: number, list: any[]) => any, list: any[]) => any;
-        }
 
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
@@ -1228,25 +1216,6 @@ declare module R {
             from: (a: number, xs: any[]) => any[];
         }
 
-        /**
-         * Removes the sub-list of `list` starting at index `start` and containing
-         * `count` elements.  _Note that this is not destructive_: it returns a
-         * copy of the list with the changes.
-         * <small>No lists have been harmed in the application of this function.</small>
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig Number -> Number -> [a] -> [a]
-         * @param {Number} start The position to start removing elements
-         * @param {Number} count The number of elements to remove
-         * @param {Array} list The list to remove from
-         * @return {Array} a new Array with `count` elements from `start` removed
-         * @example
-         *
-         *      R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
-         */
-        remove<T>(start: number, count: number, list: T[]): T[];
 
 
 

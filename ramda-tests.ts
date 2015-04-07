@@ -606,7 +606,40 @@ R.times(i, 5);
 }
 
 () => {
+    var isOdd = function(n) {
+      return n % 2 === 1;
+    };
+    R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+}
 
+() => {
+    var lastTwo = function(val, idx, list) {
+      return list.length - idx <= 2;
+    };
+    R.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+}
+
+() => {
+    R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+}
+
+() => {
+    R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
+    var obj = {};
+    var repeatedObjs = R.repeat(obj, 5); //=> [{}, {}, {}, {}, {}]
+    repeatedObjs[0] === repeatedObjs[1]; //=> true
+}
+
+() => {
+    R.reverse([1, 2, 3]);  //=> [3, 2, 1]
+    R.reverse([1, 2]);     //=> [2, 1]
+    R.reverse([1]);        //=> [1]
+    R.reverse([]);         //=> []
+}
+
+() => {
+    var numbers = [1, 2, 3, 4];
+    var factorials = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
 }
 
 () => {
