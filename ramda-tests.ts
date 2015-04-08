@@ -25,6 +25,7 @@ var shout = function(x: number): string {
 
 R.substring(0, 4, '1234567');
 R.substringFrom(4, '1234567');
+R.substringFrom(4)('1234567');
 R.substringTo(8, 'abcdefghijklm');
 
 () => {
