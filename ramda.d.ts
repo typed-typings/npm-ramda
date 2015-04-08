@@ -182,7 +182,9 @@ declare module R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<T extends KeyValuePair<K, V>>(pairs: T[]): {[index: string]: V};
+        fromPairs<V>(pairs: KeyValuePair<string, V>[]): {[index: string]: V};
+        fromPairs<V>(pairs: KeyValuePair<number, V>[]): {[index: number]: V};
+
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
@@ -1349,6 +1351,8 @@ declare module R {
          *      R.eq(1, '1'); //=> false
          */
         eq<T>(a: T, b: T): boolean;
+        eq<T>(a: T): (b: T) => boolean;
+
 
 
         /**
@@ -1686,6 +1690,8 @@ declare module R {
          *      //=> { 'name': 'fred', 'age': 40 }
          */
         merge(a: any, b: any): any;
+        merge(a: any): (b: any) => any;
+
 
 
         /**
@@ -2142,7 +2148,9 @@ declare module R {
          *
          *      R.substringFrom(8, 'abcdefghijklm'); //=> 'ijklm'
          */
-        substringFrom(indexA: number, indexB: number, str: string): string;
+        substringFrom(indexA: number, str: string): string;
+        substringFrom(indexA: number): (str: string) => string;
+
 
 
         /**
