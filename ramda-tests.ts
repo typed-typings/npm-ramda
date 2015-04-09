@@ -643,6 +643,61 @@ R.times(i, 5);
 }
 
 () => {
+    var xs = R.range(0, 10);
+    R.slice(2, 5, xs); //=> [2, 3, 4]
+    R.slice(2, 5)(xs); //=> [2, 3, 4]
+    R.slice(2)(5, xs); //=> [2, 3, 4]
+}
+
+() => {
+    var diff = function(a, b) { return a - b; };
+    R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
+    R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
+}
+
+() => {
+    R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
+    R.tail([1, 2, 3]); //=> [2, 3]
+}
+
+() => {
+    R.take(3,[1,2,3,4,5]); //=> [1,2,3]
+
+    var members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
+                   "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
+                   "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
+    var takeFive = R.take(5);
+    takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
+}
+
+() => {
+    var isNotFour = function(x) {
+      return !(x === 4);
+    };
+
+    R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+}
+
+() => {
+    R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+}
+
+() => {
+    var numbers = [1, 2, 3, 4];
+    var transducer = R.compose(R.map(R.add(1)), R.take(2));
+    var fn = R.flip(R.append);
+    R.transduce(transducer, fn, [], numbers); //=> [2, 3]
+}
+
+() => {
+
+}
+
+() => {
+
+}
+
+() => {
 
 }
 

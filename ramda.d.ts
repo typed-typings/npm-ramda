@@ -71,7 +71,7 @@ declare module R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<T>(el: T|T[], list: T[]): T[];
+        append<T>(el: T, list: T[]): T[];
 
         /**
          * `chain` maps a function over a list and concatenates the results.
@@ -264,7 +264,7 @@ declare module R {
          */
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
         map<T, U>(fn: (x: T) => U, obj: any): any; // used in functors
-        map<T, U>(fn: (x: T) => U): Function;
+        map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
@@ -378,11 +378,59 @@ declare module R {
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
         reverse<T>(list: T[]): T[];
-        
+
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
          */
         scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+
+        /**
+         * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
+         */
+        slice<T>(a: number, b: number, list: T[]): T[];
+        slice<T>(a: number, b: number): (list: T[])  => T[];
+        slice<T>(a: number): (b: number, list: T[])  => T[];
+
+
+        /**
+         * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
+         * time and return a negative number if the first value is smaller, a positive number if it's larger, and zero
+         * if they are equal.
+         */
+        sort<T>(fn: (a: T, b: T) => number, list: T[]): T[];
+        sort<T>(fn: (a: T, b: T) => number): (list: T[]) => T[];
+
+        /**
+         * Returns all but the first element of a list.
+         */
+        tail<T>(list: T[]): T[];
+
+        /**
+         * Returns a new list containing the first `n` elements of the given list.  If
+         * `n > * list.length`, returns a list of `list.length` elements.
+         */
+        take<T>(n: number, list: T[]): T[];
+        take<T>(n: number): (list: T[]) => T[];
+
+        /**
+         * Returns a new list containing the first `n` elements of a given list, passing each value
+         * to the supplied predicate function, and terminating when the predicate function returns
+         * `false`.
+         */
+        takeWhile(fn: (x: any) => any, list: any[]): any[];
+
+        /**
+         * Calls an input function `n` times, returning an array containing the results of those
+         * function calls.
+         */
+        times<T>(fn: (i: number) => T, n: number): T[];
+
+        /**
+         * Initializes a transducer using supplied iterator function. Returns a single item by iterating through the
+         * list, successively calling the transformed iterator function and passing it an accumulator value and the
+         * current value from the array, and then passing the result to the next call.
+         */
+        transduce<T>(xf: (arg: T[]) => T[], fn: (acc: T, val: T) => T, acc: T[], list: T[]): T;
     }
 
     interface List {
@@ -392,6 +440,8 @@ declare module R {
 
         filterObj<T>(fn: (v: any) => boolean, obj: T): T;
         mapObj<T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
+
+        tr<T extends {[index:string]: any}>(a: T):T;
      }
     interface List {
         /*
@@ -409,7 +459,7 @@ declare module R {
          * Returns a new function much like the supplied one, except that the first two arguments'
          * order is reversed.
          */
-        // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): Function;
+        flip<T,U,TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
         flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
         // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0: T) => ((...args: any[]) => TResult);
         // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U) => ((arg0: T, ...args: any[]) => TResult);
@@ -525,28 +575,6 @@ declare module R {
         isEmpty(list: any[]): boolean;
 
 
-
-
-
-        /**
-         * Returns the last element from a list.
-         */
-        last<T>(list: T[]): T;
-
-
-        /**
-         * Returns all but the first element of a list. If the list provided has the `tail` method,
-         * it will instead return `list.tail()`.
-         */
-        tail<T>(list: T[]): T[];
-
-        /**
-         * Returns a new list containing the contents of the given list, followed by the given
-         * element.
-         */
-        append<T>(el: T, list: T[]): T[];
-
-
         /**
          * @func
          * @memberOf R
@@ -576,25 +604,7 @@ declare module R {
          */
         identity(a: any): any;
 
-        /**
-         * Calls an input function `n` times, returning an array containing the results of those
-         * function calls.
-         *
-         * `fn` is passed one argument: The current value of `n`, which begins at `0` and is
-         * gradually incremented to `n - 1`.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (i -> a) -> i -> [a]
-         * @param {Function} fn The function to invoke. Passed one argument, the current value of `n`.
-         * @param {number} n A value between `0` and `n - 1`. Increments after each function call.
-         * @return {Array} An array containing the return values of all calls to `fn`.
-         * @example
-         *
-         *      R.times(function(n) { return n; }, 5); //=> [0, 1, 2, 3, 4]
-         */
-        times<T>(fn: (i: number) => T, n: number): T[];
+
 
         /**
          * Returns a fixed list of size `n` containing a specified identical value.
@@ -797,38 +807,6 @@ declare module R {
         size(list: any[]): number;
 
 
-
-
-        /**
-         * Returns a new list containing the first `n` elements of a given list, passing each value
-         * to the supplied predicate function, and terminating when the predicate function returns
-         * `false`. Excludes the element that caused the predicate function to fail. The predicate
-         * function is passed one argument: *(value)*.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a -> Boolean) -> [a] -> [a]
-         * @param {Function} fn The function called per iteration.
-         * @param {Array} list The collection to iterate over.
-         * @return {Array} A new array.
-         * @example
-         *
-         *      var isNotFour = function(x) {
-         *        return !(x === 4);
-         *      };
-         *
-         *      R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
-         */
-        takeWhile(fn: (x: any) => any, list: any[]): any[];
-
-
-        /**
-         * Returns a new list containing the first `n` elements of the given list.  If
-         * `n > * list.length`, returns a list of `list.length` elements.
-         */
-        take(n: number, list: any[]): any[];
-        take(n: number): (list: any[]) => any[];
 
 
 
@@ -1174,47 +1152,7 @@ declare module R {
 
 
 
-        slice: {
-            /**
-             * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig Number -> Number -> [a] -> [a]
-             * @param {number} a The starting index.
-             * @param {number} b One more than the ending index.
-             * @param {Array} xs The list to take elements from.
-             * @return {Array} The items from `a` to `b - 1` from `xs`.
-             * @example
-             *
-             *      var xs = R.range(0, 10);
-             *      R.slice(2, 5)(xs); //=> [2, 3, 4]
-             */
-            (a: number, b: number, list: any[]): any[];
 
-
-            /**
-             * Returns the elements from `xs` starting at `a` going to the end of `xs`.
-             *
-             * @func
-             * @memberOf R
-             * @category List
-             * @sig Number -> [a] -> [a]
-             * @param {number} a The starting index.
-             * @param {Array} xs The list to take elements from.
-             * @return {Array} The items from `a` to the end of `xs`.
-             * @example
-             *
-             *      var xs = R.range(0, 10);
-             *      R.slice.from(2)(xs); //=> [2, 3, 4, 5, 6, 7, 8, 9]
-             *
-             *      var ys = R.range(4, 8);
-             *      var tail = R.slice.from(1);
-             *      tail(ys); //=> [5, 6, 7]
-             */
-            from: (a: number, xs: any[]) => any[];
-        }
 
 
 
@@ -1242,24 +1180,6 @@ declare module R {
          */
         comparator(pred: (a: any, b: any) => boolean): (x: number, y: number) => number;
 
-        /**
-         * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
-         * time and return a negative number if the first value is smaller, a positive number if it's larger, and zero
-         * if they are equal.  Please note that this is a **copy** of the list.  It does not modify the original.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a,a -> Number) -> [a] -> [a]
-         * @param {Function} comparator A sorting function :: a -> b -> Int
-         * @param {Array} list The list to sort
-         * @return {Array} a new array with its elements sorted by the comparator function.
-         * @example
-         *
-         *      var diff = function(a, b) { return a - b; };
-         *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
-         */
-        sort(fn: (a: any, b: any) => number, list: any[]): any[];
 
 
 
@@ -2076,8 +1996,8 @@ declare module R {
          * Multiplies two numbers. Equivalent to a * b but curried.
          */
         multiply(a: number, b: number): number;
-        multiply(a: placeholder, b: number): (a: number) => number;
         multiply(a: number): (b: number) => number;
+        multiply(a: placeholder, b: number): (a: number) => number;
 
         /**
          * Negates its argument.
