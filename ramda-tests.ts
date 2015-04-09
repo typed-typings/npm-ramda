@@ -317,7 +317,7 @@ R.times(i, 5);
 }
 
 () => {
-    var plus10map = R.map(function(x) { return x + 10; });
+    var plus10map = R.map(function(x: number) { return x + 10; });
     var as = [[1], [3, 4]];
     R.commuteMap(R.map(function(x) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
 
@@ -685,7 +685,7 @@ R.times(i, 5);
 () => {
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
-    var fn = R.flip(R.append);
+    var fn = R.flip<number, number[], number[]>(R.append);
     R.transduce(transducer, fn, [], numbers); //=> [2, 3]
 }
 

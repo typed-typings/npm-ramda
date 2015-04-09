@@ -71,7 +71,8 @@ declare module R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<T>(el: T, list: T[]): T[];
+        // note U is required (instead of just T) to allow appending an element of a different type than the array is.
+        append<T, U>(el: U, list: T[]): T[];
 
         /**
          * `chain` maps a function over a list and concatenates the results.
@@ -86,8 +87,7 @@ declare module R {
         /*
          * Turns a list of Functors into a Functor of a list, applying a mapping function to the elements of the list along the way.
          */
-        //commuteMap<O, P, R, T, U>(fn: (a: U) => ((b: U) => R), of: (x: T) => T[], list: U[][]): R[][];
-
+        commuteMap<T, U>(fn: (list: T[]) => U[], of: (x: T[]) => U[][], list: T[][]): U[][];
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
@@ -432,7 +432,7 @@ declare module R {
          * list, successively calling the transformed iterator function and passing it an accumulator value and the
          * current value from the array, and then passing the result to the next call.
          */
-        transduce<T>(xf: (arg: T[]) => T[], fn: (acc: T, val: T) => T, acc: T[], list: T[]): T;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
     }
 
     interface List {
@@ -466,7 +466,8 @@ declare module R {
         // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0: T) => ((...args: any[]) => TResult);
         // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U) => ((arg0: T, ...args: any[]) => TResult);
 
-        of<T>(x: T): T[];brew
+        of<T>(x: T): T[];
+        of<T>(x: T[]): T[][];
     }
 
     interface List {
