@@ -319,7 +319,7 @@ R.times(i, 5);
 () => {
     var plus10map = R.map(function(x: number) { return x + 10; });
     var as = [[1], [3, 4]];
-    R.commuteMap(R.map(function(x) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
+    R.commuteMap(R.map(function(x: number) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
 
     var bs = [[1, 2], [3]];
     R.commuteMap(plus10map, R.of, bs); //=> [[11, 13], [12, 13]]
@@ -426,7 +426,7 @@ R.times(i, 5);
 }
 
 () => {
-  var byGrade = R.groupBy(function(student) {
+  var byGrade = R.groupBy(function(student: {score: number, name: string}) {
     var score = student.score;
     return score < 65 ? 'F' :
            score < 70 ? 'D' :
@@ -594,6 +594,8 @@ R.times(i, 5);
     return acc.concat(pair);
   };
   R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+  R.reduceRight(flattenPairs, [])(pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+  R.reduceRight(flattenPairs)([], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 }
 
 () => {
@@ -603,6 +605,8 @@ R.times(i, 5);
     return accObject;
   };
   R.reduceRightIndexed(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+  R.reduceRightIndexed(objectify, {})(letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+  R.reduceRightIndexed(objectify)({}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
 }
 
 () => {
@@ -610,6 +614,7 @@ R.times(i, 5);
       return n % 2 === 1;
     };
     R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
 }
 
 () => {
@@ -617,10 +622,13 @@ R.times(i, 5);
       return list.length - idx <= 2;
     };
     R.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    R.rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 () => {
     R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    R.remove(2, 3)([1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    R.remove(2)(3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
 }
 
 () => {
@@ -639,7 +647,9 @@ R.times(i, 5);
 
 () => {
     var numbers = [1, 2, 3, 4];
-    var factorials = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
+    R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
+    R.scan(R.multiply, 1)(numbers); //=> [1, 1, 2, 6, 24]
+    R.scan(R.multiply)(1, numbers); //=> [1, 1, 2, 6, 24]
 }
 
 () => {
@@ -676,10 +686,12 @@ R.times(i, 5);
     };
 
     R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    R.takeWhile(isNotFour)([1, 2, 3, 4]); //=> [1, 2, 3]
 }
 
 () => {
     R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+    R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
 }
 
 () => {
@@ -687,22 +699,56 @@ R.times(i, 5);
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
     var fn = R.flip<number, number[], number[]>(R.append);
     R.transduce(transducer, fn, [], numbers); //=> [2, 3]
+    R.transduce(transducer, fn, [])(numbers); //=> [2, 3]
+    R.transduce(transducer, fn)([], numbers); //=> [2, 3]
+    R.transduce(transducer)(fn, [], numbers); //=> [2, 3]
 }
 
 () => {
-
+    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
+    R.unfold(f)(10); //=> [-10, -20, -30, -40, -50]
 }
 
 () => {
-
+    R.uniq([1, 1, 2, 1]); //=> [1, 2]
+    R.uniq([{}, {}]);     //=> [{}, {}]
+    R.uniq([1, '1']);     //=> [1, '1']
 }
 
 () => {
-
+    var strEq = function(a, b) { return String(a) === String(b); };
+    R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
+    R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
+    R.uniqWith(strEq)([{}, {}]);       //=> [{}]
+    R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
+    R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
 }
 
 () => {
+    R.unnest([1, [2], [[3]]]); //=> [1, 2, [3]]
+    R.unnest([[1, 2], [3, 4], [5, 6]]); //=> [1, 2, 3, 4, 5, 6]
+}
 
+() => {
+    R.xprod([1, 2], ['a', 'b']); //=> [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+}
+
+() => {
+    R.zip([1, 2, 3], ['a', 'b', 'c']); //=> [[1, 'a'], [2, 'b'], [3, 'c']]
+}
+
+() => {
+    R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+}
+
+() => {
+    var f = function(x:number, y:string) {
+      // ...
+    };
+    R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
 }
 
 /*****************************************************************

@@ -340,6 +340,8 @@ declare module R {
          * Like `reduce`, but passes additional parameters to the predicate function.
          */
         reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -347,34 +349,43 @@ declare module R {
          * then passing the result to the next call.
          */
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
          * the input list from the right to the left.
          */
         reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
+        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
 
         /**
          * Like `reject`, but passes additional parameters to the predicate function.
          */
         rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean, list: T[]): T[];
+        rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean): (list: T[]) => T[];
 
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
          */
         remove<T>(start: number, count: number, list: T[]): T[];
+        remove<T>(start: number): (count: number, list: T[]) => T[];
+        remove<T>(start: number, count: number): (list: T[]) => T[];
 
         /**
          * Returns a fixed list of size n containing a specified identical value.
          */
         repeat<T>(a: T, n: number): T[];
+        repeat<T>(a: T): (n: number) => T[];
 
         /**
          * Returns a new list with the same elements as the original list, just in the reverse order.
@@ -385,6 +396,8 @@ declare module R {
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
          */
         scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
@@ -419,13 +432,15 @@ declare module R {
          * to the supplied predicate function, and terminating when the predicate function returns
          * `false`.
          */
-        takeWhile(fn: (x: any) => any, list: any[]): any[];
+        takeWhile<T>(fn: (x: T) => T, list: T[]): T[];
+        takeWhile<T>(fn: (x: T) => T): (list: T[]) => T[];
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
          * function calls.
          */
         times<T>(fn: (i: number) => T, n: number): T[];
+        times<T>(fn: (i: number) => T): (n: number) => T[];
 
         /**
          * Initializes a transducer using supplied iterator function. Returns a single item by iterating through the
@@ -433,6 +448,61 @@ declare module R {
          * current value from the array, and then passing the result to the next call.
          */
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
+        transduce<T,U>(xf: (arg: T[]) => T[]): (fn: (acc: U[], val: U) => U[], acc: T[], list: T[]) => U;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
+
+        /**
+         * Builds a list from a seed value. Accepts an iterator function, which returns either false
+         * to stop iteration or an array of length 2 containing the value to add to the resulting
+         * list and the seed to be used in the next call to the iterator function.
+         */
+        unfold<T, TResult>(fn: (seed: T) => TResult, seed: T): TResult[];
+        unfold<T, TResult>(fn: (seed: T) => TResult): (seed: T) => TResult[];
+
+        /**
+         * Returns a new list containing only one copy of each element in the original list.
+         */
+        uniq<T>(list: T[]): T[];
+
+        /**
+         * Returns a new list containing only one copy of each element in the original list, based upon the value
+         * returned by applying the supplied predicate to two list elements.
+         */
+        uniqWith<T,U>(pred: (x: T, y: T) => boolean, list: T[]): T[];
+        uniqWith<T,U>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
+
+        /**
+         * Returns a new list by pulling every item at the first level of nesting out, and putting
+         * them in a new array.
+         */
+        unnest<T>(x: T[]): T[];
+
+        /**
+         * Creates a new list out of the two supplied by creating each possible pair from the lists.
+         */
+        xprod<K,V>(as: K[], bs: V[]): KeyValuePair<K,V>[];
+
+        /**
+         * Creates a new list out of the two supplied by pairing up equally-positioned items from
+         * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
+         */
+        zip<K,V>(list1: K[], list2: V[]): KeyValuePair<K,V>[];
+
+
+        /**
+         * Creates a new object out of a list of keys and a list of values.
+         */
+        zipObj<T>(keys: string[], values: T[]): Dictionary<T>;
+
+        /**
+         * Creates a new list out of the two supplied by applying the function to each
+         * equally-positioned pair in the lists.
+         */
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+
     }
 
     interface List {
@@ -734,12 +804,7 @@ declare module R {
         //     // test(3) => false, test(21) => false,
 
         // --------
-        /**
-         * Builds a list from a seed value. Accepts an iterator function, which returns either false
-         * to stop iteration or an array of length 2 containing the value to add to the resulting
-         * list and the seed to be used in the next call to the iterator function.
-         */
-        unfold<T, TResult>(fn: (seed: T) => TResult, seed: T): TResult[];
+
     }
 
 
@@ -920,48 +985,9 @@ declare module R {
 
 
 
-        /**
-         * Returns a new list containing only one copy of each element in the original list.
-         * Equality is strict here, meaning reference equality for objects and non-coercing equality
-         * for primitives.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig [a] -> [a]
-         * @param {Array} list The array to consider.
-         * @return {Array} The list of unique items.
-         * @example
-         *
-         *      R.uniq([1, 1, 2, 1]); //=> [1, 2]
-         *      R.uniq([{}, {}]);     //=> [{}, {}]
-         *      R.uniq([1, '1']);     //=> [1, '1']
-         */
-        uniq(list: any[]): any[];
 
 
 
-        /**
-         * Returns a new list containing only one copy of each element in the original list, based
-         * upon the value returned by applying the supplied predicate to two list elements. Prefers
-         * the first item if two items compare equal based on the predicate.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (x, a -> Boolean) -> [a] -> [a]
-         * @param {Function} pred
-         * @param {Array} list The array to consider.
-         * @return {Array} The list of unique items.
-         * @example
-         *
-         *      var strEq = function(a, b) { return ('' + a) === ('' + b) };
-         *      R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
-         *      R.uniqWith(strEq)([{}, {}]);       //=> [{}]
-         *      R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
-         *      R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
-         */
-        uniqWith(pred: (x: any, a: any) => boolean, list: any[]): any[];
 
 
 
@@ -974,189 +1000,6 @@ declare module R {
          */
         // checked
         flatten(x: any[]): any[];
-
-
-        /**
-         * Returns a new list by pulling every item at the first level of nesting out, and putting
-         * them in a new array.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig [a] -> [b]
-         * @param {Array} list The array to consider.
-         * @return {Array} The flattened list.
-         * @example
-         *
-         *      R.unnest([1, [2], [[3]]]); //=> [1, 2, [3]]
-         *      R.unnest([[1, 2], [3, 4], [5, 6]]); //=> [1, 2, 3, 4, 5, 6]
-         */
-        unnest(x: any[]): any[];
-
-
-        /**
-         * Creates a new list out of the two supplied by applying the function to each
-         * equally-positioned pair in the lists.
-         *
-         * @function
-         * @memberOf R
-         * @category List
-         * @sig (a,b -> c) -> a -> b -> [c]
-         * @param {Function} fn The function used to combine the two elements into one value.
-         * @param {Array} list1 The first array to consider.
-         * @param {Array} list2 The second array to consider.
-         * @return {Array} The list made by combining same-indexed elements of `list1` and `list2`
-         * using `fn`.
-         * @example
-         *
-         *      var f = function(x, y) {
-         *        // ...
-         *      };
-         *      R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']);
-         *      //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-         */
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
-
-
-        /**
-         * Creates a new list out of the two supplied by pairing up equally-positioned items from
-         * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig a -> b -> [[a,b]]
-         * @param {Array} list1 The first array to consider.
-         * @param {Array} list2 The second array to consider.
-         * @return {Array} The list made by pairing up same-indexed elements of `list1` and `list2`.
-         * @example
-         *
-         *      R.zip([1, 2, 3], ['a', 'b', 'c']); //=> [[1, 'a'], [2, 'b'], [3, 'c']]
-         */
-        zip(list1: any[], list2: any[]): any[];
-
-
-        /**
-         * Creates a new object out of a list of keys and a list of values.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig k -> v -> {k: v}
-         * @param {Array} keys The array that will be properties on the output object.
-         * @param {Array} values The list of values on the output object.
-         * @return {Object} The object made by pairing up same-indexed elements of `keys` and `values`.
-         * @example
-         *
-         *      R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
-         */
-        zipObj<TResult extends {}>(keys: any[], values: any[]): TResult;
-
-
-
-
-        /**
-         * Creates a new list out of the two supplied by applying the function
-         * to each possible pair in the lists.
-         *
-         * @see R.xprod
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig (a,b -> c) -> a -> b -> [c]
-         * @param {Function} fn The function to join pairs with.
-         * @param {Array} as The first list.
-         * @param {Array} bs The second list.
-         * @return {Array} The list made by combining each possible pair from
-         *         `as` and `bs` using `fn`.
-         * @example
-         *
-         *      var f = function(x, y) {
-         *        // ...
-         *      };
-         *      R.xprodWith(f, [1, 2], ['a', 'b']);
-         *      // [f(1, 'a'), f(1, 'b'), f(2, 'a'), f(2, 'b')];
-         */
-        // R.xprodWith = curry3(function _xprodWith(fn, a, b) {
-        //     if (isEmpty(a) || isEmpty(b)) {
-        //         return [];
-        //     }
-        //     // Better to push them all or to do `new Array(ilen * jlen)` and
-        //     // calculate indices?
-        //     var i = -1, ilen = a.length, j, jlen = b.length, result = [];
-        //     while (++i < ilen) {
-        //         j = -1;
-        //         while (++j < jlen) {
-        //             result.push(fn(a[i], b[j]));
-        //         }
-        //     }
-        //     return result;
-        // });
-
-
-        /**
-         * Creates a new list out of the two supplied by creating each possible
-         * pair from the lists.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig a -> b -> [[a,b]]
-         * @param {Array} as The first list.
-         * @param {Array} bs The second list.
-         * @return {Array} The list made by combining each possible pair from
-         * `as` and `bs` into pairs (`[a, b]`).
-         * @example
-         *
-         *      R.xprod([1, 2], ['a', 'b']); //=> [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
-         */
-        // R.xprod = curry2(function _xprod(a, b) { // = xprodWith(prepend); (takes about 3 times as long...)
-        //     if (isEmpty(a) || isEmpty(b)) {
-        //         return [];
-        //     }
-        //     var i = -1;
-        //     var ilen = a.length;
-        //     var j;
-        //     var jlen = b.length;
-        //     // Better to push them all or to do `new Array(ilen * jlen)` and calculate indices?
-        //     var result = [];
-        //     while (++i < ilen) {
-        //         j = -1;
-        //         while (++j < jlen) {
-        //             result.push([a[i], b[j]]);
-        //         }
-        //     }
-        //     return result;
-        // });
-
-
-        /**
-         * Returns a new list with the same elements as the original list, just
-         * in the reverse order.
-         *
-         * @func
-         * @memberOf R
-         * @category List
-         * @sig [a] -> [a]
-         * @param {Array} list The list to reverse.
-         * @return {Array} A copy of the list in reverse order.
-         * @example
-         *
-         *      R.reverse([1, 2, 3]);  //=> [3, 2, 1]
-         *      R.reverse([1, 2]);     //=> [2, 1]
-         *      R.reverse([1]);        //=> [1]
-         *      R.reverse([]);         //=> []
-         */
-        // R.reverse = function _reverse(list) {
-        //     return clone(list || []).reverse();
-        // };
-
-
-
-
-
-
-
 
 
 
