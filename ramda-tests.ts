@@ -269,9 +269,9 @@ R.times(i, 5);
      flipped(1, 2, 3); //=> [2, 1, 3]
  }
 
-/*****************************************************************
+/*********************
  * List category
- */
+ ********************/
 () => {
     var lessThan2 = R.flip(R.lt)(2);
     var lessThan3 = R.flip(R.lt)(3);
@@ -290,12 +290,14 @@ R.times(i, 5);
     R.aperture(2, [1, 2, 3, 4, 5]); //=> [[1, 2], [2, 3], [3, 4], [4, 5]]
     R.aperture(3, [1, 2, 3, 4, 5]); //=> [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
     R.aperture(7, [1, 2, 3, 4, 5]); //=> []
+    R.aperture(7)([1, 2, 3, 4, 5]); //=> []
 }
 
 () => {
     R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
     R.append('tests', []); //=> ['tests']
     R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
+    R.append(['tests'])(['write', 'more']); //=> ['write', 'more', ['tests']]
 }
 
 () => {
@@ -303,6 +305,7 @@ R.times(i, 5);
         return [n, n];
     };
     R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+    R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
 }
 
 () => {
@@ -314,24 +317,28 @@ R.times(i, 5);
 
     var cs = [[1, 2], [3, 4]];
     R.commute(R.of, cs); //=> [[1, 3], [2, 3], [1, 4], [2, 4]]
+    R.commute(R.of)(cs); //=> [[1, 3], [2, 3], [1, 4], [2, 4]]
 }
 
 () => {
     var plus10map = R.map(function(x: number) { return x + 10; });
     var as = [[1], [3, 4]];
-    R.commuteMap(R.map(function(x) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
+    R.commuteMap(R.map(function(x: number) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
 
     var bs = [[1, 2], [3]];
     R.commuteMap(plus10map, R.of, bs); //=> [[11, 13], [12, 13]]
 
     var cs = [[1, 2], [3, 4]];
     R.commuteMap(plus10map, R.of, cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
+    R.commuteMap(plus10map)(R.of, cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
+    R.commuteMap(plus10map, R.of)(cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
 }
 
 () => {
     R.concat([], []); //=> []
     R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
-    R.concat('ABC', 'DEF'); // 'ABCDEF'
+    R.concat([4, 5, 6])([1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+    R.concat('ABC')('DEF'); // 'ABCDEF'
 }
 
 () => {
@@ -347,10 +354,12 @@ R.times(i, 5);
     var xs = [{x: 12}, {x: 11}, {x: 10}];
     R.containsWith(function(a, b) { return a.x === b.x; }, {x: 10}, xs); //=> true
     R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1}, xs); //=> false
+    R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1})(xs); //=> false
 }
 
 () => {
     R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
+    R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
 }
 
 () => {
@@ -358,11 +367,12 @@ R.times(i, 5);
         return x <= 2;
     };
     R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
+    R.dropWhile(lteTwo)([1, 2, 3, 4]); //=> [3, 4]
 }
 
 () => {
     var isEven = function(n) {
-      return n % 2 === 0;
+        return n % 2 === 0;
     };
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
     var isEvenFn = R.filter(isEven);
@@ -371,7 +381,7 @@ R.times(i, 5);
 
 () => {
     var lastTwo = function(val, idx, list) {
-      return list.length - idx <= 2;
+        return list.length - idx <= 2;
     };
     R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
     var lastTwoFn = R.filterIndexed(lastTwo);
@@ -388,6 +398,8 @@ R.times(i, 5);
     var xs = [{a: 1}, {a: 2}, {a: 3}];
     R.findIndex(R.propEq('a', 2))(xs); //=> 1
     R.findIndex(R.propEq('a', 4))(xs); //=> -1
+
+    R.findIndex((x) => x === 1, [1, 2, 3]);
 }
 
 () => {
@@ -400,6 +412,7 @@ R.times(i, 5);
     var xs = [{a: 1, b: 0}, {a:1, b: 1}];
     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
+    R.findLastIndex((x) => x === 1, [1, 2, 3]);
 }
 
 () => {
@@ -426,201 +439,222 @@ R.times(i, 5);
 }
 
 () => {
-  var byGrade = R.groupBy(function(student) {
-    var score = student.score;
-    return score < 65 ? 'F' :
-           score < 70 ? 'D' :
-           score < 80 ? 'C' :
-           score < 90 ? 'B' : 'A';
-  });
-  var students = [{name: 'Abby', score: 84},
-                  {name: 'Eddy', score: 58},
-                  {name: 'Jack', score: 69}];
-  byGrade(students);
+    var byGrade = R.groupBy(function(student: {score: number, name: string}) {
+        var score = student.score;
+        return score < 65 ? 'F' :
+        score < 70 ? 'D' :
+        score < 80 ? 'C' :
+        score < 90 ? 'B' : 'A';
+    });
+    var students = [{name: 'Abby', score: 84},
+    {name: 'Eddy', score: 58},
+    {name: 'Jack', score: 69}];
+    byGrade(students);
 }
 
 () => {
-  R.head(['fi', 'fo', 'fum']); //=> 'fi'
-  R.head([10, 'ten']); // => 10
-  R.head(['10', 10]); // => '10'
+    R.head(['fi', 'fo', 'fum']); //=> 'fi'
+    R.head([10, 'ten']); // => 10
+    R.head(['10', 10]); // => '10'
 }
 
 () => {
-  R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
+    R.indexOf(3, [1,2,3,4]); //=> 2
+    R.indexOf(10)([1,2,3,4]); //=> -1
 }
 
 () => {
-  R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
+    R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
 }
 
 () => {
-  R.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
+    R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
+    R.insert(2)('x', [1,2,3,4]); //=> [1,2,'x',3,4]
+    R.insert(2, 'x')([1,2,3,4]); //=> [1,2,'x',3,4]
 }
 
 () => {
-  var numbers = [1, 2, 3, 4];
-  var transducer = R.compose(R.map(R.add(1)), R.take(2));
-
-  R.into([], transducer, numbers); //=> [2, 3]
-
-  var intoArray = R.into([]);
-  intoArray(transducer, numbers); //=> [2, 3]
+    R.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
+    R.insertAll(2)(['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
+    R.insertAll(2, ['x','y','z'])([1,2,3,4]); //=> [1,2,'x','y','z',3,4]
 }
 
 () => {
-  R.isSet(['1', 1]); //=> true
-  R.isSet([1, 1]);   //=> false
-  R.isSet([{}, {}]); //=> true
+    var numbers = [1, 2, 3, 4];
+    var transducer = R.compose(R.map(R.add(1)), R.take(2));
+
+    R.into([], transducer, numbers); //=> [2, 3]
+
+    var intoArray = R.into([]);
+    intoArray(transducer, numbers); //=> [2, 3]
 }
 
 () => {
-  var spacer = R.join(' ');
-  spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
-  R.join('|', [1, 2, 3]);    //=> '1|2|3'
+    R.isSet(['1', 1]); //=> true
+    R.isSet([1, 1]);   //=> false
+    R.isSet([{}, {}]); //=> true
 }
 
 () => {
-  R.last(['fi', 'fo', 'fum']); //=> 'fum'
+    var spacer = R.join(' ');
+    spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
+    R.join('|', [1, 2, 3]);    //=> '1|2|3'
 }
 
 () => {
-  R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
-  R.lastIndexOf(10, [1,2,3,4]); //=> -1
+    R.last(['fi', 'fo', 'fum']); //=> 'fum'
 }
 
 () => {
-  R.length([]); //=> 0
-  R.length([1, 2, 3]); //=> 3
+    R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
+    R.lastIndexOf(10, [1,2,3,4]); //=> -1
 }
 
 () => {
-  var double = function(x) {
-    return x * 2;
-  };
-  R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+    R.length([]); //=> 0
+    R.length([1, 2, 3]); //=> 3
 }
 
 () => {
-  var digits = ['1', '2', '3', '4'];
-  var append = function(a: string, b: string): [string, string]{
-    return [a + b, a + b];
-  }
-  R.mapAccum(append, '0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
+    var double = function(x) {
+        return x * 2;
+    };
+    R.map(double, [1, 2, 3]); //=> [2, 4, 6]
 }
 
 () => {
-  var digits = ['1', '2', '3', '4'];
-  var append = function(a, b): [string, string] {
-    return [a + b, a + b];
-  }
-
-  R.mapAccumRight(append, '0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
-}
-
-() => {
-  var squareEnds = function(elt, idx, list) {
-    if (idx === 0 || idx === list.length - 1) {
-      return elt * elt;
+    var digits = ['1', '2', '3', '4'];
+    var append = function(a: string, b: string): [string, string]{
+        return [a + b, a + b];
     }
-    return elt;
-  };
-  R.mapIndexed(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    R.mapAccum(append, '0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
+    R.mapAccum(append)('0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
+    R.mapAccum(append, '0')(digits); //=> ['01234', ['01', '012', '0123', '01234']]
 }
 
 () => {
-  var values = { x: 1, y: 2, z: 3 };
-  var double = function(num) {
-    return num * 2;
-  };
-  R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
+    var digits = ['1', '2', '3', '4'];
+    var append = function(a, b): [string, string] {
+        return [a + b, a + b];
+    }
+
+    R.mapAccumRight(append, '0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
+    R.mapAccumRight(append)('0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
+    R.mapAccumRight(append, '0')(digits); //=> ['04321', ['04321', '0432', '043', '04']]
 }
 
 () => {
-  R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
-  R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+    var squareEnds = function(elt, idx, list) {
+        if (idx === 0 || idx === list.length - 1) {
+            return elt * elt;
+        }
+        return elt;
+    };
+    R.mapIndexed(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    R.mapIndexed(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
 }
 
 () => {
-  R.none(R.isNaN, [1, 2, 3]); //=> true
-  R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
+    R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+    R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
 }
 
 () => {
-  var list = ['foo', 'bar', 'baz', 'quux'];
-  R.nth(1, list); //=> 'bar'
-  R.nth(-1, list); //=> 'quux'
-  R.nth(-99, list); //=> undefined
+    R.none(R.isNaN, [1, 2, 3]); //=> true
+    R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
+    R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
 }
 
 () => {
-  R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']);
-  //=> [ [ 'sss', 'bars' ],  [ 'ttt', 'foo' ] ]
+    var list = ['foo', 'bar', 'baz', 'quux'];
+    R.nth(1, list); //=> 'bar'
+    R.nth(-1, list); //=> 'quux'
+    R.nth(-99, list); //=> undefined
+    R.nth(-99)(list); //=> undefined
 }
 
 () => {
-  R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-  R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']);
+    R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']);
 }
 
 () => {
-  R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+    R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 () => {
-  R.range(1, 5);    //=> [1, 2, 3, 4]
-  R.range(50, 53);  //=> [50, 51, 52]
+    R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+    R.prepend('fee')(['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
 }
 
 () => {
-  var numbers = [1, 2, 3];
-  var add = function(a, b) {
-    return a + b;
-  };
-  R.reduce(add, 10, numbers); //=> 16
+    R.range(1, 5);    //=> [1, 2, 3, 4]
+    R.range(50)(53);  //=> [50, 51, 52]
 }
 
 () => {
-  var letters = ['a', 'b', 'c'];
-  var objectify = function(accObject, elem, idx, list) {
-    accObject[elem] = idx;
-    return accObject;
-  };
-  R.reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    var numbers = [1, 2, 3];
+    var add = function(a, b) {
+        return a + b;
+    };
+    R.reduce(add, 10, numbers); //=> 16
+    R.reduce(add)(10, numbers); //=> 16
+    R.reduce(add, 10)(numbers); //=> 16
 }
 
 () => {
-  var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-  var flattenPairs = function(acc, pair) {
-    return acc.concat(pair);
-  };
-  R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+    var letters = ['a', 'b', 'c'];
+    var objectify = function(accObject, elem, idx, list) {
+        accObject[elem] = idx;
+        return accObject;
+    };
+    R.reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    R.reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    R.reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
 () => {
-  var letters = ['a', 'b', 'c'];
-  var objectify = function(accObject, elem, idx, list) {
-    accObject[elem] = idx;
-    return accObject;
-  };
-  R.reduceRightIndexed(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+    var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
+    var flattenPairs = function(acc, pair) {
+        return acc.concat(pair);
+    };
+    R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+    R.reduceRight(flattenPairs, [])(pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+    R.reduceRight(flattenPairs)([], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
+}
+
+() => {
+    var letters = ['a', 'b', 'c'];
+    var objectify = function(accObject, elem, idx, list) {
+        accObject[elem] = idx;
+        return accObject;
+    };
+    R.reduceRightIndexed(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+    R.reduceRightIndexed(objectify, {})(letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
+    R.reduceRightIndexed(objectify)({}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
 }
 
 () => {
     var isOdd = function(n) {
-      return n % 2 === 1;
+        return n % 2 === 1;
     };
     R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
 }
 
 () => {
     var lastTwo = function(val, idx, list) {
-      return list.length - idx <= 2;
+        return list.length - idx <= 2;
     };
     R.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    R.rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 () => {
     R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    R.remove(2, 3)([1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    R.remove(2)(3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
 }
 
 () => {
@@ -639,7 +673,9 @@ R.times(i, 5);
 
 () => {
     var numbers = [1, 2, 3, 4];
-    var factorials = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
+    R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
+    R.scan(R.multiply, 1)(numbers); //=> [1, 1, 2, 6, 24]
+    R.scan(R.multiply)(1, numbers); //=> [1, 1, 2, 6, 24]
 }
 
 () => {
@@ -664,22 +700,24 @@ R.times(i, 5);
     R.take(3,[1,2,3,4,5]); //=> [1,2,3]
 
     var members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
-                   "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
-                   "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
+    "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
+    "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
     var takeFive = R.take(5);
     takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 }
 
 () => {
     var isNotFour = function(x) {
-      return !(x === 4);
+        return !(x === 4);
     };
 
     R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    R.takeWhile(isNotFour)([1, 2, 3, 4]); //=> [1, 2, 3]
 }
 
 () => {
     R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+    R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
 }
 
 () => {
@@ -687,22 +725,59 @@ R.times(i, 5);
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
     var fn = R.flip<number, number[], number[]>(R.append);
     R.transduce(transducer, fn, [], numbers); //=> [2, 3]
+    R.transduce(transducer, fn, [])(numbers); //=> [2, 3]
+    R.transduce(transducer, fn)([], numbers); //=> [2, 3]
+    R.transduce(transducer)(fn, [], numbers); //=> [2, 3]
 }
 
 () => {
-
+    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
+    R.unfold(f)(10); //=> [-10, -20, -30, -40, -50]
 }
 
 () => {
-
+    R.uniq([1, 1, 2, 1]); //=> [1, 2]
+    R.uniq([{}, {}]);     //=> [{}, {}]
+    R.uniq([1, '1']);     //=> [1, '1']
 }
 
 () => {
-
+    var strEq = function(a, b) { return String(a) === String(b); };
+    R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
+    R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
+    R.uniqWith(strEq)([{}, {}]);       //=> [{}]
+    R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
+    R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
 }
 
 () => {
+    R.unnest([1, [2], [[3]]]); //=> [1, 2, [3]]
+    R.unnest([[1, 2], [3, 4], [5, 6]]); //=> [1, 2, 3, 4, 5, 6]
+}
 
+() => {
+    R.xprod([1, 2], ['a', 'b']); //=> [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+    R.xprod([1, 2])(['a', 'b']); //=> [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+}
+
+() => {
+    R.zip([1, 2, 3], ['a', 'b', 'c']); //=> [[1, 'a'], [2, 'b'], [3, 'c']]
+    R.zip([1, 2, 3])(['a', 'b', 'c']); //=> [[1, 'a'], [2, 'b'], [3, 'c']]
+}
+
+() => {
+    R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+    R.zipObj(['a', 'b', 'c'])([1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+}
+
+() => {
+    var f = function(x:number, y:string) {
+        // ...
+    };
+    R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
 }
 
 /*****************************************************************
@@ -718,6 +793,15 @@ R.times(i, 5);
     };
     var colors = {1: {color: 'read'}, 2: {color: 'black', bgcolor: 'yellow'}};
     R.filterObj(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
+
+}
+() => {
+    var values = { x: 1, y: 2, z: 3 };
+    var double = function(num) {
+        return num * 2;
+    };
+    R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
+    R.mapObj(double)(values); //=> { x: 2, y: 4, z: 6 }
 }
 /*****************************************************************
  * Math category
