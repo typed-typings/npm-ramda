@@ -541,6 +541,40 @@ declare module R {
          * Object category
          */
 
+        /**
+         * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
+         */
+        assoc(prop: string, val: any, obj: any): any;
+        assoc(prop: string): (val: any, obj: any) => any;
+        assoc(prop: string, val: any): (obj: any) => any;
+
+        /**
+         * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
+         * placing the specific value at the tail end of that path.
+         */
+        assocPath(path: string[], val: any, obj: any): any;
+        assocPath(path: string[]): (val: any, obj: any) => any;
+        assocPath(path: string[], val: any): (obj: any) => any;
+
+        /**
+         * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
+         */
+        clone(value: any): any;
+        clone(value: any[]): any[];
+
+        /**
+         * Creates an object containing a single key:value pair.
+         */
+        createMapEntry<T>(key: string, val: T): {[index: string]: T};
+        createMapEntry<T>(key: string): (val: T) => {[index: string]: T};
+
+        /**
+         * Returns a new object that does not contain a prop property.
+         */
+        dissoc(prop: string, obj: any): any;
+        dissoc(prop: string): (obj: any) => any;
+
+
         filterObj<T>(fn: (v: any) => boolean, obj: T): T;
 
         mapObj<T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
@@ -651,15 +685,6 @@ declare module R {
          */
         useWith(fn: Function, ...transformers: Function[]): Function;
 
-
-
-        clone(value: any): any;
-        clone(value: any[]): any[];
-
-        /**
-         * Creates an object containing a single key:value pair.
-         */
-        createMapEntry<T>(key: string, val: T): {[index: string]: T};
 
         /**
          * Reports whether an array is empty.
@@ -2444,7 +2469,6 @@ declare module R {
         T(): boolean;
         F(): boolean;
 
-        assoc(prop: string, val: any, obj: any): any;
     }
 }
 

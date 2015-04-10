@@ -784,6 +784,48 @@ R.times(i, 5);
  * Object category
  */
 () => {
+    R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+}
+
+() => {
+    R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+}
+
+() => {
+    var objects = [{}, {}, {}];
+    R.clone(objects);
+    R.clone({});
+    R.clone(10);
+    R.clone('foo');
+    R.clone(Date.now());
+}
+
+() => {
+    var matchPhrases = R.compose(
+      R.createMapEntry('must'),
+      R.map(R.createMapEntry('match_phrase'))
+    );
+    matchPhrases(['foo', 'bar', 'baz']);
+}
+
+() => {
+    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+}
+
+() => {
+
+}
+
+() => {
+
+}
+
+() => {
     var isPositive = function(n) {
         return n > 0;
     };
