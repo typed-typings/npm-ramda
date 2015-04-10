@@ -11,8 +11,25 @@ Pull requests are welcome!
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+##Usage and limitation
+To use the Ramda type definitions include the following line in each of the .ts files
+that use Ramda:
+```
+    /// <reference path=./path/to/ramda.d.ts />
+```
+
+In Ramda almost all functions are curried. TypeScript is not equipped well to support
+this. We have tried to use TypeScript to its max and allow for curried functions
+to be applied in maximum two steps like this:
+
+- `R.indexOf(10, [1,2,3,4])` or `R.indexOf(10)([1,2,3,4])`
+- `R.insert(2, 'x', [1,2,3,4])`, `R.insert(2)('x', [1,2,3,4])` or `R.insert(2, 'x')([1,2,3,4])`
+
+If you try to use `R.insert(2)('x')([1,2,3,4])`, TypeScript will complain that the
+supplied parameters do not match the target.
+
 ##Status
-The definitions are reorganized and updated and are more or less compatible with Ramda v0.13. The API of Ramda is not stable yet. 
+The definitions are reorganized and updated and are more or less compatible with Ramda v0.13. The API of Ramda is not stable yet.
 
 This needs to be done:
 - include all functions of v0.13

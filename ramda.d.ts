@@ -67,34 +67,43 @@ declare module R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list, an empty list is returned.
          */
         aperture<T>(n: number, list: T): T[][];
+        aperture<T>(n: number): (list: T) => T[][];
 
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
         // note U is required (instead of just T) to allow appending an element of a different type than the array is.
         append<T, U>(el: U, list: T[]): T[];
+        append<T, U>(el: U): (list: T[]) => T[];
 
         /**
          * `chain` maps a function over a list and concatenates the results.
-         * This implementation is compatible with the
-         * Fantasy-land Chain spec, and will work with types that implement that spec.
-         * `chain` is also known as `flatMap` in some libraries.
+         * This implementation is compatible with the Fantasy-land Chain spec
          */
         chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
+        chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
+        /**
+         * Turns a list of Functors into a Functor of a list.
+         */
         commute<T, U>(of: (x: T) => T[], list: U[]): U[]
+        commute<T, U>(of: (x: T) => T[]): (list: U[]) => U[]
 
         /*
          * Turns a list of Functors into a Functor of a list, applying a mapping function to the elements of the list along the way.
          */
         commuteMap<T, U>(fn: (list: T[]) => U[], of: (x: T[]) => U[][], list: T[][]): U[][];
+        commuteMap<T, U>(fn: (list: T[]) => U[]): (of: (x: T[]) => U[][], list: T[][]) => U[][];
+        commuteMap<T, U>(fn: (list: T[]) => U[], of: (x: T[]) => U[][]): (list: T[][]) => U[][];
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
         concat<T>(list1: T[], list2: T[]): T[];
+        concat<T>(list1: T[]): (list2: T[]) => T[];
         concat<T>(list1: string, list2: string): string;
+        concat<T>(list1: string): (list2: string) => string;
 
         /**
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
@@ -108,17 +117,20 @@ declare module R {
          * equality predicate for `x`.
          */
         containsWith<T>(pred: (a: T, b: T) => boolean, x: T, list: T[]): boolean;
+        containsWith<T>(pred: (a: T, b: T) => boolean, x: T): (list: T[]) => boolean;
 
         /**
          * Returns a new list containing all but the first n elements of the given list.
          */
         drop<T>(n: number, list: T[]): T[];
+        drop<T>(n: number): (list: T[]) => T[];
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
          * predicate function, skipping elements while the predicate function returns true.
          */
         dropWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
+        dropWhile<T>(fn: (a: T) => boolean): (list: T[]) => T[];
 
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
@@ -206,6 +218,7 @@ declare module R {
          * or -1 if the item is not included in the array.
          */
         indexOf<T>(target: T, list: T[]): number;
+        indexOf<T>(target: T): (list: T[]) => number;
 
         /**
          * Returns all but the last element of a list.
@@ -217,15 +230,20 @@ declare module R {
          * this is not destructive: it returns a copy of the list with the changes.
          */
         insert(index: number, elt: any, list: any[]): any[];
+        insert(index: number): (elt: any, list: any[]) => any[];
+        insert(index: number, elt: any): (list: any[]) => any[];
 
         /**
          * Inserts the sub-list into the list, at index `index`.  _Note  that this
          * is not destructive_: it returns a copy of the list with the changes.
          */
         insertAll(index: number, elts: any[], list: any[]): any[];
+        insertAll(index: number): (elts: any[], list: any[]) => any[];
+        insertAll(index: number, elts: any[]): (list: any[]) => any[];
 
         /**
-         *
+         * Transforms the items of the list with the transducer and appends the transformed items to the accumulator
+         * using an appropriate iterator function based on the accumulator type.
          */
         into<T>(acc: any, xf: Function, list: T[]): T[];
         into<T>(acc: any, xf: Function): (list: T[]) => T[];
@@ -272,21 +290,27 @@ declare module R {
          * The mapAccum function behaves like a combination of map and reduce.
          */
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
 
         /**
          * Like map, but but passes additional parameters to the mapping function.
          */
         mapIndexed<T, U>(fn: (val: T, key: string, list: T) => U, list: T[]): U[];
+        mapIndexed<T, U>(fn: (val: T, key: string, list: T) => U): (list: T[]) => U[];
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
+        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index:string]: TResult};
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
@@ -297,17 +321,20 @@ declare module R {
          * Returns true if no elements of the list match the predicate, false otherwise.
          */
         none<T>(fn: (a: T) => boolean, list: T[]): boolean;
+        none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
          * Returns the nth element in a list.
          */
         nth<T>(n: number, list: T[]): T;
+        nth<T>(n: number): (list: T[]) => T;
 
         /**
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
         partition<T>(fn: (a: T) => boolean, list: T): T[]
+        partition<T>(fn: (a: T) => boolean): (list: T) => T[]
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -320,7 +347,7 @@ declare module R {
          * list.
          */
         prepend<T>(el: T, list: T[]): T[];
-
+        prepend<T>(el: T): (list: T[]) => T[];
 
         /**
          * Returns a list of numbers from `from` (inclusive) to `to`
@@ -328,6 +355,7 @@ declare module R {
          * the half-open interval `[a, b)`.
          */
         range(from: number, to: number): number[];
+        range(from: number): (to: number) => number[];
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -335,6 +363,8 @@ declare module R {
          * then passing the result to the next call.
          */
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Like `reduce`, but passes additional parameters to the predicate function.
@@ -373,7 +403,6 @@ declare module R {
         rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean, list: T[]): T[];
         rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean): (list: T[]) => T[];
 
-
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
          */
@@ -405,7 +434,6 @@ declare module R {
         slice<T>(a: number, b: number, list: T[]): T[];
         slice<T>(a: number, b: number): (list: T[])  => T[];
         slice<T>(a: number): (b: number, list: T[])  => T[];
-
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
@@ -482,18 +510,21 @@ declare module R {
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
         xprod<K,V>(as: K[], bs: V[]): KeyValuePair<K,V>[];
+        xprod<K,V>(as: K[]): (bs: V[]) => KeyValuePair<K,V>[];
 
         /**
          * Creates a new list out of the two supplied by pairing up equally-positioned items from
          * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
          */
         zip<K,V>(list1: K[], list2: V[]): KeyValuePair<K,V>[];
-
+        zip<K,V>(list1: K[]): (list2: V[]) => KeyValuePair<K,V>[];
 
         /**
          * Creates a new object out of a list of keys and a list of values.
          */
-        zipObj<T>(keys: string[], values: T[]): Dictionary<T>;
+        // TODO: Dictionary<T> as a return value is to specific, any seems to loose
+        zipObj<T>(keys: string[], values: T[]): any;
+        zipObj<T>(keys: string[]): (values: T[]) => any;
 
         /**
          * Creates a new list out of the two supplied by applying the function to each
@@ -511,7 +542,9 @@ declare module R {
          */
 
         filterObj<T>(fn: (v: any) => boolean, obj: T): T;
-        mapObj<T, TResult>(fn: (value: T) => TResult, obj?: any): {[index: string]: TResult};
+
+        mapObj<T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
+        mapObj<T, TResult>(fn: (value: T) => TResult): (obj: any) => {[index: string]: TResult};
 
         tr<T extends {[index:string]: any}>(a: T):T;
      }
