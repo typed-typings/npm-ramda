@@ -15,18 +15,27 @@ Pull requests are welcome!
 To use the Ramda type definitions include the following line in each of the .ts files
 that use Ramda:
 ```
-    /// <reference path=./path/to/ramda.d.ts />
+    /// <reference path="./path/to/ramda.d.ts" />
 ```
 
 In Ramda almost all functions are curried. TypeScript is not equipped well to support
 this. We have tried to use TypeScript to its max and allow for curried functions
-to be applied in maximum two steps like this:
+to be applied in maximum two steps. For binary function you could do:
 
-- `R.indexOf(10, [1,2,3,4])` or `R.indexOf(10)([1,2,3,4])`
-- `R.insert(2, 'x', [1,2,3,4])`, `R.insert(2)('x', [1,2,3,4])` or `R.insert(2, 'x')([1,2,3,4])`
+```javascript
+R.indexOf(10, [1,2,3,4])
+R.indexOf(10)([1,2,3,4])
+```
+and for ternary functions
+```javascript
+R.insert(2, 'x', [1,2,3,4])
+R.insert(2)('x', [1,2,3,4])
+R.insert(2, 'x')([1,2,3,4])
 
-If you try to use `R.insert(2)('x')([1,2,3,4])`, TypeScript will complain that the
-supplied parameters do not match the target.
+R.insert(2)('x')([1,2,3,4]) // => type error!
+```
+
+In the last application of `insert` TypeScript will complain that the supplied parameters do not match the target. However, this is a valid application of the Ramda function.
 
 ##Status
 The definitions are reorganized and updated and are more or less compatible with Ramda v0.13. The API of Ramda is not stable yet.
