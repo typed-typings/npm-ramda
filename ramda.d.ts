@@ -144,8 +144,8 @@ declare module R {
          * Returns the index of the first element of the list which matches the predicate, or `-1`
          * if no element matches.
          */
-        findIndex<T>(fn: (a: T[]) => boolean, list: T[]): number;
-        findIndex<T>(fn: (a: T[]) => boolean): (list: T[]) => number;
+        findIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+        findIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
 
         /**
          * Returns the last element of the list which matches the predicate, or `undefined` if no
@@ -158,8 +158,8 @@ declare module R {
          * Returns the index of the last element of the list which matches the predicate, or
          * `-1` if no element matches.
          */
-        findLastIndex<T>(fn: (a: T[]) => boolean, list: T[]): number;
-        findLastIndex<T>(fn: (a: T[]) => boolean): (list: T[]) => number;
+        findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
+        findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
 
         /**
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
