@@ -548,6 +548,12 @@ declare module R {
         assoc(prop: string): (val: any, obj: any) => any;
         assoc(prop: string, val: any): (obj: any) => any;
 
+        // assoc(prop: string, val: placeholder, obj: any): (val: any) => any;
+        // assoc(prop: string, val: any, obj: placeholder): (obj: any) => any;
+        // assoc(prop: placeholder, val: placeholder, obj: any): (prop:string, val: any) => any;
+        // assoc(prop: placeholder, val: any, obj: placeholder): (prop:string, obj: any) => any;
+        // assoc(prop: placeholder, val: any, obj: any): (prop:string) => any;
+
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
@@ -566,13 +572,62 @@ declare module R {
          * Creates an object containing a single key:value pair.
          */
         createMapEntry<T>(key: string, val: T): {[index: string]: T};
+        createMapEntry<T>(key: placeholder, val: T): (key: string) => {[index: string]: T};
         createMapEntry<T>(key: string): (val: T) => {[index: string]: T};
 
         /**
          * Returns a new object that does not contain a prop property.
          */
         dissoc(prop: string, obj: any): any;
+        dissoc(prop: placeholder, obj: any): (prop: string) => any;
         dissoc(prop: string): (obj: any) => any;
+
+        /**
+         * Makes a shallow clone of an object, omitting the property at the given path.
+         */
+        dissocPath(path: string[], obj: any): any;
+        dissocPath(path: string[]): (obj: any) => any;
+
+        /**
+         * Reports whether two functions have the same value for the specified property.
+         */
+        eqProps(prop: string, obj1: any, obj2: any): boolean;
+        eqProps(prop: string): (obj1: any, obj2: any) => boolean;
+        eqProps(prop: string, obj1: any): (obj2: any) => boolean;
+
+        /**
+         * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
+         */
+        evolve(transformations: {[index: string]: (value: any) => any}, obj: any): any;
+
+        /**
+         * Returns a list of function names of object's own functions
+         */
+        functions(obj: any): string[];
+
+        /**
+         * Returns a list of function names of object's own and prototype functions
+         */
+        functionsIn(obj: any): string[];
+
+        /**
+         * Returns whether or not an object has an own property with the specified name.
+         */
+        has(s: string, obj: any): boolean;
+        has(s: string): (obj: any) => boolean;
+        has(s: placeholder, obj: any): (a: string) => boolean;
+
+        /**
+         * Returns whether or not an object or its prototype chain has a property with the specified name
+         */
+        hasIn(s: string, obj: any): boolean;
+        hasIn(s: string): (obj: any) => boolean;
+        hasIn(s: placeholder, obj: any): (a: string) => boolean;
+
+        /**
+         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
+         */
+        invert(obj: any): any;
 
 
         filterObj<T>(fn: (v: any) => boolean, obj: T): T;
@@ -581,7 +636,8 @@ declare module R {
         mapObj<T, TResult>(fn: (value: T) => TResult): (obj: any) => {[index: string]: TResult};
 
         tr<T extends {[index:string]: any}>(a: T):T;
-     }
+    }
+
     interface List {
         /*
          * Function category
@@ -1145,12 +1201,7 @@ declare module R {
         //     return x;
         // });
 
-        /**
-         * Returns whether or not an object has an own property with the specified name.
-         */
-        has(s: string, obj: any): boolean;
-        has(s: string): (obj: any) => boolean;
-        has(s: placeholder, obj: any): (a: string) => boolean;
+
 
 
         /**
@@ -1516,26 +1567,7 @@ declare module R {
 
 
 
-        /**
-         * Reports whether two functions have the same value for the specified property.  Useful as a curried predicate.
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig k -> {k: v} -> {k: v} -> Boolean
-         * @param {String} prop The name of the property to compare
-         * @param {Object} obj1
-         * @param {Object} obj2
-         * @return {Boolean}
-         *
-         * @example
-         *
-         *      var o1 = { a: 1, b: 2, c: 3, d: 4 };
-         *      var o2 = { a: 10, b: 20, c: 3, d: 40 };
-         *      R.eqProps('a', o1, o2); //=> false
-         *      R.eqProps('c', o1, o2); //=> true
-         */
-        eqProps(prop: string, obj1: any, obj2: any): boolean;
+
 
 
         /**
@@ -2435,31 +2467,8 @@ declare module R {
 
 
 
-        /**
-         * Returns a list of function names of object's own functions
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig {*} -> [String]
-         * @param {Object} obj The objects with functions in it
-         * @return {Array} returns a list of the object's own properites that map to functions
-         * @example
-         *
-         *      R.functions(R); // returns list of ramda's own function names
-         *
-         *      var F = function() { this.x = function(){}; this.y = 1; }
-         *      F.prototype.z = function() {};
-         *      F.prototype.a = 100;
-         *      R.functions(new F()); //=> ["x"]
-         */
-        functions(obj: any): string[];
 
 
-        /**
-         * Returns a list of function names of object's own and prototype functions
-         */
-        functionsIn(obj: any): string[];
 
         eq<T,U>(a: T, b: U): boolean;
 

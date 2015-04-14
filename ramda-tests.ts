@@ -787,6 +787,10 @@ R.times(i, 5);
     R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    // R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
+    // R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
+    // R.assoc('c', 3, R.__)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    // R.assoc(R.__, 3, R.__)('c', {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
@@ -810,11 +814,89 @@ R.times(i, 5);
       R.map(R.createMapEntry('match_phrase'))
     );
     matchPhrases(['foo', 'bar', 'baz']);
+
+    R.createMapEntry(R.__, 2)('b');
 }
 
 () => {
     R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
     R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    R.dissoc(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+}
+
+() => {
+    R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); //=> {a: {b: {}}}
+}
+
+() => {
+    var o1 = { a: 1, b: 2, c: 3, d: 4 };
+    var o2 = { a: 10, b: 20, c: 3, d: 40 };
+    R.eqProps('a', o1, o2); //=> false
+    R.eqProps('c', o1, o2); //=> true
+    R.eqProps('c')(o1, o2); //=> true
+    R.eqProps('c', o1)(o2); //=> true
+}
+
+() => {
+    R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
+     //=> { name: 'Tomato', elapsed: 101, remaining: 1399 }
+}
+
+() => {
+    R.functions(R); // returns list of ramda's own function names
+
+    var F = function() { this.x = function(){}; this.y = 1; }
+    F.prototype.z = function() {};
+    F.prototype.a = 100;
+    R.functions(new F()); //=> ["x"]
+}
+
+() => {
+    R.functionsIn(R); // returns list of ramda's own and prototype function names
+
+    var F = function() { this.x = function(){}; this.y = 1; }
+    F.prototype.z = function() {};
+    F.prototype.a = 100;
+    R.functionsIn(new F()); //=> ["x", "z"]
+}
+
+() => {
+    var hasName = R.has('name');
+    hasName({name: 'alice'});   //=> true
+    hasName({name: 'bob'});     //=> true
+    hasName({});                //=> false
+
+    var point = {x: 0, y: 0};
+    var pointHas = R.has(R.__, point);
+    pointHas('x');  //=> true
+    pointHas('y');  //=> true
+    pointHas('z');  //=> false
+}
+
+() => {
+    function Rectangle(width, height) {
+      this.width = width;
+      this.height = height;
+    }
+    Rectangle.prototype.area = function() {
+      return this.width * this.height;
+    };
+
+    var square = new Rectangle(2, 2);
+    R.hasIn('width', square);  //=> true
+    R.hasIn('area', square);  //=> true
+    R.hasIn(R.__, square)('area');  //=> true
+}
+
+() => {
+    var raceResultsByFirstName = {
+      first: 'alice',
+      second: 'jake',
+      third: 'alice',
+    };
+    R.invert(raceResultsByFirstName);
+    //=> { 'alice': ['first', 'third'], 'jake':['second'] }
 }
 
 () => {
