@@ -23,10 +23,6 @@ var shout = function(x: number): string {
     x = R.isArrayLike([]);
 });
 
-R.substring(0, 4, '1234567');
-R.substringFrom(4, '1234567');
-R.substringTo(8, 'abcdefghijklm');
-
 () => {
     var takesNoArg = function() { return true; };
     var takesOneArg = function(a) { return [a]; };
@@ -927,6 +923,38 @@ R.times(i, 5);
     R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
     R.mapObj(double)(values); //=> { x: 2, y: 4, z: 6 }
 }
+
+/*****************************************************************
+ * Function category
+ */
+
+
+/*****************************************************************
+ * Relation category
+ */
+() => {
+    R.path(['a', 'b'], {a: {b: 2}}); //=> 2
+    R.path(['a', 'b'])({a: {b: 2}}); //=> 2
+}
+
+() => {
+    var sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
+    var alice = {
+      name: 'ALICE',
+      age: 101
+    };
+    var bob = {
+      name: 'Bob',
+      age: -10
+    };
+    var clara = {
+      name: 'clara',
+      age: 314.159
+    };
+    var people = [clara, bob, alice];
+    sortByNameCaseInsensitive(people); //=> [alice, bob, clara]
+}
+
 /*****************************************************************
  * Math category
  */
@@ -1080,4 +1108,17 @@ R.times(i, 5);
 
 () => {
     R.sum([2,4,6,8,100,1]); //=> 121
+}
+
+/*****************************************************************
+ * Math category
+ */
+() => {
+    R.substring(0, 4, '1234567');
+    R.substringFrom(4, '1234567');
+    R.substringTo(8, 'abcdefghijklm');
+}
+
+() => {
+
 }
