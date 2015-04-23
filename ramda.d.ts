@@ -1493,6 +1493,7 @@ declare module R {
          *      R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
          */
         pick<T>(names: string[], obj: T): T;
+        pick<T>(names: string[]): (obj: T) => T;
 
 
         /**
@@ -1510,6 +1511,7 @@ declare module R {
          *      R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
          */
         omit<T>(names: string[], obj: T): T;
+        omit<T>(names: string[]): (obj: T) => T;
 
 
         /**
@@ -1532,6 +1534,7 @@ declare module R {
          *      R.pickWith(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
          */
         pickWith<T>(pred: (v: any, k: string) => boolean, T): T;
+        pickWith<T>(pred: (v: any, k: string) => boolean): (T) => T;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -1550,6 +1553,7 @@ declare module R {
          *      R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
          */
         pickAll<T>(names: string[], T): T;
+        pickAll<T>(names: string[]): (T) => T;
 
 
         /**
@@ -1609,6 +1613,7 @@ declare module R {
          *      R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
          */
         where<T>(spec: T, testObj: T): boolean;
+        where<T>(spec: T): (testObj: T) => boolean;
 
 
         // Miscellaneous Functions
@@ -1662,6 +1667,7 @@ declare module R {
          *      R.is(Number, {}); //=> false
          */
         is(ctor: any, val: any): boolean;
+        is(ctor: any): (val: any) => boolean;
 
 
         /**
@@ -1742,7 +1748,8 @@ declare module R {
          *      f(100); //=> true
          *      f(101); //=> false
          */
-        and<T extends () => boolean>(fn1: T, fn2: T): T;
+        and<T extends (x) => boolean>(fn1: T, fn2: T): T;
+        and<T extends (x) => boolean>(fn1: T): (fn2: T) => T;
 
         /**
          * A function wrapping calls to the two functions in an `||` operation, returning `true` or `false`.  Note that
@@ -1764,7 +1771,8 @@ declare module R {
          *      f(101); //=> true
          *      f(8); //=> true
          */
-        or<T extends () => boolean>(fn1: T, fn2: T): T;
+        or<T extends (x) => boolean>(fn1: T, fn2: T): T;
+        or<T extends (x) => boolean>(fn1: T): (fn2: T) => T;
 
 
         /**
@@ -1803,11 +1811,11 @@ declare module R {
          *
          *      var gt10 = function(x) { return x > 10; };
          *      var even = function(x) { return x % 2 === 0};
-         *      var f = R.allPredicates([gt10, even]);
+         *      var f = R.allPass([gt10, even]);
          *      f(11); //=> false
          *      f(12); //=> true
          */
-        allPredicates(fns: Function[], ...args: any[]): Function;
+        allPass(fns: Function[], ...args: any[]): Function;
 
 
         /**
@@ -1825,12 +1833,12 @@ declare module R {
          *
          *      var gt10 = function(x) { return x > 10; };
          *      var even = function(x) { return x % 2 === 0};
-         *      var f = R.anyPredicates([gt10, even]);
+         *      var f = R.anyPass([gt10, even]);
          *      f(11); //=> true
          *      f(8); //=> true
          *      f(9); //=> false
          */
-        anyPredicates(fns: Function[], ...args: any[]): Function;
+        anyPass(fns: Function[], ...args: any[]): Function;
 
     }
 
