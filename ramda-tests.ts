@@ -435,7 +435,7 @@ R.times(i, 5);
 }
 
 () => {
-    var byGrade = R.groupBy(function(student: {score: number, name: string}) {
+    var byGrade = R.groupBy(function(student: {score: number; name: string}) {
         var score = student.score;
         return score < 65 ? 'F' :
         score < 70 ? 'D' :
@@ -915,6 +915,7 @@ R.times(i, 5);
     R.filterObj(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
 
 }
+
 () => {
     var values = { x: 1, y: 2, z: 3 };
     var double = function(num) {
@@ -924,10 +925,52 @@ R.times(i, 5);
     R.mapObj(double)(values); //=> { x: 2, y: 4, z: 6 }
 }
 
+() => {
+    R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+}
+
+() => {
+    R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+    R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+}
+
+() => {
+    var isUpperCase = function(val, key) { return key.toUpperCase() === key; }
+    R.pickWith(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+    R.pickWith(isUpperCase)({a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+}
+
+() => {
+    R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
+    R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
+}
+
+() => {
+    var spec = {x: 2};
+    R.where(spec, {w: 10, x: 2, y: 300}); //=> true
+    R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
+    R.where(spec)({w: 10, x: 2, y: 300}); //=> true
+    R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
+
+    // There's no way to represent the below functionality in typescript
+    // per http://stackoverflow.com/a/29803848/632495
+    // will need a work around.
+    //var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
+    //R.where(spec2, {x: 2, y: 7}); //=> false
+    //R.where(spec2, {x: 3, y: 8}); //=> true
+
+    var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
+    R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+    R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+}
+
 /*****************************************************************
  * Function category
  */
-
 
 /*****************************************************************
  * Relation category
@@ -1121,4 +1164,70 @@ R.times(i, 5);
 
 () => {
 
+}
+
+/*****************************************************************
+ * Is category
+ */
+
+() => {
+    R.is(Object, {}); //=> true
+    R.is(Object)({}); //=> true
+    R.is(Number, 1); //=> true
+    R.is(Number)(1); //=> true
+    R.is(Object, 1); //=> false
+    R.is(Object)(1); //=> false
+    R.is(String, 's'); //=> true
+    R.is(String)('s'); //=> true
+    R.is(String, new String('')); //=> true
+    R.is(String)(new String('')); //=> true
+    R.is(Object, new String('')); //=> true
+    R.is(Object)(new String('')); //=> true
+    R.is(Object, 's'); //=> false
+    R.is(Object)('s'); //=> false
+    R.is(Number, {}); //=> false
+    R.is(Number)({}); //=> false
+}
+
+/*****************************************************************
+ * Logic category
+ */
+
+() => {
+    var gt10 = function(x) { return x > 10; };
+    var even = function(x) { return x % 2 === 0 };
+    var f = R.and(gt10, even);
+    f(100); //=> true
+    f(101); //=> false
+    var f = R.and(gt10)(even);
+    f(100); //=> true
+    f(101); //=> false
+}
+
+() => {
+    var gt10 = function(x) { return x > 10; };
+    var even = function(x) { return x % 2 === 0 };
+    var f = R.or(gt10, even);
+    f(101); //=> true
+    f(8); //=> true
+    var f = R.or(gt10)(even);
+    f(101); //=> true
+    f(8); //=> true
+}
+
+() => {
+    var gt10 = function(x) { return x > 10; };
+    var even = function(x) { return x % 2 === 0};
+    var f = R.allPass([gt10, even]);
+    f(11); //=> false
+    f(12); //=> true
+}
+
+() => {
+    var gt10 = function(x) { return x > 10; };
+    var even = function(x) { return x % 2 === 0};
+    var f = R.anyPass([gt10, even]);
+    f(11); //=> true
+    f(8); //=> true
+    f(9); //=> false
 }
