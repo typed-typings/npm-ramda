@@ -959,9 +959,9 @@ R.times(i, 5);
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
-    //var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
-    //R.where(spec2, {x: 2, y: 7}); //=> false
-    //R.where(spec2, {x: 3, y: 8}); //=> true
+    var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
+    R.where(spec2, {x: 2, y: 7}); //=> false
+    R.where(spec2, {x: 3, y: 8}); //=> true
 
     var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
     R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
