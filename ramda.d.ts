@@ -628,8 +628,47 @@ declare module R {
         /**
          * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
          */
-        invert(obj: any): any;
+        invert(obj: any): {[index:string]: string[]};
 
+        /**
+         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
+         */
+        invertObj(obj: any): {[index:string]: string};
+        invertObj(obj: {[index: number]: string}): {[index:string]: string};
+
+        /**
+         * Returns the result of applying obj[methodName] to args.
+         */
+        invoke(methodName: string, args: any[], obj: any): any;
+        // invoke(methodName: string): (args: any[]) => (obj: any) => any;
+        invoke(methodName: string): (args: any[], obj: any) => any;
+        invoke(methodName: string, args: any[]): (obj: any) => any;
+
+        /**
+         * Returns a list containing the names of all the enumerable own
+         * properties of the supplied object.
+         */
+        keys(x: any): string[];
+
+        /**
+         * Returns a list containing the names of all the
+         * properties of the supplied object, including prototype properties.
+         */
+        keysIn(obj: any): string[];
+
+        /**
+         * Creates a lens. Supply a function to get values from inside an object, and a set function to change values on an object.
+         */
+        lens<T,U>(get: (k: T[]) => T, set: (v: string, a: U[]) => U[]): {
+            (k: T[]): T;
+            set: (Function);
+            map: Function;
+        }
+        lens<T,U>(get: (k: T) => U, set: (v: string, a: T) => U): {
+            (k: T): U;
+            set: (Function);
+            map: Function;
+        }
 
         filterObj<T>(fn: (v: any) => boolean, obj: T): T;
 
@@ -1197,6 +1236,13 @@ declare module R {
 
 
     }
+    interface ObjFunc {
+        [index:string]: Function;
+    }
+    interface ObjFunc2 {
+        [index:string]: (x: any, y: any) => boolean;
+    }
+
     interface List {
         // Object Functions
         // ----------------
@@ -1347,45 +1393,6 @@ declare module R {
         always(val: any): Function;
 
 
-        /**
-         * Returns a list containing the names of all the enumerable own
-         * properties of the supplied object.
-         * Note that the order of the output array is not guaranteed to be
-         * consistent across different JS platforms.
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig {k: v} -> [k]
-         * @param {Object} obj The object to extract properties from
-         * @return {Array} An array of the object's own properties
-         * @example
-         *
-         *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
-         */
-        keys(x: any): string[];
-
-
-        /**
-         * Returns a list containing the names of all the
-         * properties of the supplied object, including prototype properties.
-         * Note that the order of the output array is not guaranteed to be
-         * consistent across different JS platforms.
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig {k: v} -> [k]
-         * @param {Object} obj The object to extract properties from
-         * @return {Array} An array of the object's own and prototype properties
-         * @example
-         *
-         *      var F = function() { this.x = 'X'; };
-         *      F.prototype.y = 'Y';
-         *      var f = new F();
-         *      R.keysIn(f); //=> ['x', 'y']
-         */
-        keysIn(obj: any): string[];
 
 
         /**
@@ -1585,35 +1592,11 @@ declare module R {
          * Takes a spec object and a test object and returns true if the test satisfies the spec.
          * Any property on the spec that is not a function is interpreted as an equality
          * relation.
-         *
-         * If the spec has a property mapped to a function, then `where` evaluates the function, passing in
-         * the test object's value for the property in question, as well as the whole test object.
-         *
-         * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
-         * `filter`, `find`, `pickWith`, etc.
-         *
-         * @func
-         * @memberOf R
-         * @category Object
-         * @sig {k: v} -> {k: v} -> Boolean
-         * @param {Object} spec
-         * @param {Object} testObj
-         * @return {Boolean}
-         * @example
-         *
-         *      var spec = {x: 2};
-         *      R.where(spec, {w: 10, x: 2, y: 300}); //=> true
-         *      R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
-         *
-         *      var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
-         *      R.where(spec2, {x: 2, y: 7}); //=> false
-         *      R.where(spec2, {x: 3, y: 8}); //=> true
-         *
-         *      var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
-         *      R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
          */
         where<T>(spec: T, testObj: T): boolean;
         where<T>(spec: T): (testObj: T) => boolean;
+        where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
+        where<ObjFunc2,U>(spec: ObjFunc2): (testObj: U) => boolean;
 
 
         // Miscellaneous Functions

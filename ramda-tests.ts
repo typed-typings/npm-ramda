@@ -896,11 +896,63 @@ R.times(i, 5);
 }
 
 () => {
+    let raceResults0 = {
+      first: 'alice',
+      second: 'jake'
+    };
+    R.invertObj(raceResults0);
+    //=> { 'alice': 'first', 'jake':'second' }
 
+    // Alternatively:
+    let raceResults1 = ['alice', 'jake'];
+    R.invertObj(raceResults1);
+    //=> { 'alice': '0', 'jake':'1' }
 }
 
 () => {
+    //  toBinary :: Number -> String
+    var toBinary = R.invoke('toString', [2])
 
+    toBinary(42); //=> '101010'
+    toBinary(63); //=> '111111'
+    R.invoke('toString')([2], 42)
+    // R.invoke('toString')([2])(42)
+}
+
+() => {
+    R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+}
+
+() => {
+    var F = function() { this.x = 'X'; };
+    F.prototype.y = 'Y';
+    var f = new F();
+    R.keysIn(f); //=> ['x', 'y']
+}
+
+() => {
+    var headLens = R.lens(
+      function get(arr) { return arr[0]; },
+      function set(val, arr) { return [val].concat(arr.slice(1)); }
+    );
+    headLens([10, 20, 30, 40]); //=> 10
+    headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
+    headLens.map(function(x) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+
+    var phraseLens = R.lens(
+      function get(obj) { return obj.phrase; },
+      function set(val, obj) {
+        var out = R.clone(obj);
+        out.phrase = val;
+        return out;
+      }
+    );
+    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
+    var obj2 = { phrase: "What's all this, then?"};
+    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    phraseLens(obj2); // => "What's all this, then?"
+    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
 }
 
 () => {
@@ -959,9 +1011,9 @@ R.times(i, 5);
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
-    //var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
-    //R.where(spec2, {x: 2, y: 7}); //=> false
-    //R.where(spec2, {x: 3, y: 8}); //=> true
+    var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
+    R.where(spec2, {x: 2, y: 7}); //=> false
+    R.where(spec2, {x: 3, y: 8}); //=> true
 
     var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
     R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
