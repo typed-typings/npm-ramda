@@ -654,6 +654,7 @@ declare module R {
          * a variadic function. fn should be a bound function if context is significant.
          */
         apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: U[]): TResult;
+        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult): (args: U[]) => TResult;
 
         // flip returns a function that can be used curried. TypeScript can not handle multiple return types with the
         // the same argument types. Therefore all be the first argument of the returned function is made optional.
