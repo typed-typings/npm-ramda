@@ -549,6 +549,23 @@ declare module R {
         assoc(prop: string): (val: any, obj: any) => any;
         assoc(prop: string, val: any): (obj: any) => any;
 
+        /**
+         * Returns a new object that does not contain a `prop` property.
+         *
+         * @func
+         * @memberOf R
+         * @category Object
+         * @sig String -> {k: v} -> {k: v}
+         * @param {String} prop the name of the property to dissociate
+         * @param {Object} obj the object to clone
+         * @return {Object} a new object similar to the original but without the specified property
+         * @example
+         *
+         *      R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+         */
+         dissoc(prop: string, obj: any): any
+         dissoc(prop: string): (obj: any) => any
+
         // assoc(prop: string, val: placeholder, obj: any): (val: any) => any;
         // assoc(prop: string, val: any, obj: placeholder): (obj: any) => any;
         // assoc(prop: placeholder, val: placeholder, obj: any): (prop:string, val: any) => any;
