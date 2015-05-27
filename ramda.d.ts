@@ -2159,31 +2159,14 @@ declare module R {
         /**
          * Determines whether the given property of an object has a specific
          * value according to strict equality (`===`).  Most likely used to
-         * filter a list:
-         *
-         * @func
-         * @memberOf R
-         * @category relation
-         * @sig k -> v -> {k: v} -> Boolean
-         * @param {string|number} name The property name (or index) to use.
-         * @param {*} val The value to compare the property with.
-         * @return {boolean} `true` if the properties are equal, `false` otherwise.
-         * @example
-         *
-         *      var abby = {name: 'Abby', age: 7, hair: 'blond'};
-         *      var fred = {name: 'Fred', age: 12, hair: 'brown'};
-         *      var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
-         *      var alois = {name: 'Alois', age: 15, disposition: 'surly'};
-         *      var kids = [abby, fred, rusty, alois];
-         *      var hasBrownHair = R.propEq('hair', 'brown');
-         *      R.filter(hasBrownHair, kids); //=> [fred, rusty]
+         * filter a list.
          */
-        propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
-        propEq<T>(name: number, val: T, obj: {[index:number]: T}): boolean;
+        propEq<T>(name: string, val: T, obj: any): boolean;
+        propEq<T>(name: number, val: T, obj: any): boolean;
         propEq<T>(name: string, val: T): (...args: any[]) => boolean;
         propEq<T>(name: number, val: T): (...args: any[]) => boolean;
-        propEq<T>(name: string): (...args: any[]) => boolean;
-        propEq<T>(name: number): (...args: any[]) => boolean;
+        propEq<T>(name: string): (val: T, ...args: any[]) => boolean;
+        propEq<T>(name: number): (val: T, ...args: any[]) => boolean;
 
 
         /**
