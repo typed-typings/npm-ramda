@@ -1551,8 +1551,8 @@ declare module R {
          *      var isUpperCase = function(val, key) { return key.toUpperCase() === key; }
          *      R.pickWith(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
          */
-        pickWith<T>(pred: (v: any, k: string) => boolean, T): T;
-        pickWith<T>(pred: (v: any, k: string) => boolean): (T) => T;
+        pickWith<T>(pred: (v: any, k: string) => boolean, T: any): T;
+        pickWith<T>(pred: (v: any, k: string) => boolean): (T: any) => T;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -1570,8 +1570,8 @@ declare module R {
          *      R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
          *      R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
          */
-        pickAll<T>(names: string[], T): T;
-        pickAll<T>(names: string[]): (T) => T;
+        pickAll<T>(names: string[], T: any): T;
+        pickAll<T>(names: string[]): (T: any) => T;
 
 
         /**
@@ -1766,8 +1766,8 @@ declare module R {
          *      f(100); //=> true
          *      f(101); //=> false
          */
-        and<T extends (x) => boolean>(fn1: T, fn2: T): T;
-        and<T extends (x) => boolean>(fn1: T): (fn2: T) => T;
+        and<T extends (x) => boolean>(fn1: T, fn2: T: any): T;
+        and<T extends (x) => boolean>(fn1: T): (fn2: T: any) => T;
 
         /**
          * A function wrapping calls to the two functions in an `||` operation, returning `true` or `false`.  Note that
@@ -1789,8 +1789,8 @@ declare module R {
          *      f(101); //=> true
          *      f(8); //=> true
          */
-        or<T extends (x) => boolean>(fn1: T, fn2: T): T;
-        or<T extends (x) => boolean>(fn1: T): (fn2: T) => T;
+        or<T extends (x: any) => boolean>(fn1: T, fn2: T): T;
+        or<T extends (x: any) => boolean>(fn1: T): (fn2: T) => T;
 
 
         /**
