@@ -1,4 +1,4 @@
-declare var R: R.List;
+declare var R: R.Static;
 
 declare module R {
 
@@ -91,9 +91,10 @@ declare module R {
         /**
          * Turns a list of Functors into a Functor of a list.
          */
+        commute<T, U>(of: (x: T) => U, list: U[]): U;
+        commute<T, U>(of: (x: T) => U): (list: U[]) => U;
         commute<T, U>(of: (x: T) => T[], list: U[]): U[]
         commute<T, U>(of: (x: T) => T[]): (list: U[]) => U[]
-
         /*
          * Turns a list of Functors into a Functor of a list, applying a mapping function to the elements of the list along the way.
          */
