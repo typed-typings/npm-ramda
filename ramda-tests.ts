@@ -1240,7 +1240,7 @@ interface Obj { a: number; b: number };
 }
 
 /*****************************************************************
- * Math category
+ * String category
  */
 () => {
     R.substring(0, 4, '1234567');
@@ -1249,7 +1249,15 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
+    R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
+    R.replace('foo')('bar', 'foo foo foo'); //=> 'bar foo foo'
+    R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
 
+    // Use the "g" (global) flag to replace all occurrences:
+    R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+    R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
+    R.replace(/foo/g)('bar', 'foo foo foo'); //=> 'bar bar bar'
 }
 
 /*****************************************************************
