@@ -668,14 +668,32 @@ declare module R {
         keysIn(obj: any): string[];
 
         /**
-         * TODO lens
+         * Creates a lens. Supply a function to get values from inside an object,
+         * and a set function to change values on an object.
          */
+         lens(get: Function, set: Function): {
+             <T>(obj: T|T[]): T;
+             set<T,U,V>(val: T, obj: U|U[]): V|V[];
+             map<T>(fn: Function, obj: T|T[]): T|T[]
+         };
+
         /**
-         * TODO lensOn
+         * lensOn creates a lens associated with the provided object.
          */
+        lensOn<T>(get: Function, set: Function, obj: T): {
+            <T>(): T;
+            set<T,U,V>(val: T): V;
+            map<T>(fn: Function): T
+        }
+
         /**
-         * TODO lensProp
+         * lensProp creates a lens that will focus on property k of the source object.
          */
+        lensProp(str: string): {
+            <T, U>(obj: T): U;
+            set<T,U,V>(val: T, obj: U): V;
+            map<T>(fn: Function, obj: T): T
+        }
 
         mapObj<T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
         mapObj<T, TResult>(fn: (value: T) => TResult): (obj: any) => {[index: string]: TResult};

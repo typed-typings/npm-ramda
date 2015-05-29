@@ -996,6 +996,26 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    var xo = {x: 1};
+    var xoLens = R.lensOn(function get(o) { return o.x; },
+                          function set(v) { return {x: v}; },
+                          xo);
+    xoLens(); //=> 1
+    xoLens.set(1000); //=> {x: 1000}
+    xoLens.map(R.add(1)); //=> {x: 2}
+}
+
+() => {
+    var phraseLens = R.lensProp('phrase');
+    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
+    var obj2 = { phrase: "What's all this, then?"};
+    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    phraseLens(obj2); // => "What's all this, then?"
+    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
+}
+
+() => {
     var isPositive = function(n) {
         return n > 0;
     };
