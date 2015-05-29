@@ -739,6 +739,7 @@ declare module R {
         /**
          * TODO pickBy
          */
+        pickBy(pred: Pred, obj: any): any
 
         /**
          * Reasonable analog to SQL `select` statement.
@@ -1134,11 +1135,61 @@ declare module R {
          */
 
         /**
+         * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
+         */
+        allPass(preds: Pred[]): Pred;
+
+        /**
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
         and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
         and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
+
+        /**
+         * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
+         */
+        anyPass(preds: Pred[]): Pred;
+
+        /**
+         * A function wrapping calls to the two functions in an && operation, returning the result of the first function
+         * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
+         * that the second function will not be invoked if the first returns a false-y value.
+         */
+        both(pred1: Pred, pred2: Pred): Pred;
+        both(pred1: Pred): (pred2: Pred) => Pred;
+
+        /**
+         * Takes a function f and returns a function g such that:
+         * - applying g to zero or more arguments will give true if applying the same arguments to f gives
+         *   a logical false value; and
+         * - applying g to zero or more arguments will give false if applying the same arguments to f gives
+         *   a logical true value.
+         */
+        complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
+
+        /**
+         * Returns a function, fn, which encapsulates if/else-if/else logic. Each argument to R.cond is a
+         * [predicate, transform] pair. All of the arguments to fn are applied to each of the predicates in
+         * turn until one returns a "truthy" value, at which point fn returns the result of applying its
+         * arguments to the corresponding transformer. If none of the predicates matches, fn returns undefined.
+         */
+        cond(fn: [Pred, Function], ...fns: [Pred, Function][]): Function;
+
+        /**
+         * Returns the second argument if it is not null or undefined. If it is null or undefined, the
+         * first (default) argument is returned.
+         */
+        defaultTo<T,U>(a: T, b: U): T|U
+        defaultTo<T>(a: T): <U>(b: U) => T|U
+
+        /**
+         * A function wrapping calls to the two functions in an || operation, returning the result of the first
+         * function if it is truth-y and the result of the second function otherwise. Note that this is
+         * short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value.
+         */
+        either(pred1: Pred, pred2: Pred): Pred;
+        either(pred1: Pred): (pred2: Pred) => Pred;
 
         /**
          * Creates a function that will process either the onTrue or the onFalse function depending upon the result
@@ -1164,17 +1215,6 @@ declare module R {
         or<T extends {or?: Function;}>(fn1: T, val2: boolean|any): boolean;
         or<T extends {or?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
 
-
-        /**
-         * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
-         */
-        allPass(fns: Function[], ...args: any[]): Function;
-
-
-        /**
-         * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
-         */
-        anyPass(fns: Function[], ...args: any[]): Function;
 
 
         /**
@@ -1477,7 +1517,6 @@ declare module R {
         eq<T,U>(a: T, b: U): boolean;
 
 
-        cond(fn: [Pred, Function], ...fns: [Pred, Function][]): Function;
 
         T(): boolean;
 

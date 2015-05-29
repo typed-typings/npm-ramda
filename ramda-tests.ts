@@ -210,8 +210,6 @@ R.times(i, 5);
 });
 
 (() => {
-    R.size([]); //=> 0
-    R.size([1, 2, 3]); //=> 3
     R.length([1, 2, 3]); //=> 3
 });
 
@@ -658,7 +656,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var letters = ['a', 'b', 'c'];
-    var objectify = function(accObject, elem, idx, list) {
+    var objectify = function(accObject: any, elem: number, idx: number, list: string[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -668,7 +666,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var isOdd = function(n) {
+    var isOdd = function(n: number) {
         return n % 2 === 1;
     };
     R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
@@ -676,7 +674,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var lastTwo = function(val, idx, list) {
+    var lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
     R.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
@@ -718,7 +716,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var diff = function(a, b) { return a - b; };
+    var diff = function(a: number, b: number) { return a - b; };
     R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
     R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
 }
@@ -739,7 +737,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var isNotFour = function(x) {
+    var isNotFour = function(x: number) {
         return !(x === 4);
     };
 
@@ -763,7 +761,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
     R.unfold(f)(10); //=> [-10, -20, -30, -40, -50]
 }
@@ -775,7 +773,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var strEq = function(a, b) { return String(a) === String(b); };
+    var strEq = function(a: any, b: any) { return String(a) === String(b); };
     R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
     R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
     R.uniqWith(strEq)([{}, {}]);       //=> [{}]
@@ -912,7 +910,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    function Rectangle(width, height) {
+    function Rectangle(width: number, height: number) {
       this.width = width;
       this.height = height;
     }
@@ -973,16 +971,16 @@ interface Obj { a: number; b: number };
 
 () => {
     var headLens = R.lens(
-      function get(arr) { return arr[0]; },
-      function set(val, arr) { return [val].concat(arr.slice(1)); }
+      function get(arr: number[]) { return arr[0]; },
+      function set(val: number, arr: number[]) { return [val].concat(arr.slice(1)); }
     );
     headLens([10, 20, 30, 40]); //=> 10
     headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
-    headLens.map(function(x) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
 
     var phraseLens = R.lens(
-      function get(obj) { return obj.phrase; },
-      function set(val, obj) {
+      function get(obj: any) { return obj.phrase; },
+      function set(val: string, obj: any) {
         var out = R.clone(obj);
         out.phrase = val;
         return out;
@@ -998,8 +996,8 @@ interface Obj { a: number; b: number };
 
 () => {
     var xo = {x: 1};
-    var xoLens = R.lensOn(function get(o) { return o.x; },
-                          function set(v) { return {x: v}; },
+    var xoLens = R.lensOn(function get(o: any) { return o.x; },
+                          function set(v: number) { return {x: v}; },
                           xo);
     xoLens(); //=> 1
     xoLens.set(1000); //=> {x: 1000}
@@ -1017,21 +1015,23 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var isPositive = function(n) {
+    var isPositive = function(n: number) {
         return n > 0;
     };
-    R.filterObj(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
-    var containsBackground = function(x) {
-        return x.bgcolor;
+    R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    var containsBackground = function(val: any) {
+        return val.bgcolor;
     };
     var colors = {1: {color: 'read'}, 2: {color: 'black', bgcolor: 'yellow'}};
-    R.filterObj(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
+    R.pickBy(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
 
+    var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
+    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 () => {
     var values = { x: 1, y: 2, z: 3 };
-    var double = function(num) {
+    var double = function(num: number) {
         return num * 2;
     };
     R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
@@ -1066,7 +1066,7 @@ interface Obj { a: number; b: number };
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
-    var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
+    var spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
     R.where(spec2, {x: 2, y: 7}); //=> false
     R.where(spec2, {x: 3, y: 8}); //=> true
 
@@ -1201,7 +1201,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    function cmp(obj) { return obj.x; }
+    function cmp(obj: any) { return obj.x; }
     var a = {x: 1}, b = {x: 2}, c = {x: 3};
     R.maxBy(cmp, [a, b, c]); //=> {x: 3}
     R.maxBy(cmp)([a, b, c]); //=> {x: 3}
@@ -1212,7 +1212,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    function cmp(obj) { return obj.x; }
+    function cmp(obj: any) { return obj.x; }
     var a = {x: 1}, b = {x: 2}, c = {x: 3};
     R.minBy(cmp, [a, b, c]); //=> {x: 1}
     R.minBy(cmp)([a, b, c]); //=> {x: 1}
@@ -1307,6 +1307,13 @@ interface Obj { a: number; b: number };
 /*****************************************************************
  * Logic category
  */
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0};
+    var f = R.allPass([gt10, even]);
+    f(11); //=> false
+    f(12); //=> true
+}
 
 () => {
     R.and(false, true); //=> false
@@ -1323,6 +1330,53 @@ interface Obj { a: number; b: number };
     })(true);
     var why = new Why(true);
     R.and(why, false); // false
+}
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0};
+    var f = R.anyPass([gt10, even]);
+    f(11); //=> true
+    f(8); //=> true
+    f(9); //=> false
+}
+
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0 };
+    var f = R.both(gt10, even);
+    var g = R.both(gt10)(even);
+    f(100); //=> true
+    f(101); //=> false
+}
+() => {
+    var isEven = function(n: number) { return n % 2 === 0; };
+    var isOdd = R.complement(isEven);
+    isOdd(21); //=> true
+    isOdd(42); //=> false
+}
+() => {
+    var fn = R.cond(
+      [R.eq(0),   R.always('water freezes at 0°C')],
+      [R.eq(100), R.always('water boils at 100°C')],
+      [R.T,       function(temp: number) { return 'nothing special happens at ' + temp + '°C'; }]
+    );
+    fn(0); //=> 'water freezes at 0°C'
+    fn(50); //=> 'nothing special happens at 50°C'
+    fn(100); //=> 'water boils at 100°C'
+}
+() => {
+    var defaultTo42 = R.defaultTo(42);
+    defaultTo42(null);  //=> 42
+    defaultTo42(undefined);  //=> 42
+    defaultTo42('Ramda');  //=> 'Ramda'
+}
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0 };
+    var f = R.either(gt10, even);
+    var g = R.either(gt10)(even);
+    f(101); //=> true
+    f(8); //=> true
 }
 () => {
     // Flatten all arrays in the list but leave other values alone.
