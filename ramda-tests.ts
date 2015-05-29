@@ -25,9 +25,9 @@ var shout = function(x: number): string {
 
 () => {
     var takesNoArg = function() { return true; };
-    var takesOneArg = function(a) { return [a]; };
-    var takesTwoArgs = function(a, b) { return [a, b]; };
-    var takesThreeArgs = function(a, b, c) { return [a, b, c]; };
+    var takesOneArg = function(a: number) { return [a]; };
+    var takesTwoArgs = function(a: number, b: number) { return [a, b]; };
+    var takesThreeArgs = function(a: number, b: number, c: number) { return [a, b, c]; };
 
     var addFourNumbers = function(a: number, b: number, c: number, d: number): number {
       return a + b + c + d;
@@ -74,8 +74,8 @@ var shout = function(x: number): string {
 R.invoker('charAt', String.prototype);
 R.invoker('charAt', String.prototype, 1);
 
-var square = function(x) { return x * x; };
-var add = function(a, b) { return a + b; };
+var square = function(x: number) { return x * x; };
+var add = function(a: number, b: number) { return a + b; };
 // Adds any number of arguments together
 var addAll = function() {
   return 0;
@@ -85,7 +85,7 @@ var addAll = function() {
 R.useWith(addAll, double, square);
 
 (() => {
-  var printXPlusFive = function(x) { console.log(x + 5); };
+  var printXPlusFive = function(x: number) { console.log(x + 5); };
   R.forEach(printXPlusFive, [1, 2, 3]);
   R.clone([{},{},{}])
   R.clone([1,2,3]);
@@ -96,7 +96,7 @@ R.useWith(addAll, double, square);
 //   R.forEach.idx(printXPlusFive, [{name: 1}, {name: 2}, {name: 3}]);
 // })();
 
-var i = function(x) {return x;};
+var i = function(x: number) {return x;};
 R.times(i, 5);
 
 (() => {
@@ -109,24 +109,24 @@ R.times(i, 5);
 })();
 
 (() => {
-    var multiply = function(a, b) { return a * b; };
-    var double = R.lPartial(multiply, 2);
+    var multiply = function(a: number, b: number) { return a * b; };
+    var double = R.partial(multiply, 2);
     double(2); //=> 4
 
-    var greet = function(salutation, title, firstName, lastName) {
+    var greet = function(salutation: string, title: string, firstName: string, lastName: string) {
       return salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!';
     };
-    var sayHello = R.lPartial(greet, 'Hello');
-    var sayHelloToMs = R.lPartial(sayHello, 'Ms.');
+    var sayHello = R.partial(greet, 'Hello');
+    var sayHelloToMs = R.partial(sayHello, 'Ms.');
     sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
 
-    var greetMsJaneJones = R.rPartial(greet, 'Ms.', 'Jane', 'Jones');
+    var greetMsJaneJones = R.partialRight(greet, 'Ms.', 'Jane', 'Jones');
     greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
 })();
 
 (() => {
     var numberOfCalls = 0;
-    var trackedAdd = function(a, b) {
+    var trackedAdd = function(a: number, b: number) {
       numberOfCalls += 1;
       return a + b;
     };
@@ -145,13 +145,13 @@ R.times(i, 5);
 })();
 
 (() => {
-    var addOneOnce = R.once(function(x){ return x + 1; });
+    var addOneOnce = R.once(function(x: number){ return x + 1; });
     addOneOnce(10); //=> 11
     addOneOnce(addOneOnce(50)); //=> 11
 })();
 
 (() => {
-    var slashify = R.wrap(R.flip(add)('/'), function(f, x) {
+    var slashify = R.wrap(R.flip(R.add)('/'), function(f: Function, x: string) {
       return R.match(/\/$/, x) ? x : f(x);
     });
 
@@ -160,7 +160,7 @@ R.times(i, 5);
 })();
 
 (() => {
-    var Circle = function(r) {
+    var Circle = function(r: number) {
         this.r = r;
         this.colors = Array.prototype.slice.call(arguments, 1);
     };
@@ -173,7 +173,7 @@ R.times(i, 5);
 
 (() => {
     var numbers = [1, 2, 3];
-    var add = function(a, b) {
+    var add = function(a: number, b: number) {
         return a + b
     };
     R.reduce(add, 10, numbers); //=> 16;
@@ -183,14 +183,14 @@ R.times(i, 5);
 })();
 (() => {
     var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc, pair) {
+    var flattenPairs = function(acc: [string, number], pair: [string, number]) {
       return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
 (() => {
     var values = { x: 1, y: 2, z: 3 };
-    var double = function(num) {
+    var double = function(num: number) {
       return num * 2;
     };
 
@@ -198,7 +198,7 @@ R.times(i, 5);
 });
 (() => {
     var values = { x: 1, y: 2, z: 3 };
-    var prependKeyAndDouble = function(num, key, obj) {
+    var prependKeyAndDouble = function(num: number, key: string, obj: any) {
         return key + (num * 2);
     };
     R.mapObjIndexed(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
@@ -214,38 +214,39 @@ R.times(i, 5);
     R.size([1, 2, 3]); //=> 3
     R.length([1, 2, 3]); //=> 3
 });
+
 (() => {
-    var isEven = function(n) {
+    var isEven = function(n: number) {
         return n % 2 === 0;
     };
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
 
-    var lastTwo = function(val, idx, list) {
+    var lastTwo = function(val: number, idx: number, list: number[]) {
       return list.length - idx <= 2;
     };
     R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
 
-    var isOdd = function(n) {
+    var isOdd = function(n: number) {
       return n % 2 === 1;
     };
     R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
 });
 (() => {
-    var isNotFour = function(x) {
+    var isNotFour = function(x: number) {
       return !(x === 4);
     };
     R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
     R.take(2, [1, 2, 3, 4]); //=> [1, 2]
 });
 (() => {
-    var isTwo = function(x) {
+    var isTwo = function(x: number) {
       return x === 2;
     };
     R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
     R.skip(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
 });
 (() => {
-    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
 });
 /*****************************************************************
@@ -298,7 +299,7 @@ R.times(i, 5);
 }
 
 () => {
-    var duplicate = function(n) {
+    var duplicate = function(n: number) {
         return [n, n];
     };
     R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
@@ -360,7 +361,7 @@ R.times(i, 5);
 }
 
 () => {
-    var lteTwo = function(x) {
+    var lteTwo = function(x: number) {
         return x <= 2;
     };
     R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
@@ -368,7 +369,7 @@ R.times(i, 5);
 }
 
 () => {
-    var isEven = function(n) {
+    var isEven = function(n: number) {
         return n % 2 === 0;
     };
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
@@ -377,7 +378,7 @@ R.times(i, 5);
 }
 
 () => {
-    var lastTwo = function(val, idx, list) {
+    var lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
     R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
@@ -544,10 +545,10 @@ interface Obj { a: number; b: number };
     var headLens = R.lensIndex(0);
     headLens([10, 20, 30, 40]); //=> 10
     headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
-    headLens.map(function(x) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
 }
 () => {
-    var double = function(x) {
+    var double = function(x: number) {
         return x * 2;
     };
     R.map(double, [1, 2, 3]); //=> [2, 4, 6]
@@ -565,7 +566,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var digits = ['1', '2', '3', '4'];
-    var append = function(a, b): [string, string] {
+    var append = function(a: string, b: string): [string, string] {
         return [a + b, a + b];
     }
 
@@ -575,7 +576,7 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var squareEnds = function(elt, idx, list) {
+    var squareEnds = function(elt: number, idx: number, list: number[]) {
         if (idx === 0 || idx === list.length - 1) {
             return elt * elt;
         }
@@ -626,7 +627,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var numbers = [1, 2, 3];
-    var add = function(a, b) {
+    var add = function(a: number, b: number) {
         return a + b;
     };
     R.reduce(add, 10, numbers); //=> 16
@@ -636,7 +637,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var letters = ['a', 'b', 'c'];
-    var objectify = function(accObject, elem, idx, list) {
+    var objectify = function<T>(accObject: T, elem: number, idx: number, list: number[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -647,7 +648,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc, pair) {
+    var flattenPairs = function(acc: [string, number], pair: [string, number]) {
         return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
@@ -1323,7 +1324,13 @@ interface Obj { a: number; b: number };
     var why = new Why(true);
     R.and(why, false); // false
 }
+() => {
+    // Flatten all arrays in the list but leave other values alone.
+    var flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
 
+    flattenArrays([[0], [[10], [8]], 1234, {}]); //=> [[0], [10, 8], 1234, {}]
+    flattenArrays([[[10], 123], [8, [10]], "hello"]); //=> [[10, 123], [8, 10], "hello"]
+}
 () => {
     R.isEmpty([1, 2, 3]); //=> false
     R.isEmpty([]); //=> true

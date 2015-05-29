@@ -21,11 +21,6 @@ declare module R {
         nodeType: number;
     }
 
-    interface FuncIndex extends Arity0Fn {
-        (): any;
-        idx: Function;
-    }
-
     interface Arity0Fn {
         (): any
     }
@@ -318,8 +313,8 @@ declare module R {
         /**
          * Like map, but but passes additional parameters to the mapping function.
          */
-        mapIndexed<T, U>(fn: (val: T, key: string, list: T) => U, list: T[]): U[];
-        mapIndexed<T, U>(fn: (val: T, key: string, list: T) => U): (list: T[]) => U[];
+        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
+        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
 
 
         /**
@@ -379,9 +374,9 @@ declare module R {
         /**
          * Like `reduce`, but passes additional parameters to the predicate function.
          */
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -470,8 +465,8 @@ declare module R {
          * to the supplied predicate function, and terminating when the predicate function returns
          * `false`.
          */
-        takeWhile<T>(fn: (x: T) => T, list: T[]): T[];
-        takeWhile<T>(fn: (x: T) => T): (list: T[]) => T[];
+        takeWhile<T>(fn: (x: T) => boolean, list: T[]): T[];
+        takeWhile<T>(fn: (x: T) => boolean): (list: T[]) => T[];
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
@@ -950,9 +945,6 @@ declare module R {
          * Accepts as its arguments a function and any number of values and returns a function that,
          * when invoked, calls the original function with all of the values appended to the original
          * function's arguments list.
-         *
-         * Note that `rPartial` is the opposite of `lPartial`: `rPartial` fills `fn`'s arguments
-         * from the right to the left.  In some libraries this function is named `applyRight`.
          */
         partialRight(fn: Function, ...args: any[]): Function;
 
@@ -1147,6 +1139,12 @@ declare module R {
          */
         and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
         and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
+
+        /**
+         * Creates a function that will process either the onTrue or the onFalse function depending upon the result
+         * of the condition predicate.
+         */
+        ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
 
         /**
          * Reports whether the list has zero elements.
