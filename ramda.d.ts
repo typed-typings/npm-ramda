@@ -286,6 +286,15 @@ declare module R {
         length(list: any[]): number;
 
         /**
+         * Creates a lens that will focus on index n of the source array.
+         */
+        lensIndex(n: number): {
+            <T>(list: T[]): T;
+            set<T,U,V>(str: T, list: U[]): V[];
+            map<T>(fn: (x: T) => T, list: T[]): T[]
+        };
+
+        /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: T[]): U[];

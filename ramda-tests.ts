@@ -541,6 +541,12 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    var headLens = R.lensIndex(0);
+    headLens([10, 20, 30, 40]); //=> 10
+    headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
+    headLens.map(function(x) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+}
+() => {
     var double = function(x) {
         return x * 2;
     };
