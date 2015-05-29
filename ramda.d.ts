@@ -738,8 +738,8 @@ declare module R {
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T>(names: string[], T): T;
-        pickAll<T>(names: string[]): (T) => T;
+        pickAll<T, U>(names: string[], obj: T): U;
+        pickAll<T, U>(names: string[]): (obj: T) => U;
 
         /**
          * TODO pickBy
@@ -783,12 +783,12 @@ declare module R {
          */
         toPairsIn(obj: any): any[][];
 
-
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
          * Note that the order of the output array is not guaranteed across
          * different JS platforms.
          */
+        values<T>(obj: {[index: string]: T}): T[];
         values(obj: any): any[];
 
         /**
@@ -1013,10 +1013,7 @@ declare module R {
         useWith(fn: Function, ...transformers: Function[]): Function;
 
 
-        /**
-         * Reports whether an array is empty.
-         */
-        isEmpty(list: any[]): boolean;
+
 
 
 
@@ -1145,28 +1142,29 @@ declare module R {
          */
 
         /**
-         * A function wrapping calls to the two functions in an `&&` operation, returning `true` or `false`.  Note that
-         * this is short-circuited, meaning that the second function will not be invoked if the first returns a false-y
-         * value.
+         * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
+         * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends (x) => boolean>(fn1: T, fn2: T): T;
-        and<T extends (x) => boolean>(fn1: T): (fn2: T) => T;
+        and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
+        and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
 
         /**
-         * A function wrapping calls to the two functions in an `||` operation, returning `true` or `false`.  Note that
-         * this is short-circuited, meaning that the second function will not be invoked if the first returns a truth-y
-         * value.
+         * Reports whether the list has zero elements.
          */
-        or<T extends (x) => boolean>(fn1: T, fn2: T): T;
-        or<T extends (x) => boolean>(fn1: T): (fn2: T) => T;
-
+        isEmpty(value: string|any[]): boolean;
 
         /**
          * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
          * underlying function would return a false-y value, and `false` when it would return a truth-y one.
          */
-        not<T extends () => boolean>(fn: T): T;
+        not(value: any): boolean;
 
+        /**
+         * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
+         * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
+         */
+        or<T extends {or?: Function;}>(fn1: T, val2: boolean|any): boolean;
+        or<T extends {or?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
 
 
         /**

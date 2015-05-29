@@ -1049,12 +1049,6 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    var isUpperCase = function(val, key) { return key.toUpperCase() === key; }
-    R.pickWith(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
-    R.pickWith(isUpperCase)({a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
-}
-
-() => {
     R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
     R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
     R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
@@ -1314,40 +1308,49 @@ interface Obj { a: number; b: number };
  */
 
 () => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0 };
-    var f = R.and(gt10, even);
-    f(100); //=> true
-    f(101); //=> false
-    var f = R.and(gt10)(even);
-    f(100); //=> true
-    f(101); //=> false
+    R.and(false, true); //=> false
+    R.and(0, []); //=> 0
+    R.and(0)([]); //=> 0
+    R.and(null, ''); //=> null
+    var Why: any = (function(val: boolean) {
+        var why: any;
+        why.val = val;
+        why.and = function(x: boolean) {
+            return this.val && x;
+        }
+        return Why;
+    })(true);
+    var why = new Why(true);
+    R.and(why, false); // false
 }
 
 () => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0 };
-    var f = R.or(gt10, even);
-    f(101); //=> true
-    f(8); //=> true
-    var f = R.or(gt10)(even);
-    f(101); //=> true
-    f(8); //=> true
+    R.isEmpty([1, 2, 3]); //=> false
+    R.isEmpty([]); //=> true
+    R.isEmpty(''); //=> true
+    R.isEmpty(null); //=> false
 }
 
 () => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0};
-    var f = R.allPass([gt10, even]);
-    f(11); //=> false
-    f(12); //=> true
+    R.not(true); //=> false
+    R.not(false); //=> true
+    R.not(0); // => true
+    R.not(1); // => false
 }
 
 () => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0};
-    var f = R.anyPass([gt10, even]);
-    f(11); //=> true
-    f(8); //=> true
-    f(9); //=> false
+    R.or(false, true); //=> false
+    R.or(0, []); //=> 0
+    R.or(0)([]); //=> 0
+    R.or(null, ''); //=> null
+    var Why: any = (function(val: boolean) {
+        var why: any;
+        why.val = val;
+        why.or = function(x: boolean) {
+            return this.val && x;
+        }
+        return Why;
+    })(true);
+    var why = new Why(true);
+    R.or(why, false); // false
 }
