@@ -25,9 +25,9 @@ var shout = function(x: number): string {
 
 () => {
     var takesNoArg = function() { return true; };
-    var takesOneArg = function(a) { return [a]; };
-    var takesTwoArgs = function(a, b) { return [a, b]; };
-    var takesThreeArgs = function(a, b, c) { return [a, b, c]; };
+    var takesOneArg = function(a: number) { return [a]; };
+    var takesTwoArgs = function(a: number, b: number) { return [a, b]; };
+    var takesThreeArgs = function(a: number, b: number, c: number) { return [a, b, c]; };
 
     var addFourNumbers = function(a: number, b: number, c: number, d: number): number {
       return a + b + c + d;
@@ -74,8 +74,8 @@ var shout = function(x: number): string {
 R.invoker('charAt', String.prototype);
 R.invoker('charAt', String.prototype, 1);
 
-var square = function(x) { return x * x; };
-var add = function(a, b) { return a + b; };
+var square = function(x: number) { return x * x; };
+var add = function(a: number, b: number) { return a + b; };
 // Adds any number of arguments together
 var addAll = function() {
   return 0;
@@ -85,7 +85,7 @@ var addAll = function() {
 R.useWith(addAll, double, square);
 
 (() => {
-  var printXPlusFive = function(x) { console.log(x + 5); };
+  var printXPlusFive = function(x: number) { console.log(x + 5); };
   R.forEach(printXPlusFive, [1, 2, 3]);
   R.clone([{},{},{}])
   R.clone([1,2,3]);
@@ -96,7 +96,7 @@ R.useWith(addAll, double, square);
 //   R.forEach.idx(printXPlusFive, [{name: 1}, {name: 2}, {name: 3}]);
 // })();
 
-var i = function(x) {return x;};
+var i = function(x: number) {return x;};
 R.times(i, 5);
 
 (() => {
@@ -109,24 +109,24 @@ R.times(i, 5);
 })();
 
 (() => {
-    var multiply = function(a, b) { return a * b; };
-    var double = R.lPartial(multiply, 2);
+    var multiply = function(a: number, b: number) { return a * b; };
+    var double = R.partial(multiply, 2);
     double(2); //=> 4
 
-    var greet = function(salutation, title, firstName, lastName) {
+    var greet = function(salutation: string, title: string, firstName: string, lastName: string) {
       return salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!';
     };
-    var sayHello = R.lPartial(greet, 'Hello');
-    var sayHelloToMs = R.lPartial(sayHello, 'Ms.');
+    var sayHello = R.partial(greet, 'Hello');
+    var sayHelloToMs = R.partial(sayHello, 'Ms.');
     sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
 
-    var greetMsJaneJones = R.rPartial(greet, 'Ms.', 'Jane', 'Jones');
+    var greetMsJaneJones = R.partialRight(greet, 'Ms.', 'Jane', 'Jones');
     greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
 })();
 
 (() => {
     var numberOfCalls = 0;
-    var trackedAdd = function(a, b) {
+    var trackedAdd = function(a: number, b: number) {
       numberOfCalls += 1;
       return a + b;
     };
@@ -145,13 +145,13 @@ R.times(i, 5);
 })();
 
 (() => {
-    var addOneOnce = R.once(function(x){ return x + 1; });
+    var addOneOnce = R.once(function(x: number){ return x + 1; });
     addOneOnce(10); //=> 11
     addOneOnce(addOneOnce(50)); //=> 11
 })();
 
 (() => {
-    var slashify = R.wrap(R.flip(add)('/'), function(f, x) {
+    var slashify = R.wrap(R.flip(R.add)('/'), function(f: Function, x: string) {
       return R.match(/\/$/, x) ? x : f(x);
     });
 
@@ -160,7 +160,7 @@ R.times(i, 5);
 })();
 
 (() => {
-    var Circle = function(r) {
+    var Circle = function(r: number) {
         this.r = r;
         this.colors = Array.prototype.slice.call(arguments, 1);
     };
@@ -173,7 +173,7 @@ R.times(i, 5);
 
 (() => {
     var numbers = [1, 2, 3];
-    var add = function(a, b) {
+    var add = function(a: number, b: number) {
         return a + b
     };
     R.reduce(add, 10, numbers); //=> 16;
@@ -183,14 +183,14 @@ R.times(i, 5);
 })();
 (() => {
     var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc, pair) {
+    var flattenPairs = function(acc: [string, number], pair: [string, number]) {
       return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
 (() => {
     var values = { x: 1, y: 2, z: 3 };
-    var double = function(num) {
+    var double = function(num: number) {
       return num * 2;
     };
 
@@ -198,7 +198,7 @@ R.times(i, 5);
 });
 (() => {
     var values = { x: 1, y: 2, z: 3 };
-    var prependKeyAndDouble = function(num, key, obj) {
+    var prependKeyAndDouble = function(num: number, key: string, obj: any) {
         return key + (num * 2);
     };
     R.mapObjIndexed(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
@@ -210,42 +210,41 @@ R.times(i, 5);
 });
 
 (() => {
-    R.size([]); //=> 0
-    R.size([1, 2, 3]); //=> 3
     R.length([1, 2, 3]); //=> 3
 });
+
 (() => {
-    var isEven = function(n) {
+    var isEven = function(n: number) {
         return n % 2 === 0;
     };
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
 
-    var lastTwo = function(val, idx, list) {
+    var lastTwo = function(val: number, idx: number, list: number[]) {
       return list.length - idx <= 2;
     };
     R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
 
-    var isOdd = function(n) {
+    var isOdd = function(n: number) {
       return n % 2 === 1;
     };
     R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
 });
 (() => {
-    var isNotFour = function(x) {
+    var isNotFour = function(x: number) {
       return !(x === 4);
     };
     R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
     R.take(2, [1, 2, 3, 4]); //=> [1, 2]
 });
 (() => {
-    var isTwo = function(x) {
+    var isTwo = function(x: number) {
       return x === 2;
     };
     R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
     R.skip(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
 });
 (() => {
-    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
 });
 /*****************************************************************
@@ -254,6 +253,7 @@ R.times(i, 5);
  () => {
      var nums = [1, 2, 3, -99, 42, 6, 7];
      R.apply(Math.max, nums); //=> 42
+     R.apply(Math.max)(nums); //=> 42
  }
 
  () => {
@@ -297,7 +297,7 @@ R.times(i, 5);
 }
 
 () => {
-    var duplicate = function(n) {
+    var duplicate = function(n: number) {
         return [n, n];
     };
     R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
@@ -359,7 +359,7 @@ R.times(i, 5);
 }
 
 () => {
-    var lteTwo = function(x) {
+    var lteTwo = function(x: number) {
         return x <= 2;
     };
     R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
@@ -367,7 +367,7 @@ R.times(i, 5);
 }
 
 () => {
-    var isEven = function(n) {
+    var isEven = function(n: number) {
         return n % 2 === 0;
     };
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
@@ -376,7 +376,7 @@ R.times(i, 5);
 }
 
 () => {
-    var lastTwo = function(val, idx, list) {
+    var lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
     R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
@@ -409,6 +409,34 @@ R.times(i, 5);
     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
     R.findLastIndex((x) => x === 1, [1, 2, 3]);
+}
+
+() => {
+    var xs: {[key:string]: string} = {a: '1', b: '0'};
+    R.propEq('a', '1', xs);//=> true
+    R.propEq('a', '4', xs); //=> false
+}
+() => {
+    var xs: {[key:string]: number} = {a: 1, b: 0};
+    R.propEq('a', 1, xs);//=> true
+    R.propEq('a', 4, xs); //=> false
+}
+() => {
+    var xs = {a: '1', b: '0'};
+    R.propEq('a', '1', xs);//=> true
+    R.propEq('a', '4', xs); //=> false
+}
+() => {
+    var xs = {a: 1, b: 0};
+    R.propEq('a', 1, xs);//=> true
+    R.propEq('a', 4, xs); //=> false
+}
+
+interface Obj { a: number; b: number };
+() => {
+    var xs: Obj = {a: 1, b: 0};
+    R.propEq('a', 1, xs);//=> true
+    R.propEq('a', 4, xs); //=> false
 }
 
 () => {
@@ -512,7 +540,13 @@ R.times(i, 5);
 }
 
 () => {
-    var double = function(x) {
+    var headLens = R.lensIndex(0);
+    headLens([10, 20, 30, 40]); //=> 10
+    headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
+    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+}
+() => {
+    var double = function(x: number) {
         return x * 2;
     };
     R.map(double, [1, 2, 3]); //=> [2, 4, 6]
@@ -530,7 +564,7 @@ R.times(i, 5);
 
 () => {
     var digits = ['1', '2', '3', '4'];
-    var append = function(a, b): [string, string] {
+    var append = function(a: string, b: string): [string, string] {
         return [a + b, a + b];
     }
 
@@ -540,7 +574,7 @@ R.times(i, 5);
 }
 
 () => {
-    var squareEnds = function(elt, idx, list) {
+    var squareEnds = function(elt: number, idx: number, list: number[]) {
         if (idx === 0 || idx === list.length - 1) {
             return elt * elt;
         }
@@ -591,7 +625,7 @@ R.times(i, 5);
 
 () => {
     var numbers = [1, 2, 3];
-    var add = function(a, b) {
+    var add = function(a: number, b: number) {
         return a + b;
     };
     R.reduce(add, 10, numbers); //=> 16
@@ -601,7 +635,7 @@ R.times(i, 5);
 
 () => {
     var letters = ['a', 'b', 'c'];
-    var objectify = function(accObject, elem, idx, list) {
+    var objectify = function<T>(accObject: T, elem: number, idx: number, list: number[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -612,7 +646,7 @@ R.times(i, 5);
 
 () => {
     var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc, pair) {
+    var flattenPairs = function(acc: [string, number], pair: [string, number]) {
         return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
@@ -622,7 +656,7 @@ R.times(i, 5);
 
 () => {
     var letters = ['a', 'b', 'c'];
-    var objectify = function(accObject, elem, idx, list) {
+    var objectify = function(accObject: any, elem: number, idx: number, list: string[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -632,7 +666,7 @@ R.times(i, 5);
 }
 
 () => {
-    var isOdd = function(n) {
+    var isOdd = function(n: number) {
         return n % 2 === 1;
     };
     R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
@@ -640,7 +674,7 @@ R.times(i, 5);
 }
 
 () => {
-    var lastTwo = function(val, idx, list) {
+    var lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
     R.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
@@ -682,7 +716,7 @@ R.times(i, 5);
 }
 
 () => {
-    var diff = function(a, b) { return a - b; };
+    var diff = function(a: number, b: number) { return a - b; };
     R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
     R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
 }
@@ -703,7 +737,7 @@ R.times(i, 5);
 }
 
 () => {
-    var isNotFour = function(x) {
+    var isNotFour = function(x: number) {
         return !(x === 4);
     };
 
@@ -727,7 +761,7 @@ R.times(i, 5);
 }
 
 () => {
-    var f = function(n) { return n > 50 ? false : [-n, n + 10] };
+    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
     R.unfold(f)(10); //=> [-10, -20, -30, -40, -50]
 }
@@ -739,7 +773,7 @@ R.times(i, 5);
 }
 
 () => {
-    var strEq = function(a, b) { return String(a) === String(b); };
+    var strEq = function(a: any, b: any) { return String(a) === String(b); };
     R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
     R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
     R.uniqWith(strEq)([{}, {}]);       //=> [{}]
@@ -787,6 +821,11 @@ R.times(i, 5);
     // R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
     // R.assoc('c', 3, R.__)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     // R.assoc(R.__, 3, R.__)('c', {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+}
+
+() => {
+    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 }
 
 () => {
@@ -871,7 +910,7 @@ R.times(i, 5);
 }
 
 () => {
-    function Rectangle(width, height) {
+    function Rectangle(width: number, height: number) {
       this.width = width;
       this.height = height;
     }
@@ -912,6 +951,7 @@ R.times(i, 5);
 () => {
     //  toBinary :: Number -> String
     var toBinary = R.invoke('toString', [2])
+<<<<<<< HEAD
 
     toBinary(42); //=> '101010'
     toBinary(63); //=> '111111'
@@ -953,24 +993,89 @@ R.times(i, 5);
     phraseLens(obj2); // => "What's all this, then?"
     phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
     phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
+=======
+
+    toBinary(42); //=> '101010'
+    toBinary(63); //=> '111111'
+    R.invoke('toString')([2], 42)
+    // R.invoke('toString')([2])(42)
+>>>>>>> master
 }
 
 () => {
-    var isPositive = function(n) {
+    R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+}
+
+() => {
+    var F = function() { this.x = 'X'; };
+    F.prototype.y = 'Y';
+    var f = new F();
+    R.keysIn(f); //=> ['x', 'y']
+}
+
+() => {
+    var headLens = R.lens(
+      function get(arr: number[]) { return arr[0]; },
+      function set(val: number, arr: number[]) { return [val].concat(arr.slice(1)); }
+    );
+    headLens([10, 20, 30, 40]); //=> 10
+    headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
+    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+
+    var phraseLens = R.lens(
+      function get(obj: any) { return obj.phrase; },
+      function set(val: string, obj: any) {
+        var out = R.clone(obj);
+        out.phrase = val;
+        return out;
+      }
+    );
+    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
+    var obj2 = { phrase: "What's all this, then?"};
+    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    phraseLens(obj2); // => "What's all this, then?"
+    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
+}
+
+() => {
+    var xo = {x: 1};
+    var xoLens = R.lensOn(function get(o: any) { return o.x; },
+                          function set(v: number) { return {x: v}; },
+                          xo);
+    xoLens(); //=> 1
+    xoLens.set(1000); //=> {x: 1000}
+    xoLens.map(R.add(1)); //=> {x: 2}
+}
+
+() => {
+    var phraseLens = R.lensProp('phrase');
+    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
+    var obj2 = { phrase: "What's all this, then?"};
+    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    phraseLens(obj2); // => "What's all this, then?"
+    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
+}
+
+() => {
+    var isPositive = function(n: number) {
         return n > 0;
     };
-    R.filterObj(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
-    var containsBackground = function(x) {
-        return x.bgcolor;
+    R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    var containsBackground = function(val: any) {
+        return val.bgcolor;
     };
     var colors = {1: {color: 'read'}, 2: {color: 'black', bgcolor: 'yellow'}};
-    R.filterObj(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
+    R.pickBy(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
 
+    var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
+    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 () => {
     var values = { x: 1, y: 2, z: 3 };
-    var double = function(num) {
+    var double = function(num: number) {
         return num * 2;
     };
     R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
@@ -986,12 +1091,6 @@ R.times(i, 5);
 () => {
     R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
     R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
-}
-
-() => {
-    var isUpperCase = function(val, key) { return key.toUpperCase() === key; }
-    R.pickWith(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
-    R.pickWith(isUpperCase)({a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 () => {
@@ -1011,7 +1110,12 @@ R.times(i, 5);
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
+<<<<<<< HEAD
     var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
+=======
+
+    var spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
+>>>>>>> master
     R.where(spec2, {x: 2, y: 7}); //=> false
     R.where(spec2, {x: 3, y: 8}); //=> true
 
@@ -1020,6 +1124,15 @@ R.times(i, 5);
     R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 }
 
+() => {
+    // pred :: Object -> Boolean
+    var pred = R.whereEq({a: 1, b: 2});
+    pred({a: 1});              //=> false
+    pred({a: 1, b: 2});        //=> true
+    pred({a: 1, b: 2, c: 3});  //=> true
+    pred({a: 1, b: 1});        //=> false
+    R.whereEq({a: 'one'}, {a: 'one'}); // => true
+}
 /*****************************************************************
  * Function category
  */
@@ -1146,7 +1259,7 @@ R.times(i, 5);
 }
 
 () => {
-    function cmp(obj) { return obj.x; }
+    function cmp(obj: any) { return obj.x; }
     var a = {x: 1}, b = {x: 2}, c = {x: 3};
     R.maxBy(cmp, [a, b, c]); //=> {x: 3}
     R.maxBy(cmp)([a, b, c]); //=> {x: 3}
@@ -1157,7 +1270,7 @@ R.times(i, 5);
 }
 
 () => {
-    function cmp(obj) { return obj.x; }
+    function cmp(obj: any) { return obj.x; }
     var a = {x: 1}, b = {x: 2}, c = {x: 3};
     R.minBy(cmp, [a, b, c]); //=> {x: 1}
     R.minBy(cmp)([a, b, c]); //=> {x: 1}
@@ -1206,7 +1319,7 @@ R.times(i, 5);
 }
 
 /*****************************************************************
- * Math category
+ * String category
  */
 () => {
     R.substring(0, 4, '1234567');
@@ -1215,7 +1328,15 @@ R.times(i, 5);
 }
 
 () => {
+    R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
+    R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
+    R.replace('foo')('bar', 'foo foo foo'); //=> 'bar foo foo'
+    R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
 
+    // Use the "g" (global) flag to replace all occurrences:
+    R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+    R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
+    R.replace(/foo/g)('bar', 'foo foo foo'); //=> 'bar bar bar'
 }
 
 /*****************************************************************
@@ -1244,42 +1365,111 @@ R.times(i, 5);
 /*****************************************************************
  * Logic category
  */
-
 () => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0 };
-    var f = R.and(gt10, even);
-    f(100); //=> true
-    f(101); //=> false
-    var f = R.and(gt10)(even);
-    f(100); //=> true
-    f(101); //=> false
-}
-
-() => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0 };
-    var f = R.or(gt10, even);
-    f(101); //=> true
-    f(8); //=> true
-    var f = R.or(gt10)(even);
-    f(101); //=> true
-    f(8); //=> true
-}
-
-() => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0};
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0};
     var f = R.allPass([gt10, even]);
     f(11); //=> false
     f(12); //=> true
 }
 
 () => {
-    var gt10 = function(x) { return x > 10; };
-    var even = function(x) { return x % 2 === 0};
+    R.and(false, true); //=> false
+    R.and(0, []); //=> 0
+    R.and(0)([]); //=> 0
+    R.and(null, ''); //=> null
+    var Why: any = (function(val: boolean) {
+        var why: any;
+        why.val = val;
+        why.and = function(x: boolean) {
+            return this.val && x;
+        }
+        return Why;
+    })(true);
+    var why = new Why(true);
+    R.and(why, false); // false
+}
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0};
     var f = R.anyPass([gt10, even]);
     f(11); //=> true
     f(8); //=> true
     f(9); //=> false
+}
+
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0 };
+    var f = R.both(gt10, even);
+    var g = R.both(gt10)(even);
+    f(100); //=> true
+    f(101); //=> false
+}
+() => {
+    var isEven = function(n: number) { return n % 2 === 0; };
+    var isOdd = R.complement(isEven);
+    isOdd(21); //=> true
+    isOdd(42); //=> false
+}
+() => {
+    var fn = R.cond(
+      [R.eq(0),   R.always('water freezes at 0°C')],
+      [R.eq(100), R.always('water boils at 100°C')],
+      [R.T,       function(temp: number) { return 'nothing special happens at ' + temp + '°C'; }]
+    );
+    fn(0); //=> 'water freezes at 0°C'
+    fn(50); //=> 'nothing special happens at 50°C'
+    fn(100); //=> 'water boils at 100°C'
+}
+() => {
+    var defaultTo42 = R.defaultTo(42);
+    defaultTo42(null);  //=> 42
+    defaultTo42(undefined);  //=> 42
+    defaultTo42('Ramda');  //=> 'Ramda'
+}
+() => {
+    var gt10 = function(x: number) { return x > 10; };
+    var even = function(x: number) { return x % 2 === 0 };
+    var f = R.either(gt10, even);
+    var g = R.either(gt10)(even);
+    f(101); //=> true
+    f(8); //=> true
+}
+() => {
+    // Flatten all arrays in the list but leave other values alone.
+    var flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
+
+    flattenArrays([[0], [[10], [8]], 1234, {}]); //=> [[0], [10, 8], 1234, {}]
+    flattenArrays([[[10], 123], [8, [10]], "hello"]); //=> [[10, 123], [8, 10], "hello"]
+}
+() => {
+    R.isEmpty([1, 2, 3]); //=> false
+    R.isEmpty([]); //=> true
+    R.isEmpty(''); //=> true
+    R.isEmpty(null); //=> false
+}
+
+() => {
+    R.not(true); //=> false
+    R.not(false); //=> true
+    R.not(0); // => true
+    R.not(1); // => false
+}
+
+() => {
+    R.or(false, true); //=> false
+    R.or(0, []); //=> 0
+    R.or(0)([]); //=> 0
+    R.or(null, ''); //=> null
+    var Why: any = (function(val: boolean) {
+        var why: any;
+        why.val = val;
+        why.or = function(x: boolean) {
+            return this.val && x;
+        }
+        return Why;
+    })(true);
+    var why = new Why(true);
+    R.or(why, false); // false
 }
