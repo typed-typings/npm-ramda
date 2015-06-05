@@ -951,8 +951,6 @@ interface Obj { a: number; b: number };
 () => {
     //  toBinary :: Number -> String
     var toBinary = R.invoke('toString', [2])
-<<<<<<< HEAD
-
     toBinary(42); //=> '101010'
     toBinary(63); //=> '111111'
     R.invoke('toString')([2], 42)
@@ -993,13 +991,7 @@ interface Obj { a: number; b: number };
     phraseLens(obj2); // => "What's all this, then?"
     phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
     phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
-=======
 
-    toBinary(42); //=> '101010'
-    toBinary(63); //=> '111111'
-    R.invoke('toString')([2], 42)
-    // R.invoke('toString')([2])(42)
->>>>>>> master
 }
 
 () => {
@@ -1110,12 +1102,8 @@ interface Obj { a: number; b: number };
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
-<<<<<<< HEAD
-    var spec2 = {x: function(val, obj) { return  val + obj.y > 10; }};
-=======
 
     var spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
->>>>>>> master
     R.where(spec2, {x: 2, y: 7}); //=> false
     R.where(spec2, {x: 3, y: 8}); //=> true
 
@@ -1339,6 +1327,15 @@ interface Obj { a: number; b: number };
     R.replace(/foo/g)('bar', 'foo foo foo'); //=> 'bar bar bar'
 }
 
+() => {
+    R.nthChar(2, 'Ramda'); //=> 'm'
+    R.nthChar(-2, 'Ramda'); //=> 'd'
+}
+
+() => {
+    R.nthCharCode(2, 'Ramda'); //=> 'm'.charCodeAt(0)
+    R.nthCharCode(-2, 'Ramda'); //=> 'd'.charCodeAt(0)
+}
 /*****************************************************************
  * Is category
  */

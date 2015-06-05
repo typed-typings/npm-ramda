@@ -1401,15 +1401,15 @@ declare module R {
 
 
         /**
-         * The character at the nth position in a String:
+         * Returns the nth character of the given string.
          */
-        charAt(index: number, indexB: number, str: string): string;
+        nthChar(index: number, str: string): string;
 
 
         /**
-         * The ascii code of the character at the nth position in a String:
+         * Returns the character code of the nth character of the given string.
          */
-        charCodeAt(index: number, indexB: number, str: string): string;
+        nthCharCode(index: number, str: string): number;
 
 
         /**
