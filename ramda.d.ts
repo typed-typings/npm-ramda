@@ -770,8 +770,8 @@ declare module R {
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
-        prop<T,U>(p: string, obj: T): U;
-        prop<T,U>(p: string): (obj: T) => U;
+        prop<T>(p: string, obj: any): T;
+        prop<T>(p: string): (obj: any) => T;
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
