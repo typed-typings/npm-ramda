@@ -926,6 +926,11 @@ declare module R {
 
         converge(after: Function, ...fns: Function[]): Function;
 
+        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1) => (b: T2) => TResult
+        curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): (a: T1) => (b: T2) => (c: T3) => TResult
+        curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => TResult
+        curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => (e: T5) => TResult
+        curry<T1, T2, T3, T4, T5, T6, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => (e: T5) => (f: T6) => TResult
         curry(fn: Function): Function
 
         curryN(length: number, fn: (...args: any[]) => any): Function;
