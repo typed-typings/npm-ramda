@@ -928,7 +928,7 @@ declare module R {
 
         curry(fn: Function): Function
 
-        curryN(lenght: number, fn: (...args: any[]) => any): Function;
+        curryN(length: number, fn: (...args: any[]) => any): Function;
 
         /**
          * `empty` wraps any object in an array. This implementation is compatible with the
