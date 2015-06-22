@@ -839,8 +839,13 @@ declare module R {
         * -----------------
         */
 
-        __: placeholder;
+       __: placeholder;
 
+       /**
+        * Creates a new list iteration function from an existing one by adding two new parameters to its callback
+        * function: the current index, and the entire list.
+        */
+        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): (fn: (item: T, idx: string, list?: T[]) => U, list: T[]) => U[];
 
        /**
         * Returns a function that always returns the given value.
