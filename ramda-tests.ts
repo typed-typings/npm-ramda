@@ -237,13 +237,6 @@ R.times(i, 5);
     R.take(2, [1, 2, 3, 4]); //=> [1, 2]
 });
 (() => {
-    var isTwo = function(x: number) {
-      return x === 2;
-    };
-    R.skipUntil(isTwo, [1, 2, 3, 4]); //=> [2, 3, 4]
-    R.skip(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
-});
-(() => {
     var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
 });
@@ -635,7 +628,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var letters = ['a', 'b', 'c'];
-    var objectify = function<T>(accObject: T, elem: number, idx: number, list: number[]) {
+    var objectify = function(accObject: {[elem:string]: number}, elem: string, idx: number, list: string[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -644,25 +637,15 @@ interface Obj { a: number; b: number };
     R.reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
+type Pair = R.KeyValuePair<string, number>;
 () => {
-    var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc: [string, number], pair: [string, number]) {
+    var pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
+    var flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
         return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
     R.reduceRight(flattenPairs, [])(pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
     R.reduceRight(flattenPairs)([], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
-}
-
-() => {
-    var letters = ['a', 'b', 'c'];
-    var objectify = function(accObject: any, elem: number, idx: number, list: string[]) {
-        accObject[elem] = idx;
-        return accObject;
-    };
-    R.reduceRightIndexed(objectify, {}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
-    R.reduceRightIndexed(objectify, {})(letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
-    R.reduceRightIndexed(objectify)({}, letters); //=> { 'c': 2, 'b': 1, 'a': 0 }
 }
 
 () => {
@@ -909,14 +892,16 @@ interface Obj { a: number; b: number };
     pointHas('z');  //=> false
 }
 
-() => {
-    function Rectangle(width: number, height: number) {
-      this.width = width;
-      this.height = height;
+class Rectangle {
+    constructor(public width: number, public height: number) {
+        this.width = width;
+        this.height = height;
     }
-    Rectangle.prototype.area = function() {
-      return this.width * this.height;
-    };
+    area() {
+        return this.width * this.height;
+    }
+};
+() => {
 
     var square = new Rectangle(2, 2);
     R.hasIn('width', square);  //=> true
@@ -970,16 +955,16 @@ interface Obj { a: number; b: number };
 
 () => {
     var headLens = R.lens(
-      function get(arr) { return arr[0]; },
-      function set(val, arr) { return [val].concat(arr.slice(1)); }
+      function get(arr: number[]) { return arr[0]; },
+      function set(val: number[], arr: number[]) { return [val].concat(arr.slice(1)); }
     );
     headLens([10, 20, 30, 40]); //=> 10
     headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
-    headLens.map(function(x) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
 
     var phraseLens = R.lens(
-      function get(obj) { return obj.phrase; },
-      function set(val, obj) {
+      function get(obj: any) { return obj.phrase; },
+      function set(val: string, obj: any) {
         var out = R.clone(obj);
         out.phrase = val;
         return out;
@@ -1090,6 +1075,64 @@ interface Obj { a: number; b: number };
     R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
     R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
     R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
+}
+
+() => {
+    var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
+    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+}
+
+() => {
+    var abby = {name: 'Abby', age: 7, hair: 'blond', grade: 2};
+    var fred = {name: 'Fred', age: 12, hair: 'brown', grade: 7};
+    var kids = [abby, fred];
+    R.project(['name', 'grade'], kids); //=> [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
+}
+
+() => {
+    R.prop('x', {x: 100}); //=> 100
+    R.prop('x', {}); //=> undefined
+}
+
+() => {
+    var alice = {
+      name: 'ALICE',
+      age: 101
+    };
+    var favorite = R.prop('favoriteLibrary');
+    var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
+
+    favorite(alice);  //=> undefined
+    favoriteWithDefault(alice);  //=> 'Ramda'
+}
+
+() => {
+    R.props(['x', 'y'], {x: 1, y: 2}); //=> [1, 2]
+    R.props(['c', 'a', 'b'], {b: 2, a: 1}); //=> [undefined, 1, 2]
+
+    var fullName = R.compose(R.join(' '), R.props(['first', 'last']));
+    fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); //=> 'Tony Bullet-Tooth'
+}
+
+() => {
+    R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
+}
+
+() => {
+    var F = function() { this.x = 'X'; };
+    F.prototype.y = 'Y';
+    var f = new F();
+    R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
+}
+
+() => {
+    R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+}
+() => {
+    var F = function() { this.x = 'X'; };
+    F.prototype.y = 'Y';
+    var f = new F();
+    R.valuesIn(f); //=> ['X', 'Y']
 }
 
 () => {

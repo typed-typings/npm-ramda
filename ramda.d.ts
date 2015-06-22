@@ -748,30 +748,35 @@ declare module R {
         pickAll<T, U>(names: string[]): (obj: T) => U;
 
         /**
-         * TODO pickBy
+         * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
          */
-        pickBy(pred: Pred, obj: any): any
+        pickBy<T,U>(pred: Pred, obj: T): U;
 
         /**
          * Reasonable analog to SQL `select` statement.
          */
-        project<T>(props: string[], objs: T[]): T[];
+        project<T,U>(props: string[], objs: T[]): U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
-        prop(p: string, obj: any): any;
-        prop(p: string): (obj: any) => any;
+        prop<T,U>(p: string, obj: T): U;
+        prop<T,U>(p: string): (obj: T) => U;
 
         /**
-         * TODO propOr
+         * If the given, non-null object has an own property with the specified name, returns the value of that property.
+         * Otherwise returns the provided default value.
          */
+        propOr<T,U,V>(val: T, p: string, obj: U): V;
+        propOr<T,U,V>(val: T, p: string): (obj: U) => V;
+        propOr<T,U,V>(val: T): (p: string, obj: U) => V;
 
         /**
          * Returns the value at the specified property.
          * The only difference from `prop` is the parameter order.
          */
-        props(obj: any, prop: string): any;
+        props<T>(ps: string[], obj: Dictionary<T>): T[];
+        props<T>(ps: string[]): (obj:  Dictionary<T>) => T[];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -780,7 +785,6 @@ declare module R {
          * consistent across different JS platforms.
          */
         toPairs(obj: any): any[][];
-
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -799,9 +803,10 @@ declare module R {
         values(obj: any): any[];
 
         /**
-         * TODO valuesIn
+         * Returns a list of all the properties, including prototype properties, of the supplied
+         * object. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.
          */
-
+        valuesIn(obj: any): any[];
 
        /**
         * Takes a spec object and a test object and returns true if the test satisfies the spec.
