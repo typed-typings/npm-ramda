@@ -17,7 +17,7 @@ var shout = function(x: number): string {
 });
 
 (() => {
-    var x: boolean
+    var x: boolean;
     x = R.isArrayLike('a');
     x = R.isArrayLike([1,2,3]);
     x = R.isArrayLike([]);
@@ -696,6 +696,11 @@ type Pair = R.KeyValuePair<string, number>;
     R.slice(2, 5, xs); //=> [2, 3, 4]
     R.slice(2, 5)(xs); //=> [2, 3, 4]
     R.slice(2)(5, xs); //=> [2, 3, 4]
+
+    var str = 'Hello World';
+    R.slice(2, 5, str); //=> 'llo'
+    R.slice(2, 5)(str); //=> 'llo'
+    R.slice(2)(5, str); //=> 'llo'
 }
 
 () => {

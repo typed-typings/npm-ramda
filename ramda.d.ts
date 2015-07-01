@@ -444,9 +444,9 @@ declare module R {
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
-        slice<T>(a: number, b: number, list: T[]): T[];
-        slice<T>(a: number, b: number): (list: T[])  => T[];
-        slice<T>(a: number): (b: number, list: T[])  => T[];
+        slice<T>(a: number, b: number, list: string|T[]): string|T[];
+        slice<T>(a: number, b: number): (list: string|T[])  => string|T[];
+        slice<T>(a: number): (b: number, list: string|T[])  => string|T[];
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
