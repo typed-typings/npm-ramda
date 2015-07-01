@@ -1181,6 +1181,46 @@ class Rectangle {
 /*****************************************************************
  * Relation category
  */
+
+() => {
+    var numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
+    var letters = R.split('', 'abcABCaaaBBc');
+    R.countBy(Math.floor)(numbers);    //=> {'1': 3, '2': 2, '3': 1}
+    R.countBy(R.toLower)(letters);   //=> {'a': 5, 'b': 4, 'c': 3}
+}
+
+() => {
+    R.difference([1,2,3,4], [7,6,5,4,3]); //=> [1,2]
+    R.difference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5]
+}
+
+() => {
+    function cmp(x: any, y: any) { return x.a === y.a; }
+    var l1 = [{a: 1}, {a: 2}, {a: 3}];
+    var l2 = [{a: 3}, {a: 4}];
+    R.differenceWith(cmp, l1, l2); //=> [{a: 1}, {a: 2}]
+}
+
+() => {
+    R.equals(1, 1); //=> true
+    R.equals('2', '1'); //=> false
+    R.equals([1, 2, 3], [1, 2, 3]); //=> true
+
+    var a: any = {}; a.v = a;
+    var b: any = {}; b.v = b;
+    R.equals(a, b); //=> true
+}
+
+() => {
+    var o = {};
+    R.identical(o, o); //=> true
+    R.identical(1, 1); //=> true
+    R.identical(1, '1'); //=> false
+    R.identical([], []); //=> false
+    R.identical(0, -0); //=> false
+    R.identical(NaN, NaN); //=> true
+}
+
 () => {
     R.path(['a', 'b'], {a: {b: 2}}); //=> 2
     R.path(['a', 'b'])({a: {b: 2}}); //=> 2
