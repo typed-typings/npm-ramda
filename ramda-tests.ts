@@ -1173,9 +1173,11 @@ class Rectangle {
  * Function category
  */
 () => {
+
     var mapIndexed = R.addIndex(R.map);
-    mapIndexed(function(val: string, idx: string) {return idx + '-' + val;}, ['f', 'o', 'o', 'b', 'a', 'r']);
+    mapIndexed(function(val: string, idx: number) {return idx + '-' + val;}, ['f', 'o', 'o', 'b', 'a', 'r']);
     //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
+    mapIndexed((rectangle: Rectangle, idx: number) => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
 }
 
 /*****************************************************************
@@ -1215,7 +1217,7 @@ class Rectangle {
     var o = {};
     R.identical(o, o); //=> true
     R.identical(1, 1); //=> true
-    R.identical(1, '1'); //=> false
+    R.identical('2', '1'); //=> false
     R.identical([], []); //=> false
     R.identical(0, -0); //=> false
     R.identical(NaN, NaN); //=> true

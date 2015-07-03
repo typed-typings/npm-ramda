@@ -444,9 +444,13 @@ declare module R {
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
-        slice<T>(a: number, b: number, list: string|T[]): string|T[];
-        slice<T>(a: number, b: number): (list: string|T[])  => string|T[];
-        slice<T>(a: number): (b: number, list: string|T[])  => string|T[];
+        slice<T>(a: number, b: number, list: T[]): T[];
+        slice(a: number, b: number, list: string): string;
+        slice<T>(a: number, b: number): (list: T[]) => T[];
+        slice(a: number, b: number): (list: string) => string;
+        slice<T>(a: number): (b: number, list: T[]) => T[];
+        slice(a: number): (b: number, list: string) => string;
+
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
@@ -845,7 +849,7 @@ declare module R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): (fn: (item: T, idx: string, list?: T[]) => U, list: T[]) => U[];
+        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): (fn: (item: T, idx: number, list?: T[]) => U, list: T[]) => U[];
 
        /**
         * Returns a function that always returns the given value.
