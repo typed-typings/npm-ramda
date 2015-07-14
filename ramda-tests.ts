@@ -403,7 +403,14 @@ R.times(i, 5);
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
     R.findLastIndex((x) => x === 1, [1, 2, 3]);
 }
-
+() => {
+    var user1 = { address: { zipCode: 90210 } };
+    var user2 = { address: { zipCode: 55555 } };
+    var user3 = { name: 'Bob' };
+    var users = [ user1, user2, user3 ];
+    var isFamous = R.pathEq(['address', 'zipCode'], 90210);
+    R.filter(isFamous, users); //=> [ user1 ]
+}
 () => {
     var xs: {[key:string]: string} = {a: '1', b: '0'};
     R.propEq('a', '1', xs);//=> true
