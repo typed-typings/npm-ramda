@@ -292,14 +292,6 @@ declare module R {
          */
         length(list: any[]): number;
 
-        /**
-         * Creates a lens that will focus on index n of the source array.
-         */
-        lensIndex(n: number): {
-            <T>(list: T[]): T;
-            set<T,U,V>(str: T, list: U[]): V[];
-            map<T>(fn: (x: T) => T, list: T[]): T[]
-        };
 
         /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
@@ -684,17 +676,18 @@ declare module R {
         lens(get: Function, set: Function): {
             <T>(obj: T|T[]): T;
             set<T,U,V>(val: T, obj: U|U[]): V|V[];
-            map<T>(fn: Function, obj: T|T[]): T|T[]
+            /*map<T>(fn: Function, obj: T|T[]): T|T[]*/
         };
 
+
         /**
-         * lensOn creates a lens associated with the provided object.
+         * Creates a lens that will focus on index n of the source array.
          */
-        lensOn<T>(get: Function, set: Function, obj: T): {
-            <T>(): T;
-            set<T,U,V>(val: T): V;
-            map<T>(fn: Function): T
-        }
+        lensIndex(n: number): {
+            <T>(list: T[]): T;
+            set<T,U,V>(str: T, list: U[]): V[];
+            /*map<T>(fn: (x: T) => T, list: T[]): T[]*/
+        };
 
         /**
          * lensProp creates a lens that will focus on property k of the source object.
@@ -702,12 +695,11 @@ declare module R {
         lensProp(str: string): {
             <T, U>(obj: T): U;
             set<T,U,V>(val: T, obj: U): V;
-            map<T>(fn: Function, obj: T): T
+            /*map<T>(fn: Function, obj: T): T*/
         }
 
         mapObj<T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
         mapObj<T, TResult>(fn: (value: T) => TResult): (obj: any) => {[index: string]: TResult};
-
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
@@ -729,6 +721,14 @@ declare module R {
          */
         omit<T>(names: string[], obj: T): T;
         omit<T>(names: string[]): (obj: T) => T;
+
+        /**
+         * Returns the result of "setting" the portion of the given data structure focused by the given lens to the given value.
+         */
+        over<T>(lens: {
+                    <T>(obj: T|T[]): T;
+                    set<T,U,V>(val: T, obj: U|U[]): V|V[]},
+                fn: Arity1Fn, value: T[]): T[];
 
         /**
          * Retrieve the value at a given path.
@@ -898,11 +898,10 @@ declare module R {
          * passing the return value of each function invocation to the next function invocation,
          * beginning with whatever arguments were passed to the initial invocation.
         */
+        // TODO composeL
         compose<T>(fn: T, ...fns: Function[]): T;
+        /*compose<T, U, V, W>(fn: (...args: T[])=> W, ...fns: ((...args: U[]) => V)[]): (...arg3: T[])=> V;*/
 
-        /**
-         * TODO composeL
-         */
         /**
          * TODO composeP
          */
