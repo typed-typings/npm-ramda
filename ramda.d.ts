@@ -49,6 +49,10 @@ declare module R {
         [index: string]: T;
     }
 
+    interface CharList extends String {
+        push(x: string): void;
+    }
+
     interface Static {
         /*
          * List category
@@ -444,13 +448,9 @@ declare module R {
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
-        slice<T>(a: number, b: number, list: T[]): T[];
-        slice(a: number, b: number, list: string): string;
-        slice<T>(a: number, b: number): (list: T[]) => T[];
-        slice(a: number, b: number): (list: string) => string;
-        slice<T>(a: number): (b: number, list: T[]) => T[];
-        slice(a: number): (b: number, list: string) => string;
-
+        slice<T>(a: number, b: number, list: string|T[]): string|T[];
+        slice<T>(a: number, b: number): (list: string|T[]) => string|T[];
+        slice<T>(a: number): (b: number, list: string|T[]) => string|T[];
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
