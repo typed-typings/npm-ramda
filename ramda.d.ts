@@ -1509,6 +1509,15 @@ declare module R {
         intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
         /**
+         * Determines whether a nested path on an object has a specific value,
+         * in `R.equals` terms. Most likely used to filter a list.
+         */
+        pathEq(path: string[], val: any, obj: any): boolean;
+        pathEq(path: string[], val: any): (obj: any) => boolean;
+        pathEq(path: string[]): (val: any, obj: any) => boolean;
+        pathEq(path: string[]): (val: any) => (obj: any) => boolean;
+
+        /**
          * Determines whether the given property of an object has a specific
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
