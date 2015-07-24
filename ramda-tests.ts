@@ -966,29 +966,24 @@ class Rectangle {
 }
 
 () => {
-    var headLens = R.lens(
-      function get(arr: number[]) { return arr[0]; },
-      function set(val: number[], arr: number[]) { return [val].concat(arr.slice(1)); }
-    );
-    headLens([10, 20, 30, 40]); //=> 10
-    headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
-    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
-
-    var phraseLens = R.lens(
-      function get(obj: any) { return obj.phrase; },
-      function set(val: string, obj: any) {
-        var out = R.clone(obj);
-        out.phrase = val;
-        return out;
-      }
-    );
-    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    var obj2 = { phrase: "What's all this, then?"};
-    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
-    phraseLens(obj2); // => "What's all this, then?"
-    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
-    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
-
+    var xLens = R.lens(R.prop('x'), R.assoc('x'));
+    R.view(xLens, {x: 1, y: 2});            //=> 1
+    R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+    R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
+}
+() => {
+    var headLens = R.lensIndex(0);
+    R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
+    R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
+    R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
+}
+() => {
+    var xLens = R.lensProp('x');
+    R.view(xLens, {x: 1, y: 2});            //=> 1
+    R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+    R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
+}
+() => {
 }
 
 () => {

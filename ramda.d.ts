@@ -45,6 +45,10 @@ declare module R {
         (...a: any[]): boolean;
     }
 
+    interface ObjPred {
+        (value: any, key: string): boolean;
+    }
+
     interface Dictionary<T> {
         [index: string]: T;
     }
@@ -440,7 +444,8 @@ declare module R {
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
-        slice<T>(a: number, b: number, list: string|T[]): string|T[];
+        slice(a: number, b: number, list: string): string;
+        slice<T>(a: number, b: number, list: T[]): T[];
         slice<T>(a: number, b: number): (list: string|T[]) => string|T[];
         slice<T>(a: number): (b: number, list: string|T[]) => string|T[];
 
@@ -754,7 +759,8 @@ declare module R {
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
          */
-        pickBy<T,U>(pred: Pred, obj: T): U;
+        pickBy<T,U>(pred: ObjPred, obj: T): U;
+        pickBy<T,U>(pred: ObjPred): (obj: T) => U;
 
         /**
          * Reasonable analog to SQL `select` statement.
