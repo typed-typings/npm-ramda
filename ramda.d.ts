@@ -905,7 +905,17 @@ declare module R {
          * beginning with whatever arguments were passed to the initial invocation.
         */
         // TODO composeL
-        compose<T>(fn: T, ...fns: Function[]): T;
+        compose<T0, T1>(fn0: (x: T0) => T1): (x: T0) => T1;
+        compose<T0, T1, T2>(fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T2;
+        compose<T0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T3;
+        compose<T0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T4;
+        compose<T0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T5;
+        compose<T0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T6;
+        compose<T0, T1, T2, T3, T4, T5, T6, T7>(fn6: (x: T6) => T7, fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T7;
+        compose<T0, T1, T2, T3, T4, T5, T6, T7, T8>(fn7: (x: T7) => T8, fn6: (x: T6) => T7, fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T8;
+        compose<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(fn8: (x: T8) => T9, fn7: (x: T7) => T8, fn6: (x: T6) => T7, fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T9;
+        compose<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(fn9: (x: T9) => T10, fn8: (x: T8) => T9, fn7: (x: T7) => T8, fn6: (x: T6) => T7, fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1): (x: T0) => T10;
+        compose<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(fn9: (x: T9) => T10, fn8: (x: T8) => T9, fn7: (x: T7) => T8, fn6: (x: T6) => T7, fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: T0) => T1, ...fns: Function[]): (x: any) => T10;
         /*compose<T, U, V, W>(fn: (...args: T[])=> W, ...fns: ((...args: U[]) => V)[]): (...arg3: T[])=> V;*/
 
         /**
