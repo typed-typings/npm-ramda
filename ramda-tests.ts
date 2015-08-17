@@ -63,7 +63,20 @@ var shout = function(x: number): string {
     }
     var func: (x: number) => boolean = R.compose(limit10, double)
     var res: boolean = R.compose(limit10, double)(10)
+
+    const f0 = (s: string) => +s;      // string -> number
+    const f1 = (n: number) => n === 1; // number -> boolean
+    const f2 = R.compose(f1, f0);      // string -> boolean
+
+    // akward example that bounces types between number and string
+    const g0 = (list: number[]) => R.map(i => i++, list);
+    const g1 = R.dropWhile((i: number) => i > 10);
+    const g2 = R.map((i: number) => i > 5 ? 'bigger' : 'smaller');
+    const g3 = R.all((i: string) => i === 'smaller');
+    const g = R.compose(g3, g2, g1, g0);
+    const g_res: boolean = g([1, 2, 10, 13]);
 }
+
 /* pipe */
 () => {
 
