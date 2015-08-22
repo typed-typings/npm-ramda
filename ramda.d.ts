@@ -64,8 +64,10 @@ declare module R {
 
 
         /**
-         * TODO adjust
+         * Applies a function to the value at the given index of an array, returning a new copy of the array with the element at the given index replaced with the result of the function application.
          */
+        adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[];
+        adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[];
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
@@ -519,7 +521,13 @@ declare module R {
          * them in a new array.
          */
         unnest<T>(x: T[]): T[];
-
+        
+        /**
+         * Returns a new copy of the array with the element at the provided index replaced with the given value.
+         */
+        update<T>(index: number, value: T, list: T[]): T[];
+        update<T>(index: number, value: T): (list: T[]) => T[];
+        
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
