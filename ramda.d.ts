@@ -240,7 +240,7 @@ declare module R {
         /**
          * Returns all but the last element of a list.
          */
-        init<T>(list: T): T[];
+        init<T>(list: T[]): T[];
 
         /**
          * Inserts the supplied element into the list, at index index. Note that
