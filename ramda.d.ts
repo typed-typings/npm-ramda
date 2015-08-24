@@ -1139,6 +1139,12 @@ declare module R {
          */
         is(ctor: any, val: any): boolean;
         is(ctor: any): (val: any) => boolean;
+        
+        
+        /**
+         * Checks if the input value is null or undefined.
+         */
+        isNil(value: any): boolean;
 
 
         /**
@@ -1323,6 +1329,7 @@ declare module R {
          * Returns the larger of its two arguments.
          */
         max(a: number, b: number): number;
+        max(a: number): (b: number) => number;
 
         /**
          * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator.
@@ -1334,6 +1341,7 @@ declare module R {
          * Returns the smaller of its two arguments.
          */
         min(a: number, b: number): number;
+        min(a: number): (b: number) => number;
 
         /**
          * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator.
