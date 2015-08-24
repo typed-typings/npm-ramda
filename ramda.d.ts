@@ -1320,9 +1320,9 @@ declare module R {
         mathMod(a: placeholder, b: number): (a: number) => number;
 
         /**
-         * Determines the largest of a list of numbers (or elements that can be cast to numbers)
+         * Returns the larger of its two arguments.
          */
-        max(list: number[]): number;
+        max(a: number, b: number): number;
 
         /**
          * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator.
@@ -1331,9 +1331,9 @@ declare module R {
         maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
 
         /**
-         * Determines the smallest of a list of numbers (or elements that can be cast to numbers)
+         * Returns the smaller of its two arguments.
          */
-        min(list: number[]): number;
+        min(a: number, b: number): number;
 
         /**
          * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator.
