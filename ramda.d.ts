@@ -860,7 +860,7 @@ declare module R {
        /**
         * Returns a function that always returns the given value.
         */
-        always(val: any): Function;
+        always<T>(val: T): () => T;
 
         /**
          * ap applies a list of functions to a list of values.
