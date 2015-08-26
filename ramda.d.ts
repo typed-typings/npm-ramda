@@ -1448,7 +1448,13 @@ declare module R {
          * Splits a string into an array of strings based on the given
          * separator.
          */
+
+        split(sep: string): (str: string) => string[];
+        split(sep: RegExp): (str: string) => string[];
         split(sep: string, str: string): string[];
+        split(sep: RegExp, str: string): string[];
+
+
 
         // Data Analysis and Grouping Functions
         // ------------------------------------
