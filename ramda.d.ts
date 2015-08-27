@@ -1503,6 +1503,7 @@ declare module R {
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          */
         difference<T>(list1: T[], list2: T[]): T[];
+        difference<T>(list1: T[]): (list2: T[]) => T[];
 
 
         /**
