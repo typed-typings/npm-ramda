@@ -458,7 +458,13 @@ declare module R {
          */
         sort<T>(fn: (a: T, b: T) => number, list: T[]): T[];
         sort<T>(fn: (a: T, b: T) => number): (list: T[]) => T[];
-
+        
+        /**
+         * Splits a collection into slices of the specified length.
+         */
+        splitEvery<T>(a: number, list: T[]): T[][];
+        splitEvery<T>(a: number): (list: T[]) => T[][];
+        
         /**
          * Returns all but the first element of a list.
          */
