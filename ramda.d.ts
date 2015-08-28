@@ -1033,7 +1033,12 @@ declare module R {
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: Function, fn8: T): T;
-
+        
+        /**
+         * The function to call with x. The return value of fn will be thrown away.
+         */
+        tap<T>(fn: (a: T) => any, value: T): T;
+        tap<T>(fn: (a: T) => any): (value: T) => T;
 
 
         // Object Functions
