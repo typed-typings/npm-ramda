@@ -1221,12 +1221,12 @@ declare module R {
         complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
 
         /**
-         * Returns a function, fn, which encapsulates if/else-if/else logic. Each argument to R.cond is a
-         * [predicate, transform] pair. All of the arguments to fn are applied to each of the predicates in
-         * turn until one returns a "truthy" value, at which point fn returns the result of applying its
-         * arguments to the corresponding transformer. If none of the predicates matches, fn returns undefined.
+         * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
+         * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which 
+         * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates 
+         * matches, fn returns undefined.
          */
-        cond(fn: [Pred, Function], ...fns: [Pred, Function][]): Function;
+        cond(fns: [Pred, Function][]): Function;
 
         /**
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
