@@ -463,13 +463,13 @@ declare module R {
          */
         sort<T>(fn: (a: T, b: T) => number, list: T[]): T[];
         sort<T>(fn: (a: T, b: T) => number): (list: T[]) => T[];
-        
+
         /**
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: T[]): T[][];
         splitEvery<T>(a: number): (list: T[]) => T[][];
-        
+
         /**
          * Returns all but the first element of a list.
          */
@@ -538,13 +538,13 @@ declare module R {
          * them in a new array.
          */
         unnest<T>(x: T[]): T[];
-        
+
         /**
          * Returns a new copy of the array with the element at the provided index replaced with the given value.
          */
         update<T>(index: number, value: T, list: T[]): T[];
         update<T>(index: number, value: T): (list: T[]) => T[];
-        
+
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
@@ -861,8 +861,8 @@ declare module R {
         * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
         * `filter`, `find`, `pickWith`, etc.
         */
-        where<T>(spec: T, testObj: T): boolean;
-        where<T>(spec: T): (testObj: T) => boolean;
+        where<T,U>(spec: T, testObj: U): boolean;
+        where<T,U>(spec: T): (testObj: U) => boolean;
         where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
         where<ObjFunc2,U>(spec: ObjFunc2): (testObj: U) => boolean;
 
@@ -1045,7 +1045,7 @@ declare module R {
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: Function, fn8: T): T;
-        
+
         /**
          * The function to call with x. The return value of fn will be thrown away.
          */
@@ -1168,8 +1168,8 @@ declare module R {
          */
         is(ctor: any, val: any): boolean;
         is(ctor: any): (val: any) => boolean;
-        
-        
+
+
         /**
          * Checks if the input value is null or undefined.
          */
@@ -1234,8 +1234,8 @@ declare module R {
 
         /**
          * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
-         * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which 
-         * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates 
+         * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which
+         * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
          * matches, fn returns undefined.
          */
         cond(fns: [Pred, Function][]): Function;

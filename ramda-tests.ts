@@ -1,4 +1,5 @@
 /// <reference path="ramda.d.ts" />
+
 var double = function(x: number): number {
     return x + x
 };
@@ -8,6 +9,16 @@ var shout = function(x: number): string {
         : 'small'
 };
 
+class F {
+    x = 'X';
+    y = 'Y';
+}
+class F2 {
+    a = 100;
+    y = 1;
+    x(){};
+    z() {};
+}
 (() => {
     /* op */
     var div: Function;
@@ -34,7 +45,8 @@ var shout = function(x: number): string {
     };
 
     var x1: Function = R.curry(addFourNumbers)
-    var x2: Function = R.curry(addFourNumbers)(1,2,4)
+    // because of the current way of currying, the following call results in a type error
+    // var x2: Function = R.curry(addFourNumbers)(1,2,4)
     var x3: Function = R.curry(addFourNumbers)(1)(2)
     var x4: Function = R.curry(addFourNumbers)(1)(2)(3)
     var y1: number = R.curry(addFourNumbers)(1)(2)(3)(4)
@@ -69,8 +81,8 @@ var shout = function(x: number): string {
     const f2 = R.compose(f1, f0);      // string -> boolean
 
     // akward example that bounces types between number and string
-    const g0 = (list: number[]) => R.map(i => i++, list);
-    const g1 = R.dropWhile((i: number) => i > 10);
+    const g0 = (list: number[]) => R.map(R.inc, list);
+    const g1 = R.dropWhile(R.gt(10));
     const g2 = R.map((i: number) => i > 5 ? 'bigger' : 'smaller');
     const g3 = R.all((i: string) => i === 'smaller');
     const g = R.compose(g3, g2, g1, g0);
@@ -891,20 +903,12 @@ type Pair = R.KeyValuePair<string, number>;
 
 () => {
     R.functions(R); // returns list of ramda's own function names
-
-    var F = function() { this.x = function(){}; this.y = 1; }
-    F.prototype.z = function() {};
-    F.prototype.a = 100;
-    R.functions(new F()); //=> ["x"]
+    R.functions(new F2()); //=> ["x"]
 }
 
 () => {
     R.functionsIn(R); // returns list of ramda's own and prototype function names
-
-    var F = function() { this.x = function(){}; this.y = 1; }
-    F.prototype.z = function() {};
-    F.prototype.a = 100;
-    R.functionsIn(new F()); //=> ["x", "z"]
+    R.functionsIn(new F2()); //=> ["x", "z"]
 }
 
 () => {
@@ -975,8 +979,6 @@ class Rectangle {
 }
 
 () => {
-    var F = function() { this.x = 'X'; };
-    F.prototype.y = 'Y';
     var f = new F();
     R.keysIn(f); //=> ['x', 'y']
 }
@@ -1011,8 +1013,6 @@ class Rectangle {
 }
 
 () => {
-    var F = function() { this.x = 'X'; };
-    F.prototype.y = 'Y';
     var f = new F();
     R.keysIn(f); //=> ['x', 'y']
 }
@@ -1110,7 +1110,7 @@ class Rectangle {
 }
 
 () => {
-    R.prop('x', {x: 100}); //=> 100
+    var x: number = <number>R.prop('x', {x: 100}); //=> 100
     R.prop('x', {}); //=> undefined
 }
 
@@ -1139,8 +1139,6 @@ class Rectangle {
 }
 
 () => {
-    var F = function() { this.x = 'X'; };
-    F.prototype.y = 'Y';
     var f = new F();
     R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
 }
@@ -1149,18 +1147,16 @@ class Rectangle {
     R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
 }
 () => {
-    var F = function() { this.x = 'X'; };
-    F.prototype.y = 'Y';
     var f = new F();
     R.valuesIn(f); //=> ['X', 'Y']
 }
 
 () => {
     var spec = {x: 2};
-    R.where(spec, {w: 10, x: 2, y: 300}); //=> true
-    R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
-    R.where(spec)({w: 10, x: 2, y: 300}); //=> true
-    R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
+    var x1: boolean = R.where(spec, {w: 10, x: 2, y: 300}); //=> true
+    var x2: boolean = R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
+    var x3: boolean = R.where(spec)({w: 10, x: 2, y: 300}); //=> true
+    var x4: boolean = R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
 
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
@@ -1353,7 +1349,7 @@ class Rectangle {
 }
 
 () => {
-    R.max([7, 3, 9, 2, 4, 9, 3]); //=> 9
+    let x: number = R.max(7, 3); //=> 7
 }
 
 () => {
@@ -1364,7 +1360,7 @@ class Rectangle {
 }
 
 () => {
-    R.min([7, 3, 9, 2, 4, 9, 3]); //=> 2
+    let x: number = R.min(9, 3); //=> 3
 }
 
 () => {
@@ -1520,11 +1516,11 @@ class Rectangle {
     isOdd(42); //=> false
 }
 () => {
-    var fn = R.cond(
+    var fn = R.cond([
       [R.eq(0),   R.always('water freezes at 0°C')],
       [R.eq(100), R.always('water boils at 100°C')],
-      [R.T,       function(temp: number) { return 'nothing special happens at ' + temp + '°C'; }]
-    );
+      [R.T,       (temp: number) => `nothing special happens at ${temp}°C`]
+    ]);
     fn(0); //=> 'water freezes at 0°C'
     fn(50); //=> 'nothing special happens at 50°C'
     fn(100); //=> 'water boils at 100°C'
