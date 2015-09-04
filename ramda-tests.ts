@@ -268,11 +268,7 @@ R.times(i, 5);
 /*****************************************************************
  * Function category
  */
- () => {
-     var nums = [1, 2, 3, -99, 42, 6, 7];
-     R.apply(Math.max, nums); //=> 42
-     R.apply(Math.max)(nums); //=> 42
- }
+
 
  () => {
      var mergeThree = function(a: number, b: number, c: number): number[] {
@@ -966,15 +962,6 @@ class Rectangle {
 }
 
 () => {
-    //  toBinary :: Number -> String
-    var toBinary = R.invoke('toString', [2])
-    toBinary(42); //=> '101010'
-    toBinary(63); //=> '111111'
-    R.invoke('toString')([2], 42)
-    // R.invoke('toString')([2])(42)
-}
-
-() => {
     R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
@@ -1184,11 +1171,73 @@ class Rectangle {
  * Function category
  */
 () => {
-
     var mapIndexed = R.addIndex(R.map);
     mapIndexed(function(val: string, idx: number) {return idx + '-' + val;}, ['f', 'o', 'o', 'b', 'a', 'r']);
     //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
     mapIndexed((rectangle: Rectangle, idx: number) => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+}
+
+() => {
+    var t = R.always('Tee');
+    const x: string = t(); //=> 'Tee'
+}
+
+() => {
+    const x: number[] = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    const y: number[] = R.ap([R.multiply(2), R.add(3)])([1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+}
+
+() => {
+    var nums = [1, 2, 3, -99, 42, 6, 7];
+    R.apply(Math.max, nums); //=> 42
+    R.apply(Math.max)(nums); //=> 42
+}
+
+() => {
+    var takesThreeArgs = function(a: number, b: number, c: number) {
+        return [a, b, c];
+    };
+    takesThreeArgs.length; //=> 3
+    takesThreeArgs(1, 2, 3); //=> [1, 2, 3]
+
+    var takesTwoArgs = R.binary(takesThreeArgs);
+    takesTwoArgs.length; //=> 2
+    // Only 2 arguments are passed to the wrapped function
+    takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
+}
+
+() => {
+    var indentN = R.pipe(R.times(R.always(' ')),
+                         R.join(''),
+                         R.replace(/^(?!$)/gm));
+
+    var format = R.converge(R.call,
+                            R.pipe(R.prop('indent'), indentN),
+                            R.prop('value'));
+
+    format({indent: 2, value: 'foo\nbar\nbaz\n'}); //=> '  foo\n  bar\n  baz\n'
+}
+
+() => {
+    var cmp = R.comparator<{age:number}>(function(a, b) {
+      return a.age < b.age;
+    });
+    var people = [
+      {name: 'Agy', age:33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
+    ];
+    R.sort(cmp, people);
+}
+
+() => {
+    var add = function(a: number, b: number) { return a + b; };
+    var multiply = function(a: number, b: number) { return a * b; };
+    var subtract = function(a: number, b: number) { return a - b; };
+
+    //≅ multiply( add(1, 2), subtract(1, 2) );
+    const x: number = R.converge(multiply, add, subtract)(1, 2); //=> -3
+
+    var add3 = function(a: number, b: number, c: number) { return a + b + c; };
+    const y: number = R.converge(add3, multiply, add, subtract)(1, 2); //=> 4
 }
 
 /*****************************************************************

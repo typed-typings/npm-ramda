@@ -679,14 +679,6 @@ declare module R {
         invertObj(obj: {[index: number]: string}): {[index:string]: string};
 
         /**
-         * Returns the result of applying obj[methodName] to args.
-         */
-        invoke(methodName: string, args: any[], obj: any): any;
-        // invoke(methodName: string): (args: any[]) => (obj: any) => any;
-        invoke(methodName: string): (args: any[], obj: any) => any;
-        invoke(methodName: string, args: any[]): (obj: any) => any;
-
-        /**
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
@@ -897,8 +889,8 @@ declare module R {
         /**
          * ap applies a list of functions to a list of values.
          */
-         ap(fns: Function[], vs: any[]): any[];
-         ap(fns: Function[]): Function;
+        ap<T,U>(fns: ((a: T) => U)[], vs: T[]): U[];
+        ap<T,U>(fns: ((a: T) => U)[]): (vs: T[]) => U[];
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -908,28 +900,29 @@ declare module R {
         apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult): (args: U[]) => TResult;
 
         /**
-         * Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
-         * parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,
-         * functions produced by `arity` will pass all provided arguments to the wrapped function.
-         */
-        arity(n: number, fn: (...args: any[]) => any): Function;
-
-        /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
          * parameters. Any extraneous parameters will not be passed to the supplied function.
          */
         binary(fn: (...args: any[]) => any): Function;
 
+        /**
+         * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
+         * capabilities of Function.prototype.bind.
+         */
         bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
 
         /**
-         * TODO call
+         * Returns the result of calling its first argument with the remaining arguments. This is occasionally useful
+         * as a converging function for R.converge: the left branch can produce a function while the right branch
+         * produces a value to be passed to that function as an argument.
          */
+        call(fn: (...args: any[])=> (...args: any[]) => any, ...args: any[]): any;
 
         /**
          * Makes a comparator function out of a function that reports whether the first element is less than the second.
          */
-        comparator(pred: (a: any, b: any) => boolean): (x: number, y: number) => number;
+        // comparator(pred: (a: any, b: any) => boolean): (x: number, y: number) => number;
+        comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => number;
 
         /**
          * Creates a new function that runs each of the functions supplied as parameters in turn,
@@ -956,6 +949,11 @@ declare module R {
 
         constructN(n: number, fn: Function): Function;
 
+        /**
+         * Accepts at least three functions and returns a new function. When invoked, this new function will invoke the
+         * first function, after, passing as its arguments the results of invoking the subsequent functions with whatever
+         * arguments are passed to the new function.
+         */
         converge(after: Function, ...fns: Function[]): Function;
 
         curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1) => (b: T2) => TResult
