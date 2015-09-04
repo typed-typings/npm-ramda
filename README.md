@@ -9,7 +9,6 @@ Will be pushed to [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyp
 
 Pull requests are welcome!
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ##Usage and limitation
 To use the Ramda type definitions include the following line in each of the .ts files
@@ -22,12 +21,12 @@ In Ramda almost all functions are curried. TypeScript is not equipped well to su
 this. We have tried to use TypeScript to its max and allow for curried functions
 to be applied in maximum two steps. For binary function you could do:
 
-```javascript
+```typescript
 R.indexOf(10, [1,2,3,4])
 R.indexOf(10)([1,2,3,4])
 ```
 and for ternary functions
-```javascript
+```typescript
 R.insert(2, 'x', [1,2,3,4])
 R.insert(2)('x', [1,2,3,4])
 R.insert(2, 'x')([1,2,3,4])
@@ -43,7 +42,7 @@ placeholder arguments to be supplied later. It is similar to calling a curryed f
 left to rigth. The next example of valid function applications of `R.insert`
  will clarify this:
 
-```javascript
+```typescript
 R.insert(R.__, 'x', [1,2,3,4])(2)
 R.insert(2, R.__, [1,2,3,4])('x')
 R.insert(R.__, 'x', R.__)(2)([1,2,3,4])
@@ -54,11 +53,11 @@ in with it fails to distinguish signature patterns correctly. These cases occur 
 ternary functions and function of higher order. Binary function pose no problem.
 
 ##Status
-The definitions are reorganized and updated and are more or less compatible with Ramda v0.15. The API of Ramda is not stable yet.
+The definitions are reorganized and updated and are more or less compatible with Ramda v0.17.1 The API of Ramda is not stable yet.
 
 This needs to be done:
-- include all functions of v0.15
-- reorganize functions by categories (List, Object, Function, etc)
+- include all functions of v0.17.1
+- ~~reorganize functions by categories (List, Object, Function, etc)~~
 - find a elegant way to reflect the Ramda categories into TypeScript interface names
   that are displayed when hovering over a function. At to moment `R.List.<function name>` is displayed, regardless of the real category a function resides.
 - Shorten function descriptions to one or two sentences to limit the size of the
