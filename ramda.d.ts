@@ -57,6 +57,11 @@ declare module R {
         push(x: string): void;
     }
 
+    interface Lens {
+        <T,U>(obj: T): U;
+        set<T,U>(str: string, obj: T): U;
+    }
+
     interface Static {
         /*
          * List category
@@ -675,24 +680,16 @@ declare module R {
 
 
         /**
-         * Creates a lens. Supply a function to get values from inside an object,
-         * and a set function to change values on an object.
+         * Returns a lens for the given getter and setter functions. The getter
+         * "gets" the value of the focus; the setter "sets" the value of the focus.
+         * The setter should not mutate the data structure.
          */
-        lens(get: Function, set: Function): {
-            <T>(obj: T|T[]): T;
-            set<T,U,V>(val: T, obj: U|U[]): V|V[];
-            /*map<T>(fn: Function, obj: T|T[]): T|T[]*/
-        };
-
+        lens<T,U,V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens;
 
         /**
          * Creates a lens that will focus on index n of the source array.
          */
-        lensIndex(n: number): {
-            <T>(list: T[]): T;
-            set<T,U,V>(str: T, list: U[]): V[];
-            /*map<T>(fn: (x: T) => T, list: T[]): T[]*/
-        };
+        lensIndex(n: number): Lens;
 
         /**
          * lensProp creates a lens that will focus on property k of the source object.
@@ -728,12 +725,13 @@ declare module R {
         omit<T>(names: string[]): (obj: T) => T;
 
         /**
-         * Returns the result of "setting" the portion of the given data structure focused by the given lens to the given value.
+         * Returns the result of "setting" the portion of the given data structure
+         * focused by the given lens to the given value.
          */
-        over<T>(lens: {
-                    <T>(obj: T|T[]): T;
-                    set<T,U,V>(val: T, obj: U|U[]): V|V[]},
-                fn: Arity1Fn, value: T[]): T[];
+        over<T>(lens: Lens, fn: Arity1Fn, value: T|T[]): T|T[];
+        over<T>(lens: Lens, fn: Arity1Fn): (value: T|T[]) => T|T[];
+        over<T>(lens: Lens): (fn: Arity1Fn, value: T|T[]) => T|T[];
+
 
         /**
          * Retrieve the value at a given path.
@@ -789,6 +787,14 @@ declare module R {
         props<T>(ps: string[]): (obj:  Dictionary<T>) => T[];
 
         /**
+         * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
+         * given value.
+         */
+        set<T,U>(lens: Lens, a: U, obj: T): T;
+        set<T,U>(lens: Lens, a: U): (obj: T) => T;
+        set<T,U>(lens: Lens): (a: U, obj: T) => T;
+
+        /**
          * Converts an object into an array of key, value arrays.
          * Only the object's own properties are used.
          * Note that the order of the output array is not guaranteed to be
@@ -819,6 +825,12 @@ declare module R {
         valuesIn(obj: any): any[];
 
        /**
+        * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
+        * portion of the data structure is visible.
+        */
+        view<T,U>(lens: Lens, obj: T): U;
+
+       /**
         * Takes a spec object and a test object and returns true if the test satisfies the spec.
         * Any property on the spec that is not a function is interpreted as an equality
         * relation.
@@ -829,10 +841,10 @@ declare module R {
         * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
         * `filter`, `find`, `pickWith`, etc.
         */
-       where<T>(spec: T, testObj: T): boolean;
-       where<T>(spec: T): (testObj: T) => boolean;
-       where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
-       where<ObjFunc2,U>(spec: ObjFunc2): (testObj: U) => boolean;
+        where<T>(spec: T, testObj: T): boolean;
+        where<T>(spec: T): (testObj: T) => boolean;
+        where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
+        where<ObjFunc2,U>(spec: ObjFunc2): (testObj: U) => boolean;
 
        /**
         * Takes a spec object and a test object; returns true if the test satisfies the spec,
