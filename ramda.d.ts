@@ -69,8 +69,10 @@ declare module R {
 
 
         /**
-         * TODO adjust
+         * Applies a function to the value at the given index of an array, returning a new copy of the array with the element at the given index replaced with the result of the function application.
          */
+        adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[];
+        adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[];
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
@@ -461,7 +463,13 @@ declare module R {
          */
         sort<T>(fn: (a: T, b: T) => number, list: T[]): T[];
         sort<T>(fn: (a: T, b: T) => number): (list: T[]) => T[];
-
+        
+        /**
+         * Splits a collection into slices of the specified length.
+         */
+        splitEvery<T>(a: number, list: T[]): T[][];
+        splitEvery<T>(a: number): (list: T[]) => T[][];
+        
         /**
          * Returns all but the first element of a list.
          */
@@ -513,6 +521,12 @@ declare module R {
         uniq<T>(list: T[]): T[];
 
         /**
+         * Returns a new list containing only one copy of each element in the original list, based upon the value returned by applying the supplied function to each list element. Prefers the first item if the supplied function produces the same value on two items. R.equals is used for comparison.
+         */
+        uniqBy<T,U>(fn: (a: T) => U, list: T[]): T[];
+        uniqBy<T,U>(fn: (a: T) => U): (list: T[]) => T[];
+
+        /**
          * Returns a new list containing only one copy of each element in the original list, based upon the value
          * returned by applying the supplied predicate to two list elements.
          */
@@ -524,7 +538,13 @@ declare module R {
          * them in a new array.
          */
         unnest<T>(x: T[]): T[];
-
+        
+        /**
+         * Returns a new copy of the array with the element at the provided index replaced with the given value.
+         */
+        update<T>(index: number, value: T, list: T[]): T[];
+        update<T>(index: number, value: T): (list: T[]) => T[];
+        
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
@@ -768,8 +788,8 @@ declare module R {
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
-        prop<T,U>(p: string, obj: T): U;
-        prop<T,U>(p: string): (obj: T) => U;
+        prop<T>(p: string, obj: any): T;
+        prop<T>(p: string): (obj: any) => T;
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
@@ -938,9 +958,14 @@ declare module R {
 
         converge(after: Function, ...fns: Function[]): Function;
 
+        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1) => (b: T2) => TResult
+        curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): (a: T1) => (b: T2) => (c: T3) => TResult
+        curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => TResult
+        curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => (e: T5) => TResult
+        curry<T1, T2, T3, T4, T5, T6, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => (e: T5) => (f: T6) => TResult
         curry(fn: Function): Function
 
-        curryN(lenght: number, fn: (...args: any[]) => any): Function;
+        curryN(length: number, fn: (...args: any[]) => any): Function;
 
         /**
          * `empty` wraps any object in an array. This implementation is compatible with the
@@ -1020,7 +1045,12 @@ declare module R {
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: T): T;
         pipe<T>(fn1: Function, fn2: Function, fn3: Function, fn4: Function, fn5: Function, fn6: Function, fn7: Function, fn8: T): T;
-
+        
+        /**
+         * The function to call with x. The return value of fn will be thrown away.
+         */
+        tap<T>(fn: (a: T) => any, value: T): T;
+        tap<T>(fn: (a: T) => any): (value: T) => T;
 
 
         // Object Functions
@@ -1138,6 +1168,12 @@ declare module R {
          */
         is(ctor: any, val: any): boolean;
         is(ctor: any): (val: any) => boolean;
+        
+        
+        /**
+         * Checks if the input value is null or undefined.
+         */
+        isNil(value: any): boolean;
 
 
         /**
@@ -1197,12 +1233,12 @@ declare module R {
         complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean
 
         /**
-         * Returns a function, fn, which encapsulates if/else-if/else logic. Each argument to R.cond is a
-         * [predicate, transform] pair. All of the arguments to fn are applied to each of the predicates in
-         * turn until one returns a "truthy" value, at which point fn returns the result of applying its
-         * arguments to the corresponding transformer. If none of the predicates matches, fn returns undefined.
+         * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
+         * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which 
+         * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates 
+         * matches, fn returns undefined.
          */
-        cond(fn: [Pred, Function], ...fns: [Pred, Function][]): Function;
+        cond(fns: [Pred, Function][]): Function;
 
         /**
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
@@ -1319,9 +1355,10 @@ declare module R {
         mathMod(a: placeholder, b: number): (a: number) => number;
 
         /**
-         * Determines the largest of a list of numbers (or elements that can be cast to numbers)
+         * Returns the larger of its two arguments.
          */
-        max(list: number[]): number;
+        max(a: number, b: number): number;
+        max(a: number): (b: number) => number;
 
         /**
          * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator.
@@ -1330,9 +1367,10 @@ declare module R {
         maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
 
         /**
-         * Determines the smallest of a list of numbers (or elements that can be cast to numbers)
+         * Returns the smaller of its two arguments.
          */
-        min(list: number[]): number;
+        min(a: number, b: number): number;
+        min(a: number): (b: number) => number;
 
         /**
          * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator.
@@ -1494,6 +1532,7 @@ declare module R {
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          */
         difference<T>(list1: T[], list2: T[]): T[];
+        difference<T>(list1: T[]): (list2: T[]) => T[];
 
 
         /**
