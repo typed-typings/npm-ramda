@@ -556,8 +556,11 @@ interface Obj { a: number; b: number };
     var headLens = R.lensIndex(0);
     headLens([10, 20, 30, 40]); //=> 10
     headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
-    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
+    R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
+    R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
+    R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
 }
+
 () => {
     var double = function(x: number) {
         return x * 2;
@@ -982,7 +985,11 @@ class Rectangle {
     var xLens = R.lens(R.prop('x'), R.assoc('x'));
     R.view(xLens, {x: 1, y: 2});            //=> 1
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+    R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+    R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}
     R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
+    R.over(xLens, R.negate)({x: 1, y: 2});  //=> {x: -1, y: 2}
+    R.over(xLens)(R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
 }
 () => {
     var headLens = R.lensIndex(0);
@@ -1017,7 +1024,6 @@ class Rectangle {
     );
     headLens([10, 20, 30, 40]); //=> 10
     headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
-    headLens.map(function(x: number) { return x + 1; }, [10, 20, 30, 40]); //=> [11, 20, 30, 40]
 
     var phraseLens = R.lens(
       function get(obj: any) { return obj.phrase; },
@@ -1032,18 +1038,8 @@ class Rectangle {
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     phraseLens(obj2); // => "What's all this, then?"
     phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
-    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
 }
 
-() => {
-    var xo = {x: 1};
-    var xoLens = R.lensOn(function get(o: any) { return o.x; },
-                          function set(v: number) { return {x: v}; },
-                          xo);
-    xoLens(); //=> 1
-    xoLens.set(1000); //=> {x: 1000}
-    xoLens.map(R.add(1)); //=> {x: 2}
-}
 
 () => {
     var phraseLens = R.lensProp('phrase');
@@ -1052,7 +1048,6 @@ class Rectangle {
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     phraseLens(obj2); // => "What's all this, then?"
     phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
-    phraseLens.map(R.toUpper, obj2); //=> { phrase: "WHAT'S ALL THIS, THEN?"}
 }
 
 () => {
