@@ -9,8 +9,6 @@ Will be pushed to [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyp
 
 Pull requests are welcome!
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ##Usage and limitation
 To use the Ramda type definitions include the following line in each of the .ts files
 that use Ramda:
@@ -54,10 +52,10 @@ in with it fails to distinguish signature patterns correctly. These cases occur 
 ternary functions and function of higher order. Binary function pose no problem.
 
 ##Status
-The definitions are reorganized and updated and are more or less compatible with Ramda v0.15. The API of Ramda is not stable yet.
+The definitions are reorganized and updated and are more or less compatible with Ramda v0.17.1 The API of Ramda is not stable yet.
 
 This needs to be done:
-- include all functions of v0.15
+- include all functions of v0.17.1
 - reorganize functions by categories (List, Object, Function, etc)
 - find a elegant way to reflect the Ramda categories into TypeScript interface names
   that are displayed when hovering over a function. At to moment `R.List.<function name>` is displayed, regardless of the real category a function resides.
