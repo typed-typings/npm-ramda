@@ -1240,6 +1240,28 @@ class Rectangle {
     const y: number = R.converge(add3, multiply, add, subtract)(1, 2); //=> 4
 }
 
+() => {
+    const f0 = R.compose(Math.pow);
+    const f1 = R.compose(R.negate, Math.pow);
+    const f2 = R.compose(R.inc, R.negate, Math.pow);
+    const f3 = R.compose(R.inc, R.inc, R.negate, Math.pow);
+    const f4 = R.compose(R.inc, R.inc, R.inc, R.negate, Math.pow);
+    const f5 = R.compose(R.inc, R.inc, R.inc, R.inc, R.negate, Math.pow);
+    const x0: number = f0(3, 4); // -(3^4) + 1
+    const x1: number = f1(3, 4); // -(3^4) + 1
+    const x2: number = f2(3, 4); // -(3^4) + 1
+    const x3: number = f3(3, 4); // -(3^4) + 1
+    const x4: number = f4(3, 4); // -(3^4) + 1
+    const x5: number = f5(3, 4); // -(3^4) + 1
+}
+
+() => {
+    const fn = function(a: string, b: number, c: string) {
+        return [a,b,c];
+    }
+    const gn = R.compose(R.length, fn);
+    const x: number = gn('Hello', 4, "world");
+}
 /*****************************************************************
  * Relation category
  */
@@ -1609,19 +1631,22 @@ class Rectangle {
     R.not(1); // => false
 }
 
+class Why {
+    val: boolean;
+    constructor(val: boolean) {
+        this.val = val;
+    }
+    or(x: boolean) {
+        return this.val && x;
+    }
+}
 () => {
-    R.or(false, true); //=> false
-    R.or(0, []); //=> 0
-    R.or(0)([]); //=> 0
-    R.or(null, ''); //=> null
-    var Why: any = (function(val: boolean) {
-        var why: any;
-        why.val = val;
-        why.or = function(x: boolean) {
-            return this.val && x;
-        }
-        return Why;
-    })(true);
+    const x0: boolean = R.or(false, true); //=> false
+    const x1: number|any[] = R.or(0, []); //=> []
+    const x2: number|any[] = R.or(0)([]); //=> []
+    const x3: string = R.or(null, ''); //=> ''
+
     var why = new Why(true);
-    R.or(why, false); // false
+    why.or(true)
+    const x4: Why|boolean = R.or(why, false); // false
 }
