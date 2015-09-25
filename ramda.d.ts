@@ -1502,6 +1502,12 @@ declare module R {
          * The upper case version of a string.
          */
         toUpper(str: string): string;
+        
+        
+        /**
+         * Removes (strips) whitespace from both ends of the string.
+         */
+        trim(str: string): string;
 
 
         /**
