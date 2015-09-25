@@ -91,9 +91,17 @@ class F2 {
 
 /* pipe */
 () => {
-
     var func: (x: number) => string = R.pipe(double, double, shout)
-    var res: string = R.pipe(double, double, shout)(10)
+    var res: string = R.pipe(double, double, shout)(10);
+
+    const capitalize = (str: string) => R.pipe(
+        R.split(''),
+        R.adjust(R.toUpper, 0),
+        R.join('')
+    )(str);
+
+    var f = R.pipe(Math.pow, R.negate, R.inc);
+    var fr: number = f(3, 4); // -(3^4) + 1
 }
 
 R.invoker('charAt', String.prototype);
@@ -184,17 +192,7 @@ R.times(i, 5);
     slashify('a/'); //=> 'a/'
 })();
 
-(() => {
-    var Circle = function(r: number) {
-        this.r = r;
-        this.colors = Array.prototype.slice.call(arguments, 1);
-    };
-    Circle.prototype.area = function() {return Math.PI * Math.pow(this.r, 2);};
-    var circleN = R.constructN(2, Circle);
-    var c1 = circleN(1, 'red');
-    var circle = R.construct(Circle);
-    var c1 = circle(1, 'red');
-})();
+
 
 (() => {
     var numbers = [1, 2, 3];
@@ -1208,8 +1206,9 @@ class Rectangle {
 
 () => {
     var indentN = R.pipe(R.times(R.always(' ')),
-                         R.join(''),
-                         R.replace(/^(?!$)/gm));
+         R.join(''),
+         R.replace(/^(?!$)/gm)
+    );
 
     var format = R.converge(R.call,
                             R.pipe(R.prop('indent'), indentN),
@@ -1262,6 +1261,19 @@ class Rectangle {
     const gn = R.compose(R.length, fn);
     const x: number = gn('Hello', 4, "world");
 }
+
+(() => {
+    var Circle = function(r: number) {
+        this.r = r;
+        this.colors = Array.prototype.slice.call(arguments, 1);
+    };
+    Circle.prototype.area = function() {return Math.PI * Math.pow(this.r, 2);};
+    var circleN = R.constructN(2, Circle);
+    var c1 = circleN(1, 'red');
+    var circle = R.construct(Circle);
+    var c1 = circle(1, 'red');
+})();
+
 /*****************************************************************
  * Relation category
  */
@@ -1495,13 +1507,13 @@ class Rectangle {
 () => {
     R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
     R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
-    R.replace('foo')('bar', 'foo foo foo'); //=> 'bar foo foo'
+    R.replace('foo')('bar')('foo foo foo'); //=> 'bar foo foo'
     R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
 
     // Use the "g" (global) flag to replace all occurrences:
     R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
     R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
-    R.replace(/foo/g)('bar', 'foo foo foo'); //=> 'bar bar bar'
+    R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
 }
 
 () => {
