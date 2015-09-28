@@ -304,8 +304,8 @@ R.times(i, 5);
 () => {
     R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
     R.append('tests', []); //=> ['tests']
-    R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
-    R.append(['tests'])(['write', 'more']); //=> ['write', 'more', ['tests']]
+    R.append<string, string[]>(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
+    R.append<string, string[]>(['tests'])(['write', 'more']); //=> ['write', 'more', ['tests']]
 }
 
 () => {

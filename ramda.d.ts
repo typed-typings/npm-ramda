@@ -96,8 +96,10 @@ declare module R {
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
         // note U is required (instead of just T) to allow appending an element of a different type than the array is.
-        append<T, U>(el: U, list: T[]): T[];
-        append<T, U>(el: U): (list: T[]) => T[];
+        append<T>(el: T, list: T[]): T[];
+        append<T>(el: T): (list: T[]) => T[];
+        append<T, U>(el: U, list: T[]): (T & U)[];
+        append<T, U>(el: U): (list: T[]) => (T & U)[];
 
         /**
          * `chain` maps a function over a list and concatenates the results.
