@@ -361,6 +361,8 @@ declare module R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
+        pluck<T>(p: string|number, list: any[]): T[];
+        pluck<T>(p: string|number): (list: any[]) => T[];
         pluck(p: string|number, list: any[]): any[];
         pluck(p: string|number): (list: any[]) => any[];
 
@@ -564,8 +566,8 @@ declare module R {
          * Creates a new object out of a list of keys and a list of values.
          */
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-        zipObj<T>(keys: string[], values: T[]): any;
-        zipObj<T>(keys: string[]): (values: T[]) => any;
+        zipObj<T>(keys: string[], values: T[]): {[index:string]: T};
+        zipObj<T>(keys: string[]): (values: T[]) => {[index:string]: T};
 
         /**
          * Creates a new list out of the two supplied by applying the function to each
