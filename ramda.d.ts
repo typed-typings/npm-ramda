@@ -970,11 +970,12 @@ declare module R {
         constructN(n: number, fn: Function): Function;
 
         /**
-         * Accepts at least three functions and returns a new function. When invoked, this new function will invoke the
-         * first function, after, passing as its arguments the results of invoking the subsequent functions with whatever
-         * arguments are passed to the new function.
+         * Accepts a converging function and a list of branching functions and returns a new
+         * function. When invoked, this new function is applied to some arguments, each branching
+         * function is applied to those same arguments. The results of each branching function
+         * are passed as arguments to the converging function to produce the return value.
          */
-        converge(after: Function, ...fns: Function[]): Function;
+        converge(after: Function, fns: Function[]): Function;
 
         curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1) => (b: T2) => TResult
         curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): (a: T1) => (b: T2) => (c: T3) => TResult
@@ -1120,12 +1121,16 @@ declare module R {
 
 
         /**
-         * Accepts a function `fn` and any number of transformer functions and returns a new
-         * function. When the new function is invoked, it calls the function `fn` with parameters
-         * consisting of the result of calling each supplied handler on successive arguments to the
-         * new function. For example:
+         * Accepts a function fn and a list of transformer functions and returns a new curried function.
+         * When the new function is invoked, it calls the function fn with parameters consisting of the
+         * result of calling each supplied handler on successive arguments to the new function.
+         * 
+         * If more arguments are passed to the returned function than transformer functions, those arguments
+         * are passed directly to fn as additional parameters. If you expect additional arguments that don't
+         * need to be transformed, although you can ignore them, it's best to pass an identity function so
+         * that the new function reports the correct arity.
          */
-        useWith(fn: Function, ...transformers: Function[]): Function;
+        useWith(fn: Function, transformers: Function[]): Function;
 
 
 

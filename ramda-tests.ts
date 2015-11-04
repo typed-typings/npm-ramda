@@ -115,7 +115,7 @@ var addAll = function() {
 };
 
 // Basic example
-R.useWith(addAll, double, square);
+R.useWith(addAll, [ double, square ]);
 
 (() => {
   var printXPlusFive = function(x: number) { console.log(x + 5); };
@@ -1210,9 +1210,12 @@ class Rectangle {
          R.replace(/^(?!$)/gm)
     );
 
-    var format = R.converge(R.call,
-                            R.pipe(R.prop('indent'), indentN),
-                            R.prop('value'));
+    var format = R.converge(
+        R.call, [
+            R.pipe(R.prop('indent'), indentN),
+            R.prop('value')
+        ]
+    );
 
     format({indent: 2, value: 'foo\nbar\nbaz\n'}); //=> '  foo\n  bar\n  baz\n'
 }
@@ -1233,10 +1236,10 @@ class Rectangle {
     var subtract = function(a: number, b: number) { return a - b; };
 
     //≅ multiply( add(1, 2), subtract(1, 2) );
-    const x: number = R.converge(multiply, add, subtract)(1, 2); //=> -3
+    const x: number = R.converge(multiply, [ add, subtract ])(1, 2); //=> -3
 
     var add3 = function(a: number, b: number, c: number) { return a + b + c; };
-    const y: number = R.converge(add3, multiply, add, subtract)(1, 2); //=> 4
+    const y: number = R.converge(add3, [ multiply, add, subtract ])(1, 2); //=> 4
 }
 
 () => {
