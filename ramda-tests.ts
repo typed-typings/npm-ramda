@@ -50,6 +50,8 @@ class F2 {
     var x3: Function = R.curry(addFourNumbers)(1)(2)
     var x4: Function = R.curry(addFourNumbers)(1)(2)(3)
     var y1: number = R.curry(addFourNumbers)(1)(2)(3)(4)
+    var y2: number = R.curry(addFourNumbers)(1,2)(3,4)
+    var y3: number = R.curry(addFourNumbers)(1,2,3)(4)
 
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
@@ -63,6 +65,12 @@ class F2 {
     R.binary(takesTwoArgs);
     R.binary(takesThreeArgs);
 
+    var addTwoNumbers = function(a:number, b:number) { return a + b; }
+    var addTwoNumbersCurried = R.curry(addTwoNumbers);
+    
+    var inc = addTwoNumbersCurried(1);
+    var z1:number = inc(2);
+    var z2:number = addTwoNumbersCurried(2,3);
 }
 
 /* compose */
@@ -923,7 +931,7 @@ class Rectangle {
         this.width = width;
         this.height = height;
     }
-    area() {
+    area():number {
         return this.width * this.height;
     }
 };
@@ -1170,9 +1178,10 @@ class Rectangle {
  */
 () => {
     var mapIndexed = R.addIndex(R.map);
-    mapIndexed(function(val: string, idx: number) {return idx + '-' + val;}, ['f', 'o', 'o', 'b', 'a', 'r']);
-    //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
-    mapIndexed((rectangle: Rectangle, idx: number) => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+    mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+      //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
+    mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+      //=> [2, 56]
 }
 
 () => {
