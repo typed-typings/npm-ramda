@@ -61,7 +61,44 @@ declare module R {
         <T,U>(obj: T): U;
         set<T,U>(str: string, obj: T): U;
     }
+    
+        
+    // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
+    interface CurriedFunction2<T1, T2, R> {
+        (t1: T1): (t2: T2) => R;
+        (t1: T1, t2: T2): R;
+    }
 
+    interface CurriedFunction3<T1, T2, T3, R> {
+        (t1: T1): CurriedFunction2<T2, T3, R>;
+        (t1: T1, t2: T2): (t3: T3) => R;
+        (t1: T1, t2: T2, t3: T3): R;
+    }
+    
+    interface CurriedFunction4<T1, T2, T3, T4, R> {
+        (t1: T1): CurriedFunction3<T2, T3, T4, R>;
+        (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
+        (t1: T1, t2: T2, t3: T3): (t4: T4) => R;
+        (t1: T1, t2: T2, t3: T3, t4: T4): R;
+    }
+    
+    interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
+        (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
+        (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
+    }
+    
+    interface CurriedFunction6<T1, T2, T3, T4, T5, T6, R> {
+        (t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>;
+        (t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedFunction3<T4, T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction2<T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
+    }
+    
     interface Static {
         /*
          * List category
@@ -883,9 +920,8 @@ declare module R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): (fn: (item: T, idx: number, list?: T[]) => U) => (list: T[]) => U[];
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): (fn: (item: T, idx: number, list?: T[]) => U, list: T[]) => U[];
-
+        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[])
+              : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
        /**
         * Returns a function that always returns the given value.
         */
@@ -977,11 +1013,11 @@ declare module R {
          */
         converge(after: Function, fns: Function[]): Function;
 
-        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1) => (b: T2) => TResult
-        curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): (a: T1) => (b: T2) => (c: T3) => TResult
-        curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => TResult
-        curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => (e: T5) => TResult
-        curry<T1, T2, T3, T4, T5, T6, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => TResult): (a: T1) => (b: T2) => (c: T3) => (d: T4) => (e: T5) => (f: T6) => TResult
+        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1,T2, TResult>
+        curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFunction3<T1,T2, T3, TResult>
+        curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFunction4<T1,T2, T3, T4, TResult>
+        curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): CurriedFunction5<T1,T2, T3, T4, T5, TResult>
+        curry<T1, T2, T3, T4, T5, T6, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => TResult): CurriedFunction6<T1,T2, T3, T4, T5, T6, TResult>
         curry(fn: Function): Function
 
         curryN(length: number, fn: (...args: any[]) => any): Function;
