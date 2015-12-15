@@ -52,10 +52,10 @@ in with it fails to distinguish signature patterns correctly. These cases occur 
 ternary functions and function of higher order. Binary function pose no problem.
 
 ##Status
-The definitions are reorganized and updated and are more or less compatible with Ramda v0.17.1 The API of Ramda is not stable yet.
+The definitions are reorganized and updated and are more or less compatible with Ramda v0.18.0. The API of Ramda is not stable yet.
 
 This needs to be done:
-- include all functions of v0.17.1
+- include all functions of v0.18.0
 - reorganize functions by categories (List, Object, Function, etc)
 - find a elegant way to reflect the Ramda categories into TypeScript interface names
   that are displayed when hovering over a function. At to moment `R.List.<function name>` is displayed, regardless of the real category a function resides.
