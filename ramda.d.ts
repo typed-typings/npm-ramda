@@ -172,7 +172,9 @@ declare module R {
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
          */
+        contains(a: string, list: string): boolean;
         contains<T>(a: T, list: T[]): boolean;
+        contains(a: string): (list: string) => boolean;
         contains<T>(a: T): (list: T[]) => boolean;
 
         /**
@@ -392,8 +394,10 @@ declare module R {
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
-        partition<T>(fn: (a: T) => boolean, list: T): T[]
-        partition<T>(fn: (a: T) => boolean): (list: T) => T[]
+        partition(fn: (a: string) => boolean, list: string[]): string[][];
+        partition<T>(fn: (a: T) => boolean, list: T[]): T[][];
+        partition<T>(fn: (a: T) => boolean): (list: T[]) => T[][];
+        partition(fn: (a: string) => boolean): (list: string[]) => string[][];
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
