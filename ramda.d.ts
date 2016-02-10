@@ -1071,6 +1071,14 @@ declare module R {
          * TODO nthArg
          */
 
+        /**
+         * Creates an object containing a single key:value pair.
+         */
+        objOf<T>(k:string, a: T): {[index:string]: T};
+
+        /**
+         * Returns a singleton array containing the value provided.
+         */
         of<T>(x: T): T[];
         of<T>(x: T[]): T[][];
 
