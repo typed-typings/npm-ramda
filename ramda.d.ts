@@ -687,6 +687,7 @@ declare module R {
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
         evolve(transformations: {[index: string]: (value: any) => any}, obj: any): any;
+        evolve(transformations: {[index: string]: (value: any) => any}): (obj: any) => any;
 
         /**
          * Returns a list of function names of object's own functions
