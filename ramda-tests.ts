@@ -809,8 +809,8 @@ type Pair = R.KeyValuePair<string, number>;
 }
 
 () => {
-    R.unnest([1, [2], [[3]]]); //=> [1, 2, [3]]
-    R.unnest([[1, 2], [3, 4], [5, 6]]); //=> [1, 2, 3, 4, 5, 6]
+    R.equals(R.unnest([1, [2], [[3]]]), [1,2,[3]]); //=> true
+    R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]),[1,2,3,4,5,6]); //=> true
 }
 
 () => {
