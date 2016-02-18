@@ -1,0 +1,7 @@
+{
+  "name": "ramda",
+  "main": "ramda.d.ts",
+  "author": "Erwin Poeze <erwin@mope.mobi>",
+  "description": "Type definitions for Ramda",
+  "dependencies": {}
+}
