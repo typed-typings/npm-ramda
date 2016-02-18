@@ -582,6 +582,7 @@ declare module R {
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
+        unnest<T>(x: T[][]): T[];
         unnest<T>(x: T[]): T[];
 
         /**
@@ -1230,6 +1231,7 @@ declare module R {
          * them in a new array, depth-first.
          */
         // checked
+        flatten(x: any[][]): any[];
         flatten(x: any[]): any[];
 
         /**
