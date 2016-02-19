@@ -1737,17 +1737,17 @@ declare module R {
 
         T(): boolean;
 
-        allUniq<T>(a: T[]) : boolean;
-        composeK(a: any) : any;
-        composeP(a: any) : any;
-        dropLast<T>(a: T[]) : T[];
-        dropLastWhile<T>(a: (a: any) => boolean, b: T[]) : T[];
-        dropRepeats<T>(a: T[]) : T[];
-          dropRepeatsWith<T>(a: T) : T;
+        allUniq
+        composeK
+        composeP
+        dropLast
+        dropLastWhile
+        dropRepeats
+        dropRepeatsWith
         eqBy
         indexBy
         intersperse
-        juxy
+        juxt
         lensPath
         mean
         median
@@ -1765,8 +1765,8 @@ declare module R {
         sequence
         splitAt
         splitWhen
-        symetricDifference
-        symetricDifferenceWith
+        symmetricDifference
+        symmetricDifferenceWith
         takeLast
         takeLastWhile
         test
