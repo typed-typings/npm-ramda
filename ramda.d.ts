@@ -1737,6 +1737,7 @@ declare module R {
 
         T(): boolean;
 
+        allUniq<T>(a: T[]) => boolean;
 
     }
 }
