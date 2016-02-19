@@ -1741,6 +1741,43 @@ declare module R {
         composeK(a: any) : any;
         composeP(a: any) : any;
         dropLast<T>(a: T[]) : T[];
+        dropLastWhile<T>(a: (a: any) => boolean, b: T[]) : T[];
+        dropRepeats<T>(a: T[]) : T[];
+          dropRepeatsWith<T>(a: T) : T;
+        eqBy
+        indexBy
+        intersperse
+        juxy
+        lensPath
+        mean
+        median
+        mergeWith
+        mergeWithKey
+        nthArg
+        pair
+        pathOr
+        pathSatisfies
+        pipeK
+        pipeP
+        propIs
+        propSatisfies
+        reduced
+        sequence
+        splitAt
+        splitWhen
+        symetricDifference
+        symetricDifferenceWith
+        takeLast
+        takeLastWhile
+        test
+        transpose
+        traverse
+        type
+        unapply
+        uncurryN
+        unless
+        when
+        without
 
     }
 }
