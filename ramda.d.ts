@@ -1737,7 +1737,10 @@ declare module R {
 
         T(): boolean;
 
-        allUniq<T>(a: T[]) => boolean;
+        allUniq<T>(a: T[]) : boolean;
+        composeK(a: any) : any;
+        composeP(a: any) : any;
+        dropLast<T>(a: T[]) : T[];
 
     }
 }
