@@ -620,6 +620,11 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    R.mergeWith((a,b)=>a+b,{foo:1},{foo:2}); //=> {foo:3}
+    R.mergeWith((a,b)=>a+b,{foo:1},{bar:2}); //=> {foo:1,bar:2}
+}
+
+() => {
     R.none(R.isNaN, [1, 2, 3]); //=> true
     R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
     R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
