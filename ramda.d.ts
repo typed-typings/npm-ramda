@@ -778,6 +778,18 @@ declare module R {
         merge(a: any): (b: any) => any;
 
         /**
+         * Creates a new object with the own properties of the 
+         * two provided objects. If a key exists in both objects,
+         * the provided function is applied to the values associated
+         * with the key in each object, with the result being used as
+         * the value associated with the key in the returned object.
+         * The key will be excluded from the returned object if the 
+         * resulting value is undefined.
+         */
+        mergeWith(f: (x:any,z:any) => any, a: any, b: any): any;
+        mergeWith(f: (x:any,z:any) => any, a: any): (b: any) => any;
+
+        /**
          * Returns a partial copy of an object omitting the keys specified.
          */
         omit<T>(names: string[], obj: T): T;
