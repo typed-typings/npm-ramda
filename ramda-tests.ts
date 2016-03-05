@@ -19,13 +19,6 @@ class F2 {
     x(){};
     z() {};
 }
-(() => {
-    /* op */
-    var div: Function;
-    div = R.op(function (a, b) {
-        return a / b;
-    });
-});
 
 (() => {
     var x: boolean;
@@ -91,6 +84,11 @@ class F2 {
     var z1:number = inc(2);
     var z2:number = addTwoNumbersCurried(2,3);
 }
+
+(() => {
+    R.nthArg(1)('a', 'b', 'c'); //=> 'b'
+    R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
+});
 
 /* compose */
 () => {
@@ -1536,11 +1534,6 @@ class Rectangle {
 /*****************************************************************
  * String category
  */
-() => {
-    R.substring(0, 4, '1234567');
-    R.substringFrom(4, '1234567');
-    R.substringTo(8, 'abcdefghijklm');
-}
 
 () => {
     R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
@@ -1554,15 +1547,6 @@ class Rectangle {
     R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
 }
 
-() => {
-    R.nthChar(2, 'Ramda'); //=> 'm'
-    R.nthChar(-2, 'Ramda'); //=> 'd'
-}
-
-() => {
-    R.nthCharCode(2, 'Ramda'); //=> 'm'.charCodeAt(0)
-    R.nthCharCode(-2, 'Ramda'); //=> 'd'.charCodeAt(0)
-}
 /*****************************************************************
  * Is category
  */

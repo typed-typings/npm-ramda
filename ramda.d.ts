@@ -1167,20 +1167,7 @@ declare module R {
         // objects.  Many of these are of most use in conjunction with the list functions, operating on lists of
         // objects.
 
-
-        op(fn: (a: any, b: any) => any): Function;
-
-        substring(indexA: number, indexB: number, str: string): string;
-        substringFrom(indexA: number, str: string): string;
-        substringTo(indexA: number, str: string): string;
-
-        op(fn: Function): Function;
-
-
-
         unary<T>(fn: (a: T, ...args: any[]) => any): (a: T) => any
-
-
 
 
         /**
@@ -1194,12 +1181,6 @@ declare module R {
          * that the new function reports the correct arity.
          */
         useWith(fn: Function, transformers: Function[]): Function;
-
-
-
-
-
-
 
 
         /**
@@ -1218,14 +1199,6 @@ declare module R {
          * -------------
          */
 
-
-
-        // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0: T) => ((...args: any[]) => TResult);
-        // flip<T,U,TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U) => ((arg0: T, ...args: any[]) => TResult);
-
-
-
-
         /**
          * `of` wraps any object in an Array. This implementation is compatible with the
          * Fantasy-land Applicative spec, and will work with types that implement that spec.
@@ -1233,10 +1206,6 @@ declare module R {
          * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of
          */
         of(x: any): any[];
-
-
-
-
 
 
         /**
@@ -1247,30 +1216,11 @@ declare module R {
         flatten(x: any[][]): any[];
         flatten(x: any[]): any[];
 
-        /**
-         * Calls the specified function on the supplied object. Any additional arguments
-         * after `fn` and `obj` are passed in to `fn`. If no additional arguments are passed to `func`,
-         * `fn` is invoked with no arguments.
-         */
-        func(funcName: string , obj: any): any;
-
-
 
         // Miscellaneous Functions
         // -----------------------
         //
         // A few functions in need of a good home.
-
-        // --------
-
-        /**
-         * Expose the functions from ramda as properties of another object.
-         * If the provided object is the global object then the ramda
-         * functions become global functions.
-         * Warning: This function *will* mutate the object provided.
-         */
-        installTo(obj: any): any;
-
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
@@ -1538,20 +1488,6 @@ declare module R {
          */
 
         /**
-         * Returns a string containing the characters of str from fromIndex (inclusive) to toIndex (exclusive).
-         */
-        substring(indexA: number, indexB: number, str: string): string;
-        substring(indexA: number): (indexB: number, str: string) => string;
-        substring(indexA: number, indexB: number): (str: string) => string;
-
-
-        /**
-         * The trailing substring of a String starting with the nth character:
-         */
-        substringFrom(indexA: number, str: string): string;
-        substringFrom(indexA: number): (str: string) => string;
-
-        /**
          * Replace a substring or regex match in a string with a replacement.
          */
         replace(pattern: RegExp, replacement: string, str: string): string;
@@ -1562,23 +1498,9 @@ declare module R {
         replace(pattern: String): (replacement: string) => (str: string) => string;
 
         /**
-         * Returns a string containing the first toIndex characters of str.
+         * Returns a function which returns its nth argument.
          */
-        substringTo(toIndex: number, str: string): string;
-        substringTo(toIndex: number): (str: string) => string;
-
-
-        /**
-         * Returns the nth character of the given string.
-         */
-        nthChar(index: number, str: string): string;
-
-
-        /**
-         * Returns the character code of the nth character of the given string.
-         */
-        nthCharCode(index: number, str: string): number;
-
+        nthArg(n: number): (...a: any[]) => any;
 
         /**
          * Tests a regular expression agains a String
