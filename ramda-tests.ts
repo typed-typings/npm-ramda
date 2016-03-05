@@ -382,6 +382,18 @@ R.times(i, 5);
     R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
 }
 
+(() => {
+    R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
+    R.dropLast(2)(['foo', 'bar', 'baz']); //=> ['foo']
+    R.dropLast(3, 'ramda');               //=> 'ra'
+    R.dropLast(3)('ramda');               //=> 'ra'
+});
+
+(() => {
+    var lteThree = (x: number) => x <= 3;
+    R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); //=> [1, 2, 3, 4]
+});
+
 () => {
     var lteTwo = function(x: number) {
         return x <= 2;

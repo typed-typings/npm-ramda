@@ -184,6 +184,23 @@ declare module R {
         drop<T>(n: number): (list: T[]) => T[];
 
         /**
+         * Returns a list containing all but the last n elements of the given list.
+         */
+        dropLast<T>(n: number, xs: T[]): T[];
+        dropLast(n: number, xs: string): string;
+        dropLast<T>(n: number): {
+            (xs: T[]): T[];
+            (xs: string): string;
+        }
+
+        /**
+         * Returns a new list containing all but last then elements of a given list, passing each value from the
+         * right to the supplied predicate function, skipping elements while the predicate function returns true.
+         */
+         dropLastWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
+         dropLastWhile<T>(fn: (a: T) => boolean): (list: T[]) => T[];
+
+        /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
          * predicate function, skipping elements while the predicate function returns true.
          */
