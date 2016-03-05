@@ -256,15 +256,17 @@ R.times(i, 5);
 });
 
 (() => {
-    var isEven = function(n: number) {
+    const isEven = function(n: number) {
         return n % 2 === 0;
     };
+    const filterIndexed = R.addIndex(R.filter);
+
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
 
     var lastTwo = function(val: number, idx: number, list: number[]) {
       return list.length - idx <= 2;
     };
-    R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
 
     var isOdd = function(n: number) {
       return n % 2 === 1;
@@ -415,8 +417,10 @@ R.times(i, 5);
     var lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
-    R.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
-    var lastTwoFn = R.filterIndexed(lastTwo);
+    var filterIndexed = R.addIndex(R.filter);
+
+    filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    var lastTwoFn = filterIndexed(lastTwo);
     lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 }
 
@@ -711,11 +715,12 @@ type Pair = R.KeyValuePair<string, number>;
 }
 
 () => {
-    var lastTwo = function(val: number, idx: number, list: number[]) {
+    const lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
-    R.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
-    R.rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    const rejectIndexed = R.addIndex(R.reject);
+    rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 () => {

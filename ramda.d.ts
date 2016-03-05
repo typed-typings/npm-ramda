@@ -214,12 +214,6 @@ declare module R {
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
 
         /**
-         * Like filter, but passes additional parameters to the predicate function. The predicate function is passed three arguments: (value, index, list).
-         */
-        filterIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean): (list: T[]) => T[];
-        filterIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean, list: T[]): T[];
-
-        /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
@@ -464,12 +458,6 @@ declare module R {
          */
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
         reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
-
-        /**
-         * Like `reject`, but passes additional parameters to the predicate function.
-         */
-        rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean, list: T[]): T[];
-        rejectIndexed<T>(fn: (value: T, index: number, list: T[]) => boolean): (list: T[]) => T[];
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
