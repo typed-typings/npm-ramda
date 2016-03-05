@@ -236,14 +236,7 @@ R.times(i, 5);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
-(() => {
-    var values = { x: 1, y: 2, z: 3 };
-    var double = function(num: number) {
-      return num * 2;
-    };
 
-    R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
-});
 (() => {
     var values = { x: 1, y: 2, z: 3 };
     var prependKeyAndDouble = function(num: number, key: string, obj: any) {
@@ -251,6 +244,7 @@ R.times(i, 5);
     };
     R.mapObjIndexed(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
 });
+
 (() => {
     R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
     R.of([1]); //=> [[1]]
@@ -381,13 +375,6 @@ R.times(i, 5);
     R.contains({})([{}, {}]); //=> false
     var obj = {};
     R.contains(obj)([{}, obj, {}]); //=> true
-}
-
-() => {
-    var xs = [{x: 12}, {x: 11}, {x: 10}];
-    R.containsWith(function(a, b) { return a.x === b.x; }, {x: 10}, xs); //=> true
-    R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1}, xs); //=> false
-    R.containsWith(function(a, b) { return a.x === b.x; }, {x: 1})(xs); //=> false
 }
 
 () => {
@@ -555,12 +542,6 @@ interface Obj { a: number; b: number };
 
     var intoArray = R.into([]);
     intoArray(transducer, numbers); //=> [2, 3]
-}
-
-() => {
-    R.isSet(['1', 1]); //=> true
-    R.isSet([1, 1]);   //=> false
-    R.isSet([{}, {}]); //=> true
 }
 
 () => {
@@ -893,16 +874,6 @@ type Pair = R.KeyValuePair<string, number>;
 }
 
 () => {
-    var matchPhrases = R.compose(
-      R.createMapEntry('must'),
-      R.map(R.createMapEntry('match_phrase'))
-    );
-    matchPhrases(['foo', 'bar', 'baz']);
-
-    R.createMapEntry(R.__, 2)('b');
-}
-
-() => {
     R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
     R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
     R.dissoc(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
@@ -927,15 +898,6 @@ type Pair = R.KeyValuePair<string, number>;
      //=> { name: 'Tomato', elapsed: 101, remaining: 1399 }
 }
 
-() => {
-    R.functions(R); // returns list of ramda's own function names
-    R.functions(new F2()); //=> ["x"]
-}
-
-() => {
-    R.functionsIn(R); // returns list of ramda's own and prototype function names
-    R.functionsIn(new F2()); //=> ["x", "z"]
-}
 
 () => {
     var hasName = R.has('name');
@@ -1082,14 +1044,6 @@ class Rectangle {
     R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
-() => {
-    var values = { x: 1, y: 2, z: 3 };
-    var double = function(num: number) {
-        return num * 2;
-    };
-    R.mapObj(double, values); //=> { x: 2, y: 4, z: 6 }
-    R.mapObj(double)(values); //=> { x: 2, y: 4, z: 6 }
-}
 
 () => {
     R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}

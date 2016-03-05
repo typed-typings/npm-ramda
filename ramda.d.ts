@@ -178,13 +178,6 @@ declare module R {
         contains<T>(a: T): (list: T[]) => boolean;
 
         /**
-         * Returns `true` if the `x` is found in the `list`, using `pred` as an
-         * equality predicate for `x`.
-         */
-        containsWith<T>(pred: (a: T, b: T) => boolean, x: T, list: T[]): boolean;
-        containsWith<T>(pred: (a: T, b: T) => boolean, x: T): (list: T[]) => boolean;
-
-        /**
          * Returns a new list containing all but the first n elements of the given list.
          */
         drop<T>(n: number, list: T[]): T[];
@@ -313,13 +306,6 @@ declare module R {
         into<T>(acc: any, xf: Function, list: T[]): T[];
         into<T>(acc: any, xf: Function): (list: T[]) => T[];
         into<T>(acc: any): (xf: Function, list: T[]) => T[];
-
-
-        /**
-         * Returns `true` if all elements are unique, otherwise `false`.
-         * Uniqueness is determined using strict equality (`===`).
-         */
-        isSet(list: any[]): boolean;
 
         /**
          * Returns a string made by inserting the `separator` between each
@@ -651,12 +637,6 @@ declare module R {
         clone(value: any): any;
         clone(value: any[]): any[];
 
-        /**
-         * Creates an object containing a single key:value pair.
-         */
-        createMapEntry<T>(key: string, val: T): {[index: string]: T};
-        createMapEntry<T>(key: placeholder, val: T): (key: string) => {[index: string]: T};
-        createMapEntry<T>(key: string): (val: T) => {[index: string]: T};
 
         /**
          * Returns a new object that does not contain a `prop` property.
@@ -689,16 +669,6 @@ declare module R {
          */
         evolve(transformations: {[index: string]: (value: any) => any}, obj: any): any;
         evolve(transformations: {[index: string]: (value: any) => any}): (obj: any) => any;
-
-        /**
-         * Returns a list of function names of object's own functions
-         */
-        functions(obj: any): string[];
-
-        /**
-         * Returns a list of function names of object's own and prototype functions
-         */
-        functionsIn(obj: any): string[];
 
         /**
          * Returns whether or not an object has an own property with the specified name.
@@ -758,9 +728,6 @@ declare module R {
             set<T,U,V>(val: T, obj: U): V;
             /*map<T>(fn: Function, obj: T): T*/
         }
-
-        mapObj<T, TResult>(fn: (value: T) => TResult, obj: any): {[index: string]: TResult};
-        mapObj<T, TResult>(fn: (value: T) => TResult): (obj: any) => {[index: string]: TResult};
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
