@@ -61,8 +61,8 @@ declare module R {
         <T,U>(obj: T): U;
         set<T,U>(str: string, obj: T): U;
     }
-    
-        
+
+
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedFunction2<T1, T2, R> {
         (t1: T1): (t2: T2) => R;
@@ -74,14 +74,14 @@ declare module R {
         (t1: T1, t2: T2): (t3: T3) => R;
         (t1: T1, t2: T2, t3: T3): R;
     }
-    
+
     interface CurriedFunction4<T1, T2, T3, T4, R> {
         (t1: T1): CurriedFunction3<T2, T3, T4, R>;
         (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
         (t1: T1, t2: T2, t3: T3): (t4: T4) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
-    
+
     interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
         (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
         (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
@@ -89,7 +89,7 @@ declare module R {
         (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-    
+
     interface CurriedFunction6<T1, T2, T3, T4, T5, T6, R> {
         (t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>;
         (t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>;
@@ -98,7 +98,7 @@ declare module R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
-    
+
     interface Static {
         /*
          * List category
@@ -778,12 +778,12 @@ declare module R {
         merge(a: any): (b: any) => any;
 
         /**
-         * Creates a new object with the own properties of the 
+         * Creates a new object with the own properties of the
          * two provided objects. If a key exists in both objects,
          * the provided function is applied to the values associated
          * with the key in each object, with the result being used as
          * the value associated with the key in the returned object.
-         * The key will be excluded from the returned object if the 
+         * The key will be excluded from the returned object if the
          * resulting value is undefined.
          */
         mergeWith(f: (x:any,z:any) => any, a: any, b: any): any;
@@ -838,6 +838,7 @@ declare module R {
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
+         * Note: TS1.9 # replace any by dictionary
          */
         prop<T>(p: string, obj: any): T;
         prop<T>(p: string): (obj: any) => T;
@@ -853,9 +854,10 @@ declare module R {
         /**
          * Returns the value at the specified property.
          * The only difference from `prop` is the parameter order.
+         * Note: TS1.9 # replace any by dictionary
          */
-        props<T>(ps: string[], obj: Dictionary<T>): T[];
-        props<T>(ps: string[]): (obj:  Dictionary<T>) => T[];
+        props<T>(ps: string[], obj: any): T[];
+        props<T>(ps: string[]): (obj: any) => T[];
 
         /**
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
@@ -940,6 +942,7 @@ declare module R {
         */
         addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[])
               : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
+
        /**
         * Returns a function that always returns the given value.
         */
@@ -1171,8 +1174,6 @@ declare module R {
         substringFrom(indexA: number, str: string): string;
         substringTo(indexA: number, str: string): string;
 
-        isArrayLike(val: any): boolean;
-
         op(fn: Function): Function;
 
 
@@ -1186,7 +1187,7 @@ declare module R {
          * Accepts a function fn and a list of transformer functions and returns a new curried function.
          * When the new function is invoked, it calls the function fn with parameters consisting of the
          * result of calling each supplied handler on successive arguments to the new function.
-         * 
+         *
          * If more arguments are passed to the returned function than transformer functions, those arguments
          * are passed directly to fn as additional parameters. If you expect additional arguments that don't
          * need to be transformed, although you can ignore them, it's best to pass an identity function so
@@ -1278,6 +1279,10 @@ declare module R {
         is(ctor: any, val: any): boolean;
         is(ctor: any): (val: any) => boolean;
 
+        /**
+         * Tests whether or not an object is similar to an array.
+         */
+        isArrayLike(val: any): boolean;
 
         /**
          * Checks if the input value is null or undefined.
@@ -1286,21 +1291,20 @@ declare module R {
 
 
         /**
-         * A function that always returns `0`. Any passed in parameters are ignored.
+         * Returns true if the specified object property is of the given type; false otherwise.
          */
-        alwaysZero(): number;
-
+        propIs(type: any, name: string, obj: any): boolean;
+        propIs(type: any, name: string): (obj: any) => boolean;
+        propIs(type: any): {
+            (name: string, obj: any): boolean;
+            (name: string): (obj: any) => boolean;
+        }
 
         /**
-         * A function that always returns `false`. Any passed in parameters are ignored.
+         *
          */
-        alwaysFalse(): boolean;
+        type(val: any): string;
 
-
-        /**
-         * A function that always returns `true`. Any passed in parameters are ignored.
-         */
-        alwaysTrue(): boolean;
 
         /**
          * Logic Functions
@@ -1598,8 +1602,8 @@ declare module R {
          * The upper case version of a string.
          */
         toUpper(str: string): string;
-        
-        
+
+
         /**
          * Removes (strips) whitespace from both ends of the string.
          */
@@ -1711,12 +1715,14 @@ declare module R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
+        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
+        // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
         propEq<T>(name: string, val: T, obj: any): boolean;
-        propEq<T>(name: number, val: T, obj: any): boolean;
-        propEq<T>(name: string, val: T): (...args: any[]) => boolean;
-        propEq<T>(name: number, val: T): (...args: any[]) => boolean;
-        propEq<T>(name: string): (val: T, ...args: any[]) => boolean;
-        propEq<T>(name: number): (val: T, ...args: any[]) => boolean;
+        // propEq<T>(name: number, val: T, obj: any): boolean;
+        propEq<T>(name: string, val: T): (obj: any) => boolean;
+        // propEq<T>(name: number, val: T): (obj: any) => boolean;
+        propEq<T>(name: string): (val: T, obj: any) => boolean;
+        // propEq<T>(name: number): (val: T, obj: any) => boolean;
 
 
 

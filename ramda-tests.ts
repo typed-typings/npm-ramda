@@ -34,6 +34,25 @@ class F2 {
     x = R.isArrayLike([]);
 });
 
+(() => {
+    R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
+    R.propIs(Number, 'x')({x: 1, y: 2});  //=> true
+    R.propIs(Number)('x', {x: 1, y: 2});  //=> true
+    R.propIs(Number)('x')({x: 1, y: 2});  //=> true
+    R.propIs(Number, 'x', {x: 'foo'});    //=> false
+    R.propIs(Number, 'x', {});            //=> false
+});
+
+(() => {
+    R.type({}); //=> "Object"
+    R.type(1); //=> "Number"
+    R.type(false); //=> "Boolean"
+    R.type('s'); //=> "String"
+    R.type(null); //=> "Null"
+    R.type([]); //=> "Array"
+    R.type(/[A-z]/); //=> "RegExp"
+});
+
 () => {
     var takesNoArg = function() { return true; };
     var takesOneArg = function(a: number) { return [a]; };
@@ -67,7 +86,7 @@ class F2 {
 
     var addTwoNumbers = function(a:number, b:number) { return a + b; }
     var addTwoNumbersCurried = R.curry(addTwoNumbers);
-    
+
     var inc = addTwoNumbersCurried(1);
     var z1:number = inc(2);
     var z2:number = addTwoNumbersCurried(2,3);
