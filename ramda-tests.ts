@@ -129,10 +129,16 @@ class F2 {
     var fr: number = f(3, 4); // -(3^4) + 1
 }
 
-(() => {
+() => {
+    R.allUniq(['1', 1]); //=> true
+    R.allUniq([1, 1]);   //=> false
+    R.allUniq([[42], [42]]); //=> false
+}
+
+() => {
     R.invoker('charAt', String.prototype);
     R.invoker('charAt', String.prototype, 1);
-});
+}
 
 (() => {
     const range = R.juxt([Math.min, Math.max]);
@@ -645,16 +651,6 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
-    R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
-}
-
-() => {
-    R.mergeWith((a,b)=>a+b,{foo:1},{foo:2}); //=> {foo:3}
-    R.mergeWith((a,b)=>a+b,{foo:1},{bar:2}); //=> {foo:1,bar:2}
-}
-
-() => {
     R.none(R.isNaN, [1, 2, 3]); //=> true
     R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
     R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
@@ -1017,8 +1013,6 @@ class Rectangle {
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
 }
-() => {
-}
 
 () => {
     R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
@@ -1063,6 +1057,35 @@ class Rectangle {
 }
 
 () => {
+    R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+    //=> { 'name': 'fred', 'age': 40 }
+
+    var resetToDefault = R.merge(R.__, {x: 0});
+    resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
+}
+
+() => {
+    R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+    R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+}
+
+() => {
+    R.mergeWith<string>(R.concat,
+        { a: true, values: [10, 20] },
+        { b: true, values: [15, 35] });
+        //=> { a: true, b: true, values: [10, 20, 15, 35] }
+}
+
+() => {
+    let concatValues = (k:string, l: string, r: string) => k == 'values' ? R.concat(l, r) : r;
+    R.mergeWithKey(concatValues,
+        { a: true, thing: 'foo', values: [10, 20] },
+        { b: true, thing: 'bar', values: [15, 35] });
+    const merge = R.mergeWithKey(concatValues);
+    merge({ a: true, thing: 'foo', values: [10, 20] }, { b: true, thing: 'bar', values: [15, 35] });
+}
+
+() => {
     var isPositive = function(n: number) {
         return n > 0;
     };
@@ -1084,6 +1107,14 @@ class Rectangle {
     R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
 }
 
+() => {
+    var matchPhrases = R.compose(
+    R.objOf('must'),
+    R.map(R.objOf('match_phrase'))
+)
+
+matchPhrases(['foo', 'bar', 'baz']);
+}
 () => {
     R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
     R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
@@ -1607,16 +1638,11 @@ class Rectangle {
     isOdd(21); //=> true
     isOdd(42); //=> false
 }
-() => {
-    var fn = R.cond([
-      [R.eq(0),   R.always('water freezes at 0°C')],
-      [R.eq(100), R.always('water boils at 100°C')],
-      [R.T,       (temp: number) => `nothing special happens at ${temp}°C`]
-    ]);
-    fn(0); //=> 'water freezes at 0°C'
-    fn(50); //=> 'nothing special happens at 50°C'
-    fn(100); //=> 'water boils at 100°C'
-}
+
+(() => {
+    R.eqBy(Math.abs, 5, -5); //=> true
+});
+
 () => {
     var defaultTo42 = R.defaultTo(42);
     defaultTo42(null);  //=> 42

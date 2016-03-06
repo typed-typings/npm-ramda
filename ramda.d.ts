@@ -104,9 +104,9 @@ declare module R {
          * List category
          */
 
-
         /**
-         * Applies a function to the value at the given index of an array, returning a new copy of the array with the element at the given index replaced with the result of the function application.
+         * Applies a function to the value at the given index of an array, returning a new copy of the array with the
+         * element at the given index replaced with the result of the function application.
          */
         adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[];
         adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[];
@@ -118,13 +118,20 @@ declare module R {
         all<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
+         * Applies a function to the value at the given index of an array, returning a new copy of the array with the
+         * element at the given index replaced with the result of the function application.
+         */
+        allUniq(...list: any[]): boolean;
+
+        /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
          */
         any<T>(fn: (a: T) => boolean, list: T[]): boolean;
         any<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
-         * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list, an empty list is returned.
+         * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
+         * an empty list is returned.
          */
         aperture<T>(n: number, list: T): T[][];
         aperture<T>(n: number): (list: T) => T[][];
@@ -759,16 +766,35 @@ declare module R {
         merge(a: any): (b: any) => any;
 
         /**
-         * Creates a new object with the own properties of the
-         * two provided objects. If a key exists in both objects,
-         * the provided function is applied to the values associated
-         * with the key in each object, with the result being used as
-         * the value associated with the key in the returned object.
-         * The key will be excluded from the returned object if the
+         * Merges a list of objects together into one object.
+         */
+        mergeAll(list: any[]): any;
+
+        /**
+         * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
+         * the provided function is applied to the values associated with the key in each object, with the result being used as
+         * the value associated with the key in the returned object. The key will be excluded from the returned object if the
          * resulting value is undefined.
          */
-        mergeWith(f: (x:any,z:any) => any, a: any, b: any): any;
-        mergeWith(f: (x:any,z:any) => any, a: any): (b: any) => any;
+        mergeWith<T>(fn: (x: T, z: T) => T, a: any, b: any): any;
+        mergeWith<T>(fn: (x: T, z: T) => T, a: any): (b: any) => any;
+        mergeWith<T>(fn: (x: T, z: T) => T): (a: any, b: any) => any;
+
+        /**
+         * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
+         * the provided function is applied to the key and the values associated with the key in each object, with the
+         * result being used as the value associated with the key in the returned object. The key will be excluded from
+         * the returned object if the resulting value is undefined.
+         */
+        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T, a: any, b: any): any;
+        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T, a: any): (b: any) => any;
+        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T): (a: any, b: any) => any;
+
+        /**
+         * Creates an object containing a single key:value pair.
+         */
+        objOf<T>(key: string, value: T): {string: T};
+        objOf<T>(key: string): (value: T) => {string: T};
 
         /**
          * Returns a partial copy of an object omitting the keys specified.
@@ -1573,11 +1599,10 @@ declare module R {
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
         /**
-         * Tests if two items are equal.  Equality is strict here, meaning reference equality for objects and
-         * non-coercing equality for primitives.
+         * Takes a function and two values in its domain and returns true if the values map to the same value in the
+         * codomain; false otherwise.
          */
-        eq<T>(a: T, b: T): boolean;
-        eq<T>(a: T): (b: T) => boolean;
+        eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
 
         /**
          * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
