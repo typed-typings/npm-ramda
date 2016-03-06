@@ -282,6 +282,13 @@ declare module R {
         head<T>(list: T[]): T;
 
         /**
+         * Given a function that generates a key, turns a list of objects into an object indexing the objects
+         * by the given key.
+         */
+        indexBy<T>(fn: (a: any) => string, list: T[]): any;
+        indexBy<T>(fn: (a: any) => string): (list: T[]) => any;
+
+        /**
          * Returns the position of the first occurrence of an item in an array
          * (by strict equality),
          * or -1 if the item is not included in the array.

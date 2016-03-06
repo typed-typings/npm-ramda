@@ -529,6 +529,12 @@ interface Obj { a: number; b: number };
     R.head(['10', 10]); // => '10'
 }
 
+(() => {
+    var list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
+    R.indexBy(R.prop<string>('id'), list);
+    R.indexBy(R.prop<string>('id'))(list);
+});
+
 () => {
     R.indexOf(3, [1,2,3,4]); //=> 2
     R.indexOf(10)([1,2,3,4]); //=> -1
