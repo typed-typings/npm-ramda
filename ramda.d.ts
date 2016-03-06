@@ -404,6 +404,11 @@ declare module R {
         nth<T>(n: number): (list: T[]) => T;
 
         /**
+         * Takes two arguments, fst and snd, and returns [fst, snd].
+         */
+        pair(fst: any, snd: any): any[];
+
+        /**
          * Takes a predicate and a list and returns the pair of lists of elements
          * which do and do not satisfy the predicate, respectively.
          */
@@ -658,13 +663,6 @@ declare module R {
         clone(value: any): any;
         clone(value: any[]): any[];
 
-
-        /**
-         * Returns a new object that does not contain a `prop` property.
-         */
-        dissoc(prop: string, obj: any): any
-        dissoc(prop: string): (obj: any) => any
-
         /**
          * Returns a new object that does not contain a prop property.
          */
@@ -818,6 +816,13 @@ declare module R {
         path<T>(path: placeholder, obj: any): (path: string[]) => T;
         path<T>(path: string[]): (obj: any) => T;
 
+        /**
+         * If the given, non-null object has a value at the given path, returns the value at that path.
+         * Otherwise returns the provided default value.
+         */
+        pathOr<T>(d: any, p: string[], obj: any): any;
+        pathOr<T>(d: any, p: string[]): (obj: any) => any;
+        pathOr<T>(d: any): (p: string[], obj: any) => any;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the

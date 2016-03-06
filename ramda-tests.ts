@@ -522,10 +522,6 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
-}
-
-() => {
     var byGrade = R.groupBy(function(student: {score: number; name: string}) {
         var score = student.score;
         return score < 65 ? 'F' :
@@ -1086,6 +1082,13 @@ class Rectangle {
 }
 
 () => {
+    R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
+    R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
+    R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    R.pathOr('N/A')(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+}
+
+() => {
     var isPositive = function(n: number) {
         return n > 0;
     };
@@ -1118,6 +1121,15 @@ matchPhrases(['foo', 'bar', 'baz']);
 () => {
     R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
     R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+}
+
+
+() => {
+    R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
+}
+
+() => {
+    R.pair('foo', 'bar'); //=> ['foo', 'bar']
 }
 
 () => {
