@@ -129,8 +129,18 @@ class F2 {
     var fr: number = f(3, 4); // -(3^4) + 1
 }
 
-R.invoker('charAt', String.prototype);
-R.invoker('charAt', String.prototype, 1);
+(() => {
+    R.invoker('charAt', String.prototype);
+    R.invoker('charAt', String.prototype, 1);
+});
+
+(() => {
+    const range = R.juxt([Math.min, Math.max]);
+    range(3, 4, 9, -3); //=> [-3, 9]
+
+    const chopped = R.juxt([R.head, R.last]);
+    chopped('longstring'); // => ["l", "g"]
+});
 
 var square = function(x: number) { return x * x; };
 var add = function(a: number, b: number) { return a + b; };

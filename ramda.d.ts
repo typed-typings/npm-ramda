@@ -280,6 +280,7 @@ declare module R {
          * In some libraries this function is named `first`.
          */
         head<T>(list: T[]): T;
+        head(list: string): string;
 
         /**
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
@@ -336,6 +337,7 @@ declare module R {
          * Returns the last element from a list.
          */
         last<T>(list: T[]): T;
+        last(list: string): string;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
@@ -1052,7 +1054,12 @@ declare module R {
          * when `len` is not specified), and the final parameter is the target object.
          */
         invoker(name: string, obj: any, len?: number): Function;
+        invoker(name: string): (obj: any, len?: number) => Function;
 
+        /**
+         * Applies a list of functions to a list of values.
+         */
+        juxt<T,U>(fns: {(...args: T[]): U}[]): (...args: T[]) => U[];
 
         lift(fn: Function, ...args: any[]): any;
 
