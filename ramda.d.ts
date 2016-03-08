@@ -12,9 +12,14 @@ declare module R {
         (value: T, index: number, list: T[]): TResult;
     }
 
+    interface Functor<T> {
+        map<T>(a: any): T;
+    }
+
     interface ObjectIterator<T, TResult> {
         (element: T, key: string, obj: Dictionary<T>): Dictionary<TResult>;
     }
+
     interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 
     interface ArrayLike {
@@ -313,17 +318,17 @@ declare module R {
          * Inserts the supplied element into the list, at index index. Note that
          * this is not destructive: it returns a copy of the list with the changes.
          */
-        insert(index: number, elt: any, list: any[]): any[];
-        insert(index: number): (elt: any, list: any[]) => any[];
-        insert(index: number, elt: any): (list: any[]) => any[];
+        insert<T>(index: number, elt: T, list: T[]): T[];
+        insert<T>(index: number, elt: T): (list: T[]) => T[];
+        insert(index: number): <T>(elt: T, list: T[]) => T[];
 
         /**
          * Inserts the sub-list into the list, at index `index`.  _Note  that this
          * is not destructive_: it returns a copy of the list with the changes.
          */
-        insertAll(index: number, elts: any[], list: any[]): any[];
-        insertAll(index: number): (elts: any[], list: any[]) => any[];
-        insertAll(index: number, elts: any[]): (list: any[]) => any[];
+        insertAll<T>(index: number, elts: T[], list: T[]): T[];
+        insertAll<T>(index: number, elts: T[]): (list: T[]) => T[];
+        insertAll(index: number): <T>(elts: T[], list: T[]) => T[];
 
         /**
          * Transforms the items of the list with the transducer and appends the transformed items to the accumulator
@@ -362,7 +367,7 @@ declare module R {
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
-        map<T, U>(fn: (x: T) => U, obj: any): any; // used in functors
+        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
 
         /**
@@ -406,7 +411,7 @@ declare module R {
         /**
          * Takes two arguments, fst and snd, and returns [fst, snd].
          */
-        pair(fst: any, snd: any): any[];
+        pair<F,S>(fst: F, snd: S): [F, S];
 
         /**
          * Takes a predicate and a list and returns the pair of lists of elements

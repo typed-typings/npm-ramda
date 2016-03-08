@@ -557,15 +557,15 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
-    R.insert(2)('x', [1,2,3,4]); //=> [1,2,'x',3,4]
-    R.insert(2, 'x')([1,2,3,4]); //=> [1,2,'x',3,4]
+    R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
+    R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
+    R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
 }
 
 () => {
-    R.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
-    R.insertAll(2)(['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
-    R.insertAll(2, ['x','y','z'])([1,2,3,4]); //=> [1,2,'x','y','z',3,4]
+    R.insertAll(2, [10,11,12], [1,2,3,4]);
+    R.insertAll(2)([10,11,12], [1,2,3,4]);
+    R.insertAll(2, [10,11,12])([1,2,3,4]);
 }
 
 () => {
@@ -612,6 +612,15 @@ interface Obj { a: number; b: number };
         return x * 2;
     };
     R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+
+    // functor
+    const stringFunctor = {
+        map: (fn: (c: number) => number) => {
+            var chars = "Ifmmp!Xpsme".split("");
+            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
+        }
+    };
+    R.map((x: number) => x-1, stringFunctor); // => "Hello World"
 }
 
 () => {
@@ -1130,6 +1139,9 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
     R.pair('foo', 'bar'); //=> ['foo', 'bar']
+    let p = R.pair('foo', 1); //=> ['foo', 'bar']
+    let x: string = p[0];
+    let y: number = p[1];
 }
 
 () => {
