@@ -825,7 +825,7 @@ type Pair = R.KeyValuePair<string, number>;
 }
 
 () => {
-    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
+    var f = function(n: number): [number, number]|boolean { return n > 50 ? false : [-n, n + 10] };
     R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
     R.unfold(f)(10); //=> [-10, -20, -30, -40, -50]
 }
