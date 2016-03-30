@@ -760,6 +760,7 @@ declare module R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
+        merge(a: any, b: any): any;
         merge<T1, T2>(a: T1, b: T2): T1 & T2;
         merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
