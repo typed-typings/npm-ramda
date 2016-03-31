@@ -677,8 +677,8 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-    R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    const a = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    const b = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 () => {
@@ -878,9 +878,9 @@ type Pair = R.KeyValuePair<string, number>;
  * Object category
  */
 () => {
-    R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const a = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const b = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const c = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     // R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
     // R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
     // R.assoc('c', 3, R.__)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
@@ -1070,8 +1070,8 @@ class Rectangle {
 }
 
 () => {
-    R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
-    R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+    const a = R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+    const b = R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
 }
 
 () => {

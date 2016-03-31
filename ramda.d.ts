@@ -104,6 +104,7 @@ declare module R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
+
     interface Static {
         /*
          * List category
@@ -394,7 +395,7 @@ declare module R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-        mergeAll(list: any[]): any;
+        mergeAll<T>(list: any[]): T;
 
         /**
          * Returns true if no elements of the list match the predicate, false otherwise.
@@ -426,9 +427,7 @@ declare module R {
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
         pluck<T>(p: string|number, list: any[]): T[];
-        pluck<T>(p: string|number): (list: any[]) => T[];
-        pluck(p: string|number, list: any[]): any[];
-        pluck(p: string|number): (list: any[]) => any[];
+        pluck(p: string|number): <T>(list: any[]) => T[];
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
