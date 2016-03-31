@@ -573,8 +573,8 @@ declare module R {
          * to stop iteration or an array of length 2 containing the value to add to the resulting
          * list and the seed to be used in the next call to the iterator function.
          */
-        unfold<T, TResult>(fn: (seed: T) => TResult, seed: T): TResult[];
-        unfold<T, TResult>(fn: (seed: T) => TResult): (seed: T) => TResult[];
+        unfold<T, TResult>(fn: (seed: T) => TResult[]|boolean, seed: T): TResult[];
+        unfold<T, TResult>(fn: (seed: T) => TResult[]|boolean): (seed: T) => TResult[];
 
         /**
          * Returns a new list containing only one copy of each element in the original list.
@@ -764,8 +764,10 @@ declare module R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
-        merge(a: any, b: any): any;
-        merge(a: any): (b: any) => any;
+        merge<T2>(a: R.placeholder, b: T2): <T1>(a: T1) => T1&T2;
+        merge<T1, T2>(a: T1, b: T2): T1 & T2;
+        merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+
 
         /**
          * Merges a list of objects together into one object.

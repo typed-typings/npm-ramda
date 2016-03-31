@@ -1,4 +1,5 @@
 ##Type definitions for [Ramda](https://github.com/ramda/ramda)
+[![Build Status](https://travis-ci.org/donnut/typescript-ramda.svg?branch=master)](https://travis-ci.org/donnut/typescript-ramda)
 
 Test with:
 ```bash

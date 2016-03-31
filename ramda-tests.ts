@@ -298,7 +298,9 @@ R.times(i, 5);
 });
 (() => {
     var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
-    R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
+    let a = R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
+    let b = R.unfold(f); //=> [-10, -20, -30, -40, -50]
+    let c = b(10);
 });
 /*****************************************************************
  * Function category
@@ -822,12 +824,6 @@ type Pair = R.KeyValuePair<string, number>;
     R.transduce(transducer, fn, [])(numbers); //=> [2, 3]
     R.transduce(transducer, fn)([], numbers); //=> [2, 3]
     R.transduce(transducer)(fn, [], numbers); //=> [2, 3]
-}
-
-() => {
-    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
-    R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
-    R.unfold(f)(10); //=> [-10, -20, -30, -40, -50]
 }
 
 () => {
