@@ -642,75 +642,72 @@ declare module R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc(prop: string, val: any, obj: any): any;
-        assoc(prop: string): (val: any, obj: any) => any;
-        assoc(prop: string, val: any): (obj: any) => any;
+        assoc<U>(prop: string, val: placeholder, obj: U): <T>(val: T) => {prop: T} & U;
+        assoc<T,U>(prop: placeholder, val: T, obj: U): (prop: string ) => {prop: T} & U;
+        assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
+        assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
+        assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
+
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
          */
-        assocPath(path: string[], val: any, obj: any): any;
-        assocPath(path: string[]): (val: any, obj: any) => any;
-        assocPath(path: string[], val: any): (obj: any) => any;
-
-        // assoc(prop: string, val: placeholder, obj: any): (val: any) => any;
-        // assoc(prop: string, val: any, obj: placeholder): (obj: any) => any;
-        // assoc(prop: placeholder, val: placeholder, obj: any): (prop:string, val: any) => any;
-        // assoc(prop: placeholder, val: any, obj: placeholder): (prop:string, obj: any) => any;
-        // assoc(prop: placeholder, val: any, obj: any): (prop:string) => any;
-
+        assocPath<T,U>(path: string[], val: T, obj: U): U;
+        assocPath(path: string[]): <T,U>(val: T, obj: U) => U;
+        assocPath<T>(path: string[], val: T): <U>(obj: U) => U;
 
         /**
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
          */
-        clone(value: any): any;
-        clone(value: any[]): any[];
+        clone<T>(value: T): T;
+        clone<T>(value: T[]): T[];
 
         /**
          * Returns a new object that does not contain a prop property.
          */
-        dissoc(prop: string, obj: any): any;
-        dissoc(prop: placeholder, obj: any): (prop: string) => any;
-        dissoc(prop: string): (obj: any) => any;
+        // It seems impossible to infer the return type, so this may to be specified explicitely
+        dissoc<T>(prop: string, obj: any): T;
+        dissoc<T>(prop: placeholder, obj: any): (prop: string) => T;
+        dissoc(prop: string): <U>(obj: any) => U;
 
         /**
          * Makes a shallow clone of an object, omitting the property at the given path.
          */
-        dissocPath(path: string[], obj: any): any;
-        dissocPath(path: string[]): (obj: any) => any;
+        dissocPath<T>(path: string[], obj: any): T;
+        dissocPath(path: string[]): <T>(obj: any) => T;
 
         /**
          * Reports whether two functions have the same value for the specified property.
          */
-        eqProps(prop: string, obj1: any, obj2: any): boolean;
-        eqProps(prop: string): (obj1: any, obj2: any) => boolean;
-        eqProps(prop: string, obj1: any): (obj2: any) => boolean;
+        eqProps<T,U>(prop: string, obj1: T, obj2: U): boolean;
+        eqProps(prop: string): <T,U>(obj1: T, obj2: U) => boolean;
+        eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve(transformations: {[index: string]: (value: any) => any}, obj: any): any;
-        evolve(transformations: {[index: string]: (value: any) => any}): (obj: any) => any;
+        evolve<V,U>(transformations: {[index: string]: (value: V) => V}, obj: U): {[index:string]: V} & U;
+        evolve<V>(transformations: {[index: string]: (value: V) => V}): <U>(obj: U) => {[index:string]: V} & U;
 
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
-        has(s: string, obj: any): boolean;
-        has(s: string): (obj: any) => boolean;
-        has(s: placeholder, obj: any): (a: string) => boolean;
+        has<T>(s: string, obj: T): boolean;
+        has(s: string): <T>(obj: T) => boolean;
+        has<T>(s: placeholder, obj: T): (a: string) => boolean;
 
         /**
          * Returns whether or not an object or its prototype chain has a property with the specified name
          */
-        hasIn(s: string, obj: any): boolean;
-        hasIn(s: string): (obj: any) => boolean;
-        hasIn(s: placeholder, obj: any): (a: string) => boolean;
+        hasIn<T>(s: string, obj: T): boolean;
+        hasIn(s: string): <T>(obj: T) => boolean;
+        hasIn<T>(s: placeholder, obj: T): (a: string) => boolean;
 
         /**
          * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
          */
-        invert(obj: any): {[index:string]: string[]};
+        invert<T>(obj: T): {[index:string]: string[]};
 
         /**
          * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
@@ -722,14 +719,13 @@ declare module R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
-        keys(x: any): string[];
+        keys<T>(x: T): string[];
 
         /**
          * Returns a list containing the names of all the
          * properties of the supplied object, including prototype properties.
          */
-        keysIn(obj: any): string[];
-
+        keysIn<T>(obj: T): string[];
 
         /**
          * Returns a lens for the given getter and setter functions. The getter

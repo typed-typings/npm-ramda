@@ -877,69 +877,67 @@ type Pair = R.KeyValuePair<string, number>;
     const a = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     const b = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     const c = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    // R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
-    // R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
-    // R.assoc('c', 3, R.__)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    // R.assoc(R.__, 3, R.__)('c', {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const b1 = R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
+    const b2 = R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
-    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a1 = R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a2 = R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a3 = R.dissoc<{a:number, c:number}>(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a4 = R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 }
 
 () => {
-    R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-    R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-    R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const a = R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const b = R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const c = R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
 }
 
 () => {
-    var objects = [{}, {}, {}];
-    R.clone(objects);
-    R.clone({});
-    R.clone(10);
-    R.clone('foo');
-    R.clone(Date.now());
+    const a1 = R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    // optionally specify return type
+    const a2 = R.dissocPath<{a :{ b: number}}>(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    const a3 = R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); //=> {a: {b: {}}}
 }
 
 () => {
-    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    R.dissoc(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-}
-
-() => {
-    R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
-    R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    var obj1 = [{}, {}, {}];
+    var obj2 = [{a:1}, {a:2}, {a:3}];
+    const a1: any[] = R.clone(obj1);
+    const a2: {a: number}[] = R.clone(obj2);
+    const a3: any = R.clone({});
+    const a4: number = R.clone(10);
+    const a5: string = R.clone('foo');
+    const a6: number = R.clone(Date.now());
 }
 
 () => {
     var o1 = { a: 1, b: 2, c: 3, d: 4 };
     var o2 = { a: 10, b: 20, c: 3, d: 40 };
-    R.eqProps('a', o1, o2); //=> false
-    R.eqProps('c', o1, o2); //=> true
-    R.eqProps('c')(o1, o2); //=> true
-    R.eqProps('c', o1)(o2); //=> true
+    const a1 = R.eqProps('a', o1, o2); //=> false
+    const a2 = R.eqProps('c', o1, o2); //=> true
+    const a3: {<T,U>(obj1: T, obj2: U): boolean} = R.eqProps('c');
+    const a4: {<U>(obj2: U): boolean} = R.eqProps('c', o1);
 }
 
 () => {
-    R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
-     //=> { name: 'Tomato', elapsed: 101, remaining: 1399 }
+    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
+    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
 }
 
 
 () => {
-    var hasName = R.has('name');
-    hasName({name: 'alice'});   //=> true
-    hasName({name: 'bob'});     //=> true
-    hasName({});                //=> false
+    const hasName = R.has('name');
+    const a1: boolean = hasName({name: 'alice'});   //=> true
+    const a2: boolean = hasName({name: 'bob'});     //=> true
+    const a3: boolean = hasName({});                //=> false
 
-    var point = {x: 0, y: 0};
-    var pointHas = R.has(R.__, point);
-    pointHas('x');  //=> true
-    pointHas('y');  //=> true
-    pointHas('z');  //=> false
+    const point = {x: 0, y: 0};
+    const pointHas = R.has(R.__, point);
+    const b1: boolean = pointHas('x');  //=> true
+    const b2: boolean = pointHas('y');  //=> true
+    const b3: boolean = pointHas('z');  //=> false
 }
 
 class Rectangle {
