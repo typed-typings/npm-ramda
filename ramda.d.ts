@@ -124,12 +124,6 @@ declare module R {
         all<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
-         * Applies a function to the value at the given index of an array, returning a new copy of the array with the
-         * element at the given index replaced with the result of the function application.
-         */
-        allUniq(...list: any[]): boolean;
-
-        /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
          */
         any<T>(fn: (a: T) => boolean, list: T[]): boolean;
@@ -299,8 +293,8 @@ declare module R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T>(fn: (a: any) => string, list: T[]): any;
-        indexBy<T>(fn: (a: any) => string): (list: T[]) => any;
+        indexBy<T,U>(fn: (a: any) => string, list: T[]): U;
+        indexBy<T,U>(fn: (a: any) => string): (list: T[]) => U;
 
         /**
          * Returns the position of the first occurrence of an item in an array
@@ -390,12 +384,6 @@ declare module R {
          */
         mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
         mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
-
-
-        /**
-         * Like mapObj, but but passes additional arguments to the predicate function.
-         */
-        mergeAll<T>(list: any[]): T;
 
         /**
          * Returns true if no elements of the list match the predicate, false otherwise.
@@ -642,75 +630,72 @@ declare module R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc(prop: string, val: any, obj: any): any;
-        assoc(prop: string): (val: any, obj: any) => any;
-        assoc(prop: string, val: any): (obj: any) => any;
+        assoc<U>(prop: string, val: placeholder, obj: U): <T>(val: T) => {prop: T} & U;
+        assoc<T,U>(prop: placeholder, val: T, obj: U): (prop: string ) => {prop: T} & U;
+        assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
+        assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
+        assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
+
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
          */
-        assocPath(path: string[], val: any, obj: any): any;
-        assocPath(path: string[]): (val: any, obj: any) => any;
-        assocPath(path: string[], val: any): (obj: any) => any;
-
-        // assoc(prop: string, val: placeholder, obj: any): (val: any) => any;
-        // assoc(prop: string, val: any, obj: placeholder): (obj: any) => any;
-        // assoc(prop: placeholder, val: placeholder, obj: any): (prop:string, val: any) => any;
-        // assoc(prop: placeholder, val: any, obj: placeholder): (prop:string, obj: any) => any;
-        // assoc(prop: placeholder, val: any, obj: any): (prop:string) => any;
-
+        assocPath<T,U>(path: string[], val: T, obj: U): U;
+        assocPath(path: string[]): <T,U>(val: T, obj: U) => U;
+        assocPath<T>(path: string[], val: T): <U>(obj: U) => U;
 
         /**
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
          */
-        clone(value: any): any;
-        clone(value: any[]): any[];
+        clone<T>(value: T): T;
+        clone<T>(value: T[]): T[];
 
         /**
          * Returns a new object that does not contain a prop property.
          */
-        dissoc(prop: string, obj: any): any;
-        dissoc(prop: placeholder, obj: any): (prop: string) => any;
-        dissoc(prop: string): (obj: any) => any;
+        // It seems impossible to infer the return type, so this may to be specified explicitely
+        dissoc<T>(prop: string, obj: any): T;
+        dissoc<T>(prop: placeholder, obj: any): (prop: string) => T;
+        dissoc(prop: string): <U>(obj: any) => U;
 
         /**
          * Makes a shallow clone of an object, omitting the property at the given path.
          */
-        dissocPath(path: string[], obj: any): any;
-        dissocPath(path: string[]): (obj: any) => any;
+        dissocPath<T>(path: string[], obj: any): T;
+        dissocPath(path: string[]): <T>(obj: any) => T;
 
         /**
          * Reports whether two functions have the same value for the specified property.
          */
-        eqProps(prop: string, obj1: any, obj2: any): boolean;
-        eqProps(prop: string): (obj1: any, obj2: any) => boolean;
-        eqProps(prop: string, obj1: any): (obj2: any) => boolean;
+        eqProps<T,U>(prop: string, obj1: T, obj2: U): boolean;
+        eqProps(prop: string): <T,U>(obj1: T, obj2: U) => boolean;
+        eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve(transformations: {[index: string]: (value: any) => any}, obj: any): any;
-        evolve(transformations: {[index: string]: (value: any) => any}): (obj: any) => any;
+        evolve<V,U>(transformations: {[index: string]: (value: V) => V}, obj: U): {[index:string]: V} & U;
+        evolve<V>(transformations: {[index: string]: (value: V) => V}): <U>(obj: U) => {[index:string]: V} & U;
 
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
-        has(s: string, obj: any): boolean;
-        has(s: string): (obj: any) => boolean;
-        has(s: placeholder, obj: any): (a: string) => boolean;
+        has<T>(s: string, obj: T): boolean;
+        has(s: string): <T>(obj: T) => boolean;
+        has<T>(s: placeholder, obj: T): (a: string) => boolean;
 
         /**
          * Returns whether or not an object or its prototype chain has a property with the specified name
          */
-        hasIn(s: string, obj: any): boolean;
-        hasIn(s: string): (obj: any) => boolean;
-        hasIn(s: placeholder, obj: any): (a: string) => boolean;
+        hasIn<T>(s: string, obj: T): boolean;
+        hasIn(s: string): <T>(obj: T) => boolean;
+        hasIn<T>(s: placeholder, obj: T): (a: string) => boolean;
 
         /**
          * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
          */
-        invert(obj: any): {[index:string]: string[]};
+        invert<T>(obj: T): {[index:string]: string[]};
 
         /**
          * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
@@ -722,14 +707,13 @@ declare module R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
-        keys(x: any): string[];
+        keys<T>(x: T): string[];
 
         /**
          * Returns a list containing the names of all the
          * properties of the supplied object, including prototype properties.
          */
-        keysIn(obj: any): string[];
-
+        keysIn<T>(obj: T): string[];
 
         /**
          * Returns a lens for the given getter and setter functions. The getter
@@ -772,7 +756,7 @@ declare module R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll(list: any[]): any;
+        mergeAll<T>(list: any[]): T;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -780,9 +764,9 @@ declare module R {
          * the value associated with the key in the returned object. The key will be excluded from the returned object if the
          * resulting value is undefined.
          */
-        mergeWith<T>(fn: (x: T, z: T) => T, a: any, b: any): any;
-        mergeWith<T>(fn: (x: T, z: T) => T, a: any): (b: any) => any;
-        mergeWith<T>(fn: (x: T, z: T) => T): (a: any, b: any) => any;
+        mergeWith<U,V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
+        mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
+        mergeWith(fn: (x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -790,9 +774,9 @@ declare module R {
          * result being used as the value associated with the key in the returned object. The key will be excluded from
          * the returned object if the resulting value is undefined.
          */
-        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T, a: any, b: any): any;
-        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T, a: any): (b: any) => any;
-        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T): (a: any, b: any) => any;
+        mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
+        mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
+        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
 
         /**
          * Creates an object containing a single key:value pair.
@@ -826,22 +810,22 @@ declare module R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: any, p: string[], obj: any): any;
-        pathOr<T>(d: any, p: string[]): (obj: any) => any;
-        pathOr<T>(d: any): (p: string[], obj: any) => any;
+        pathOr<T>(d: T, p: string[], obj: any): T|any;
+        pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
+        pathOr<T>(d: T): (p: string[], obj: any) => T|any;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T>(names: string[], obj: T): T;
-        pick<T>(names: string[]): (obj: T) => T;
+        pick<T,U>(names: string[], obj: T): U;
+        pick<T,U>(names: string[]): (obj: T) => U;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T, U>(names: string[], obj: T): U;
-        pickAll<T, U>(names: string[]): (obj: T) => U;
+        pickAll<T,U>(names: string[], obj: T): U;
+        pickAll<T,U>(names: string[]): (obj: T) => U;
 
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
@@ -891,7 +875,7 @@ declare module R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs(obj: any): any[][];
+        toPairs<F,S>(obj: any): [F,S][];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -899,7 +883,7 @@ declare module R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn(obj: any): any[][];
+        toPairsIn<F,S>(obj: any): [F,S][];
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -907,13 +891,13 @@ declare module R {
          * different JS platforms.
          */
         values<T>(obj: {[index: string]: T}): T[];
-        values(obj: any): any[];
+        values<T>(obj: any): T[];
 
         /**
          * Returns a list of all the properties, including prototype properties, of the supplied
          * object. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.
          */
-        valuesIn(obj: any): any[];
+        valuesIn<T>(obj: any): T[];
 
        /**
         * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
@@ -1062,10 +1046,11 @@ declare module R {
         curryN(length: number, fn: (...args: any[]) => any): Function;
 
         /**
-         * `empty` wraps any object in an array. This implementation is compatible with the
-         * Fantasy-land Monoid spec, and will work with types that implement that spec.
+         * Returns the empty value of its argument's type. Ramda defines the empty value of Array ([]), Object ({}),
+         * String (''), and Arguments. Other types are supported if they define <Type>.empty and/or <Type>.prototype.empty.
+         * Dispatches to the empty method of the first argument, if present.
          */
-        empty(x: any): any[];
+        empty<T>(x: T): T;
 
         F(): boolean;
 
@@ -1080,7 +1065,7 @@ declare module R {
          * A function that does nothing but return the parameter supplied to it. Good as a default
          * or placeholder function.
          */
-        identity(a: any): any;
+        identity<T>(a: T): T;
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -1685,18 +1670,15 @@ declare module R {
          */
         union<T>(as: T[], bs: T[]): T[];
 
-
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.  Duplication is
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
-
-        eq<T,U>(a: T, b: U): boolean;
-
-
-
+        /**
+         * A function that always returns true. Any passed in parameters are ignored.
+         */
         T(): boolean;
 
 
