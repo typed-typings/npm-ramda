@@ -124,12 +124,6 @@ declare module R {
         all<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
-         * Applies a function to the value at the given index of an array, returning a new copy of the array with the
-         * element at the given index replaced with the result of the function application.
-         */
-        allUniq(...list: any[]): boolean;
-
-        /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
          */
         any<T>(fn: (a: T) => boolean, list: T[]): boolean;
@@ -299,8 +293,8 @@ declare module R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T>(fn: (a: any) => string, list: T[]): any;
-        indexBy<T>(fn: (a: any) => string): (list: T[]) => any;
+        indexBy<T,U>(fn: (a: any) => string, list: T[]): U;
+        indexBy<T,U>(fn: (a: any) => string): (list: T[]) => U;
 
         /**
          * Returns the position of the first occurrence of an item in an array
@@ -390,12 +384,6 @@ declare module R {
          */
         mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
         mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
-
-
-        /**
-         * Like mapObj, but but passes additional arguments to the predicate function.
-         */
-        mergeAll<T>(list: any[]): T;
 
         /**
          * Returns true if no elements of the list match the predicate, false otherwise.
@@ -768,7 +756,7 @@ declare module R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll(list: any[]): any;
+        mergeAll<T>(list: any[]): T;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -776,9 +764,9 @@ declare module R {
          * the value associated with the key in the returned object. The key will be excluded from the returned object if the
          * resulting value is undefined.
          */
-        mergeWith<T>(fn: (x: T, z: T) => T, a: any, b: any): any;
-        mergeWith<T>(fn: (x: T, z: T) => T, a: any): (b: any) => any;
-        mergeWith<T>(fn: (x: T, z: T) => T): (a: any, b: any) => any;
+        mergeWith<U,V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
+        mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
+        mergeWith(fn: (x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -786,9 +774,9 @@ declare module R {
          * result being used as the value associated with the key in the returned object. The key will be excluded from
          * the returned object if the resulting value is undefined.
          */
-        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T, a: any, b: any): any;
-        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T, a: any): (b: any) => any;
-        mergeWithKey<T>(fn: (str: string, x: T, z: T) => T): (a: any, b: any) => any;
+        mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
+        mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
+        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
 
         /**
          * Creates an object containing a single key:value pair.
@@ -822,9 +810,9 @@ declare module R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: any, p: string[], obj: any): any;
-        pathOr<T>(d: any, p: string[]): (obj: any) => any;
-        pathOr<T>(d: any): (p: string[], obj: any) => any;
+        pathOr<T>(d: T, p: string[], obj: any): T|any;
+        pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
+        pathOr<T>(d: T): (p: string[], obj: any) => T|any;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the

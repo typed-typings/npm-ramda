@@ -130,12 +130,6 @@ class F2 {
 }
 
 () => {
-    R.allUniq(['1', 1]); //=> true
-    R.allUniq([1, 1]);   //=> false
-    R.allUniq([[42], [42]]); //=> false
-}
-
-() => {
     R.invoker('charAt', String.prototype);
     R.invoker('charAt', String.prototype, 1);
 }
@@ -544,9 +538,9 @@ interface Obj { a: number; b: number };
 }
 
 (() => {
-    var list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    R.indexBy(R.prop<string>('id'), list);
-    R.indexBy(R.prop<string>('id'))(list);
+    let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
+    const a1 = R.indexBy(R.prop<string>('id'), list);
+    const a2 = R.indexBy(R.prop<string>('id'))(list);
 });
 
 () => {
@@ -1069,7 +1063,7 @@ class Rectangle {
 }
 
 () => {
-    R.mergeWith<string>(R.concat,
+    const a = R.mergeWith(R.concat,
         { a: true, values: [10, 20] },
         { b: true, values: [15, 35] });
         //=> { a: true, b: true, values: [10, 20, 15, 35] }
@@ -1085,10 +1079,10 @@ class Rectangle {
 }
 
 () => {
-    R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
-    R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
-    R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
-    R.pathOr('N/A')(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    const a1 = R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
+    const a2 = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
+    const a3 = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    const a4 = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
 }
 
 () => {
