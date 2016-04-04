@@ -356,31 +356,6 @@ R.times(i, 5);
     R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
 }
 
-() => {
-    var as = [[1], [3, 4]];
-    R.commute(R.of, as); //=> [[1, 3], [1, 4]]
-
-    var bs = [[1, 2], [3]];
-    R.commute(R.of, bs); //=> [[1, 3], [2, 3]]
-
-    var cs = [[1, 2], [3, 4]];
-    R.commute(R.of, cs); //=> [[1, 3], [2, 3], [1, 4], [2, 4]]
-    R.commute(R.of)(cs); //=> [[1, 3], [2, 3], [1, 4], [2, 4]]
-}
-
-() => {
-    var plus10map = R.map(function(x: number) { return x + 10; });
-    var as = [[1], [3, 4]];
-    R.commuteMap(R.map(function(x: number) { return x + 10; }), R.of, as); //=> [[11, 13], [11, 14]]
-
-    var bs = [[1, 2], [3]];
-    R.commuteMap(plus10map, R.of, bs); //=> [[11, 13], [12, 13]]
-
-    var cs = [[1, 2], [3, 4]];
-    R.commuteMap(plus10map, R.of, cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
-    R.commuteMap(plus10map)(R.of, cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
-    R.commuteMap(plus10map, R.of)(cs); //=> [[11, 13], [12, 13], [11, 14], [12, 14]]
-}
 
 () => {
     R.concat([], []); //=> []
