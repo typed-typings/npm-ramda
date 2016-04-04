@@ -130,12 +130,6 @@ class F2 {
 }
 
 () => {
-    R.allUniq(['1', 1]); //=> true
-    R.allUniq([1, 1]);   //=> false
-    R.allUniq([[42], [42]]); //=> false
-}
-
-() => {
     R.invoker('charAt', String.prototype);
     R.invoker('charAt', String.prototype, 1);
 }
@@ -264,8 +258,15 @@ R.times(i, 5);
 (() => {
     R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
     R.of([1]); //=> [[1]]
-    R.empty([1,2,3,4,5]); //=> []
+
 });
+
+() => {
+    const a1 = R.empty([1,2,3,4,5]); //=> []
+    const a2 = R.empty([1, 2, 3]);     //=> []
+    const a3 = R.empty('unicorns');    //=> ''
+    const a4 = R.empty({x: 1, y: 2});  //=> {}
+}
 
 (() => {
     R.length([1, 2, 3]); //=> 3
@@ -544,9 +545,9 @@ interface Obj { a: number; b: number };
 }
 
 (() => {
-    var list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    R.indexBy(R.prop<string>('id'), list);
-    R.indexBy(R.prop<string>('id'))(list);
+    let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
+    const a1 = R.indexBy(R.prop<string>('id'), list);
+    const a2 = R.indexBy(R.prop<string>('id'))(list);
 });
 
 () => {
@@ -559,15 +560,15 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
-    R.insert(2)('x', [1,2,3,4]); //=> [1,2,'x',3,4]
-    R.insert(2, 'x')([1,2,3,4]); //=> [1,2,'x',3,4]
+    R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
+    R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
+    R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
 }
 
 () => {
-    R.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
-    R.insertAll(2)(['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
-    R.insertAll(2, ['x','y','z'])([1,2,3,4]); //=> [1,2,'x','y','z',3,4]
+    R.insertAll(2, [10,11,12], [1,2,3,4]);
+    R.insertAll(2)([10,11,12], [1,2,3,4]);
+    R.insertAll(2, [10,11,12])([1,2,3,4]);
 }
 
 () => {
@@ -614,6 +615,15 @@ interface Obj { a: number; b: number };
         return x * 2;
     };
     R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+
+    // functor
+    const stringFunctor = {
+        map: (fn: (c: number) => number) => {
+            var chars = "Ifmmp!Xpsme".split("");
+            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
+        }
+    };
+    R.map((x: number) => x-1, stringFunctor); // => "Hello World"
 }
 
 () => {
@@ -670,8 +680,8 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-    R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    const a = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    const b = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 () => {
@@ -803,8 +813,8 @@ type Pair = R.KeyValuePair<string, number>;
 }
 
 () => {
-    R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
-    R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
+    const a1 = R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+    const a2 = R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
 }
 
 () => {
@@ -865,72 +875,70 @@ type Pair = R.KeyValuePair<string, number>;
  * Object category
  */
 () => {
-    R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    // R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
-    // R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
-    // R.assoc('c', 3, R.__)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    // R.assoc(R.__, 3, R.__)('c', {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const a = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const b = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const c = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const b1 = R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
+    const b2 = R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
-    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a1 = R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a2 = R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a3 = R.dissoc<{a:number, c:number}>(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    const a4 = R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 }
 
 () => {
-    R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-    R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-    R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const a = R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const b = R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const c = R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
 }
 
 () => {
-    var objects = [{}, {}, {}];
-    R.clone(objects);
-    R.clone({});
-    R.clone(10);
-    R.clone('foo');
-    R.clone(Date.now());
+    const a1 = R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    // optionally specify return type
+    const a2 = R.dissocPath<{a :{ b: number}}>(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    const a3 = R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); //=> {a: {b: {}}}
 }
 
 () => {
-    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    R.dissoc('b')({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    R.dissoc(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-}
-
-() => {
-    R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
-    R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); //=> {a: {b: {}}}
+    var obj1 = [{}, {}, {}];
+    var obj2 = [{a:1}, {a:2}, {a:3}];
+    const a1: any[] = R.clone(obj1);
+    const a2: {a: number}[] = R.clone(obj2);
+    const a3: any = R.clone({});
+    const a4: number = R.clone(10);
+    const a5: string = R.clone('foo');
+    const a6: number = R.clone(Date.now());
 }
 
 () => {
     var o1 = { a: 1, b: 2, c: 3, d: 4 };
     var o2 = { a: 10, b: 20, c: 3, d: 40 };
-    R.eqProps('a', o1, o2); //=> false
-    R.eqProps('c', o1, o2); //=> true
-    R.eqProps('c')(o1, o2); //=> true
-    R.eqProps('c', o1)(o2); //=> true
+    const a1 = R.eqProps('a', o1, o2); //=> false
+    const a2 = R.eqProps('c', o1, o2); //=> true
+    const a3: {<T,U>(obj1: T, obj2: U): boolean} = R.eqProps('c');
+    const a4: {<U>(obj2: U): boolean} = R.eqProps('c', o1);
 }
 
 () => {
-    R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
-     //=> { name: 'Tomato', elapsed: 101, remaining: 1399 }
+    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
+    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
 }
 
 
 () => {
-    var hasName = R.has('name');
-    hasName({name: 'alice'});   //=> true
-    hasName({name: 'bob'});     //=> true
-    hasName({});                //=> false
+    const hasName = R.has('name');
+    const a1: boolean = hasName({name: 'alice'});   //=> true
+    const a2: boolean = hasName({name: 'bob'});     //=> true
+    const a3: boolean = hasName({});                //=> false
 
-    var point = {x: 0, y: 0};
-    var pointHas = R.has(R.__, point);
-    pointHas('x');  //=> true
-    pointHas('y');  //=> true
-    pointHas('z');  //=> false
+    const point = {x: 0, y: 0};
+    const pointHas = R.has(R.__, point);
+    const b1: boolean = pointHas('x');  //=> true
+    const b2: boolean = pointHas('y');  //=> true
+    const b3: boolean = pointHas('z');  //=> false
 }
 
 class Rectangle {
@@ -1057,12 +1065,12 @@ class Rectangle {
 }
 
 () => {
-    R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
-    R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+    const a = R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+    const b = R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
 }
 
 () => {
-    R.mergeWith<string>(R.concat,
+    const a = R.mergeWith(R.concat,
         { a: true, values: [10, 20] },
         { b: true, values: [15, 35] });
         //=> { a: true, b: true, values: [10, 20, 15, 35] }
@@ -1078,17 +1086,17 @@ class Rectangle {
 }
 
 () => {
-    R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
-    R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
-    R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
-    R.pathOr('N/A')(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    const a1 = R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
+    const a2 = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
+    const a3 = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    const a4 = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
 }
 
 () => {
     var isPositive = function(n: number) {
         return n > 0;
     };
-    R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    const a1 = R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
     var containsBackground = function(val: any) {
         return val.bgcolor;
     };
@@ -1101,9 +1109,10 @@ class Rectangle {
 
 
 () => {
-    R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    const a1 = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    const a2 = R.pick<any, {a: number}>(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    const a3 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    const a4 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
 }
 
 () => {
@@ -1126,6 +1135,9 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
     R.pair('foo', 'bar'); //=> ['foo', 'bar']
+    let p = R.pair('foo', 1); //=> ['foo', 'bar']
+    let x: string = p[0];
+    let y: number = p[1];
 }
 
 () => {
@@ -1154,7 +1166,7 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
     var x: number = <number>R.prop('x', {x: 100}); //=> 100
-    R.prop('x', {}); //=> undefined
+    const a = R.prop('x', {}); //=> undefined
 }
 
 () => {
@@ -1165,8 +1177,8 @@ matchPhrases(['foo', 'bar', 'baz']);
     var favorite = R.prop('favoriteLibrary');
     var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
-    favorite(alice);  //=> undefined
-    favoriteWithDefault(alice);  //=> 'Ramda'
+    const s1 = favorite(alice);  //=> undefined
+    const s2 = favoriteWithDefault(alice);  //=> 'Ramda'
 }
 
 () => {
@@ -1178,20 +1190,21 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<string,number>({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
 }
 
 () => {
     var f = new F();
-    R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
+    const a1 = R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn<string,string>(f); //=> [['x','X'], ['y','Y']]
 }
 
 () => {
-    R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+    const a = R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
 }
 () => {
     var f = new F();
-    R.valuesIn(f); //=> ['X', 'Y']
+    const a = R.valuesIn(f); //=> ['X', 'Y']
 }
 
 () => {
@@ -1367,6 +1380,14 @@ matchPhrases(['foo', 'bar', 'baz']);
     var a: any = {}; a.v = a;
     var b: any = {}; b.v = b;
     R.equals(a, b); //=> true
+}
+
+() => {
+    const a1 = R.identity(1); //=> 1
+    let obj = {};
+    const a2 = R.identity([1,2,3]);
+    const a3 = R.identity(['a','b','c']);
+    const a4 = R.identity(obj) === obj; //=> true
 }
 
 () => {
