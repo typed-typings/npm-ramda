@@ -258,8 +258,15 @@ R.times(i, 5);
 (() => {
     R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
     R.of([1]); //=> [[1]]
-    R.empty([1,2,3,4,5]); //=> []
+
 });
+
+() => {
+    const a1 = R.empty([1,2,3,4,5]); //=> []
+    const a2 = R.empty([1, 2, 3]);     //=> []
+    const a3 = R.empty('unicorns');    //=> ''
+    const a4 = R.empty({x: 1, y: 2});  //=> {}
+}
 
 (() => {
     R.length([1, 2, 3]); //=> 3
@@ -806,8 +813,8 @@ type Pair = R.KeyValuePair<string, number>;
 }
 
 () => {
-    R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
-    R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
+    const a1 = R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+    const a2 = R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
 }
 
 () => {
@@ -1089,7 +1096,7 @@ class Rectangle {
     var isPositive = function(n: number) {
         return n > 0;
     };
-    R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    const a1 = R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
     var containsBackground = function(val: any) {
         return val.bgcolor;
     };
@@ -1102,9 +1109,10 @@ class Rectangle {
 
 
 () => {
-    R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    const a1 = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    const a2 = R.pick<any, {a: number}>(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    const a3 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    const a4 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
 }
 
 () => {
@@ -1158,7 +1166,7 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
     var x: number = <number>R.prop('x', {x: 100}); //=> 100
-    R.prop('x', {}); //=> undefined
+    const a = R.prop('x', {}); //=> undefined
 }
 
 () => {
@@ -1169,8 +1177,8 @@ matchPhrases(['foo', 'bar', 'baz']);
     var favorite = R.prop('favoriteLibrary');
     var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
-    favorite(alice);  //=> undefined
-    favoriteWithDefault(alice);  //=> 'Ramda'
+    const s1 = favorite(alice);  //=> undefined
+    const s2 = favoriteWithDefault(alice);  //=> 'Ramda'
 }
 
 () => {
@@ -1182,20 +1190,21 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<string,number>({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
 }
 
 () => {
     var f = new F();
-    R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
+    const a1 = R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn<string,string>(f); //=> [['x','X'], ['y','Y']]
 }
 
 () => {
-    R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+    const a = R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
 }
 () => {
     var f = new F();
-    R.valuesIn(f); //=> ['X', 'Y']
+    const a = R.valuesIn(f); //=> ['X', 'Y']
 }
 
 () => {
@@ -1371,6 +1380,14 @@ matchPhrases(['foo', 'bar', 'baz']);
     var a: any = {}; a.v = a;
     var b: any = {}; b.v = b;
     R.equals(a, b); //=> true
+}
+
+() => {
+    const a1 = R.identity(1); //=> 1
+    let obj = {};
+    const a2 = R.identity([1,2,3]);
+    const a3 = R.identity(['a','b','c']);
+    const a4 = R.identity(obj) === obj; //=> true
 }
 
 () => {

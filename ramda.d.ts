@@ -818,14 +818,14 @@ declare module R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T>(names: string[], obj: T): T;
-        pick<T>(names: string[]): (obj: T) => T;
+        pick<T,U>(names: string[], obj: T): U;
+        pick<T,U>(names: string[]): (obj: T) => U;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T, U>(names: string[], obj: T): U;
-        pickAll<T, U>(names: string[]): (obj: T) => U;
+        pickAll<T,U>(names: string[], obj: T): U;
+        pickAll<T,U>(names: string[]): (obj: T) => U;
 
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
@@ -875,7 +875,7 @@ declare module R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs(obj: any): any[][];
+        toPairs<F,S>(obj: any): [F,S][];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -883,7 +883,7 @@ declare module R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn(obj: any): any[][];
+        toPairsIn<F,S>(obj: any): [F,S][];
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -891,13 +891,13 @@ declare module R {
          * different JS platforms.
          */
         values<T>(obj: {[index: string]: T}): T[];
-        values(obj: any): any[];
+        values<T>(obj: any): T[];
 
         /**
          * Returns a list of all the properties, including prototype properties, of the supplied
          * object. Note that the order of the output array is not guaranteed to be consistent across different JS platforms.
          */
-        valuesIn(obj: any): any[];
+        valuesIn<T>(obj: any): T[];
 
        /**
         * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
@@ -1046,10 +1046,11 @@ declare module R {
         curryN(length: number, fn: (...args: any[]) => any): Function;
 
         /**
-         * `empty` wraps any object in an array. This implementation is compatible with the
-         * Fantasy-land Monoid spec, and will work with types that implement that spec.
+         * Returns the empty value of its argument's type. Ramda defines the empty value of Array ([]), Object ({}),
+         * String (''), and Arguments. Other types are supported if they define <Type>.empty and/or <Type>.prototype.empty.
+         * Dispatches to the empty method of the first argument, if present.
          */
-        empty(x: any): any[];
+        empty<T>(x: T): T;
 
         F(): boolean;
 
@@ -1064,7 +1065,7 @@ declare module R {
          * A function that does nothing but return the parameter supplied to it. Good as a default
          * or placeholder function.
          */
-        identity(a: any): any;
+        identity<T>(a: T): T;
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
