@@ -1670,18 +1670,15 @@ declare module R {
          */
         union<T>(as: T[], bs: T[]): T[];
 
-
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.  Duplication is
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
-
-        eq<T,U>(a: T, b: U): boolean;
-
-
-
+        /**
+         * A function that always returns true. Any passed in parameters are ignored.
+         */
         T(): boolean;
 
 
