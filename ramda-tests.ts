@@ -538,12 +538,37 @@ interface Obj { a: number; b: number };
     R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
     R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
     R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
+    R.insert(2)(5)([1,2,3,4]); //=> [1,2,5,3,4]
 }
 
 () => {
-    R.insertAll(2, [10,11,12], [1,2,3,4]);
-    R.insertAll(2)([10,11,12], [1,2,3,4]);
-    R.insertAll(2, [10,11,12])([1,2,3,4]);
+    const a1 = R.insertAll(2, [10,11,12], [1,2,3,4]);
+    const a2 = R.insertAll(2)([10,11,12], [1,2,3,4]);
+    const a3 = R.insertAll(2, [10,11,12])([1,2,3,4]);
+    const a4 = R.insertAll(2)([10,11,12])([1,2,3,4]);
+}
+
+() => {
+    const a1 = R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
+    const a2 = R.intersection([1,2,3,4])([7,6,5,4,3]); //=> [4, 3]
+}
+() => {
+    var buffaloSpringfield = [
+      {id: 824, name: 'Richie Furay'},
+      {id: 956, name: 'Dewey Martin'},
+      {id: 313, name: 'Bruce Palmer'},
+      {id: 456, name: 'Stephen Stills'},
+      {id: 177, name: 'Neil Young'}
+    ];
+    var csny = [
+      {id: 204, name: 'David Crosby'},
+      {id: 456, name: 'Stephen Stills'},
+      {id: 539, name: 'Graham Nash'},
+      {id: 177, name: 'Neil Young'}
+    ];
+
+    const a = R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+    //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
 }
 
 () => {
@@ -609,6 +634,7 @@ interface Obj { a: number; b: number };
     R.mapAccum(append, '0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
     R.mapAccum(append)('0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
     R.mapAccum(append, '0')(digits); //=> ['01234', ['01', '012', '0123', '01234']]
+    R.mapAccum(append)('0')(digits); //=> ['01234', ['01', '012', '0123', '01234']]
 }
 
 () => {
@@ -620,6 +646,7 @@ interface Obj { a: number; b: number };
     R.mapAccumRight(append, '0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
     R.mapAccumRight(append)('0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
     R.mapAccumRight(append, '0')(digits); //=> ['04321', ['04321', '0432', '043', '04']]
+    R.mapAccumRight(append)('0')(digits); //=> ['04321', ['04321', '0432', '043', '04']]
 }
 
 () => {
@@ -705,8 +732,9 @@ type Pair = R.KeyValuePair<string, number>;
     var isOdd = function(n: number) {
         return n % 2 === 1;
     };
-    R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
-    R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
+    const a1 = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    const a2 = R.reject(isOdd);
+    const a3 = R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
 }
 
 () => {
@@ -714,8 +742,8 @@ type Pair = R.KeyValuePair<string, number>;
         return list.length - idx <= 2;
     };
     const rejectIndexed = R.addIndex(R.reject);
-    rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
-    rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    const a1 = rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    const a2 = rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 () => {
@@ -801,6 +829,14 @@ type Pair = R.KeyValuePair<string, number>;
     R.transduce(transducer, fn)([], numbers); //=> [2, 3]
     R.transduce(transducer)(fn, [], numbers); //=> [2, 3]
 }
+
+// () => {
+//     // Returns `Nothing` if the given divisor is `0`
+//     safeDiv = n => d => d === 0 ? Nothing() : Just(n / d)
+//
+//     R.traverse(Maybe.of, safeDiv(10), [2, 4, 5]); //=> Just([5, 2.5, 2])
+//     R.traverse(Maybe.of, safeDiv(10), [2, 0, 5]); //=> Nothing
+// }
 
 () => {
     R.uniq([1, 1, 2, 1]); //=> [1, 2]
@@ -1215,10 +1251,10 @@ matchPhrases(['foo', 'bar', 'baz']);
  * Function category
  */
 () => {
-    var mapIndexed = R.addIndex(R.map);
-    mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    var mapIndexed = R.addIndex<string,string>(R.map);
+    const a1 = mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
       //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
-    mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+    const a2 = mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
       //=> [2, 56]
 }
 
@@ -1252,11 +1288,13 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
+    const a = R.replace(/^(?!$)/gm);
     var indentN = R.pipe(R.times(R.always(' ')),
          R.join(''),
          R.replace(/^(?!$)/gm)
     );
 
+    const b = R.pipe(R.prop('indent'), indentN);
     var format = R.converge(
         R.call, [
             R.pipe(R.prop('indent'), indentN),
@@ -1344,7 +1382,9 @@ matchPhrases(['foo', 'bar', 'baz']);
     function cmp(x: any, y: any) { return x.a === y.a; }
     var l1 = [{a: 1}, {a: 2}, {a: 3}];
     var l2 = [{a: 3}, {a: 4}];
-    R.differenceWith(cmp, l1, l2); //=> [{a: 1}, {a: 2}]
+    const a1 = R.differenceWith(cmp, l1, l2); //=> [{a: 1}, {a: 2}]
+    const a2 = R.differenceWith(cmp)(l1, l2); //=> [{a: 1}, {a: 2}]
+    const a3 = R.differenceWith(cmp)(l1)(l2); //=> [{a: 1}, {a: 2}]
 }
 
 () => {

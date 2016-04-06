@@ -69,8 +69,8 @@ declare module R {
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedFunction2<T1, T2, R> {
-        (t1: T1): (t2: T2) => R;
-        (t1: T1, t2: T2): R;
+        <T1,T2,R>(t1: T1): (t2: T2) => R;
+        <T1,T2,R>(t1: T1, t2: T2): R;
     }
 
     interface CurriedFunction3<T1, T2, T3, R> {
@@ -123,9 +123,11 @@ declare module R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-       addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[])
-              : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
-
+       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[]): {
+          <T,U>(fn: (item: T, idx: number, list?: T[]) => U, list: T[]): T[];
+          <T,U>(fn: (item: T, idx: number, list?: T[]) => U): (list: T[]) => T[];
+       }
+       //CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], T[]>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
@@ -205,7 +207,7 @@ declare module R {
         assoc<U>(prop: string, val: placeholder, obj: U): <T>(val: T) => {prop: T} & U;
         assoc<T,U>(prop: placeholder, val: T, obj: U): (prop: string ) => {prop: T} & U;
         assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
-        assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
+        assoc<T,U>(prop: string): CurriedFunction2<T,U, {prop: T} & U>;
         assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
 
 
@@ -214,7 +216,7 @@ declare module R {
          * placing the specific value at the tail end of that path.
          */
         assocPath<T,U>(path: string[], val: T, obj: U): U;
-        assocPath(path: string[]): <T,U>(val: T, obj: U) => U;
+        assocPath<T,U>(path: string[]): CurriedFunction2<T,U, U>;
         assocPath<T>(path: string[], val: T): <U>(obj: U) => U;
 
         /**
@@ -243,7 +245,7 @@ declare module R {
          * as a converging function for R.converge: the left branch can produce a function while the right branch
          * produces a value to be passed to that function as an argument.
          */
-        call(fn: (...args: any[])=> (...args: any[]) => any, ...args: any[]): any;
+        call(fn: (...args: any[]) => (...args: any[]) => any, ...args: any[]): any;
 
         /**
          * `chain` maps a function over a list and concatenates the results.
@@ -403,6 +405,8 @@ declare module R {
          * elements.
          */
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T,T,T>;
 
         /**
          * Divides two numbers. Equivalent to a / b.
@@ -484,13 +488,18 @@ declare module R {
          * codomain; false otherwise.
          */
         eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
+        eqBy<T>(fn: (a: T) => T, a: T): (b: T) => boolean;
+        eqBy<T>(fn: (a: T) => T): {
+            (a: T, b: T): boolean;
+            (a: T): (b: T) => boolean;
+        }
 
         /**
          * Reports whether two functions have the same value for the specified property.
          */
         eqProps<T,U>(prop: string, obj1: T, obj2: U): boolean;
-        eqProps(prop: string): <T,U>(obj1: T, obj2: U) => boolean;
         eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+        eqProps<T,U>(prop: string): CurriedFunction2<T,U,boolean>;
 
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
@@ -666,7 +675,7 @@ declare module R {
          */
         insert<T>(index: number, elt: T, list: T[]): T[];
         insert<T>(index: number, elt: T): (list: T[]) => T[];
-        insert(index: number): <T>(elt: T, list: T[]) => T[];
+        insert<T>(index: number): CurriedFunction2<T, T, T>;
 
         /**
          * Inserts the sub-list into the list, at index `index`.  _Note  that this
@@ -674,13 +683,14 @@ declare module R {
          */
         insertAll<T>(index: number, elts: T[], list: T[]): T[];
         insertAll<T>(index: number, elts: T[]): (list: T[]) => T[];
-        insertAll(index: number): <T>(elts: T[], list: T[]) => T[];
+        insertAll<T>(index: number): CurriedFunction2<T, T, T>;
 
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
          */
         intersection<T>(list1: T[], list2: T[]): T[];
+        intersection<T>(list1: T[]): (list2: T[]) => T[];
 
 
         /**
@@ -690,6 +700,8 @@ declare module R {
          * elements.
          */
         intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
+        intersectionWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T, T, T>;
 
         /**
          * Transforms the items of the list with the transducer and appends the transformed items to the accumulator
@@ -697,7 +709,7 @@ declare module R {
          */
         into<T>(acc: any, xf: Function, list: T[]): T[];
         into<T>(acc: any, xf: Function): (list: T[]) => T[];
-        into<T>(acc: any): (xf: Function, list: T[]) => T[];
+        into<T>(acc: any): CurriedFunction2<Function,T,T>;
 
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
@@ -851,15 +863,15 @@ declare module R {
          * The mapAccum function behaves like a combination of map and reduce.
          */
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFunction2<U,T[],TResult[]>;// (acc: U, list: T[]) => [U, TResult[]];
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFunction2<U,T[],TResult[]>;
 
         /**
          * Like map, but but passes additional parameters to the mapping function.
@@ -935,7 +947,7 @@ declare module R {
          */
         mergeWith<U,V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
         mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWith(fn: (x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
+        mergeWith<U,V>(fn: (x: any, z: any) => any): CurriedFunction2<U,V,U&V>;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -945,7 +957,7 @@ declare module R {
          */
         mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
         mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
+        mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any): CurriedFunction2<U,V,U&V>;
 
         /**
          * Returns the smaller of its two arguments.
@@ -1054,7 +1066,7 @@ declare module R {
          */
         over<T>(lens: Lens, fn: Arity1Fn, value: T|T[]): T|T[];
         over<T>(lens: Lens, fn: Arity1Fn): (value: T|T[]) => T|T[];
-        over<T>(lens: Lens): (fn: Arity1Fn, value: T|T[]) => T|T[];
+        over<T>(lens: Lens): CurriedFunction2<Arity1Fn,T|T[],T|T[]>;
 
 
         /**
@@ -1098,8 +1110,7 @@ declare module R {
         */
         pathEq(path: string[], val: any, obj: any): boolean;
         pathEq(path: string[], val: any): (obj: any) => boolean;
-        pathEq(path: string[]): (val: any, obj: any) => boolean;
-        pathEq(path: string[]): (val: any) => (obj: any) => boolean;
+        pathEq(path: string[]): CurriedFunction2<any,any,boolean>;
 
         /**
          * If the given, non-null object has a value at the given path, returns the value at that path.
@@ -1107,7 +1118,7 @@ declare module R {
          */
         pathOr<T>(d: T, p: string[], obj: any): T|any;
         pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
-        pathOr<T>(d: T): (p: string[], obj: any) => T|any;
+        pathOr<T>(d: T): CurriedFunction2<string[],any,T|any>;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
@@ -1134,36 +1145,36 @@ declare module R {
          * beginning with whatever arguments were passed to the initial invocation.
          */
         pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-        pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
-        pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
+        pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): CurriedFunction2<V0,V1,T1>;
+        pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): CurriedFunction3<V0,V1,V2,T1>;
 
         pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
-        pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
-        pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
+        pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): CurriedFunction2<V0,V1,T2>;
+        pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): CurriedFunction3<V0,V1,V2,T2>;
 
         pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
-        pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
-        pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
+        pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): CurriedFunction2<V0,V1,T3>;
+        pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): CurriedFunction3<V0,V1,V2,T3>;
 
         pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
-        pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
-        pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
+        pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): CurriedFunction2<V0,V1,T4>;
+        pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): CurriedFunction3<V0,V1,V2,T4>;
 
         pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
-        pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
+        pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): CurriedFunction2<V0,V1,T5>;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): CurriedFunction3<V0,V1,V2,T5>;
 
         pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): CurriedFunction2<V0,V1,T6>;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): CurriedFunction3<V0,V1,V2,T6>;
 
         pipe<V0, T1, T2, T3, T4, T5, T6, T7>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn: (x: T6) => T7): (x: V0) => T7;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): CurriedFunction2<V0,V1,T7>;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): CurriedFunction3<V0,V1,V2,T7>;
 
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7, fn: (x: T7) => T8): (x: V0) => T8;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): CurriedFunction2<V0,V1,T8>;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): CurriedFunction3<V0,V1,V2,T8>;
 
 
         /**
@@ -1208,7 +1219,7 @@ declare module R {
         // propEq<T>(name: number, val: T, obj: any): boolean;
         propEq<T>(name: string, val: T): (obj: any) => boolean;
         // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq<T>(name: string): (val: T, obj: any) => boolean;
+        propEq<T>(name: string): CurriedFunction2<T,any,boolean>;
         // propEq<T>(name: number): (val: T, obj: any) => boolean;
 
         /**
@@ -1216,10 +1227,7 @@ declare module R {
          */
         propIs(type: any, name: string, obj: any): boolean;
         propIs(type: any, name: string): (obj: any) => boolean;
-        propIs(type: any): {
-            (name: string, obj: any): boolean;
-            (name: string): (obj: any) => boolean;
-        }
+        propIs(type: any): CurriedFunction2<string,any,boolean>;
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
@@ -1227,7 +1235,7 @@ declare module R {
          */
         propOr<T,U,V>(val: T, p: string, obj: U): V;
         propOr<T,U,V>(val: T, p: string): (obj: U) => V;
-        propOr<T,U,V>(val: T): (p: string, obj: U) => V;
+        propOr<T,U,V>(val: T): CurriedFunction2<string,U,V>;
 
         /**
          * Returns the value at the specified property.
@@ -1252,15 +1260,15 @@ declare module R {
          * then passing the result to the next call.
          */
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult, T[],TResult>;
 
         /**
          * Like `reduce`, but passes additional parameters to the predicate function.
          */
         reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
         reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): CurriedFunction2<TResult,T[],TResult>;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -1268,16 +1276,16 @@ declare module R {
          * then passing the result to the next call.
          */
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult,T[],TResult>;
 
         /**
          * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
          * the input list from the right to the left.
          */
         reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
         reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): CurriedFunction2<TResult,T[],TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
@@ -1290,8 +1298,8 @@ declare module R {
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
          */
         remove<T>(start: number, count: number, list: T[]): T[];
-        remove<T>(start: number): (count: number, list: T[]) => T[];
         remove<T>(start: number, count: number): (list: T[]) => T[];
+        remove<T>(start: number): CurriedFunction2<number,T[],T[]>;
 
         /**
          * Returns a fixed list of size n containing a specified identical value.
@@ -1309,10 +1317,14 @@ declare module R {
          */
         replace(pattern: RegExp, replacement: string, str: string): string;
         replace(pattern: RegExp, replacement: string): (str: string) => string;
-        replace(pattern: RegExp): (replacement: string) => (str: string) => string;
+        // replace(pattern: RegExp): CurriedFunction2<string,string,string>;
+        replace(pattern: RegExp): {
+            (replacement: string, str: string): string;
+            (replacement: string): (str: string) => string;
+        }
         replace(pattern: String, replacement: string, str: string): string;
         replace(pattern: String, replacement: string): (str: string) => string;
-        replace(pattern: String): (replacement: string) => (str: string) => string;
+        replace(pattern: String): CurriedFunction2<string,string,string>;
 
 
         /**
@@ -1324,7 +1336,7 @@ declare module R {
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
          */
         scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult,T[],TResult>;
         scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
@@ -1333,7 +1345,7 @@ declare module R {
          */
         set<T,U>(lens: Lens, a: U, obj: T): T;
         set<T,U>(lens: Lens, a: U): (obj: T) => T;
-        set<T,U>(lens: Lens): (a: U, obj: T) => T;
+        set<T,U>(lens: Lens): CurriedFunction2<U,T,T>;
 
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
@@ -1341,7 +1353,7 @@ declare module R {
         slice(a: number, b: number, list: string): string;
         slice<T>(a: number, b: number, list: T[]): T[];
         slice<T>(a: number, b: number): (list: string|T[]) => string|T[];
-        slice<T>(a: number): (b: number, list: string|T[]) => string|T[];
+        slice<T>(a: number): CurriedFunction2<number,string|T[],string|T[]>;
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
@@ -1374,17 +1386,17 @@ declare module R {
         splitEvery<T>(a: number, list: T[]): T[][];
         splitEvery<T>(a: number): (list: T[]) => T[][];
 
-
-
         /**
          * Finds the first index of a substring in a string, returning -1 if it's not present
          */
         strIndexOf(c: string, str: string): number;
+        strIndexOf(c: string): (str: string) => number;
 
         /**
          * Finds the last index of a substring in a string, returning -1 if it's not present
          */
         strLastIndexOf(c: string, str: string): number;
+        strLastIndexOf(c: string): (str: string) => number;
 
 
         /**
@@ -1483,10 +1495,15 @@ declare module R {
          * current value from the array, and then passing the result to the next call.
          */
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
-        transduce<T,U>(xf: (arg: T[]) => T[]): (fn: (acc: U[], val: U) => U[], acc: T[], list: T[]) => U;
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): CurriedFunction2<T[],T[],U>;
+        transduce<T,U>(xf: (arg: T[]) => T[]): CurriedFunction3<(acc: U[], val: U) => U[],T[],T[],U>;
 
+        /**
+         * Maps an Applicative-returning function over a Traversable, then uses sequence to transform the resulting
+         * Traversable of Applicative into an Applicative of Traversable.
+         */
+         // TBI traverse
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
@@ -1514,6 +1531,8 @@ declare module R {
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T[],T[],T[]>;
 
         /**
          * Returns a new list containing only one copy of each element in the original list.
@@ -1545,6 +1564,7 @@ declare module R {
          */
         update<T>(index: number, value: T, list: T[]): T[];
         update<T>(index: number, value: T): (list: T[]) => T[];
+        update<T>(index: number): CurriedFunction2<T,T[],T[]>;
 
         /**
          * Accepts a function fn and a list of transformer functions and returns a new curried function.
@@ -1557,6 +1577,7 @@ declare module R {
          * that the new function reports the correct arity.
          */
         useWith(fn: Function, transformers: Function[]): Function;
+        useWith(fn: Function): (transformers: Function[]) => Function;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -1635,8 +1656,7 @@ declare module R {
          */
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
-
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): CurriedFunction2<T[],U[],TResult[]>;
     }
 }
 
