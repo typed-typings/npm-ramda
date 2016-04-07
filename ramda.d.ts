@@ -1263,7 +1263,7 @@ declare module R {
          * transduce functions. The returned value should be considered a black box: the internal 
          * structure is not guaranteed to be stable. 
          */
-        reduced<T>(elem): Reduced<T>;
+        reduced<T>(elem: T): Reduced<T>;
 
         /**
          * Like `reduce`, but passes additional parameters to the predicate function.
