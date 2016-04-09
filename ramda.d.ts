@@ -69,38 +69,38 @@ declare module R {
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedFunction2<T1, T2, R> {
-        <T1,T2,R>(t1: T1): (t2: T2) => R;
-        <T1,T2,R>(t1: T1, t2: T2): R;
+        <T1>(t1: T1): <T2>(t2: T2) => R;
+        <T1,T2>(t1: T1, t2: T2): R;
     }
 
     interface CurriedFunction3<T1, T2, T3, R> {
-        (t1: T1): CurriedFunction2<T2, T3, R>;
-        (t1: T1, t2: T2): (t3: T3) => R;
-        (t1: T1, t2: T2, t3: T3): R;
+        <T1>(t1: T1): CurriedFunction2<T2, T3, R>;
+        <T1,T2>(t1: T1, t2: T2): <T3>(t3: T3) => R;
+        <T1,T2,T3>(t1: T1, t2: T2, t3: T3): R;
     }
 
     interface CurriedFunction4<T1, T2, T3, T4, R> {
-        (t1: T1): CurriedFunction3<T2, T3, T4, R>;
-        (t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
-        (t1: T1, t2: T2, t3: T3): (t4: T4) => R;
-        (t1: T1, t2: T2, t3: T3, t4: T4): R;
+        <T1>(t1: T1): CurriedFunction3<T2, T3, T4, R>;
+        <T1,T2>(t1: T1, t2: T2): CurriedFunction2<T3, T4, R>;
+        <T1,T2,T3>(t1: T1, t2: T2, t3: T3): <T4>(t4: T4) => R;
+        <T1,T2,T3,T4>(t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
 
     interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
-        (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
-        (t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
-        (t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
-        (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
-        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
+        <T1>(t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
+        <T1,T2>(t1: T1, t2: T2): CurriedFunction3<T3, T4, T5, R>;
+        <T1,T2,T3>(t1: T1, t2: T2, t3: T3): CurriedFunction2<T4, T5, R>;
+        <T1,T2,T3,T4>(t1: T1, t2: T2, t3: T3, t4: T4): <T5>(t5: T5) => R;
+        <T1,T2,T3,T4,T5>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
 
     interface CurriedFunction6<T1, T2, T3, T4, T5, T6, R> {
-        (t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>;
-        (t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>;
-        (t1: T1, t2: T2, t3: T3): CurriedFunction3<T4, T5, T6, R>;
-        (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction2<T5, T6, R>;
-        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
-        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
+        <T1>(t1: T1): CurriedFunction5<T2, T3, T4, T5, T6, R>;
+        <T1,T2>(t1: T1, t2: T2): CurriedFunction4<T3, T4, T5, T6, R>;
+        <T1,T2,T3>(t1: T1, t2: T2, t3: T3): CurriedFunction3<T4, T5, T6, R>;
+        <T1,T2,T3,T4>(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction2<T5, T6, R>;
+        <T1,T2,T3,T4,T5>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): <T6>(t6: T6) => R;
+        <T1,T2,T3,T4,T5,T6>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
     interface Static {
@@ -123,11 +123,12 @@ declare module R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[]): {
-          <T,U>(fn: (item: T, idx: number, list?: T[]) => U, list: T[]): T[];
-          <T,U>(fn: (item: T, idx: number, list?: T[]) => U): (list: T[]) => T[];
-       }
-       //CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], T[]>;
+    //    addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[]): {
+    //       <T,U>(fn: (item: T, idx: number, list?: T[]) => U, list: T[]): T[];
+    //       <T,U>(fn: (item: T, idx: number, list?: T[]) => U): (list: T[]) => T[];
+    //    }
+       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[]):
+            CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], T[]>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
@@ -278,7 +279,8 @@ declare module R {
         /**
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
          * functions must be unary.
-        */
+         * Note: The result of compose is not automatically curried.
+         */
         compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
         compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
         compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
@@ -366,7 +368,7 @@ declare module R {
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
          * First, its arguments needn't be provided one at a time.
          */
-        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1,T2, TResult>
+        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1,T2, TResult>;
         curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFunction3<T1,T2, T3, TResult>
         curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFunction4<T1,T2, T3, T4, TResult>
         curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): CurriedFunction5<T1,T2, T3, T4, T5, TResult>
@@ -864,7 +866,7 @@ declare module R {
          */
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFunction2<U,T[],TResult[]>;// (acc: U, list: T[]) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFunction2<U,T[],TResult[]>;
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
@@ -1140,41 +1142,42 @@ declare module R {
         pickBy<T,U>(pred: ObjPred): (obj: T) => U;
 
         /**
-         * Creates a new function that runs each of the functions supplied as parameters in turn,
-         * passing the return value of each function invocation to the next function invocation,
-         * beginning with whatever arguments were passed to the initial invocation.
+         * Performs left-to-right function composition.
+         * The leftmost function may have any arity; the remaining functions must be unary.
+         * In some libraries this function is named sequence.
+         * Note: The result of pipe is not automatically curried.
          */
         pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-        pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): CurriedFunction2<V0,V1,T1>;
-        pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): CurriedFunction3<V0,V1,V2,T1>;
+        pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
+        pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
 
         pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
-        pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): CurriedFunction2<V0,V1,T2>;
-        pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): CurriedFunction3<V0,V1,V2,T2>;
+        pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
+        pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
 
         pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
-        pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): CurriedFunction2<V0,V1,T3>;
-        pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): CurriedFunction3<V0,V1,V2,T3>;
+        pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
+        pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
 
         pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
-        pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): CurriedFunction2<V0,V1,T4>;
-        pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): CurriedFunction3<V0,V1,V2,T4>;
+        pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
+        pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
 
         pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
-        pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): CurriedFunction2<V0,V1,T5>;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): CurriedFunction3<V0,V1,V2,T5>;
+        pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
 
         pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): CurriedFunction2<V0,V1,T6>;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): CurriedFunction3<V0,V1,V2,T6>;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
         pipe<V0, T1, T2, T3, T4, T5, T6, T7>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn: (x: T6) => T7): (x: V0) => T7;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): CurriedFunction2<V0,V1,T7>;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): CurriedFunction3<V0,V1,V2,T7>;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
 
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T6) => T7, fn: (x: T7) => T8): (x: V0) => T8;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): CurriedFunction2<V0,V1,T8>;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): CurriedFunction3<V0,V1,V2,T8>;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6, fn6: (x: T5) => T6, fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
 
 
         /**
@@ -1317,11 +1320,11 @@ declare module R {
          */
         replace(pattern: RegExp, replacement: string, str: string): string;
         replace(pattern: RegExp, replacement: string): (str: string) => string;
-        // replace(pattern: RegExp): CurriedFunction2<string,string,string>;
-        replace(pattern: RegExp): {
-            (replacement: string, str: string): string;
-            (replacement: string): (str: string) => string;
-        }
+        replace(pattern: RegExp): CurriedFunction2<string,string,string>;
+        // replace(pattern: RegExp): {
+        //     (replacement: string, str: string): string;
+        //     (replacement: string): (str: string) => string;
+        // }
         replace(pattern: String, replacement: string, str: string): string;
         replace(pattern: String, replacement: string): (str: string) => string;
         replace(pattern: String): CurriedFunction2<string,string,string>;

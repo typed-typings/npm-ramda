@@ -20,12 +20,12 @@ class F2 {
     z() {};
 }
 
-(() => {
+() => {
     var x: boolean;
     x = R.isArrayLike('a');
     x = R.isArrayLike([1,2,3]);
     x = R.isArrayLike([]);
-});
+};
 
 (() => {
     R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
@@ -45,7 +45,10 @@ class F2 {
     R.type([]); //=> "Array"
     R.type(/[A-z]/); //=> "RegExp"
 });
-
+() => {
+    const takeTwo = R.curry((x: number, y: number) => x + y)
+    const a: (y: number) => number = takeTwo(3);
+}
 () => {
     var takesNoArg = function() { return true; };
     var takesOneArg = function(a: number) { return [a]; };
@@ -56,14 +59,15 @@ class F2 {
       return a + b + c + d;
     };
 
-    var x1: Function = R.curry(addFourNumbers)
-    // because of the current way of currying, the following call results in a type error
-    // var x2: Function = R.curry(addFourNumbers)(1,2,4)
-    var x3: Function = R.curry(addFourNumbers)(1)(2)
-    var x4: Function = R.curry(addFourNumbers)(1)(2)(3)
-    var y1: number = R.curry(addFourNumbers)(1)(2)(3)(4)
-    var y2: number = R.curry(addFourNumbers)(1,2)(3,4)
-    var y3: number = R.curry(addFourNumbers)(1,2,3)(4)
+    const curriedFourNumbers = R.curry(addFourNumbers);
+    var x1: R.CurriedFunction4<number, number, number, number, number> = curriedFourNumbers
+    var x2: R.CurriedFunction3<number, number, number, number> = curriedFourNumbers(1)
+    var x3: R.CurriedFunction2<number, number, number> = curriedFourNumbers(1)(2)
+    var x4: <T1,R>(t1: T1) => R = curriedFourNumbers(1)(2)(3)
+    var x5: <T1,R>(t1: T1) => R = curriedFourNumbers(1,2,4)
+    var y1: number = curriedFourNumbers(1)(2)(3)(4)
+    var y2: number = curriedFourNumbers(1,2)(3,4)
+    var y3: number = curriedFourNumbers(1,2,3)(4)
 
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
@@ -1286,23 +1290,9 @@ matchPhrases(['foo', 'bar', 'baz']);
     // Only 2 arguments are passed to the wrapped function
     takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
 }
-
 () => {
-    const a = R.replace(/^(?!$)/gm);
-    var indentN = R.pipe(R.times(R.always(' ')),
-         R.join(''),
-         R.replace(/^(?!$)/gm)
-    );
-
-    const b = R.pipe(R.prop('indent'), indentN);
-    var format = R.converge(
-        R.call, [
-            R.pipe(R.prop('indent'), indentN),
-            R.prop('value')
-        ]
-    );
-
-    format({indent: 2, value: 'foo\nbar\nbaz\n'}); //=> '  foo\n  bar\n  baz\n'
+    const f = R.pipe(Math.pow, R.negate, R.inc);
+    f(3, 4); // -(3^4) + 1
 }
 
 () => {
