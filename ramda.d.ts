@@ -695,6 +695,12 @@ declare module R {
         intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
         /**
+         * Creates a new list with the separator interposed between elements.
+         */
+        intersperse<T>(separator: T, list: T[]): T[];
+        intersperse<T>(separator: T): (list: T[]) => T[];
+
+        /**
          * Transforms the items of the list with the transducer and appends the transformed items to the accumulator
          * using an appropriate iterator function based on the accumulator type.
          */
