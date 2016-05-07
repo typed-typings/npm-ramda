@@ -1455,7 +1455,7 @@ declare module R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<X, V>(obj: {[k: string]: V} | {[k: number]: V}): [X, V][];
+        toPairs<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1463,7 +1463,7 @@ declare module R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<X, V>(obj: {[k: string]: V} | {[k: number]: V}): [X, V][];
+        toPairsIn<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
 
 
         /**
