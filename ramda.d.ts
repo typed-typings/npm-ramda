@@ -103,8 +103,7 @@ declare module R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
-    interface Reduced<T> {
-    }
+    interface Reduced<T> {}
 
     interface Static {
 
@@ -876,13 +875,18 @@ declare module R {
         mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
         mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
 
-
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index:string]: TResult};
 
+
+        /**
+         * Returns true if no elements of the list match the predicate, false otherwise.
+         */
+        none<T>(fn: (a: T) => boolean, list: T[]): boolean;
+        none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
          * Tests a regular expression agains a String
@@ -1121,6 +1125,7 @@ declare module R {
         pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
         pathOr<T>(d: T): (p: string[], obj: any) => T|any;
 
+
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
@@ -1128,17 +1133,20 @@ declare module R {
         pick<T,U>(names: string[], obj: T): U;
         pick<T,U>(names: string[]): (obj: T) => U;
 
+
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
         pickAll<T,U>(names: string[], obj: T): U;
         pickAll<T,U>(names: string[]): (obj: T) => U;
 
+
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
          */
         pickBy<T,U>(pred: ObjPred, obj: T): U;
         pickBy<T,U>(pred: ObjPred): (obj: T) => U;
+
 
         /**
          * Creates a new function that runs each of the functions supplied as parameters in turn,
@@ -1647,6 +1655,7 @@ declare module R {
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
         zipObj<T>(keys: string[], values: T[]): {[index:string]: T};
         zipObj<T>(keys: string[]): (values: T[]) => {[index:string]: T};
+
 
         /**
          * Creates a new list out of the two supplied by applying the function to each
