@@ -102,7 +102,7 @@ declare module R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
-    
+
     interface Reduced<T> {
     }
 
@@ -1061,9 +1061,12 @@ declare module R {
          * Returns the result of "setting" the portion of the given data structure
          * focused by the given lens to the given value.
          */
-        over<T>(lens: Lens, fn: Arity1Fn, value: T|T[]): T|T[];
-        over<T>(lens: Lens, fn: Arity1Fn): (value: T|T[]) => T|T[];
-        over<T>(lens: Lens): (fn: Arity1Fn, value: T|T[]) => T|T[];
+        over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
+        over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
+        over<T>(lens: Lens, fn: Arity1Fn): (value: T) => T;
+        over<T>(lens: Lens, fn: Arity1Fn): (value: T[]) => T[];
+        over<T>(lens: Lens): (fn: Arity1Fn, value: T) => T;
+        over<T>(lens: Lens): (fn: Arity1Fn, value: T[]) => T[];
 
 
         /**
@@ -1264,10 +1267,10 @@ declare module R {
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>): (acc: TResult, list: T[]) => TResult;
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>, acc: TResult): (list: T[]) => TResult;
 
-        /** 
-         * Returns a value wrapped to indicate that it is the final value of the reduce and 
-         * transduce functions. The returned value should be considered a black box: the internal 
-         * structure is not guaranteed to be stable. 
+        /**
+         * Returns a value wrapped to indicate that it is the final value of the reduce and
+         * transduce functions. The returned value should be considered a black box: the internal
+         * structure is not guaranteed to be stable.
          */
         reduced<T>(elem: T): Reduced<T>;
 

@@ -236,9 +236,11 @@ R.times(i, 5);
     };
     R.reduce(add, 10, numbers); //=> 16;
 })();
+
 (() => {
     var plus3 = R.add(3);
 })();
+
 (() => {
     var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
     var flattenPairs = function(acc: [string, number], pair: [string, number]) {

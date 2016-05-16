@@ -6,8 +6,6 @@ Test with:
 tsc --module amd ramda-tests.ts
 ```
 
-Will be pushed to [DefinitelyTyped](https://github.com/borisyankov/DefinitelyTyped) when finished.
-
 Pull requests are welcome!
 
 ##Usage and limitation
@@ -53,7 +51,7 @@ in with it fails to distinguish signature patterns correctly. These cases occur 
 ternary functions and function of higher order. Binary function pose no problem.
 
 ##Status
-The definitions are reorganized and updated and are more or less compatible with Ramda v0.18.0. The API of Ramda is not stable yet.
+The definitions are reorganized and updated and are more or less compatible with Ramda v0.21.0. The API of Ramda is not stable yet.
 
 This needs to be done:
 - include all functions of the latest Ramda version (currently 0.19.1)
