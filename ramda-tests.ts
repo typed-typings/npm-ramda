@@ -345,9 +345,12 @@ R.times(i, 5);
 
 () => {
     R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
+    R.append('tests')(['write', 'more']); //=> ['write', 'more', 'tests']
     R.append('tests', []); //=> ['tests']
     R.append<string, string[]>(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
-    R.append<string, string[]>(['tests'])(['write', 'more']); //=> ['write', 'more', ['tests']]
+    R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
+    R.append<string[]>(['tests'])(['write', 'more']); //=> ['write', 'more', ['tests']]
+    R.append(['tests'])(['write', 'more']); //=> ['write', 'more', ['tests']]
 }
 
 () => {
@@ -525,6 +528,7 @@ interface Obj { a: number; b: number };
     let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
     const a1 = R.indexBy(R.prop<string>('id'), list);
     const a2 = R.indexBy(R.prop<string>('id'))(list);
+    const a3 = R.indexBy<{id:string}>(R.prop<string>('id'))(list);
 });
 
 () => {

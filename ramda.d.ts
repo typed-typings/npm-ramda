@@ -183,23 +183,21 @@ declare module R {
          * an empty list is returned.
          */
         aperture<T>(n: number, list: T): T[][];
-        aperture<T>(n: number): (list: T) => T[][];
+        aperture(n: number): <T>(list: T) => T[][];
 
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        // note U is required (instead of just T) to allow appending an element of a different type than the array is.
-        append<T>(el: T, list: T[]): T[];
-        append<T>(el: T): (list: T[]) => T[];
         append<T, U>(el: U, list: T[]): (T & U)[];
-        append<T, U>(el: U): (list: T[]) => (T & U)[];
-
+        append<U>(el: U): <T>(list: T[]) => (T & U)[];
+        append<U>(el: U): <T>(list: T[]) => (T & U)[];
+        
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
          * a variadic function. fn should be a bound function if context is significant.
          */
         apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: U[]): TResult;
-        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult): (args: U[]) => TResult;
+        apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: U[]) => TResult;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
@@ -326,8 +324,8 @@ declare module R {
          */
         concat<T>(list1: T[], list2: T[]): T[];
         concat<T>(list1: T[]): (list2: T[]) => T[];
-        concat<T>(list1: string, list2: string): string;
-        concat<T>(list1: string): (list2: string) => string;
+        concat(list1: string, list2: string): string;
+        concat(list1: string): (list2: string) => string;
 
 
         construct(fn: Function): Function;
@@ -432,7 +430,7 @@ declare module R {
          * Returns a new list containing all but the first n elements of the given list.
          */
         drop<T>(n: number, list: T[]): T[];
-        drop<T>(n: number): (list: T[]) => T[];
+        drop(n: number): <T>(list: T[]) => T[];
 
         /**
          * Returns a list containing all but the last n elements of the given list.
@@ -646,8 +644,8 @@ declare module R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T,U>(fn: (a: any) => string, list: T[]): U;
-        indexBy<T,U>(fn: (a: any) => string): (list: T[]) => U;
+        indexBy<T,U>(fn: (a: T) => string, list: T[]): U;
+        indexBy<T>(fn: (a: T) => string): <U>(list: T[]) => U;
 
         /**
          * Returns the position of the first occurrence of an item in an array
@@ -704,8 +702,8 @@ declare module R {
          * using an appropriate iterator function based on the accumulator type.
          */
         into<T>(acc: any, xf: Function, list: T[]): T[];
-        into<T>(acc: any, xf: Function): (list: T[]) => T[];
-        into<T>(acc: any): (xf: Function, list: T[]) => T[];
+        into(acc: any, xf: Function): <T>(list: T[]) => T[];
+        into(acc: any): <T>(xf: Function, list: T[]) => T[];
 
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
@@ -1018,7 +1016,7 @@ declare module R {
          * Returns the nth element in a list.
          */
         nth<T>(n: number, list: T[]): T;
-        nth<T>(n: number): (list: T[]) => T;
+        nth(n: number): <T>(list: T[]) => T;
 
         /**
          * Returns a function which returns its nth argument.
@@ -1029,7 +1027,7 @@ declare module R {
          * Creates an object containing a single key:value pair.
          */
         objOf<T>(key: string, value: T): {string: T};
-        objOf<T>(key: string): (value: T) => {string: T};
+        objOf(key: string): <T>(value: T) => {string: T};
 
         /**
          * Returns a singleton array containing the value provided.
@@ -1041,7 +1039,7 @@ declare module R {
          * Returns a partial copy of an object omitting the keys specified.
          */
         omit<T>(names: string[], obj: T): T;
-        omit<T>(names: string[]): (obj: T) => T;
+        omit(names: string[]): <T>(obj: T) => T;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
@@ -1067,10 +1065,10 @@ declare module R {
          */
         over<T>(lens: Lens, fn: Arity1Fn, value: T): T;
         over<T>(lens: Lens, fn: Arity1Fn, value: T[]): T[];
-        over<T>(lens: Lens, fn: Arity1Fn): (value: T) => T;
-        over<T>(lens: Lens, fn: Arity1Fn): (value: T[]) => T[];
-        over<T>(lens: Lens): (fn: Arity1Fn, value: T) => T;
-        over<T>(lens: Lens): (fn: Arity1Fn, value: T[]) => T[];
+        over(lens: Lens, fn: Arity1Fn): <T>(value: T) => T;
+        over(lens: Lens, fn: Arity1Fn): <T>(value: T[]) => T[];
+        over(lens: Lens): <T>(fn: Arity1Fn, value: T) => T;
+        over(lens: Lens): <T>(fn: Arity1Fn, value: T[]) => T[];
 
 
         /**
@@ -1105,8 +1103,8 @@ declare module R {
          * Retrieve the value at a given path.
          */
         path<T>(path: string[], obj: any): T;
-        path<T>(path: placeholder, obj: any): (path: string[]) => T;
-        path<T>(path: string[]): (obj: any) => T;
+        path(path: placeholder, obj: any): <T>(path: string[]) => T;
+        path(path: string[]): <T>(obj: any) => T;
 
         /**
         * Determines whether a nested path on an object has a specific value,
@@ -1131,21 +1129,21 @@ declare module R {
          * property is ignored.
          */
         pick<T,U>(names: string[], obj: T): U;
-        pick<T,U>(names: string[]): (obj: T) => U;
+        pick(names: string[]): <T, U>(obj: T) => U;
 
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
         pickAll<T,U>(names: string[], obj: T): U;
-        pickAll<T,U>(names: string[]): (obj: T) => U;
+        pickAll(names: string[]): <T,U>(obj: T) => U;
 
 
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
          */
         pickBy<T,U>(pred: ObjPred, obj: T): U;
-        pickBy<T,U>(pred: ObjPred): (obj: T) => U;
+        pickBy(pred: ObjPred): <T,U>(obj: T) => U;
 
 
         /**
@@ -1215,7 +1213,7 @@ declare module R {
          * Note: TS1.9 # replace any by dictionary
          */
         prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): (obj: any) => T;
+        prop<T>(p: string): <T>(obj: any) => T;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1228,8 +1226,8 @@ declare module R {
         // propEq<T>(name: number, val: T, obj: any): boolean;
         propEq<T>(name: string, val: T): (obj: any) => boolean;
         // propEq<T>(name: number, val: T): (obj: any) => boolean;
-        propEq<T>(name: string): (val: T, obj: any) => boolean;
-        // propEq<T>(name: number): (val: T, obj: any) => boolean;
+        propEq(name: string): <T>(val: T, obj: any) => boolean;
+        // propEq(name: number): <T>(val: T, obj: any) => boolean;
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
@@ -1246,8 +1244,8 @@ declare module R {
          * Otherwise returns the provided default value.
          */
         propOr<T,U,V>(val: T, p: string, obj: U): V;
-        propOr<T,U,V>(val: T, p: string): (obj: U) => V;
-        propOr<T,U,V>(val: T): (p: string, obj: U) => V;
+        propOr<T>(val: T, p: string): <U,V>(obj: U) => V;
+        propOr<T>(val: T): <U,V>(p: string, obj: U) => V;
 
         /**
          * Returns the value at the specified property.
@@ -1255,7 +1253,7 @@ declare module R {
          * Note: TS1.9 # replace any by dictionary
          */
         props<T>(ps: string[], obj: any): T[];
-        props<T>(ps: string[]): (obj: any) => T[];
+        props(ps: string[]): <T>(obj: any) => T[];
 
 
         /**
@@ -1359,16 +1357,16 @@ declare module R {
          * given value.
          */
         set<T,U>(lens: Lens, a: U, obj: T): T;
-        set<T,U>(lens: Lens, a: U): (obj: T) => T;
-        set<T,U>(lens: Lens): (a: U, obj: T) => T;
+        set<U>(lens: Lens, a: U): <T>(obj: T) => T;
+        set(lens: Lens): <T,U>(a: U, obj: T) => T;
 
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
         slice(a: number, b: number, list: string): string;
         slice<T>(a: number, b: number, list: T[]): T[];
-        slice<T>(a: number, b: number): (list: string|T[]) => string|T[];
-        slice<T>(a: number): (b: number, list: string|T[]) => string|T[];
+        slice(a: number, b: number): <T>(list: string|T[]) => string|T[];
+        slice(a: number): <T>(b: number, list: string|T[]) => string|T[];
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
@@ -1384,7 +1382,7 @@ declare module R {
          */
         sortBy<T>(fn: (a: any) => string, list: T[]): T[];
         sortBy<T>(__: placeholder, list: T[]): T[];
-        sortBy<T>(fn: (a: any) => string): (list: T[]) => T[];
+        sortBy(fn: (a: any) => string): <T>(list: T[]) => T[];
 
         /**
          * Splits a string into an array of strings based on the given
@@ -1399,7 +1397,7 @@ declare module R {
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: T[]): T[][];
-        splitEvery<T>(a: number): (list: T[]) => T[][];
+        splitEvery(a: number): <T>(list: T[]) => T[][];
 
 
 
@@ -1441,7 +1439,7 @@ declare module R {
          * `n > * list.length`, returns a list of `list.length` elements.
          */
         take<T>(n: number, list: T[]): T[];
-        take<T>(n: number): (list: T[]) => T[];
+        take(n: number): <T>(list: T[]) => T[];
 
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
@@ -1617,9 +1615,9 @@ declare module R {
         * `filter`, `find`, `pickWith`, etc.
         */
         where<T,U>(spec: T, testObj: U): boolean;
-        where<T,U>(spec: T): (testObj: U) => boolean;
+        where<T>(spec: T): <U>(testObj: U) => boolean;
         where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
-        where<ObjFunc2,U>(spec: ObjFunc2): (testObj: U) => boolean;
+        where<ObjFunc2>(spec: ObjFunc2): <U>(testObj: U) => boolean;
 
        /**
         * Takes a spec object and a test object; returns true if the test satisfies the spec,
@@ -1628,7 +1626,7 @@ declare module R {
         * that property of the spec.
         */
         whereEq<T,U>(spec: T, obj: U): boolean;
-        whereEq<T,U>(spec: T): (obj: U) => boolean;
+        whereEq<T>(spec: T): <U>(obj: U) => boolean;
 
         /**
          * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
@@ -1640,21 +1638,21 @@ declare module R {
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
         xprod<K,V>(as: K[], bs: V[]): KeyValuePair<K,V>[];
-        xprod<K,V>(as: K[]): (bs: V[]) => KeyValuePair<K,V>[];
+        xprod<K>(as: K[]): <V>(bs: V[]) => KeyValuePair<K,V>[];
 
         /**
          * Creates a new list out of the two supplied by pairing up equally-positioned items from
          * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
          */
         zip<K,V>(list1: K[], list2: V[]): KeyValuePair<K,V>[];
-        zip<K,V>(list1: K[]): (list2: V[]) => KeyValuePair<K,V>[];
+        zip<K>(list1: K[]): <V>(list2: V[]) => KeyValuePair<K,V>[];
 
         /**
          * Creates a new object out of a list of keys and a list of values.
          */
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
         zipObj<T>(keys: string[], values: T[]): {[index:string]: T};
-        zipObj<T>(keys: string[]): (values: T[]) => {[index:string]: T};
+        zipObj(keys: string[]): <T>(values: T[]) => {[index:string]: T};
 
 
         /**
