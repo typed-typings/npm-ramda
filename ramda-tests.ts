@@ -859,14 +859,11 @@ type Pair = R.KeyValuePair<string, number>;
     const a = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     const b = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
     const c = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    const b1 = R.assoc(R.__, 3, {a: 1, b: 2})('c'); //=> {a: 1, b: 2, c: 3}
-    const b2 = R.assoc('c', R.__, {a: 1, b: 2})(3); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
     const a1 = R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
     const a2 = R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    const a3 = R.dissoc<{a:number, c:number}>(R.__, {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
     const a4 = R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 }
 
@@ -916,7 +913,7 @@ type Pair = R.KeyValuePair<string, number>;
     const a3: boolean = hasName({});                //=> false
 
     const point = {x: 0, y: 0};
-    const pointHas = R.has(R.__, point);
+    const pointHas = R.flip(R.has)(point);
     const b1: boolean = pointHas('x');  //=> true
     const b2: boolean = pointHas('y');  //=> true
     const b3: boolean = pointHas('z');  //=> false
@@ -936,7 +933,7 @@ class Rectangle {
     var square = new Rectangle(2, 2);
     R.hasIn('width', square);  //=> true
     R.hasIn('area', square);  //=> true
-    R.hasIn(R.__, square)('area');  //=> true
+    R.flip(R.hasIn)(square)('area');  //=> true
 }
 
 () => {
@@ -1041,7 +1038,7 @@ class Rectangle {
     R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
     //=> { 'name': 'fred', 'age': 40 }
 
-    var resetToDefault = R.merge(R.__, {x: 0});
+    var resetToDefault = R.flip(R.merge)({x: 0});
     resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
 }
 
@@ -1421,7 +1418,7 @@ matchPhrases(['foo', 'bar', 'baz']);
 () => {
     R.divide(71, 100); //=> 0.71
 
-    var half = R.divide(R.__, 2);
+    var half = R.flip(R.divide)(2);
     half(42); //=> 21
 
     var reciprocal = R.divide(1);
@@ -1432,7 +1429,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.gt(2, 6); //=> false
     R.gt(2, 0); //=> true
     R.gt(2, 2); //=> false
-    R.gt(R.__, 2)(10); //=> true
+    R.flip(R.gt)(2)(10); //=> true
     R.gt(2)(10); //=> false
 }
 
@@ -1440,7 +1437,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.gte(2, 6); //=> false
     R.gte(2, 0); //=> true
     R.gte(2, 2); //=> false
-    R.gte(R.__, 2)(10); //=> true
+    R.flip(R.gte)(2)(10); //=> true
     R.gte(2)(10); //=> false
 }
 
@@ -1455,14 +1452,14 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.lt(2, 0); //=> false
     R.lt(2, 2); //=> false
     R.lt(5)(10); //=> true
-    R.lt(R.__, 5)(10); //=> false // right-sectioned currying
+    R.flip(R.lt)(5)(10); //=> false // right-sectioned currying
 }
 
 () => {
     R.lte(2, 6); //=> true
     R.lte(2, 0); //=> false
     R.lte(2, 2); //=> true
-    R.lte(R.__, 2)(1); //=> true
+    R.flip(R.lte)(2)(1); //=> true
     R.lte(2)(10); //=> true
 }
 
@@ -1474,7 +1471,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.mathMod(17.2, 5); //=> NaN
     R.mathMod(17, 5.3); //=> NaN
 
-    var clock = R.mathMod(R.__, 12);
+    var clock = R.flip(R.mathMod)(12);
     clock(15); //=> 3
     clock(24); //=> 0
 
@@ -1489,7 +1486,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     hasName({});                //=> false
 
     var point = {x: 0, y: 0};
-    var pointHas = R.has(R.__, point);
+    var pointHas = R.flip(R.has)(point);
     pointHas('x');  //=> true
     pointHas('y');  //=> true
     pointHas('z');  //=> false
@@ -1523,7 +1520,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.modulo(-17, 3); //=> -2
     R.modulo(17, -3); //=> 2
 
-    var isOdd = R.modulo(R.__, 2);
+    var isOdd = R.flip(R.modulo)(2);
     isOdd(42); //=> 0
     isOdd(21); //=> 1
 }
@@ -1547,7 +1544,7 @@ matchPhrases(['foo', 'bar', 'baz']);
 () => {
     R.subtract(10, 8); //=> 2
 
-    var minus5 = R.subtract(R.__, 5);
+    var minus5 = R.flip(R.subtract)(5);
     minus5(17); //=> 12
 
     var complementaryAngle = R.subtract(90);
