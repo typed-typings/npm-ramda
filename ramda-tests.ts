@@ -653,8 +653,8 @@ interface Obj { a: number; b: number };
         }
         return elt;
     };
-    R.mapIndexed(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
-    R.mapIndexed(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
 }
 
 () => {

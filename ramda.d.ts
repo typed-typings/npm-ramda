@@ -892,24 +892,12 @@ declare module R {
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
 
-        /**
-         * Like map, but but passes additional parameters to the mapping function.
-         */
-        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
-        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index:string]: TResult};
-
-
-        /**
-         * Returns true if no elements of the list match the predicate, false otherwise.
-         */
-        none<T>(fn: (a: T) => boolean, list: T[]): boolean;
-        none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
 
         /**
          * Tests a regular expression agains a String
@@ -1030,6 +1018,7 @@ declare module R {
          */
         none<T>(fn: (a: T) => boolean, list: T[]): boolean;
         none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
+
 
         /**
          * A function wrapping a call to the given function in a `!` operation.  It will return `true` when the
