@@ -1015,6 +1015,14 @@ class Rectangle {
 }
 
 () => {
+  const xyLens = R.lensPath(['x', 'y']);
+
+  R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
+  R.set(xyLens, 4, {x: {y: 2, z: 3}});          //=> {x: {y: 4, z: 3}}
+  R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  //=> {x: {y: -2, z: 3}}
+}
+
+() => {
     R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
