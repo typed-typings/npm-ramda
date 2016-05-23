@@ -434,7 +434,7 @@ R.times(i, 5);
     R.findIndex(R.propEq('a', 2))(xs); //=> 1
     R.findIndex(R.propEq('a', 4))(xs); //=> -1
 
-    R.findIndex((x) => x === 1, [1, 2, 3]);
+    R.findIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 () => {
@@ -447,7 +447,7 @@ R.times(i, 5);
     var xs = [{a: 1, b: 0}, {a:1, b: 1}];
     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-    R.findLastIndex((x) => x === 1, [1, 2, 3]);
+    R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
 }
 () => {
     var user1 = { address: { zipCode: 90210 } };
@@ -656,8 +656,8 @@ interface Obj { a: number; b: number };
 () => {
     R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']);
     R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']);
-    R.partition(x => x > 2, [1, 2, 3, 4]);
-    R.partition(x => x > 2)([1, 2, 3, 4]);
+    R.partition((x: number) => x > 2, [1, 2, 3, 4]);
+    R.partition((x: number) => x > 2)([1, 2, 3, 4]);
 }
 
 () => {
@@ -696,7 +696,8 @@ interface Obj { a: number; b: number };
     R.reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
-type Pair = R.KeyValuePair<string, number>;
+interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
+type Pair = KeyValuePair<string, number>
 () => {
     var pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
     var flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
@@ -1245,6 +1246,14 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
+    type T = {sum: number, nested: {mul: number}};
+    const getMetrics = R.applySpec<T>({
+        sum: R.add, nested: { mul: R.multiply }
+    });
+    const result = getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+}
+
+() => {
     var takesThreeArgs = function(a: number, b: number, c: number) {
         return [a, b, c];
     };
@@ -1274,7 +1283,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    var cmp = R.comparator<{age:number}>(function(a, b) {
+    type T = {age: number};
+    var cmp = R.comparator(function(a: T, b: T) {
       return a.age < b.age;
     });
     var people = [

@@ -191,13 +191,20 @@ declare module R {
         append<T, U>(el: U, list: T[]): (T & U)[];
         append<U>(el: U): <T>(list: T[]) => (T & U)[];
         append<U>(el: U): <T>(list: T[]) => (T & U)[];
-        
+
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
          * a variadic function. fn should be a bound function if context is significant.
          */
         apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: U[]): TResult;
         apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: U[]) => TResult;
+
+        /**
+         * Given a spec object recursively mapping properties to functions, creates a function producing an object
+         * of the same structure, by mapping each property to the result of calling its associated function with
+         * the supplied arguments.
+         */
+        applySpec<T>(obj: any): (...args: any[]) => T;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
