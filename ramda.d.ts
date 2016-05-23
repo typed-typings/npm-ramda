@@ -260,6 +260,15 @@ declare module R {
         chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
 
         /**
+         * Restricts a number to be within a range.
+         * Also works for other ordered types such as Strings and Date
+         */
+        clamp<T>(min: T, max: T, value: T): T;
+        clamp<T>(min: T, max: T): (value: T) => T;
+        clamp<T>(min: T): (max: T, value: T) => T;
+        clamp<T>(min: T): (max: T) => (value: T) => T;
+
+        /**
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
          */
         clone<T>(value: T): T;
