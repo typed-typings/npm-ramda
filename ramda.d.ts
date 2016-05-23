@@ -318,14 +318,6 @@ declare module R {
 
 
         /**
-         * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
-         * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which
-         * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
-         * matches, fn returns undefined.
-         */
-        cond(fns: [Pred, Function][]): Function;
-
-        /**
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
@@ -334,9 +326,25 @@ declare module R {
         concat(list1: string, list2: string): string;
         concat(list1: string): (list2: string) => string;
 
+        /**
+         * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
+         * All of the arguments to fn are applied to each of the predicates in turn until one returns a "truthy" value, at which
+         * point fn returns the result of applying its arguments to the corresponding transformer. If none of the predicates
+         * matches, fn returns undefined.
+         */
+        cond(fns: [Pred, Function][]): Function;
 
+
+        /**
+         * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
+         */
         construct(fn: Function): Function;
 
+
+        /**
+         * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
+         * The arity of the function returned is specified to allow using variadic constructor functions.
+         */
         constructN(n: number, fn: Function): Function;
 
 
@@ -412,13 +420,6 @@ declare module R {
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
         /**
-         * Divides two numbers. Equivalent to a / b.
-         */
-        divide(a: number, b: number): number;
-        divide(a: number): (b: number) => number;
-        divide(a: placeholder, b: number): (b: number) => number;
-
-        /**
          * Returns a new object that does not contain a prop property.
          */
         // It seems impossible to infer the return type, so this may to be specified explicitely
@@ -431,6 +432,13 @@ declare module R {
          */
         dissocPath<T>(path: string[], obj: any): T;
         dissocPath(path: string[]): <T>(obj: any) => T;
+
+        /**
+         * Divides two numbers. Equivalent to a / b.
+         */
+        divide(a: number, b: number): number;
+        divide(a: number): (b: number) => number;
+        divide(a: placeholder, b: number): (b: number) => number;
 
 
         /**
@@ -453,8 +461,8 @@ declare module R {
          * Returns a new list containing all but last then elements of a given list, passing each value from the
          * right to the supplied predicate function, skipping elements while the predicate function returns true.
          */
-         dropLastWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
-         dropLastWhile<T>(fn: (a: T) => boolean): (list: T[]) => T[];
+        dropLastWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
+        dropLastWhile<T>(fn: (a: T) => boolean): (list: T[]) => T[];
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
@@ -478,19 +486,14 @@ declare module R {
          */
         empty<T>(x: T): T;
 
-
-        /**
-         * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
-         * Handles cyclical data structures.
-         */
-        equals<T>(a: T, b: T): boolean;
-        equals<T>(a: T): (b: T) => boolean;
-
         /**
          * Takes a function and two values in its domain and returns true if the values map to the same value in the
          * codomain; false otherwise.
          */
         eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
+        eqBy<T>(fn: (a: T) => T, a: T): (b: T) => boolean;
+        eqBy<T>(fn: (a: T) => T): (a: T, b: T) => boolean;
+        eqBy<T>(fn: (a: T) => T): (a: T) => (b: T) => boolean;
 
         /**
          * Reports whether two functions have the same value for the specified property.
@@ -498,6 +501,13 @@ declare module R {
         eqProps<T,U>(prop: string, obj1: T, obj2: U): boolean;
         eqProps(prop: string): <T,U>(obj1: T, obj2: U) => boolean;
         eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+
+        /**
+         * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
+         * Handles cyclical data structures.
+         */
+        equals<T>(a: T, b: T): boolean;
+        equals<T>(a: T): (b: T) => boolean;
 
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
@@ -566,17 +576,24 @@ declare module R {
         forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 
         /**
-         * Like forEach, but but passes additional parameters to the predicate function.
-         */
-        forEachIndexed<T>(fn: (x: T, idx?: number, list?: T[]) => void, list: T[]): T[];
-        forEachIndexed<T>(fn: (x: T, idx?: number, list?: T[]) => void): (list: T[]) => T[];
-
-        /**
          * Creates a new object out of a list key-value pairs.
          */
         fromPairs<V>(pairs: KeyValuePair<string, V>[]): {[index: string]: V};
         fromPairs<V>(pairs: KeyValuePair<number, V>[]): {[index: number]: V};
 
+        /**
+         * Splits a list into sublists stored in an object, based on the result of
+         * calling a String-returning function
+         * on each element, and grouping the results according to values returned.
+         */
+        groupBy<T>(fn: (a: T) => string, list: T[]): {[index: string]: T[]}
+        groupBy<T>(fn: (a: T) => string): <T>(list: T[]) => {[index: string]: T[]}
+
+        /**
+         * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
+         */
+        groupWith<T>(fn: (x: T, y: T) => boolean, list: T[]): T[][]
+        groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[]
 
         /**
          * Returns true if the first parameter is greater than the second.
@@ -591,14 +608,6 @@ declare module R {
         gte(a: number, b: number): boolean;
         gte(a: number): (b: number) => boolean;
         gte(a: placeholder, b: number): (b: number) => boolean;
-
-        /**
-         * Splits a list into sublists stored in an object, based on the result of
-         * calling a String-returning function
-         * on each element, and grouping the results according to values returned.
-         */
-        groupBy<T>(fn: (a: T) => string, list: T[]): {[index: string]: T[]}
-        groupBy<T>(fn: (a: T) => string): <T>(list: T[]) => {[index: string]: T[]}
 
         /**
          * Returns whether or not an object has an own property with the specified name.

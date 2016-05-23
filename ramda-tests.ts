@@ -501,7 +501,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
-    R.forEachIndexed(plusFive)([1, 2, 3]); //=> [6, 7, 8]
+    R.addIndex(R.forEach)(plusFive)([1, 2, 3]); //=> [6, 7, 8]
 }
 
 () => {
@@ -516,6 +516,18 @@ interface Obj { a: number; b: number };
     {name: 'Eddy', score: 58},
     {name: 'Jack', score: 69}];
     byGrade(students);
+}
+
+() => {
+    R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21])
+    // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
+
+    R.groupWith((a, b) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21])
+    // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
+
+    const isVowel = (a: string) => R.contains(a, 'aeiou') ? a : '';
+    R.groupWith(R.eqBy<string>(isVowel), 'aestiou')
+    // ['ae', 'st', 'iou']
 }
 
 () => {
