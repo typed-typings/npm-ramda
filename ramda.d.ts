@@ -839,7 +839,7 @@ declare module R {
          * Returns a lens whose focus is the specified path.
          * See also view, set, over. 
          */
-        lensPath(path: string): Lens;
+        lensPath(path: string[]): Lens;
 
         /**
          * lensProp creates a lens that will focus on property k of the source object.
