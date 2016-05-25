@@ -2,12 +2,6 @@ declare var R: R.Static;
 
 declare module R {
 
-    /**
-     * A special placeholder value used to specify "gaps" within curried functions,
-     * allowing partial application of any combination of arguments, regardless of their positions.
-     */
-    interface placeholder {}
-
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
     }
@@ -107,12 +101,6 @@ declare module R {
 
     interface Static {
 
-        /**
-         * A special placeholder value used to specify "gaps" within curried functions, allowing partial application
-         * of any combination of arguments, regardless of their positions.
-         */
-        __: placeholder;
-
        /**
         * Adds two numbers (or strings). Equivalent to a + b but curried.
         */
@@ -209,8 +197,6 @@ declare module R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc<U>(prop: string, val: placeholder, obj: U): <T>(val: T) => {prop: T} & U;
-        assoc<T,U>(prop: placeholder, val: T, obj: U): (prop: string ) => {prop: T} & U;
         assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
         assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
         assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
@@ -428,12 +414,11 @@ declare module R {
          */
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
 
-        /**
+        /* 
          * Returns a new object that does not contain a prop property.
          */
         // It seems impossible to infer the return type, so this may to be specified explicitely
         dissoc<T>(prop: string, obj: any): T;
-        dissoc<T>(prop: placeholder, obj: any): (prop: string) => T;
         dissoc(prop: string): <U>(obj: any) => U;
 
         /**
@@ -447,8 +432,6 @@ declare module R {
          */
         divide(a: number, b: number): number;
         divide(a: number): (b: number) => number;
-        divide(a: placeholder, b: number): (b: number) => number;
-
 
         /**
          * Returns a new list containing all but the first n elements of the given list.
@@ -609,28 +592,24 @@ declare module R {
          */
         gt(a: number, b: number): boolean;
         gt(a: number): (b: number) => boolean;
-        gt(a: placeholder, b: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is greater than or equal to the second.
          */
         gte(a: number, b: number): boolean;
         gte(a: number): (b: number) => boolean;
-        gte(a: placeholder, b: number): (b: number) => boolean;
 
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
-        has<T>(s: placeholder, obj: T): (a: string) => boolean;
 
         /**
          * Returns whether or not an object or its prototype chain has a property with the specified name
          */
         hasIn<T>(s: string, obj: T): boolean;
         hasIn(s: string): <T>(obj: T) => boolean;
-        hasIn<T>(s: placeholder, obj: T): (a: string) => boolean;
 
         /**
          * Returns the first element in a list.
@@ -868,14 +847,12 @@ declare module R {
          */
         lt(a: number, b: number): boolean;
         lt(a: number): (b: number) => boolean;
-        lt(a: placeholder, b: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is less than or equal to the second.
          */
         lte(a: number, b: number): boolean;
         lte(a: number): (b: number) => boolean;
-        lte(a: placeholder, b: number): (b: number) => boolean;
 
         /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
@@ -919,7 +896,6 @@ declare module R {
          */
         mathMod(a: number, b: number): number;
         mathMod(a: number): (b: number) => number;
-        mathMod(a: placeholder, b: number): (a: number) => number;
 
 
         /**
@@ -947,7 +923,6 @@ declare module R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
-        merge<T2>(a: R.placeholder, b: T2): <T1>(a: T1) => T1&T2;
         merge<T1, T2>(a: T1, b: T2): T1 & T2;
         merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
@@ -996,7 +971,6 @@ declare module R {
          * modulo. For mathematical modulo see `mathMod`
          */
         modulo(a: number, b: number): number;
-        modulo(a: placeholder, b: number): (a: number) => number;
         modulo(a: number): (b: number) => number;
 
         /**
@@ -1004,7 +978,6 @@ declare module R {
          */
         multiply(a: number, b: number): number;
         multiply(a: number): (b: number) => number;
-        multiply(a: placeholder, b: number): (a: number) => number;
 
 
         /**
@@ -1123,7 +1096,6 @@ declare module R {
          * Retrieve the value at a given path.
          */
         path<T>(path: string[], obj: any): T;
-        path(path: placeholder, obj: any): <T>(path: string[]) => T;
         path(path: string[]): <T>(obj: any) => T;
 
         /**
@@ -1368,9 +1340,9 @@ declare module R {
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
          */
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult, list: T[]): TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult): (list: T[]) => TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: T[]) => TResult[];
 
         /**
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
@@ -1401,7 +1373,6 @@ declare module R {
          * Sorts the list according to a key generated by the supplied function.
          */
         sortBy<T>(fn: (a: any) => string, list: T[]): T[];
-        sortBy<T>(__: placeholder, list: T[]): T[];
         sortBy(fn: (a: any) => string): <T>(list: T[]) => T[];
 
         /**
@@ -1436,7 +1407,6 @@ declare module R {
          * Subtracts two numbers. Equivalent to `a - b` but curried.
          */
         subtract(a: number, b: number): number;
-        subtract(a: placeholder, b: number): (a: number) => number;
         subtract(a: number): (b: number) => number;
 
         /**
