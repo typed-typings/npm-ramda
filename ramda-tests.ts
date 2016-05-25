@@ -361,6 +361,12 @@ R.times(i, 5);
     R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
 }
 
+() => {
+    R.clamp(1, 10, -1) // => 1
+    R.clamp(1, 10)(11) // => 10
+    R.clamp(1)(10, 4)  // => 4
+    R.clamp('a', 'd', 'e')  // => 'd'
+}
 
 () => {
     R.concat([], []); //=> []
@@ -434,7 +440,7 @@ R.times(i, 5);
     R.findIndex(R.propEq('a', 2))(xs); //=> 1
     R.findIndex(R.propEq('a', 4))(xs); //=> -1
 
-    R.findIndex((x) => x === 1, [1, 2, 3]);
+    R.findIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 () => {
@@ -447,7 +453,7 @@ R.times(i, 5);
     var xs = [{a: 1, b: 0}, {a:1, b: 1}];
     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-    R.findLastIndex((x) => x === 1, [1, 2, 3]);
+    R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
 }
 () => {
     var user1 = { address: { zipCode: 90210 } };
@@ -501,7 +507,7 @@ interface Obj { a: number; b: number };
 
 () => {
     var plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
-    R.forEachIndexed(plusFive)([1, 2, 3]); //=> [6, 7, 8]
+    R.addIndex(R.forEach)(plusFive)([1, 2, 3]); //=> [6, 7, 8]
 }
 
 () => {
@@ -516,6 +522,18 @@ interface Obj { a: number; b: number };
     {name: 'Eddy', score: 58},
     {name: 'Jack', score: 69}];
     byGrade(students);
+}
+
+() => {
+    R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21])
+    // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
+
+    R.groupWith((a, b) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21])
+    // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
+
+    const isVowel = (a: string) => R.contains(a, 'aeiou') ? a : '';
+    R.groupWith(R.eqBy<string>(isVowel), 'aestiou')
+    // ['ae', 'st', 'iou']
 }
 
 () => {
@@ -635,8 +653,8 @@ interface Obj { a: number; b: number };
         }
         return elt;
     };
-    R.mapIndexed(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
-    R.mapIndexed(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
 }
 
 () => {
@@ -656,8 +674,8 @@ interface Obj { a: number; b: number };
 () => {
     R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']);
     R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']);
-    R.partition(x => x > 2, [1, 2, 3, 4]);
-    R.partition(x => x > 2)([1, 2, 3, 4]);
+    R.partition((x: number) => x > 2, [1, 2, 3, 4]);
+    R.partition((x: number) => x > 2)([1, 2, 3, 4]);
 }
 
 () => {
@@ -696,7 +714,8 @@ interface Obj { a: number; b: number };
     R.reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
-type Pair = R.KeyValuePair<string, number>;
+interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
+type Pair = KeyValuePair<string, number>
 () => {
     var pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
     var flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
@@ -993,6 +1012,14 @@ class Rectangle {
 }
 
 () => {
+  const xyLens = R.lensPath(['x', 'y']);
+
+  R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
+  R.set(xyLens, 4, {x: {y: 2, z: 3}});          //=> {x: {y: 4, z: 3}}
+  R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  //=> {x: {y: -2, z: 3}}
+}
+
+() => {
     R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
@@ -1242,6 +1269,14 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
+    type T = {sum: number, nested: {mul: number}};
+    const getMetrics = R.applySpec<T>({
+        sum: R.add, nested: { mul: R.multiply }
+    });
+    const result = getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
+}
+
+() => {
     var takesThreeArgs = function(a: number, b: number, c: number) {
         return [a, b, c];
     };
@@ -1271,7 +1306,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    var cmp = R.comparator<{age:number}>(function(a, b) {
+    type T = {age: number};
+    var cmp = R.comparator(function(a: T, b: T) {
       return a.age < b.age;
     });
     var people = [
