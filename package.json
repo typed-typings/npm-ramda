@@ -1,11 +1,11 @@
 {
   "name": "typescript-ramda",
-  "version": "0.19.1",
+  "version": "0.21.0",
   "scripts": {
       "test": "tsc --module amd ramda-tests.ts"
   },
   "devDependencies": {
-    "ramda": "0.19.1",
-    "typescript": "^1.8.9"
+    "ramda": "0.21.0",
+    "typescript": "^1.8.10"
   }
 }
