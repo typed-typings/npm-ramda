@@ -1,8 +1,9 @@
-/// <reference path="ramda.d.ts" />
+import * as R from './ramda';
 
 var double = function(x: number): number {
     return x + x
 };
+
 var shout = function(x: number): string {
     return x >= 10
         ? 'big'
@@ -528,7 +529,7 @@ interface Obj { a: number; b: number };
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21])
     // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
 
-    R.groupWith((a, b) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21])
+    R.groupWith((a: number, b: number) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21])
     // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
 
     const isVowel = (a: string) => R.contains(a, 'aeiou') ? a : '';

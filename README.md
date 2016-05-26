@@ -9,30 +9,25 @@ tsc --module amd ramda-tests.ts
 Pull requests are welcome!
 
 ##Usage and limitation
+
+Install the typings for node using:
+```bash
+typings install ramda --save
+```
+If you use the package through a script tag, use:
+```bash
+typings install ramda --global --save
+```
+
 To use the Ramda type definitions include the following line in each of the .ts files
 that use Ramda:
 ```
     /// <reference path="./path/to/ramda.d.ts" />
 ```
-
-In Ramda almost all functions are curried. TypeScript is not equipped well to support
-this. We have tried to use TypeScript to its max and allow for curried functions
-to be applied in maximum two steps. For binary function you could do:
-
-```javascript
-R.indexOf(10, [1,2,3,4])
-R.indexOf(10)([1,2,3,4])
+or
+```typescript
+    import * as R from './path/to/ramda'
 ```
-and for ternary functions
-```javascript
-R.insert(2, 'x', [1,2,3,4])
-R.insert(2)('x', [1,2,3,4])
-R.insert(2, 'x')([1,2,3,4])
-
-R.insert(2)('x')([1,2,3,4]) // => type error!
-```
-
-In the last application of `insert` TypeScript will complain that the supplied parameters do not match the target. However, this is a valid application of the Ramda function.
 
 ##Note on placeholders
 Due to incompatiblity problems with typescript's typing system, Ramda's placeholder typing is removed. For binary functions the same functionaly

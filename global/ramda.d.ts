@@ -1654,8 +1654,9 @@ declare namespace R {
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
-
     }
 }
 
-export = R;
+declare module 'ramda' {
+    export = R;
+}
