@@ -705,14 +705,15 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    var reduceIndexed = R.addIndex(R.reduce);
     var letters = ['a', 'b', 'c'];
     var objectify = function(accObject: {[elem:string]: number}, elem: string, idx: number, list: string[]) {
         accObject[elem] = idx;
         return accObject;
     };
-    R.reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-    R.reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-    R.reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
 interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
@@ -1252,6 +1253,18 @@ matchPhrases(['foo', 'bar', 'baz']);
     mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
       //=> [2, 56]
 }
+
+() => {
+    var reduceIndexed = R.addIndex(R.reduce);
+    reduceIndexed(function(acc: string, val: string, idx: number) {
+        return acc + ',' + idx + '-' + val;
+        }
+        ,''
+        ,['f', 'o', 'o', 'b', 'a', 'r']);
+      //=> ['0-f,1-o,2-o,3-b,4-a,5-r']
+}
+
+
 
 () => {
     var t = R.always('Tee');
