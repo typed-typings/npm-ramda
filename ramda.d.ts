@@ -115,9 +115,14 @@ declare namespace R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-       addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[])
-              : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
-
+       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[] ) 
+         : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
+       /* Special case for forEach */
+       addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]) 
+         : CurriedFunction2<(item: T, idx: number, list?: T[]) => void, T[], T[]>;
+       /* Special case for reduce */
+       addIndex<T,U>(fn: (f: (acc:U, item: T) => U, aci:U, list: T[]) => U) 
+         : CurriedFunction3<(acc:U, item: T, idx: number, list?: T[]) => U, U, T[], U>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
