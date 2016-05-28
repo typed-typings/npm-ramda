@@ -872,6 +872,18 @@ type Pair = KeyValuePair<string, number>
 }
 
 () => {
+    const a: any[][] = R.transpose([[1, 'a'], [2, 'b'], [3, 'c']]) //=> [[1, 2, 3], ['a', 'b', 'c']]
+    const b: any[][] = R.transpose([[1, 2, 3], ['a', 'b', 'c']]) //=> [[1, 'a'], [2, 'b'], [3, 'c']]
+    const c: any[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]) //=> [[10, 20, 30], [11, 31], [32]]
+}
+
+() => {
+    const x = R.prop('x');
+    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, {x: true}); //=> true
+    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, null);      //=> false
+}
+
+() => {
     R.uniq([1, 1, 2, 1]); //=> [1, 2]
     R.uniq([{}, {}]);     //=> [{}, {}]
     R.uniq([1, '1']);     //=> [1, '1']

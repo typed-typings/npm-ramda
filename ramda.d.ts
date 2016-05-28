@@ -1558,10 +1558,23 @@ declare namespace R {
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
 
+		/**
+         * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
+         */
+        transpose<T>(list: any[][]): any[][];
+
         /**
          * Removes (strips) whitespace from both ends of the string.
          */
         trim(str: string): string;
+
+		/**
+         * tryCatch takes two functions, a tryer and a catcher. The returned function evaluates the tryer; if it does
+         * not throw, it simply returns the result. If the tryer does throw, the returned function evaluates the catcher
+         * function and returns its result. Note that for effective composition with this function, both the tryer and
+         * catcher functions must return the same type of results.
+	     */
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
