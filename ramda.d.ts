@@ -1462,6 +1462,26 @@ declare namespace R {
         take<T>(n: number, list: T[]): T[];
         take(n: number): <T>(list: T[]) => T[];
 
+		/**
+         * Returns a new list containing the last n elements of the given list. If n > list.length,
+         * returns a list of list.length elements.
+         */
+        takeLast<T>(n: number, xs: T[]): T[];
+        takeLast(n: number, xs: string): string;
+        takeLast(n: number): {
+			<T>(xs: T[]): T[];
+        	(xs: string): string;
+		}
+
+		/**
+         * Returns a new list containing the last n elements of a given list, passing each value
+         * to the supplied predicate function, and terminating when the predicate function returns
+		 * false. Excludes the element that caused the predicate function to fail. The predicate
+         * function is passed one argument: (value).
+         */
+        takeLastWhile<T>(pred: (a: T) => Boolean, list: T[]): T[];
+        takeLastWhile<T>(pred: (a: T) => Boolean): <T>(list: T[]) => T[];
+
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
          * to the supplied predicate function, and terminating when the predicate function returns
