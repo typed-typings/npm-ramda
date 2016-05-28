@@ -115,9 +115,14 @@ declare namespace R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-       addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[])
-              : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
-
+       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[] )
+         : CurriedFunction2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
+       /* Special case for forEach */
+       addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[])
+         : CurriedFunction2<(item: T, idx: number, list?: T[]) => void, T[], T[]>;
+       /* Special case for reduce */
+       addIndex<T,U>(fn: (f: (acc:U, item: T) => U, aci:U, list: T[]) => U)
+         : CurriedFunction3<(acc:U, item: T, idx: number, list?: T[]) => U, U, T[], U>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
@@ -553,6 +558,7 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
+        flatten<T>(x: T[][]): T[];
         flatten<T>(x: T[]): T[];
 
         /**
@@ -912,6 +918,15 @@ declare namespace R {
         maxBy<T>(keyFn: (a: T) => number, list: T[]): T;
         maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
 
+        /**
+         * Returns the mean of the given list of numbers.
+         */
+        mean(list: number[]): number;
+
+        /**
+         * Returns the median of the given list of numbers.
+         */
+        median(list: number[]): number;
 
         /**
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
@@ -1318,10 +1333,6 @@ declare namespace R {
         repeat<T>(a: T, n: number): T[];
         repeat<T>(a: T): (n: number) => T[];
 
-        /**
-         * Returns a fixed list of size `n` containing a specified identical value.
-         */
-        repeatN<T>(value: T, n: number): T[];
 
         /**
          * Replace a substring or regex match in a string with a replacement.
@@ -1387,23 +1398,28 @@ declare namespace R {
         split(sep: RegExp, str: string): string[];
 
         /**
+         * Splits a given list or string at a given index.
+		 */
+		splitAt<T>(index: number, list: T): T[];
+		splitAt(index: number): <T>(list: T) => T[];
+		splitAt<T>(index: number, list: T[]): T[][];
+		splitAt(index: number): <T>(list: T[]) => T[][];
+
+        /**
          * Splits a collection into slices of the specified length.
          */
         splitEvery<T>(a: number, list: T[]): T[][];
         splitEvery(a: number): <T>(list: T[]) => T[][];
 
 
-
-        /**
-         * Finds the first index of a substring in a string, returning -1 if it's not present
+		/**
+		 * Takes a list and a predicate and returns a pair of lists with the following properties:
+         * - the result of concatenating the two output lists is equivalent to the input list;
+         * - none of the elements of the first output list satisfies the predicate; and
+         * - if the second output list is non-empty, its first element satisfies the predicate.
          */
-        strIndexOf(c: string, str: string): number;
-
-        /**
-         * Finds the last index of a substring in a string, returning -1 if it's not present
-         */
-        strLastIndexOf(c: string, str: string): number;
-
+		splitWhen<T,U>(pred: (val: T) => boolean, list: U[]): U[][];
+		splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1415,6 +1431,19 @@ declare namespace R {
          * Adds together all the elements of a list.
          */
         sum(list: number[]): number;
+
+		/**
+		 * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+		 */
+		symmetricDifference<T>(list1: T[], list2: T[]): T[];
+		symmetricDifference<T>(list: T[]): <T>(list: T[]) => T[];
+
+		/**
+         * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+         * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
+		 */
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T[], T[], T[]>;
 
         /**
          * A function that always returns true. Any passed in parameters are ignored.
@@ -1433,6 +1462,26 @@ declare namespace R {
         take<T>(n: number, list: T[]): T[];
         take(n: number): <T>(list: T[]) => T[];
 
+		/**
+         * Returns a new list containing the last n elements of the given list. If n > list.length,
+         * returns a list of list.length elements.
+         */
+        takeLast<T>(n: number, xs: T[]): T[];
+        takeLast(n: number, xs: string): string;
+        takeLast(n: number): {
+			<T>(xs: T[]): T[];
+        	(xs: string): string;
+		}
+
+		/**
+         * Returns a new list containing the last n elements of a given list, passing each value
+         * to the supplied predicate function, and terminating when the predicate function returns
+		 * false. Excludes the element that caused the predicate function to fail. The predicate
+         * function is passed one argument: (value).
+         */
+        takeLastWhile<T>(pred: (a: T) => Boolean, list: T[]): T[];
+        takeLastWhile<T>(pred: (a: T) => Boolean): <T>(list: T[]) => T[];
+
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
          * to the supplied predicate function, and terminating when the predicate function returns
@@ -1446,6 +1495,12 @@ declare namespace R {
          */
         tap<T>(fn: (a: T) => any, value: T): T;
         tap<T>(fn: (a: T) => any): (value: T) => T;
+
+		/**
+         * Determines whether a given string matches a given regular expression.
+         */
+        test(regexp: RegExp, str: string): boolean;
+        test(regexp: RegExp): (str: string) => boolean;
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
@@ -1476,23 +1531,22 @@ declare namespace R {
          */
         toPairsIn<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
 
+		/**
+         * Returns the string representation of the given value. eval'ing the output should
+         * result in a value equivalent to the input value. Many of the built-in toString
+         * methods do not satisfy this requirement.
+         *
+         * If the given value is an [object Object] with a toString method other than
+         * Object.prototype.toString, this method is invoked with no arguments to produce the
+         * return value. This means user-defined constructor functions can provide a suitable
+         * toString method. 
+		 */
+        toString<T>(val: T): string;
 
         /**
          * The upper case version of a string.
          */
         toUpper(str: string): string;
-
-        /**
-         * Removes (strips) whitespace from both ends of the string.
-         */
-        trim(str: string): string;
-
-        /**
-         * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
-         * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
-         * all as 'Object'.
-         */
-        type(val: any): string;
 
         /**
          * Initializes a transducer using supplied iterator function. Returns a single item by iterating through the
@@ -1503,6 +1557,31 @@ declare namespace R {
         transduce<T,U>(xf: (arg: T[]) => T[]): (fn: (acc: U[], val: U) => U[], acc: T[], list: T[]) => U;
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
+
+		/**
+         * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
+         */
+        transpose<T>(list: any[][]): any[][];
+
+        /**
+         * Removes (strips) whitespace from both ends of the string.
+         */
+        trim(str: string): string;
+
+		/**
+         * tryCatch takes two functions, a tryer and a catcher. The returned function evaluates the tryer; if it does
+         * not throw, it simply returns the result. If the tryer does throw, the returned function evaluates the catcher
+         * function and returns its result. Note that for effective composition with this function, both the tryer and
+         * catcher functions must return the same type of results.
+	     */
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
+
+        /**
+         * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
+         * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
+         * all as 'Object'.
+         */
+        type(val: any): string;
 
 
         /**
@@ -1654,6 +1733,7 @@ declare namespace R {
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+
     }
 }
 
