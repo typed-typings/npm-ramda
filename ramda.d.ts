@@ -1496,6 +1496,12 @@ declare namespace R {
         tap<T>(fn: (a: T) => any, value: T): T;
         tap<T>(fn: (a: T) => any): (value: T) => T;
 
+		/**
+         * Determines whether a given string matches a given regular expression.
+         */
+        test(regexp: RegExp, str: string): boolean;
+        test(regexp: RegExp): (str: string) => boolean;
+
         /**
          * Calls an input function `n` times, returning an array containing the results of those
          * function calls.
@@ -1525,11 +1531,32 @@ declare namespace R {
          */
         toPairsIn<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
 
+		/**
+         * Returns the string representation of the given value. eval'ing the output should
+         * result in a value equivalent to the input value. Many of the built-in toString
+         * methods do not satisfy this requirement.
+         *
+         * If the given value is an [object Object] with a toString method other than
+         * Object.prototype.toString, this method is invoked with no arguments to produce the
+         * return value. This means user-defined constructor functions can provide a suitable
+         * toString method. 
+		 */
+        toString<T>(val: T): string;
 
         /**
          * The upper case version of a string.
          */
         toUpper(str: string): string;
+
+        /**
+         * Initializes a transducer using supplied iterator function. Returns a single item by iterating through the
+         * list, successively calling the transformed iterator function and passing it an accumulator value and the
+         * current value from the array, and then passing the result to the next call.
+         */
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
+        transduce<T,U>(xf: (arg: T[]) => T[]): (fn: (acc: U[], val: U) => U[], acc: T[], list: T[]) => U;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -1542,16 +1569,6 @@ declare namespace R {
          * all as 'Object'.
          */
         type(val: any): string;
-
-        /**
-         * Initializes a transducer using supplied iterator function. Returns a single item by iterating through the
-         * list, successively calling the transformed iterator function and passing it an accumulator value and the
-         * current value from the array, and then passing the result to the next call.
-         */
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
-        transduce<T,U>(xf: (arg: T[]) => T[]): (fn: (acc: U[], val: U) => U[], acc: T[], list: T[]) => U;
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
 
 
         /**
