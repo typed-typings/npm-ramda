@@ -1625,6 +1625,20 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.sum([2,4,6,8,100,1]); //=> 121
 }
 
+() => {
+	const a: number[] = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); //=> [1,2,7,6,5]
+	const b: number[] = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); //=> [7,6,5,1,2]
+}
+
+() => {
+	const eqA = R.eqBy(R.prop('a'));
+	const l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
+	const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
+	R.symmetricDifferenceWith(eqA, l1, l2); //=> [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+	R.symmetricDifferenceWith(eqA)(l1, l2); //=> [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+	const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); //=> [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+}
+
 /*****************************************************************
  * String category
  */

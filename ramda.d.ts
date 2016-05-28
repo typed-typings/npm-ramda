@@ -1432,6 +1432,19 @@ declare namespace R {
          */
         sum(list: number[]): number;
 
+		/**
+		 * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+		 */
+		symmetricDifference<T>(list1: T[], list2: T[]): T[];
+		symmetricDifference<T>(list: T[]): <T>(list: T[]) => T[];
+
+		/**
+         * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+         * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
+		 */
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T[], T[], T[]>;
+
         /**
          * A function that always returns true. Any passed in parameters are ignored.
          */
