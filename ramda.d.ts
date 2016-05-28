@@ -1333,10 +1333,6 @@ declare namespace R {
         repeat<T>(a: T, n: number): T[];
         repeat<T>(a: T): (n: number) => T[];
 
-        /**
-         * Returns a fixed list of size `n` containing a specified identical value.
-         */
-        repeatN<T>(value: T, n: number): T[];
 
         /**
          * Replace a substring or regex match in a string with a replacement.
@@ -1400,6 +1396,12 @@ declare namespace R {
         split(sep: RegExp): (str: string) => string[];
         split(sep: string, str: string): string[];
         split(sep: RegExp, str: string): string[];
+
+        /**
+         * Splits a given list or string at a given index.
+		 */
+		splitAt<T>(index: number, list: T): T[];
+		splitAt<T>(index: number, list: T[]): T[][];
 
         /**
          * Splits a collection into slices of the specified length.

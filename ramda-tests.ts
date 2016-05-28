@@ -1451,6 +1451,12 @@ matchPhrases(['foo', 'bar', 'baz']);
     sortByNameCaseInsensitive(people); //=> [alice, bob, clara]
 }
 
+() => {
+	const a: number[][] = R.splitAt(1, [1, 2, 3]);        //=> [[1], [2, 3]]
+    const b: string[] = R.splitAt(5, 'hello world');      //=> ['hello', ' world']
+    const c: string[] = R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
+}
+
 /*****************************************************************
  * Math category
  */
@@ -1562,6 +1568,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     const a: number = R.median([7, 2, 10, 9]); //=> 8
     const b: number = R.median([]); //=> NaN
 }
+
 () => {
     let x: number = R.min(9, 3); //=> 3
 }
