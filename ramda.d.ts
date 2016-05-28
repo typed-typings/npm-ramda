@@ -1401,7 +1401,9 @@ declare namespace R {
          * Splits a given list or string at a given index.
 		 */
 		splitAt<T>(index: number, list: T): T[];
+		splitAt(index: number): <T>(list: T) => T[];
 		splitAt<T>(index: number, list: T[]): T[][];
+		splitAt(index: number): <T>(list: T[]) => T[][];
 
         /**
          * Splits a collection into slices of the specified length.
@@ -1410,17 +1412,14 @@ declare namespace R {
         splitEvery(a: number): <T>(list: T[]) => T[][];
 
 
-
-        /**
-         * Finds the first index of a substring in a string, returning -1 if it's not present
+		/**
+		 * Takes a list and a predicate and returns a pair of lists with the following properties:
+         * - the result of concatenating the two output lists is equivalent to the input list;
+         * - none of the elements of the first output list satisfies the predicate; and
+         * - if the second output list is non-empty, its first element satisfies the predicate.
          */
-        strIndexOf(c: string, str: string): number;
-
-        /**
-         * Finds the last index of a substring in a string, returning -1 if it's not present
-         */
-        strLastIndexOf(c: string, str: string): number;
-
+		splitWhen<T,U>(pred: (val: T) => boolean, list: U[]): U[][];
+		splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.

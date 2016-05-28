@@ -1453,13 +1453,16 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
 	const a: number[][] = R.splitAt(1, [1, 2, 3]);        //=> [[1], [2, 3]]
-    const b: string[] = R.splitAt(5, 'hello world');      //=> ['hello', ' world']
-    const c: string[] = R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
+	const b: number[][] = R.splitAt(1)([1, 2, 3]);        //=> [[1], [2, 3]]
+    const c: string[] = R.splitAt(5, 'hello world');      //=> ['hello', ' world']
+    const d: string[] = R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
 }
 
-/*****************************************************************
- * Math category
- */
+() => {
+	const a: number[][] = R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   //=> [[1], [2, 3, 1, 2, 3]]
+	const b: number[][] = R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3]);   //=> [[1], [2, 3, 1, 2, 3]]
+}
+
 () => {
     R.add(2, 3);       //=>  5
     R.add(7)(10);      //=> 17
