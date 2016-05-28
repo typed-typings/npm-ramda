@@ -918,6 +918,15 @@ declare namespace R {
         maxBy<T>(keyFn: (a: T) => number, list: T[]): T;
         maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
 
+        /**
+         * Returns the mean of the given list of numbers.
+         */
+        mean(list: number[]): number;
+
+        /**
+         * Returns the median of the given list of numbers.
+         */
+        median(list: number[]): number;
 
         /**
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and

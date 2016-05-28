@@ -1554,6 +1554,15 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
+    const a: number = R.mean([2, 7, 9]); //=> 6
+    const b: number = R.mean([]); //=> NaN
+}
+
+() => {
+    const a: number = R.median([7, 2, 10, 9]); //=> 8
+    const b: number = R.median([]); //=> NaN
+}
+() => {
     let x: number = R.min(9, 3); //=> 3
 }
 
