@@ -1264,6 +1264,12 @@ declare namespace R {
         props<T>(ps: string[], obj: any): T[];
         props(ps: string[]): <T>(obj: any) => T[];
 
+        /**
+         * Returns true if the specified object property satisfies the given predicate; false otherwise.
+         */
+        propSatisfies<T,U>(pred: (val: T) => boolean, name: string, obj: U): boolean;
+        propSatisfies<T,U>(pred: (val: T) => boolean, name: string): (obj: U) => boolean;
+        propSatisfies<T,U>(pred: (val: T) => boolean): CurriedFunction2<string, U, boolean>;
 
         /**
          * Returns a list of numbers from `from` (inclusive) to `to`

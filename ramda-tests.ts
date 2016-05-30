@@ -1243,6 +1243,12 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
+    const a: boolean = R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
+    const b: boolean = R.propSatisfies(x => x > 0, 'x')({x: 1, y: 2}); //=> true
+    const c: boolean = R.propSatisfies(x => x > 0)('x')({x: 1, y: 2}); //=> true
+}
+
+() => {
     R.props(['x', 'y'], {x: 1, y: 2}); //=> [1, 2]
     R.props(['c', 'a', 'b'], {b: 2, a: 1}); //=> [undefined, 1, 2]
 
