@@ -1289,18 +1289,20 @@ declare namespace R {
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>, acc: TResult): (list: T[]) => TResult;
 
         /**
+         * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
+         * element and reduces the elements of each group to a single value via the reducer function valueFn.
+         */
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: T[]): {[index: string]: TResult};
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: T[]) => {[index: string]: TResult};
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): CurriedFunction2<(elem: T) => string, T[], {[index: string]: TResult}>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): CurriedFunction3<TResult, (elem: T) => string, T[], {[index: string]: TResult}>;
+
+        /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
          * transduce functions. The returned value should be considered a black box: the internal
          * structure is not guaranteed to be stable.
          */
         reduced<T>(elem: T): Reduced<T>;
-
-        /**
-         * Like `reduce`, but passes additional parameters to the predicate function.
-         */
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -1310,14 +1312,6 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
-
-        /**
-         * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
-         * the input list from the right to the left.
-         */
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
