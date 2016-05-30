@@ -1658,6 +1658,14 @@ declare namespace R {
         unnest<T>(x: T[]): T[];
 
         /**
+         * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
+         * the initial value. It does so by applying the transformation until the predicate is satisfied, at which point
+         * it returns the satisfactory value.
+         */
+        until<T,U>(pred: (val: T) => boolean, fn: (val: T) => U, init: U): U;
+        until<T,U>(pred: (val: T) => boolean, fn: (val: T) => U): (init: U) => U;
+
+        /**
          * Returns a new copy of the array with the element at the provided index replaced with the given value.
          */
         update<T>(index: number, value: T, list: T[]): T[];
@@ -1689,23 +1697,31 @@ declare namespace R {
          */
         valuesIn<T>(obj: any): T[];
 
-       /**
-        * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
-        * portion of the data structure is visible.
-        */
+        /**
+         * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
+         * portion of the data structure is visible.
+         */
         view<T,U>(lens: Lens, obj: T): U;
 
-       /**
-        * Takes a spec object and a test object and returns true if the test satisfies the spec.
-        * Any property on the spec that is not a function is interpreted as an equality
-        * relation.
-        *
-        * If the spec has a property mapped to a function, then `where` evaluates the function, passing in
-        * the test object's value for the property in question, as well as the whole test object.
-        *
-        * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
-        * `filter`, `find`, `pickWith`, etc.
-        */
+        /**
+         * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function
+         * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
+         * the argument is returned as is.
+         */
+        when<T,U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): U;
+        when<T,U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => U;
+
+        /**
+         * Takes a spec object and a test object and returns true if the test satisfies the spec.
+         * Any property on the spec that is not a function is interpreted as an equality
+         * relation.
+         *
+         * If the spec has a property mapped to a function, then `where` evaluates the function, passing in
+         * the test object's value for the property in question, as well as the whole test object.
+         *
+         * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
+         * `filter`, `find`, `pickWith`, etc.
+         */
         where<T,U>(spec: T, testObj: U): boolean;
         where<T>(spec: T): <U>(testObj: U) => boolean;
         where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
@@ -1719,6 +1735,13 @@ declare namespace R {
         */
         whereEq<T,U>(spec: T, obj: U): boolean;
         whereEq<T>(spec: T): <U>(obj: U) => boolean;
+
+        /**
+         * Returns a new list without values in the first argument. R.equals is used to determine equality.
+         * Acts as a transducer if a transformer is given in list position.
+         */
+        without<T>(list1: T[], list2: T[]): T[];
+        without<T>(list1: T[]): (list2: T[]) => T[];
 
         /**
          * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing

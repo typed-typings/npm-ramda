@@ -109,6 +109,19 @@ class F2 {
     const res: string = R.unapply(JSON.stringify)(1, 2, 3); //=> '[1,2,3]'
 }
 
+() => {
+    const a: number = R.until(R.flip(R.gt)(100), R.multiply(2))(1) // => 128
+}
+
+() => {
+    const truncate = R.when(
+        R.propSatisfies(R.flip(R.gt)(10), 'length'),
+        R.pipe(R.take(10), R.append('…'), R.join(''))
+    );
+    const a: string = truncate('12345');         //=> '12345'
+    const b: string = truncate('0123456789ABC'); //=> '0123456789…'
+}
+
 /* compose */
 () => {
     var double = function(x: number): number {
@@ -1346,9 +1359,11 @@ matchPhrases(['foo', 'bar', 'baz']);
     pred({a: 1, b: 1});        //=> false
     R.whereEq({a: 'one'}, {a: 'one'}); // => true
 }
-/*****************************************************************
- * Function category
- */
+
+() => {
+    const a: number[] = R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
+}
+
 () => {
     var mapIndexed = R.addIndex(R.map);
     mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);

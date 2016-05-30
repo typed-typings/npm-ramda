@@ -10,7 +10,7 @@ tsc --module amd ramda-tests.ts
 
 Pull requests are welcome!
 
-##Usage and limitation
+##Usage
 
 Install the typings for node using:
 ```bash
@@ -42,7 +42,7 @@ R.flip(R.subtract)(3);
 ```
 
 ##Status
-The definitions are reorganized and updated and are more or less compatible with Ramda v0.21.0. The API of Ramda is not stable yet.
-
+Typing compatible with ramda version 0.21.0.
 This needs to be done:
-- include all functions of the latest Ramda version
+- include `sequence` and `traverse`
+- include `pipeK`, `pipeP`, `composeK`, `composeP`

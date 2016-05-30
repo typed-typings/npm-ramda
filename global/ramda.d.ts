@@ -1043,7 +1043,7 @@ declare namespace R {
          * Returns a singleton array containing the value provided.
          */
         of<T>(x: T): T[];
-        of<T>(x: T[]): T[][];
+        //of<T>(x: T[]): T[][]; unnecessary typing and introduced error in unless example
 
         /**
          * Returns a partial copy of an object omitting the keys specified.
@@ -1264,6 +1264,12 @@ declare namespace R {
         props<T>(ps: string[], obj: any): T[];
         props(ps: string[]): <T>(obj: any) => T[];
 
+        /**
+         * Returns true if the specified object property satisfies the given predicate; false otherwise.
+         */
+        propSatisfies<T,U>(pred: (val: T) => boolean, name: string, obj: U): boolean;
+        propSatisfies<T,U>(pred: (val: T) => boolean, name: string): (obj: U) => boolean;
+        propSatisfies<T,U>(pred: (val: T) => boolean): CurriedFunction2<string, U, boolean>;
 
         /**
          * Returns a list of numbers from `from` (inclusive) to `to`
@@ -1283,18 +1289,20 @@ declare namespace R {
         reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>, acc: TResult): (list: T[]) => TResult;
 
         /**
+         * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
+         * element and reduces the elements of each group to a single value via the reducer function valueFn.
+         */
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: T[]): {[index: string]: TResult};
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: T[]) => {[index: string]: TResult};
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): CurriedFunction2<(elem: T) => string, T[], {[index: string]: TResult}>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): CurriedFunction3<TResult, (elem: T) => string, T[], {[index: string]: TResult}>;
+
+        /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
          * transduce functions. The returned value should be considered a black box: the internal
          * structure is not guaranteed to be stable.
          */
         reduced<T>(elem: T): Reduced<T>;
-
-        /**
-         * Like `reduce`, but passes additional parameters to the predicate function.
-         */
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -1304,14 +1312,6 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
-
-        /**
-         * Like `reduceRight`, but passes additional parameters to the predicate function. Moves through
-         * the input list from the right to the left.
-         */
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
@@ -1583,6 +1583,15 @@ declare namespace R {
          */
         type(val: any): string;
 
+        /**
+         * Takes a function fn, which takes a single array argument, and returns a function which:
+         * - takes any number of positional arguments;
+         * - passes these arguments to fn as an array; and
+         * - returns the result.
+         * In other words, R.unapply derives a variadic function from a function which takes an array. 
+         * R.unapply is the inverse of R.apply.
+         */
+        unapply<T>(fn: (args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
@@ -1591,13 +1600,17 @@ declare namespace R {
         unary<T>(fn: (a: T, ...args: any[]) => any): (a: T) => any
 
         /**
+         * Returns a function of arity n from a (manually) curried function.
+         */
+        uncurryN<T>(len: number, fn: (a: any) => any): (...a: any[]) => T;
+
+        /**
          * Builds a list from a seed value. Accepts an iterator function, which returns either false
          * to stop iteration or an array of length 2 containing the value to add to the resulting
          * list and the seed to be used in the next call to the iterator function.
          */
         unfold<T, TResult>(fn: (seed: T) => TResult[]|boolean, seed: T): TResult[];
         unfold<T, TResult>(fn: (seed: T) => TResult[]|boolean): (seed: T) => TResult[];
-
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the
@@ -1630,11 +1643,27 @@ declare namespace R {
         uniqWith<T,U>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
 
         /**
+         * Tests the final argument by passing it to the given predicate function. If the predicate is not satisfied,
+         * the function will return the result of calling the whenFalseFn function with the same argument. If the
+         * predicate is satisfied, the argument is returned as is.
+         */
+        unless<T,U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U, obj: T): U;
+        unless<T,U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U): (obj: T) => U;
+
+        /**
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
         unnest<T>(x: T[][]): T[];
         unnest<T>(x: T[]): T[];
+
+        /**
+         * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
+         * the initial value. It does so by applying the transformation until the predicate is satisfied, at which point
+         * it returns the satisfactory value.
+         */
+        until<T,U>(pred: (val: T) => boolean, fn: (val: T) => U, init: U): U;
+        until<T,U>(pred: (val: T) => boolean, fn: (val: T) => U): (init: U) => U;
 
         /**
          * Returns a new copy of the array with the element at the provided index replaced with the given value.
@@ -1668,23 +1697,31 @@ declare namespace R {
          */
         valuesIn<T>(obj: any): T[];
 
-       /**
-        * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
-        * portion of the data structure is visible.
-        */
+        /**
+         * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
+         * portion of the data structure is visible.
+         */
         view<T,U>(lens: Lens, obj: T): U;
 
-       /**
-        * Takes a spec object and a test object and returns true if the test satisfies the spec.
-        * Any property on the spec that is not a function is interpreted as an equality
-        * relation.
-        *
-        * If the spec has a property mapped to a function, then `where` evaluates the function, passing in
-        * the test object's value for the property in question, as well as the whole test object.
-        *
-        * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
-        * `filter`, `find`, `pickWith`, etc.
-        */
+        /**
+         * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function
+         * will return the result of calling the whenTrueFn function with the same argument. If the predicate is not satisfied,
+         * the argument is returned as is.
+         */
+        when<T,U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): U;
+        when<T,U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => U;
+
+        /**
+         * Takes a spec object and a test object and returns true if the test satisfies the spec.
+         * Any property on the spec that is not a function is interpreted as an equality
+         * relation.
+         *
+         * If the spec has a property mapped to a function, then `where` evaluates the function, passing in
+         * the test object's value for the property in question, as well as the whole test object.
+         *
+         * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
+         * `filter`, `find`, `pickWith`, etc.
+         */
         where<T,U>(spec: T, testObj: U): boolean;
         where<T>(spec: T): <U>(testObj: U) => boolean;
         where<ObjFunc2,U>(spec: ObjFunc2, testObj: U): boolean;
@@ -1698,6 +1735,13 @@ declare namespace R {
         */
         whereEq<T,U>(spec: T, obj: U): boolean;
         whereEq<T>(spec: T): <U>(obj: U) => boolean;
+
+        /**
+         * Returns a new list without values in the first argument. R.equals is used to determine equality.
+         * Acts as a transducer if a transformer is given in list position.
+         */
+        without<T>(list1: T[], list2: T[]): T[];
+        without<T>(list1: T[]): (list2: T[]) => T[];
 
         /**
          * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
