@@ -91,6 +91,11 @@ class F2 {
     R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
 });
 
+() => {
+    const fn: (...args: string[])=>string = R.unapply(JSON.stringify);
+    const res: string = R.unapply(JSON.stringify)(1, 2, 3); //=> '[1,2,3]'
+}
+
 /* compose */
 () => {
     var double = function(x: number): number {

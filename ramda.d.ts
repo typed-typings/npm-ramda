@@ -1583,6 +1583,15 @@ declare namespace R {
          */
         type(val: any): string;
 
+        /**
+         * Takes a function fn, which takes a single array argument, and returns a function which:
+         * - takes any number of positional arguments;
+         * - passes these arguments to fn as an array; and
+         * - returns the result.
+         * In other words, R.unapply derives a variadic function from a function which takes an array. 
+         * R.unapply is the inverse of R.apply.
+         */
+        unapply<T>(fn: (args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
