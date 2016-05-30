@@ -1043,7 +1043,7 @@ declare namespace R {
          * Returns a singleton array containing the value provided.
          */
         of<T>(x: T): T[];
-        of<T>(x: T[]): T[][];
+        //of<T>(x: T[]): T[][]; unnecessary typing and introduced error in unless example
 
         /**
          * Returns a partial copy of an object omitting the keys specified.
@@ -1641,6 +1641,14 @@ declare namespace R {
          */
         uniqWith<T,U>(pred: (x: T, y: T) => boolean, list: T[]): T[];
         uniqWith<T,U>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
+
+        /**
+         * Tests the final argument by passing it to the given predicate function. If the predicate is not satisfied,
+         * the function will return the result of calling the whenFalseFn function with the same argument. If the
+         * predicate is satisfied, the argument is returned as is.
+         */
+        unless<T,U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U, obj: T): U;
+        unless<T,U>(pred: (a: T) => boolean, whenFalseFn: (a: T) => U): (obj: T) => U;
 
         /**
          * Returns a new list by pulling every item at the first level of nesting out, and putting

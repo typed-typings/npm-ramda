@@ -92,6 +92,13 @@ class F2 {
     const res: number = uncurriedAddFour(1, 2, 3, 4); //=> 10
 }
 
+() => {
+    // coerceArray :: (a|[a]) -> [a]
+    const coerceArray = R.unless(R.isArrayLike, R.of);
+    const a: number[] = coerceArray([1, 2, 3]); //=> [1, 2, 3]
+    const b: number[] = coerceArray(1);         //=> [1]
+}
+
 (() => {
     R.nthArg(1)('a', 'b', 'c'); //=> 'b'
     R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
@@ -270,8 +277,9 @@ R.times(i, 5);
 });
 
 (() => {
-    R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
-    R.of([1]); //=> [[1]]
+    const a: number[] = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    const b: number[][] = R.of([1]); //=> [[1]]
+    const c: number[] = R.of(1);
 
 });
 
