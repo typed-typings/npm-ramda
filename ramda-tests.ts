@@ -86,6 +86,12 @@ class F2 {
     var z2:number = addTwoNumbersCurried(2,3);
 }
 
+() => {
+    const addFour = (a:number) => (b:number) => (c:number) => (d:number) => a + b + c + d;
+    const uncurriedAddFour = R.uncurryN<number>(4, addFour);
+    const res: number = uncurriedAddFour(1, 2, 3, 4); //=> 10
+}
+
 (() => {
     R.nthArg(1)('a', 'b', 'c'); //=> 'b'
     R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
