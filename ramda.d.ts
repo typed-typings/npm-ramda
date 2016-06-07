@@ -443,8 +443,12 @@ declare namespace R {
         /**
          * Returns a new list containing all but the first n elements of the given list.
          */
-        drop<T>(n: number, list: T[]): T[];
-        drop(n: number): <T>(list: T[]) => T[];
+        drop<T>(n: number, xs: T[]): T[];
+        drop(n: number, xs: string): string;
+        drop<T>(n: number): {
+            (xs: string): string;
+            (xs: T[]): T[];
+        }
 
         /**
          * Returns a list containing all but the last n elements of the given list.
@@ -1399,11 +1403,11 @@ declare namespace R {
 
         /**
          * Splits a given list or string at a given index.
-		 */
-		splitAt<T>(index: number, list: T): T[];
-		splitAt(index: number): <T>(list: T) => T[];
-		splitAt<T>(index: number, list: T[]): T[][];
-		splitAt(index: number): <T>(list: T[]) => T[][];
+         */
+        splitAt<T>(index: number, list: T): T[];
+        splitAt(index: number): <T>(list: T) => T[];
+        splitAt<T>(index: number, list: T[]): T[][];
+        splitAt(index: number): <T>(list: T[]) => T[][];
 
         /**
          * Splits a collection into slices of the specified length.
@@ -1412,14 +1416,14 @@ declare namespace R {
         splitEvery(a: number): <T>(list: T[]) => T[][];
 
 
-		/**
-		 * Takes a list and a predicate and returns a pair of lists with the following properties:
+        /**
+         * Takes a list and a predicate and returns a pair of lists with the following properties:
          * - the result of concatenating the two output lists is equivalent to the input list;
          * - none of the elements of the first output list satisfies the predicate; and
          * - if the second output list is non-empty, its first element satisfies the predicate.
          */
-		splitWhen<T,U>(pred: (val: T) => boolean, list: U[]): U[][];
-		splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
+        splitWhen<T,U>(pred: (val: T) => boolean, list: U[]): U[][];
+        splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1432,16 +1436,16 @@ declare namespace R {
          */
         sum(list: number[]): number;
 
-		/**
-		 * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
-		 */
-		symmetricDifference<T>(list1: T[], list2: T[]): T[];
-		symmetricDifference<T>(list: T[]): <T>(list: T[]) => T[];
+        /**
+         * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
+         */
+        symmetricDifference<T>(list1: T[], list2: T[]): T[];
+        symmetricDifference<T>(list: T[]): <T>(list: T[]) => T[];
 
-		/**
+        /**
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
-		 */
+         */
         symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
         symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T[], T[], T[]>;
 
@@ -1459,26 +1463,29 @@ declare namespace R {
          * Returns a new list containing the first `n` elements of the given list.  If
          * `n > * list.length`, returns a list of `list.length` elements.
          */
-        take<T>(n: number, list: T[]): T[];
-        take(n: number): <T>(list: T[]) => T[];
-        take(n: number, str: string): string;
-        take(n: number): (str: string) => string;
+        take<T>(n: number, xs: T[]): T[];
+        take(n: number, xs: string): string;
+        take<T>(n: number): {
+            (xs: string): string;
+            (xs: T[]): T[];
+        }
 
-		/**
+
+        /**
          * Returns a new list containing the last n elements of the given list. If n > list.length,
          * returns a list of list.length elements.
          */
         takeLast<T>(n: number, xs: T[]): T[];
         takeLast(n: number, xs: string): string;
         takeLast(n: number): {
-			<T>(xs: T[]): T[];
-        	(xs: string): string;
-		}
+            <T>(xs: T[]): T[];
+            (xs: string): string;
+        }
 
-		/**
+        /**
          * Returns a new list containing the last n elements of a given list, passing each value
          * to the supplied predicate function, and terminating when the predicate function returns
-		 * false. Excludes the element that caused the predicate function to fail. The predicate
+         * false. Excludes the element that caused the predicate function to fail. The predicate
          * function is passed one argument: (value).
          */
         takeLastWhile<T>(pred: (a: T) => Boolean, list: T[]): T[];
@@ -1498,7 +1505,7 @@ declare namespace R {
         tap<T>(fn: (a: T) => any, value: T): T;
         tap<T>(fn: (a: T) => any): (value: T) => T;
 
-		/**
+        /**
          * Determines whether a given string matches a given regular expression.
          */
         test(regexp: RegExp, str: string): boolean;
@@ -1533,7 +1540,7 @@ declare namespace R {
          */
         toPairsIn<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
 
-		/**
+        /**
          * Returns the string representation of the given value. eval'ing the output should
          * result in a value equivalent to the input value. Many of the built-in toString
          * methods do not satisfy this requirement.
@@ -1542,7 +1549,7 @@ declare namespace R {
          * Object.prototype.toString, this method is invoked with no arguments to produce the
          * return value. This means user-defined constructor functions can provide a suitable
          * toString method. 
-		 */
+         */
         toString<T>(val: T): string;
 
         /**
@@ -1560,7 +1567,7 @@ declare namespace R {
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
 
-		/**
+        /**
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
         transpose<T>(list: any[][]): any[][];
@@ -1570,12 +1577,12 @@ declare namespace R {
          */
         trim(str: string): string;
 
-		/**
+        /**
          * tryCatch takes two functions, a tryer and a catcher. The returned function evaluates the tryer; if it does
          * not throw, it simply returns the result. If the tryer does throw, the returned function evaluates the catcher
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
-	     */
+         */
         tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
 
         /**
