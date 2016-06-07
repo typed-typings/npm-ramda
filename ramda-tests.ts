@@ -420,6 +420,8 @@ R.times(i, 5);
 () => {
     R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
     R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
+    R.drop(3, 'ramda'); //=> 'ram'
+    R.drop(3)('ramda'); //=> 'ram'
 }
 
 (() => {
@@ -871,6 +873,14 @@ type Pair = KeyValuePair<string, number>
     var takeFive = R.take(5);
     takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 }
+() => {
+    R.take(3,"Example"); //=> "Exa"
+
+    var takeThree = R.take(3);
+    takeThree("Example"); //=> "Exa"
+}
+
+
 
 () => {
 	const a: string[] = R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
