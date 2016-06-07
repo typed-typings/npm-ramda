@@ -1461,6 +1461,8 @@ declare namespace R {
          */
         take<T>(n: number, list: T[]): T[];
         take(n: number): <T>(list: T[]) => T[];
+        take(n: number, str: string): string;
+        take(n: number): (str: string) => string;
 
 		/**
          * Returns a new list containing the last n elements of the given list. If n > list.length,
