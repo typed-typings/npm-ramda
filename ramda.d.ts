@@ -58,6 +58,10 @@ declare namespace R {
         push(x: string): void;
     }
 
+    interface Nested<U> {
+        [index: string]: Nested<U>|{<U>(value: any): U};
+    }
+
     interface Lens {
         <T,U>(obj: T): U;
         set<T,U>(str: string, obj: T): U;
@@ -515,9 +519,8 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve<V,U>(transformations: {[index: string]: (value: V) => V}, obj: U): {[index:string]: V} & U;
-        evolve<V>(transformations: {[index: string]: (value: V) => V}): <U>(obj: U) => {[index:string]: V} & U;
-
+        evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
+        evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
         /*
          * A function that always returns false. Any passed in parameters are ignored.
          */
@@ -1548,7 +1551,7 @@ declare namespace R {
          * If the given value is an [object Object] with a toString method other than
          * Object.prototype.toString, this method is invoked with no arguments to produce the
          * return value. This means user-defined constructor functions can provide a suitable
-         * toString method. 
+         * toString method.
          */
         toString<T>(val: T): string;
 
@@ -1597,7 +1600,7 @@ declare namespace R {
          * - takes any number of positional arguments;
          * - passes these arguments to fn as an array; and
          * - returns the result.
-         * In other words, R.unapply derives a variadic function from a function which takes an array. 
+         * In other words, R.unapply derives a variadic function from a function which takes an array.
          * R.unapply is the inverse of R.apply.
          */
         unapply<T>(fn: (args: any[]) => T): (...args: any[]) => T;
