@@ -1898,6 +1898,8 @@ matchPhrases(['foo', 'bar', 'baz']);
     R.isEmpty([]); //=> true
     R.isEmpty(''); //=> true
     R.isEmpty(null); //=> false
+    R.isEmpty({}); //=>true
+    R.isEmpty({a:1}); //=> false
 }
 
 () => {
