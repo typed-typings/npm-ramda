@@ -755,7 +755,7 @@ declare namespace R {
         /**
          * Reports whether the list has zero elements.
          */
-        isEmpty(value: string|any[]): boolean;
+        isEmpty(value: any): boolean;
 
 
         /**
