@@ -1705,10 +1705,12 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    function cmp(obj: any) { return obj.x; }
-    var a = {x: 1}, b = {x: 2}, c = {x: 3};
-    R.maxBy(cmp, [a, b, c]); //=> {x: 3}
-    R.maxBy(cmp)([a, b, c]); //=> {x: 3}
+    function cmp(obj: { x: R.Ord }) { return obj.x; }
+    var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
+    R.maxBy(cmp, a, c); //=> {x: 3}
+    R.maxBy(cmp)(a, c); //=> {x: 3}
+    R.maxBy(cmp)(a)(b);
+    R.maxBy(cmp)(d)(e);
 }
 
 () => {
@@ -1726,10 +1728,12 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    function cmp(obj: any) { return obj.x; }
-    var a = {x: 1}, b = {x: 2}, c = {x: 3};
-    R.minBy(cmp, [a, b, c]); //=> {x: 1}
-    R.minBy(cmp)([a, b, c]); //=> {x: 1}
+    function cmp(obj: {x: R.Ord}) { return obj.x; }
+    var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
+    R.minBy(cmp, a, b); //=> {x: 1}
+    R.minBy(cmp)(a, b); //=> {x: 1}
+    R.minBy(cmp)(a)(c);
+    R.minBy(cmp, d, e);
 }
 
 () => {

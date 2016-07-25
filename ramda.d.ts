@@ -3,6 +3,7 @@
 declare var R: R.Static;
 
 declare namespace R {
+    type Ord = number | string | boolean;
 
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
@@ -921,11 +922,13 @@ declare namespace R {
         max(a: number): (b: number) => number;
 
         /**
-         * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator.
+         * Takes a function and two values, and returns whichever value produces
+         * the larger result when passed to the provided function.
          */
-        maxBy<T>(keyFn: (a: T) => number, list: T[]): T;
-        maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
-
+        maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
+        maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
+        maxBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
+        
         /**
          * Returns the mean of the given list of numbers.
          */
@@ -984,10 +987,12 @@ declare namespace R {
         min(a: number): (b: number) => number;
 
         /**
-         * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator.
+         * Takes a function and two values, and returns whichever value produces
+         * the smaller result when passed to the provided function.
          */
-        minBy<T>(keyFn: (a: T) => number, list: T[]): T;
-        minBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
+        minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
+        minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
+        minBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
 
         /**
          * Divides the second parameter by the first and returns the remainder.
