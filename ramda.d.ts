@@ -918,8 +918,8 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: number, b: number): number;
-        max(a: number): (b: number) => number;
+        max(a: Ord, b: Ord): Ord;
+        max(a: Ord): (b: Ord) => Ord;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -983,8 +983,8 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: number, b: number): number;
-        min(a: number): (b: number) => number;
+        min(a: Ord, b: Ord): Ord;
+        min(a: Ord): (b: Ord) => Ord;
 
         /**
          * Takes a function and two values, and returns whichever value produces

@@ -1701,7 +1701,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    let x: number = R.max(7, 3); //=> 7
+    let x: R.Ord = R.max(7, 3); //=> 7
+    let y: R.Ord = R.max('a', 'z'); //=> 'z'
 }
 
 () => {
@@ -1724,7 +1725,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    let x: number = R.min(9, 3); //=> 3
+    let x: R.Ord = R.min(9, 3); //=> 3
+    let y: R.Ord = R.min('a', 'z'); //=> 'a'
 }
 
 () => {
