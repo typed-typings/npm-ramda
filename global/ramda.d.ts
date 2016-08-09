@@ -866,6 +866,7 @@ declare namespace R {
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
+        map<T, U>(fn: (x: T) => U, obj: U): U;
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
 
