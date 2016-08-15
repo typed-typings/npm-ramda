@@ -1,4 +1,7 @@
-// Type definitions for ramda (www.ramdajs.com)
+// Type definitions for ramda (www.ramdajs.com) v0.21.0
+// Project: [https://github.com/donnut/typescript-ramda]
+// Definitions by: Erwin Poeze <https://github.com/donnut>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var R: R.Static;
 
@@ -928,7 +931,7 @@ declare namespace R {
         maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
         maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
         maxBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
-        
+
         /**
          * Returns the mean of the given list of numbers.
          */
