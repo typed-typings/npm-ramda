@@ -112,12 +112,10 @@ declare namespace R {
     interface Static {
 
        /**
-        * Adds two numbers (or strings). Equivalent to a + b but curried.
+        * Adds two numbers. Equivalent to a + b but curried.
         */
        add(a: number, b: number): number;
-       add(a: string, b: string): string;
        add(a: number): (b: number) => number;
-       add(a: string): (b: string) => string;
 
        /**
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback

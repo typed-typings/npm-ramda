@@ -1615,8 +1615,6 @@ matchPhrases(['foo', 'bar', 'baz']);
 () => {
     R.add(2, 3);       //=>  5
     R.add(7)(10);      //=> 17
-    R.add("Hello", " World");  //=>  "Hello World"
-    R.add("Hello")(" World");  //=>  "Hello World"
 }
 
 () => {
