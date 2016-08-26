@@ -349,6 +349,7 @@ declare namespace R {
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          * The arity of the function returned is specified to allow using variadic constructor functions.
          */
+        constructN(n: number, fn: Function): (...any) => Object;
         constructN(n: number, fn: Function): Function;
 
 
