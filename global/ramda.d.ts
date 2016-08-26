@@ -1225,8 +1225,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<T>(p: string | number, obj: any): T;
+        prop<T>(p: string | number): <T>(obj: any) => T;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1236,11 +1236,11 @@ declare namespace R {
         // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
         // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
         propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
+        propEq<T>(name: number, val: T, obj: any): boolean;
         propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
+        propEq<T>(name: number, val: T): (obj: any) => boolean;
         propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq(name: number): <T>(val: T, obj: any) => boolean;
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
