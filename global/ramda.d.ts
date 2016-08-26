@@ -103,6 +103,8 @@ declare namespace R {
 
     interface Static {
 
+       __: any;
+
        /**
         * Adds two numbers (or strings). Equivalent to a + b but curried.
         */
