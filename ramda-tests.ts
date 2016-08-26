@@ -606,13 +606,41 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    R.intersection([1,2,4], [1,2,3]); // => [1,2]
+    R.intersection([1,2,4])([1,2,3]); // => [1,2]
+}
+
+() => {
+    var buffaloSpringfield = [
+        {id: 824, name: 'Richie Furay'},
+        {id: 956, name: 'Dewey Martin'},
+        {id: 313, name: 'Bruce Palmer'},
+        {id: 456, name: 'Stephen Stills'},
+        {id: 177, name: 'Neil Young'}
+    ];
+    var csny = [
+        {id: 204, name: 'David Crosby'},
+        {id: 456, name: 'Stephen Stills'},
+        {id: 539, name: 'Graham Nash'},
+        {id: 177, name: 'Neil Young'}
+    ];
+    R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+        //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
+    R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
+    R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny);
+}
+
+() => {
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
 
     R.into([], transducer, numbers); //=> [2, 3]
+    R.into([])(transducer, numbers); //=> [2, 3]
+    R.into([], transducer)(numbers); //=> [2, 3]
 
     var intoArray = R.into([]);
     intoArray(transducer, numbers); //=> [2, 3]
+    intoArray(transducer)(numbers); //=> [2, 3]
 }
 
 () => {
@@ -628,6 +656,7 @@ interface Obj { a: number; b: number };
 () => {
     R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
     R.lastIndexOf(10, [1,2,3,4]); //=> -1
+    R.lastIndexOf(10)([1,2,3,4]); //=> -1
 }
 
 () => {
@@ -1884,6 +1913,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 (() => {
     R.eqBy(Math.abs, 5, -5); //=> true
+    R.eqBy(Math.abs)(5, -5); //=> true
+    R.eqBy(Math.abs, 5)(-5); //=> true
 });
 
 () => {
