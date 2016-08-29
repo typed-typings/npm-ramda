@@ -916,8 +916,8 @@ declare namespace R {
         /**
          * Tests a regular expression agains a String
          */
-        match(regexp: RegExp, str: string): any[];
-        match(regexp: RegExp): (str: string) => any[];
+        match(regexp: RegExp, str: string): string[];
+        match(regexp: RegExp): (str: string) => string[];
 
 
         /**

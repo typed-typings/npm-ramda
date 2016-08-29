@@ -259,7 +259,11 @@ R.times(i, 5);
     slashify('a/'); //=> 'a/'
 })();
 
-
+() => {
+    const a0: string[] = R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+    const a1: string[] = R.match(/a/, 'b'); //=> []
+    const a2: string[] = R.match(/a/, null); //=> TypeError: null does not have a method named "match"
+}
 
 (() => {
     var numbers = [1, 2, 3];
