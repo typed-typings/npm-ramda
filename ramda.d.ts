@@ -1345,6 +1345,17 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
 
+
+        /**
+         * Like reduce, reduceWhile returns a single item by iterating through the list, successively calling the iterator function.
+         * reduceWhile also takes a predicate that is evaluated before each step. If the predicate returns false, it "short-circuits"
+         * the iteration and returns the current value of the accumulator.
+         */
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult, T[], TResult>;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean): CurriedFunction3<(TResult, T) => TResult, TResult, T[], TResult>;
+
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
@@ -1785,13 +1796,6 @@ declare namespace R {
          */
         without<T>(list1: T[], list2: T[]): T[];
         without<T>(list1: T[]): (list2: T[]) => T[];
-
-        /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
-         * either before the internal function is called or with its results.
-         */
-        wrap(fn: Function, wrapper: Function): Function;
-        wrap(fn: Function): (wrapper: Function) => Function;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.

@@ -251,17 +251,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    var slashify = R.wrap(R.flip(R.add)('/'), function(f: Function, x: string) {
-      return R.match(/\/$/, x) ? x : f(x);
-    });
-
-    slashify('a');  //=> 'a/'
-    slashify('a/'); //=> 'a/'
-})();
-
-
-
-(() => {
     var numbers = [1, 2, 3];
     var add = function(a: number, b: number) {
         return a + b
@@ -280,6 +269,15 @@ R.times(i, 5);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
+
+() => {
+    var isOdd = (acc, x) => x % 2 === 1;
+    var xs = [1, 3, 5, 60, 777, 800];
+    R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
+
+    var ys = [2, 4, 6]
+    R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
+}
 
 (() => {
     var values = { x: 1, y: 2, z: 3 };
