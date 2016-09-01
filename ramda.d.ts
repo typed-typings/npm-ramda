@@ -1254,7 +1254,9 @@ declare namespace R {
          * Note: TS1.9 # replace any by dictionary
          */
         prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<T1, T2>(p: string, obj: T2): T1;
+        prop<T>(p: string): (obj: any) => T;
+        prop<T1, T2>(p: string): (obj: T2) => T1;
 
         /**
          * Determines whether the given property of an object has a specific
