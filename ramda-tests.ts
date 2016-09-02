@@ -475,33 +475,47 @@ R.times(i, 5);
 }
 
 () => {
-    var xs = [{a: 1}, {a: 2}, {a: 3}];
-    R.findIndex(R.propEq('a', 2))(xs); //=> 1
+    
+    type Task = {id: number}
+    let tasks: Task[] = []
+    const a = R.find(task => task.id === 1, tasks) // this works
+
+    const f: (list: Task[]) => Task = R.find<Task>(task => task.id === 1)
+    const b: Task = f(tasks) // this doesn't work works`
+}
+
+() => {
+    type Task = {a: number}
+    let xs = [{a: 1}, {a: 2}, {a: 3}];
+    const a: (list: Task[]) => number = R.findIndex(R.propEq('a', 2))
+    const b: number = a(xs); //=> 1
     R.findIndex(R.propEq('a', 4))(xs); //=> -1
 
     R.findIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 () => {
-    var xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    let xs = [{a: 1, b: 0}, {a:1, b: 1}];
     R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
     R.findLast(R.propEq('a', 4))(xs); //=> undefined
 }
 
 () => {
-    var xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    let xs = [{a: 1, b: 0}, {a:1, b: 1}];
     R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
     R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
     R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
 }
+
 () => {
     var user1 = { address: { zipCode: 90210 } };
     var user2 = { address: { zipCode: 55555 } };
     var user3 = { name: 'Bob' };
     var users = [ user1, user2, user3 ];
     var isFamous = R.pathEq(['address', 'zipCode'], 90210);
-    R.filter(isFamous, users); //=> [ user1 ]
+    const a = R.filter(isFamous, users); //=> [ user1 ]
 }
+
 () => {
     var xs: {[key:string]: string} = {a: '1', b: '0'};
     R.propEq('a', '1', xs);//=> true
