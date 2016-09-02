@@ -1,4 +1,4 @@
-// Type definitions for ramda (www.ramdajs.com)
+ // Type definitions for ramda (www.ramdajs.com)
 
 declare var R: R.Static;
 
@@ -529,7 +529,7 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        filter<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
 
         /**
@@ -537,7 +537,7 @@ declare namespace R {
          * element matches.
          */
         find<T>(fn: (a: T) => boolean, list: T[]): T;
-        find<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        find<T>(fn: (a: T) => boolean): <T>(list: T[]) => T;
 
 
         /**
@@ -545,21 +545,21 @@ declare namespace R {
          * if no element matches.
          */
         findIndex<T>(fn: (a: T) => boolean, list: T[]): number;
-        findIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
+        findIndex<T>(fn: (a: T) => boolean): <T>(list: T[]) => number;
 
         /**
          * Returns the last element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
         findLast<T>(fn: (a: T) => boolean, list: T[]): T;
-        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        findLast<T>(fn: (a: T) => boolean): <T>(list: T[]) => T;
 
         /**
          * Returns the index of the last element of the list which matches the predicate, or
          * `-1` if no element matches.
          */
         findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
-        findLastIndex<T>(fn: (a: T) => boolean): (list: T[]) => number;
+        findLastIndex<T>(fn: (a: T) => boolean): <T>(list: T[]) => number;
 
         /**
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
