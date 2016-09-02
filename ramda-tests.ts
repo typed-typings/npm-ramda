@@ -259,7 +259,11 @@ R.times(i, 5);
     slashify('a/'); //=> 'a/'
 })();
 
-
+() => {
+    const a0: string[] = R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+    const a1: string[] = R.match(/a/, 'b'); //=> []
+    const a2: string[] = R.match(/a/, null); //=> TypeError: null does not have a method named "match"
+}
 
 (() => {
     var numbers = [1, 2, 3];
@@ -620,13 +624,41 @@ interface Obj { a: number; b: number };
 }
 
 () => {
+    R.intersection([1,2,4], [1,2,3]); // => [1,2]
+    R.intersection([1,2,4])([1,2,3]); // => [1,2]
+}
+
+() => {
+    var buffaloSpringfield = [
+        {id: 824, name: 'Richie Furay'},
+        {id: 956, name: 'Dewey Martin'},
+        {id: 313, name: 'Bruce Palmer'},
+        {id: 456, name: 'Stephen Stills'},
+        {id: 177, name: 'Neil Young'}
+    ];
+    var csny = [
+        {id: 204, name: 'David Crosby'},
+        {id: 456, name: 'Stephen Stills'},
+        {id: 539, name: 'Graham Nash'},
+        {id: 177, name: 'Neil Young'}
+    ];
+    R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+        //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
+    R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
+    R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny);
+}
+
+() => {
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
 
     R.into([], transducer, numbers); //=> [2, 3]
+    R.into([])(transducer, numbers); //=> [2, 3]
+    R.into([], transducer)(numbers); //=> [2, 3]
 
     var intoArray = R.into([]);
     intoArray(transducer, numbers); //=> [2, 3]
+    intoArray(transducer)(numbers); //=> [2, 3]
 }
 
 () => {
@@ -642,6 +674,7 @@ interface Obj { a: number; b: number };
 () => {
     R.lastIndexOf(3, [-1,3,3,0,1,2,3,4]); //=> 6
     R.lastIndexOf(10, [1,2,3,4]); //=> -1
+    R.lastIndexOf(10)([1,2,3,4]); //=> -1
 }
 
 () => {
@@ -1072,14 +1105,14 @@ type Pair = KeyValuePair<string, number>
 }
 
 () => {
-    var tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
-    var transformations = {
-        firstName: R.trim,
-        lastName: R.trim, // Will not get invoked.
-        data: {elapsed: R.add(1), remaining: R.add(-1)}
-    };
-    //const a = R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
-    //const b = R.evolve(transformations)(tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    // var tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
+    // var transformations = {
+    //     firstName: R.trim,
+    //     lastName: R.trim, // Will not get invoked.
+    //     data: {elapsed: R.add(1), remaining: R.add(-1)}
+    // };
+    // const a = R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    // const b = R.evolve(transformations)(tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
 }
 
 () => {
@@ -1629,8 +1662,6 @@ matchPhrases(['foo', 'bar', 'baz']);
 () => {
     R.add(2, 3);       //=>  5
     R.add(7)(10);      //=> 17
-    R.add("Hello", " World");  //=>  "Hello World"
-    R.add("Hello")(" World");  //=>  "Hello World"
 }
 
 () => {
@@ -1715,14 +1746,17 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    let x: number = R.max(7, 3); //=> 7
+    let x: R.Ord = R.max(7, 3); //=> 7
+    let y: R.Ord = R.max('a', 'z'); //=> 'z'
 }
 
 () => {
-    function cmp(obj: any) { return obj.x; }
-    var a = {x: 1}, b = {x: 2}, c = {x: 3};
-    R.maxBy(cmp, [a, b, c]); //=> {x: 3}
-    R.maxBy(cmp)([a, b, c]); //=> {x: 3}
+    function cmp(obj: { x: R.Ord }) { return obj.x; }
+    var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
+    R.maxBy(cmp, a, c); //=> {x: 3}
+    R.maxBy(cmp)(a, c); //=> {x: 3}
+    R.maxBy(cmp)(a)(b);
+    R.maxBy(cmp)(d)(e);
 }
 
 () => {
@@ -1736,14 +1770,17 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    let x: number = R.min(9, 3); //=> 3
+    let x: R.Ord = R.min(9, 3); //=> 3
+    let y: R.Ord = R.min('a', 'z'); //=> 'a'
 }
 
 () => {
-    function cmp(obj: any) { return obj.x; }
-    var a = {x: 1}, b = {x: 2}, c = {x: 3};
-    R.minBy(cmp, [a, b, c]); //=> {x: 1}
-    R.minBy(cmp)([a, b, c]); //=> {x: 1}
+    function cmp(obj: {x: R.Ord}) { return obj.x; }
+    var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
+    R.minBy(cmp, a, b); //=> {x: 1}
+    R.minBy(cmp)(a, b); //=> {x: 1}
+    R.minBy(cmp)(a)(c);
+    R.minBy(cmp, d, e);
 }
 
 () => {
@@ -1894,6 +1931,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 (() => {
     R.eqBy(Math.abs, 5, -5); //=> true
+    R.eqBy(Math.abs)(5, -5); //=> true
+    R.eqBy(Math.abs, 5)(-5); //=> true
 });
 
 () => {

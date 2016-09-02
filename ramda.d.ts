@@ -1,8 +1,12 @@
- // Type definitions for ramda (www.ramdajs.com)
+// Type definitions for ramda
+// Project: [https://github.com/donnut/typescript-ramda]
+// Definitions by: Erwin Poeze <https://github.com/donnut>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var R: R.Static;
 
 declare namespace R {
+    type Ord = number | string | boolean;
 
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
@@ -103,17 +107,15 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
-    interface Reduced<T> {}
+    interface Reduced {}
 
     interface Static {
 
        /**
-        * Adds two numbers (or strings). Equivalent to a + b but curried.
+        * Adds two numbers. Equivalent to a + b but curried.
         */
        add(a: number, b: number): number;
-       add(a: string, b: string): string;
        add(a: number): (b: number) => number;
-       add(a: string): (b: string) => string;
 
        /**
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
@@ -134,6 +136,7 @@ declare namespace R {
          */
         adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[];
         adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[];
+        adjust<T>(fn: (a: T) => T): CurriedFunction2<number, T[], T[]>
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
@@ -188,7 +191,6 @@ declare namespace R {
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
         append<T, U>(el: U, list: T[]): (T & U)[];
-        append<U>(el: U): <T>(list: T[]) => (T & U)[];
         append<U>(el: U): <T>(list: T[]) => (T & U)[];
 
         /**
@@ -262,8 +264,7 @@ declare namespace R {
          */
         clamp<T>(min: T, max: T, value: T): T;
         clamp<T>(min: T, max: T): (value: T) => T;
-        clamp<T>(min: T): (max: T, value: T) => T;
-        clamp<T>(min: T): (max: T) => (value: T) => T;
+        clamp<T>(min: T): CurriedFunction2<T,T,T>
 
         /**
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
@@ -359,8 +360,8 @@ declare namespace R {
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
          */
         contains(a: string, list: string): boolean;
-        contains<T>(a: T, list: T[]): boolean;
         contains(a: string): (list: string) => boolean;
+        contains<T>(a: T, list: T[]): boolean;
         contains<T>(a: T): (list: T[]) => boolean;
 
         /**
@@ -499,13 +500,13 @@ declare namespace R {
          */
         eqBy<T>(fn: (a: T) => T, a: T, b: T): boolean;
         eqBy<T>(fn: (a: T) => T, a: T): (b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T, b: T) => boolean;
-        eqBy<T>(fn: (a: T) => T): (a: T) => (b: T) => boolean;
+        eqBy<T>(fn: (a: T) => T): CurriedFunction2<T,T,boolean>;
 
         /**
          * Reports whether two functions have the same value for the specified property.
          */
         eqProps<T,U>(prop: string, obj1: T, obj2: U): boolean;
+        eqProps<T,U>(prop: string): CurriedFunction2<T,U,boolean>;
         eqProps(prop: string): <T,U>(obj1: T, obj2: U) => boolean;
         eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
 
@@ -600,7 +601,9 @@ declare namespace R {
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
          */
         groupWith<T>(fn: (x: T, y: T) => boolean, list: T[]): T[][]
+        groupWith<T>(fn: (x: T, y: T) => boolean): (list: T[]) => T[][]
         groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[]
+        groupWith<T>(fn: (x: T, y: T) => boolean): (list: string) => string[]
 
         /**
          * Returns true if the first parameter is greater than the second.
@@ -685,7 +688,9 @@ declare namespace R {
          */
         insert<T>(index: number, elt: T, list: T[]): T[];
         insert<T>(index: number, elt: T): (list: T[]) => T[];
+        insert<T>(index: number): CurriedFunction2<T, T[], T[]>;
         insert(index: number): <T>(elt: T, list: T[]) => T[];
+        insert(index: number): <T>(elt: T) => (list: T[]) => T[];
 
         /**
          * Inserts the sub-list into the list, at index `index`.  _Note  that this
@@ -693,13 +698,16 @@ declare namespace R {
          */
         insertAll<T>(index: number, elts: T[], list: T[]): T[];
         insertAll<T>(index: number, elts: T[]): (list: T[]) => T[];
+        insertAll<T>(index: number): CurriedFunction2<T[], T[], T[]>;
         insertAll(index: number): <T>(elts: T[], list: T[]) => T[];
+        insertAll(index: number): <T>(elts: T[]) => (list: T[]) => T[];
 
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
          */
         intersection<T>(list1: T[], list2: T[]): T[];
+        intersection<T>(list1: T[]): (list2: T[]) => T[];
 
 
         /**
@@ -709,6 +717,7 @@ declare namespace R {
          * elements.
          */
         intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        intersectionWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T[], T[], T[]>;
 
         /**
          * Creates a new list with the separator interposed between elements.
@@ -721,8 +730,10 @@ declare namespace R {
          * using an appropriate iterator function based on the accumulator type.
          */
         into<T>(acc: any, xf: Function, list: T[]): T[];
+        into<T>(acc: any): CurriedFunction2<Function, T[], T[]>;
         into(acc: any, xf: Function): <T>(list: T[]) => T[];
         into(acc: any): <T>(xf: Function, list: T[]) => T[];
+        into(acc: any): <T>(xf: Function) => (list: T[]) => T[];
 
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
@@ -811,6 +822,7 @@ declare namespace R {
          * an array, or -1 if the item is not included in the array.
          */
         lastIndexOf<T>(target: T, list: T[]): number;
+        lastIndexOf<T>(target: T): (list: T[]) => number;
 
         /**
          * Returns the number of elements in the array by returning list.length.
@@ -849,12 +861,15 @@ declare namespace R {
          * the FantasyLand Apply spec.
          */
         lift(fn: Function, ...args: any[]): any;
+        lift(fn: Function): (...args: any[]) => any;
 
         /**
          * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
          * objects that satisfy the FantasyLand Apply spec.
          */
         liftN(n: number, fn: Function, ...args: any[]): any;
+        liftN(n: number, fn: Function): (...args: any[]) => any;
+        liftN(n: number): (fn: Function, ...args: any[]) => any;
 
 
         /**
@@ -873,6 +888,7 @@ declare namespace R {
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
+        map<T, U>(fn: (x: T) => U, obj: U): U;
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
 
@@ -900,7 +916,8 @@ declare namespace R {
         /**
          * Tests a regular expression agains a String
          */
-        match(regexp: RegExp, str: string): any[];
+        match(regexp: RegExp, str: string): string[];
+        match(regexp: RegExp): (str: string) => string[];
 
 
         /**
@@ -916,14 +933,15 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: number, b: number): number;
-        max(a: number): (b: number) => number;
+        max(a: Ord, b: Ord): Ord;
+        max(a: Ord): (b: Ord) => Ord;
 
         /**
-         * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator.
+         * Takes a function and two values, and returns whichever value produces
+         * the larger result when passed to the provided function.
          */
-        maxBy<T>(keyFn: (a: T) => number, list: T[]): T;
-        maxBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
+        maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
+        maxBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
 
         /**
          * Returns the mean of the given list of numbers.
@@ -979,14 +997,15 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: number, b: number): number;
-        min(a: number): (b: number) => number;
+        min(a: Ord, b: Ord): Ord;
+        min(a: Ord): (b: Ord) => Ord;
 
         /**
-         * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator.
+         * Takes a function and two values, and returns whichever value produces
+         * the smaller result when passed to the provided function.
          */
-        minBy<T>(keyFn: (a: T) => number, list: T[]): T;
-        minBy<T>(keyFn: (a: T) => number): (list: T[]) => T;
+        minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
+        minBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
 
         /**
          * Divides the second parameter by the first and returns the remainder.
@@ -1009,6 +1028,7 @@ declare namespace R {
          * Any extraneous parameters will not be passed to the supplied function.
          */
         nAry(n: number, fn: (...arg: any[]) => any): Function;
+        nAry(n: number): (fn: (...arg: any[]) => any) => Function;
 
         /**
          * Negates its argument.
@@ -1092,6 +1112,7 @@ declare namespace R {
          * Takes two arguments, fst and snd, and returns [fst, snd].
          */
         pair<F,S>(fst: F, snd: S): [F, S];
+        pair<F>(fst: F): <S>(snd: S) => [F, S];
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
@@ -1099,6 +1120,7 @@ declare namespace R {
          * original function's arguments list. In some libraries this function is named `applyLeft`.
          */
         partial(fn: Function, ...args: any[]): Function;
+        partial(fn: Function): (...args: any[]) => Function;
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
@@ -1106,6 +1128,7 @@ declare namespace R {
          * function's arguments list.
          */
         partialRight(fn: Function, ...args: any[]): Function;
+        partialRight(fn: Function): (...args: any[]) => Function;
 
         /**
          * Takes a predicate and a list and returns the pair of lists of elements
@@ -1128,8 +1151,7 @@ declare namespace R {
         */
         pathEq(path: string[], val: any, obj: any): boolean;
         pathEq(path: string[], val: any): (obj: any) => boolean;
-        pathEq(path: string[]): (val: any, obj: any) => boolean;
-        pathEq(path: string[]): (val: any) => (obj: any) => boolean;
+        pathEq(path: string[]): CurriedFunction2<any, any, boolean>;
 
         /**
          * If the given, non-null object has a value at the given path, returns the value at that path.
@@ -1137,7 +1159,9 @@ declare namespace R {
          */
         pathOr<T>(d: T, p: string[], obj: any): T|any;
         pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
-        pathOr<T>(d: T): (p: string[], obj: any) => T|any;
+        pathOr<T>(d: T): CurriedFunction2<string[], any, T|any>;
+        // pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
+        // pathOr<T>(d: T): (p: string[], obj: any) => T|any;
 
 
         /**
@@ -1223,6 +1247,7 @@ declare namespace R {
          * Reasonable analog to SQL `select` statement.
          */
         project<T,U>(props: string[], objs: T[]): U[];
+        project(props: string[]): <T,U>(objs: T[]) => U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
@@ -1239,17 +1264,17 @@ declare namespace R {
         // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
         // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
         propEq<T>(name: string, val: T, obj: any): boolean;
-        // propEq<T>(name: number, val: T, obj: any): boolean;
         propEq<T>(name: string, val: T): (obj: any) => boolean;
-        // propEq<T>(name: number, val: T): (obj: any) => boolean;
+        propEq<T>(name: string): CurriedFunction2<T, any, boolean>;
         propEq(name: string): <T>(val: T, obj: any) => boolean;
-        // propEq(name: number): <T>(val: T, obj: any) => boolean;
+        propEq(name: number): <T>(val: T) => (obj: any) => boolean;
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
          */
         propIs(type: any, name: string, obj: any): boolean;
         propIs(type: any, name: string): (obj: any) => boolean;
+        propIs(type: any): CurriedFunction2<string, any, boolean>;
         propIs(type: any): {
             (name: string, obj: any): boolean;
             (name: string): (obj: any) => boolean;
@@ -1291,9 +1316,9 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>, acc: TResult, list: T[]): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>): (acc: TResult, list: T[]) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced<TResult>, acc: TResult): (list: T[]) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: T[]): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult, list: T[]) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
@@ -1309,7 +1334,7 @@ declare namespace R {
          * transduce functions. The returned value should be considered a black box: the internal
          * structure is not guaranteed to be stable.
          */
-        reduced<T>(elem: T): Reduced<T>;
+        reduced<T>(elem: T): Reduced;
 
         /**
          * Returns a single item by iterating through the list, successively calling the iterator
@@ -1362,7 +1387,7 @@ declare namespace R {
          */
         scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult, list: T[]): TResult[];
         scan<T, TResult>(fn: (acc: TResult, elem: T) => any, acc: TResult): (list: T[]) => TResult[];
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => any): (acc: TResult, list: T[]) => TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => any): CurriedFunction2<TResult, T[], TResult[]>;
 
         /**
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
@@ -1629,12 +1654,14 @@ declare namespace R {
          * elements of each list.
          */
         union<T>(as: T[], bs: T[]): T[];
+        union<T>(as: T[]): (bs: T[]) => T[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.  Duplication is
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<T[], T[], T[]>
 
         /**
          * Returns a new list containing only one copy of each element in the original list.
@@ -1676,12 +1703,14 @@ declare namespace R {
          */
         until<T,U>(pred: (val: T) => boolean, fn: (val: T) => U, init: U): U;
         until<T,U>(pred: (val: T) => boolean, fn: (val: T) => U): (init: U) => U;
+        until<T,U>(pred: (val: T) => boolean): CurriedFunction2<(val: T) => U, U, U>;
 
         /**
          * Returns a new copy of the array with the element at the provided index replaced with the given value.
          */
         update<T>(index: number, value: T, list: T[]): T[];
         update<T>(index: number, value: T): (list: T[]) => T[];
+        update<T>(index: number): CurriedFunction2<T,T[],T[]>
 
         /**
          * Accepts a function fn and a list of transformer functions and returns a new curried function.
@@ -1694,6 +1723,7 @@ declare namespace R {
          * that the new function reports the correct arity.
          */
         useWith(fn: Function, transformers: Function[]): Function;
+        useWith(fn: Function): (transformers: Function[]) => Function;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -1722,6 +1752,7 @@ declare namespace R {
          */
         when<T,U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U, obj: T): U;
         when<T,U>(pred: (a: T) => boolean, whenTrueFn: (a: T) => U): (obj: T) => U;
+        when<T,U>(pred: (a: T) => boolean): CurriedFunction2<(a: T) => U, T, U>;
 
         /**
          * Takes a spec object and a test object and returns true if the test satisfies the spec.
@@ -1760,6 +1791,7 @@ declare namespace R {
          * either before the internal function is called or with its results.
          */
         wrap(fn: Function, wrapper: Function): Function;
+        wrap(fn: Function): (wrapper: Function) => Function;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
@@ -1788,7 +1820,7 @@ declare namespace R {
          */
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
         zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: T[], list2: U[]) => TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): CurriedFunction2<T[], U[], TResult[]>;
 
     }
 }
