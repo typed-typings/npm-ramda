@@ -520,8 +520,11 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
-        evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
+        //evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
+        //evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
+        evolve(transformations: {[index: string]: (value: any) => any}, obj: any): any;
+        evolve(transformations: {[index: string]: (value: any) => any}): (obj: any) => any;
+
         /*
          * A function that always returns false. Any passed in parameters are ignored.
          */
