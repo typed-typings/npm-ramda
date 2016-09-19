@@ -1135,6 +1135,7 @@ declare namespace R {
          * which do and do not satisfy the predicate, respectively.
          */
         partition(fn: (a: string) => boolean, list: string[]): string[][];
+        partition<T,U>(fn: (a:any) => boolean, obj: T & U) : [T[],U[]];
         partition<T>(fn: (a: T) => boolean, list: T[]): T[][];
         partition<T>(fn: (a: T) => boolean): (list: T[]) => T[][];
         partition(fn: (a: string) => boolean): (list: string[]) => string[][];

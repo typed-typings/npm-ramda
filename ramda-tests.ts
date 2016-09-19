@@ -758,6 +758,7 @@ interface Obj { a: number; b: number };
     R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']);
     R.partition((x: number) => x > 2, [1, 2, 3, 4]);
     R.partition((x: number) => x > 2)([1, 2, 3, 4]);
+    R.partition(R.contains('s'),{ a: 'sss', b: 'ttt', foo: 'bars' }); // => [ { a: 'sss', foo: 'bars' }, { b: 'ttt' }  ]
 }
 
 () => {
