@@ -475,7 +475,7 @@ R.times(i, 5);
 }
 
 () => {
-    
+
     type Task = {id: number}
     let tasks: Task[] = []
     const a = R.find(task => task.id === 1, tasks) // this works
@@ -1285,6 +1285,13 @@ class Rectangle {
     const a2 = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
     const a3 = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
     const a4 = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+}
+
+() => {
+    const a1 = R.pathSatisfies(a => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> true
+    const a2 = R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> false
+    const a3 = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
+    const a4 = R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); //=> true
 }
 
 () => {
