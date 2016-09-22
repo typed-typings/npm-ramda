@@ -229,7 +229,7 @@ declare namespace R {
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
+        bind<T>(fn: (...args: any[]) => any, thisObj: T): (...args: any[]) => any;
 
 
         /**
