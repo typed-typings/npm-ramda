@@ -1458,6 +1458,7 @@ declare namespace R {
          * Returns all but the first element of a list.
          */
         tail<T>(list: T[]): T[];
+	tail(s: string): string;
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
