@@ -5,7 +5,7 @@
 
 Test with:
 ```bash
-tsc --module amd ramda-tests.ts
+tsc --lib "es5,es2015.promise" --module amd ramda-tests.ts
 ```
 
 Pull requests are welcome!
