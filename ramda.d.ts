@@ -910,7 +910,7 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: string]: T }) =>
+         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: string]: T }) =>
             TResult, obj: { [index: string]: T }): { [index: string]: TResult };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: string]: T }) =>
@@ -1142,6 +1142,7 @@ declare namespace R {
         partition<T>(fn: (a: T) => boolean, list: T[]): T[][];
         partition<T>(fn: (a: T) => boolean): (list: T[]) => T[][];
         partition(fn: (a: string) => boolean): (list: string[]) => string[][];
+        partition<T,U>(fn: (a:any) => boolean, obj: T & U) : [T,U];
 
         /**
          * Retrieve the value at a given path.
@@ -1615,7 +1616,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',

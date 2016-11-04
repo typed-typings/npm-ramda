@@ -758,6 +758,7 @@ interface Obj { a: number; b: number };
     R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']);
     R.partition((x: number) => x > 2, [1, 2, 3, 4]);
     R.partition((x: number) => x > 2)([1, 2, 3, 4]);
+    R.partition(R.contains('s'),{ a: 'sss', b: 'ttt', foo: 'bars' }); // => [ { a: 'sss', foo: 'bars' }, { b: 'ttt' }  ]
 }
 
 () => {
@@ -1003,8 +1004,8 @@ type Pair = KeyValuePair<string, number>
 
 () => {
     const x = R.prop('x');
-    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, {x: true}); //=> true
-    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, null);      //=> false
+    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
+    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
 }
 
 () => {
