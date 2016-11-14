@@ -1292,6 +1292,9 @@ class Rectangle {
     const a2 = R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> false
     const a3 = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
     const a4 = R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); //=> true
+    const a5 = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
+    const a6 = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
+    const a7 = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
 }
 
 () => {
