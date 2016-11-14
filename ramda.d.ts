@@ -755,8 +755,24 @@ declare namespace R {
          * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
          * when `len` is not specified), and the final parameter is the target object.
          */
-        invoker(name: string, obj: any, len?: number): Function;
-        invoker(name: string): (obj: any, len?: number) => Function;
+        invoker<T, R> (len: number /* = 0 */, name: string, obj: T): R
+        invoker<T, R> (len: number/* = 0 */, name: string): (obj: T) => R
+
+        invoker<T, P1, R>(len: number /* = 1 */, name:string, x1: P1, obj: T): R
+        invoker<T, P1, R>(len: number /* = 1 */, name:string): CurriedFunction2<P1, T, R>
+
+        invoker<T, P1, P2, R>(len: number /* = 2 */, name:string, x1: P1, x2: P2, obj: T): R
+        invoker<T, P1, P2, R>(len: number /* = 2 */, name:string): CurriedFunction3<P1, P2, T, R>
+
+        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name:string, x1: P1, x2: P2, x3: P3, obj: T): R
+        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name:string): CurriedFunction4<P1, P2, P3, T, R>
+
+        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name:string, x1: P1, x2: P2, x3: P3, x4: P4, obj: T): R
+        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name:string): CurriedFunction5<P1, P2, P3, P4, T, R>
+
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 4 */, name:string, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): R
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 4 */, name:string): CurriedFunction6<P1, P2, P3, P4, P5, T, R>
+
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
