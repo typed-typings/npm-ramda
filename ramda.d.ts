@@ -533,6 +533,9 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
+
+        filter<T,U>(fn: (value: T) => boolean): (obj: U) => U;
+        filter<T,U>(fn: (value: T) => boolean, obj: U) : U;
         filter<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
 

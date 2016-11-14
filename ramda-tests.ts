@@ -10,6 +10,19 @@ var shout = function(x: number): string {
         : 'small'
 };
 
+/** ramda independent way to check type information is not lost
+ *  for lists */
+var onlyNumberList = function(xs: number[]): number[] {
+  return xs;
+}
+
+/** ramda independent way to check type information is not lost
+ *  for simple objects */
+var onlyNumberObj = function(xs: {[key:string]: number}): {[key:string]: number} {
+  return xs;
+}
+
+
 class F {
     x = 'X';
     y = 'Y';
@@ -452,9 +465,17 @@ R.times(i, 5);
     var isEven = function(n: number) {
         return n % 2 === 0;
     };
+    // filter works with lists...
     R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
     var isEvenFn = R.filter(isEven);
     isEvenFn([1, 2, 3, 4]);
+    // ... but also objects
+    R.filter(isEven, {a:1, b:2, c:3, d:4}); //=> {b:2, d:4}
+    isEvenFn({a:1, b:2, c:3, d:4});
+    // see that we did not break anything
+    // and we kept type information
+    onlyNumberList(R.filter(isEven,[1,2,3,4]));
+    onlyNumberObj(R.filter(isEven,{a:1, b:2, c:3, d:4}));
 }
 
 () => {
@@ -475,7 +496,7 @@ R.times(i, 5);
 }
 
 () => {
-    
+
     type Task = {id: number}
     let tasks: Task[] = []
     const a = R.find(task => task.id === 1, tasks) // this works
