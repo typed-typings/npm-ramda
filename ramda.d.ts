@@ -770,8 +770,8 @@ declare namespace R {
         invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name:string, x1: P1, x2: P2, x3: P3, x4: P4, obj: T): R
         invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name:string): CurriedFunction5<P1, P2, P3, P4, T, R>
 
-        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 4 */, name:string, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): R
-        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 4 */, name:string): CurriedFunction6<P1, P2, P3, P4, P5, T, R>
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name:string, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): R
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name:string): CurriedFunction6<P1, P2, P3, P4, P5, T, R>
 
 
         /**
