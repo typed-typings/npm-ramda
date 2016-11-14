@@ -1356,6 +1356,8 @@ declare namespace R {
          */
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
         reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        reject<T,U>(fn: (value: T) => boolean): (obj: U) => U;
+        reject<T,U>(fn: (value: T) => boolean, obj: U) : U;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
