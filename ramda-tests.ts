@@ -471,7 +471,7 @@ R.times(i, 5);
     isEvenFn([1, 2, 3, 4]);
     // ... but also objects
     R.filter(isEven, {a:1, b:2, c:3, d:4}); //=> {b:2, d:4}
-    isEvenFn({a:1, b:2, c:3, d:4});
+    var isEvenFnObj = R.filter(isEven);
     // see that we did not break anything
     // and we kept type information
     onlyNumberList(R.filter(isEven,[1,2,3,4]));
