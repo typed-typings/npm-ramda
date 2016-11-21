@@ -522,10 +522,11 @@ declare namespace R {
          */
         evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
         evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
+
         /*
          * A function that always returns false. Any passed in parameters are ignored.
          */
-        F(): boolean;
+        F(): false;
 
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
@@ -633,7 +634,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: T[]): T;
+        head<T extends Array<any>>(list: T): T[0];
         head(list: string): string;
 
         /**
@@ -910,7 +911,9 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index:string]: TResult};
+        mapObjIndexed<K extends Prop, T, U, V extends Record<K, T>>(fn: (value: T, key: string, obj?: V) => U, obj: V): Record<K, U>;
+        mapObjIndexed<K extends Prop, T, U, V extends Record<K, T>>(fn: (value: T, key: string, obj?: V) => U, obj: V): { [P in keyof V]: U(V[P]) /*T?*/ };
+        mapObjIndexed<T, TResult, Item>(fn: (value: T, key: string, obj?: any) => TResult, obj: Item): { [P in keyof Item]: Item[P] };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index:string]: TResult};
 
         /**
@@ -1168,22 +1171,22 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T,U>(names: string[], obj: T): U;
-        pick(names: string[]): <T, U>(obj: T) => U;
+        pick<T, K extends keyof T>(names: K[], obj: T): Pick<T, K>;
+        pick<K extends keyof T>(names: K[]): <T>(obj: T) => Pick<T, K>;
 
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T,U>(names: string[], obj: T): U;
-        pickAll(names: string[]): <T,U>(obj: T) => U;
+        pickAll<T, K>(names: K[], obj: T): Pick<T, K>;
+        pickAll<K>(names: K[]): <T>(obj: T) => Pick<T, K>;
 
 
         /**
          * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
          */
-        pickBy<T,U>(pred: ObjPred, obj: T): U;
-        pickBy(pred: ObjPred): <T,U>(obj: T) => U;
+        pickBy<T>(pred: ObjPred, obj: T): Partial<T>;
+        pickBy(pred: ObjPred): <T>(obj: T) => Partial<T>;
 
 
         /**
@@ -1253,8 +1256,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<T, K extends keyof T>(p: K, obj: T): T[K];
+        prop<T, K extends keyof T>(p: K): <T>(obj: T) => T[K];
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1272,12 +1275,12 @@ declare namespace R {
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
          */
-        propIs(type: any, name: string, obj: any): boolean;
-        propIs(type: any, name: string): (obj: any) => boolean;
-        propIs(type: any): CurriedFunction2<string, any, boolean>;
-        propIs(type: any): {
-            (name: string, obj: any): boolean;
-            (name: string): (obj: any) => boolean;
+        propIs<T, V, K extends keyof V>(type: T, name: K, obj: V): T[K] is V;
+        propIs<T, V, K extends keyof V>(type: T, name: K): (obj: V) => T[K] is V;
+        propIs<T, V, K extends keyof V>(type: T): CurriedFunction2<K, V, T[K] is V>;
+        propIs<T, V, K extends keyof V>(type: T): {
+            (name: K, obj: V): T[K] is V;
+            (name: K): (obj: V) => T[K] is V;
         }
 
         /**
@@ -1480,7 +1483,7 @@ declare namespace R {
         /**
          * A function that always returns true. Any passed in parameters are ignored.
          */
-        T(): boolean;
+        T(): true;
 
         /**
          * Returns all but the first element of a list.
