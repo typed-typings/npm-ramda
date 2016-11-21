@@ -889,9 +889,10 @@ declare namespace R {
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
-        map<T, U>(fn: (x: T) => U, obj: U): U;
-        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
+        map<T, V, M extends {[k: string]: T}>(fn: (value: T) => V, obj: M): {[K in keyof M]: V};
+        map<T, V, M extends {[k: string]: T}>(fn: (value: T) => V): (obj: M) => {[K in keyof M]: V};
+        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
@@ -911,10 +912,8 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-        mapObjIndexed<K extends Prop, T, U, V extends Record<K, T>>(fn: (value: T, key: string, obj?: V) => U, obj: V): Record<K, U>;
-        mapObjIndexed<K extends Prop, T, U, V extends Record<K, T>>(fn: (value: T, key: string, obj?: V) => U, obj: V): { [P in keyof V]: U(V[P]) /*T?*/ };
-        mapObjIndexed<T, TResult, Item>(fn: (value: T, key: string, obj?: any) => TResult, obj: Item): { [P in keyof Item]: Item[P] };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index:string]: TResult};
+        mapObjIndexed<T, V, M extends {[k: string]: T}>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
+        mapObjIndexed<T, V, M extends {[k: string]: T}>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
 
         /**
          * Tests a regular expression agains a String
