@@ -7,6 +7,8 @@ declare var R: R.Static;
 
 declare namespace R {
     type Ord = number | string | boolean;
+    type Prop = string | number;
+    type Path = Prop[];
 
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
@@ -39,11 +41,11 @@ declare namespace R {
     }
 
     interface ObjFunc {
-        [index:string]: Function;
+        [index: string]: Function;
     }
 
     interface ObjFunc2 {
-        [index:string]: (x: any, y: any) => boolean;
+        [index: string]: (x: any, y: any) => boolean;
     }
 
     interface Pred {
@@ -210,18 +212,18 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
-        assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
-        assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
+        assoc<T,U>(prop: Prop, val: T, obj: U): {prop: T} & U;
+        assoc(prop: Prop): <T,U>(val: T, obj: U) => {prop: T} & U;
+        assoc<T>(prop: Prop, val: T): <U>(obj: U) => {prop: T} & U;
 
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
          */
-        assocPath<T,U>(path: string[], val: T, obj: U): U;
-        assocPath(path: string[]): <T,U>(val: T, obj: U) => U;
-        assocPath<T>(path: string[], val: T): <U>(obj: U) => U;
+        assocPath<T,U>(path: Path, val: T, obj: U): U;
+        assocPath(path: Path): <T,U>(val: T, obj: U) => U;
+        assocPath<T>(path: Path, val: T): <U>(obj: U) => U;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
@@ -430,14 +432,14 @@ declare namespace R {
          * Returns a new object that does not contain a prop property.
          */
         // It seems impossible to infer the return type, so this may to be specified explicitely
-        dissoc<T>(prop: string, obj: any): T;
-        dissoc(prop: string): <U>(obj: any) => U;
+        dissoc<T>(prop: Prop, obj: any): T;
+        dissoc(prop: Prop): <U>(obj: any) => U;
 
         /**
          * Makes a shallow clone of an object, omitting the property at the given path.
          */
-        dissocPath<T>(path: string[], obj: any): T;
-        dissocPath(path: string[]): <T>(obj: any) => T;
+        dissocPath<T>(path: Path, obj: any): T;
+        dissocPath(path: Path): <T>(obj: any) => T;
 
         /**
          * Divides two numbers. Equivalent to a / b.
@@ -505,10 +507,10 @@ declare namespace R {
         /**
          * Reports whether two functions have the same value for the specified property.
          */
-        eqProps<T,U>(prop: string, obj1: T, obj2: U): boolean;
-        eqProps<T,U>(prop: string): CurriedFunction2<T,U,boolean>;
-        eqProps(prop: string): <T,U>(obj1: T, obj2: U) => boolean;
-        eqProps<T>(prop: string, obj1: T): <U>(obj2: U) => boolean;
+        eqProps<T,U>(prop: Prop, obj1: T, obj2: U): boolean;
+        eqProps<T,U>(prop: Prop): CurriedFunction2<T,U,boolean>;
+        eqProps(prop: Prop): <T,U>(obj1: T, obj2: U) => boolean;
+        eqProps<T>(prop: Prop, obj1: T): <U>(obj2: U) => boolean;
 
         /**
          * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
@@ -587,8 +589,7 @@ declare namespace R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<V>(pairs: KeyValuePair<string, V>[]): {[index: string]: V};
-        fromPairs<V>(pairs: KeyValuePair<number, V>[]): {[index: number]: V};
+        fromPairs<V>(pairs: KeyValuePair<Prop, V>[]): {[index: string]: V};
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
@@ -739,14 +740,14 @@ declare namespace R {
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
         */
-        invert<T>(obj: T): {[index:string]: string[]};
+        invert<T>(obj: T): {[index: string]: string[]};
+        invert<T>(obj: T): {[index: number]: string[]};
 
         /**
         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
         */
-        invertObj(obj: any): {[index:string]: string};
-        invertObj(obj: {[index: number]: string}): {[index:string]: string};
-
+        invertObj(obj: {[index: string]: Prop}): {[index: string]: string};
+        invertObj(obj: {[index: number]: Prop}): {[index: string]: string};
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -763,8 +764,8 @@ declare namespace R {
          * See if an object (`val`) is an instance of the supplied constructor.
          * This function will check up the inheritance chain, if any.
          */
-        is(ctor: any, val: any): boolean;
-        is(ctor: any): (val: any) => boolean;
+        is<T>(ctor: T, val: any): val is T;
+        is<T>(ctor: T): (val: any) => val is T;
 
         /**
          * Tests whether or not an object is similar to an array.
@@ -1140,6 +1141,7 @@ declare namespace R {
         partition<T>(fn: (a: T) => boolean, list: T[]): T[][];
         partition<T>(fn: (a: T) => boolean): (list: T[]) => T[][];
         partition(fn: (a: string) => boolean): (list: string[]) => string[][];
+        partition<T,U>(fn: (a:any) => boolean, obj: T & U) : [T,U];
 
         /**
          * Retrieve the value at a given path.
@@ -1263,7 +1265,7 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        // propEq<T>(name: string, val: T, obj: {[index:string]: T}): boolean;
+        // propEq<T>(name: string, val: T, obj: {[index: Prop]: T}): boolean;
         // propEq<T>(name: string, val: T, obj: {[index:number]: T}): boolean;
         propEq<T>(name: string, val: T, obj: any): boolean;
         propEq<T>(name: string, val: T): (obj: any) => boolean;
@@ -1295,8 +1297,8 @@ declare namespace R {
          * The only difference from `prop` is the parameter order.
          * Note: TS1.9 # replace any by dictionary
          */
-        props<T>(ps: string[], obj: any): T[];
-        props(ps: string[]): <T>(obj: any) => T[];
+        props<T>(ps: Path, obj: any): T[];
+        props(ps: Path): <T>(obj: any) => T[];
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.
@@ -1560,7 +1562,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
+        toPairs<F,S>(obj: {[k: string]: S} | any): [F,S][];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1568,7 +1570,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F,S>(obj: {[k: string]: S} | {[k: number]: S} | any): [F,S][];
+        toPairsIn<F,S>(obj: {[k: string]: S} | any): [F,S][];
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
@@ -1613,7 +1615,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -1812,8 +1814,8 @@ declare namespace R {
          * Creates a new object out of a list of keys and a list of values.
          */
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-        zipObj<T>(keys: string[], values: T[]): {[index:string]: T};
-        zipObj(keys: string[]): <T>(values: T[]) => {[index:string]: T};
+        zipObj<T>(keys: string[], values: T[]): {[index: string]: T};
+        zipObj(keys: string[]): <T>(values: T[]) => {[index: string]: T};
 
 
         /**
