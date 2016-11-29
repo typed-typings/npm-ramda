@@ -1173,14 +1173,14 @@ declare namespace R {
          * property is ignored.
          */
         pick<T, K extends keyof T>(names: K[], obj: T): Pick<T, K>;
-        pick<K extends keyof T>(names: K[]): <T>(obj: T) => Pick<T, K>;
+        pick<T, K extends keyof T>(names: K[]): (obj: T) => Pick<T, K>;
 
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T, K>(names: K[], obj: T): Pick<T, K>;
-        pickAll<K>(names: K[]): <T>(obj: T) => Pick<T, K>;
+        pickAll<T, K>(names: K[], obj: T): Partial<T>;
+        pickAll<T, K>(names: K[]): (obj: T) => Partial<T>;
 
 
         /**
@@ -1258,7 +1258,9 @@ declare namespace R {
          * Note: TS1.9 # replace any by dictionary
          */
         prop<T, K extends keyof T>(p: K, obj: T): T[K];
-        prop<T, K extends keyof T>(p: K): <T>(obj: T) => T[K];
+        // prop<T, K extends keyof T>(p: K): (obj: T) => T[K];
+        prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // are these Ks bound properly?
+        // prop(p: Prop): (obj: any) => any;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1276,13 +1278,21 @@ declare namespace R {
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
          */
-        propIs<T, V, K extends keyof V>(type: T, name: K, obj: V): T[K] is V;
-        propIs<T, V, K extends keyof V>(type: T, name: K): (obj: V) => T[K] is V;
-        propIs<T, V, K extends keyof V>(type: T): CurriedFunction2<K, V, T[K] is V>;
-        propIs<T, V, K extends keyof V>(type: T): {
-            (name: K, obj: V): T[K] is V;
-            (name: K): (obj: V) => T[K] is V;
+        propIs(type: any, name: Prop, obj: any): boolean;
+        propIs(type: any, name: Prop): (obj: any) => boolean;
+        propIs(type: any): CurriedFunction2<Prop, any, boolean>;
+        propIs(type: any): {
+            (name: Prop, obj: any): boolean;
+            (name: Prop): (obj: any) => boolean;
         }
+        // errors: can't seem to use ` is T` on an expression yet: https://github.com/Microsoft/TypeScript/issues/12549
+        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T, name: K, obj: V): R is T;
+        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T, name: K): (obj: V) => R is T;
+        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T): CurriedFunction2<K, V, R is T>;
+        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T): {
+        //     (name: K, obj: V): R is T;
+        //     (name: K): (obj: V) => R is T;
+        // }
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.

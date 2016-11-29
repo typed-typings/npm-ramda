@@ -597,9 +597,9 @@ interface Obj { a: number; b: number };
 
 (() => {
     let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    const a1 = R.indexBy(R.prop<string>('id'), list);
-    const a2 = R.indexBy(R.prop<string>('id'))(list);
-    const a3 = R.indexBy<{id:string}>(R.prop<string>('id'))(list);
+    const a1 = R.indexBy(R.prop('id'), list);
+    const a2 = R.indexBy(R.prop('id'))(list);
+    const a3 = R.indexBy<{id:string}>(R.prop('id'))(list);
 });
 
 () => {
@@ -1306,9 +1306,10 @@ class Rectangle {
 
 () => {
     const a1 = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    const a2 = R.pick<any, {a: number}>(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    const a3 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    const a4 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
+    // the following should errror: e/f are not keys in these objects
+    // const a2 = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    // const a3 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    // const a4 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
 }
 
 () => {
@@ -1362,7 +1363,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
     var x: number = <number>R.prop('x', {x: 100}); //=> 100
-    const a = R.prop('x', {}); //=> undefined
+    // errors: `Argument of type '"x"' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
+    // const a = R.prop('x', {}); //=> undefined
 }
 
 () => {
