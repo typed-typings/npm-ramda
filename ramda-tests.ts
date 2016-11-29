@@ -34,7 +34,8 @@ class F2 {
     R.propIs(Number)('x', {x: 1, y: 2});  //=> true
     R.propIs(Number)('x')({x: 1, y: 2});  //=> true
     R.propIs(Number, 'x', {x: 'foo'});    //=> false
-    R.propIs(Number, 'x', {});            //=> false
+    // v errors with `Argument of type '"x"' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
+    // R.propIs(Number, 'x', {});            //=> false
 });
 
 (() => {

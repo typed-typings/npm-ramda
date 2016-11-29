@@ -1278,21 +1278,19 @@ declare namespace R {
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
          */
-        propIs(type: any, name: Prop, obj: any): boolean;
+        propIs<T, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>)
+        // v object info not available in time :(
+        // propIs<T, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>)
+        // propIs<T, V, K extends keyof V>(type: T): {
+        //     (name: K, obj: V): obj is (V & Record<K, T>);
+        //     (name: K): (obj: V) => obj is (V & Record<K, T>);
+        // }
         propIs(type: any, name: Prop): (obj: any) => boolean;
         propIs(type: any): CurriedFunction2<Prop, any, boolean>;
         propIs(type: any): {
             (name: Prop, obj: any): boolean;
             (name: Prop): (obj: any) => boolean;
         }
-        // errors: can't seem to use ` is T` on an expression yet: https://github.com/Microsoft/TypeScript/issues/12549
-        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T, name: K, obj: V): R is T;
-        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T, name: K): (obj: V) => R is T;
-        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T): CurriedFunction2<K, V, R is T>;
-        // propIs<T, V, K extends keyof V, R extends V[K]>(type: T): {
-        //     (name: K, obj: V): R is T;
-        //     (name: K): (obj: V) => R is T;
-        // }
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
