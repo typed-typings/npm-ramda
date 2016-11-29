@@ -41,11 +41,11 @@ declare namespace R {
     }
 
     interface ObjFunc {
-        [index: Prop]: Function;
+        [index: string]: Function;
     }
 
     interface ObjFunc2 {
-        [index: Prop]: (x: any, y: any) => boolean;
+        [index: string]: (x: any, y: any) => boolean;
     }
 
     interface Pred {
@@ -57,7 +57,7 @@ declare namespace R {
     }
 
     interface Dictionary<T> {
-        [index: Prop]: T;
+        [index: string]: T;
     }
 
     interface CharList extends String {
@@ -65,7 +65,7 @@ declare namespace R {
     }
 
     interface Nested<U> {
-        [index: Prop]: Nested<U>|{<U>(value: any): U};
+        [index: string]: Nested<U>|{<U>(value: any): U};
     }
 
     interface Lens {
@@ -588,15 +588,15 @@ declare namespace R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<V>(pairs: KeyValuePair<Prop, V>[]): {[index: Prop]: V};
+        fromPairs<V>(pairs: KeyValuePair<Prop, V>[]): {[index: string]: V};
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
          * calling a String-returning function
          * on each element, and grouping the results according to values returned.
          */
-        groupBy<T>(fn: (a: T) => string, list: T[]): {[index: Prop]: T[]}
-        groupBy<T>(fn: (a: T) => string): <T>(list: T[]) => {[index: Prop]: T[]}
+        groupBy<T>(fn: (a: T) => string, list: T[]): {[index: string]: T[]}
+        groupBy<T>(fn: (a: T) => string): <T>(list: T[]) => {[index: string]: T[]}
 
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
@@ -739,12 +739,12 @@ declare namespace R {
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
         */
-        invert<T>(obj: T): {[index: Prop]: string[]};
+        invert<T>(obj: T): {[index: string]: string[]};
 
         /**
         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
         */
-        invertObj(obj: {[index: Prop]: Prop}): {[index: Prop]: string};
+        invertObj(obj: {[index: string]: Prop}): {[index: string]: string};
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -909,12 +909,12 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: Prop]: T }) =>
-            TResult, obj: { [index: Prop]: T }): { [index: Prop]: TResult };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index: Prop]: TResult};
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: Prop]: T }) =>
-            TResult): (obj: { [index: Prop]: T }) => { [index: Prop]: TResult };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index: Prop]: TResult};
+         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: string]: T }) =>
+            TResult, obj: { [index: string]: T }): { [index: string]: TResult };
+        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): {[index: string]: TResult};
+        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: { [index: string]: T }) =>
+            TResult): (obj: { [index: string]: T }) => { [index: string]: TResult };
+        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => {[index: string]: TResult};
 
         /**
          * Tests a regular expression agains a String
@@ -1328,10 +1328,10 @@ declare namespace R {
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
          * element and reduces the elements of each group to a single value via the reducer function valueFn.
          */
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: T[]): {[index: Prop]: TResult};
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: T[]) => {[index: Prop]: TResult};
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): CurriedFunction2<(elem: T) => string, T[], {[index: Prop]: TResult}>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): CurriedFunction3<TResult, (elem: T) => string, T[], {[index: Prop]: TResult}>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: T[]): {[index: string]: TResult};
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: T[]) => {[index: string]: TResult};
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): CurriedFunction2<(elem: T) => string, T[], {[index: string]: TResult}>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): CurriedFunction3<TResult, (elem: T) => string, T[], {[index: string]: TResult}>;
 
         /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
@@ -1562,7 +1562,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F,S>(obj: {[k: Prop]: S} | any): [F,S][];
+        toPairs<F,S>(obj: {[k: string]: S} | any): [F,S][];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1570,7 +1570,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F,S>(obj: {[k: Prop]: S} | any): [F,S][];
+        toPairsIn<F,S>(obj: {[k: string]: S} | any): [F,S][];
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
@@ -1734,7 +1734,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed across
          * different JS platforms.
          */
-        values<T>(obj: {[index: Prop]: T}): T[];
+        values<T>(obj: {[index: string]: T}): T[];
         values<T>(obj: any): T[];
 
         /**
@@ -1814,8 +1814,8 @@ declare namespace R {
          * Creates a new object out of a list of keys and a list of values.
          */
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-        zipObj<T>(keys: string[], values: T[]): {[index: Prop]: T};
-        zipObj(keys: string[]): <T>(values: T[]) => {[index: Prop]: T};
+        zipObj<T>(keys: string[], values: T[]): {[index: string]: T};
+        zipObj(keys: string[]): <T>(values: T[]) => {[index: string]: T};
 
 
         /**
