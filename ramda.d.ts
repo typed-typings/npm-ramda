@@ -740,11 +740,13 @@ declare namespace R {
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
         */
         invert<T>(obj: T): {[index: string]: string[]};
+        invert<T>(obj: T): {[index: number]: string[]};
 
         /**
         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
         */
         invertObj(obj: {[index: string]: Prop}): {[index: string]: string};
+        invertObj(obj: {[index: number]: Prop}): {[index: string]: string};
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
