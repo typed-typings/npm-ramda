@@ -762,8 +762,8 @@ declare namespace R {
          * See if an object (`val`) is an instance of the supplied constructor.
          * This function will check up the inheritance chain, if any.
          */
-        <T>is(ctor: T, val: any): val is T;
-        <T>is(ctor: T): (val: any) => val is T;
+        is<T>(ctor: T, val: any): val is T;
+        is<T>(ctor: T): (val: any) => val is T;
 
         /**
          * Tests whether or not an object is similar to an array.
