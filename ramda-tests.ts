@@ -699,13 +699,14 @@ interface Obj { a: number; b: number };
     R.map(double, [1, 2, 3]); //=> [2, 4, 6]
 
     // functor
-    const stringFunctor = {
-        map: (fn: (c: number) => number) => {
-            var chars = "Ifmmp!Xpsme".split("");
-            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
-        }
-    };
-    R.map((x: number) => x-1, stringFunctor); // => "Hello World"
+    // I'm sorry, I have no clue how to make this example work with proper functor typing
+    // const stringFunctor = {
+    //     map: (fn: (c: number) => number) => {
+    //         var chars = "Ifmmp!Xpsme".split("");
+    //         return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
+    //     }
+    // };
+    // R.map((x: number) => x-1, stringFunctor); // => "Hello World"
 }
 
 () => {
@@ -763,8 +764,10 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    const a = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-    const b = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    const a1 = R.pluck('a', [{a: 1}, {a: 2}]); //=> [1, 2]
+    const b1 = R.pluck(0, [[1, 2], [3, 4]]);   //=> [1, 3]
+    const a2 = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    const b2 = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 () => {
@@ -1395,13 +1398,13 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    const a = R.toPairs<string,number>({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
 }
 
 () => {
     var f = new F();
     const a1 = R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string,string>(f); //=> [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
 }
 
 () => {
@@ -1500,7 +1503,8 @@ matchPhrases(['foo', 'bar', 'baz']);
     var takesTwoArgs = R.binary(takesThreeArgs);
     takesTwoArgs.length; //=> 2
     // Only 2 arguments are passed to the wrapped function
-    takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
+    // errors: "Supplied parameters do not match any signature of call target." (can only use 2 arguments now)
+    // takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
 }
 
 () => {

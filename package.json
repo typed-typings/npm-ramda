@@ -5,6 +5,7 @@
     "test": "tsc --module amd ramda-tests.ts"
   },
   "devDependencies": {
+    "@types/es6-promise": "0.0.32",
     "ramda": "0.21.0",
     "typescript": "^2.0.10"
   }
