@@ -47,21 +47,14 @@ declare namespace R {
         /* static */ zero<T>(): Plus<T>;
     }
 
-    interface Alternative<T> extends Plus<T> /*extends Applicative<T>*/ { // TypeScript: 'extends' clause already seen.
-        // manually copying Alt/Plus methods to workaround single extend limitation
-        alt(b: T): Alt<T>;
-        /* static */ zero<T>(): Plus<T>;
-        // end copy
+    interface Alternative<T> extends Plus<T>, Applicative<T> {
     }
 
     interface Foldable<T> {
         reduce<U>(fn: (u: U, t: T) => U, u: U): U;
     }
 
-    interface Traversable<T> extends Functor<T> /*extends Foldable<T>*/ {
-        // manually copying Foldable method
-        reduce<U>(fn: (u: U, t: T) => U, u: U): U;
-        // end copy
+    interface Traversable<T> extends Functor<T>, Foldable<T> {
         traverse<U, V>(fn: (t: T) => Applicative<U>, of: (v: V) => Applicative<V>): Applicative<Traversable<U>>;
     }
 
@@ -73,28 +66,22 @@ declare namespace R {
         /* static */ chainRec<A,B,C>(f: (next: (a: A) => C, done: (b: B) => C, value: A) => ChainRec<C>, i: A): ChainRec<B>;
     }
 
-    interface Monad<T> extends Applicative<T> /*extends Chain<T>*/ {
-        // manually copying Chain method
-        chain<U>(fn: (t: T) => Chain<U>): Chain<U>;
-        // end copy
+    interface Monad<T> extends Applicative<T>, Chain<T> {
     }
 
     interface Extend<T> {
         extend<U>(f: (v: Extend<T>) => U): Extend<U>;
     }
 
-    interface Comonad<T> extends Functor<T> /*extends Extend<T>*/ {
-        // manually copying Extend method
-        extend<U>(f: (v: Extend<T>) => U): Extend<U>;
-        // end copy
+    interface Comonad<T> extends Functor<T>, Extend<T> {
         extract<U>(): U; // 'same U as in extend's f -- how to bind?
     }
 
-    interface Bifunctor<T,U> extends Functor<T> /*extends Functor<U>*/ {
+    interface Bifunctor<T,U> extends Functor<T> /*, Functor<U>*/ {
         bimap<B,D>(f: (v: T) => B, g: (v: U) => D): Bifunctor<B,D>;
     }
 
-    interface Profunctor<T,U> extends Functor<T> /*extends Functor<U>*/ {
+    interface Profunctor<T,U> extends Functor<T> /*, Functor<U>*/ {
         promap<B,D>(f: (v: T) => B, g: (v: U) => D): Profunctor<B,D>;
     }
 
