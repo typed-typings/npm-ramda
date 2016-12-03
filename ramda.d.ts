@@ -1708,6 +1708,18 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: T[]) => TResult;
         // reduceRight<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult|any, T[], TResult>;
 
+
+        /**
+         * Like reduce, reduceWhile returns a single item by iterating through the list, successively calling the iterator function.
+         * reduceWhile also takes a predicate that is evaluated before each step. If the predicate returns false, it "short-circuits"
+         * the iteration and returns the current value of the accumulator.
+         */
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: T[]): TResult;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, T[], TResult>;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean): CurriedFn3<(TResult, T) => TResult|Reduced, TResult, T[], TResult>;
+        // reduceWhile<T, TResult>: CurriedFn4<(acc: TResult, elem: T) => boolean, (acc: TResult, elem: T) => TResult|Reduced, TResult, T[], TResult>;
+
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
