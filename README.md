@@ -32,13 +32,23 @@ or
 ```
 
 ##Note on placeholders
-Due to incompatiblity problems with typescript's typing system, Ramda's placeholder typing is removed. For binary functions the same functionaly
-can be achieved using `R.flip`. For example:
+Due to incompatiblity problems with typescript's typing system, Ramda's placeholder
+typing is removed. For binary functions the same functionally can be achieved using
+`R.flip`. For example:
 ```typescript
 // using a placeholder ...
 R.subtract(*placeholder*, 3);
 // ... is the same as
 R.flip(R.subtract)(3);
+
+In Ramda almost all functions are curried. TypeScript does not natively support
+currying, so in cases where we've omitted a combination this might break.
+Example of a potential gap:
+```typescript
+R.insert(2, 'x', [1,2,3,4])
+R.insert(2)('x', [1,2,3,4])
+R.insert(2, 'x')([1,2,3,4])
+R.insert(2)('x')([1,2,3,4]) // => type error!
 ```
 
 ##Status
