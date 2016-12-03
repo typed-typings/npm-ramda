@@ -1135,6 +1135,9 @@ type Pair = KeyValuePair<string, number>
 () => {
     const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
     const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
+    interface xpto  { a: number, b: number };
+    var test : xpto = { a: 1, b: 2};
+    const a3 : xpto = R.evolve({ a: R.add(1)}, test );
 }
 
 () => {

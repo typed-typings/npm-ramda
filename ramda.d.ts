@@ -709,6 +709,8 @@ declare namespace R {
         evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
         evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
         // evolve<V>: CurriedFn2<Nested<V>, V, Nested<V>>;
+        evolve(transformations: Dictionary<Function>, obj: any): any;
+        evolve(transformations: Dictionary<Function>): (obj: any) => any;
 
         /*
          * A function that always returns false. Any passed in parameters are ignored.
