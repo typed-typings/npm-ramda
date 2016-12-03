@@ -1,5 +1,7 @@
 import * as R from './ramda';
 
+declare var console: any
+
 var double = function(x: number): number {
     return x + x
 };
@@ -171,6 +173,15 @@ class F2 {
 
     var f = R.pipe(Math.pow, R.negate, R.inc);
     var fr: number = f(3, 4); // -(3^4) + 1
+}
+
+/* pipeP */
+() => {
+    const res = R.pipeP(
+        R.multiply(2),
+        m => Promise.resolve(m / 2),
+        R.multiply(2)
+    )(10)
 }
 
 () => {
