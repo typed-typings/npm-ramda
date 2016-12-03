@@ -242,9 +242,17 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
+        // dispatch to some `and` method:
         and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
         and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
         // and<T extends {and?: Function;}>: CurriedFn2<T, boolean|any, boolean>;
+        // // functions, does this still exist?
+        // and<T extends () => boolean>(fn1: T, fn2: T): T;
+        // and<T extends () => boolean>(fn1: T): (fn2: T) => T;
+        // no generics:
+        and(v1: any, v2: any): boolean;
+        and(v1: any): (v2: any) => boolean;
+        // and: CurriedFn2<any, any, boolean>;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -689,11 +697,17 @@ declare namespace R {
         /**
          * Reports whether two functions have the same value for the specified property.
          */
+        // more generics
         eqProps<T,U>(prop: Prop, obj1: T, obj2: U): boolean;
         eqProps<T,U>(prop: Prop): CurriedFn2<T,U,boolean>;
         eqProps(prop: Prop): <T,U>(obj1: T, obj2: U) => boolean;
         eqProps<T>(prop: Prop, obj1: T): <U>(obj2: U) => boolean;
         // eqProps<T,U>: CurriedFn3<Prop, T, U, boolean>;
+        // less generics
+        eqProps(prop: Prop, obj1: any, obj2: any): boolean;
+        eqProps(prop: Prop): (obj1: any, obj2: any) => boolean;
+        eqProps(prop: Prop): (obj1: any) => (obj2: any) => boolean;
+        // eqProps: CurriedFn3<Prop, any, any, boolean>;
 
         /**
          * Returns true if its arguments are equivalent, false otherwise. Dispatches to an equals method if present.
@@ -1388,10 +1402,10 @@ declare namespace R {
         or<T, U>(a: T, b: U): T|U;
         or<T>(a: T): <U>(b: U) => T|U;
         // or<T, U>: CurriedFn2<T, U, T|U>;
+        // dispatch to some `or` method:
         or<T extends {or?: (alt: U) => T|U;}, U>(fn1: T, val2: U): T|U;
         or<T extends {or?: (alt: U) => T|U;},U>(fn1: T): (val2: U) => T|U;
         // or<T extends {or?: (alt: U) => T|U;}, U>: CurriedFn2<T, U, T|U>;
-
 
         /**
          * Returns the result of "setting" the portion of the given data structure
@@ -1507,9 +1521,9 @@ declare namespace R {
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T, K>(names: K[], obj: T): Partial<T>;
-        pickAll<T, K>(names: K[]): (obj: T) => Partial<T>;
-        // pickAll<T, K>: CurriedFn2<K[], T, Partial<T>>;
+        pickAll<T, K /*extends keyof T*/>(names: K[], obj: T): Partial<T>;
+        pickAll<T, K /*extends keyof T*/>(names: K[]): (obj: T) => Partial<T>;
+        // pickAll<T, K /*extends keyof T*/>: CurriedFn2<K[], T, Partial<T>>;
 
 
         /**
@@ -2293,7 +2307,7 @@ declare namespace R {
          * the test object's value for the property in question, as well as the whole test object.
          *
          * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
-         * `filter`, `find`, `pickWith`, etc.
+         * `filter`, `find`, etc.
          */
         // homogeneous version
         where<T>(spec: Dictionary<(v: T) => boolean>, testObj: Dictionary<T>): boolean;
