@@ -182,7 +182,7 @@ class F2 {
 /* pipeP */
 () => {
     const res = R.pipeP(
-        R.multiply(2),
+        (m: number) => Promise.resolve(R.multiply(2, m)),
         m => Promise.resolve(m / 2),
         R.multiply(2)
     )(10)
