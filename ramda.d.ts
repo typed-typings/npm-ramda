@@ -2349,6 +2349,7 @@ declare namespace R {
          * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
          * either before the internal function is called or with its results.
          */
+        // deprecated: 0.22.0
         wrap<T>(fn: (...args: any[]) => any, wrapper: (...args: any[]) => T): (...args: any[]) => T;
         wrap<T>(fn: (...args: any[]) => any): (wrapper: (...args: any[]) => T) => (...args: any[]) => T;
         // wrap<T>: CurriedFn2<(...args: any[]) => any, (...args: any[]) => T, (...args: any[]) => T>;

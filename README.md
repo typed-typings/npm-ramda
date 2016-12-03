@@ -14,21 +14,11 @@ Pull requests are welcome!
 
 Install the typings for node using:
 ```bash
-typings install ramda --save
+npm install @types/ramda --saveDev
 ```
 If you use the package through a script tag, use:
 ```bash
-typings install ramda --global --save
-```
-
-To use the Ramda type definitions include the following line in each of the .ts files
-that use Ramda:
-```
-    /// <reference path="./path/to/ramda.d.ts" />
-```
-or
-```typescript
-    import * as R from './path/to/ramda'
+npm install @types/ramda --saveDev --global
 ```
 
 ##Note on placeholders
@@ -52,6 +42,6 @@ R.insert(2)('x')([1,2,3,4]) // => type error!
 ```
 
 ##Status
-Typing compatible with ramda version 0.21.0.
+Typing compatible with ramda version 0.22.1.
 This needs to be done:
 - include `sequence` and `traverse`
