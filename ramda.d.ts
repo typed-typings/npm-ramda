@@ -724,6 +724,9 @@ declare namespace R {
         filter<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
         filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
+        filter<T,U extends Dictionary<T>>(fn: (value: T) => boolean, obj: U) : Partial<U>;
+        filter<T>(fn: (value: T) => boolean): <U extends Dictionary<T>>(obj: U) => Partial<U>;
+        // filter<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -1728,8 +1731,14 @@ declare namespace R {
          * function returns falsy.
          */
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
-        reject<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
+        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
         // reject<T>: CurriedFn2<(value: T) => boolean, T[], T[]>;
+        reject<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
+        reject<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
+        // reject<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
+        reject<T,U extends Dictionary<T>>(fn: (value: T) => boolean, obj: U) : Partial<U>;
+        reject<T>(fn: (value: T) => boolean): <U extends Dictionary<T>>(obj: U) => Partial<U>;
+        // reject<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
