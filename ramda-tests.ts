@@ -163,8 +163,8 @@ class F2 {
 }
 
 () => {
-    R.invoker('charAt', String.prototype);
-    R.invoker('charAt', String.prototype, 1);
+    R.invoker(0, 'charAt', String.prototype);
+    R.invoker(1, 'charAt', String.prototype, 1);
 }
 
 (() => {
@@ -485,7 +485,7 @@ R.times(i, 5);
 }
 
 () => {
-    
+
     type Task = {id: number}
     let tasks: Task[] = []
     const a = R.find(task => task.id === 1, tasks) // this works

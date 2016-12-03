@@ -971,9 +971,38 @@ declare namespace R {
          * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
          * when `len` is not specified), and the final parameter is the target object.
          */
-        invoker<T,K extends keyof T>(name: K, obj: T, len?: number): typeof obj[K];
-        invoker<T,K extends keyof T>(name: K): (obj: T, len?: number) => typeof obj[K];
-        // invoker<T,K extends keyof T>: CurriedFn3<K, T, number, typeof obj[K]>;
+        // with keyof -- currently can't seem do to function application like this yet
+        // invoker<T, K extends keyof T, R> (len: number /* = 0 */, name: K, obj: T): obj[K]();
+        // // invoker<T, K extends keyof T, R>: CurriedFn3<number /* = 0 */, K, T, obj[K]()>;
+        // invoker<T, K extends keyof T, P1, R>(len: number /* = 1 */, name: K, x1: P1, obj: T): obj[K](x1);
+        // // invoker<T, K extends keyof T, P1, R>: CurriedFn4<number /* = 0 */, K, P1, T, obj[K](P1)>;
+        // invoker<T, K extends keyof T, P1, P2, R>(len: number /* = 2 */, name: K, x1: P1, x2: P2, obj: T): obj[K](x1, x2);
+        // // invoker<T, K extends keyof T, P1, P2, R>: CurriedFn5<number /* = 0 */, K, P1, P2, T, obj[K](P1, P2)>;
+        // invoker<T, K extends keyof T, P1, P2, P3, R>(len: number /* = 3 */, name: K, x1: P1, x2: P2, x3: P3, obj: T): obj[K](x1, x2, x3);
+        // // invoker<T, K extends keyof T, P1, P2, P3, R>: CurriedFn6<number /* = 0 */, K, P1, P2, P3, T, obj[K](P1, P2, P3)>;
+        // invoker<T, K extends keyof T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: K, x1: P1, x2: P2, x3: P3, x4: P4, obj: T): obj[K](x1, x2, x3, x4);
+        // // invoker<T, K extends keyof T, P1, P2, P3, P4, R>: CurriedFn7<number /* = 0 */, K, P1, P2, P3, P4, T, obj[K](P1, P2, P3, P4)>;
+        // invoker<T, K extends keyof T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: K, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): obj[K](x1, x2, x3, x4, x5);
+        // // invoker<T, K extends keyof T, P1, P2, P3, P4, P5, R>: CurriedFn8<number /* = 0 */, K, P1, P2, P3, P4, P5, T, obj[K](P1, P2, P3, P4, P5)>;
+
+        // manually type results
+        invoker<T, R> (len: number /* = 0 */, name: string, obj: T): R
+        invoker<T, R> (len: number/* = 0 */, name: string): (obj: T) => R
+
+        invoker<T, P1, R>(len: number /* = 1 */, name: string, x1: P1, obj: T): R
+        invoker<T, P1, R>(len: number /* = 1 */, name: string): CurriedFn2<P1, T, R>
+
+        invoker<T, P1, P2, R>(len: number /* = 2 */, name: string, x1: P1, x2: P2, obj: T): R
+        invoker<T, P1, P2, R>(len: number /* = 2 */, name: string): CurriedFn3<P1, P2, T, R>
+
+        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name: string, x1: P1, x2: P2, x3: P3, obj: T): R
+        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name: string): CurriedFn4<P1, P2, P3, T, R>
+
+        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: string, x1: P1, x2: P2, x3: P3, x4: P4, obj: T): R
+        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: string): CurriedFn5<P1, P2, P3, P4, T, R>
+
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: string, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): R
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: string): CurriedFn6<P1, P2, P3, P4, P5, T, R>
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
@@ -1568,7 +1597,7 @@ declare namespace R {
         // supply return object type manually when unable to infer it...
         pluck<T>(p: Prop, list: Struct<any>[]): T[];
         pluck(p: Prop): <T>(list: Struct<any>[]) => T[];
-        // pluck<T>: CurriedFunction2<Prop, Struct<any>[], T[]>;
+        // pluck<T>: CurriedFn2<Prop, Struct<any>[], T[]>;
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
