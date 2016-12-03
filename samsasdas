@@ -1,3 +1,0 @@
-
-read -p "You're about to push, are you sure you won't break the build? " -n 1 -r < /dev/tty
-echo
