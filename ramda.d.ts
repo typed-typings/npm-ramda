@@ -856,7 +856,6 @@ declare namespace R {
         identical<T>(a: T): (b: T) => boolean;
         // identical<T>: CurriedFn2<T, T, boolean>;
 
-
         /**
          * A function that does nothing but return the parameter supplied to it. Good as a default
          * or placeholder function.
