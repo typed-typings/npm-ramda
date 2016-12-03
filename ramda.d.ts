@@ -328,8 +328,9 @@ declare namespace R {
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
-        // bind<T>: CurriedFn2<T, (...args: any[]) => any, (...args: any[]) => any>;
+        bind<T>(fn: (...args: any[]) => any, thisObj: T): (...args: any[]) => any;
+        bind<T>(fn: (...args: any[]) => any): (thisObj: T) => (...args: any[]) => any;
+        // bind<T>: CurriedFn2<(...args: any[]) => any, T, (...args: any[]) => any>;
 
 
         /**
@@ -1938,6 +1939,7 @@ declare namespace R {
          * Returns all but the first element of a list.
          */
         tail<T>(list: T[]): T[];
+        tail(s: string): string;
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
