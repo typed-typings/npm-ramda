@@ -718,9 +718,12 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+        filter<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, T[], T[]>;
+        filter<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
+        filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
+        // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
