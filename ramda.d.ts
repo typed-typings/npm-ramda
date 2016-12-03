@@ -1681,12 +1681,12 @@ declare namespace R {
          * value according to strict equality (`===`).  Most likely used to
          * filter a list.
          */
-        propEq<T>(name: string, val: T, obj: Struct<any>): boolean;
-        propEq<T>(name: string, val: T): (obj: Struct<any>) => boolean;
-        propEq<T>(name: string): CurriedFn2<T, Struct<any>, boolean>;
-        propEq(name: string): <T>(val: T, obj: Struct<any>) => boolean;
-        propEq(name: number): <T>(val: T) => (obj: Struct<any>) => boolean;
-        // propEq<T>: CurriedFn3<string, T, Struct<any>, boolean>;
+        propEq<T extends Struct<any>>(name: string, val: any, obj: T): boolean;
+        propEq<T extends Struct<any>>(name: string, val: any): (obj: T) => boolean;
+        propEq<T extends Struct<any>>(name: string): CurriedFn2<any, T, boolean>;
+        propEq<T extends Struct<any>>(name: string): (val: any, obj: T) => boolean;
+        propEq<T extends Struct<any>>(name: number): (val: any) => (obj: T) => boolean;
+        // propEq<T extends Struct<any>>: CurriedFn3<string, any, T, boolean>;
 
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
