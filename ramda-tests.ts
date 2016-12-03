@@ -51,6 +51,11 @@ class F2 {
     // R.propIs(Number, 'x', {});            //=> false
 });
 
+R.substring(0, 4, '1234567');
+R.substringFrom(4, '1234567');
+R.substringFrom(4)('1234567');
+R.substringTo(8, 'abcdefghijklm');
+
 (() => {
     R.type({}); //=> "Object"
     R.type(1); //=> "Number"
