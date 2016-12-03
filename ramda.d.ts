@@ -204,14 +204,11 @@ declare namespace R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[] )
-         : CurriedFn2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
+       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[] ): CurriedFn2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
        /* Special case for forEach */
-       addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[])
-         : CurriedFn2<(item: T, idx: number, list?: T[]) => void, T[], T[]>;
+       addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): CurriedFn2<(item: T, idx: number, list?: T[]) => void, T[], T[]>;
        /* Special case for reduce */
-       addIndex<T,U>(fn: (f: (acc:U, item: T) => U, aci:U, list: T[]) => U)
-         : CurriedFn3<(acc:U, item: T, idx: number, list?: T[]) => U, U, T[], U>;
+       addIndex<T,U>(fn: (f: (acc:U, item: T) => U, aci:U, list: T[]) => U): CurriedFn3<(acc:U, item: T, idx: number, list?: T[]) => U, U, T[], U>;
        // addIndex<T,U>: CurriedFn3<(f: (item: T) => U, list: T[]) => U[], (item: T, idx: number, list?: T[]) => U, T[], U[]>;
 
         /**
@@ -303,8 +300,8 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
         assoc<T,U>(prop: Prop, val: T, obj: U): {prop: T} & U;
-        assoc(prop: Prop): <T,U>(val: T, obj: U) => {prop: T} & U;
         assoc<T>(prop: Prop, val: T): <U>(obj: U) => {prop: T} & U;
+        assoc<T,U>(prop: Prop): CurriedFn2<T,U, {prop: T} & U>;
         // assoc<T,U>: CurriedFn3<Prop, T, U, {prop: T} & U>;
 
 
@@ -313,8 +310,8 @@ declare namespace R {
          * placing the specific value at the tail end of that path.
          */
         assocPath<T,U>(path: Path, val: T, obj: U): U;
-        assocPath(path: Path): <T,U>(val: T, obj: U) => U;
         assocPath<T>(path: Path, val: T): <U>(obj: U) => U;
+        assocPath<T,U>(path: Path): CurriedFn2<T, U, U>;
         // assocPath<T,U>: CurriedFn3<Path, T, U, U>;
 
         /**
@@ -590,6 +587,8 @@ declare namespace R {
          * elements.
          */
         differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<T,T,T>;
         // differenceWith<T>: CurriedFn3<(a: T, b: T) => boolean, T[], T[], T[]>;
 
         /*
@@ -707,11 +706,12 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
+        evolve(transformations: Dictionary<Function>, obj: any): any;
+        evolve(transformations: Dictionary<Function>): (obj: any) => any;
+        // evolve<V>: CurriedFn2<Dictionary<Function>, any, any>;
         evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
         evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
         // evolve<V>: CurriedFn2<Nested<V>, V, Nested<V>>;
-        evolve(transformations: Dictionary<Function>, obj: any): any;
-        evolve(transformations: Dictionary<Function>): (obj: any) => any;
 
         /*
          * A function that always returns false. Any passed in parameters are ignored.
@@ -919,6 +919,8 @@ declare namespace R {
         insertAll(index: number): <T>(elts: T[], list: T[]) => T[];
         insertAll(index: number): <T>(elts: T[]) => (list: T[]) => T[];
         // insertAll<T>: CurriedFn3<number, T[], T[], T[]>;
+        // alternative version?
+        insertAll<T>(index: number): CurriedFn2<T, T, T>;
 
 
         /**
@@ -953,6 +955,7 @@ declare namespace R {
         into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: T[]) => U, list: T[]): U;
         into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: T[]) => U, T[], U>;
         into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: T[]) => U): <T>(list: T[]) => U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: T[]) => U, T[], U>;
         into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: T[]) => U, list: T[]) => U;
         into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: T[]) => U) => (list: T[]) => U;
         // into<T,U,V extends AccOpts<T,U>>: CurriedFn3<V, (list: T[]) => U, T[], U>;
@@ -1160,17 +1163,24 @@ declare namespace R {
          * The mapAccum function behaves like a combination of map and reduce.
          */
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFn2<U,T[],TResult[]>;
         // mapAccum<T, U, TResult>: CurriedFn3<(acc: U, value: T) => [U, TResult], U, T[], [U, TResult[]]>;
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: T[]) => [U, TResult[]];
         mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFn2<U,T[],TResult[]>;
         // mapAccumRight<T, U, TResult>: CurriedFn3<(acc: U, value: T) => [U, TResult], U, T[], [U, TResult[]]>;
+
+        /**
+         * Like map, but but passes additional parameters to the mapping function.
+         */
+        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
+        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
+        // mapIndexed<T, U>: CurriedFn2<(val: T, key: number, list: T[]) => U, T[], U[]>;
 
 
         /**
@@ -1256,6 +1266,7 @@ declare namespace R {
         mergeWith<U,V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
         mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
         mergeWith(fn: (x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
+        mergeWith<U,V>(fn: (x: any, z: any) => any): CurriedFn2<U,V,U&V>;
         // mergeWith<U,V>: CurriedFn3<(x: any, z: any) => any, U, V, U & V>;
 
         /**
@@ -1267,6 +1278,7 @@ declare namespace R {
         mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
         mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
         mergeWithKey(fn: (str: string, x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
+        mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any): CurriedFn2<U,V,U&V>;
         // mergeWithKey<U,V>: CurriedFn3<(str: string, x: any, z: any) => any, U, V, U & V>;
 
         /**
@@ -1390,15 +1402,18 @@ declare namespace R {
         over<T,V>(lens: UnknownLens, fn: (v: V) => V, value: T): T;
         over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: T) => T;
         over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T) => T;
+        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, T, T>;
         // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, T, T>;
         // Functor version:
         over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: Functor<T>): Functor<T>;
         over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: Functor<T>) => Functor<T>;
+        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, Functor<T>, Functor<T>>;
         over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: Functor<T>) => Functor<T>;
         // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, Functor<T>, Functor<T>>;
         // Functor version applied to array:
         over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: T[]): T[];
         over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: T[]) => T[];
+        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, T[], T[]>;
         over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T[]) => T[];
         // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, T[], T[]>;
 
@@ -1507,9 +1522,10 @@ declare namespace R {
 
 
         /**
-         * Creates a new function that runs each of the functions supplied as parameters in turn,
-         * passing the return value of each function invocation to the next function invocation,
-         * beginning with whatever arguments were passed to the initial invocation.
+         * Performs left-to-right function composition.
+         * The leftmost function may have any arity; the remaining functions must be unary.
+         * In some libraries this function is named sequence.
+         * Note: The result of pipe is not automatically curried.
          */
         pipe<V0, T1>(fn0: (x0: V0) => T1): CurriedFn1<V0, T1>;
         pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): CurriedFn2<V0, V1, T1>;
@@ -1689,6 +1705,7 @@ declare namespace R {
         propOr<T,U,V>(val: T, p: string, obj: U): V;
         propOr<T>(val: T, p: string): <U,V>(obj: U) => V;
         propOr<T>(val: T): <U,V>(p: string, obj: U) => V;
+        propOr<T,U,V>(val: T): CurriedFn2<string, U, V>;
         // propOr<T,U,V>: CurriedFn3<T, string, U, V>;
 
         /**
@@ -1722,21 +1739,22 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: T[]): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult, list: T[]) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
-        // reduce<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult, T[], TResult>;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult, list: T[]): TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced): CurriedFn2<TResult, T[], TResult>;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced): (acc: TResult, list: T[]) => TResult;
+        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
+        // reduce<T, TResult>: CurriedFn3<(acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, TResult, T[], TResult>;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
          * element and reduces the elements of each group to a single value via the reducer function valueFn.
          */
         // reason for 'any' on acc: somehow empty accumulators like '[]' won't work well when matching
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult|any, keyFn: (elem: T) => string, list: T[]): Dictionary<TResult>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult|any, keyFn: (elem: T) => string): (list: T[]) => Dictionary<TResult>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult|any): CurriedFn2<(elem: T) => string, T[], Dictionary<TResult>>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): CurriedFn3<TResult|any, (elem: T) => string, T[], Dictionary<TResult>>;
-        // reduceBy<T, TResult>: CurriedFn4<(acc: TResult, elem: T) => TResult, TResult|any, (elem: T) => string, T[], Dictionary<TResult>>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult|any, keyFn: (elem: T) => string, list: T[]): TResult;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult|any, keyFn: (elem: T) => string): (list: T[]) => TResult;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult|any): CurriedFn2<(elem: T) => string, T[], TResult>;
+        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): CurriedFn3<TResult|any, (elem: T) => string, T[], TResult>;
+        // reduceBy<T, TResult>: CurriedFn4<(acc: TResult, elem: T, idx: number, list: T[]) => TResult, TResult|any, (elem: T) => string, T[], TResult>;
 
         /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
@@ -1753,10 +1771,15 @@ declare namespace R {
         // reason for 'any' on acc: somehow empty accumulators like '[]' won't work well when matching
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any, list: T[]): TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any): (list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, T[], TResult>;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any, list: T[]) => TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: T[]) => TResult;
         // reduceRight<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult|any, T[], TResult>;
 
+        // does this function still/already exist?
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult, list: T[]): TResult;
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
+        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced): CurriedFn2<TResult,T[],TResult>;
 
         /**
          * Like reduce, reduceWhile returns a single item by iterating through the list, successively calling the iterator function.
@@ -1790,8 +1813,8 @@ declare namespace R {
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
          */
         remove<T>(start: number, count: number, list: T[]): T[];
-        remove<T>(start: number): (count: number, list: T[]) => T[];
         remove<T>(start: number, count: number): (list: T[]) => T[];
+        remove<T>(start: number): CurriedFn2<number,T[],T[]>;
         // remove<T>: CurriedFn3<number, number, T[], T[]>;
 
         /**
@@ -1807,6 +1830,8 @@ declare namespace R {
          */
         replace(pattern: RegExp|string, replacement: string, str: string): string;
         replace(pattern: RegExp|string, replacement: string): (str: string) => string;
+        replace(pattern: RegExp|string): CurriedFn2<string, string, string>;
+        replace(pattern: RegExp|string): (replacement: string, str: string) => string;
         replace(pattern: RegExp|string): (replacement: string) => (str: string) => string;
         // replace: CurriedFn3<RegExp|string, string, string, string>;
 
@@ -1833,16 +1858,23 @@ declare namespace R {
         set<T,U>(lens: Lens<T,U>, a: U): (obj: T) => T;
         set<T,U>(lens: Lens<T,U>): (a: U, obj: T) => T;
         // set<T,U>: CurriedFn3<Lens<T,U>, U, T, T>;
+        // assume result type equal to input object:
         set<T>(lens: UnknownLens, a: any, obj: T): T;
         set<T>(lens: UnknownLens, a: any): (obj: T) => T;
         set<T>(lens: UnknownLens): (a: any, obj: T) => T;
         // set<T>: CurriedFn3<UnknownLens, any, T, T>;
+        // old version, with value as an unbound generic; is this useful?
+        set<T,U>(lens: UnknownLens, a: U, obj: T): T;
+        set<T,U>(lens: UnknownLens, a: U): (obj: T) => T;
+        set<T,U>(lens: UnknownLens): CurriedFn2<U,T,T>;
+        // set<T,U>: CurriedFn3<UnknownLens, U, T, T>;
 
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
         slice<T extends any[]|string>(a: number, b: number, list: T): T;
         slice(a: number, b: number): <T extends any[]|string>(list: T) => T;
+        slice<T extends any[]|string>(a: number): CurriedFn2<number, T, T>;
         slice(a: number): <T extends any[]|string>(b: number, list: T) => T;
         slice(a: number): <T extends any[]|string>(b: number) => (list: T) => T;
         // slice<T extends any[]|string>: CurriedFn3<number, number, T, T>;
@@ -1892,7 +1924,6 @@ declare namespace R {
         splitEvery(a: number): (list: string) => string[];
         // splitEvery: CurriedFn2<number, string, string[]>;
 
-
         /**
          * Takes a list and a predicate and returns a pair of lists with the following properties:
          * - the result of concatenating the two output lists is equivalent to the input list;
@@ -1902,6 +1933,14 @@ declare namespace R {
         splitWhen<T,U>(pred: Pred<T>, list: U[]): U[][];
         splitWhen<T>(pred: Pred<T>): <U>(list: U[]) => U[][];
         // splitWhen<T,U>: CurriedFn2<Pred<T>, U[], U[][]>;
+
+        // deprecated since 0.15.0
+        strIndexOf(c: string, str: string): number;
+        strIndexOf(c: string): (str: string) => number;
+
+        // deprecated since 0.15.0
+        strLastIndexOf(c: string, str: string): number;
+        strLastIndexOf(c: string): (str: string) => number;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -2055,9 +2094,9 @@ declare namespace R {
          * current value from the array, and then passing the result to the next call.
          */
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
-        transduce<T,U>(xf: (arg: T[]) => T[]): (fn: (acc: U[], val: U) => U[], acc: T[], list: T[]) => U;
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): (acc: T[], list: T[]) => U;
         transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
+        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): CurriedFn2<T[],T[],U>;
+        transduce<T,U>(xf: (arg: T[]) => T[]): CurriedFn3<(acc: U[], val: U) => U[],T[],T[],U>;
         // transduce<T,U>: CurriedFn4<(arg: T[]) => T[], (acc: U[], val: U) => U[], T[], T[], U>;
 
         /**
@@ -2098,6 +2137,12 @@ declare namespace R {
         unapply<T>(fn: (args: any[]) => T): (...args: any[]) => T;
 
         /**
+         * Maps an Applicative-returning function over a Traversable, then uses sequence to transform the resulting
+         * Traversable of Applicative into an Applicative of Traversable.
+         */
+         // TBI traverse
+
+        /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
          * Any extraneous parameters will not be passed to the supplied function.
          */
@@ -2131,6 +2176,7 @@ declare namespace R {
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
         unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<T[], T[], T[]>
         // unionWith<T>: CurriedFn3<(a: T, b: T) => boolean, T[], T[], T[]>;
 
