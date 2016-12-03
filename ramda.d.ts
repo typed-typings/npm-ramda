@@ -718,12 +718,15 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
+        // array
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
         filter<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, T[], T[]>;
+        // functor
         filter<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
         filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
+        // object
         filter<T,U extends Dictionary<T>>(fn: (value: T) => boolean, obj: U) : Partial<U>;
         filter<T>(fn: (value: T) => boolean): <U extends Dictionary<T>>(obj: U) => Partial<U>;
         // filter<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
@@ -1759,12 +1762,15 @@ declare namespace R {
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
+        // array
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
         reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
         // reject<T>: CurriedFn2<(value: T) => boolean, T[], T[]>;
+        // functor
         reject<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
         reject<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
         // reject<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
+        // object
         reject<T,U extends Dictionary<T>>(fn: (value: T) => boolean, obj: U) : Partial<U>;
         reject<T>(fn: (value: T) => boolean): <U extends Dictionary<T>>(obj: U) => Partial<U>;
         // reject<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
