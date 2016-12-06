@@ -1168,6 +1168,13 @@ declare namespace R {
         // pathOr<T>(d: T, p: string[]): (obj: any) => T|any;
         // pathOr<T>(d: T): (p: string[], obj: any) => T|any;
 
+        /**
+         * Returns `true` if the specified object property at given path satisfies the given predicate; `false`
+         * otherwise.
+         */
+        pathSatisfies(fn: (a: any) => boolean, p: string[], obj: any): boolean;
+        pathSatisfies(fn: (a: any) => boolean, p: string[]): (obj: any) => boolean;
+        pathSatisfies(fn: (a: any) => boolean): CurriedFunction2<string[], any, boolean>;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
