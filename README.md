@@ -43,5 +43,3 @@ R.insert(2)('x')([1,2,3,4]) // => type error!
 
 ##Status
 Typing compatible with ramda version 0.22.1.
-This needs to be done:
-- include `sequence` and `traverse`

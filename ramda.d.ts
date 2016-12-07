@@ -602,6 +602,7 @@ declare namespace R {
         /*
          * Returns a new object that does not contain a prop property.
          */
+        // TODO: fix, can't yet calculate type of object minus this key
         // dissoc<T,U>(prop: Prop, obj: T & { [prop: Prop]: any }): T; // wanna say the original object is the same with the extra key, but can't bind it to prop
         // dissoc<T,U extends Struct<any>>(prop: keyof U, obj: U): T;
         // It seems impossible to infer the return type, so this may have to be specified explicitly
@@ -1863,6 +1864,21 @@ declare namespace R {
         // scan<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult, T[], TResult[]>;
 
         /**
+         * Transforms a Traversable of Applicative into an Applicative of Traversable.
+         */
+        // TODO: incorporate generalized inheritance e.g.: `<U extends
+        // Applicative, V extends Traversable>`; possibly needs [rank 2
+        // polymorphism](https://github.com/Microsoft/TypeScript/issues/1213).
+        // ADT case:
+        sequence<T>(f: (v: T) => Applicative<T>, traversable: Traversable<Applicative<T>>): Applicative<Traversable<T>>;
+        sequence<T>(f: (v: T) => Applicative<T>): (traversable: Traversable<Applicative<T>>) => Applicative<Traversable<T>>;
+        // sequence<T>: CurriedFn2<(v: T) => Applicative<T>, Traversable<Applicative<T>>, Applicative<Traversable<T>>>;
+        // common case of array as traversable:
+        sequence<T>(f: (v: T) => Applicative<T>, traversable: Array<Applicative<T>>): Applicative<Array<T>>;
+        sequence<T>(f: (v: T) => Applicative<T>): (traversable: Array<Applicative<T>>) => Applicative<Array<T>>;
+        // sequence<T>: CurriedFn2<(v: T) => Applicative<T>, Array<Applicative<T>>, Applicative<Array<T>>>;
+
+        /**
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
          * given value.
          */
@@ -2119,6 +2135,22 @@ declare namespace R {
         transpose(list: any[][]): any[][];
 
         /**
+         * Maps an Applicative-returning function over a Traversable, then uses
+         * `sequence` to transform the resulting Traversable of Applicative into
+         * an Applicative of Traversable.
+         */
+         // ADT case:
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: Traversable<T>): Applicative<Traversable<U>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: Traversable<T>) => Applicative<Traversable<U>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
+         // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
+         // common case of array as traversable:
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: Array<T>): Applicative<Array<U>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: Array<T>) => Applicative<Array<U>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, Array<T>, Applicative<Array<U>>>;
+         // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, Array<T>, Applicative<Array<U>>>;
+
+        /**
          * Removes (strips) whitespace from both ends of the string.
          */
         trim(str: string): string;
@@ -2148,12 +2180,6 @@ declare namespace R {
          * R.unapply is the inverse of R.apply.
          */
         unapply<T>(fn: (args: any[]) => T): (...args: any[]) => T;
-
-        /**
-         * Maps an Applicative-returning function over a Traversable, then uses sequence to transform the resulting
-         * Traversable of Applicative into an Applicative of Traversable.
-         */
-         // TBI traverse
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
