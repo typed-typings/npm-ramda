@@ -3,10 +3,7 @@
 [![Build Status](https://travis-ci.org/donnut/typescript-ramda.svg?branch=master)](https://travis-ci.org/donnut/typescript-ramda)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Test with:
-```bash
-tsc --lib "es5,es2015.promise" --module amd ramda-tests.ts
-```
+Test with `npm test`.
 
 Pull requests are welcome!
 
