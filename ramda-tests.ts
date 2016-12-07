@@ -186,8 +186,8 @@ class F2 {
 }
 
 () => {
-    R.invoker('charAt', String.prototype);
-    R.invoker('charAt', String.prototype, 1);
+    R.invoker(0, 'charAt', String.prototype);
+    R.invoker(1, 'charAt', String.prototype, 1);
 }
 
 (() => {
