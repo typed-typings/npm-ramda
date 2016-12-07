@@ -6,6 +6,6 @@
   },
   "devDependencies": {
     "ramda": "0.21.0",
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.9"
   }
 }
