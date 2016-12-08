@@ -1412,8 +1412,8 @@ declare namespace R {
         /**
          * Splits a collection into slices of the specified length.
          */
-        splitEvery<T>(a: number, list: T[]): T[][];
-        splitEvery(a: number): <T>(list: T[]) => T[][];
+        splitEvery<T>(a: number, list: T[] | string): T[][];
+        splitEvery(a: number): <T>(list: T[] | string) => T[][];
 
 
 		/**
