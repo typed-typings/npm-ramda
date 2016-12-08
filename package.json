@@ -1,11 +1,12 @@
 {
   "name": "typescript-ramda",
-  "version": "0.21.0",
+  "version": "0.22.1",
   "scripts": {
-      "test": "tsc --lib \"es5,es2015.promise\" --module amd ramda-tests.ts"
+    "test": "./node_modules/typescript/bin/tsc --lib \"es5,es2015.promise\" --module amd ramda-tests.ts"
   },
   "devDependencies": {
-    "ramda": "0.21.0",
-    "typescript": "^2.0.9"
-  }
+    "ramda": "0.22.1",
+    "typescript": "2.2.0-dev.20161127"
+  },
+  "typings": "ramda.d.ts"
 }

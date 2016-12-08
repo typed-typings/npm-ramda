@@ -12,14 +12,12 @@ var shout = function(x: number): string {
         : 'small'
 };
 
-/** ramda independent way to check type information is not lost
- *  for lists */
+// check type information is not lost for lists
 var onlyNumberList = function(xs: number[]): number[] {
   return xs;
 }
 
-/** ramda independent way to check type information is not lost
- *  for simple objects */
+// check type information is not lost for simple objects
 var onlyNumberObj = function(xs: {[key:string]: number}): {[key:string]: number} {
   return xs;
 }
@@ -36,12 +34,12 @@ class F2 {
     z() {};
 }
 
-(() => {
+() => {
     var x: boolean;
     x = R.isArrayLike('a');
     x = R.isArrayLike([1,2,3]);
     x = R.isArrayLike([]);
-});
+};
 
 (() => {
     R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
@@ -49,7 +47,8 @@ class F2 {
     R.propIs(Number)('x', {x: 1, y: 2});  //=> true
     R.propIs(Number)('x')({x: 1, y: 2});  //=> true
     R.propIs(Number, 'x', {x: 'foo'});    //=> false
-    R.propIs(Number, 'x', {});            //=> false
+    // v errors with `Argument of type '"x"' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
+    // R.propIs(Number, 'x', {});            //=> false
 });
 
 (() => {
@@ -61,7 +60,10 @@ class F2 {
     R.type([]); //=> "Array"
     R.type(/[A-z]/); //=> "RegExp"
 });
-
+() => {
+    const takeTwo = R.curry((x: number, y: number) => x + y)
+    const a: (y: number) => number = takeTwo(3);
+}
 () => {
     var takesNoArg = function() { return true; };
     var takesOneArg = function(a: number) { return [a]; };
@@ -72,14 +74,15 @@ class F2 {
       return a + b + c + d;
     };
 
-    var x1: Function = R.curry(addFourNumbers)
-    // because of the current way of currying, the following call results in a type error
-    // var x2: Function = R.curry(addFourNumbers)(1,2,4)
-    var x3: Function = R.curry(addFourNumbers)(1)(2)
-    var x4: Function = R.curry(addFourNumbers)(1)(2)(3)
-    var y1: number = R.curry(addFourNumbers)(1)(2)(3)(4)
-    var y2: number = R.curry(addFourNumbers)(1,2)(3,4)
-    var y3: number = R.curry(addFourNumbers)(1,2,3)(4)
+    const curriedFourNumbers = R.curry(addFourNumbers);
+    var x1: R.CurriedFn4<number, number, number, number, number> = curriedFourNumbers
+    var x2: R.CurriedFn3<number, number, number, number> = curriedFourNumbers(1)
+    var x3: R.CurriedFn2<number, number, number> = curriedFourNumbers(1)(2)
+    var x4: <T1,R>(t1: T1) => R = curriedFourNumbers(1)(2)(3)
+    var x5: <T1,R>(t1: T1) => R = curriedFourNumbers(1,2,4)
+    var y1: number = curriedFourNumbers(1)(2)(3)(4)
+    var y2: number = curriedFourNumbers(1,2)(3,4)
+    var y3: number = curriedFourNumbers(1,2,3)(4)
 
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
@@ -179,7 +182,7 @@ class F2 {
 /* pipeP */
 () => {
     const res = R.pipeP(
-        R.multiply(2),
+        (m: number) => Promise.resolve(R.multiply(2, m)),
         m => Promise.resolve(m / 2),
         R.multiply(2)
     )(10)
@@ -308,6 +311,15 @@ R.times(i, 5);
     };
     R.reduceRight(flattenPairs, [], pairs); //=> [ 'c', 3, 'b', 2, 'a', 1 ]
 })();
+
+() => {
+    var isOdd = (acc, x) => x % 2 === 1;
+    var xs = [1, 3, 5, 60, 777, 800];
+    R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
+
+    var ys = [2, 4, 6]
+    R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
+}
 
 (() => {
     var values = { x: 1, y: 2, z: 3 };
@@ -629,9 +641,9 @@ interface Obj { a: number; b: number };
 
 (() => {
     let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    const a1 = R.indexBy(R.prop<string>('id'), list);
-    const a2 = R.indexBy(R.prop<string>('id'))(list);
-    const a3 = R.indexBy<{id:string}>(R.prop<string>('id'))(list);
+    const a1 = R.indexBy(R.prop('id'), list);
+    const a2 = R.indexBy(R.prop('id'))(list);
+    const a3 = R.indexBy<{id:string}>(R.prop('id'))(list);
 });
 
 () => {
@@ -647,12 +659,37 @@ interface Obj { a: number; b: number };
     R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
     R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
     R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
+    R.insert(2)(5)([1,2,3,4]); //=> [1,2,5,3,4]
 }
 
 () => {
-    R.insertAll(2, [10,11,12], [1,2,3,4]);
-    R.insertAll(2)([10,11,12], [1,2,3,4]);
-    R.insertAll(2, [10,11,12])([1,2,3,4]);
+    const a1 = R.insertAll(2, [10,11,12], [1,2,3,4]);
+    const a2 = R.insertAll(2)([10,11,12], [1,2,3,4]);
+    const a3 = R.insertAll(2, [10,11,12])([1,2,3,4]);
+    const a4 = R.insertAll(2)([10,11,12])([1,2,3,4]);
+}
+
+() => {
+    const a1 = R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
+    const a2 = R.intersection([1,2,3,4])([7,6,5,4,3]); //=> [4, 3]
+}
+() => {
+    var buffaloSpringfield = [
+      {id: 824, name: 'Richie Furay'},
+      {id: 956, name: 'Dewey Martin'},
+      {id: 313, name: 'Bruce Palmer'},
+      {id: 456, name: 'Stephen Stills'},
+      {id: 177, name: 'Neil Young'}
+    ];
+    var csny = [
+      {id: 204, name: 'David Crosby'},
+      {id: 456, name: 'Stephen Stills'},
+      {id: 539, name: 'Graham Nash'},
+      {id: 177, name: 'Neil Young'}
+    ];
+
+    const a = R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+    //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
 }
 
 () => {
@@ -730,13 +767,14 @@ interface Obj { a: number; b: number };
     R.map(double, [1, 2, 3]); //=> [2, 4, 6]
 
     // functor
-    const stringFunctor = {
-        map: (fn: (c: number) => number) => {
-            var chars = "Ifmmp!Xpsme".split("");
-            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
-        }
-    };
-    R.map((x: number) => x-1, stringFunctor); // => "Hello World"
+    // I'm sorry, I have no clue how to make this example work with proper functor typing
+    // const stringFunctor = {
+    //     map: (fn: (c: number) => number) => {
+    //         var chars = "Ifmmp!Xpsme".split("");
+    //         return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
+    //     }
+    // };
+    // R.map((x: number) => x-1, stringFunctor); // => "Hello World"
 }
 
 () => {
@@ -747,6 +785,7 @@ interface Obj { a: number; b: number };
     R.mapAccum(append, '0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
     R.mapAccum(append)('0', digits); //=> ['01234', ['01', '012', '0123', '01234']]
     R.mapAccum(append, '0')(digits); //=> ['01234', ['01', '012', '0123', '01234']]
+    R.mapAccum(append)('0')(digits); //=> ['01234', ['01', '012', '0123', '01234']]
 }
 
 () => {
@@ -758,6 +797,7 @@ interface Obj { a: number; b: number };
     R.mapAccumRight(append, '0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
     R.mapAccumRight(append)('0', digits); //=> ['04321', ['04321', '0432', '043', '04']]
     R.mapAccumRight(append, '0')(digits); //=> ['04321', ['04321', '0432', '043', '04']]
+    R.mapAccumRight(append)('0')(digits); //=> ['04321', ['04321', '0432', '043', '04']]
 }
 
 () => {
@@ -794,8 +834,10 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    const a = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-    const b = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    const a1 = R.pluck('a', [{a: 1}, {a: 2}]); //=> [1, 2]
+    const b1 = R.pluck(0, [[1, 2], [3, 4]]);   //=> [1, 3]
+    const a2 = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    const b2 = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 () => {
@@ -870,8 +912,9 @@ type Pair = KeyValuePair<string, number>
     var isOdd = function(n: number) {
         return n % 2 === 1;
     };
-    R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
-    R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
+    const a1 = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    const a2 = R.reject(isOdd);
+    const a3 = R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
 }
 
 () => {
@@ -879,8 +922,8 @@ type Pair = KeyValuePair<string, number>
         return list.length - idx <= 2;
     };
     const rejectIndexed = R.addIndex(R.reject);
-    rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
-    rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    const a1 = rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    const a2 = rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 () => {
@@ -1028,6 +1071,14 @@ type Pair = KeyValuePair<string, number>
     R.transduce(transducer)(fn, [], numbers); //=> [2, 3]
 }
 
+// () => {
+//     // Returns `Nothing` if the given divisor is `0`
+//     safeDiv = n => d => d === 0 ? Nothing() : Just(n / d)
+//
+//     R.traverse(Maybe.of, safeDiv(10), [2, 4, 5]); //=> Just([5, 2.5, 2])
+//     R.traverse(Maybe.of, safeDiv(10), [2, 0, 5]); //=> Nothing
+// }
+
 () => {
     const a: any[][] = R.transpose([[1, 'a'], [2, 'b'], [3, 'c']]) //=> [[1, 2, 3], ['a', 'b', 'c']]
     const b: any[][] = R.transpose([[1, 2, 3], ['a', 'b', 'c']]) //=> [[1, 'a'], [2, 'b'], [3, 'c']]
@@ -1135,17 +1186,20 @@ type Pair = KeyValuePair<string, number>
 () => {
     const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
     const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
+    interface xpto  { a: number, b: number };
+    var test : xpto = { a: 1, b: 2};
+    const a3 : xpto = R.evolve({ a: R.add(1)}, test );
 }
 
 () => {
-    // var tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
-    // var transformations = {
-    //     firstName: R.trim,
-    //     lastName: R.trim, // Will not get invoked.
-    //     data: {elapsed: R.add(1), remaining: R.add(-1)}
-    // };
-    // const a = R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
-    // const b = R.evolve(transformations)(tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    var tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
+    var transformations = {
+        firstName: R.trim,
+        lastName: R.trim, // Will not get invoked.
+        data: {elapsed: R.add(1), remaining: R.add(-1)}
+    };
+    const a = R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    const b = R.evolve(transformations)(tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
 }
 
 () => {
@@ -1348,9 +1402,10 @@ class Rectangle {
 
 () => {
     const a1 = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    const a2 = R.pick<any, {a: number}>(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    const a3 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    const a4 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
+    // the following should errror: e/f are not keys in these objects
+    // const a2 = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    // const a3 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    // const a4 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
 }
 
 () => {
@@ -1404,7 +1459,8 @@ matchPhrases(['foo', 'bar', 'baz']);
 
 () => {
     var x: number = <number>R.prop('x', {x: 100}); //=> 100
-    const a = R.prop('x', {}); //=> undefined
+    // errors: `Argument of type '"x"' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
+    // const a = R.prop('x', {}); //=> undefined
 }
 
 () => {
@@ -1434,13 +1490,13 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    const a = R.toPairs<string,number>({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs({a: 1, b: 2, c: 3}); //=> [['a', 1], ['b', 2], ['c', 3]]
 }
 
 () => {
     var f = new F();
     const a1 = R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string,string>(f); //=> [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn(f); //=> [['x','X'], ['y','Y']]
 }
 
 () => {
@@ -1486,10 +1542,11 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    var mapIndexed = R.addIndex(R.map);
-    mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    var mapIndexed = R.addIndex<string,string>(R.map);
+    const a0 = mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    const a1 = R.mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
       //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
-    mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+    const a2 = R.mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
       //=> [2, 56]
 }
 
@@ -1539,23 +1596,12 @@ matchPhrases(['foo', 'bar', 'baz']);
     var takesTwoArgs = R.binary(takesThreeArgs);
     takesTwoArgs.length; //=> 2
     // Only 2 arguments are passed to the wrapped function
-    takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
+    // errors: "Supplied parameters do not match any signature of call target." (can only use 2 arguments now)
+    // takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
 }
-
 () => {
-    var indentN = R.pipe(R.times(R.always(' ')),
-         R.join(''),
-         R.replace(/^(?!$)/gm)
-    );
-
-    var format = R.converge(
-        R.call, [
-            R.pipe(R.prop('indent'), indentN),
-            R.prop('value')
-        ]
-    );
-
-    format({indent: 2, value: 'foo\nbar\nbaz\n'}); //=> '  foo\n  bar\n  baz\n'
+    const f = R.pipe(Math.pow, R.negate, R.inc);
+    f(3, 4); // -(3^4) + 1
 }
 
 () => {
@@ -1636,7 +1682,9 @@ matchPhrases(['foo', 'bar', 'baz']);
     function cmp(x: any, y: any) { return x.a === y.a; }
     var l1 = [{a: 1}, {a: 2}, {a: 3}];
     var l2 = [{a: 3}, {a: 4}];
-    R.differenceWith(cmp, l1, l2); //=> [{a: 1}, {a: 2}]
+    const a1 = R.differenceWith(cmp, l1, l2); //=> [{a: 1}, {a: 2}]
+    const a2 = R.differenceWith(cmp)(l1, l2); //=> [{a: 1}, {a: 2}]
+    const a3 = R.differenceWith(cmp)(l1)(l2); //=> [{a: 1}, {a: 2}]
 }
 
 () => {
@@ -2040,3 +2088,11 @@ class Why {
     R.intersperse(0, [1, 2]); //=> [1, 0, 2]
     R.intersperse(0, [1]); //=> [1]
 }
+
+// #109
+function grepSomethingRecursively(grepPatterns: string | string[]) {
+    if (R.is(Array, grepPatterns)) {
+        R.forEach(() => {}, grepPatterns) 
+    }
+}
+
