@@ -245,28 +245,28 @@ declare namespace R {
         * Creates a new list iteration function from an existing one by adding two new parameters to its callback
         * function: the current index, and the entire list.
         */
-       addIndex<T,U>(fn: (f: (item: T) => U, list: T[]) => U[] ): CurriedFn2<(item: T, idx: number, list?: T[]) => U, T[], U[]>;
+       addIndex<T,U>(fn: (f: (item: T) => U, list: ArrayLike<T>) => U[]): CurriedFn2<(item: T, idx: number, list?: ArrayLike<T>) => U, ArrayLike<T>, U[]>;
        /* Special case for forEach */
-       addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): CurriedFn2<(item: T, idx: number, list?: T[]) => void, T[], T[]>;
+       addIndex<T>(fn: (f: (item: T) => void, list: ArrayLike<T>) => T[]): CurriedFn2<(item: T, idx: number, list?: ArrayLike<T>) => void, ArrayLike<T>, T[]>;
        /* Special case for reduce */
-       addIndex<T,U>(fn: (f: (acc:U, item: T) => U, aci:U, list: T[]) => U): CurriedFn3<(acc:U, item: T, idx: number, list?: T[]) => U, U, T[], U>;
-       // addIndex<T,U>: CurriedFn3<(f: (item: T) => U, list: T[]) => U[], (item: T, idx: number, list?: T[]) => U, T[], U[]>;
+       addIndex<T,U>(fn: (f: (acc:U, item: T) => U, aci:U, list: ArrayLike<T>) => U): CurriedFn3<(acc:U, item: T, idx: number, list?: ArrayLike<T>) => U, U, ArrayLike<T>, U>;
+       // addIndex<T,U>: CurriedFn3<(f: (item: T) => U, list: ArrayLike<T>) => U[], (item: T, idx: number, list?: ArrayLike<T>) => U, ArrayLike<T>, U[]>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
          * element at the given index replaced with the result of the function application.
          */
-        adjust<T>(fn: (a: T) => T, index: number, list: T[]): T[];
-        adjust<T>(fn: (a: T) => T, index: number): (list: T[]) => T[];
-        adjust<T>(fn: (a: T) => T): CurriedFn2<number, T[], T[]>
-        // adjust<T>: CurriedFn3<(a: T) => T, number, T[], T[]>
+        adjust<T>(fn: (a: T) => T, index: number, list: ArrayLike<T>): T[];
+        adjust<T>(fn: (a: T) => T, index: number): (list: ArrayLike<T>) => T[];
+        adjust<T>(fn: (a: T) => T): CurriedFn2<number, ArrayLike<T>, T[]>
+        // adjust<T>: CurriedFn3<(a: T) => T, number, ArrayLike<T>, T[]>
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
          */
-        all<T>(fn: (a: T) => boolean, list: T[]): boolean;
-        all<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
-        // all<T>: CurriedFn2<(a: T) => boolean, T[], boolean>;
+        all<T>(fn: (a: T) => boolean, list: ArrayLike<T>): boolean;
+        all<T>(fn: (a: T) => boolean): (list: ArrayLike<T>) => boolean;
+        // all<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, boolean>;
 
         /**
          * Given a list of predicates, returns a new predicate that will be true exactly when all of them are.
@@ -298,9 +298,9 @@ declare namespace R {
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
          */
-        any<T>(fn: (a: T) => boolean, list: T[]): boolean;
-        any<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
-        // any<T>: CurriedFn2<(a: T) => boolean, T[], boolean>;
+        any<T>(fn: (a: T) => boolean, list: ArrayLike<T>): boolean;
+        any<T>(fn: (a: T) => boolean): (list: ArrayLike<T>) => boolean;
+        // any<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, boolean>;
 
         /**
          * Given a list of predicates returns a new predicate that will be true exactly when any one of them is.
@@ -310,33 +310,33 @@ declare namespace R {
         /**
          * ap applies a list of functions to a list of values.
          */
-        ap<T,U>(fns: ((a: T) => U)[], vs: T[]): U[];
-        ap<T,U>(fns: ((a: T) => U)[]): (vs: T[]) => U[];
-        // ap<T,U>: CurriedFn2<((a: T) => U)[], T[], U[]>;
+        ap<T,U>(fns: ((a: T) => U)[], vs: ArrayLike<T>): U[];
+        ap<T,U>(fns: ((a: T) => U)[]): (vs: ArrayLike<T>) => U[];
+        // ap<T,U>: CurriedFn2<((a: T) => U)[], ArrayLike<T>, U[]>;
 
 
         /**
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
-        aperture<T>(n: number, list: T): T[][];
-        aperture(n: number): <T>(list: T) => T[][];
-        // aperture<T>: CurriedFn2<number, T, T[][]>;
+        aperture<T>(n: number, list: ArrayLike<T>): T[][];
+        aperture(n: number): <T>(list: ArrayLike<T>) => T[][];
+        // aperture<T>: CurriedFn2<number, ArrayLike<T>, T[][]>;
 
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<T, U>(el: U, list: T[]): (T & U)[];
-        append<U>(el: U): <T>(list: T[]) => (T & U)[];
-        // append<T, U>: CurriedFn2<U, T[], (T & U)[]>;
+        append<T, U>(el: U, list: ArrayLike<T>): (T & U)[];
+        append<U>(el: U): <T>(list: ArrayLike<T>) => (T & U)[];
+        // append<T, U>: CurriedFn2<U, ArrayLike<T>, (T & U)[]>;
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
          * a variadic function. fn should be a bound function if context is significant.
          */
-        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: U[]): TResult;
-        apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: U[]) => TResult;
-        // apply<T, U, TResult>: CurriedFn2<(arg0: T, ...args: T[]) => TResult, U[], TResult>;
+        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: ArrayLike<U>): TResult;
+        apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: ArrayLike<U>) => TResult;
+        // apply<T, U, TResult>: CurriedFn2<(arg0: T, ...args: T[]) => TResult, ArrayLike<U>, TResult>;
 
         /**
          * Given a spec object recursively mapping properties to functions, creates a function producing an object
@@ -399,9 +399,9 @@ declare namespace R {
          * `chain` maps a function over a list and concatenates the results.
          * This implementation is compatible with the Fantasy-land Chain spec
          */
-        chain<T, U>(fn: (n: T) => U[], list: T[]): U[];
-        chain<T, U>(fn: (n: T) => U[]): (list: T[]) => U[];
-        // chain<T, U>: CurriedFn2<(n: T) => U[], T[], U[]>;
+        chain<T, U>(fn: (n: T) => U[], list: ArrayLike<T>): U[];
+        chain<T, U>(fn: (n: T) => U[]): (list: ArrayLike<T>) => U[];
+        // chain<T, U>: CurriedFn2<(n: T) => U[], ArrayLike<T>, U[]>;
 
         /**
          * Restricts a number to be within a range.
@@ -416,7 +416,7 @@ declare namespace R {
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
          */
         clone<T>(value: T): T;
-        clone<T>(value: T[]): T[];
+        clone<T>(value: ArrayLike<T>): T[];
 
         /**
          * Makes a comparator function out of a function that reports whether the first element is less than the second.
@@ -530,12 +530,9 @@ declare namespace R {
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
-        concat<T>(list1: T[], list2: T[]): T[];
-        concat<T>(list1: T[]): (list2: T[]) => T[];
-        // concat<T>: CurriedFn2<T[], T[], T[]>;
-        concat(list1: string, list2: string): string;
-        concat(list1: string): (list2: string) => string;
-        // concat: CurriedFn2<string, string, string>;
+        concat<T extends ArrayLike<any>>(list1: T, list2: T): T;
+        concat<T extends ArrayLike<any>>(list1: T): (list2: T) => T;
+        // concat<T extends ArrayLike<any>>: CurriedFn2<T, T, T>;
 
         /**
          * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
@@ -565,9 +562,9 @@ declare namespace R {
         contains(a: string, list: string): boolean;
         contains(a: string): (list: string) => boolean;
         // contains: CurriedFn2<string, string, boolean>;
-        contains<T>(a: T, list: T[]): boolean;
-        contains<T>(a: T): (list: T[]) => boolean;
-        // contains<T>: CurriedFn2<T, T[], boolean>;
+        contains<T, R extends ArrayLike<T>>(a: T, list: R): boolean;
+        contains<T, R extends ArrayLike<T>>(a: T): (list: R) => boolean;
+        // contains<T, R extends ArrayLike<T>>: CurriedFn2<T, R, boolean>;
 
         /**
          * Accepts a converging function and a list of branching functions and returns a new
@@ -585,9 +582,9 @@ declare namespace R {
          * the list. Note that all keys are coerced to strings because of how
          * JavaScript objects work.
          */
-        countBy<T>(fn: (a: T) => string|number, list: T[]): { [index: string]: number };
-        countBy<T>(fn: (a: T) => string|number): (list: T[]) => { [index: string]: number };
-        // countBy<T>: CurriedFn2<(a: T) => string|number, T[], { [index: string]: number }>;
+        countBy<T>(fn: (a: T) => Prop, list: ArrayLike<T>): Dictionary<number>;
+        countBy<T>(fn: (a: T) => Prop): (list: ArrayLike<T>) => Dictionary<number>;
+        // countBy<T>: CurriedFn2<(a: T) => Prop, ArrayLike<T>, Dictionary<number>>;
 
         /**
          * Returns a curried equivalent of the provided function.
@@ -626,19 +623,19 @@ declare namespace R {
         /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          */
-        difference<T>(list1: T[], list2: T[]): T[];
-        difference<T>(list1: T[]): (list2: T[]) => T[];
-        // difference<T>: CurriedFn2<T[], T[], T[]>;
+        difference<T>(list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        difference<T>(list1: ArrayLike<T>): (list2: ArrayLike<T>) => T[];
+        // difference<T>: CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<T,T,T>;
-        // differenceWith<T>: CurriedFn3<(a: T, b: T) => boolean, T[], T[], T[]>;
+        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ArrayLike<T>): (list2: ArrayLike<T>) => T[];
+        differenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<ArrayLike<T>,ArrayLike<T>,T>;
+        // differenceWith<T>: CurriedFn3<(a: T, b: T) => boolean, ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /*
          * Returns a new object that does not contain a prop property.
@@ -674,42 +671,34 @@ declare namespace R {
         /**
          * Returns a new list containing all but the first n elements of the given list.
          */
-        drop<T>(n: number, xs: T[]): T[];
-        drop(n: number, xs: string): string;
-        drop<T>(n: number): {
-            (xs: string): string;
-            (xs: T[]): T[];
-        }
-        // drop<T>: CurriedFn2<number, T[], T[]>;
-        // drop: CurriedFn2<number, string, string>;
+        drop<T extends ArrayLike<any>>(n: number, xs: T): T;
+        drop<T extends ArrayLike<any>>(n: number): (xs: T) => T;
+        // drop<T extends ArrayLike<any>>: CurriedFn2<number, T, T>;
 
         /**
          * Returns a list containing all but the last n elements of the given list.
          */
-        dropLast<T>(n: number, xs: T[]): T[];
-        dropLast(n: number, xs: string): string;
-        dropLast<T>(n: number): {
-            (xs: T[]): T[];
-            (xs: string): string;
-        }
-        // dropLast<T>: CurriedFn2<number, T[], T[]>;
-        // dropLast: CurriedFn2<number, string, string>;
+        // = drop
+        dropLast<T extends ArrayLike<any>>(n: number, xs: T): T;
+        dropLast<T extends ArrayLike<any>>(n: number): (xs: T) => T;
+        // dropLast<T extends ArrayLike<any>>: CurriedFn2<number, T, T>;
 
         /**
          * Returns a new list containing all but last then elements of a given list, passing each value from the
          * right to the supplied predicate function, skipping elements while the predicate function returns true.
          */
-        dropLastWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
-        dropLastWhile<T>(fn: (a: T) => boolean): (list: T[]) => T[];
-        // dropLastWhile<T>: CurriedFn2<(a: T) => boolean, T[], T[]>;
+        // = dropWhile
+        dropLastWhile<T, R extends ArrayLike<T>>(fn: Pred<T>, list: R): T[];
+        dropLastWhile<T, R extends ArrayLike<T>>(fn: Pred<T>): (list: R) => T[];
+        // dropLastWhile<T, R extends ArrayLike<T>>: CurriedFn2<Pred<T>, R, T[]>;
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
          * predicate function, skipping elements while the predicate function returns true.
          */
-        dropWhile<T>(fn: (a: T) => boolean, list: T[]): T[];
-        dropWhile<T>(fn: (a: T) => boolean): (list: T[]) => T[];
-        // dropWhile<T>: CurriedFn2<(a: T) => boolean, T[], T[]>;
+        dropWhile<T, R extends ArrayLike<T>>(fn: Pred<T>, list: R): T[];
+        dropWhile<T, R extends ArrayLike<T>>(fn: Pred<T>): (list: R) => T[];
+        // dropWhile<T, R extends ArrayLike<T>>: CurriedFn2<Pred<T>, R, T[]>;
 
         /**
          * A function wrapping calls to the two functions in an || operation, returning the result of the first
@@ -778,9 +767,9 @@ declare namespace R {
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
         // array
-        filter<T>(fn: (value: T) => boolean, list: T[]): T[];
-        filter<T>(fn: (value: T) => boolean): <T>(list: T[]) => T[];
-        // filter<T>: CurriedFn2<(value: T) => boolean, T[], T[]>;
+        filter<T>(fn: (value: T) => boolean, list: ArrayLike<T>): T[];
+        filter<T>(fn: (value: T) => boolean): <T>(list: ArrayLike<T>) => T[];
+        // filter<T>: CurriedFn2<(value: T) => boolean, ArrayLike<T>, T[]>;
         // functor
         filter<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
         filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
@@ -794,41 +783,47 @@ declare namespace R {
          * Returns the first element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        find<T>(fn: (a: T) => boolean, list: T[]): T;
-        find<T>(fn: (a: T) => boolean): <T>(list: T[]) => T;
-        // find<T>: CurriedFn2<(a: T) => boolean, T[], T>;
+        find<T>(fn: (a: T) => boolean, list: ArrayLike<T>): T;
+        find<T>(fn: (a: T) => boolean): <T>(list: ArrayLike<T>) => T;
+        // find<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, T>;
 
 
         /**
          * Returns the index of the first element of the list which matches the predicate, or `-1`
          * if no element matches.
          */
-        findIndex<T>(fn: (a: T) => boolean, list: T[]): number;
-        findIndex<T>(fn: (a: T) => boolean): <T>(list: T[]) => number;
-        // findIndex<T>: CurriedFn2<(a: T) => boolean, T[], number>;
+        findIndex<T>(fn: (a: T) => boolean, list: ArrayLike<T>): number;
+        findIndex<T>(fn: (a: T) => boolean): <T>(list: ArrayLike<T>) => number;
+        // findIndex<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, number>;
 
         /**
          * Returns the last element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        findLast<T>(fn: (a: T) => boolean, list: T[]): T;
-        findLast<T>(fn: (a: T) => boolean): <T>(list: T[]) => T;
-        // findLast<T>: CurriedFn2<(a: T) => boolean, T[], T>;
+        findLast<T>(fn: (a: T) => boolean, list: ArrayLike<T>): T;
+        findLast<T>(fn: (a: T) => boolean): <T>(list: ArrayLike<T>) => T;
+        // findLast<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, T>;
 
         /**
          * Returns the index of the last element of the list which matches the predicate, or
          * `-1` if no element matches.
          */
-        findLastIndex<T>(fn: (a: T) => boolean, list: T[]): number;
-        findLastIndex<T>(fn: (a: T) => boolean): <T>(list: T[]) => number;
-        // findLastIndex<T>: CurriedFn2<(a: T) => boolean, T[], number>;
+        findLastIndex<T>(fn: (a: T) => boolean, list: ArrayLike<T>): number;
+        findLastIndex<T>(fn: (a: T) => boolean): <T>(list: ArrayLike<T>) => number;
+        // findLastIndex<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, number>;
 
         /**
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: T[][]): T[];
-        flatten<T>(x: T[]): T[];
+        // TODO: figure out how to handle arrays using different levels of nesting
+        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>>): T[];
+        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>): T[];
+        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>): T[];
+        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>): T[];
+        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<T>>>): T[];
+        flatten<T>(x: ArrayLike<ArrayLike<T>>): T[];
+        flatten<T>(x: ArrayLike<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -841,9 +836,9 @@ declare namespace R {
         /**
          * Iterate over an input list, calling a provided function fn for each element in the list.
          */
-        forEach<T>(fn: (x: T) => void, list: T[]): T[];
-        forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
-        // forEach<T>: CurriedFn2<(x: T) => void, T[], T[]>;
+        forEach<T>(fn: (x: T) => void, list: ArrayLike<T>): T[];
+        forEach<T>(fn: (x: T) => void): (list: ArrayLike<T>) => T[];
+        // forEach<T>: CurriedFn2<(x: T) => void, ArrayLike<T>, T[]>;
 
         /**
          * Creates a new object out of a list key-value pairs.
@@ -855,19 +850,16 @@ declare namespace R {
          * calling a String-returning function
          * on each element, and grouping the results according to values returned.
          */
-        groupBy<T>(fn: (a: T) => string, list: T[]): {[index: string]: T[]};
-        groupBy<T>(fn: (a: T) => string): <T>(list: T[]) => {[index: string]: T[]};
-        // groupBy<T>: CurriedFn2<(a: T) => string, T[], {[index: string]: T[]}>;
+        groupBy<T>(fn: (a: T) => Prop, list: ArrayLike<T>): Dictionary<T[]>;
+        groupBy<T>(fn: (a: T) => Prop): <T>(list: ArrayLike<T>) => Dictionary<T[]>;
+        // groupBy<T>: CurriedFn2<(a: T) => Prop, ArrayLike<T>, Dictionary<T[]>>;
 
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
          */
-        groupWith<T>(fn: (x: T, y: T) => boolean, list: T[]): T[][];
-        groupWith<T>(fn: (x: T, y: T) => boolean): (list: T[]) => T[][];
-        groupWith<T>(fn: (x: T, y: T) => boolean, list: string): string[];
-        groupWith<T>(fn: (x: T, y: T) => boolean): (list: string) => string[];
-        // groupWith<T>: CurriedFn2<(x: T, y: T) => boolean, T[], T[][]>;
-        // groupWith<T>: CurriedFn2<(x: T, y: T) => boolean, string, string[]>;
+        groupWith<T, R extends ArrayLike<T>>(fn: (x: T, y: T) => boolean, list: R): R[];
+        groupWith<T, R extends ArrayLike<T>>(fn: (x: T, y: T) => boolean): (list: R) => R[];
+        // groupWith<T, R extends ArrayLike<T>>: CurriedFn2<(x: T, y: T) => boolean, R, R[]>;
 
         /**
          * Returns true if the first parameter is greater than the second.
@@ -901,8 +893,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends Array<any>>(list: T): T[0];
-        head(list: string): string;
+        head<T extends ArrayLike<any>>(list: T): T[0];
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -935,45 +926,45 @@ declare namespace R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T,U>(fn: (a: T) => string, list: T[]): U;
-        indexBy<T>(fn: (a: T) => string): <U>(list: T[]) => U;
-        // indexBy<T,U>: CurriedFn2<(a: T) => string, T[], U>;
+        indexBy<T>(fn: (a: T) => Prop, list: ArrayLike<T>): Dictionary<T>;
+        indexBy<T>(fn: (a: T) => Prop): (list: ArrayLike<T>) => Dictionary<T>;
+        // indexBy<T>: CurriedFn2<(a: T) => Prop, ArrayLike<T>, Dictionary<T>>;
 
         /**
          * Returns the position of the first occurrence of an item in an array
          * (by strict equality),
          * or -1 if the item is not included in the array.
          */
-        indexOf<T>(target: T, list: T[]): number;
-        indexOf<T>(target: T): (list: T[]) => number;
-        // indexOf<T>: CurriedFn2<T, T[], number>;
+        indexOf<T>(target: T, list: ArrayLike<T>): number;
+        indexOf<T>(target: T): (list: ArrayLike<T>) => number;
+        // indexOf<T>: CurriedFn2<T, ArrayLike<T>, number>;
 
         /**
          * Returns all but the last element of a list.
          */
-        init<T>(list: T[]): T[];
+        init<T extends ArrayLike<any>>(list: T): T;
 
         /**
          * Inserts the supplied element into the list, at index index. Note that
          * this is not destructive: it returns a copy of the list with the changes.
          */
-        insert<T>(index: number, elt: T, list: T[]): T[];
-        insert<T>(index: number, elt: T): (list: T[]) => T[];
-        insert<T>(index: number): CurriedFn2<T, T[], T[]>;
-        insert(index: number): <T>(elt: T, list: T[]) => T[];
-        insert(index: number): <T>(elt: T) => (list: T[]) => T[];
-        // insert<T>: CurriedFn3<number, T, T[], T[]>;
+        insert<T>(index: number, elt: T, list: ArrayLike<T>): T[];
+        insert<T>(index: number, elt: T): (list: ArrayLike<T>) => T[];
+        insert<T>(index: number): CurriedFn2<T, ArrayLike<T>, T[]>;
+        // insert(index: number): <T>(elt: T, list: ArrayLike<T>) => T[];
+        // insert(index: number): <T>(elt: T) => (list: ArrayLike<T>) => T[];
+        // insert<T>: CurriedFn3<number, T, ArrayLike<T>, T[]>;
 
         /**
          * Inserts the sub-list into the list, at index `index`.  _Note  that this
          * is not destructive_: it returns a copy of the list with the changes.
          */
-        insertAll<T>(index: number, elts: T[], list: T[]): T[];
-        insertAll<T>(index: number, elts: T[]): (list: T[]) => T[];
-        insertAll<T>(index: number): CurriedFn2<T[], T[], T[]>;
-        insertAll(index: number): <T>(elts: T[], list: T[]) => T[];
-        insertAll(index: number): <T>(elts: T[]) => (list: T[]) => T[];
-        // insertAll<T>: CurriedFn3<number, T[], T[], T[]>;
+        insertAll<T,U>(index: number, elts: ArrayLike<T>, list: ArrayLike<U>): Array<T|U>;
+        insertAll<T,U>(index: number, elts: ArrayLike<T>): (list: ArrayLike<U>) => Array<T|U>;
+        insertAll<T,U>(index: number): CurriedFn2<ArrayLike<T>, ArrayLike<U>, Array<T|U>>;
+        // insertAll(index: number): <T,U>(elts: ArrayLike<T>, list: ArrayLike<U>) => Array<T|U>;
+        // insertAll(index: number): <T>(elts: ArrayLike<T>) => <U>(list: ArrayLike<U>) => Array<T|U>;
+        // insertAll<T>: CurriedFn3<number, ArrayLike<T>, ArrayLike<U>, Array<T|U>>;
         // alternative version?
         insertAll<T>(index: number): CurriedFn2<T, T, T>;
 
@@ -981,9 +972,9 @@ declare namespace R {
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
          */
-        intersection<T>(list1: T[], list2: T[]): T[];
-        intersection<T>(list1: T[]): (list2: T[]) => T[];
-        // intersection<T>: CurriedFn2<T[], T[], T[]>;
+        intersection<T,U>(list1: ArrayLike<T>, list2: ArrayLike<U>): Array<T|U>;
+        intersection<T>(list1: ArrayLike<T>): <U>(list2: ArrayLike<U>) => Array<T|U>;
+        // intersection<T,U>: CurriedFn2<ArrayLike<T>, ArrayLike<U>, Array<T|U>>;
 
 
         /**
@@ -992,40 +983,40 @@ declare namespace R {
          * to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
-        intersectionWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<T[], T[], T[]>;
-        // intersectionWith<T>: CurriedFn3<(a: T, b: T) => boolean, T[], T[], T[]>;
+        intersectionWith<T>(pred: (a: T, b: T) => boolean, list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        intersectionWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>;
+        // intersectionWith<T>: CurriedFn3<(a: T, b: T) => boolean, ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * Creates a new list with the separator interposed between elements.
          */
-        intersperse<T>(separator: T, list: T[]): T[];
-        intersperse<T>(separator: T): (list: T[]) => T[];
-        // intersperse<T>: CurriedFn2<T, T[], T[]>;
+        intersperse<T>(separator: T, list: ArrayLike<T>): T[];
+        intersperse<T>(separator: T): (list: ArrayLike<T>) => T[];
+        // intersperse<T>: CurriedFn2<T, ArrayLike<T>, T[]>;
 
         /**
          * Transforms the items of the list with the transducer and appends the transformed items to the accumulator
          * using an appropriate iterator function based on the accumulator type.
          */
-        into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: T[]) => U, list: T[]): U;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: T[]) => U, T[], U>;
-        into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: T[]) => U): <T>(list: T[]) => U;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: T[]) => U, T[], U>;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: T[]) => U, list: T[]) => U;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: T[]) => U) => (list: T[]) => U;
-        // into<T,U,V extends AccOpts<T,U>>: CurriedFn3<V, (list: T[]) => U, T[], U>;
+        into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: ArrayLike<T>) => U, list: ArrayLike<T>): U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: ArrayLike<T>) => U, ArrayLike<T>, U>;
+        into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: ArrayLike<T>) => U): <T>(list: ArrayLike<T>) => U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: ArrayLike<T>) => U, ArrayLike<T>, U>;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: ArrayLike<T>) => U, list: ArrayLike<T>) => U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: ArrayLike<T>) => U) => (list: ArrayLike<T>) => U;
+        // into<T,U,V extends AccOpts<T,U>>: CurriedFn3<V, (list: ArrayLike<T>) => U, ArrayLike<T>, U>;
 
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
         */
-        invert(obj: Object): {[index: string]: string[]};
-        invert(obj: Object): {[index: number]: string[]};
+        invert(obj: Struct<Prop>): Dictionary<ArrayLike<string>>;
 
         /**
         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
         */
         invertObj(obj: Object): {[index: string]: string};
         invertObj(obj: Object): {[index: number]: string};
+        invertObj(obj: Struct<Prop>): Dictionary<string>;
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -1079,7 +1070,8 @@ declare namespace R {
         /**
          * Tests whether or not an object is similar to an array.
          */
-        isArrayLike(val: any): boolean;
+        isArrayLike(val: any): val is ArrayLike<any>;
+        // isArrayLike(val: any): boolean;
 
         /**
          * Reports whether the list has zero elements.
@@ -1122,25 +1114,26 @@ declare namespace R {
          * properties of the supplied object, including prototype properties.
          */
         keysIn<T>(obj: T): string[];
+        keysIn(obj: Struct<any>): string[];
 
         /**
          * Returns the last element from a list.
          */
-        last<T>(list: T[]): T;
-        last(list: string): string;
+        last<T, R extends ArrayLike<T>>(list: R): T;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
          * an array, or -1 if the item is not included in the array.
          */
-        lastIndexOf<T>(target: T, list: T[]): number;
-        lastIndexOf<T>(target: T): (list: T[]) => number;
-        // lastIndexOf<T>: CurriedFn2<T, T[], number>;
+        // = indexOf
+        lastIndexOf<T>(target: T, list: ArrayLike<T>): number;
+        lastIndexOf<T>(target: T): (list: ArrayLike<T>) => number;
+        // lastIndexOf<T>: CurriedFn2<T, ArrayLike<T>, number>;
 
         /**
          * Returns the number of elements in the array by returning list.length.
          */
-        length(list: any[]): number;
+        length(list: ArrayLike<any>): number;
 
         /**
          * Returns a lens for the given getter and setter functions. The getter
@@ -1202,9 +1195,15 @@ declare namespace R {
         /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
-        map<T, U>(fn: (x: T) => U, list: T[]): U[];
-        map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
-        // map<T, U>: CurriedFn2<(x: T) => U, T[], U[]>;
+        // array -- not sure why tests fail without this even with array-like!
+        map<T, U>(fn: (x: T) => U, list: Array<T>): U[];
+        map<T, U>(fn: (x: T) => U): (list: Array<T>) => U[];
+        // map<T, U>: CurriedFn2<(x: T) => U, Array<T>, U[]>;
+        // array-like
+        map<T, U>(fn: (x: T) => U, list: ArrayLike<T>): U[];
+        map<T, U>(fn: (x: T) => U): (list: ArrayLike<T>) => U[];
+        // map<T, U>: CurriedFn2<(x: T) => U, ArrayLike<T>, U[]>;
+        // object
         map<T, V, M extends {[k: string]: T}>(fn: (value: T) => V, obj: M): {[K in keyof M]: V};
         map<T, V, M extends {[k: string]: T}>(fn: (value: T) => V): (obj: M) => {[K in keyof M]: V};
         // map<T, V, M extends {[k: string]: T}>: CurriedFn2<(value: T) => V, M, {[K in keyof M]: V}>;
@@ -1217,25 +1216,25 @@ declare namespace R {
         /**
          * The mapAccum function behaves like a combination of map and reduce.
          */
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFn2<U,T[],TResult[]>;
-        // mapAccum<T, U, TResult>: CurriedFn3<(acc: U, value: T) => [U, TResult], U, T[], [U, TResult[]]>;
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: ArrayLike<T>): [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: ArrayLike<T>) => [U, TResult[]];
+        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFn2<U,ArrayLike<T>,[U, TResult[]]>;
+        // mapAccum<T, U, TResult>: CurriedFn3<(acc: U, value: T) => [U, TResult], U, ArrayLike<T>, [U, TResult[]]>;
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: T[]): [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: T[]) => [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFn2<U,T[],TResult[]>;
-        // mapAccumRight<T, U, TResult>: CurriedFn3<(acc: U, value: T) => [U, TResult], U, T[], [U, TResult[]]>;
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: ArrayLike<T>): [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: ArrayLike<T>) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFn2<U, ArrayLike<T>, [U, TResult[]]>;
+        // mapAccumRight<T, U, TResult>: CurriedFn3<(acc: U, value: T) => [U, TResult], U, ArrayLike<T>, [U, TResult[]]>;
 
         /**
          * Like map, but but passes additional parameters to the mapping function.
          */
-        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U, list: T[]): U[];
-        mapIndexed<T, U>(fn: (val: T, key: number, list: T[]) => U): (list: T[]) => U[];
-        // mapIndexed<T, U>: CurriedFn2<(val: T, key: number, list: T[]) => U, T[], U[]>;
+        mapIndexed<T, U, V extends ArrayLike<T>>(fn: (val: T, key: number, list: V) => U, list: V): U[];
+        mapIndexed<T, U, V extends ArrayLike<T>>(fn: (val: T, key: number, list: V) => U): (list: V) => U[];
+        // mapIndexed<T, U, V extends ArrayLike<T>>: CurriedFn2<(val: T, key: number, list: V) => U, V, U[]>;
 
 
         /**
@@ -1283,12 +1282,12 @@ declare namespace R {
         /**
          * Returns the mean of the given list of numbers.
          */
-        mean(list: number[]): number;
+        mean(list: ArrayLike<number>): number;
 
         /**
          * Returns the median of the given list of numbers.
          */
-        median(list: number[]): number;
+        median(list: ArrayLike<number>): number;
 
         /**
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
@@ -1310,7 +1309,7 @@ declare namespace R {
         /**
          * Merges a list of objects together into one object.
          */
-        mergeAll<T>(list: any[]): T;
+        mergeAll<T>(list: ArrayLike<any>): T;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -1386,9 +1385,9 @@ declare namespace R {
         /**
          * Returns true if no elements of the list match the predicate, false otherwise.
          */
-        none<T>(fn: (a: T) => boolean, list: T[]): boolean;
-        none<T>(fn: (a: T) => boolean): (list: T[]) => boolean;
-        // none<T>: CurriedFn2<(a: T) => boolean, T[], boolean>;
+        none<T>(fn: (a: T) => boolean, list: ArrayLike<T>): boolean;
+        none<T>(fn: (a: T) => boolean): (list: ArrayLike<T>) => boolean;
+        // none<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, boolean>;
 
 
         /**
@@ -1400,9 +1399,9 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: T[]): T;
-        nth(n: number): <T>(list: T[]) => T;
-        // nth<T>: CurriedFn2<number, T[], T>;
+        nth<T>(n: number, list: ArrayLike<T>): T;
+        nth(n: number): <T>(list: ArrayLike<T>) => T;
+        // nth<T>: CurriedFn2<number, ArrayLike<T>, T>;
 
         /**
          * Returns a function which returns its nth argument.
@@ -1425,9 +1424,9 @@ declare namespace R {
         /**
          * Returns a partial copy of an object omitting the keys specified.
          */
-        omit<T>(names: string[], obj: T): T;
-        omit(names: string[]): <T>(obj: T) => T;
-        // omit<T>: CurriedFn2<string[], T, T>;
+        omit<T>(names: ArrayLike<Prop>, obj: T): T;
+        omit(names: ArrayLike<Prop>): <T>(obj: T) => T;
+        // omit<T>: CurriedFn2<ArrayLike<Prop>, T, T>;
 
         /**
          * Accepts a function fn and returns a function that guards invocation of fn such that fn can only ever be
@@ -1466,11 +1465,11 @@ declare namespace R {
         over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: Functor<T>) => Functor<T>;
         // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, Functor<T>, Functor<T>>;
         // Functor version applied to array:
-        over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: T[]): T[];
-        over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: T[]) => T[];
-        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, T[], T[]>;
-        over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T[]) => T[];
-        // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, T[], T[]>;
+        over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: ArrayLike<T>): T[];
+        over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: ArrayLike<T>) => T[];
+        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, ArrayLike<T>, T[]>;
+        over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: ArrayLike<T>) => T[];
+        // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, ArrayLike<T>, T[]>;
 
 
         /**
@@ -1503,9 +1502,9 @@ declare namespace R {
          * which do and do not satisfy the predicate, respectively.
          */
         // arrays
-        partition<T>(fn: (a: T) => boolean, list: T[]): [T[], T[]];
-        partition<T>(fn: (a: T) => boolean): (list: T[]) => [T[], T[]];
-        // partition<T>: CurriedFn2<(a: T) => boolean, T[], [T[], T[]]>;
+        partition<T>(fn: (a: T) => boolean, list: ArrayLike<T>): [T[], T[]];
+        partition<T>(fn: (a: T) => boolean): (list: ArrayLike<T>) => [T[], T[]];
+        // partition<T>: CurriedFn2<(a: T) => boolean, ArrayLike<T>, [T[], T[]]>;
         // objects
         partition<T extends Dictionary<V>,U extends Dictionary<V>,V>(fn: (a: V) => boolean, obj: T & U) : [T,U];
         // partition<T extends Dictionary<V>,U extends Dictionary<V>,V>: CurriedFn2<(a: T) => boolean, obj: T & U, [T,U]>;
@@ -1555,17 +1554,17 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends keyof T>(names: K[], obj: T): Pick<T, K>;
-        pick<T, K extends keyof T>(names: K[]): (obj: T) => Pick<T, K>;
-        // pick<T, K extends keyof T>: CurriedFn2<K[], T, Pick<T, K>>;
+        pick<T, K extends keyof T>(names: ArrayLike<K>, obj: T): Pick<T, K>;
+        pick<T, K extends keyof T>(names: ArrayLike<K>): (obj: T) => Pick<T, K>;
+        // pick<T, K extends keyof T>: CurriedFn2<ArrayLike<K>, T, Pick<T, K>>;
 
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
          */
-        pickAll<T, K /*extends keyof T*/>(names: K[], obj: T): Partial<T>;
-        pickAll<T, K /*extends keyof T*/>(names: K[]): (obj: T) => Partial<T>;
-        // pickAll<T, K /*extends keyof T*/>: CurriedFn2<K[], T, Partial<T>>;
+        pickAll<T, K /*extends keyof T*/>(names: ArrayLike<K>, obj: T): Partial<T>;
+        pickAll<T, K /*extends keyof T*/>(names: ArrayLike<K>): (obj: T) => Partial<T>;
+        // pickAll<T, K /*extends keyof T*/>: CurriedFn2<ArrayLike<K>, T, Partial<T>>;
 
 
         /**
@@ -1676,9 +1675,9 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<T extends Struct<any>, K extends keyof T>(p: K, list: T[]): T[K][]; // fails on number keys
-        pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: T[]) => T[K][]; // doesn't work, T info late
-        // pluck<T extends Struct<any>, K extends keyof T>: CurriedFn2<K, T[], T[K][]>;
+        pluck<T extends Struct<any>, K extends keyof T>(p: K, list: ArrayLike<T>): T[K][]; // fails on number keys
+        pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: ArrayLike<T>) => T[K][]; // doesn't work, T info late
+        // pluck<T extends Struct<any>, K extends keyof T>: CurriedFn2<K, ArrayLike<T>, T[K][]>;
         // supply return object type manually when unable to infer it...
         pluck<T>(p: Prop, list: Struct<any>[]): T[];
         pluck(p: Prop): <T>(list: Struct<any>[]) => T[];
@@ -1688,26 +1687,26 @@ declare namespace R {
          * Returns a new list with the given element at the front, followed by the contents of the
          * list.
          */
-        prepend<T>(el: T, list: T[]): T[];
-        prepend<T>(el: T): (list: T[]) => T[];
-        // prepend<T>: CurriedFn2<T, T[], T[]>;
+        prepend<T>(el: T, list: ArrayLike<T>): T[];
+        prepend<T>(el: T): (list: ArrayLike<T>) => T[];
+        // prepend<T>: CurriedFn2<T, ArrayLike<T>, T[]>;
 
         /**
          * Multiplies together all the elements of a list.
          */
-        product(list: number[]): number;
+        product(list: ArrayLike<number>): number;
 
 
         /**
          * Reasonable analog to SQL `select` statement.
          */
-        project<T, K extends keyof T>(props: K[], objs: T[]): Pick<T, K>[];
-        project<T, K extends keyof T>(props: K[]): (objs: T[]) => Pick<T, K>[]; // T info probably too late
-        // project<T, K extends keyof T>: CurriedFn2<K[], T[], Pick<T, K>[]>;
+        project<T, K extends keyof T>(props: ArrayLike<K>, objs: ArrayLike<T>): Pick<T, K>[];
+        project<T, K extends keyof T>(props: ArrayLike<K>): (objs: ArrayLike<T>) => Pick<T, K>[]; // T info probably too late
+        // project<T, K extends keyof T>: CurriedFn2<ArrayLike<K>, ArrayLike<T>, Pick<T, K>[]>;
         // supply return object type manually when unable to infer it...
-        project<T,U>(props: string[], objs: T[]): U[];
-        project(props: string[]): <T,U>(objs: T[]) => U[];
-        // project<T,U>: CurriedFn2<string[], T[], U[]>;
+        project<T,U>(props: ArrayLike<Prop>, objs: ArrayLike<T>): U[];
+        project(props: ArrayLike<Prop>): <T,U>(objs: ArrayLike<T>) => U[];
+        // project<T,U>: CurriedFn2<ArrayLike<Prop>, ArrayLike<T>, U[]>;
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
@@ -1766,9 +1765,9 @@ declare namespace R {
         /**
          * Acts as multiple `prop`: array of keys in, array of values out. Preserves order.
          */
-        props<T>(ps: Prop[], obj: Struct<T>): T[];
-        props(ps: Prop[]): <T>(obj: Struct<T>) => T[];
-        // props<T>: CurriedFn2<Prop[], Struct<T>, T[]>;
+        props<T>(ps: ArrayLike<Prop>, obj: Struct<T>): T[];
+        props(ps: ArrayLike<Prop>): <T>(obj: Struct<T>) => T[];
+        // props<T>: CurriedFn2<ArrayLike<Prop>, Struct<T>, T[]>;
         // TODO: heterogeneous version
 
         /**
@@ -1794,22 +1793,22 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult, list: T[]): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced): CurriedFn2<TResult, T[], TResult>;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced): (acc: TResult, list: T[]) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
-        // reduce<T, TResult>: CurriedFn3<(acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, TResult, T[], TResult>;
+        reduce<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult, list: R): TResult;
+        reduce<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): CurriedFn2<TResult, R, TResult>;
+        reduce<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): (acc: TResult, list: R) => TResult;
+        reduce<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult): (list: R) => TResult;
+        // reduce<T, TResult, R extends ArrayLike<T>>: CurriedFn3<(acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, TResult, R, TResult>;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
          * element and reduces the elements of each group to a single value via the reducer function valueFn.
          */
         // reason for 'any' on acc: somehow empty accumulators like '[]' won't work well when matching
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult|any, keyFn: (elem: T) => string, list: T[]): TResult;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult|any, keyFn: (elem: T) => string): (list: T[]) => TResult;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult, acc: TResult|any): CurriedFn2<(elem: T) => string, T[], TResult>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T, idx: number, list: T[]) => TResult): CurriedFn3<TResult|any, (elem: T) => string, T[], TResult>;
-        // reduceBy<T, TResult>: CurriedFn4<(acc: TResult, elem: T, idx: number, list: T[]) => TResult, TResult|any, (elem: T) => string, T[], TResult>;
+        reduceBy<T, TResult, R extends ArrayLike<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult, acc: TResult|any, keyFn: (elem: T) => string, list: R): TResult;
+        reduceBy<T, TResult, R extends ArrayLike<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult, acc: TResult|any, keyFn: (elem: T) => string): (list: R) => TResult;
+        reduceBy<T, TResult, R extends ArrayLike<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult, acc: TResult|any): CurriedFn2<(elem: T) => string, R, TResult>;
+        reduceBy<T, TResult, R extends ArrayLike<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult): CurriedFn3<TResult|any, (elem: T) => string, R, TResult>;
+        // reduceBy<T, TResult, R extends ArrayLike<T>>: CurriedFn4<(acc: TResult, elem: T, idx: number, list: R) => TResult, TResult|any, (elem: T) => string, R, TResult>;
 
         /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
@@ -1824,37 +1823,37 @@ declare namespace R {
          * then passing the result to the next call.
          */
         // reason for 'any' on acc: somehow empty accumulators like '[]' won't work well when matching
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any, list: T[]): TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any): (list: T[]) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, T[], TResult>;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any, list: T[]) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: T[]) => TResult;
-        // reduceRight<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult|any, T[], TResult>;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any, list: ArrayLike<T>): TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any): (list: ArrayLike<T>) => TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, ArrayLike<T>, TResult>;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any, list: ArrayLike<T>) => TResult;
+        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: ArrayLike<T>) => TResult;
+        // reduceRight<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult|any, ArrayLike<T>, TResult>;
 
         // does this function still/already exist?
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult, list: T[]): TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
-        reduceRightIndexed<T, TResult>(fn: (acc: TResult, elem: T, idx: Number, list: T[]) => TResult|Reduced): CurriedFn2<TResult,T[],TResult>;
+        reduceRightIndexed<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult, list: R): TResult;
+        reduceRightIndexed<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult): (list: R) => TResult;
+        reduceRightIndexed<T, TResult, R extends ArrayLike<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): CurriedFn2<TResult,R,TResult>;
 
         /**
          * Like reduce, reduceWhile returns a single item by iterating through the list, successively calling the iterator function.
          * reduceWhile also takes a predicate that is evaluated before each step. If the predicate returns false, it "short-circuits"
          * the iteration and returns the current value of the accumulator.
          */
-        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: T[]): TResult;
-        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: T[]) => TResult;
-        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, T[], TResult>;
-        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean): CurriedFn3<(TResult, T) => TResult|Reduced, TResult, T[], TResult>;
-        // reduceWhile<T, TResult>: CurriedFn4<(acc: TResult, elem: T) => boolean, (acc: TResult, elem: T) => TResult|Reduced, TResult, T[], TResult>;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: ArrayLike<T>): TResult;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: ArrayLike<T>) => TResult;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, ArrayLike<T>, TResult>;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean): CurriedFn3<(TResult, T) => TResult|Reduced, TResult, ArrayLike<T>, TResult>;
+        // reduceWhile<T, TResult>: CurriedFn4<(acc: TResult, elem: T) => boolean, (acc: TResult, elem: T) => TResult|Reduced, TResult, ArrayLike<T>, TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
         // array
-        reject<T>(fn: (value: T) => boolean, list: T[]): T[];
-        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
-        // reject<T>: CurriedFn2<(value: T) => boolean, T[], T[]>;
+        reject<T>(fn: (value: T) => boolean, list: ArrayLike<T>): T[];
+        reject<T>(fn: (value: T) => boolean): (list: ArrayLike<T>) => T[];
+        // reject<T>: CurriedFn2<(value: T) => boolean, ArrayLike<T>, T[]>;
         // functor
         reject<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
         reject<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
@@ -1867,10 +1866,10 @@ declare namespace R {
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
          */
-        remove<T>(start: number, count: number, list: T[]): T[];
-        remove<T>(start: number, count: number): (list: T[]) => T[];
-        remove<T>(start: number): CurriedFn2<number,T[],T[]>;
-        // remove<T>: CurriedFn3<number, number, T[], T[]>;
+        remove<T>(start: number, count: number, list: ArrayLike<T>): T[];
+        remove<T>(start: number, count: number): (list: ArrayLike<T>) => T[];
+        remove<T>(start: number): CurriedFn2<number,ArrayLike<T>,T[]>;
+        // remove<T>: CurriedFn3<number, number, ArrayLike<T>, T[]>;
 
         /**
          * Returns a fixed list of size n containing a specified identical value.
@@ -1894,15 +1893,15 @@ declare namespace R {
         /**
          * Returns a new list with the same elements as the original list, just in the reverse order.
          */
-        reverse<T>(list: T[]): T[];
+        reverse<T>(list: ArrayLike<T>): T[];
 
         /**
          * Scan is similar to reduce, but returns a list of successively reduced values from the left.
          */
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: T[]): TResult[];
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: T[]) => TResult[];
-        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, T[], TResult[]>;
-        // scan<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult, T[], TResult[]>;
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: ArrayLike<T>): TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: ArrayLike<T>) => TResult[];
+        scan<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, ArrayLike<T>, TResult[]>;
+        // scan<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult, ArrayLike<T>, TResult[]>;
 
         /**
          * Transforms a Traversable of Applicative into an Applicative of Traversable.
@@ -1942,29 +1941,29 @@ declare namespace R {
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
          */
-        slice<T extends any[]|string>(a: number, b: number, list: T): T;
-        slice(a: number, b: number): <T extends any[]|string>(list: T) => T;
-        slice<T extends any[]|string>(a: number): CurriedFn2<number, T, T>;
-        slice(a: number): <T extends any[]|string>(b: number, list: T) => T;
-        slice(a: number): <T extends any[]|string>(b: number) => (list: T) => T;
-        // slice<T extends any[]|string>: CurriedFn3<number, number, T, T>;
+        slice<T extends ArrayLike<any>>(a: number, b: number, list: T): T;
+        slice(a: number, b: number): <T extends ArrayLike<any>>(list: T) => T;
+        slice<T extends ArrayLike<any>>(a: number): CurriedFn2<number, T, T>;
+        slice(a: number): <T extends ArrayLike<any>>(b: number, list: T) => T;
+        slice(a: number): <T extends ArrayLike<any>>(b: number) => (list: T) => T;
+        // slice<T extends ArrayLike<any>>: CurriedFn3<number, number, T, T>;
 
         /**
          * Returns a copy of the list, sorted according to the comparator function, which should accept two values at a
          * time and return a negative number if the first value is smaller, a positive number if it's larger, and zero
          * if they are equal.
          */
-        sort<T>(fn: (a: T, b: T) => number, list: T[]): T[];
-        sort<T>(fn: (a: T, b: T) => number): (list: T[]) => T[];
-        // sort<T>: CurriedFn2<(a: T, b: T) => number, T[], T[]>;
+        sort<T>(fn: (a: T, b: T) => number, list: ArrayLike<T>): T[];
+        sort<T>(fn: (a: T, b: T) => number): (list: ArrayLike<T>) => T[];
+        // sort<T>: CurriedFn2<(a: T, b: T) => number, ArrayLike<T>, T[]>;
 
 
         /**
          * Sorts the list according to a key generated by the supplied function.
          */
-        sortBy<T>(fn: (a: T) => string, list: T[]): T[];
-        sortBy<T>(fn: (a: T) => string): (list: T[]) => T[];
-        // sortBy<T>: CurriedFn2<(a: T) => string, T[], T[]>;
+        sortBy<T>(fn: (a: T) => string, list: ArrayLike<T>): T[];
+        sortBy<T>(fn: (a: T) => string): (list: ArrayLike<T>) => T[];
+        // sortBy<T>: CurriedFn2<(a: T) => string, ArrayLike<T>, T[]>;
 
         /**
          * Splits a string into an array of strings based on the given
@@ -1977,22 +1976,26 @@ declare namespace R {
         /**
          * Splits a given list or string at a given index.
          */
-        splitAt<T>(index: number, list: T[]): T[][];
-        splitAt(index: number): <T>(list: T[]) => T[][];
-        // splitAt<T>: CurriedFn2<number, T[], T[][]>;
+        // string
         splitAt(index: number, list: string): [string, string];
-        splitAt(index: number): (list: string) => [string, string];
+        // splitAt(index: number): (list: string) => [string, string];
         // splitAt: CurriedFn2<number, string, [string, string]>;
+        // array
+        splitAt<T>(index: number, list: ArrayLike<T>): T[][];
+        // splitAt(index: number): <T>(list: ArrayLike<T>) => T[][];
+        // splitAt<T>: CurriedFn2<number, ArrayLike<T>, T[][]>;
+        // mixed
+        splitAt(index: number): {
+            (list: string): [string, string];
+            <T>(list: ArrayLike<T>): T[][];
+        }
 
         /**
          * Splits a collection into slices of the specified length.
          */
-        splitEvery<T>(a: number, list: T[]): T[][];
-        splitEvery(a: number): <T>(list: T[]) => T[][];
-        // splitEvery<T>: CurriedFn2<number, T[], T[][]>;
-        splitEvery(a: number, list: string): string[];
-        splitEvery(a: number): (list: string) => string[];
-        // splitEvery: CurriedFn2<number, string, string[]>;
+        splitEvery<T, R extends ArrayLike<T>>(a: number, list: R): R[];
+        splitEvery(a: number): <T, R extends ArrayLike<T>>(list: R) => R[];
+        // splitEvery<T, R extends ArrayLike<T>>: CurriedFn2<number, R, R[]>;
 
         /**
          * Takes a list and a predicate and returns a pair of lists with the following properties:
@@ -2000,17 +2003,9 @@ declare namespace R {
          * - none of the elements of the first output list satisfies the predicate; and
          * - if the second output list is non-empty, its first element satisfies the predicate.
          */
-        splitWhen<T,U>(pred: Pred<T>, list: U[]): U[][];
-        splitWhen<T>(pred: Pred<T>): <U>(list: U[]) => U[][];
-        // splitWhen<T,U>: CurriedFn2<Pred<T>, U[], U[][]>;
-
-        // deprecated since 0.15.0
-        strIndexOf(c: string, str: string): number;
-        strIndexOf(c: string): (str: string) => number;
-
-        // deprecated since 0.15.0
-        strLastIndexOf(c: string, str: string): number;
-        strLastIndexOf(c: string): (str: string) => number;
+        splitWhen<T, R extends ArrayLike<T>>(pred: Pred<T>, list: R): R[];
+        splitWhen<T>(pred: Pred<T>): <R extends ArrayLike<T>>(list: R) => R[];
+        // splitWhen<T, R extends ArrayLike<T>>: CurriedFn2<Pred<T>, R, R[]>;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -2022,22 +2017,22 @@ declare namespace R {
         /**
          * Adds together all the elements of a list.
          */
-        sum(list: number[]): number;
+        sum(list: ArrayLike<number>): number;
 
         /**
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          */
-        symmetricDifference<T>(list1: T[], list2: T[]): T[];
-        symmetricDifference<T>(list: T[]): <T>(list: T[]) => T[];
-        // symmetricDifference<T>: CurriedFn2<T[], T[], T[]>;
+        symmetricDifference<T>(list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        symmetricDifference<T>(list: ArrayLike<T>): <T>(list: ArrayLike<T>) => T[];
+        // symmetricDifference<T>: CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
          */
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<T[], T[], T[]>;
-        // symmetricDifferenceWith<T>: CurriedFn3<(a: T, b: T) => boolean, T[], T[], T[]>;
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>;
+        // symmetricDifferenceWith<T>: CurriedFn3<(a: T, b: T) => boolean, ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * A function that always returns true. Any passed in parameters are ignored.
@@ -2047,35 +2042,25 @@ declare namespace R {
         /**
          * Returns all but the first element of a list.
          */
-        tail<T>(list: T[]): T[];
-        tail(s: string): string;
+        tail<T extends ArrayLike<any>>(list: T): T;
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
          * `n > * list.length`, returns a list of `list.length` elements.
          */
-        take<T>(n: number, xs: T[]): T[];
-        take(n: number, xs: string): string;
-        take<T>(n: number): {
-            (xs: string): string;
-            (xs: T[]): T[];
-        }
-        // take<T>: CurriedFn2<number, T[], T[]>;
-        // take<T>: CurriedFn2<number, string, string>;
+        take<T extends ArrayLike<any>>(n: number, xs: T): T;
+        take<T extends ArrayLike<any>>(n: number): (xs: T) => T;
+        // take<T extends ArrayLike<any>>: CurriedFn2<number, T, T>;
 
 
         /**
          * Returns a new list containing the last n elements of the given list. If n > list.length,
          * returns a list of list.length elements.
          */
-        takeLast<T>(n: number, xs: T[]): T[];
-        takeLast(n: number, xs: string): string;
-        takeLast(n: number): {
-            <T>(xs: T[]): T[];
-            (xs: string): string;
-        }
-        // takeLast<T>: CurriedFn2<number, T[], T[]>;
-        // takeLast<T>: CurriedFn2<number, string, string>;
+        // = take
+        takeLast<T extends ArrayLike<any>>(n: number, xs: T): T;
+        takeLast(n: number): <T extends ArrayLike<any>>(xs: T) => T;
+        // takeLast<T extends ArrayLike<any>>: CurriedFn2<number, T, T>;
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value
@@ -2083,18 +2068,19 @@ declare namespace R {
          * false. Excludes the element that caused the predicate function to fail. The predicate
          * function is passed one argument: (value).
          */
-        takeLastWhile<T>(pred: Pred<T>, list: T[]): T[];
-        takeLastWhile<T>(pred: Pred<T>): <T>(list: T[]) => T[];
-        // takeLastWhile<T>: CurriedFn2<Pred<T>, T[], T[]>;
+        // = takeWhile
+        takeLastWhile<T, R extends ArrayLike<T>>(pred: Pred<T>, list: R): R;
+        takeLastWhile<T>(pred: Pred<T>): <R extends ArrayLike<T>>(list: R) => R;
+        // takeLastWhile<T, R extends ArrayLike<T>>: CurriedFn2<Pred<T>, R, R>;
 
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
          * to the supplied predicate function, and terminating when the predicate function returns
          * `false`.
          */
-        takeWhile<T>(pred: Pred<T>, list: T[]): T[];
-        takeWhile<T>(pred: Pred<T>): (list: T[]) => T[];
-        // takeWhile<T>: CurriedFn2<Pred<T>, T[], T[]>;
+        takeWhile<T, R extends ArrayLike<T>>(pred: Pred<T>, list: R): R;
+        takeWhile<T>(pred: Pred<T>): <R extends ArrayLike<T>>(list: R) => R;
+        // takeWhile<T, R extends ArrayLike<T>>: CurriedFn2<Pred<T>, R, R>;
 
         /**
          * The function to call with x. The return value of fn will be thrown away.
@@ -2163,17 +2149,17 @@ declare namespace R {
          * list, successively calling the transformed iterator function and passing it an accumulator value and the
          * current value from the array, and then passing the result to the next call.
          */
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[], list: T[]): U;
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[], acc: T[]): (list: T[]) => U;
-        transduce<T,U>(xf: (arg: T[]) => T[], fn: (acc: U[], val: U) => U[]): CurriedFn2<T[],T[],U>;
-        transduce<T,U>(xf: (arg: T[]) => T[]): CurriedFn3<(acc: U[], val: U) => U[],T[],T[],U>;
-        // transduce<T,U>: CurriedFn4<(arg: T[]) => T[], (acc: U[], val: U) => U[], T[], T[], U>;
+        transduce<T,U>(xf: (arg: ArrayLike<T>) => ArrayLike<T>, fn: (acc: ArrayLike<U>, val: U) => ArrayLike<U>, acc: ArrayLike<T>, list: ArrayLike<T>): U;
+        transduce<T,U>(xf: (arg: ArrayLike<T>) => ArrayLike<T>, fn: (acc: ArrayLike<U>, val: U) => ArrayLike<U>, acc: ArrayLike<T>): (list: ArrayLike<T>) => U;
+        transduce<T,U>(xf: (arg: ArrayLike<T>) => ArrayLike<T>, fn: (acc: ArrayLike<U>, val: U) => ArrayLike<U>): CurriedFn2<ArrayLike<T>,ArrayLike<T>,U>;
+        transduce<T,U>(xf: (arg: ArrayLike<T>) => ArrayLike<T>): CurriedFn3<(acc: ArrayLike<U>, val: U) => ArrayLike<U>,ArrayLike<T>,ArrayLike<T>,U>;
+        // transduce<T,U>: CurriedFn4<(arg: ArrayLike<T>) => ArrayLike<T>, (acc: ArrayLike<U>, val: U) => ArrayLike<U>, ArrayLike<T>, ArrayLike<T>, U>;
 
         /**
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
-        transpose<T>(list: T[][]): T[][];
-        transpose(list: any[][]): any[][];
+        transpose<T>(list: ArrayLike<ArrayLike<T>>): T[][];
+        transpose(list: ArrayLike<ArrayLike<any>>): any[][];
 
         /**
          * Maps an Applicative-returning function over a Traversable, then uses
@@ -2186,10 +2172,10 @@ declare namespace R {
          traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
          // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
          // common case of array as traversable:
-         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: Array<T>): Applicative<Array<U>>;
-         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: Array<T>) => Applicative<Array<U>>;
-         traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, Array<T>, Applicative<Array<U>>>;
-         // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, Array<T>, Applicative<Array<U>>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: ArrayLike<T>): Applicative<Array<U>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: ArrayLike<T>) => Applicative<Array<U>>;
+         traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, ArrayLike<T>, Applicative<Array<U>>>;
+         // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, ArrayLike<T>, Applicative<Array<U>>>;
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -2247,38 +2233,38 @@ declare namespace R {
          * Combines two lists into a set (i.e. no duplicates) composed of the
          * elements of each list.
          */
-        union<T>(as: T[], bs: T[]): T[];
-        union<T>(as: T[]): (bs: T[]) => T[];
-        // union<T>: CurriedFn2<T[], T[], T[]>;
+        union<T>(as: ArrayLike<T>, bs: ArrayLike<T>): T[];
+        union<T>(as: ArrayLike<T>): (bs: ArrayLike<T>) => T[];
+        // union<T>: CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the elements of each list.  Duplication is
          * determined according to the value returned by applying the supplied predicate to two list elements.
          */
-        unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[], list2: T[]): T[];
-        unionWith<T>(pred: (a: T, b: T) => boolean, list1: T[]): (list2: T[]) => T[];
-        unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<T[], T[], T[]>
-        // unionWith<T>: CurriedFn3<(a: T, b: T) => boolean, T[], T[], T[]>;
+        unionWith<T>(pred: (a: T, b: T) => boolean, list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean, list1: ArrayLike<T>): (list2: ArrayLike<T>) => T[];
+        unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>
+        // unionWith<T>: CurriedFn3<(a: T, b: T) => boolean, ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * Returns a new list containing only one copy of each element in the original list.
          */
-        uniq<T>(list: T[]): T[];
+        uniq<T>(list: ArrayLike<T>): T[];
 
         /**
          * Returns a new list containing only one copy of each element in the original list, based upon the value returned by applying the supplied function to each list element. Prefers the first item if the supplied function produces the same value on two items. R.equals is used for comparison.
          */
-        uniqBy<T,U>(fn: (a: T) => U, list: T[]): T[];
-        uniqBy<T,U>(fn: (a: T) => U): (list: T[]) => T[];
-        // uniqBy<T,U>: CurriedFn2<(a: T) => U, T[], T[]>;
+        uniqBy<T,U>(fn: (a: T) => U, list: ArrayLike<T>): T[];
+        uniqBy<T,U>(fn: (a: T) => U): (list: ArrayLike<T>) => T[];
+        // uniqBy<T,U>: CurriedFn2<(a: T) => U, ArrayLike<T>, T[]>;
 
         /**
          * Returns a new list containing only one copy of each element in the original list, based upon the value
          * returned by applying the supplied predicate to two list elements.
          */
-        uniqWith<T,U>(pred: (x: T, y: T) => boolean, list: T[]): T[];
-        uniqWith<T,U>(pred: (x: T, y: T) => boolean): (list: T[]) => T[];
-        // uniqWith<T,U>: CurriedFn2<(x: T, y: T) => boolean, T[], T[]>;
+        uniqWith<T,U>(pred: (x: T, y: T) => boolean, list: ArrayLike<T>): T[];
+        uniqWith<T,U>(pred: (x: T, y: T) => boolean): (list: ArrayLike<T>) => T[];
+        // uniqWith<T,U>: CurriedFn2<(x: T, y: T) => boolean, ArrayLike<T>, T[]>;
 
         /**
          * Tests the final argument by passing it to the given predicate function. If the predicate is not satisfied,
@@ -2293,8 +2279,8 @@ declare namespace R {
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
-        unnest<T>(x: T[][]): T[];
-        unnest<T>(x: T[]): T[];
+        unnest<T>(x: ArrayLike<ArrayLike<T>>): T[];
+        unnest<T>(x: ArrayLike<T>): T[];
 
         /**
          * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
@@ -2309,10 +2295,10 @@ declare namespace R {
         /**
          * Returns a new copy of the array with the element at the provided index replaced with the given value.
          */
-        update<T>(index: number, value: T, list: T[]): T[];
-        update<T>(index: number, value: T): (list: T[]) => T[];
-        update<T>(index: number): CurriedFn2<T,T[],T[]>
-        // update<T>: CurriedFn3<number, T, T[], T[]>;
+        update<T>(index: number, value: T, list: ArrayLike<T>): T[];
+        update<T>(index: number, value: T): (list: ArrayLike<T>) => T[];
+        update<T>(index: number): CurriedFn2<T,ArrayLike<T>,T[]>
+        // update<T>: CurriedFn3<number, T, ArrayLike<T>, T[]>;
 
         /**
          * Accepts a function fn and a list of transformer functions and returns a new curried function.
@@ -2324,9 +2310,9 @@ declare namespace R {
          * need to be transformed, although you can ignore them, it's best to pass an identity function so
          * that the new function reports the correct arity.
          */
-        useWith<T>(fn: (...args: any[]) => T, transformers: Function[]): (...args: any[]) => T;
-        useWith<T>(fn: (...args: any[]) => T): (transformers: Function[]) => (...args: any[]) => T;
-        // useWith<T>: CurriedFn2<(...args: any[]) => T, Function[], (...args: any[]) => T>;
+        useWith<T>(fn: (...args: any[]) => T, transformers: ArrayLike<Function>): (...args: any[]) => T;
+        useWith<T>(fn: (...args: any[]) => T): (transformers: ArrayLike<Function>) => (...args: any[]) => T;
+        // useWith<T>: CurriedFn2<(...args: any[]) => T, ArrayLike<Function>, (...args: any[]) => T>;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -2408,9 +2394,9 @@ declare namespace R {
          * Returns a new list without values in the first argument. R.equals is used to determine equality.
          * Acts as a transducer if a transformer is given in list position.
          */
-        without<T>(list1: T[], list2: T[]): T[];
-        without<T>(list1: T[]): (list2: T[]) => T[];
-        // without<T>: CurriedFn2<T[], T[], T[]>;
+        without<T>(list1: ArrayLike<T>, list2: ArrayLike<T>): T[];
+        without<T>(list1: ArrayLike<T>): (list2: ArrayLike<T>) => T[];
+        // without<T>: CurriedFn2<ArrayLike<T>, ArrayLike<T>, T[]>;
 
         /**
          * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
@@ -2424,35 +2410,35 @@ declare namespace R {
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
-        xprod<K,V>(as: K[], bs: V[]): KeyValuePair<K,V>[];
-        xprod<K>(as: K[]): <V>(bs: V[]) => KeyValuePair<K,V>[];
-        // xprod<K,V>: CurriedFn2<K[], V[], KeyValuePair<K,V>[]>;
+        xprod<K,V>(as: ArrayLike<K>, bs: ArrayLike<V>): KeyValuePair<K,V>[];
+        xprod<K>(as: ArrayLike<K>): <V>(bs: ArrayLike<V>) => KeyValuePair<K,V>[];
+        // xprod<K,V>: CurriedFn2<ArrayLike<K>, ArrayLike<V>, KeyValuePair<K,V>[]>;
 
         /**
          * Creates a new list out of the two supplied by pairing up equally-positioned items from
          * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
          */
-        zip<K,V>(list1: K[], list2: V[]): KeyValuePair<K,V>[];
-        zip<K>(list1: K[]): <V>(list2: V[]) => KeyValuePair<K,V>[];
-        // zip<K,V>: CurriedFn2<K[], V[], KeyValuePair<K,V>[]>;
+        zip<K,V>(list1: ArrayLike<K>, list2: ArrayLike<V>): KeyValuePair<K,V>[];
+        zip<K>(list1: ArrayLike<K>): <V>(list2: ArrayLike<V>) => KeyValuePair<K,V>[];
+        // zip<K,V>: CurriedFn2<ArrayLike<K>, ArrayLike<V>, KeyValuePair<K,V>[]>;
 
         /**
          * Creates a new object out of a list of keys and a list of values.
          */
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-        zipObj<T>(keys: string[], values: T[]): Dictionary<T>;
-        zipObj(keys: string[]): <T>(values: T[]) => Dictionary<T>;
-        // zipObj<T>: CurriedFn2<string[], T[], Dictionary<T>>;
+        zipObj<T>(keys: ArrayLike<string>, values: ArrayLike<T>): Dictionary<T>;
+        zipObj(keys: ArrayLike<string>): <T>(values: ArrayLike<T>) => Dictionary<T>;
+        // zipObj<T>: CurriedFn2<ArrayLike<string>, ArrayLike<T>, Dictionary<T>>;
 
 
         /**
          * Creates a new list out of the two supplied by applying the function to each
          * equally-positioned pair in the lists.
          */
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[], list2: U[]): TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: T[]): (list2: U[]) => TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): CurriedFn2<T[], U[], TResult[]>;
-        // zipWith<T, U, TResult>: CurriedFn3<(x: T, y: U) => TResult, T[], U[], TResult[]>;
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: ArrayLike<T>, list2: ArrayLike<U>): TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: ArrayLike<T>): (list2: ArrayLike<U>) => TResult[];
+        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): CurriedFn2<ArrayLike<T>, ArrayLike<U>, TResult[]>;
+        // zipWith<T, U, TResult>: CurriedFn3<(x: T, y: U) => TResult, ArrayLike<T>, ArrayLike<U>, TResult[]>;
 
     }
 }
