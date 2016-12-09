@@ -843,7 +843,7 @@ declare namespace R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<V>(pairs: KeyValuePair<Prop, V>[]): {[index: string]: V};
+        fromPairs<V>(pairs: KeyValuePair<Prop, V>[]): Dictionary<V>;
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
@@ -1152,12 +1152,12 @@ declare namespace R {
          * Returns a lens whose focus is the specified path.
          * See also view, set, over.
          */
-        lensPath(path: string[]): UnknownLens;
+        lensPath(path: Path): UnknownLens;
 
         /**
          * lensProp creates a lens that will focus on property k of the source object.
          */
-        lensProp(str: string): UnknownLens;
+        lensProp(str: Prop): UnknownLens;
 
         /**
          * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
@@ -1240,9 +1240,9 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
-        mapObjIndexed<T, V, M extends {[k: string]: T}>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
-        mapObjIndexed<T, V, M extends {[k: string]: T}>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
-        // mapObjIndexed<T, V, M extends {[k: string]: T}>: CurriedFn2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
+        mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
+        mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
+        // mapObjIndexed<T, V, M extends Dictionary<T>>: CurriedFn2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
 
         /**
          * Tests a regular expression agains a String
