@@ -878,6 +878,11 @@ declare namespace R {
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
+        // bound generic, hopefully gives a hint as to what goes into obj 
+        has<T extends Struct<any>>(s: Prop, obj: T): boolean;
+        has(s: Prop): <T extends Struct<any>>(obj: T) => boolean;
+        // has<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
+        // free generic, helps make a few tests pass
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
         // has<T>: CurriedFn2<string, T, boolean>;
@@ -885,6 +890,11 @@ declare namespace R {
         /**
          * Returns whether or not an object or its prototype chain has a property with the specified name
          */
+        // bound generic, hopefully gives a hint as to what goes into obj 
+        hasIn<T extends Struct<any>>(s: Prop, obj: T): boolean;
+        hasIn(s: Prop): <T extends Struct<any>>(obj: T) => boolean;
+        // hasIn<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
+        // free generic, helps make a few tests pass
         hasIn<T>(s: string, obj: T): boolean;
         hasIn(s: string): <T>(obj: T) => boolean;
         // hasIn<T>: CurriedFn2<string, T, boolean>;
@@ -1298,9 +1308,9 @@ declare namespace R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
-        merge<T1, T2>(a: T1, b: T2): T1 & T2;
-        merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
-        // merge<T1, T2>: CurriedFn2<T1, T2, T1 & T2>;
+        merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>(a: T1, b: T2): T1 & T2;
+        merge<V1, T1 extends Struct<V1>>(a: T1): <V2, T2 extends Struct<V2>>(b: T2) => T1 & T2;
+        // merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>: CurriedFn2<T1, T2, T1 & T2>;
 
 
         /**
