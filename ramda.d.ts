@@ -103,10 +103,6 @@ declare namespace R {
         [index: string]: T;
     }
 
-    interface CharList extends String {
-        push(x: string): void;
-    }
-
     interface Nested<U> {
         [index: string]: Nested<U>|{<U>(value: any): U};
     }
