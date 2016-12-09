@@ -2089,10 +2089,26 @@ class Why {
     R.intersperse(0, [1]); //=> [1]
 }
 
-// #109
-function grepSomethingRecursively(grepPatterns: string | string[]) {
-    if (R.is(Array, grepPatterns)) {
-        R.forEach(() => {}, grepPatterns) 
+
+() => {
+    // #90
+    const map = (func: (some: string) => (x: number) => 1) => {
+    return func('xx')(1)
+    }
+    const map2 = (func: (some: string, other: string) => '1') => {
+    return func('xx', 'x')
+    }
+    // will work only with proposed changes
+    map(R.assoc('xxx'))
+    map2(R.assoc('xxx'))
+}
+
+() => {
+    // #109
+    function grepSomethingRecursively(grepPatterns: string | string[]) {
+        if (R.is(Array, grepPatterns)) {
+            // R.forEach(() => {}, grepPatterns) 
+        }
     }
 }
 

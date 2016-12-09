@@ -132,17 +132,26 @@ declare namespace R {
     interface CurriedFn2<T1, T2, R> {
         (t1: T1): (t2: T2) => R;
         (t1: T1, t2: T2): R;
+        <T1, T2, R>(t1: T1): (t2: T2) => R;
+        <T1, T2, R>(t1: T1, t2: T2): R;
     }
     interface CurriedFn3<T1, T2, T3, R> {
         (t1: T1): CurriedFn2<T2, T3, R>;
         (t1: T1, t2: T2): (t3: T3) => R;
         (t1: T1, t2: T2, t3: T3): R;
+        <T1, T2, T3, R>(t1: T1): CurriedFn2<T2, T3, R>;
+        <T1, T2, T3, R>(t1: T1, t2: T2): (t3: T3) => R;
+        <T1, T2, T3, R>(t1: T1, t2: T2, t3: T3): R;
     }
     interface CurriedFn4<T1, T2, T3, T4, R> {
         (t1: T1): CurriedFn3<T2, T3, T4, R>;
         (t1: T1, t2: T2): CurriedFn2<T3, T4, R>;
         (t1: T1, t2: T2, t3: T3): (t4: T4) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
+        <T1, T2, T3, T4, R>(t1: T1): CurriedFn3<T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(t1: T1, t2: T2): CurriedFn2<T3, T4, R>;
+        <T1, T2, T3, T4, R>(t1: T1, t2: T2, t3: T3): (t4: T4) => R;
+        <T1, T2, T3, T4, R>(t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
     interface CurriedFn5<T1, T2, T3, T4, T5, R> {
         (t1: T1): CurriedFn4<T2, T3, T4, T5, R>;
@@ -150,6 +159,11 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3): CurriedFn2<T4, T5, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
+        <T1, T2, T3, T4, T5, R>(t1: T1): CurriedFn4<T2, T3, T4, T5, R>;
+        <T1, T2, T3, T4, T5, R>(t1: T1, t2: T2): CurriedFn3<T3, T4, T5, R>;
+        <T1, T2, T3, T4, T5, R>(t1: T1, t2: T2, t3: T3): CurriedFn2<T4, T5, R>;
+        <T1, T2, T3, T4, T5, R>(t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => R;
+        <T1, T2, T3, T4, T5, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
     interface CurriedFn6<T1, T2, T3, T4, T5, T6, R> {
         (t1: T1): CurriedFn5<T2, T3, T4, T5, T6, R>;
@@ -158,6 +172,12 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFn2<T5, T6, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
+        <T1, T2, T3, T4, T5, T6, R>(t1: T1): CurriedFn5<T2, T3, T4, T5, T6, R>;
+        <T1, T2, T3, T4, T5, T6, R>(t1: T1, t2: T2): CurriedFn4<T3, T4, T5, T6, R>;
+        <T1, T2, T3, T4, T5, T6, R>(t1: T1, t2: T2, t3: T3): CurriedFn3<T4, T5, T6, R>;
+        <T1, T2, T3, T4, T5, T6, R>(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFn2<T5, T6, R>;
+        <T1, T2, T3, T4, T5, T6, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
+        <T1, T2, T3, T4, T5, T6, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
     interface CurriedFn7<T1, T2, T3, T4, T5, T6, T7, R> {
         (t1: T1): CurriedFn6<T2, T3, T4, T5, T6, T7, R>;
@@ -167,6 +187,13 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFn2<T6, T7, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): (t7: T7) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): R;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1): CurriedFn6<T2, T3, T4, T5, T6, T7, R>;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1, t2: T2): CurriedFn5<T3, T4, T5, T6, T7, R>;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1, t2: T2, t3: T3): CurriedFn4<T4, T5, T6, T7, R>;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFn3<T5, T6, T7, R>;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFn2<T6, T7, R>;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): (t7: T7) => R;
+        <T1, T2, T3, T4, T5, T6, T7, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): R;
     }
     interface CurriedFn8<T1, T2, T3, T4, T5, T6, T7, T8, R> {
         (t1: T1): CurriedFn7<T2, T3, T4, T5, T6, T7, T8, R>;
@@ -177,6 +204,14 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): CurriedFn2<T7, T8, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): (t8: T8) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8): R;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1): CurriedFn7<T2, T3, T4, T5, T6, T7, T8, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2): CurriedFn6<T3, T4, T5, T6, T7, T8, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2, t3: T3): CurriedFn5<T4, T5, T6, T7, T8, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFn4<T5, T6, T7, T8, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFn3<T6, T7, T8, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): CurriedFn2<T7, T8, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): (t8: T8) => R;
+        <T1, T2, T3, T4, T5, T6, T7, T8, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8): R;
     }
     interface CurriedFn9<T1, T2, T3, T4, T5, T6, T7, T8, T9, R> {
         (t1: T1): CurriedFn8<T2, T3, T4, T5, T6, T7, T8, T9, R>;
@@ -188,6 +223,15 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): CurriedFn2<T8, T9, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8): (t9: T9) => R;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8, t9: T9): R;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1): CurriedFn8<T2, T3, T4, T5, T6, T7, T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2): CurriedFn7<T3, T4, T5, T6, T7, T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3): CurriedFn6<T4, T5, T6, T7, T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3, t4: T4): CurriedFn5<T5, T6, T7, T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFn4<T6, T7, T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): CurriedFn3<T7, T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7): CurriedFn2<T8, T9, R>;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8): (t9: T9) => R;
+        <T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6, t7: T7, t8: T8, t9: T9): R;
     }
 
     interface Reduced {}
