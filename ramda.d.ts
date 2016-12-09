@@ -1101,9 +1101,9 @@ declare namespace R {
          * Returns a string made by inserting the `separator` between each
          * element and concatenating all the elements into a single string.
          */
-        join(x: string, xs: any[]): string;
-        join(x: string): (xs: any[]) => string;
-        // join: CurriedFn2<string, any[], string>;
+        join(x: string, xs: Array<any>): string;
+        join(x: string): (xs: Array<any>) => string;
+        // join: CurriedFn2<string, Array<any>, string>;
 
         /**
          * Applies a list of functions to a list of values.
