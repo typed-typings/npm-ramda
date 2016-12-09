@@ -1014,8 +1014,6 @@ declare namespace R {
         /**
         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
         */
-        invertObj(obj: Object): {[index: string]: string};
-        invertObj(obj: Object): {[index: number]: string};
         invertObj(obj: Struct<Prop>): Dictionary<string>;
 
         /**
@@ -1107,13 +1105,12 @@ declare namespace R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
-        keys<T>(x: T): string[];
+        keys(x: Struct<any>): string[];
 
         /**
          * Returns a list containing the names of all the
          * properties of the supplied object, including prototype properties.
          */
-        keysIn<T>(obj: T): string[];
         keysIn(obj: Struct<any>): string[];
 
         /**
@@ -2137,7 +2134,7 @@ declare namespace R {
          * return value. This means user-defined constructor functions can provide a suitable
          * toString method.
          */
-        toString<T>(val: T): string;
+        toString(val: any): string;
 
         /**
          * The upper case version of a string.
