@@ -771,6 +771,9 @@ declare namespace R {
         filter<T>(fn: (value: T) => boolean): <T>(list: ArrayLike<T>) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, ArrayLike<T>, T[]>;
         // functor
+        filter<T>(fn: (value: T) => boolean, list: Functor<T>): Functor<T>;
+        filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => Functor<T>;
+        // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, Functor<T>>;
         filter<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
         filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
@@ -1214,8 +1217,10 @@ declare namespace R {
         map<T, V, M extends {[k: string]: T}>(fn: (value: T) => V, obj: M): {[K in keyof M]: V};
         map<T, V, M extends {[k: string]: T}>(fn: (value: T) => V): (obj: M) => {[K in keyof M]: V};
         // map<T, V, M extends {[k: string]: T}>: CurriedFn2<(value: T) => V, M, {[K in keyof M]: V}>;
-        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
-        // map<T, U>: CurriedFn2<(x: T) => U, Functor<T>, Functor<U>>; // used in functors
+        // functor
+        map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>;
+        map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>;
+        // map<T, U>: CurriedFn2<(x: T) => U, Functor<T>, Functor<U>>;
         // separating values: https://github.com/Microsoft/TypeScript/issues/12342
         // map<A,B,T,U>(fn: (a: A) => B, tpl: [T,U]): [ typeof fn(T), typeof fn(U) ];
         // obj. version?
