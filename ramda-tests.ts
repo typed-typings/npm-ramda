@@ -1824,19 +1824,6 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    var hasName = R.has('name');
-    hasName({name: 'alice'});   //=> true
-    hasName({name: 'bob'});     //=> true
-    hasName({});                //=> false
-
-    var point = {x: 0, y: 0};
-    var pointHas = R.flip(R.has)(point);
-    pointHas('x');  //=> true
-    pointHas('y');  //=> true
-    pointHas('z');  //=> false
-}
-
-() => {
     let x: R.Ord = R.max(7, 3); //=> 7
     let y: R.Ord = R.max('a', 'z'); //=> 'z'
 }
