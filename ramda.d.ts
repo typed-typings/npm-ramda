@@ -120,9 +120,8 @@ declare namespace R {
         [index: string]: Nested<U>|{<U>(value: any): U};
     }
 
-    interface NestedArr<T> {
-        [index: number]: T | NestedArr<T>;
-    }
+    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
     interface Lens<T,U> {
         (obj: T): U; // get
@@ -836,15 +835,15 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>>): T[];
-        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>): T[];
-        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>): T[];
-        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>): T[];
-        flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<T>>>): T[];
-        flatten<T>(x: ArrayLike<ArrayLike<T>>): T[];
-        flatten<T>(x: ArrayLike<T>): T[];
+        // flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>>): T[];
+        // flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>): T[];
+        // flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>): T[];
+        // flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>): T[];
+        // flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<T>>>): T[];
+        // flatten<T>(x: ArrayLike<ArrayLike<T>>): T[];
+        // flatten<T>(x: ArrayLike<T>): T[];
         // TODO: figure out how to handle arrays using different levels of nesting
-        flatten<T>(x: NestedArr<T>): T[];
+        flatten<T>(x: ListOfRecursiveArraysOrValues<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
