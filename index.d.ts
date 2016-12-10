@@ -1400,7 +1400,7 @@ declare namespace R {
          */
         mergeWith<U,V>(fn: (x: any, z: any) => any, a: U, b: V): U & V;
         mergeWith<U>(fn: (x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWith(fn: (x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
+        // mergeWith(fn: (x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
         mergeWith<U,V>(fn: (x: any, z: any) => any): CurriedFn2<U,V,U&V>;
         // mergeWith<U,V>: CurriedFn3<(x: any, z: any) => any, U, V, U & V>;
 
@@ -1412,7 +1412,7 @@ declare namespace R {
          */
         mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any, a: U, b: V): U & V;
         mergeWithKey<U>(fn: (str: string, x: any, z: any) => any, a: U): <V>(b: V) => U & V;
-        mergeWithKey(fn: (str: string, x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
+        // mergeWithKey(fn: (str: string, x: any, z: any) => any): <U,V>(a: U, b: V) => U & V;
         mergeWithKey<U,V>(fn: (str: string, x: any, z: any) => any): CurriedFn2<U,V,U&V>;
         // mergeWithKey<U,V>: CurriedFn3<(str: string, x: any, z: any) => any, U, V, U & V>;
 
@@ -1818,8 +1818,8 @@ declare namespace R {
         propEq<T extends Struct<any>>(name: Prop, val: any, obj: T): boolean;
         propEq<T extends Struct<any>>(name: Prop, val: any): (obj: T) => boolean;
         propEq<T extends Struct<any>>(name: Prop): CurriedFn2<any, T, boolean>;
-        propEq<T extends Struct<any>>(name: Prop): (val: any, obj: T) => boolean;
-        propEq<T extends Struct<any>>(name: Prop): (val: any) => (obj: T) => boolean;
+        // propEq<T extends Struct<any>>(name: Prop): (val: any, obj: T) => boolean;
+        // propEq<T extends Struct<any>>(name: Prop): (val: any) => (obj: T) => boolean;
         // propEq<T extends Struct<any>>: CurriedFn3<Prop, any, T, boolean>;
 
         /**
@@ -1834,10 +1834,10 @@ declare namespace R {
         // }
         propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
         propIs(type: Function): CurriedFn2<Prop, Struct<any>, boolean>;
-        propIs(type: Function): {
-            (name: Prop, obj: Struct<any>): boolean;
-            (name: Prop): (obj: Struct<any>) => boolean;
-        }
+        // propIs(type: Function): {
+        //     (name: Prop, obj: Struct<any>): boolean;
+        //     (name: Prop): (obj: Struct<any>) => boolean;
+        // }
         // propIs: CurriedFn3<Function, Prop, Struct<any>, boolean>;
 
         /**

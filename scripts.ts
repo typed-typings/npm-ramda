@@ -113,5 +113,5 @@ function liftNDefSeparate(i) {
     let types = nm(i, n => `T${n+1}`);
     return `<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`;
 }
-`liftN(n: number): {\r\n${R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\r\n')}\r\n}`;
+R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\r\n');
 
