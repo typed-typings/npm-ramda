@@ -382,10 +382,30 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc<T,U>(prop: Prop, val: T, obj: U): {prop: T} & U;
-        assoc<T>(prop: Prop, val: T): <U>(obj: U) => {prop: T} & U;
-        assoc<T,U>(prop: Prop): CurriedFn2<T,U, {prop: T} & U>;
-        // assoc<T,U>: CurriedFn3<Prop, T, U, {prop: T} & U>;
+
+        // extend object with new property
+        assoc<T, U extends Struct<any>, K extends keyof U>(prop: K, val: T, obj: U): {[P in K]: T} & U;
+        assoc<T, U extends Struct<any>, K extends keyof U>(prop: K, val: T): (obj: U) => {[P in K]: T} & U; // generics too early?
+        assoc<T, U extends Struct<any>, K extends keyof U>(prop: K): CurriedFn2<T,U, {[P in K]: T} & U>; // generics too early?
+        // assoc<T, U extends Struct<any>, K extends keyof U>: CurriedFn3<K, T, U, {[P in K]: T} & U>;
+
+        // // homogeneous object
+        // assoc<T, U extends Struct<T>>(prop: Prop, val: T, obj: U): U;
+        // assoc<T>(prop: Prop, val: T): <U extends Struct<T>>(obj: U) => U;
+        // assoc<T, U extends Struct<T>>(prop: Prop): CurriedFn2<T, U, U>; // generics too early?
+        // // assoc<T, U extends Struct<T>>: CurriedFn3<Prop, T, U, U>;
+
+        // any object as long as the type remains unchanged
+        assoc<T>(prop: Prop, val: any, obj: T): T;
+        assoc(prop: Prop, val: any): <T>(obj: T) => T;
+        assoc<T>(prop: Prop): CurriedFn2<any, T, T>; // generics too early?
+        // assoc<T>: CurriedFn3<Prop, any, T, T>;
+
+        // // broken alternative trying to be dynamic, seems not yet possible in current TS versions
+        // assoc<T,U>(prop: Prop, val: T, obj: U): {prop: T} & U;
+        // assoc<T>(prop: Prop, val: T): <U>(obj: U) => {prop: T} & U;
+        // assoc<T,U>(prop: Prop): CurriedFn2<T,U, {prop: T} & U>;
+        // // assoc<T,U>: CurriedFn3<Prop, T, U, {prop: T} & U>;
 
 
         /**
