@@ -129,10 +129,12 @@ declare namespace R {
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
+    // // an unfortunate compromise -- while the actual lens should be generic, for the purpose of TS the structure should be supplied beforehand
     // interface KeyLens<T extends Struct<any>, K extends keyof T> {
-    //     <T extends Struct<any>>(obj: T): T[K]; // get
-    //     <T extends Struct<any>>set(v: T[K], obj: T): T;
-    //     // <T extends Struct<any>>map(fn: (v: T[K]) => T[K], obj: T): T
+    //     // <T extends Struct<any>>
+    //     (obj: T): T[K]; // get
+    //     set(v: T[K], obj: T): T;
+    //     // map(fn: (v: T[K]) => T[K], obj: T): T
     // }
     interface Lens<T,U> {
         (obj: T): U; // get
@@ -1198,6 +1200,7 @@ declare namespace R {
         /**
          * Creates a lens that will focus on index n of the source array.
          */
+        // lensIndex<T, K extends keyof T>(n: K): KeyLens<T, K>;
         lensIndex<T>(n: number): ManualLens<T>;
         lensIndex(n: number): UnknownLens;
 
@@ -1211,6 +1214,7 @@ declare namespace R {
         /**
          * lensProp creates a lens that will focus on property k of the source object.
          */
+        // lensProp<T, K extends keyof T>(n: K): KeyLens<T, K>;
         lensProp<T>(prop: Prop): ManualLens<T>;
         lensProp(prop: Prop): UnknownLens;
 
@@ -1529,11 +1533,16 @@ declare namespace R {
          * Returns the result of "setting" the portion of the given data structure
          * focused by the given lens to the given value.
          */
-        over<T,V>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V, value: T): T;
-        over<V>(lens: ManualLens<V>|UnknownLens, fn: (v: V) => V): <T>(value: T) => T;
-        // over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T) => T;
-        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, T, T>;
-        // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, T, T>;
+
+        // // key lens:
+        // over<T, K extends keyof T>(lens: KeyLens<T,K>, fn: (v: T[K]) => T[K], value: T): T;
+        // over<T, K extends keyof T>(lens: KeyLens<T,K>, fn: (v: T[K]) => T[K]): (value: T) => T;
+        // // over(lens: KeyLens<T,K>): <T, K extends keyof T>(fn: (v: T[K]) => T[K], value: T) => T;
+        // over<T, K extends keyof T>(lens: KeyLens<T,K>): CurriedFn2<(v: T[K]) => T[K], T, T>;
+        // // over<T, K extends keyof T>: CurriedFn3<KeyLens<T,K>, (v: T[K]) => T[K], T, T>;
+
+        // regular lenses:
+
         // Functor version:
         over<V, T extends Functor<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V, value: T): T;
         over<V>(lens: ManualLens<V>|UnknownLens, fn: (v: V) => V): <T extends Functor<V>>(value: T) => T;
@@ -1546,7 +1555,12 @@ declare namespace R {
         over<V, T extends List<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens): CurriedFn2<(v: V) => V, T, V[]>;
         // over<V, T extends List<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens): <V>(fn: (v: V) => V, value: T) => V[];
         // over<V, T extends List<V>>: CurriedFn3<Lens<T,V>|ManualLens<V>|UnknownLens, (v: V) => V, T, V[]>;
-
+        // unbound value:
+        over<T,V>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V, value: T): T;
+        over<V>(lens: ManualLens<V>|UnknownLens, fn: (v: V) => V): <T>(value: T) => T;
+        // over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T) => T;
+        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, T, T>;
+        // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, T, T>;
 
         /**
          * Takes two arguments, fst and snd, and returns [fst, snd].
@@ -2002,6 +2016,15 @@ declare namespace R {
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
          * given value.
          */
+
+        // // key lens:
+        // set<T, K extends keyof T>(lens: KeyLens<T,K>, a: T[K], obj: T): T;
+        // set<T, K extends keyof T>(lens: KeyLens<T,K>, a: T[K]): (obj: T) => T;
+        // set<T, K extends keyof T>(lens: KeyLens<T,K>): CurriedFn2<T[K], T, T>;
+        // // set<T, K extends keyof T>: CurriedFn3<KeyLens<T,K>, T[K], T, T>;
+
+        // regular lenses:
+
         // smart approach, unreliable:
         set<T,U>(lens: Lens<T,U>, a: U, obj: T): T;
         set<T,U>(lens: Lens<T,U>, a: U): (obj: T) => T;
@@ -2420,6 +2443,14 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
+
+        // // key lens:
+        // view<T, K extends keyof T>(lens: KeyLens<T,K>, obj: T): T[K];
+        // view<T, K extends keyof T>(lens: KeyLens<T,K>): (obj: T) => T[K];
+        // // view<T, K extends keyof T>: CurriedFn2<KeyLens<T,K>, T, T[K]>;
+
+        // regular lenses:
+
         // smart approach, unreliable:
         view<T,U>(lens: Lens<T,U>, obj: T): U;
         view<T,U>(lens: Lens<T,U>): (obj: T) => U;
