@@ -6,18 +6,6 @@
 declare var R: R.Static;
 
 declare namespace R {
-    // simple types
-    type Ord = number | string | boolean;
-    type Primitive = string | number | boolean;
-    type List<T> = ArrayLike<T>;
-    type StringLike = string | StringRepresentable<string>;
-    type Prop = Primitive | StringRepresentable<Primitive>;
-    type Path = List<Prop>;
-    type Struct<T> = Dictionary<T> | List<T>;
-    type AccOpts<T,U> = List<any>|Dictionary<any>|Transformer<T, U, U>;
-    interface Type<T> extends Function {
-        new (...args: any[]): T;
-    }
 
     // Fantasyland interfaces
 
@@ -91,7 +79,21 @@ declare namespace R {
         promap<B,D>(f: (v: T) => B, g: (v: U) => D): Profunctor<B,D>;
     }
 
+    // simple types
+    type Ord = number | string | boolean;
+    type Primitive = string | number | boolean;
+    type List<T> = ArrayLike<T>;
+    type StringLike = string | StringRepresentable<string>;
+    type Prop = Primitive | StringRepresentable<Primitive>;
+    type Path = List<Prop>;
+    type Struct<T> = Dictionary<T> | List<T>;
+    type AccOpts<T,U> = List<any>|Dictionary<any>|Transformer<T, U, U>;
+
     // Ramda interfaces
+
+    interface Type<T> extends Function {
+        new (...args: any[]): T;
+    }
 
     interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 
