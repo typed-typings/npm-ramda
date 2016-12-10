@@ -1261,7 +1261,14 @@ class Rectangle {
 }
 
 () => {
-    var xLens = R.lens(R.prop('x'), R.assoc('x'));
+    interface xy {
+      x: number;
+      y: number;
+    }
+    // var xLens = R.lens(R.prop('x'), R.assoc('x'));
+    var xLens = R.lens<number, xy>(R.prop('x'), R.assoc('x'));
+    // var xLens = R.lens<number>(R.prop('x'))(R.assoc('x'));
+    // ^ works with only 1 generic, for curried version managed to split the inferred generic from the manual generic
     R.view(xLens, {x: 1, y: 2});            //=> 1
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}

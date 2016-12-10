@@ -131,12 +131,17 @@ declare namespace R {
 
     interface Lens<T,U> {
         (obj: T): U; // get
-        set(v: U, obj: T): U;
+        set(v: U, obj: T): T;
         // map(fn: (v: U) => U, obj: T): T
+    }
+    interface ManualLens<U> {
+        <T extends Struct<any>>(obj: T): U; // get
+        set<T extends Struct<any>>(v: U, obj: T): T;
+        // <T extends Struct<any>>map(fn: (v: U) => U, obj: T): T
     }
     interface UnknownLens {
         <T,U>(obj: T): U; // get
-        set<T,U>(v: U, obj: T): U;
+        set<T,U>(v: U, obj: T): T;
         // map<T,U>(fn: (v: U) => U, obj: T): T
     }
 
@@ -1174,24 +1179,35 @@ declare namespace R {
          * "gets" the value of the focus; the setter "sets" the value of the focus.
          * The setter should not mutate the data structure.
          */
+        // assume setter doesn't change the type
+        lens<V, U extends Struct<any>>(getter: (s: U) => V, setter: (a: V, s: U) => U): ManualLens<V>;
+        lens<V, U extends Struct<any>>(getter: (s: U) => V): (setter: (a: V, s: U) => U) => ManualLens<V>;
+        lens<V>(getter: (s: Struct<any>) => V): <U extends Struct<any>>(setter: (a: V, s: U) => U) => ManualLens<V>;
+        // ^ ignore getter param being `U` so I can get away with 1 manual generic rather than having to add the inferred `U`. Useful if the getter doesn't have an explicit return type.
+        // lens<V, U extends Struct<any>>: CurriedFn2<(s: U) => V, (a: V, s: U) => U, ManualLens<V>>;
+        // allows setter to change value type
         lens<T,U,V>(getter: (s: T) => U, setter: (a: U, s: T) => V): Lens<T,U>;
+        lens<T,U,V>(getter: (s: T) => U): (setter: (a: U, s: T) => V) => Lens<T,U>;
         // lens<T,U,V>: CurriedFn2<(s: T) => U, (a: U, s: T) => V, Lens<T,U>>;
 
         /**
          * Creates a lens that will focus on index n of the source array.
          */
+        lensIndex<T>(n: number): ManualLens<T>;
         lensIndex(n: number): UnknownLens;
 
         /**
          * Returns a lens whose focus is the specified path.
          * See also view, set, over.
          */
+        lensPath<T>(path: Path): ManualLens<T>;
         lensPath(path: Path): UnknownLens;
 
         /**
          * lensProp creates a lens that will focus on property k of the source object.
          */
-        lensProp(str: Prop): UnknownLens;
+        lensProp<T>(prop: Prop): ManualLens<T>;
+        lensProp(prop: Prop): UnknownLens;
 
         /**
          * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
@@ -1508,24 +1524,23 @@ declare namespace R {
          * Returns the result of "setting" the portion of the given data structure
          * focused by the given lens to the given value.
          */
-        over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: T): T;
-        over<T,V>(lens: UnknownLens, fn: (v: V) => V, value: T): T;
-        over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: T) => T;
-        over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T) => T;
+        over<T,V>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V, value: T): T;
+        over<V>(lens: ManualLens<V>|UnknownLens, fn: (v: V) => V): <T>(value: T) => T;
+        // over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: T) => T;
         over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, T, T>;
         // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, T, T>;
         // Functor version:
-        over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: Functor<T>): Functor<T>;
-        over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: Functor<T>) => Functor<T>;
-        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, Functor<T>, Functor<T>>;
-        over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: Functor<T>) => Functor<T>;
-        // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, Functor<T>, Functor<T>>;
+        over<V, T extends Functor<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V, value: T): T;
+        over<V>(lens: ManualLens<V>|UnknownLens, fn: (v: V) => V): <T extends Functor<V>>(value: T) => T;
+        over<V, T extends Functor<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens): CurriedFn2<(v: V) => V, T, T>;
+        // over<V, T extends Functor<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens): (fn: (v: V) => V, value: T) => T;
+        // over<V, T extends Functor<V>>: CurriedFn3<Lens<T,V>, (v: V) => V, T, T>;
         // Functor version applied to array:
-        over<T,V>(lens: Lens<T,V>, fn: (v: V) => V, value: List<T>): T[];
-        over<V>(lens: UnknownLens, fn: (v: V) => V): <T>(value: List<T>) => T[];
-        over<T,V>(lens: UnknownLens): CurriedFn2<(v: V) => V, List<T>, T[]>;
-        over(lens: UnknownLens): <T,V>(fn: (v: V) => V, value: List<T>) => T[];
-        // over<T,V>: CurriedFn3<Lens<T,V>, (v: V) => V, List<T>, T[]>;
+        over<V, T extends List<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V, value: T): V[];
+        over<V, T extends List<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens, fn: (v: V) => V): <T>(value: T) => V[];
+        over<V, T extends List<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens): CurriedFn2<(v: V) => V, T, V[]>;
+        // over<V, T extends List<V>>(lens: Lens<T,V>|ManualLens<V>|UnknownLens): <V>(fn: (v: V) => V, value: T) => V[];
+        // over<V, T extends List<V>>: CurriedFn3<Lens<T,V>|ManualLens<V>|UnknownLens, (v: V) => V, T, V[]>;
 
 
         /**
@@ -1578,6 +1593,7 @@ declare namespace R {
         // path<T>: CurriedFn2<Path, Struct<any>, T>;
         // failed attempt at proper typing, see https://github.com/Microsoft/TypeScript/issues/12393 :
         // path<U, K1 extends keyof T, K2 extends keyof T[K1], T extends { [K1]: { [K2]: U } }>(keys: [K1, K2], obj: T): U;
+        // path<K1 extends keyof T, K2 extends keyof T[K1], T extends {}>(keys: [K1, K2], obj: T): T[K1][K2];
 
         /**
         * Determines whether a nested path on an object has a specific value,
@@ -1902,7 +1918,7 @@ declare namespace R {
         reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult, list: List<T>): TResult;
         reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult): (list: List<T>) => TResult;
         reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, List<T>, TResult>;
-        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean): CurriedFn3<(TResult, T) => TResult|Reduced, TResult, List<T>, TResult>;
+        reduceWhile<T, TResult>(pred: (acc: TResult, elem: T) => boolean): CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult, List<T>, TResult>;
         // reduceWhile<T, TResult>: CurriedFn4<(acc: TResult, elem: T) => boolean, (acc: TResult, elem: T) => TResult|Reduced, TResult, List<T>, TResult>;
 
         /**
@@ -1984,18 +2000,25 @@ declare namespace R {
         // smart approach, unreliable:
         set<T,U>(lens: Lens<T,U>, a: U, obj: T): T;
         set<T,U>(lens: Lens<T,U>, a: U): (obj: T) => T;
-        set<T,U>(lens: Lens<T,U>): (a: U, obj: T) => T;
+        // set<T,U>(lens: Lens<T,U>): (a: U, obj: T) => T;
+        set<T,U>(lens: Lens<T,U>): CurriedFn2<U, T, T>;
         // set<T,U>: CurriedFn3<Lens<T,U>, U, T, T>;
+        // // manually set lens; is this useful?
+        // set<T,U>(lens: ManualLens<U>, a: U, obj: T): T;
+        // set<U>(lens: ManualLens<U>, a: U): <T>(obj: T) => T;
+        // set<T,U>(lens: ManualLens<U>): CurriedFn2<U,T,T>;
+        // // set<T,U>: CurriedFn3<ManualLens<U>, U, T, T>;
         // assume result type equal to input object:
         set<T>(lens: UnknownLens, a: any, obj: T): T;
         set<T>(lens: UnknownLens, a: any): (obj: T) => T;
-        set<T>(lens: UnknownLens): (a: any, obj: T) => T;
+        // set<T>(lens: UnknownLens): (a: any, obj: T) => T;
+        set<T>(lens: UnknownLens): CurriedFn2<any, T, T>;
         // set<T>: CurriedFn3<UnknownLens, any, T, T>;
-        // old version, with value as an unbound generic; is this useful?
-        set<T,U>(lens: UnknownLens, a: U, obj: T): T;
-        set<T,U>(lens: UnknownLens, a: U): (obj: T) => T;
-        set<T,U>(lens: UnknownLens): CurriedFn2<U,T,T>;
-        // set<T,U>: CurriedFn3<UnknownLens, U, T, T>;
+        // // old version, with value as an unbound generic; is this useful?
+        // set<T,U>(lens: UnknownLens, a: U, obj: T): T;
+        // set<T,U>(lens: UnknownLens, a: U): (obj: T) => T;
+        // set<T,U>(lens: UnknownLens): CurriedFn2<U,T,T>;
+        // // set<T,U>: CurriedFn3<UnknownLens, U, T, T>;
 
         /**
          * Returns the elements from `xs` starting at `a` and ending at `b - 1`.
@@ -2396,6 +2419,11 @@ declare namespace R {
         view<T,U>(lens: Lens<T,U>, obj: T): U;
         view<T,U>(lens: Lens<T,U>): (obj: T) => U;
         // view<T,U>: CurriedFn2<Lens<T,U>, T, U>;
+        // lens with type manually set
+        view<T>(lens: ManualLens<T>, obj: Struct<any>): T;
+        view<T>(lens: ManualLens<T>): (obj: Struct<any>) => T;
+        // view<T>: CurriedFn2<ManualLens<T>, Struct<any>, T>;
+        // unknown lens
         view(lens: UnknownLens, obj: Object): any;
         view(lens: UnknownLens): (obj: Object) => any;
         // view: CurriedFn2<UnknownLens, Object, any>;
