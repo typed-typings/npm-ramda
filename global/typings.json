@@ -1,8 +1,0 @@
-{
-  "name": "ramda",
-  "main": "ramda.d.ts",
-  "version": "0.21.0",
-  "homepage": "https://github.com/donnut/typescript-ramda",
-  "author": "Erwin Poeze <erwin@mope.mobi>",
-  "description": "Type definitions for Ramda"
-}
