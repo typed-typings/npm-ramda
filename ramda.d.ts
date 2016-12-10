@@ -107,6 +107,10 @@ declare namespace R {
         [index: string]: Nested<U>|{<U>(value: any): U};
     }
 
+    interface NestedArr<T> {
+        [index: number]: T | NestedArr<T>;
+    }
+
     interface Lens<T,U> {
         /*get*/(obj: T): U;
         set(str: string, obj: T): U;
@@ -819,7 +823,6 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        // TODO: figure out how to handle arrays using different levels of nesting
         flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>>): T[];
         flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>>): T[];
         flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<ArrayLike<ArrayLike<T>>>>>): T[];
@@ -827,6 +830,8 @@ declare namespace R {
         flatten<T>(x: ArrayLike<ArrayLike<ArrayLike<T>>>): T[];
         flatten<T>(x: ArrayLike<ArrayLike<T>>): T[];
         flatten<T>(x: ArrayLike<T>): T[];
+        // TODO: figure out how to handle arrays using different levels of nesting
+        flatten<T>(x: NestedArr<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
