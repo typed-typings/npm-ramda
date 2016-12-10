@@ -95,6 +95,10 @@ declare namespace R {
         new (...args: any[]): T;
     }
 
+    interface Variadic<T> {
+        (...args: any[]): T;
+    }
+
     interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 
     interface Transformer<T, Acc, Res> {
@@ -361,7 +365,7 @@ declare namespace R {
          * of the same structure, by mapping each property to the result of calling its associated function with
          * the supplied arguments.
          */
-        applySpec<T>(obj: any): (...args: any[]) => T;
+        applySpec<T>(obj: any): Variadic<T>;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
@@ -386,15 +390,15 @@ declare namespace R {
          * parameters. Any extraneous parameters will not be passed to the supplied function.
          */
         binary<T, A, B>(fn: (a: A, b: T, ...args: any[]) => T): (a: A, b: B) => T;
-        binary<T>(fn: (...args: any[]) => T): (a: any, b: any) => T;
+        binary<T>(fn: Variadic<T>): (a: any, b: any) => T;
 
         /**
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(fn: (...args: any[]) => any, thisObj: T): (...args: any[]) => any;
-        bind<T>(fn: (...args: any[]) => any): (thisObj: T) => (...args: any[]) => any;
-        // bind<T>: CurriedFn2<(...args: any[]) => any, T, (...args: any[]) => any>;
+        bind<T>(fn: Variadic<T>, thisObj: {}): Variadic<T>;
+        bind<T>(fn: Variadic<T>): (thisObj: {}) => Variadic<T>;
+        // bind<T>: CurriedFn2<Variadic<T>, {}, Variadic<T>>;
 
 
         /**
@@ -411,7 +415,8 @@ declare namespace R {
          * as a converging function for R.converge: the left branch can produce a function while the right branch
          * produces a value to be passed to that function as an argument.
          */
-        call(fn: (...args: any[]) => (...args: any[]) => any, ...args: any[]): any;
+        // not curried!
+        call<T>(fn: Variadic<T>, ...args: any[]): T;
 
         /**
          * `chain` maps a function over a list and concatenates the results.
@@ -448,7 +453,7 @@ declare namespace R {
          * - applying g to zero or more arguments will give false if applying the same arguments to f gives
          *   a logical true value.
          */
-        complement<T>(pred: (...args: T[]) => boolean): (...args: T[]) => boolean
+        complement<T>(pred: Variadic<boolean>): Variadic<boolean>;
 
         /**
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
@@ -590,8 +595,8 @@ declare namespace R {
          * function is applied to those same arguments. The results of each branching function
          * are passed as arguments to the converging function to produce the return value.
          */
-        converge<T>(after: (...fn_results: any[]) => T, fns: Array<(...args: any[]) => any>): (...args: any[]) => T;
-        // converge<T>: CurriedFn2<(...fn_results: any[]) => T, Array<(...args: any[]) => any>, (...args: any[]) => T>;
+        converge<T>(after: Variadic<T>, fns: List<Variadic<any>>): Variadic<T>;
+        // converge<T>: CurriedFn2<Variadic<T>, List<Variadic<any>>, Variadic<T>>;
 
         /**
          * Counts the elements of a list according to how many match each value
@@ -621,8 +626,8 @@ declare namespace R {
         /**
          * Returns a curried equivalent of the provided function, with the specified arity.
          */
-        curryN<T>(length: number, fn: (...args: any[]) => T): (...args: any[]) => T;
-        // curryN<T>: CurriedFn2<number, (...args: any[]) => T, (...args: any[]) => T>;
+        curryN<T>(length: number, fn: Variadic<T>): Variadic<T>;
+        // curryN<T>: CurriedFn2<number, Variadic<T>, Variadic<T>>;
 
 
         /**
@@ -1192,20 +1197,17 @@ declare namespace R {
          * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
          * the FantasyLand Apply spec.
          */
-        lift<T>(fn: (...args: any[]) => T, ...argLists: any[][]): T[];
-        lift<T>(fn: (...args: any[]) => T): (...argLists: any[][]) => T[];
-        // lift<T>: CurriedFn2<(...args: any[]) => T, ...any[][], T[]>; // uh-oh, spread
+        lift<T>(fn: Variadic<T>): (...argLists: any[][]) => T[];
+        // TODO: fixed-arity versions
 
         /**
          * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
          * objects that satisfy the FantasyLand Apply spec.
          */
-        liftN<T>(n: number, fn: (...args: any[]) => T, ...argLists: any[][]): T[];
-        liftN<T>(n: number, fn: (...args: any[]) => T): (...argLists: any[][]) => T[];
-        liftN<T>(n: number): (fn: (...args: any[]) => T, ...argLists: any[][]) => T[];
-        liftN<T>(n: number): (fn: (...args: any[]) => T) => (...argLists: any[][]) => T[];
-        // liftN<T>: CurriedFn3<number, (...args: any[]) => T, ...any[][], T[]>; // uh-oh, spread
-
+        liftN<T>(n: number, fn: Variadic<T>): (...argLists: any[][]) => T[];
+        liftN(n: number): <T>(fn: Variadic<T>) => (...argLists: any[][]) => T[];
+        // liftN<T>: CurriedFn2<number, Variadic<T>, (...argLists: any[][]) => T[]>;
+        // TODO: fixed-arity versions
 
         /**
          * Returns true if the first parameter is less than the second.
@@ -1325,7 +1327,7 @@ declare namespace R {
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize<T>(fn: (...args: any[]) => T): (...args: any[]) => T;
+        memoize<T>(fn: Variadic<T>): Variadic<T>;
 
         /**
          * Create a new object with the own properties of a
@@ -1403,9 +1405,9 @@ declare namespace R {
          * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
          * Any extraneous parameters will not be passed to the supplied function.
          */
-        nAry<T>(n: number, fn: (...arg: any[]) => T): (...arg: any[]) => T;
-        nAry<T>(n: number): (fn: (...arg: any[]) => T) => (...arg: any[]) => T;
-        // nAry<T>: CurriedFn2<number, (...arg: any[]) => T, (...arg: any[]) => T>;
+        nAry<T>(n: number, fn: Variadic<T>): Variadic<T>;
+        nAry(n: number): <T>(fn: Variadic<T>) => Variadic<T>;
+        // nAry<T>: CurriedFn2<number, Variadic<T>, Variadic<T>>;
 
         /**
          * Negates its argument.
@@ -1464,7 +1466,7 @@ declare namespace R {
          * called once, no matter how many times the returned function is invoked. The first value calculated is
          * returned in subsequent invocations.
          */
-        once<T>(fn: (...args: any[]) => T): (...args: any[]) => T;
+        once<T>(fn: Variadic<T>): Variadic<T>;
 
         /**
          * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
@@ -1515,18 +1517,20 @@ declare namespace R {
          * when invoked, calls the original function with all of the values prepended to the
          * original function's arguments list. In some libraries this function is named `applyLeft`.
          */
-        partial<T>(fn: (...args: any[]) => T, ...args: any[]): (...args: any[]) => T;
-        partial<T>(fn: (...args: any[]) => T): (...args: any[]) => (...args: any[]) => T;
-        // partial<T>: CurriedFn2<(...args: any[]) => T, ...args: any[], (...args: any[]) => T>; // uh-oh, spread
+        partial<T>(fn: Variadic<T>, args: any[]): Variadic<T>;
+        partial<T>(fn: Variadic<T>): (args: any[]) => Variadic<T>;
+        // partial<T>: CurriedFn2<Variadic<T>, args: any[], Variadic<T>>;
+        // TODO: fixed-arity versions
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
          * when invoked, calls the original function with all of the values appended to the original
          * function's arguments list.
          */
-        partialRight<T>(fn: (...args: any[]) => T, ...args: any[]): (...args: any[]) => T;
-        partialRight<T>(fn: (...args: any[]) => T): (...args: any[]) => (...args: any[]) => T;
-        // partialRight<T>: CurriedFn2<(...args: any[]) => T, ...args: any[], (...args: any[]) => T>; // uh-oh, spread
+        partialRight<T>(fn: Variadic<T>, args: any[]): Variadic<T>;
+        partialRight<T>(fn: Variadic<T>): (args: any[]) => Variadic<T>;
+        // partialRight<T>: CurriedFn2<Variadic<T>, args: any[], Variadic<T>>;
+        // TODO: fixed-arity versions
 
         /**
          * Takes a predicate and a list and returns the pair of lists of elements
@@ -2220,8 +2224,8 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
-        // tryCatch<T>: CurriedFn2<(...args: any[]) => T, (...args: any[]) => T, (...args: any[]) => T>;
+        tryCatch<T>(tryer: Variadic<T>, catcher: Variadic<T>): Variadic<T>;
+        // tryCatch<T>: CurriedFn2<Variadic<T>, Variadic<T>, Variadic<T>>;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -2238,7 +2242,7 @@ declare namespace R {
          * In other words, R.unapply derives a variadic function from a function which takes an array.
          * R.unapply is the inverse of R.apply.
          */
-        unapply<T>(fn: (args: any[]) => T): (...args: any[]) => T;
+        unapply<T>(fn: (args: any[]) => T): Variadic<T>;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
@@ -2249,8 +2253,8 @@ declare namespace R {
         /**
          * Returns a function of arity n from a (manually) curried function.
          */
-        uncurryN<T>(len: number, fn: (a: any) => any): (...a: any[]) => T;
-        // uncurryN<T>: CurriedFn2<number, (a: any) => any, (...a: any[]) => T>;
+        uncurryN<T>(len: number, fn: (a: any) => any): Variadic<T>;
+        // uncurryN<T>: CurriedFn2<number, (a: any) => any, Variadic<T>>;
 
         /**
          * Builds a list from a seed value. Accepts an iterator function, which returns either false
@@ -2342,9 +2346,9 @@ declare namespace R {
          * need to be transformed, although you can ignore them, it's best to pass an identity function so
          * that the new function reports the correct arity.
          */
-        useWith<T>(fn: (...args: any[]) => T, transformers: List<Function>): (...args: any[]) => T;
-        useWith<T>(fn: (...args: any[]) => T): (transformers: List<Function>) => (...args: any[]) => T;
-        // useWith<T>: CurriedFn2<(...args: any[]) => T, List<Function>, (...args: any[]) => T>;
+        useWith<T>(fn: Variadic<T>, transformers: List<Function>): Variadic<T>;
+        useWith<T>(fn: Variadic<T>): (transformers: List<Function>) => Variadic<T>;
+        // useWith<T>: CurriedFn2<Variadic<T>, List<Function>, Variadic<T>>;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -2435,9 +2439,9 @@ declare namespace R {
          * either before the internal function is called or with its results.
          */
         // deprecated: 0.22.0
-        wrap<T>(fn: (...args: any[]) => any, wrapper: (...args: any[]) => T): (...args: any[]) => T;
-        wrap<T>(fn: (...args: any[]) => any): (wrapper: (...args: any[]) => T) => (...args: any[]) => T;
-        // wrap<T>: CurriedFn2<(...args: any[]) => any, (...args: any[]) => T, (...args: any[]) => T>;
+        wrap<T>(fn: Variadic<any>, wrapper: Variadic<T>): Variadic<T>;
+        wrap<T>(fn: Variadic<any>): (wrapper: Variadic<T>) => Variadic<T>;
+        // wrap<T>: CurriedFn2<Variadic<any>, Variadic<T>, Variadic<T>>;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
