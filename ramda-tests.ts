@@ -2174,7 +2174,8 @@ class Why {
 
 () => {
     // #78
-    let updateBy = R.curry((pred, val, array) => {
+    // : <T>R.CurriedFn3<R.Pred<T>, T, T[], T[]>
+    let updateBy: R.CurriedFn3<R.Pred<any>, any, any[], any[]> = R.curry(<T>(pred: R.Pred<T>, val, T, array: T[]): T[] => {
         let i = R.findIndex(pred, array);
         if (i >= 0) {
             return R.update(i, val, array);
@@ -2182,7 +2183,6 @@ class Why {
             return array;
         }
     })
-    // ^ expected: ??
 }
 
 () => {
@@ -2198,8 +2198,7 @@ class Why {
         [R.F, R.F],
         [R.T, R.identity]
     ]);
-    const y = R.compose(x, R.inc);
-    // curried fn returns {} instead of number
+    const y: R.CurriedFn1<number, number> = R.compose(x, R.inc);
 }
 
 () => {
@@ -2227,7 +2226,6 @@ class Why {
 () => {
     // #118
     let numbers: number[] = R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-    // ^ TODO: fix expected type: number[]
     //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 }
 */
