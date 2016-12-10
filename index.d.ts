@@ -905,7 +905,7 @@ declare namespace R {
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
-        // bound generic, hopefully gives a hint as to what goes into obj 
+        // bound generic, hopefully gives a hint as to what goes into obj
         has<T extends Struct<any>>(s: Prop, obj: T): boolean;
         has(s: Prop): <T extends Struct<any>>(obj: T) => boolean;
         // has<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
@@ -917,7 +917,7 @@ declare namespace R {
         /**
          * Returns whether or not an object or its prototype chain has a property with the specified name
          */
-        // bound generic, hopefully gives a hint as to what goes into obj 
+        // bound generic, hopefully gives a hint as to what goes into obj
         hasIn<T extends Struct<any>>(s: Prop, obj: T): boolean;
         hasIn(s: Prop): <T extends Struct<any>>(obj: T) => boolean;
         // hasIn<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;

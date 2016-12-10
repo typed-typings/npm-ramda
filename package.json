@@ -1,12 +1,12 @@
 {
   "name": "typescript-ramda",
-  "version": "0.22.1",
+  "version": "0.22.1-RC1",
   "scripts": {
-    "test": "./node_modules/typescript/bin/tsc --lib \"es5,es2015.promise,es2015.iterable\" --module amd ramda-tests.ts --noEmit"
+    "test": "./node_modules/typescript/bin/tsc --lib \"es2015\" --module amd test.ts --noEmit"
   },
   "devDependencies": {
     "ramda": "0.22.1",
     "typescript": "2.2.0-dev.20161127"
   },
-  "typings": "ramda.d.ts"
+  "typings": "index.d.ts"
 }
