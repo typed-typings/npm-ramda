@@ -9,9 +9,9 @@ declare namespace R {
     // simple types
     type Ord = number | string | boolean;
     type Prop = string | number;
-    type Path = Prop[];
-    type Struct<T> = Dictionary<T> | Array<T>;
-    type AccOpts<T,U> = Array<any>|string|Dictionary<any>|Transformer<T, U, U>;
+    type Path = ArrayLike<Prop>;
+    type Struct<T> = Dictionary<T> | ArrayLike<T>;
+    type AccOpts<T,U> = ArrayLike<any>|Dictionary<any>|Transformer<T, U, U>;
     interface Type<T> extends Function { new (...args: any[]): T; }
 
     // Fantasyland interfaces
@@ -846,7 +846,7 @@ declare namespace R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<V>(pairs: KeyValuePair<Prop, V>[]): Dictionary<V>;
+        fromPairs<V>(pairs: ArrayLike<KeyValuePair<Prop, V>>): Dictionary<V>;
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
