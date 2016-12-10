@@ -704,16 +704,16 @@ declare namespace R {
          * right to the supplied predicate function, skipping elements while the predicate function returns true.
          */
         // = dropWhile
-        dropLastWhile<T, R extends List<T>>(fn: Pred<T>, list: R): T[];
-        dropLastWhile<T, R extends List<T>>(fn: Pred<T>): (list: R) => T[];
+        dropLastWhile<T, R extends List<T>>(pred: Pred<T>, list: R): T[];
+        dropLastWhile<T, R extends List<T>>(pred: Pred<T>): (list: R) => T[];
         // dropLastWhile<T, R extends List<T>>: CurriedFn2<Pred<T>, R, T[]>;
 
         /**
          * Returns a new list containing the last n elements of a given list, passing each value to the supplied
          * predicate function, skipping elements while the predicate function returns true.
          */
-        dropWhile<T, R extends List<T>>(fn: Pred<T>, list: R): T[];
-        dropWhile<T, R extends List<T>>(fn: Pred<T>): (list: R) => T[];
+        dropWhile<T, R extends List<T>>(pred: Pred<T>, list: R): T[];
+        dropWhile<T, R extends List<T>>(pred: Pred<T>): (list: R) => T[];
         // dropWhile<T, R extends List<T>>: CurriedFn2<Pred<T>, R, T[]>;
 
         /**
@@ -783,19 +783,19 @@ declare namespace R {
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
         // array
-        filter<T>(fn: (value: T) => boolean, list: List<T>): T[];
-        filter<T>(fn: (value: T) => boolean): <T>(list: List<T>) => T[];
-        // filter<T>: CurriedFn2<(value: T) => boolean, List<T>, T[]>;
+        filter<T>(pred: Pred<T>, list: List<T>): T[];
+        filter<T>(pred: Pred<T>): <T>(list: List<T>) => T[];
+        // filter<T>: CurriedFn2<Pred<T>, List<T>, T[]>;
         // functor
-        filter<T>(fn: (value: T) => boolean, list: Functor<T>): Functor<T>;
-        filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => Functor<T>;
+        filter<T>(pred: Pred<T>, list: Functor<T>): Functor<T>;
+        filter<T>(pred: Pred<T>): <T>(list: Functor<T>) => Functor<T>;
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, Functor<T>>;
-        filter<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
-        filter<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
+        filter<T>(pred: Pred<T>, list: Functor<T>): T[];
+        filter<T>(pred: Pred<T>): <T>(list: Functor<T>) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
         // object
-        filter<T,U extends Dictionary<T>>(fn: (value: T) => boolean, obj: U) : Partial<U>;
-        filter<T>(fn: (value: T) => boolean): <U extends Dictionary<T>>(obj: U) => Partial<U>;
+        filter<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        filter<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>;
         // filter<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
 
         /**
@@ -1881,17 +1881,17 @@ declare namespace R {
          * function returns falsy.
          */
         // array
-        reject<T>(fn: (value: T) => boolean, list: List<T>): T[];
-        reject<T>(fn: (value: T) => boolean): (list: List<T>) => T[];
-        // reject<T>: CurriedFn2<(value: T) => boolean, List<T>, T[]>;
+        reject<T>(pred: Pred<T>, list: List<T>): T[];
+        reject<T>(pred: Pred<T>): (list: List<T>) => T[];
+        // reject<T>: CurriedFn2<Pred<T>, List<T>, T[]>;
         // functor
-        reject<T>(fn: (value: T) => boolean, list: Functor<T>): T[];
-        reject<T>(fn: (value: T) => boolean): <T>(list: Functor<T>) => T[];
-        // reject<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
+        reject<T>(pred: Pred<T>, list: Functor<T>): T[];
+        reject<T>(pred: Pred<T>): <T>(list: Functor<T>) => T[];
+        // reject<T>: CurriedFn2<Pred<T>, Functor<T>, T[]>;
         // object
-        reject<T,U extends Dictionary<T>>(fn: (value: T) => boolean, obj: U) : Partial<U>;
-        reject<T>(fn: (value: T) => boolean): <U extends Dictionary<T>>(obj: U) => Partial<U>;
-        // reject<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
+        reject<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        reject<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>;
+        // reject<T,U extends Dictionary<T>>: CurriedFn2<Pred<T>, U, Partial<U>>;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
