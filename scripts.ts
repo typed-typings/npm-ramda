@@ -3,7 +3,7 @@ import * as R from 'ramda';
 let letters = (idx) => (n) => R.range(idx, idx + R.clamp(0, 26, n)).map(i => String.fromCharCode(i));
 let upper = letters(65);
 let lower = letters(97);
-let nm = (cnt, fn) => R.range(0,cnt-1).map(fn).join(', ');
+let nm = (cnt, fn) => R.range(0,cnt).map(fn).join(', ');
 
 function sanctPipeDef(i, j) {
     let [lows, ups] = [lower, upper].map(f => f(i));
@@ -19,7 +19,7 @@ function composeDef(i, j) {
     let pars = nm(j, n => `x${n}: V${n}`);
     let fns = nm(i-1, n => `fn${i-1-n}: (x: T${i-1-n}) => T${i-n}`);
     let types = nm(i, n => `T${n+1}`);
-    return `compose<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => T1): CurriedFn${j}<${vals}, T${i}>;`
+    return `compose<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => T1): (${pars}) => T${i};`
 }
 R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composeDef(i,j)))).join('\r\n')
 
@@ -28,7 +28,7 @@ function composePDef(i, j) {
     let pars = nm(j, n => `x${n}: V${n}`);
     let fns = nm(i-1, n => `fn${i-1-n}: (x: T${i-1-n}) => Promise<T${i-n}>|T${i-n}`);
     let types = nm(i, n => `T${n+1}`);
-    return `composeP<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => Promise<T1>): CurriedFn${j}<${vals}, Promise<T${i}>>;`
+    return `composeP<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => Promise<T1>): (${pars}) => Promise<T${i}>;`
 }
 R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composePDef(i,j)))).join('\r\n')
 
@@ -37,7 +37,7 @@ function pipeDef(i, j) {
     let pars = nm(j, n => `x${n}: V${n}`);
     let fns = nm(i-1, n => `fn${n+1}: (x: T${n+1}) => T${n+2}`);
     let types = nm(i, n => `T${n+1}`);
-    return `pipe<${vals}, ${types}>(fn0: (${pars}) => T1${i>1?', ':''}${fns}): CurriedFn${j}<${vals}, T${i}>;`
+    return `pipe<${vals}, ${types}>(fn0: (${pars}) => T1${i>1?', ':''}${fns}): (${pars}) => T${i};`
 }
 R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipeDef(i,j)))).join('\r\n')
 
@@ -46,7 +46,7 @@ function pipePDef(i, j) {
     let pars = nm(j, n => `x${n}: V${n}`);
     let fns = nm(i-1, n => `fn${n+1}: (x: T${n+1}) => Promise<T${n+2}>|T${n+2}`);
     let types = nm(i, n => `T${n+1}`);
-    return `pipeP<${vals}, ${types}>(fn0: (${pars}) => Promise<T1>${i>1?', ':''}${fns}): CurriedFn${j}<${vals}, Promise<T${i}>>;`
+    return `pipeP<${vals}, ${types}>(fn0: (${pars}) => Promise<T1>${i>1?', ':''}${fns}): (${pars}) => Promise<T${i}>;`
 }
 R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipePDef(i,j)))).join('\r\n')
 
@@ -73,16 +73,16 @@ function curryDef(i) {
 R.flatten(R.range(2,10).map(i => curryDef(i))).join('\r\n')
 
 function CurriedFnDef(i) {
-    let types = nm(i+1, n => `T${n+1}`);
+    let types = nm(i, n => `T${n+1}`);
     let curriedDef = (j, extraGenerics = false) => {
         let pars = nm(j, n => `t${n+1}: T${n+1}`);
-        let tps = nm(i+2-j, n => `T${j+n}`);
-        let gens = nm(i+1, n => `T${n+1}`);
-        let curried = (i+1-j > 1) ? `CurriedFn${i+1-j}<${tps}, R>` : (i+1-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
+        let tps = nm(i-j, n => `T${j+n+1}`);
+        let gens = nm(i, n => `T${n+1}`);
+        let curried = (i-j > 1) ? `CurriedFn${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
         return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
     }
     let nums = R.range(0,i);
-    let defs = [...nums.map(n => curriedDef(n+2)), ...nums.map(n => curriedDef(n+2, true))].join('\r\n    ');
+    let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
     return `interface CurriedFn${i}<${types}, R> {
     ${defs}
 }`;
@@ -95,7 +95,7 @@ function liftDef(i) {
     let types = nm(i, n => `T${n+1}`);
     return `lift<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`
 }
-R.flatten(R.range(3,10).map(i => liftDef(i))).join('\r\n')
+R.flatten(R.range(2,10).map(i => liftDef(i))).join('\r\n')
 
 function liftNDef(i, together = true) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -104,8 +104,8 @@ function liftNDef(i, together = true) {
     return together ? `liftN<${types}, TResult>(n: number, fn: (${pars}) => TResult): (${listPars}) => TResult[];` :
                       `liftN(n: number): <${types}, TResult>(fn: (${pars}) => TResult) => (${listPars}) => TResult[];`;
 }
-R.flatten(R.range(3,10).map(i => liftNDef(i, true))).join('\r\n');
-R.flatten(R.range(3,10).map(i => liftNDef(i, false))).join('\r\n');
+R.flatten(R.range(2,10).map(i => liftNDef(i, true))).join('\r\n');
+// R.flatten(R.range(2,10).map(i => liftNDef(i, false))).join('\r\n');
 
 function liftNDefSeparate(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -113,5 +113,5 @@ function liftNDefSeparate(i) {
     let types = nm(i, n => `T${n+1}`);
     return `<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`;
 }
-`liftN(n: number): {\r\n${R.flatten(R.range(3,10).map(i => liftNDefSeparate(i))).join('\r\n')}\r\n}`;
+`liftN(n: number): {\r\n${R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\r\n')}\r\n}`;
 

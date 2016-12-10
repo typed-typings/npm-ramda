@@ -2201,7 +2201,7 @@ class Why {
         [R.T, R.identity]
     ]);
     // ^ also can't infer cond paths
-    const y: R.CurriedFn1<number, number> = R.compose(x, R.inc);
+    const y: (v: number) => number = R.compose(x, R.inc);
 }
 
 () => {
