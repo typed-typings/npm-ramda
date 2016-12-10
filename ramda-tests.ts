@@ -1306,7 +1306,7 @@ class Rectangle {
       function set(val: number, arr: number[]) { return [val].concat(arr.slice(1)); }
     );
     headLens([10, 20, 30, 40]); //=> 10
-    headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]
+    // headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40] // errors: [ts] Argument of type '"mu"' is not assignable to parameter of type 'number'.
 
     var phraseLens = R.lens(
       function get(obj: any) { return obj.phrase; },

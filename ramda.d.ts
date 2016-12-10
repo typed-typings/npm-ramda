@@ -112,13 +112,13 @@ declare namespace R {
     }
 
     interface Lens<T,U> {
-        /*get*/(obj: T): U;
-        set(str: string, obj: T): U;
+        (obj: T): U; // get
+        set(v: U, obj: T): U;
         // map(fn: (v: U) => U, obj: T): T
     }
     interface UnknownLens {
-        /*get*/<T,U>(obj: T): U;
-        set<T,U>(str: string, obj: T): U;
+        <T,U>(obj: T): U; // get
+        set<T,U>(v: U, obj: T): U;
         // map<T,U>(fn: (v: U) => U, obj: T): T
     }
 
