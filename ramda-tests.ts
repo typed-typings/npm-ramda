@@ -2173,16 +2173,18 @@ class Why {
 }
 
 () => {
-    // #78
+    // #78: curry loses generics
     // : <T>R.CurriedFn3<R.Pred<T>, T, T[], T[]>
-    let updateBy: R.CurriedFn3<R.Pred<any>, any, any[], any[]> = R.curry(<T>(pred: R.Pred<T>, val, T, array: T[]): T[] => {
+    // : R.CurriedFn3<R.Pred<any>, any, any[], any[]>
+    let updateBy = R.curry(<T>(pred: R.Pred<T>, val: T, array: T[]): T[] => {
         let i = R.findIndex(pred, array);
         if (i >= 0) {
             return R.update(i, val, array);
         } else {
             return array;
         }
-    })
+    });
+    let res: number[] = updateBy((n: number) => n > 1, 0, [1,2,3]);
 }
 
 () => {
@@ -2193,16 +2195,17 @@ class Why {
 }
 
 () => {
-    // #92
-    const x = R.cond([
+    // #92: lose generics in compose
+    const x: <T>(v: T) => T = R.cond([
         [R.F, R.F],
         [R.T, R.identity]
     ]);
+    // ^ also can't infer cond paths
     const y: R.CurriedFn1<number, number> = R.compose(x, R.inc);
 }
 
 () => {
-    // #101
+    // #101: compose can't guess types for generic functions
     interface SomeStruct {
         a: number[];
         b: string[];
@@ -2213,18 +2216,17 @@ class Why {
         'b': [],
         'c': {},
     };
-    const fun = (y: SomeStruct): SomeStruct => {
-        return R.compose(
-            R.assoc('a', [1, 2, 3]),
-            R.assoc('b', ['a', 'b', 'c']),
-            R.assoc('c', { 'k': 'v'})
-        )(y);
-    };
-    fun(x);
+    // const fun = <(y: SomeStruct) => SomeStruct>R.compose(        // annotated: works
+    const fun = R.compose(
+        R.assoc('a', [1, 2, 3]),
+        R.assoc('b', ['a', 'b', 'c']),
+        R.assoc('c', { 'k': 'v'})
+    );
+    let struct: SomeStruct = fun(x);
 }
 
 () => {
-    // #118
+    // #118: flatten
     let numbers: number[] = R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
     //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 }
