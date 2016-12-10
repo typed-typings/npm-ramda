@@ -1888,9 +1888,9 @@ declare namespace R {
          * then passing the result to the next call.
          */
         reduce<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult, list: R): TResult;
-        reduce<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): CurriedFn2<TResult, R, TResult>;
-        reduce<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): (acc: TResult, list: R) => TResult;
         reduce<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult): (list: R) => TResult;
+        reduce<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): CurriedFn2<TResult, R, TResult>;
+        // reduce<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): (acc: TResult, list: R) => TResult;
         // reduce<T, TResult, R extends List<T>>: CurriedFn3<(acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, TResult, R, TResult>;
 
         /**
@@ -1920,8 +1920,8 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any, list: List<T>): TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any): (list: List<T>) => TResult;
         reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFn2<TResult, List<T>, TResult>;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any, list: List<T>) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: List<T>) => TResult;
+        // reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any, list: List<T>) => TResult;
+        // reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: List<T>) => TResult;
         // reduceRight<T, TResult>: CurriedFn3<(acc: TResult, elem: T) => TResult|Reduced, TResult|any, List<T>, TResult>;
 
         // does this function still/already exist?
