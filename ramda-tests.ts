@@ -237,17 +237,17 @@ R.times(i, 5);
 
 (() => {
     var multiply = function(a: number, b: number) { return a * b; };
-    var double = R.partial(multiply, 2);
+    var double = R.partial(multiply, [2]);
     double(2); //=> 4
 
     var greet = function(salutation: string, title: string, firstName: string, lastName: string) {
       return salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!';
     };
-    var sayHello = R.partial(greet, 'Hello');
-    var sayHelloToMs = R.partial(sayHello, 'Ms.');
+    var sayHello = R.partial(greet, ['Hello']);
+    var sayHelloToMs = R.partial(sayHello, ['Ms.']);
     sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
 
-    var greetMsJaneJones = R.partialRight(greet, 'Ms.', 'Jane', 'Jones');
+    var greetMsJaneJones = R.partialRight(greet, ['Ms.', 'Jane', 'Jones']);
     greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
 })();
 
