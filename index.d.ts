@@ -129,6 +129,11 @@ declare namespace R {
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
+    // interface KeyLens<T extends Struct<any>, K extends keyof T> {
+    //     <T extends Struct<any>>(obj: T): T[K]; // get
+    //     <T extends Struct<any>>set(v: T[K], obj: T): T;
+    //     // <T extends Struct<any>>map(fn: (v: T[K]) => T[K], obj: T): T
+    // }
     interface Lens<T,U> {
         (obj: T): U; // get
         set(v: U, obj: T): T;
