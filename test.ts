@@ -289,7 +289,7 @@ R.times(i, 5);
 () => {
     const a0: string[] = R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
     const a1: string[] = R.match(/a/, 'b'); //=> []
-    const a2: string[] = R.match(/a/, null); //=> TypeError: null does not have a method named "match"
+    // const a2: string[] = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
 }
 
 (() => {
@@ -313,7 +313,7 @@ R.times(i, 5);
 })();
 
 () => {
-    var isOdd = (acc, x) => x % 2 === 1;
+    var isOdd = (x: number, acc: number) => x % 2 === 1;
     var xs = [1, 3, 5, 60, 777, 800];
     R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
 
@@ -385,7 +385,7 @@ R.times(i, 5);
 
  () => {
      var mergeThree = function(a: number, b: number, c: number): number[] {
-       return ([]).concat(a, b, c);
+       return ([] as number[]).concat(a, b, c);  // strictNullChecks: must cast array to right type
      };
      mergeThree(1, 2, 3); //=> [1, 2, 3]
      var flipped = R.flip(mergeThree);
@@ -498,7 +498,7 @@ R.times(i, 5);
     // see that we did not break anything
     // and we kept type information
     onlyNumberList(R.filter(isEven,[1,2,3,4]));
-    onlyNumberObj(R.filter(isEven,{a:1, b:2, c:3, d:4}));
+    onlyNumberObj(R.filter(isEven, {a:1, b:2, c:3, d:4})); // strictNullChecks: Partial fails, consider Pick
 }
 
 () => {
@@ -2058,7 +2058,7 @@ class Why {
     const x0: boolean = R.or(false, true); //=> false
     const x1: number|any[] = R.or(0, []); //=> []
     const x2: number|any[] = R.or(0)([]); //=> []
-    const x3: string = R.or(null, ''); //=> ''
+    // const x3: string = R.or(null, ''); //=> ''   // errors with strict null checks
 
     var why = new Why(true);
     why.or(true)
@@ -2072,11 +2072,25 @@ class Why {
 }
 
 () => {
-    // #109
-    function grepSomethingRecursively(grepPatterns: string | string[]) {
-        if (R.is(Array, grepPatterns)) {
-            R.forEach(() => {}, grepPatterns)
-        }
+    // #73
+    let filterMatrix = function (v: number, m: Array<Array<number>>): Array<number> {
+      return R.chain(R.filter((c: number) => c == v), m)
+      // return R.chain(R.filter(R.equals(v)), m)
+    }
+    let b = [
+        [0, 1],
+        [1, 0]
+    ]
+    console.log(filterMatrix(1, b)) // --> [1, 1]
+
+    // compiles
+    let filterMatrix2 = function (v: number, m: Array<Array<number>>): Array<number> {
+        return R.chain((r) => R.filter((c) => c == v, r), m)
+    }
+
+    // also compiles
+    let mapMatrix3 = function(fn: (v: number) => number, m: Array<Array<number>>): Array<number> {
+      return R.chain(R.map((c: number) => fn(c)), m)
     }
 }
 
@@ -2091,6 +2105,15 @@ class Why {
     // will work only with proposed changes
     map(R.assoc('xxx'))
     map2(R.assoc('xxx'))
+}
+
+() => {
+    // #109
+    function grepSomethingRecursively(grepPatterns: string | string[]) {
+        if (R.is(Array, grepPatterns)) {
+            R.forEach(() => {}, grepPatterns)
+        }
+    }
 }
 
 // UNRESOLVED:
@@ -2148,28 +2171,6 @@ class Why {
     ]}
     const elem = "Hello"
     R.over(R.compose(R.lensProp("sections"), R.lensIndex(sectioneditems.sections.length - 1), R.lensProp("items")), R.append(elem), sectioneditems)
-}
-
-() => {
-    // #73
-    let filterMatrix = function (v: number, m: Array<Array<number>>): Array<number> {
-    return R.chain(R.filter((c) => c == v), m)
-    }
-    let b = [
-        [0, 1],
-        [1, 0]
-    ]
-    console.log(filterMatrix(1, b)) // --> [1, 1]
-
-    // compiles
-    let filterMatrix2 = function (v: number, m: Array<Array<number>>): Array<number> {
-        return R.chain((r) => R.filter((c) => c == v, r), m)
-    }
-
-    // also compiles
-    let mapMatrix3 = function (fn, m: Array<Array<number>>): Array<number> {
-    return R.chain(R.map((c) => fn(c)), m)
-    }
 }
 
 () => {

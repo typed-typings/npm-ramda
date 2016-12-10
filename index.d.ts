@@ -791,14 +791,14 @@ declare namespace R {
          */
         // array
         filter<T>(pred: Pred<T>, list: List<T>): T[];
-        filter<T>(pred: Pred<T>): <T>(list: List<T>) => T[];
+        filter<T>(pred: Pred<T>): (list: List<T>) => T[];
         // filter<T>: CurriedFn2<Pred<T>, List<T>, T[]>;
         // functor
         filter<T>(pred: Pred<T>, list: Functor<T>): Functor<T>;
-        filter<T>(pred: Pred<T>): <T>(list: Functor<T>) => Functor<T>;
+        filter<T>(pred: Pred<T>): (list: Functor<T>) => Functor<T>;
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, Functor<T>>;
         filter<T>(pred: Pred<T>, list: Functor<T>): T[];
-        filter<T>(pred: Pred<T>): <T>(list: Functor<T>) => T[];
+        filter<T>(pred: Pred<T>): (list: Functor<T>) => T[];
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
         // object
         filter<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
@@ -810,7 +810,7 @@ declare namespace R {
          * element matches.
          */
         find<T>(fn: (a: T) => boolean, list: List<T>): T;
-        find<T>(fn: (a: T) => boolean): <T>(list: List<T>) => T;
+        find<T>(fn: (a: T) => boolean): (list: List<T>) => T;
         // find<T>: CurriedFn2<(a: T) => boolean, List<T>, T>;
 
 
@@ -819,7 +819,7 @@ declare namespace R {
          * if no element matches.
          */
         findIndex<T>(fn: (a: T) => boolean, list: List<T>): number;
-        findIndex<T>(fn: (a: T) => boolean): <T>(list: List<T>) => number;
+        findIndex<T>(fn: (a: T) => boolean): (list: List<T>) => number;
         // findIndex<T>: CurriedFn2<(a: T) => boolean, List<T>, number>;
 
         /**
@@ -827,7 +827,7 @@ declare namespace R {
          * element matches.
          */
         findLast<T>(fn: (a: T) => boolean, list: List<T>): T;
-        findLast<T>(fn: (a: T) => boolean): <T>(list: List<T>) => T;
+        findLast<T>(fn: (a: T) => boolean): (list: List<T>) => T;
         // findLast<T>: CurriedFn2<(a: T) => boolean, List<T>, T>;
 
         /**
@@ -835,7 +835,7 @@ declare namespace R {
          * `-1` if no element matches.
          */
         findLastIndex<T>(fn: (a: T) => boolean, list: List<T>): number;
-        findLastIndex<T>(fn: (a: T) => boolean): <T>(list: List<T>) => number;
+        findLastIndex<T>(fn: (a: T) => boolean): (list: List<T>) => number;
         // findLastIndex<T>: CurriedFn2<(a: T) => boolean, List<T>, number>;
 
         /**
@@ -878,7 +878,7 @@ declare namespace R {
          * on each element, and grouping the results according to values returned.
          */
         groupBy<T>(fn: (a: T) => Prop, list: List<T>): Dictionary<T[]>;
-        groupBy<T>(fn: (a: T) => Prop): <T>(list: List<T>) => Dictionary<T[]>;
+        groupBy<T>(fn: (a: T) => Prop): (list: List<T>) => Dictionary<T[]>;
         // groupBy<T>: CurriedFn2<(a: T) => Prop, List<T>, Dictionary<T[]>>;
 
         /**
@@ -1037,10 +1037,10 @@ declare namespace R {
          */
         into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: List<T>) => U, list: List<T>): U;
         into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: List<T>) => U, List<T>, U>;
-        into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: List<T>) => U): <T>(list: List<T>) => U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: List<T>) => U): (list: List<T>) => U;
         into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: List<T>) => U, List<T>, U>;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: List<T>) => U, list: List<T>) => U;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): <T>(xf: (list: List<T>) => U) => (list: List<T>) => U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): (xf: (list: List<T>) => U, list: List<T>) => U;
+        into<T,U,V extends AccOpts<T,U>>(acc: V): (xf: (list: List<T>) => U) => (list: List<T>) => U;
         // into<T,U,V extends AccOpts<T,U>>: CurriedFn3<V, (list: List<T>) => U, List<T>, U>;
 
         /**
@@ -1915,7 +1915,7 @@ declare namespace R {
         // reject<T>: CurriedFn2<Pred<T>, List<T>, T[]>;
         // functor
         reject<T>(pred: Pred<T>, list: Functor<T>): T[];
-        reject<T>(pred: Pred<T>): <T>(list: Functor<T>) => T[];
+        reject<T>(pred: Pred<T>): (list: Functor<T>) => T[];
         // reject<T>: CurriedFn2<Pred<T>, Functor<T>, T[]>;
         // object
         reject<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
@@ -2082,7 +2082,7 @@ declare namespace R {
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          */
         symmetricDifference<T>(list1: List<T>, list2: List<T>): T[];
-        symmetricDifference<T>(list: List<T>): <T>(list: List<T>) => T[];
+        symmetricDifference<T>(list: List<T>): (list: List<T>) => T[];
         // symmetricDifference<T>: CurriedFn2<List<T>, List<T>, T[]>;
 
         /**
