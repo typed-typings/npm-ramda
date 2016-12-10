@@ -589,11 +589,6 @@ interface Obj { a: number; b: number };
 }
 
 () => {
-    R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
-    //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-}
-
-() => {
     var printXPlusFive = function(x: number) { console.log(x + 5); };
     R.forEach(printXPlusFive, [1, 2, 3]); //=> [1, 2, 3]
     R.forEach(printXPlusFive)([1, 2, 3]); //=> [1, 2, 3]
@@ -2076,6 +2071,14 @@ class Why {
     R.intersperse(0, [1]); //=> [1]
 }
 
+() => {
+    // #109
+    function grepSomethingRecursively(grepPatterns: string | string[]) {
+        if (R.is(Array, grepPatterns)) {
+            R.forEach(() => {}, grepPatterns)
+        }
+    }
+}
 
 () => {
     // #90
@@ -2090,12 +2093,141 @@ class Why {
     map2(R.assoc('xxx'))
 }
 
+// UNRESOLVED:
+
+/*
+
 () => {
-    // #109
-    function grepSomethingRecursively(grepPatterns: string | string[]) {
-        if (R.is(Array, grepPatterns)) {
-            // R.forEach(() => {}, grepPatterns) 
-        }
+    // #29
+    const letters: string[] = R.pipe(R.append("a"), R.uniq)(["a", "b", "c"]);
+
+    const strArrArr: string[][] = R.pipe(
+        R.split(''),
+        R.map(letter => ([ letter ]))
+    )("dave");
+
+    const b: number = R.pipe(
+        R.prop<string>('name'),
+        R.length
+    )({ name: 'dave' });
+
+    let build: string;
+    let mapPackages = R.partial(R.map, [test => test.package]);
+    let filterBuild = R.partial(R.filter, [test => test.build === build]);
+    let getPackages = R.compose(R.uniq, mapPackages, filterBuild);
+    this.packages = getPackages(this._tests);
+    // ^ expected: ??
+
+    interface Foo {
+        build: string,
+        package: string
+    }
+    const build2 = 'dev';
+    let mapPackages2 = R.map((test: Foo) => test.package);
+    let filterBuild2 = R.filter((test: Foo) => test.build === build2);
+    let getPackages2 = R.compose(R.uniq, mapPackages2, filterBuild2);
+    let foos = [{
+        build: 'dev',
+        package: 'devPackage'
+    }, {
+        build: 'prod',
+        package: 'prodPackage'
+    }, {
+        build: 'dev',
+        package: 'devPackage'
+    }];
+    let foosFiltered = getPackages2(foos);
+    // ^ expected: ??
+}
+
+() => {
+    // #69
+    const sectioneditems = { sections: [
+        {items: []},
+        {items: []}
+    ]}
+    const elem = "Hello"
+    R.over(R.compose(R.lensProp("sections"), R.lensIndex(sectioneditems.sections.length - 1), R.lensProp("items")), R.append(elem), sectioneditems)
+}
+
+() => {
+    // #73
+    let filterMatrix = function (v: number, m: Array<Array<number>>): Array<number> {
+    return R.chain(R.filter((c) => c == v), m)
+    }
+    let b = [
+        [0, 1],
+        [1, 0]
+    ]
+    console.log(filterMatrix(1, b)) // --> [1, 1]
+
+    // compiles
+    let filterMatrix2 = function (v: number, m: Array<Array<number>>): Array<number> {
+        return R.chain((r) => R.filter((c) => c == v, r), m)
+    }
+
+    // also compiles
+    let mapMatrix3 = function (fn, m: Array<Array<number>>): Array<number> {
+    return R.chain(R.map((c) => fn(c)), m)
     }
 }
 
+() => {
+    // #78
+    let updateBy = R.curry((pred, val, array) => {
+        let i = R.findIndex(pred, array);
+        if (i >= 0) {
+            return R.update(i, val, array);
+        } else {
+            return array;
+        }
+    })
+    // ^ expected: ??
+}
+
+() => {
+    // #86
+    let a: { [index: string]: string } = R.fromPairs([['1','A'], ['2','B'], ['3','C']])
+    let b: { [index: string]: string } = R.compose(R.fromPairs)([[1,'A'], [2,'B'], [3,'C']])
+    let c: { [index: string]: string } = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])
+}
+
+() => {
+    // #92
+    const x = R.cond([
+        [R.F, R.F],
+        [R.T, R.identity]
+    ]);
+    const y = R.compose(x, R.inc);
+    // curried fn returns {} instead of number
+}
+
+() => {
+    // #101
+    interface SomeStruct {
+        a: number[];
+        b: string[];
+        c: { [index: string]: string };
+    }
+    const x: SomeStruct = {
+        'a': [],
+        'b': [],
+        'c': {},
+    };
+    const fun = (y: SomeStruct): SomeStruct => {
+        return R.compose(
+            R.assoc('a', [1, 2, 3]),
+            R.assoc('b', ['a', 'b', 'c']),
+            R.assoc('c', { 'k': 'v'})
+        )(y);
+    };
+    fun(x);
+}
+
+() => {
+    // #118
+    let numbers: number[] = R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
+    // ^ TODO: fix expected type: number[]
+    //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+*/
