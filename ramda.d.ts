@@ -1197,17 +1197,40 @@ declare namespace R {
          * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
          * the FantasyLand Apply spec.
          */
+        lift<T1, T2, TResult>(fn: (v1: T1, v2: T2) => TResult): (v1: List<T1>, v2: List<T2>) => TResult[];
+        lift<T1, T2, T3, TResult>(fn: (v1: T1, v2: T2, v3: T3) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>) => TResult[];
+        lift<T1, T2, T3, T4, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>) => TResult[];
+        lift<T1, T2, T3, T4, T5, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>) => TResult[];
+        lift<T1, T2, T3, T4, T5, T6, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>) => TResult[];
+        lift<T1, T2, T3, T4, T5, T6, T7, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>) => TResult[];
+        lift<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7, v8: T8) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>, v8: List<T8>) => TResult[];
         lift<T>(fn: Variadic<T>): (...argLists: any[][]) => T[];
-        // TODO: fixed-arity versions
 
         /**
          * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
          * objects that satisfy the FantasyLand Apply spec.
          */
+        liftN<T1, T2, TResult>(n: number, fn: (v1: T1, v2: T2) => TResult): (v1: List<T1>, v2: List<T2>) => TResult[];
+        liftN<T1, T2, T3, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>) => TResult[];
+        liftN<T1, T2, T3, T4, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>) => TResult[];
+        liftN<T1, T2, T3, T4, T5, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>) => TResult[];
+        liftN<T1, T2, T3, T4, T5, T6, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>) => TResult[];
+        liftN<T1, T2, T3, T4, T5, T6, T7, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>) => TResult[];
+        liftN<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7, v8: T8) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>, v8: List<T8>) => TResult[];
+
+        liftN(n: number): {
+            <T1, T2, TResult>(fn: (v1: T1, v2: T2) => TResult): (v1: List<T1>, v2: List<T2>) => TResult[];
+            <T1, T2, T3, TResult>(fn: (v1: T1, v2: T2, v3: T3) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>) => TResult[];
+            <T1, T2, T3, T4, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>) => TResult[];
+            <T1, T2, T3, T4, T5, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>) => TResult[];
+            <T1, T2, T3, T4, T5, T6, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>) => TResult[];
+            <T1, T2, T3, T4, T5, T6, T7, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>) => TResult[];
+            <T1, T2, T3, T4, T5, T6, T7, T8, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7, v8: T8) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>, v8: List<T8>) => TResult[];
+        }
+
         liftN<T>(n: number, fn: Variadic<T>): (...argLists: any[][]) => T[];
         liftN(n: number): <T>(fn: Variadic<T>) => (...argLists: any[][]) => T[];
         // liftN<T>: CurriedFn2<number, Variadic<T>, (...argLists: any[][]) => T[]>;
-        // TODO: fixed-arity versions
 
         /**
          * Returns true if the first parameter is less than the second.

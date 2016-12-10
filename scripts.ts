@@ -89,4 +89,29 @@ function CurriedFnDef(i) {
 }
 R.flatten(R.range(2,10).map(i => CurriedFnDef(i))).join('\r\n')
 
+function liftDef(i) {
+    let pars = nm(i, n => `v${n+1}: T${n+1}`);
+    let listPars = nm(i, n => `v${n+1}: List<T${n+1}>`);
+    let types = nm(i, n => `T${n+1}`);
+    return `lift<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`
+}
+R.flatten(R.range(3,10).map(i => liftDef(i))).join('\r\n')
+
+function liftNDef(i, together = true) {
+    let pars = nm(i, n => `v${n+1}: T${n+1}`);
+    let listPars = nm(i, n => `v${n+1}: List<T${n+1}>`);
+    let types = nm(i, n => `T${n+1}`);
+    return together ? `liftN<${types}, TResult>(n: number, fn: (${pars}) => TResult): (${listPars}) => TResult[];` :
+                      `liftN(n: number): <${types}, TResult>(fn: (${pars}) => TResult) => (${listPars}) => TResult[];`;
+}
+R.flatten(R.range(3,10).map(i => liftNDef(i, true))).join('\r\n');
+R.flatten(R.range(3,10).map(i => liftNDef(i, false))).join('\r\n');
+
+function liftNDefSeparate(i) {
+    let pars = nm(i, n => `v${n+1}: T${n+1}`);
+    let listPars = nm(i, n => `v${n+1}: List<T${n+1}>`);
+    let types = nm(i, n => `T${n+1}`);
+    return `<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`;
+}
+`liftN(n: number): {\r\n${R.flatten(R.range(3,10).map(i => liftNDefSeparate(i))).join('\r\n')}\r\n}`;
 
