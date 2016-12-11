@@ -130,8 +130,12 @@ declare namespace R {
         [index: string]: T|NestedObj<T>;
     }
 
-    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
-    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
+    // interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+    // interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
+    interface NestedArray <T> {
+      [index: number]: T | NestedArray<T>;
+      length: number;
+    }
 
     // // an unfortunate compromise -- while the actual lens should be generic, for the purpose of TS the structure should be supplied beforehand
     // interface KeyLens<T extends Struct<any>, K extends keyof T> {
@@ -845,7 +849,8 @@ declare namespace R {
         // flatten<T>(x: ArrayLike<ArrayLike<T>>): T[];
         // flatten<T>(x: ArrayLike<T>): T[];
         // TODO: figure out how to handle arrays using different levels of nesting
-        flatten<T>(x: ListOfRecursiveArraysOrValues<T>): T[];
+        // flatten<T>(x: ListOfRecursiveArraysOrValues<T>): T[];
+        flatten<T>(x: NestedArray<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
