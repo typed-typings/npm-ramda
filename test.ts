@@ -2369,7 +2369,7 @@ class Why {
 
 // UNRESOLVED ISSUES:
 
-/*
+// /*
 
 () => {
     // #29
@@ -2507,4 +2507,4 @@ class Why {
   let b4 = pathArr(['a', 0, 'c'], {a: [{c: 2}] }) // error
 }
 
-*/
+// */
