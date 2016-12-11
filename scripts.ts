@@ -115,3 +115,11 @@ function liftNDefSeparate(i) {
 }
 R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\r\n');
 
+function pathDef(i) {
+    let obj = R.range(1,i+1).reduce((str, n) => `{[K${i-n+1} in T${i-n+1}]: ${str}}`, 'TResult');
+    let types = nm(i, n => `T${n+1}`);
+    let typesStr = nm(i, n => `T${n+1} extends string`);
+    return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
+}
+R.flatten(R.range(2,10).map(i => pathDef(i))).join('\r\n')
+

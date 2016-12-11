@@ -2238,4 +2238,16 @@ class Why {
     let numbers: number[] = R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
     //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 }
+
+() => {
+  // #119: path
+  let pathArr: <T1 extends string, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: { [K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult } } }) => TResult;
+  let a1 = R.path(['a', 'b', 'c'], {a: {b: {c: 2}}}) // ok, objects only
+  let a2 = R.path(['a', 'b', 'c'], {a: {b: 2}}) // ok, granular def correctly fails, no c
+  let a3 = R.path(['a', '0', 'c'], {a: [{c: 2}] }) // granular def fails, can't deal with arrays yet
+  let a4 = R.path(['a', 0, 'c'], {a: [{c: 2}] }) // granular def fails, can't deal with arrays yet
+  let b3 = pathArr(['a', '0', 'c'], {a: [{c: 2}] }) // error
+  let b4 = pathArr(['a', 0, 'c'], {a: [{c: 2}] }) // error
+}
+
 */
