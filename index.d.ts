@@ -346,6 +346,7 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
+        // hard to mix cuz different initial generics?
 
         // extend object with new property
         assoc<T, U extends Struct<any>, K extends keyof U>(prop: K, val: T, obj: U): {[P in K]: T} & U;
@@ -657,16 +658,24 @@ declare namespace R {
         // TODO: fix, can't yet calculate type of object minus this key
         // dissoc<T,U>(prop: Prop, obj: T & { [prop: Prop]: any }): T; // wanna say the original object is the same with the extra key, but can't bind it to prop
         // dissoc<T,U extends Struct<any>>(prop: keyof U, obj: U): T;
-        // It seems impossible to infer the return type, so this may have to be specified explicitly
-        dissoc<T>(prop: Prop, obj: Struct<any>): T;
-        dissoc(prop: Prop): <T>(obj: Struct<any>) => T;
-        // dissoc<T>: CurriedFn2<Prop, Struct<any>, T>;
-        // dissoc<U extends Struct<any>>(prop: keyof U): <T>(obj: U) => T; // can't do this, don't know U in time
+
         // simplified but inferrable: leave the key in
         dissoc<T>(prop: keyof T, obj: T): T;
-        dissoc(prop: Prop): <T>(obj: T) => T;
+        // dissoc(prop: Prop): <T>(obj: T) => T; // mix
         // dissoc<T>: CurriedFn2<keyof T, T, T>;
         // dissoc<T>: CurriedFn2<Prop, T, T>;
+
+        // It seems impossible to infer the return type, so this may have to be specified explicitly
+        dissoc<T>(prop: Prop, obj: Struct<any>): T;
+        // dissoc(prop: Prop): <T>(obj: Struct<any>) => T; // mix
+        // dissoc<T>: CurriedFn2<Prop, Struct<any>, T>;
+        // dissoc<U extends Struct<any>>(prop: keyof U): <T>(obj: U) => T; // can't do this, don't know U in time
+
+        // mixed curry:
+        dissoc(prop: Prop): {
+          <T>(obj: T): T; // infer
+          <T>(obj: Struct<any>): T; // manual
+        }
 
         /**
          * Makes a shallow clone of an object, omitting the property at the given path.
@@ -742,18 +751,21 @@ declare namespace R {
         /**
          * Reports whether two functions have the same value for the specified property.
          */
+        // hard to mix cuz different initial generics?
 
         // more generics
         eqProps<T,U>(prop: Prop, obj1: T, obj2: U): boolean;
-        eqProps<T,U>(prop: Prop): CurriedFn2<T,U,boolean>;
-        eqProps(prop: Prop): <T,U>(obj1: T, obj2: U) => boolean;
         eqProps<T>(prop: Prop, obj1: T): <U>(obj2: U) => boolean;
+        eqProps<T,U>(prop: Prop): CurriedFn2<T,U,boolean>;
+        // eqProps(prop: Prop): <T,U>(obj1: T, obj2: U) => boolean;
         // eqProps<T,U>: CurriedFn3<Prop, T, U, boolean>;
 
         // less generics
         eqProps(prop: Prop, obj1: any, obj2: any): boolean;
-        eqProps(prop: Prop): (obj1: any, obj2: any) => boolean;
-        eqProps(prop: Prop): (obj1: any) => (obj2: any) => boolean;
+        eqProps(prop: Prop, obj1: any): (obj2: any) => boolean;
+        eqProps(prop: Prop): CurriedFn2<any, any, boolean>;
+        // eqProps(prop: Prop): (obj1: any, obj2: any) => boolean;
+        // eqProps(prop: Prop): (obj1: any) => (obj2: any) => boolean;
         // eqProps: CurriedFn3<Prop, any, any, boolean>;
 
         /**
@@ -790,19 +802,32 @@ declare namespace R {
 
         // array
         filter<T>(pred: Pred<T>, list: List<T>): T[];
-        filter<T>(pred: Pred<T>): (list: List<T>) => T[];
+        filter<T>(pred: Pred<T>): (list: List<T>) => T[]; // should disable for mixing, but this somehow makes #73 fail
         // filter<T>: CurriedFn2<Pred<T>, List<T>, T[]>;
-        // functor
+
+        // functor to functor
         filter<T>(pred: Pred<T>, list: Functor<T>): Functor<T>;
-        filter<T>(pred: Pred<T>): (list: Functor<T>) => Functor<T>;
+        // filter<T>(pred: Pred<T>): (list: Functor<T>) => Functor<T>; // mix
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, Functor<T>>;
+
+        // functor to array
         filter<T>(pred: Pred<T>, list: Functor<T>): T[];
-        filter<T>(pred: Pred<T>): (list: Functor<T>) => T[];
+        // filter<T>(pred: Pred<T>): (list: Functor<T>) => T[]; // mix
         // filter<T>: CurriedFn2<(value: T) => boolean, Functor<T>, T[]>;
+
         // object
         filter<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
-        filter<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>;
+        // filter<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>; // mix
         // filter<T,U extends Dictionary<T>>: CurriedFn2<(value: T) => boolean, U, Partial<U>>;
+
+        // mixed
+        filter<T>(pred: Pred<T>): {
+          (list: List<T>): T[];
+          (list: Functor<T>): Functor<T>;
+          (list: Functor<T>): T[];
+          <U extends Dictionary<T>>(obj: U): Partial<U>;
+        }
+
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -905,26 +930,53 @@ declare namespace R {
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
-        // bound generic, hopefully gives a hint as to what goes into obj
-        has<T extends Struct<any>>(s: Prop, obj: T): boolean;
-        has(s: Prop): <T extends Struct<any>>(obj: T) => boolean;
-        // has<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
-        // free generic, helps make a few tests pass
-        has<T>(s: Prop, obj: T): boolean;
-        has(s: Prop): <T>(obj: T) => boolean;
-        // has<T>: CurriedFn2<Prop, T, boolean>;
+
+        // no generics
+        has(s: Prop, obj: Struct<any>): boolean;
+        has(s: Prop): (obj: Struct<any>) => boolean;
+        // has: CurriedFn2<Prop, Struct<any>, boolean>;
+
+        // // bound generic, hopefully gives a hint as to what goes into obj
+        // has<T extends Struct<any>>(s: Prop, obj: T): boolean;
+        // // has(s: Prop): <T extends Struct<any>>(obj: T) => boolean; // mix
+        // // has<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
+
+        // // free generic, helps make a few tests pass. TODO: kill this workaround?
+        // has<T>(s: Prop, obj: T): boolean;
+        // // has(s: Prop): <T>(obj: T) => boolean; // mix
+        // // has<T>: CurriedFn2<Prop, T, boolean>;
+
+        // // mixed
+        // has(s: Prop): {
+        //   <T extends Struct<any>>(obj: T): boolean;
+        //   <T>(obj: T): boolean;
+        // }
 
         /**
          * Returns whether or not an object or its prototype chain has a property with the specified name
          */
-        // bound generic, hopefully gives a hint as to what goes into obj
-        hasIn<T extends Struct<any>>(s: Prop, obj: T): boolean;
-        hasIn(s: Prop): <T extends Struct<any>>(obj: T) => boolean;
-        // hasIn<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
-        // free generic, helps make a few tests pass
-        hasIn<T>(s: Prop, obj: T): boolean;
-        hasIn(s: Prop): <T>(obj: T) => boolean;
-        // hasIn<T>: CurriedFn2<Prop, T, boolean>;
+        // = has
+
+        // no generics
+        hasIn(s: Prop, obj: Struct<any>): boolean;
+        hasIn(s: Prop): (obj: Struct<any>) => boolean;
+        // hasIn: CurriedFn2<Prop, Struct<any>, boolean>;
+
+        // // bound generic, hopefully gives a hint as to what goes into obj
+        // hasIn<T extends Struct<any>>(s: Prop, obj: T): boolean;
+        // // hasIn(s: Prop): <T extends Struct<any>>(obj: T) => boolean; // mix
+        // // hasIn<T extends Struct<any>>: CurriedFn2<Prop, T, boolean>;
+
+        // // free generic, helps make a few tests pass. TODO: kill this workaround?
+        // hasIn<T>(s: Prop, obj: T): boolean;
+        // // hasIn(s: Prop): <T>(obj: T) => boolean; // mix
+        // // hasIn<T>: CurriedFn2<Prop, T, boolean>;
+
+        // // mixed
+        // hasIn(s: Prop): {
+        //   <T extends Struct<any>>(obj: T): boolean;
+        //   <T>(obj: T): boolean;
+        // }
 
         /**
          * Returns the first element in a list.
@@ -1044,11 +1096,10 @@ declare namespace R {
          * using an appropriate iterator function based on the accumulator type.
          */
         into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: List<T>) => U, list: List<T>): U;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: List<T>) => U, List<T>, U>;
         into<T,U,V extends AccOpts<T,U>>(acc: V, xf: (list: List<T>) => U): (list: List<T>) => U;
         into<T,U,V extends AccOpts<T,U>>(acc: V): CurriedFn2<(list: List<T>) => U, List<T>, U>;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): (xf: (list: List<T>) => U, list: List<T>) => U;
-        into<T,U,V extends AccOpts<T,U>>(acc: V): (xf: (list: List<T>) => U) => (list: List<T>) => U;
+        // into<T,U,V extends AccOpts<T,U>>(acc: V): (xf: (list: List<T>) => U, list: List<T>) => U;
+        // into<T,U,V extends AccOpts<T,U>>(acc: V): (xf: (list: List<T>) => U) => (list: List<T>) => U;
         // into<T,U,V extends AccOpts<T,U>>: CurriedFn3<V, (list: List<T>) => U, List<T>, U>;
 
         /**
@@ -1250,10 +1301,11 @@ declare namespace R {
             <T1, T2, T3, T4, T5, T6, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>) => TResult[];
             <T1, T2, T3, T4, T5, T6, T7, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>) => TResult[];
             <T1, T2, T3, T4, T5, T6, T7, T8, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7, v8: T8) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>, v8: List<T8>) => TResult[];
+
+            <T>(fn: Variadic<T>): (...argLists: any[][]) => T[];
         }
 
         liftN<T>(n: number, fn: Variadic<T>): (...argLists: any[][]) => T[];
-        liftN(n: number): <T>(fn: Variadic<T>) => (...argLists: any[][]) => T[];
         // liftN<T>: CurriedFn2<number, Variadic<T>, (...argLists: any[][]) => T[]>;
 
         /**
@@ -1273,13 +1325,12 @@ declare namespace R {
         /**
          * Returns a new list, constructed by applying the supplied function to every element of the supplied list.
          */
-        // array -- not sure why tests fail without this even with array-like!
-        map<T, U>(fn: (x: T) => U, list: Array<T>): U[];
-        map<T, U>(fn: (x: T) => U): (list: Array<T>) => U[];
-        // map<T, U>: CurriedFn2<(x: T) => U, Array<T>, U[]>;
+
+        // homogeneous:
+
         // array-like
         map<T, U>(fn: (x: T) => U, list: List<T>): U[];
-        map<T, U>(fn: (x: T) => U): (list: List<T>) => U[];
+        map<T, U>(fn: (x: T) => U): (list: List<T>) => U[]; // disabling for mix breaks a few tests?
         // map<T, U>: CurriedFn2<(x: T) => U, List<T>, U[]>;
 
         // object: keyof version
@@ -1295,11 +1346,22 @@ declare namespace R {
 
         // functor
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>;
-        map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>;
+        // map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>; // mix
         // map<T, U>: CurriedFn2<(x: T) => U, Functor<T>, Functor<U>>;
+
         // separating values: https://github.com/Microsoft/TypeScript/issues/12342
         // map<A,B,T,U>(fn: (a: A) => B, tpl: [T,U]): [ typeof fn(T), typeof fn(U) ];
         // obj. version?
+
+        // mixed:
+        map<T, U>(fn: (x: T) => U): {
+          (list: List<T>): U[];
+          <M extends Dictionary<T>>(obj: M): {[K in keyof M]: U};
+          <K extends string>(obj: Record<K, T>): Record<K, U>;
+          (obj: Functor<T>): Functor<U>;
+        }
+
+        // TODO: heterogeneous versions
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
@@ -1328,6 +1390,7 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+        // hard to mix cuz different generics
 
         // keyof
         mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
@@ -1557,6 +1620,7 @@ declare namespace R {
          * Returns the result of "setting" the portion of the given data structure
          * focused by the given lens to the given value.
          */
+        // hard to mix cuz different generics
 
         // // key lens:
         // over<T, K extends keyof T>(lens: KeyLens<T,K>, fn: (v: T[K]) => T[K], value: T): T;
@@ -1635,6 +1699,8 @@ declare namespace R {
          */
 
         // fixed-length versions, can calculate result but not yet able to deal with arrays, only objects so far...
+
+        // in-based
         path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult;
         path<T1 extends string, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult}}}): TResult;
         path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult}}}}): TResult;
@@ -1817,6 +1883,7 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
+        // hard to mix cuz different generics
 
         // infer
         pluck<T extends Struct<any>, K extends keyof T>(p: K, list: List<T>): T[K][]; // fails on number keys
@@ -1845,6 +1912,7 @@ declare namespace R {
         /**
          * Reasonable analog to SQL `select` statement.
          */
+        // hard to mix cuz different generics
 
         // infer
         project<T, K extends keyof T>(props: List<K>, objs: List<T>): Pick<T, K>[];
@@ -2063,16 +2131,31 @@ declare namespace R {
 
         // array
         reject<T>(pred: Pred<T>, list: List<T>): T[];
-        reject<T>(pred: Pred<T>): (list: List<T>) => T[];
+        // reject<T>(pred: Pred<T>): (list: List<T>) => T[]; // mix
         // reject<T>: CurriedFn2<Pred<T>, List<T>, T[]>;
-        // functor
+
+        // functor to functor
+        reject<T>(pred: Pred<T>, list: Functor<T>): Functor<T>;
+        // reject<T>(pred: Pred<T>): (list: Functor<T>) => Functor<T>; // mix
+        // reject<T>: CurriedFn2<Pred<T>, Functor<T>, Functor<T>>;
+
+        // functor to array
         reject<T>(pred: Pred<T>, list: Functor<T>): T[];
-        reject<T>(pred: Pred<T>): (list: Functor<T>) => T[];
+        // reject<T>(pred: Pred<T>): (list: Functor<T>) => T[]; // mix
         // reject<T>: CurriedFn2<Pred<T>, Functor<T>, T[]>;
+
         // object
         reject<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
-        reject<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>;
+        // reject<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>; // mix
         // reject<T,U extends Dictionary<T>>: CurriedFn2<Pred<T>, U, Partial<U>>;
+
+        // mixed
+        reject<T>(pred: Pred<T>): {
+          (list: List<T>): T[];
+          (list: Functor<T>): Functor<T>;
+          (list: Functor<T>): T[];
+          <U extends Dictionary<T>>(obj: U): Partial<U>;
+        }
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
@@ -2118,19 +2201,28 @@ declare namespace R {
          * Transforms a Traversable of Applicative into an Applicative of Traversable.
          */
 
+        // common case of array as traversable:
+        sequence<T>(f: (v: T) => Applicative<T>, traversable: List<Applicative<T>>): Applicative<Array<T>>;
+        // sequence<T>(f: (v: T) => Applicative<T>): (traversable: List<Applicative<T>>) => Applicative<Array<T>>;  // mix
+        // sequence<T>: CurriedFn2<(v: T) => Applicative<T>, List<Applicative<T>>, Applicative<Array<T>>>;
+
         // general ADT case:
         sequence<T>(f: (v: T) => Applicative<T>, traversable: Traversable<Applicative<T>>): Applicative<Traversable<T>>;
-        sequence<T>(f: (v: T) => Applicative<T>): (traversable: Traversable<Applicative<T>>) => Applicative<Traversable<T>>;
+        // sequence<T>(f: (v: T) => Applicative<T>): (traversable: Traversable<Applicative<T>>) => Applicative<Traversable<T>>;  // mix
         // sequence<T>: CurriedFn2<(v: T) => Applicative<T>, Traversable<Applicative<T>>, Applicative<Traversable<T>>>;
-        // common case of array as traversable:
-        sequence<T>(f: (v: T) => Applicative<T>, traversable: Array<Applicative<T>>): Applicative<Array<T>>;
-        sequence<T>(f: (v: T) => Applicative<T>): (traversable: Array<Applicative<T>>) => Applicative<Array<T>>;
-        // sequence<T>: CurriedFn2<(v: T) => Applicative<T>, Array<Applicative<T>>, Applicative<Array<T>>>;
+
+        // mixed:
+        sequence<T>(f: (v: T) => Applicative<T>): {
+          (traversable: List<Applicative<T>>): Applicative<Array<T>>;
+          (traversable: Traversable<Applicative<T>>): Applicative<Traversable<T>>;
+        }
+
 
         /**
          * Returns the result of "setting" the portion of the given data structure focused by the given lens to the
          * given value.
          */
+        // hard to mix cuz different generics
 
         // // key lens:
         // set<T, K extends keyof T>(lens: KeyLens<T,K>, a: T[K], obj: T): T;
@@ -2394,16 +2486,24 @@ declare namespace R {
          * `sequence` to transform the resulting Traversable of Applicative into
          * an Applicative of Traversable.
          */
-         // ADT case:
-         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: Traversable<T>): Applicative<Traversable<U>>;
-         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: Traversable<T>) => Applicative<Traversable<U>>;
-         traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
-         // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
+
          // common case of array as traversable:
          traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: List<T>): Applicative<Array<U>>;
-         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: List<T>) => Applicative<Array<U>>;
+        //  traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: List<T>) => Applicative<Array<U>>; // mix
          traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, List<T>, Applicative<Array<U>>>;
          // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, List<T>, Applicative<Array<U>>>;
+
+         // general ADT case:
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>, traversable: Traversable<T>): Applicative<Traversable<U>>;
+        //  traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): (traversable: Traversable<T>) => Applicative<Traversable<U>>; // mix
+         traverse<T, U>(ap: (v: T) => Applicative<T>): CurriedFn2<(v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
+         // traverse<T, U>: CurriedFn3<(v: T) => Applicative<T>, (v: T) => Applicative<U>, Traversable<T>, Applicative<Traversable<U>>>;
+
+        // mixed:
+         traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): {
+           (traversable: List<T>): Applicative<Array<U>>;
+           (traversable: Traversable<T>): Applicative<Traversable<U>>;
+         }
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -2561,6 +2661,7 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
+        // hard to mix cuz different generics
 
         // // key lens:
         // view<T, K extends keyof T>(lens: KeyLens<T,K>, obj: T): T[K];
@@ -2578,10 +2679,11 @@ declare namespace R {
         view<T>(lens: ManualLens<T>, obj: Struct<any>): T;
         view<T>(lens: ManualLens<T>): (obj: Struct<any>) => T;
         // view<T>: CurriedFn2<ManualLens<T>, Struct<any>, T>;
-        // unknown lens
-        view(lens: UnknownLens, obj: Object): any;
-        view(lens: UnknownLens): (obj: Object) => any;
-        // view: CurriedFn2<UnknownLens, Object, any>;
+
+        // unknown lens, manually supply return type. does this add to the above case?
+        view<T>(lens: UnknownLens, obj: Struct<any>): T;
+        view<T>(lens: UnknownLens): (obj: Struct<any>) => T;
+        // view<T>: CurriedFn2<UnknownLens, Struct<any>, T>;
 
         /**
          * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function
@@ -2604,18 +2706,22 @@ declare namespace R {
          * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
          * `filter`, `find`, etc.
          */
+        // hard to mix cuz different generics
+
+        // heterogeneous version
+        where<T extends Dictionary<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }, testObj: T): boolean;
+        where<T extends Dictionary<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }): (testObj: T) => boolean;  // generics too early?
+        // where<T extends Dictionary<any>>: CurriedFn2<{ [P in keyof T]?: Pred<T[P]>; }, T, boolean>;
+
         // homogeneous version
-        where<T>(spec: Dictionary<(v: T) => boolean>, testObj: Dictionary<T>): boolean;
-        where<T>(spec: Dictionary<(v: T) => boolean>): (testObj: Dictionary<T>) => boolean;
-        // where<T>: CurriedFn2<Dictionary<(v: T) => boolean>, Dictionary<T>, boolean>;
+        where<T>(spec: Dictionary<Pred<T>>, testObj: Dictionary<T>): boolean;
+        where<T>(spec: Dictionary<Pred<T>>): (testObj: Dictionary<T>) => boolean;
+        // where<T>: CurriedFn2<Dictionary<Pred<T>>, Dictionary<T>, boolean>;
+
         // DIY "fill in the type params yourself" version
         where<T,U>(spec: T, testObj: U): boolean;
         where<T>(spec: T): <U>(testObj: U) => boolean;
         // where<T,U>: CurriedFn2<T, U, boolean>;
-        // double param version??
-        where<U>(spec: Dictionary<(x: any, y: any) => boolean>, testObj: U): boolean;
-        where(spec: Dictionary<(x: any, y: any) => boolean>): <U>(testObj: U) => boolean;
-        // where<U>: CurriedFn2<Dictionary<(x: any, y: any) => boolean>, U, boolean>;
 
        /**
         * Takes a spec object and a test object; returns true if the test satisfies the spec,
@@ -2623,6 +2729,13 @@ declare namespace R {
         * accessing that property of the object gives the same value (in R.eq terms) as accessing
         * that property of the spec.
         */
+        // hard to mix cuz different generics
+
+        // heterogeneous version
+        whereEq<T extends Dictionary<any>>(spec: Partial<T>, testObj: T): boolean;
+        whereEq<T extends Dictionary<any>>(spec: Partial<T>): (testObj: T) => boolean;
+        // whereEq<T extends Dictionary<any>>: CurriedFn2<Partial<T>, T, boolean>;
+
         // homogeneous version
         whereEq<T>(spec: Dictionary<T>, testObj: Dictionary<T>): boolean;
         whereEq<T>(spec: Dictionary<T>): (testObj: Dictionary<T>) => boolean;
