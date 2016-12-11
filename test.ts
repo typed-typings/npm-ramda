@@ -1431,7 +1431,7 @@ class Rectangle {
 
 // lensPath
 () => {
-  let res: R.Dictionary<R.Dictionary<number>;
+  let res: R.Dictionary<R.Dictionary<number>>;
   const xyLens = R.lensPath(['x', 'y']);
   n = R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
   res = R.set(xyLens, 4, {x: {y: 2, z: 3}});          //=> {x: {y: 4, z: 3}}
