@@ -1698,7 +1698,9 @@ declare namespace R {
          * Retrieve the value at a given path.
          */
 
-        // fixed-length versions, can calculate result but not yet able to deal with arrays, only objects so far...
+        // fixed-length versions
+
+        // simpler versions, able to deal only with objects, not arrays:
 
         // in-based
         path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult;
@@ -1719,6 +1721,135 @@ declare namespace R {
         path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, K7 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6, K7], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,Record<K7,TResult>>>>>>>): TResult;
         path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, K7 extends string, K8 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6, K7, K8], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,Record<K7,Record<K8,TResult>>>>>>>>): TResult;
         path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, K7 extends string, K8 extends string, K9 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6, K7, K8, K9], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,Record<K7,Record<K8,Record<K9,TResult>>>>>>>>>): TResult;
+
+        // for each path length list all combinations of objects and homogeneous arrays... tuples not supported yet.
+
+        path<T1 extends string, TResult>(path: [T1], obj: {[K1 in T1]: TResult}): TResult;
+        path<T1 extends number, TResult>(path: [T1], obj: TResult[]): TResult;
+        path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult;
+        path<T1 extends string, T2 extends number, TResult>(path: [T1, T2], obj: {[K1 in T1]: TResult[]}): TResult;
+        path<T1 extends number, T2 extends string, TResult>(path: [T1, T2], obj: {[K2 in T2]: TResult}[]): TResult;
+        path<T1 extends number, T2 extends number, TResult>(path: [T1, T2], obj: TResult[][]): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: TResult[]}}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K3 in T3]: TResult}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: TResult[][]}): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: {[K3 in T3]: TResult}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: TResult[]}[]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K3 in T3]: TResult}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: TResult[][][]): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult[]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: TResult}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: TResult[][]}}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: TResult}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K3 in T3]: TResult[]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K4 in T4]: TResult}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: TResult[][][]}): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K2 in T2]: {[K3 in T3]: TResult[]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K2 in T2]: {[K4 in T4]: TResult}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K2 in T2]: TResult[][]}[]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K3 in T3]: {[K4 in T4]: TResult}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K3 in T3]: TResult[]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K4 in T4]: TResult}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: TResult[][][][]): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult}}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult[]}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K5 in T5]: TResult}[]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult[][]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: {[K5 in T5]: TResult}}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: TResult[]}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: {[K5 in T5]: TResult}[][]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K2 in T2]: TResult[][][]}}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult}}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: TResult[]}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K3 in T3]: {[K5 in T5]: TResult}[]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K3 in T3]: TResult[][]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K4 in T4]: {[K5 in T5]: TResult}}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K4 in T4]: TResult[]}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: {[K5 in T5]: TResult}[][][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K1 in T1]: TResult[][][][]}): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult}}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult[]}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K3 in T3]: {[K5 in T5]: TResult}[]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K3 in T3]: TResult[][]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K4 in T4]: {[K5 in T5]: TResult}}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K4 in T4]: TResult[]}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: {[K5 in T5]: TResult}[][]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K2 in T2]: TResult[][][]}[]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult}}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K3 in T3]: {[K4 in T4]: TResult[]}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K3 in T3]: {[K5 in T5]: TResult}[]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K3 in T3]: TResult[][]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K4 in T4]: {[K5 in T5]: TResult}}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K4 in T4]: TResult[]}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends string, TResult>(path: [T1, T2, T3, T4, T5], obj: {[K5 in T5]: TResult}[][][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends number, TResult>(path: [T1, T2, T3, T4, T5], obj: TResult[][][][][]): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult[]}}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K6 in T6]: TResult}[]}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult[][]}}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K5 in T5]: {[K6 in T6]: TResult}}[]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K5 in T5]: TResult[]}[]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K6 in T6]: TResult}[][]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult[][][]}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: {[K5 in T5]: TResult[]}}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: {[K6 in T6]: TResult}[]}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: TResult[][]}[]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K5 in T5]: {[K6 in T6]: TResult}}[][]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K5 in T5]: TResult[]}[][]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: {[K6 in T6]: TResult}[][][]}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K2 in T2]: TResult[][][][]}}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult[]}}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: {[K6 in T6]: TResult}[]}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K4 in T4]: TResult[][]}}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K5 in T5]: {[K6 in T6]: TResult}}[]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K5 in T5]: TResult[]}[]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: {[K6 in T6]: TResult}[][]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K3 in T3]: TResult[][][]}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K4 in T4]: {[K5 in T5]: TResult[]}}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K4 in T4]: {[K6 in T6]: TResult}[]}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K4 in T4]: TResult[][]}[][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K5 in T5]: {[K6 in T6]: TResult}}[][][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K5 in T5]: TResult[]}[][][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: {[K6 in T6]: TResult}[][][][]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K1 in T1]: TResult[][][][][]}): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult[]}}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K6 in T6]: TResult}[]}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult[][]}}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K5 in T5]: {[K6 in T6]: TResult}}[]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K5 in T5]: TResult[]}[]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: {[K6 in T6]: TResult}[][]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K3 in T3]: TResult[][][]}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K4 in T4]: {[K5 in T5]: TResult[]}}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K4 in T4]: {[K6 in T6]: TResult}[]}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K4 in T4]: TResult[][]}[]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K5 in T5]: {[K6 in T6]: TResult}}[][]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K5 in T5]: TResult[]}[][]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: {[K6 in T6]: TResult}[][][]}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K2 in T2]: TResult[][][][]}[]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: TResult[]}}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K4 in T4]: {[K6 in T6]: TResult}[]}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K4 in T4]: TResult[][]}}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K5 in T5]: {[K6 in T6]: TResult}}[]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K5 in T5]: TResult[]}[]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: {[K6 in T6]: TResult}[][]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K3 in T3]: TResult[][][]}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: TResult}}}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K4 in T4]: {[K5 in T5]: TResult[]}}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K4 in T4]: {[K6 in T6]: TResult}[]}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends string, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K4 in T4]: TResult[][]}[][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends string, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K5 in T5]: {[K6 in T6]: TResult}}[][][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends string, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K5 in T5]: TResult[]}[][][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends number, T6 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: {[K6 in T6]: TResult}[][][][][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: TResult[][][][][][]): TResult;
 
         // fallback, prevents errors but lacks inference; expected result must be supplied manually.
         path<T>(path: Path, obj: Struct<any>): T;

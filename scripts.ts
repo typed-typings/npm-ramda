@@ -4,6 +4,14 @@ let letters = (idx) => (n) => R.range(idx, idx + R.clamp(0, 26, n)).map(i => Str
 let upper = letters(65);
 let lower = letters(97);
 let nm = (cnt, fn) => R.range(0,cnt).map(fn).join(', ');
+let bits = (k, i) => {
+  let rem = 0;
+  return R.range(1, k+1).map(n => {
+    let res = i % Math.pow(2, n) - rem;
+    rem += res;
+    return res ? 1 : 0;
+  })
+};
 
 function sanctPipeDef(i, j) {
     let [lows, ups] = [lower, upper].map(f => f(i));
@@ -132,4 +140,16 @@ function pathDefRecord(i) {
     return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
 }
 R.flatten(R.range(2,10).map(i => pathDefRecord(i))).join('\r\n')
+
+function pathDefPoly(i, j) {
+    let isArrs = bits(i, j);
+    // console.log('pathDefPoly', i, j, isArrs);
+    let obj = R.range(1,i+1).reduce((str, n) => isArrs[n-1] ? `${str}[]` : `{[K${i-n+1} in T${i-n+1}]: ${str}}`, 'TResult');
+    let types = nm(i, n => `T${n+1}`);
+    let typesExt = nm(i, n => `T${n+1} extends ${isArrs[i-n-1] ? 'number' : 'string'}`);
+    // let typesExt = R.reverse(R.range(0,i).map(n => `T${n+1} extends ${isArrs[n] ? 'number' : 'string'}`)).join(', ');
+    return `path<${typesExt}, TResult>(path: [${types}], obj: ${obj}): TResult;`
+}
+R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(i, j)))).join('\r\n')
+
 
