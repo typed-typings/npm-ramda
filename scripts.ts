@@ -74,15 +74,17 @@ R.flatten(R.range(2,10).map(i => curryDef(i))).join('\r\n')
 
 function CurriedFnDef(i) {
     let types = nm(i, n => `T${n+1}`);
-    let curriedDef = (j, extraGenerics = false) => {
+    let curriedDef = (j) => { // , extraGenerics = false
         let pars = nm(j, n => `t${n+1}: T${n+1}`);
         let tps = nm(i-j, n => `T${j+n+1}`);
         let gens = nm(i, n => `T${n+1}`);
         let curried = (i-j > 1) ? `CurriedFn${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
-        return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
+        // return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
+        return `(${pars}): ${curried};`
     }
     let nums = R.range(0,i);
-    let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
+    // let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
+    let defs = nums.map(n => curriedDef(n+1)).join('\r\n    ');
     return `interface CurriedFn${i}<${types}, R> {
     ${defs}
 }`;

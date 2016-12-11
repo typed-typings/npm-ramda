@@ -2103,19 +2103,6 @@ class Why {
 }
 
 () => {
-    // #90
-    const map = (func: (some: string) => (x: number) => 1) => {
-    return func('xx')(1)
-    }
-    const map2 = (func: (some: string, other: string) => '1') => {
-    return func('xx', 'x')
-    }
-    // will work only with proposed changes
-    map(R.assoc('xxx'))
-    map2(R.assoc('xxx'))
-}
-
-() => {
     // #109
     function grepSomethingRecursively(grepPatterns: string | string[]) {
         if (R.is(Array, grepPatterns)) {
@@ -2197,7 +2184,7 @@ class Why {
 }
 
 () => {
-    // #86
+    // #86: lose generics in compose
     let a: { [index: string]: string } = R.fromPairs([['1','A'], ['2','B'], ['3','C']])
     let b: { [index: string]: string } = R.compose(R.fromPairs)([[1,'A'], [2,'B'], [3,'C']])
     let c: { [index: string]: string } = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])
@@ -2211,6 +2198,19 @@ class Why {
     ]);
     // ^ also can't infer cond paths
     const y: (v: number) => number = R.compose(x, R.inc);
+}
+
+() => {
+    // #90: curried function loses generics
+    const map = (func: (some: string) => (x: number) => 1) => {
+    return func('xx')(1)
+    }
+    const map2 = (func: (some: string, other: string) => '1') => {
+    return func('xx', 'x')
+    }
+    // will work only with proposed changes
+    map(R.assoc('xxx'))
+    map2(R.assoc('xxx'))
 }
 
 () => {
