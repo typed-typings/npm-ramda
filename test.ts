@@ -1060,10 +1060,10 @@ type Pair = KeyValuePair<string, number>
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
     var fn = R.flip<number, number[], number[]>(R.append);
-    R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
-    R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
-    R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
-    R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
+    let r1: number[] = R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
+    let r2: number[] = R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
+    let r3: number[] = R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
+    let r4: number[] = R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
 }
 
 // () => {
@@ -2191,16 +2191,6 @@ class Why {
 }
 
 () => {
-    // #92: lose generics in compose
-    const x: <T>(v: T) => T = R.cond([
-        [R.F, R.F],
-        [R.T, R.identity]
-    ]);
-    // ^ also can't infer cond paths
-    const y: (v: number) => number = R.compose(x, R.inc);
-}
-
-() => {
     // #90: curried function loses generics
     const map = (func: (some: string) => (x: number) => 1) => {
     return func('xx')(1)
@@ -2211,6 +2201,16 @@ class Why {
     // will work only with proposed changes
     map(R.assoc('xxx'))
     map2(R.assoc('xxx'))
+}
+
+() => {
+    // #92: lose generics in compose
+    const x: <T>(v: T) => T = R.cond([
+        [R.F, R.F],
+        [R.T, R.identity]
+    ]);
+    // ^ also can't infer cond paths
+    const y: (v: number) => number = R.compose(x, R.inc);
 }
 
 () => {
