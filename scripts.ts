@@ -123,3 +123,11 @@ function pathDef(i) {
 }
 R.flatten(R.range(2,10).map(i => pathDef(i))).join('\r\n')
 
+function pathDefRecord(i) {
+    let obj = R.range(1,i+1).reduce((str, n) => `Record<K${i-n+1},${str}>`, 'TResult');
+    let types = nm(i, n => `K${n+1}`);
+    let typesStr = nm(i, n => `K${n+1} extends string`);
+    return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
+}
+R.flatten(R.range(2,10).map(i => pathDefRecord(i))).join('\r\n')
+

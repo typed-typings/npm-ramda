@@ -1465,7 +1465,7 @@ matchPhrases(['foo', 'bar', 'baz']);
     var favorite = R.prop('favoriteLibrary');
     var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
-    const s1 = favorite(alice);  //=> undefined
+    // const s1 = favorite(alice);  //=> undefined  // now errors
     const s2 = favoriteWithDefault(alice);  //=> 'Ramda'
 }
 

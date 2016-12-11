@@ -1320,10 +1320,18 @@ declare namespace R {
         map<T, U>(fn: (x: T) => U, list: List<T>): U[];
         map<T, U>(fn: (x: T) => U): (list: List<T>) => U[];
         // map<T, U>: CurriedFn2<(x: T) => U, List<T>, U[]>;
-        // object
-        map<T, V, M extends Dictionary<T>>(fn: (value: T) => V, obj: M): {[K in keyof M]: V};
-        map<T, V, M extends Dictionary<T>>(fn: (value: T) => V): (obj: M) => {[K in keyof M]: V};
-        // map<T, V, M extends Dictionary<T>>: CurriedFn2<(value: T) => V, M, {[K in keyof M]: V}>;
+
+        // object: keyof version
+        map<T, U, M extends Dictionary<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
+        map<T, U, M extends Dictionary<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
+        // map<T, U>(fn: (value: T) => U): <M extends Dictionary<T>>(obj: M) => {[K in keyof M]: U}; // mix
+        // map<T, U, M extends Dictionary<T>>: CurriedFn2<(value: T) => U, M, {[K in keyof M]: U}>;
+
+        // object: Record version
+        map<T, U, K extends string>(f: (x: T) => U, obj: Record<K, T>): Record<K, U>;
+        // map<T, U>(f: (x: T) => U): <K extends string>(obj: Record<K, T>) => Record<K, U>; // mix
+        // map<T, U, K extends string>: CurriedFn2<(x: T) => U, Record<K, T>), Record<K, U>>;
+
         // functor
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>;
         map<T, U>(fn: (x: T) => U): (obj: Functor<T>) => Functor<U>;
@@ -1359,9 +1367,16 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+
+        // keyof
         mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
         mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
         // mapObjIndexed<T, V, M extends Dictionary<T>>: CurriedFn2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
+
+        // Record
+        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U, obj: Record<K, T>): Record<K, U>;
+        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U): <K extends string>(obj: Record<K, T>) => Record<K, U>;  // potentially overwriting K but whatever
+        // mapObjIndexed<T, U, K extends string>: CurriedFn2<(value: T, key: string, obj?: Record<K, T>) => U, Record<K, T>), Record<K, U>>;
 
         /**
          * Tests a regular expression agains a String
@@ -1530,10 +1545,16 @@ declare namespace R {
         /**
          * Creates an object containing a single key:value pair.
          */
-        // how to type this such as to keep the key intact?
-        objOf<T>(key: Prop, value: T): Dictionary<T>;
-        objOf(key: Prop): <T>(value: T) => Dictionary<T>;
-        // objOf<T>: CurriedFn2<Prop, T, Dictionary<T>>;
+
+        // Record-based, key intact
+        objOf<K extends string, V, T extends Record<K,V>>(key: K, value: V): T;
+        objOf<K extends string>(key: K): <V, T extends Record<K,V>>(value: V) => T;
+        // objOf<K extends string, V, T extends Record<K,V>>: CurriedFn2<K, V, T>;
+
+        // // Dictionary-based, loses key
+        // objOf<T>(key: Prop, value: T): Dictionary<T>;
+        // objOf(key: Prop): <T>(value: T) => Dictionary<T>;
+        // // objOf<T>: CurriedFn2<Prop, T, Dictionary<T>>;
 
         /**
          * Returns a singleton array containing the value provided.
@@ -1661,6 +1682,16 @@ declare namespace R {
         path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends string, T7 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6, T7], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: {[K7 in T7]: TResult}}}}}}}): TResult;
         path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends string, T7 extends string, T8 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6, T7, T8], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: {[K7 in T7]: {[K8 in T8]: TResult}}}}}}}}): TResult;
         path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, T5 extends string, T6 extends string, T7 extends string, T8 extends string, T9 extends string, TResult>(path: [T1, T2, T3, T4, T5, T6, T7, T8, T9], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: {[K5 in T5]: {[K6 in T6]: {[K7 in T7]: {[K8 in T8]: {[K9 in T9]: TResult}}}}}}}}}): TResult;
+
+        // Record-based
+        path<K1 extends string, K2 extends string, TResult>(path: [K1, K2], obj: Record<K1,Record<K2,TResult>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, TResult>(path: [K1, K2, K3], obj: Record<K1,Record<K2,Record<K3,TResult>>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, TResult>(path: [K1, K2, K3, K4], obj: Record<K1,Record<K2,Record<K3,Record<K4,TResult>>>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, TResult>(path: [K1, K2, K3, K4, K5], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,TResult>>>>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,TResult>>>>>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, K7 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6, K7], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,Record<K7,TResult>>>>>>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, K7 extends string, K8 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6, K7, K8], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,Record<K7,Record<K8,TResult>>>>>>>>): TResult;
+        path<K1 extends string, K2 extends string, K3 extends string, K4 extends string, K5 extends string, K6 extends string, K7 extends string, K8 extends string, K9 extends string, TResult>(path: [K1, K2, K3, K4, K5, K6, K7, K8, K9], obj: Record<K1,Record<K2,Record<K3,Record<K4,Record<K5,Record<K6,Record<K7,Record<K8,Record<K9,TResult>>>>>>>>>): TResult;
 
         // fallback, prevents errors but lacks inference; expected result must be supplied manually.
         path<T>(path: Path, obj: Struct<any>): T;
@@ -1867,11 +1898,18 @@ declare namespace R {
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
+
+        // keyof version
         prop<T, K extends keyof T>(p: K, obj: T): T[K];
         // prop<T, K extends keyof T>(p: K): (obj: T) => T[K]; // T info late
         // prop<T, K extends keyof T>: CurriedFn2<K, T, T[K]>;
-        prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // are these Ks bound properly?
+        // prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // K redefined, fails
         // prop<T, K extends Prop>: CurriedFn2<K, T, T[K]>;
+
+        // Record version, more curry-friendly
+        // prop<K extends string, V, T extends Record<K,V>>(p: K, obj: T): V; // uncurried doesn't add value
+        prop<K extends string>(p: K): <V, T extends Record<K,V>>(obj: T) => V;
+        // prop<K extends string, V, T extends Record<K,V>>: CurriedFn2<K, T, V>;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1888,52 +1926,103 @@ declare namespace R {
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
          */
-        propIs<T, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>)
-        // v object info not available in time :(
-        // propIs<T, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>)
-        // propIs<T, V, K extends keyof V>(type: T): {
-        //     (name: K, obj: V): obj is (V & Record<K, T>);
-        //     (name: K): (obj: V) => obj is (V & Record<K, T>);
+
+        // Record
+        propIs<T extends Function, K extends string, V, U extends Record<K,V>>(type: T, name: K, obj: U): obj is (U & Record<K, T>);
+        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
+        // propIs<T extends Function>(type: T): {
+        //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
+        //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
         // }
-        propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
-        propIs(type: Function): CurriedFn2<Prop, Struct<any>, boolean>;
-        // propIs(type: Function): {
-        //     (name: Prop, obj: Struct<any>): boolean;
-        //     (name: Prop): (obj: Struct<any>) => boolean;
+        // propIs<T extends Function, K extends string, V, U extends Record<K,V>>: CurriedFn3<T, K, U, V is (V & Record<K, T>)>; // obj is? name unavailable...
+
+        // inference, fails if name and object are supplied separately
+        propIs<T extends Function, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>);
+        // propIs<T extends Function, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
+        // propIs<T extends Function>(type: T): {
+        //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
+        //     <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
         // }
-        // propIs: CurriedFn3<Function, Prop, Struct<any>, boolean>;
+        // propIs<T extends Function, V, K extends keyof V>: CurriedFn3<T, K, V, V is (V & Record<K, T>)>; // obj is? name unavailable...
+
+        // // curry-friendlier fallback
+        // // propIs(type: Function, name: Prop, obj: Struct<any>): boolean;
+        // propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
+        // propIs(type: Function): CurriedFn2<Prop, Struct<any>, boolean>;
+        // // propIs(type: Function): {
+        // //     (name: Prop, obj: Struct<any>): boolean;
+        // //     (name: Prop): (obj: Struct<any>) => boolean;
+        // // }
+        // // propIs: CurriedFn3<Function, Prop, Struct<any>, boolean>;
+
+        // mixed:
+        propIs<T extends Function>(type: T): {
+            // record
+            <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
+            <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
+            // keyof
+            <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
+            // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
+        }
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
          * Otherwise returns the provided default value.
          */
 
-        // infer, allowing a default value with a type different from the actual one
+        // // infer with Record (curry-friendly) -- can't use here: it'd error whenever the default should trigger
+        // propOr<T, K extends string, V, U extends Record<K,V>>(val: T, p: K, obj: U): V|T;
+        // propOr<T, K extends string>(val: T, p: K): <V, U extends Record<K,V>>(obj: U) => V|T;
+        // propOr<T, K extends string, V, U extends Record<K,V>>(val: T): CurriedFn2<K, U, V|T>;
+        // // propOr<T, K extends string, V, U extends Record<K,V>>: CurriedFn3<T, K, U, V|T>;
+
+        // infer with keyof (not curry-friendly), allowing a default value with a type different from the actual one
         propOr<T,U,K extends keyof U>(val: T, p: K, obj: U): U[K]|T; // obj[K]?
-        propOr<T,U,K extends keyof U>(val: T, p: K): (obj: U) => U[K]|T;
-        propOr<T,U,K extends keyof U>(val: T): CurriedFn2<K, U, U[K]|T>;
-        // propOr<T,U,K extends keyof U>(val: T): (p: K, obj: U) => U[K]|T;
-        // propOr<T,U,K extends keyof U>(val: T): (p: K) => (obj: U) => U[K]|T;
+        propOr<T,U,K extends keyof U>(val: T, p: K): (obj: U) => U[K]|T;  // generics too early?
+        propOr<T,U,K extends keyof U>(val: T): CurriedFn2<K, U, U[K]|T>;  // generics too early?
+        // propOr<T>(val: T): <U,K extends keyof U>(p: K, obj: U) => U[K]|T;
+        // propOr<T>(val: T): <U,K extends keyof U>(p: K) => (obj: U) => U[K]|T;  // U too early?
         // propOr<T,U,K extends keyof U>: CurriedFn3<T, K, U, U[K]|T>;
-        propOr<T,U,V>(val: T, p: Prop, obj: U): V;
-        propOr<T>(val: T, p: Prop): <U,V>(obj: U) => V;
-        // propOr<T>(val: T): <U,V>(p: Prop, obj: U) => V;
-        propOr<T,U,V>(val: T): CurriedFn2<Prop, U, V>;
-        // propOr<T,U,V>: CurriedFn3<T, Prop, U, V>;
+
+        // presume the value at the given key matches the type of the default value, bad but less likely to fail with currying
+        // propOr<T>(val: T, p: Prop, obj: Struct<any>): T; // don't think this adds value for the uncurried version
+        propOr<T>(val: T, p: Prop): (obj: Struct<any>) => T;
+        // propOr<T>(val: T): (p: Prop, obj: Struct<any>) => T;
+        propOr<T>(val: T): CurriedFn2<Prop, Struct<any>, T>;
+        // propOr<T>: CurriedFn3<T, Prop, Struct<any>, T>;
+
+        // // useless unbound generics?
+        // propOr<T,U,V>(val: T, p: Prop, obj: U): V;
+        // propOr<T>(val: T, p: Prop): <U,V>(obj: U) => V;
+        // // propOr<T>(val: T): <U,V>(p: Prop, obj: U) => V;
+        // propOr<T,U,V>(val: T): CurriedFn2<Prop, U, V>;
+        // // propOr<T,U,V>: CurriedFn3<T, Prop, U, V>;
 
         /**
          * Acts as multiple `prop`: array of keys in, array of values out. Preserves order.
          */
+
+        // generic version
         props<T>(ps: List<Prop>, obj: Struct<T>): T[];
         props(ps: List<Prop>): <T>(obj: Struct<T>) => T[];
         // props<T>: CurriedFn2<List<Prop>, Struct<T>, T[]>;
+
         // TODO: heterogeneous version
+        // Record-based?
+        // props<K extends keyof T, T extends Struct<any>>(ps: List<K>, obj: Struct<T>): ???;
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.
          */
+
+        // Record (curry-friendly)
+        propSatisfies<V, K extends string, U extends Record<K,V>>(pred: Pred<V>, name: K, obj: U): boolean;
+        propSatisfies<V, K extends string>(pred: Pred<V>, name: K): <U extends Record<K,V>>(obj: U) => boolean;
+        propSatisfies<V, K extends string, U extends Record<K,V>>(pred: Pred<V>): CurriedFn2<K, U, boolean>;
+        // propSatisfies<V, K extends string, U extends Record<K,V>>: CurriedFn3<Pred<V>, K, U, boolean>;
+
+        // keyof, info too late on currying
         propSatisfies<U extends Struct<any>, K extends keyof U>(pred: Pred<U[K]>, name: Prop, obj: U): boolean;
-        // v: info too late, must use a simpler version
         propSatisfies<T,U>(pred: Pred<T>, name: Prop): (obj: U) => boolean;
         propSatisfies<T,U>(pred: Pred<T>): CurriedFn2<Prop, U, boolean>;
         // propSatisfies<T,U>: CurriedFn3<Pred<T>, Prop, U, boolean>;
@@ -2122,8 +2211,8 @@ declare namespace R {
         slice<T extends List<any>>(a: number, b: number, list: T): T;
         slice(a: number, b: number): <T extends List<any>>(list: T) => T;
         slice<T extends List<any>>(a: number): CurriedFn2<number, T, T>;
-        slice(a: number): <T extends List<any>>(b: number, list: T) => T;
-        slice(a: number): <T extends List<any>>(b: number) => (list: T) => T;
+        // slice(a: number): <T extends List<any>>(b: number, list: T) => T;
+        // slice(a: number): <T extends List<any>>(b: number) => (list: T) => T;
         // slice<T extends List<any>>: CurriedFn3<number, number, T, T>;
 
         /**
@@ -2227,7 +2316,7 @@ declare namespace R {
          * `n > * list.length`, returns a list of `list.length` elements.
          */
         take<T extends List<any>>(n: number, xs: T): T;
-        take<T extends List<any>>(n: number): (xs: T) => T;
+        take(n: number): <T extends List<any>>(xs: T) => T;
         // take<T extends List<any>>: CurriedFn2<number, T, T>;
 
 
