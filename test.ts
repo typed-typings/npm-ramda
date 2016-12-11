@@ -1060,10 +1060,10 @@ type Pair = KeyValuePair<string, number>
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
     var fn = R.flip<number, number[], number[]>(R.append);
-    R.transduce(transducer, fn, [], numbers); //=> [2, 3]
-    R.transduce(transducer, fn, [])(numbers); //=> [2, 3]
-    R.transduce(transducer, fn)([], numbers); //=> [2, 3]
-    R.transduce(transducer)(fn, [], numbers); //=> [2, 3]
+    R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
+    R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
+    R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
+    R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
 }
 
 // () => {
@@ -1176,14 +1176,6 @@ type Pair = KeyValuePair<string, number>
     const a2 = R.eqProps('c', o1, o2); //=> true
     const a3: {<T,U>(obj1: T, obj2: U): boolean} = R.eqProps('c');
     const a4: {<U>(obj2: U): boolean} = R.eqProps('c', o1);
-}
-
-() => {
-    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
-    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
-    interface xpto  { a: number, b: number };
-    var test : xpto = { a: 1, b: 2};
-    const a3 : xpto = R.evolve({ a: R.add(1)}, test );
 }
 
 () => {
@@ -2076,6 +2068,15 @@ class Why {
     R.intersperse(',', ['foo', 'bar']); //=> ['foo', ',', 'bar']
     R.intersperse(0, [1, 2]); //=> [1, 0, 2]
     R.intersperse(0, [1]); //=> [1]
+}
+
+() => {
+    // #65, evolve issue
+    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
+    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
+    interface xpto  { a: number, b: number };
+    var test: xpto = { a: 1, b: 2};
+    const a3: xpto = R.evolve({ a: R.add(1)}, test );
 }
 
 () => {
