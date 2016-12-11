@@ -603,6 +603,7 @@ declare namespace R {
         /**
          * Returns a curried equivalent of the provided function.
          */
+        curry<T1, TResult>(fn: (a: T1) => TResult): CurriedFn1<T1, TResult>;
         curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFn2<T1, T2, TResult>;
         curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFn3<T1, T2, T3, TResult>;
         curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFn4<T1, T2, T3, T4, TResult>;
