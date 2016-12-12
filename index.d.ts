@@ -84,7 +84,7 @@ declare namespace R {
     }
 
     // simple types
-    type Ord = number | string | boolean;
+    type Ord = number | string | boolean | Date;
     type Primitive = string | number | boolean;
     type List<T> = ArrayLike<T>;
     type StringLike = string | StringRepresentable<string>;
@@ -1435,9 +1435,9 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: Ord, b: Ord): Ord;
-        max(a: Ord): (b: Ord) => Ord;
-        // max: CurriedFn2<Ord, Ord, Ord>;
+        max<T extends Ord>(a: T, b: T): T;
+        max<T extends Ord>(a: T): (b: T) => T;
+        // max<T extends Ord>: CurriedFn2<T, T, T>;
 
         /**
          * Takes a function and two values, and returns whichever value produces
@@ -1506,9 +1506,9 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: Ord, b: Ord): Ord;
-        min(a: Ord): (b: Ord) => Ord;
-        // min: CurriedFn2<Ord, Ord, Ord>;
+        min<T extends Ord>(a: T, b: T): T;
+        min<T extends Ord>(a: T): (b: T) => T;
+        // min<T extends Ord>: CurriedFn2<T, T, T>;
 
         /**
          * Takes a function and two values, and returns whichever value produces
