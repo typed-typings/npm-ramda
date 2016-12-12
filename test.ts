@@ -831,10 +831,19 @@ interface Obj { a: number; b: number };
 
 // map
 () => {
+    let arrayify = <T>(v: T): T[] => [v];
+    // homogeneous array
     nr = R.map(double, [1, 2, 3]); //=> [2, 4, 6]
     nr = R.map(double)([1, 2, 3]); //=> [2, 4, 6]
+    // homogeneous object
     no = R.map(double, { a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
     no = R.map(double)({ a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
+    // heterogeneous array
+    let res1: [number[], string[]] = R.map(arrayify, [1, 'a']); //=> [[1], ['a']]
+    let res2: [number[], string[]] = R.map(arrayify)([1, 'a']); //=> [[1], ['a']]
+    // heterogeneous object
+    let res3: { a: number[], b: string[] } = R.map(arrayify, { a: 1, b: 'c' }); //=> { a: [1], b: ['c'] }
+    let res4: { a: number[], b: string[] } = R.map(arrayify)({ a: 1, b: 'c' }); //=> { a: [1], b: ['c'] }
 
     // functor
     // I'm sorry, I have no clue how to make this example work with proper functor typing

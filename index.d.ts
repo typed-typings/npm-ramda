@@ -1354,6 +1354,17 @@ declare namespace R {
         // map<A,B,T,U>(fn: (a: A) => B, tpl: [T,U]): [ typeof fn(T), typeof fn(U) ];
         // obj. version?
 
+        // TODO: heterogeneous versions
+
+        // array-like
+        // map<T, U, T1, T2>(fn: (x: T) => U, list: [T1, T2]): [fn(T1), fn(T1)];
+        // map<F extends Function, T1, T2>(fn: F, list: [T1, T2]): [F(T1), F(T1)];
+        // map<T, U, T1, T2>(fn: (x: T) => U, list: [T1, T2]): [typeof fn(T1), typeof fn(T1)];
+        // map<F extends Function, T1, T2>(fn: F, list: [T1, T2]): [typeof F(T1), typeof F(T1)];
+        // <T1, T2>(list: [T1, T2]): [fn(T1), fn(T1)];
+
+        // object
+
         // mixed:
         map<T, U>(fn: (x: T) => U): {
           (list: List<T>): U[];
@@ -1361,8 +1372,6 @@ declare namespace R {
           <K extends string>(obj: Record<K, T>): Record<K, U>;
           (obj: Functor<T>): Functor<U>;
         }
-
-        // TODO: heterogeneous versions
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
