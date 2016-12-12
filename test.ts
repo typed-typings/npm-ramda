@@ -2041,7 +2041,7 @@ class Rectangle {
 // maxBy
 () => {
     let res: { x: number };
-    function cmp(obj: { x: R.Ord }) { return obj.x; }
+    function cmp(obj: typeof res) { return obj.x; }
     var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
     res = R.maxBy(cmp, a, c); //=> {x: 3}
     res = R.maxBy(cmp)(a, c); //=> {x: 3}
@@ -2070,7 +2070,7 @@ class Rectangle {
 // minBy
 () => {
     let res: { x: number };
-    function cmp(obj: {x: R.Ord}) { return obj.x; }
+    function cmp(obj: {x: typeof res}) { return obj.x; }
     var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
     res = R.minBy(cmp, a, b); //=> {x: 1}
     res = R.minBy(cmp)(a, b); //=> {x: 1}
