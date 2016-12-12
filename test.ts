@@ -14,9 +14,7 @@ var so: R.Dictionary<string>;
 var ao: R.Dictionary<any>;
 var u: undefined;
 
-var double = function(x: number): number {
-    return x + x
-};
+let double = (x: number): number => x + x;
 
 var shout = function(x: number): string {
     return x >= 10
@@ -167,9 +165,6 @@ class F2 {
 
 /* compose */
 () => {
-    var double = function(x: number): number {
-        return x + x
-    }
     var limit10 = function(x: number): boolean {
         return x >= 10
     }
@@ -836,9 +831,6 @@ interface Obj { a: number; b: number };
 
 // map
 () => {
-    var double = function(x: number) {
-        return x * 2;
-    };
     nr = R.map(double, [1, 2, 3]); //=> [2, 4, 6]
     nr = R.map(double)([1, 2, 3]); //=> [2, 4, 6]
     no = R.map(double, { a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
