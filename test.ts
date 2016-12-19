@@ -92,9 +92,9 @@ class F2 {
     };
 
     const curriedFourNumbers = R.curry(addFourNumbers);
-    var x1: R.CurriedFn4<number, number, number, number, number> = curriedFourNumbers
-    var x2: R.CurriedFn3<number, number, number, number> = curriedFourNumbers(1)
-    var x3: R.CurriedFn2<number, number, number> = curriedFourNumbers(1)(2)
+    var x1: R.CurriedFunction4<number, number, number, number, number> = curriedFourNumbers
+    var x2: R.CurriedFunction3<number, number, number, number> = curriedFourNumbers(1)
+    var x3: R.CurriedFunction2<number, number, number> = curriedFourNumbers(1)(2)
     var x4: <T1,R>(t1: T1) => R = curriedFourNumbers(1)(2)(3)
     var x5: <T1,R>(t1: T1) => R = curriedFourNumbers(1,2,4)
     var y1: number = curriedFourNumbers(1)(2)(3)(4)
@@ -2427,8 +2427,8 @@ class Why {
 
 () => {
     // #78: curry loses generics
-    // : <T>R.CurriedFn3<R.Pred<T>, T, T[], T[]>
-    // : R.CurriedFn3<R.Pred<any>, any, any[], any[]>
+    // : <T>R.CurriedFunction3<R.Pred<T>, T, T[], T[]>
+    // : R.CurriedFunction3<R.Pred<any>, any, any[], any[]>
     let updateBy = R.curry(<T>(pred: R.Pred<T>, val: T, array: T[]): T[] => {
         let i = R.findIndex(pred, array);
         if (i >= 0) {

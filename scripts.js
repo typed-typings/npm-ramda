@@ -18,7 +18,7 @@ function sanctPipeDef(i, j) {
     let zipped = R.zip(lows, ups);
     let pars = nm(j, n => `a${n}: A${n}`);
     let types = nm(j, n => `A${n}`);
-    return `export function pipe<${types}${i>1?', ':''}${ups.splice(1).join(', ')}, Z>(functions: [(${pars})=>${zipped.splice(1).map(([low, up]) => `${up}, (${low}: ${up})=>`).join('')}Z]): CurriedFn${j}<${types}, Z>;`
+    return `export function pipe<${types}${i>1?', ':''}${ups.splice(1).join(', ')}, Z>(functions: [(${pars})=>${zipped.splice(1).map(([low, up]) => `${up}, (${low}: ${up})=>`).join('')}Z]): CurriedFunction${j}<${types}, Z>;`
 }
 R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => sanctPipeDef(i,j)))).join('\r\n')
 
@@ -76,28 +76,28 @@ function curryDef(i) {
     let lows = lower(i);
     let pars = nm(i, n => `${lows[n]}: T${n+1}`);
     let types = nm(i, n => `T${n+1}`);
-    return `curry<${types}, TResult>(fn: (${pars}) => TResult): CurriedFn${i}<${types}, TResult>;`
+    return `curry<${types}, TResult>(fn: (${pars}) => TResult): CurriedFunction${i}<${types}, TResult>;`
 }
 R.flatten(R.range(2,10).map(i => curryDef(i))).join('\r\n')
 
-function CurriedFnDef(i) {
+function CurriedFunctionDef(i) {
     let types = nm(i, n => `T${n+1}`);
     let curriedDef = (j) => { // , extraGenerics = false
         let pars = nm(j, n => `t${n+1}: T${n+1}`);
         let tps = nm(i-j, n => `T${j+n+1}`);
         let gens = nm(i, n => `T${n+1}`);
-        let curried = (i-j > 1) ? `CurriedFn${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
+        let curried = (i-j > 1) ? `CurriedFunction${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
         // return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
         return `(${pars}): ${curried};`
     }
     let nums = R.range(0,i);
     // let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
     let defs = nums.map(n => curriedDef(n+1)).join('\r\n    ');
-    return `interface CurriedFn${i}<${types}, R> {
+    return `interface CurriedFunction${i}<${types}, R> {
     ${defs}
 }`;
 }
-R.flatten(R.range(2,10).map(i => CurriedFnDef(i))).join('\r\n')
+R.flatten(R.range(2,10).map(i => CurriedFunctionDef(i))).join('\r\n')
 
 function liftDef(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
