@@ -1286,6 +1286,8 @@ declare namespace R {
          * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
          * the FantasyLand Apply spec.
          */
+        lift<TResult>(fn: () => TResult): () => TResult[];
+        lift<T1, TResult>(fn: (v1: T1) => TResult): (v1: List<T1>) => TResult[];
         lift<T1, T2, TResult>(fn: (v1: T1, v2: T2) => TResult): (v1: List<T1>, v2: List<T2>) => TResult[];
         lift<T1, T2, T3, TResult>(fn: (v1: T1, v2: T2, v3: T3) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>) => TResult[];
         lift<T1, T2, T3, T4, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>) => TResult[];
@@ -1299,6 +1301,8 @@ declare namespace R {
          * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
          * objects that satisfy the FantasyLand Apply spec.
          */
+        liftN<TResult>(n: number, fn: () => TResult): () => TResult[];
+        liftN<T1, TResult>(n: number, fn: (v1: T1) => TResult): (v1: List<T1>) => TResult[];
         liftN<T1, T2, TResult>(n: number, fn: (v1: T1, v2: T2) => TResult): (v1: List<T1>, v2: List<T2>) => TResult[];
         liftN<T1, T2, T3, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>) => TResult[];
         liftN<T1, T2, T3, T4, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>) => TResult[];
@@ -1308,6 +1312,8 @@ declare namespace R {
         liftN<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(n: number, fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7, v8: T8) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>, v8: List<T8>) => TResult[];
 
         liftN(n: number): {
+            <TResult>(fn: () => TResult): () => TResult[];
+            <T1, TResult>(fn: (v1: T1) => TResult): (v1: List<T1>) => TResult[];
             <T1, T2, TResult>(fn: (v1: T1, v2: T2) => TResult): (v1: List<T1>, v2: List<T2>) => TResult[];
             <T1, T2, T3, TResult>(fn: (v1: T1, v2: T2, v3: T3) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>) => TResult[];
             <T1, T2, T3, T4, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>) => TResult[];

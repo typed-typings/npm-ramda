@@ -105,7 +105,7 @@ function liftDef(i) {
     let types = nm(i, n => `T${n+1}`);
     return `lift<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`
 }
-R.flatten(R.range(2,10).map(i => liftDef(i))).join('\r\n')
+R.flatten(R.range(0,10).map(i => liftDef(i))).join('\r\n')
 
 function liftNDef(i, together = true) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -114,8 +114,8 @@ function liftNDef(i, together = true) {
     return together ? `liftN<${types}, TResult>(n: number, fn: (${pars}) => TResult): (${listPars}) => TResult[];` :
                       `liftN(n: number): <${types}, TResult>(fn: (${pars}) => TResult) => (${listPars}) => TResult[];`;
 }
-R.flatten(R.range(2,10).map(i => liftNDef(i, true))).join('\r\n');
-// R.flatten(R.range(2,10).map(i => liftNDef(i, false))).join('\r\n');
+R.flatten(R.range(0,10).map(i => liftNDef(i, true))).join('\r\n');
+// R.flatten(R.range(0,10).map(i => liftNDef(i, false))).join('\r\n');
 
 function liftNDefSeparate(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
