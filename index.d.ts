@@ -90,8 +90,8 @@ declare namespace R {
     type StringLike = string | StringRepresentable<string>;
     type Prop = Primitive | StringRepresentable<Primitive>;
     type Path = List<Prop>;
-    type Struct<T> = Dictionary<T> | List<T>;
-    type AccOpts<T,U> = List<any>|Dictionary<any>|Transformer<T, U, U>;
+    type Struct<T> = Obj<T> | List<T>;
+    type AccOpts<T,U> = List<any>|Obj<any>|Transformer<T, U, U>;
 
     // Ramda interfaces
 
@@ -117,6 +117,7 @@ declare namespace R {
     interface Dictionary<T> {
         [index: string]: T;
     }
+    type Obj<T> = Dictionary<T>;
 
     interface NumericDictionary<T> {
         [index: number]: T;
@@ -609,9 +610,9 @@ declare namespace R {
          * the list. Note that all keys are coerced to strings because of how
          * JavaScript objects work.
          */
-        countBy<T>(fn: (a: T) => Prop, list: List<T>): Dictionary<number>;
-        countBy<T>(fn: (a: T) => Prop): (list: List<T>) => Dictionary<number>;
-        // countBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Dictionary<number>>;
+        countBy<T>(fn: (a: T) => Prop, list: List<T>): Obj<number>;
+        countBy<T>(fn: (a: T) => Prop): (list: List<T>) => Obj<number>;
+        // countBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Obj<number>>;
 
         /**
          * Returns a curried equivalent of the provided function.
@@ -801,9 +802,9 @@ declare namespace R {
         // evolve<V>: CurriedFunction2<NestedObj<(v: any) => any>, V, V>;
 
         // no inference, manually supply result type
-        evolve<T>(transformations: Dictionary<Function>, obj: any): T;
-        evolve(transformations: Dictionary<Function>): <T>(obj: any) => T;
-        // evolve<T>: CurriedFunction2<Dictionary<Function>, any, T>;
+        evolve<T>(transformations: Obj<Function>, obj: any): T;
+        evolve(transformations: Obj<Function>): <T>(obj: any) => T;
+        // evolve<T>: CurriedFunction2<Obj<Function>, any, T>;
 
         /*
          * A function that always returns false. Any passed in parameters are ignored.
@@ -830,16 +831,16 @@ declare namespace R {
         // filter<T>: CurriedFunction2<(value: T) => boolean, Functor<T>, T[]>;
 
         // object
-        filter<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
-        // filter<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>; // mix
-        // filter<T,U extends Dictionary<T>>: CurriedFunction2<(value: T) => boolean, U, Partial<U>>;
+        filter<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        // filter<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => Partial<U>; // mix
+        // filter<T,U extends Obj<T>>: CurriedFunction2<(value: T) => boolean, U, Partial<U>>;
 
         // mixed
         filter<T>(pred: Pred<T>): {
           (list: List<T>): T[];
           (list: Functor<T>): Functor<T>;
           (list: Functor<T>): T[];
-          <U extends Dictionary<T>>(obj: U): Partial<U>;
+          <U extends Obj<T>>(obj: U): Partial<U>;
         }
 
 
@@ -909,16 +910,16 @@ declare namespace R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<V>(pairs: List<KeyValuePair<Prop, V>>): Dictionary<V>;
+        fromPairs<V>(pairs: List<KeyValuePair<Prop, V>>): Obj<V>;
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
          * calling a String-returning function
          * on each element, and grouping the results according to values returned.
          */
-        groupBy<T>(fn: (a: T) => Prop, list: List<T>): Dictionary<T[]>;
-        groupBy<T>(fn: (a: T) => Prop): (list: List<T>) => Dictionary<T[]>;
-        // groupBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Dictionary<T[]>>;
+        groupBy<T>(fn: (a: T) => Prop, list: List<T>): Obj<T[]>;
+        groupBy<T>(fn: (a: T) => Prop): (list: List<T>) => Obj<T[]>;
+        // groupBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Obj<T[]>>;
 
         /**
          * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
@@ -1029,9 +1030,9 @@ declare namespace R {
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
          * by the given key.
          */
-        indexBy<T>(fn: (a: T) => Prop, list: List<T>): Dictionary<T>;
-        indexBy<T>(fn: (a: T) => Prop): (list: List<T>) => Dictionary<T>;
-        // indexBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Dictionary<T>>;
+        indexBy<T>(fn: (a: T) => Prop, list: List<T>): Obj<T>;
+        indexBy<T>(fn: (a: T) => Prop): (list: List<T>) => Obj<T>;
+        // indexBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Obj<T>>;
 
         /**
          * Returns the position of the first occurrence of an item in an array
@@ -1119,12 +1120,12 @@ declare namespace R {
         /**
         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
         */
-        invert(obj: Struct<Prop>): Dictionary<List<string>>;
+        invert(obj: Struct<Prop>): Obj<List<string>>;
 
         /**
         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
         */
-        invertObj(obj: Struct<Prop>): Dictionary<string>;
+        invertObj(obj: Struct<Prop>): Obj<string>;
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -1354,10 +1355,10 @@ declare namespace R {
         // map<T, U>: CurriedFunction2<(x: T) => U, List<T>, U[]>;
 
         // object: keyof version
-        map<T, U, M extends Dictionary<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
-        map<T, U, M extends Dictionary<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
-        // map<T, U>(fn: (value: T) => U): <M extends Dictionary<T>>(obj: M) => {[K in keyof M]: U}; // mix
-        // map<T, U, M extends Dictionary<T>>: CurriedFunction2<(value: T) => U, M, {[K in keyof M]: U}>;
+        map<T, U, M extends Obj<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
+        map<T, U, M extends Obj<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
+        // map<T, U>(fn: (value: T) => U): <M extends Obj<T>>(obj: M) => {[K in keyof M]: U}; // mix
+        // map<T, U, M extends Obj<T>>: CurriedFunction2<(value: T) => U, M, {[K in keyof M]: U}>;
 
         // object: Record version
         map<T, U, K extends string>(f: (x: T) => U, obj: Record<K, T>): Record<K, U>;
@@ -1387,7 +1388,7 @@ declare namespace R {
         // mixed:
         map<T, U>(fn: (x: T) => U): {
           (list: List<T>): U[];
-          <M extends Dictionary<T>>(obj: M): {[K in keyof M]: U};
+          <M extends Obj<T>>(obj: M): {[K in keyof M]: U};
           <K extends string>(obj: Record<K, T>): Record<K, U>;
           (obj: Functor<T>): Functor<U>;
         }
@@ -1422,9 +1423,9 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // keyof
-        mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
-        mapObjIndexed<T, V, M extends Dictionary<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
-        // mapObjIndexed<T, V, M extends Dictionary<T>>: CurriedFunction2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
+        mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
+        mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
+        // mapObjIndexed<T, V, M extends Obj<T>>: CurriedFunction2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
 
         // Record
         mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U, obj: Record<K, T>): Record<K, U>;
@@ -1604,10 +1605,10 @@ declare namespace R {
         objOf<K extends string>(key: K): <V, T extends Record<K,V>>(value: V) => T;
         // objOf<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, V, T>;
 
-        // // Dictionary-based, loses key
-        // objOf<T>(key: Prop, value: T): Dictionary<T>;
-        // objOf(key: Prop): <T>(value: T) => Dictionary<T>;
-        // // objOf<T>: CurriedFunction2<Prop, T, Dictionary<T>>;
+        // // Obj-based, loses key
+        // objOf<T>(key: Prop, value: T): Obj<T>;
+        // objOf(key: Prop): <T>(value: T) => Obj<T>;
+        // // objOf<T>: CurriedFunction2<Prop, T, Obj<T>>;
 
         /**
          * Returns a singleton array containing the value provided.
@@ -1717,11 +1718,11 @@ declare namespace R {
         partition<T>(fn: (a: T) => boolean): (list: List<T>) => [T[], T[]];
         // partition<T>: CurriedFunction2<(a: T) => boolean, List<T>, [T[], T[]]>;
         // objects
-        partition<T extends Dictionary<V>,U extends Dictionary<V>,V>(fn: (a: V) => boolean, obj: T & U) : [T,U];
-        // partition<T extends Dictionary<V>,U extends Dictionary<V>,V>: CurriedFunction2<(a: T) => boolean, obj: T & U, [T,U]>;
+        partition<T extends Obj<V>,U extends Obj<V>,V>(fn: (a: V) => boolean, obj: T & U) : [T,U];
+        // partition<T extends Obj<V>,U extends Obj<V>,V>: CurriedFunction2<(a: T) => boolean, obj: T & U, [T,U]>;
         // objects, alternative notation
-        partition<T, U extends Dictionary<T>>(fn: (a: T) => boolean, obj: U) : [Partial<U>,Partial<U>];
-        // partition<T, U extends Dictionary<T>>: CurriedFunction2<(a: T) => boolean, U, [Partial<U>,Partial<U>]>;
+        partition<T, U extends Obj<T>>(fn: (a: T) => boolean, obj: U) : [Partial<U>,Partial<U>];
+        // partition<T, U extends Obj<T>>: CurriedFunction2<(a: T) => boolean, U, [Partial<U>,Partial<U>]>;
 
         /**
          * Retrieve the value at a given path.
@@ -2305,16 +2306,16 @@ declare namespace R {
         // reject<T>: CurriedFunction2<Pred<T>, Functor<T>, T[]>;
 
         // object
-        reject<T,U extends Dictionary<T>>(pred: Pred<T>, obj: U) : Partial<U>;
-        // reject<T>(pred: Pred<T>): <U extends Dictionary<T>>(obj: U) => Partial<U>; // mix
-        // reject<T,U extends Dictionary<T>>: CurriedFunction2<Pred<T>, U, Partial<U>>;
+        reject<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        // reject<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => Partial<U>; // mix
+        // reject<T,U extends Obj<T>>: CurriedFunction2<Pred<T>, U, Partial<U>>;
 
         // mixed
         reject<T>(pred: Pred<T>): {
           (list: List<T>): T[];
           (list: Functor<T>): Functor<T>;
           (list: Functor<T>): T[];
-          <U extends Dictionary<T>>(obj: U): Partial<U>;
+          <U extends Obj<T>>(obj: U): Partial<U>;
         }
 
         /**
@@ -2596,7 +2597,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<T>(obj: Dictionary<T>): [string,T][];
+        toPairs<T>(obj: Obj<T>): [string,T][];
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -2604,7 +2605,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<T>(obj: Dictionary<T>): [string,T][];
+        toPairsIn<T>(obj: Obj<T>): [string,T][];
         toPairsIn(obj: Object): [string,any][];
 
         /**
@@ -2869,14 +2870,14 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // heterogeneous version
-        where<T extends Dictionary<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }, testObj: T): boolean;
-        where<T extends Dictionary<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }): (testObj: T) => boolean;  // generics too early?
-        // where<T extends Dictionary<any>>: CurriedFunction2<{ [P in keyof T]?: Pred<T[P]>; }, T, boolean>;
+        where<T extends Obj<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }, testObj: T): boolean;
+        where<T extends Obj<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }): (testObj: T) => boolean;  // generics too early?
+        // where<T extends Obj<any>>: CurriedFunction2<{ [P in keyof T]?: Pred<T[P]>; }, T, boolean>;
 
         // homogeneous version
-        where<T>(spec: Dictionary<Pred<T>>, testObj: Dictionary<T>): boolean;
-        where<T>(spec: Dictionary<Pred<T>>): (testObj: Dictionary<T>) => boolean;
-        // where<T>: CurriedFunction2<Dictionary<Pred<T>>, Dictionary<T>, boolean>;
+        where<T>(spec: Obj<Pred<T>>, testObj: Obj<T>): boolean;
+        where<T>(spec: Obj<Pred<T>>): (testObj: Obj<T>) => boolean;
+        // where<T>: CurriedFunction2<Obj<Pred<T>>, Obj<T>, boolean>;
 
         // DIY "fill in the type params yourself" version
         where<T,U>(spec: T, testObj: U): boolean;
@@ -2892,14 +2893,14 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // heterogeneous version
-        whereEq<T extends Dictionary<any>>(spec: Partial<T>, testObj: T): boolean;
-        whereEq<T extends Dictionary<any>>(spec: Partial<T>): (testObj: T) => boolean;
-        // whereEq<T extends Dictionary<any>>: CurriedFunction2<Partial<T>, T, boolean>;
+        whereEq<T extends Obj<any>>(spec: Partial<T>, testObj: T): boolean;
+        whereEq<T extends Obj<any>>(spec: Partial<T>): (testObj: T) => boolean;
+        // whereEq<T extends Obj<any>>: CurriedFunction2<Partial<T>, T, boolean>;
 
         // homogeneous version
-        whereEq<T>(spec: Dictionary<T>, testObj: Dictionary<T>): boolean;
-        whereEq<T>(spec: Dictionary<T>): (testObj: Dictionary<T>) => boolean;
-        // whereEq<T>: CurriedFunction2<Dictionary<T>, Dictionary<T>, boolean>;
+        whereEq<T>(spec: Obj<T>, testObj: Obj<T>): boolean;
+        whereEq<T>(spec: Obj<T>): (testObj: Obj<T>) => boolean;
+        // whereEq<T>: CurriedFunction2<Obj<T>, Obj<T>, boolean>;
 
         // DIY "fill in the type params yourself" version
         whereEq<T,U>(spec: T, testObj: U): boolean;
@@ -2941,10 +2942,10 @@ declare namespace R {
         /**
          * Creates a new object out of a list of keys and a list of values.
          */
-        // TODO: Dictionary<T> as a return value is to specific, any seems to loose
-        zipObj<T>(keys: List<Prop>, values: List<T>): Dictionary<T>;
-        zipObj(keys: List<Prop>): <T>(values: List<T>) => Dictionary<T>;
-        // zipObj<T>: CurriedFunction2<List<Prop>, List<T>, Dictionary<T>>;
+        // TODO: Obj<T> as a return value is to specific, any seems to loose
+        zipObj<T>(keys: List<Prop>, values: List<T>): Obj<T>;
+        zipObj(keys: List<Prop>): <T>(values: List<T>) => Obj<T>;
+        // zipObj<T>: CurriedFunction2<List<Prop>, List<T>, Obj<T>>;
 
 
         /**
