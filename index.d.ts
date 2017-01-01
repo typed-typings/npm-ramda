@@ -270,8 +270,8 @@ declare namespace R {
          */
         adjust<T>(fn: (a: T) => T, index: number, list: List<T>): T[];
         adjust<T>(fn: (a: T) => T, index: number): (list: List<T>) => T[];
-        adjust<T>(fn: (a: T) => T): CurriedFunction2<number, List<T>, T[]>
-        // adjust<T>: CurriedFunction3<(a: T) => T, number, List<T>, T[]>
+        adjust<T>(fn: (a: T) => T): CurriedFunction2<number, List<T>, T[]>;
+        // adjust<T>: CurriedFunction3<(a: T) => T, number, List<T>, T[]>;
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
@@ -463,7 +463,7 @@ declare namespace R {
         /**
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
          * functions must be unary.
-        */
+         */
         compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
         compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
         compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
@@ -690,7 +690,7 @@ declare namespace R {
         dissoc(prop: Prop): {
           <T>(obj: T): T; // infer
           <T>(obj: Struct<any>): T; // manual
-        }
+        };
 
         /**
          * Makes a shallow clone of an object, omitting the property at the given path.
@@ -841,7 +841,7 @@ declare namespace R {
           (list: Functor<T>): Functor<T>;
           (list: Functor<T>): T[];
           <U extends Obj<T>>(obj: U): Partial<U>;
-        }
+        };
 
 
         /**
@@ -1118,13 +1118,13 @@ declare namespace R {
         // into<T,U,V extends AccOpts<T,U>>: CurriedFunction3<V, (list: List<T>) => U, List<T>, U>;
 
         /**
-        * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
-        */
+         * Same as R.invertObj, however this accounts for objects with duplicate values by putting the values into an array.
+         */
         invert(obj: Struct<Prop>): Obj<List<string>>;
 
         /**
-        * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
-        */
+         * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
+         */
         invertObj(obj: Struct<Prop>): Obj<string>;
 
         /**
@@ -1150,23 +1150,23 @@ declare namespace R {
         // // invoker<T, K extends keyof T, P1, P2, P3, P4, P5, R>: CurriedFunction8<number /* = 0 */, K, P1, P2, P3, P4, P5, T, obj[K](P1, P2, P3, P4, P5)>;
 
         // manually type results
-        invoker<T, R> (len: number /* = 0 */, name: Prop, obj: T): R
-        invoker<T, R> (len: number/* = 0 */, name: Prop): (obj: T) => R
+        invoker<T, R> (len: number /* = 0 */, name: Prop, obj: T): R;
+        invoker<T, R> (len: number/* = 0 */, name: Prop): (obj: T) => R;
 
-        invoker<T, P1, R>(len: number /* = 1 */, name: Prop, x1: P1, obj: T): R
-        invoker<T, P1, R>(len: number /* = 1 */, name: Prop): CurriedFunction2<P1, T, R>
+        invoker<T, P1, R>(len: number /* = 1 */, name: Prop, x1: P1, obj: T): R;
+        invoker<T, P1, R>(len: number /* = 1 */, name: Prop): CurriedFunction2<P1, T, R>;
 
-        invoker<T, P1, P2, R>(len: number /* = 2 */, name: Prop, x1: P1, x2: P2, obj: T): R
-        invoker<T, P1, P2, R>(len: number /* = 2 */, name: Prop): CurriedFunction3<P1, P2, T, R>
+        invoker<T, P1, P2, R>(len: number /* = 2 */, name: Prop, x1: P1, x2: P2, obj: T): R;
+        invoker<T, P1, P2, R>(len: number /* = 2 */, name: Prop): CurriedFunction3<P1, P2, T, R>;
 
-        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name: Prop, x1: P1, x2: P2, x3: P3, obj: T): R
-        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name: Prop): CurriedFunction4<P1, P2, P3, T, R>
+        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name: Prop, x1: P1, x2: P2, x3: P3, obj: T): R;
+        invoker<T, P1, P2, P3, R>(len: number /* = 3 */, name: Prop): CurriedFunction4<P1, P2, P3, T, R>;
 
-        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: Prop, x1: P1, x2: P2, x3: P3, x4: P4, obj: T): R
-        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: Prop): CurriedFunction5<P1, P2, P3, P4, T, R>
+        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: Prop, x1: P1, x2: P2, x3: P3, x4: P4, obj: T): R;
+        invoker<T, P1, P2, P3, P4, R>(len: number /* = 4 */, name: Prop): CurriedFunction5<P1, P2, P3, P4, T, R>;
 
-        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: Prop, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): R
-        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: Prop): CurriedFunction6<P1, P2, P3, P4, P5, T, R>
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: Prop, x1: P1, x2: P2, x3: P3, x4: P4, x5: P5, obj: T): R;
+        invoker<T, P1, P2, P3, P4, P5, R>(len: number /* = 5 */, name: Prop): CurriedFunction6<P1, P2, P3, P4, P5, T, R>;
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
@@ -1324,7 +1324,7 @@ declare namespace R {
             <T1, T2, T3, T4, T5, T6, T7, T8, TResult>(fn: (v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6, v7: T7, v8: T8) => TResult): (v1: List<T1>, v2: List<T2>, v3: List<T3>, v4: List<T4>, v5: List<T5>, v6: List<T6>, v7: List<T7>, v8: List<T8>) => TResult[];
 
             <T>(fn: Variadic<T>): (...argLists: any[][]) => T[];
-        }
+        };
 
         liftN<T>(n: number, fn: Variadic<T>): (...argLists: any[][]) => T[];
         // liftN<T>: CurriedFunction2<number, Variadic<T>, (...argLists: any[][]) => T[]>;
@@ -1391,7 +1391,7 @@ declare namespace R {
           <M extends Obj<T>>(obj: M): {[K in keyof M]: U};
           <K extends string>(obj: Record<K, T>): Record<K, U>;
           (obj: Functor<T>): Functor<U>;
-        }
+        };
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
@@ -1464,7 +1464,7 @@ declare namespace R {
          * the larger result when passed to the provided function.
          */
         maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
-        maxBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
+        maxBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>;
         // maxBy<T>: CurriedFunction3<(a: T) => Ord, T, T, T>;
 
         /**
@@ -1535,7 +1535,7 @@ declare namespace R {
          * the smaller result when passed to the provided function.
          */
         minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
-        minBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>
+        minBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>;
         // minBy<T>: CurriedFunction3<(a: T) => Ord, T, T, T>;
 
         /**
@@ -1891,9 +1891,9 @@ declare namespace R {
         // path<K1 extends keyof T, K2 extends keyof T[K1], T extends {}>(keys: [K1, K2], obj: T): T[K1][K2];
 
         /**
-        * Determines whether a nested path on an object has a specific value,
-        * in `R.equals` terms. Most likely used to filter a list.
-        */
+         * Determines whether a nested path on an object has a specific value,
+         * in `R.equals` terms. Most likely used to filter a list.
+         */
         pathEq(path: Path, val: any, obj: Struct<any>): boolean;
         pathEq(path: Path, val: any): (obj: Struct<any>) => boolean;
         pathEq(path: Path): CurriedFunction2<any, Struct<any>, boolean>;
@@ -2153,7 +2153,7 @@ declare namespace R {
             // keyof
             <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
             // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        }
+        };
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
@@ -2316,7 +2316,7 @@ declare namespace R {
           (list: Functor<T>): Functor<T>;
           (list: Functor<T>): T[];
           <U extends Obj<T>>(obj: U): Partial<U>;
-        }
+        };
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
@@ -2376,7 +2376,7 @@ declare namespace R {
         sequence<T>(f: (v: T) => Applicative<T>): {
           (traversable: List<Applicative<T>>): Applicative<Array<T>>;
           (traversable: Traversable<Applicative<T>>): Applicative<Traversable<T>>;
-        }
+        };
 
 
         /**
@@ -2469,7 +2469,7 @@ declare namespace R {
         splitAt(index: number): {
             (list: string): [string, string];
             <T>(list: List<T>): T[][];
-        }
+        };
 
         /**
          * Splits a collection into slices of the specified length.
@@ -2664,7 +2664,7 @@ declare namespace R {
          traverse<T, U>(ap: (v: T) => Applicative<T>, fn: (v: T) => Applicative<U>): {
            (traversable: List<T>): Applicative<Array<U>>;
            (traversable: Traversable<T>): Applicative<Traversable<U>>;
-         }
+         };
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -2732,7 +2732,7 @@ declare namespace R {
          */
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: List<T>, list2: List<T>): T[];
         unionWith<T>(pred: (a: T, b: T) => boolean, list1: List<T>): (list2: List<T>) => T[];
-        unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<List<T>, List<T>, T[]>
+        unionWith<T>(pred: (a: T, b: T) => boolean): CurriedFunction2<List<T>, List<T>, T[]>;
         // unionWith<T>: CurriedFunction3<(a: T, b: T) => boolean, List<T>, List<T>, T[]>;
 
         /**
@@ -2786,7 +2786,7 @@ declare namespace R {
          */
         update<T>(index: number, value: T, list: List<T>): T[];
         update<T>(index: number, value: T): (list: List<T>) => T[];
-        update<T>(index: number): CurriedFunction2<T,List<T>,T[]>
+        update<T>(index: number): CurriedFunction2<T,List<T>,T[]>;
         // update<T>: CurriedFunction3<number, T, List<T>, T[]>;
 
         /**

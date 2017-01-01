@@ -2,11 +2,14 @@
   "name": "typescript-ramda",
   "version": "0.22.1-RC1",
   "scripts": {
+    "lint": "tslint index.d.ts",
     "test": "./node_modules/typescript/bin/tsc --lib \"es2015\" --module amd test.ts --noEmit"
   },
   "devDependencies": {
     "ramda": "0.22.1",
     "typescript": "^2.2.0-dev.20161211"
+    "tslint": "^4.2.0",
+    "tslint-config-typings": "^0.3.1",
   },
   "typings": "index.d.ts"
 }
