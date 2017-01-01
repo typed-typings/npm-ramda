@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2015"],
+    "module": "amd",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
