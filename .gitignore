@@ -5,3 +5,4 @@ dist
 .session.vim
 .sizecache.json
 test.js
+*.log
