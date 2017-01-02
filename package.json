@@ -2,8 +2,8 @@
   "name": "typescript-ramda",
   "version": "0.22.1-RC1",
   "scripts": {
-    "lint": "tslint index.d.ts",
-    "test": "./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit"
+    "lint": "echo linting... && tslint index.d.ts",
+    "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit"
   },
   "devDependencies": {
     "ramda": "0.22.1",
