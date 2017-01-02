@@ -45,4 +45,4 @@ Typing compatible with ramda version 0.22.1.
 
 ##Testing
 - unix: `npm test`
-- windows: `tsc  --lib es2015 --module amd test.ts --noEmit`
+- windows: `tsc  --lib es2015 --module commonjs test.ts --noEmit`

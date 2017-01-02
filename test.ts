@@ -1,4 +1,4 @@
-import * as R from 'index';
+import * as R from './index';
 
 declare var console: any
 var s: string;
