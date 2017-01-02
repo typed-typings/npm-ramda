@@ -3,7 +3,7 @@
   "version": "0.22.1-RC1",
   "scripts": {
     "lint": "tslint index.d.ts",
-    "test": "./node_modules/typescript/bin/tsc --lib \"es2015\" --module amd test.ts --noEmit"
+    "test": "./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit"
   },
   "devDependencies": {
     "ramda": "0.22.1",
