@@ -1,5 +1,5 @@
 // Type definitions for ramda
-// Project: [https://github.com/donnut/typescript-ramda]
+// Project: [https://github.com/types/npm-ramda]
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
