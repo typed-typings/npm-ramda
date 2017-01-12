@@ -6,10 +6,11 @@
     "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
     "ramda": "0.22.1",
-    "typescript": "gcnew/TypeScript#polyFuncUnification",
     "tslint": "^4.2.0",
-    "tslint-config-typings": "^0.3.1"
+    "tslint-config-typings": "^0.3.1",
+    "typescript": "gcnew/TypeScript#polyFuncUnification"
   },
   "typings": "index.d.ts"
 }
