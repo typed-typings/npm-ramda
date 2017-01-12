@@ -6,8 +6,16 @@
     "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit"
   },
   "devDependencies": {
+    "@types/del": "^2.2.31",
+    "@types/gulp": "^3.8.32",
+    "@types/gulp-insert": "^0.5.5",
+    "@types/merge2": "^0.3.29",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-insert": "^0.5.0",
+    "merge2": "^1.0.3",
     "ramda": "0.22.1",
+    "ts-node": "^2.0.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
     "typescript": "gcnew/TypeScript#polyFuncUnification"
