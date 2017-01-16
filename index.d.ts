@@ -817,7 +817,7 @@ declare namespace R {
 
         // array
         filter<T>(pred: Pred<T>, list: List<T>): T[];
-        filter<T>(pred: Pred<T>): (list: List<T>) => T[]; // should disable for mixing, but this somehow makes #73 fail
+        // filter<T>(pred: Pred<T>): (list: List<T>) => T[]; // should disable for mixing, but this somehow makes #73 fail
         // filter<T>: CurriedFunction2<Pred<T>, List<T>, T[]>;
 
         // functor to functor
@@ -1359,7 +1359,7 @@ declare namespace R {
 
         // array-like
         map<T, U>(fn: (x: T) => U, list: List<T>): U[];
-        map<T, U>(fn: (x: T) => U): (list: List<T>) => U[]; // disabling for mix breaks a few tests?
+        // map<T, U>(fn: (x: T) => U): (list: List<T>) => U[]; // disabling for mix breaks a few tests?
         // map<T, U>: CurriedFunction2<(x: T) => U, List<T>, U[]>;
 
         // object: keyof version
