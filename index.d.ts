@@ -997,7 +997,8 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends List<any>>(list: T): T[0];
+        // head<T extends List<any>>(list: T): T[0]; // TS 2.1.5+: Type '0' cannot be used to index type 'T'
+        head<T>(list: List<T>): T; // doesn't handle tuples
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
