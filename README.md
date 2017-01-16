@@ -46,3 +46,8 @@ Typing compatible with ramda version 0.22.1.
 ##Testing
 - unix: `npm test`
 - windows: `tsc  --lib es2015 --module commonjs test.ts --noEmit`
+
+##Todo
+- compose: use like extend rather than forcing types to be the same?
+- Curry<Fn>?
+- issue: allow separating manual/inferred generics to allow providing hints to e.g. pipe/compose

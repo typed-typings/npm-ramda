@@ -817,7 +817,7 @@ declare namespace R {
 
         // array
         filter<T>(pred: Pred<T>, list: List<T>): T[];
-        filter<T>(pred: Pred<T>): (list: List<T>) => T[]; // should disable for mixing, but this somehow makes #73 fail
+        // filter<T>(pred: Pred<T>): (list: List<T>) => T[]; // should disable for mixing, but this somehow makes #73 fail
         // filter<T>: CurriedFunction2<Pred<T>, List<T>, T[]>;
 
         // functor to functor
@@ -997,7 +997,15 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends List<any>>(list: T): T[0];
+        // generic attempt; broke from TS2.1.5 with Type '0' cannot be used to index type 'T'.
+        // head<T extends List<any>>(list: T): T[0];
+        // head<T extends Array<any>>(list: T): T[0];
+        // tuple attempts; it doesn't like these.
+        head<T>(list: [T]): T;
+        head<T0, T1>(list: [T0, T1]): T0;
+        head<T0, T1, T2>(list: [T0, T1, T2]): T0;
+        // doesn't handle tuples
+        head<T>(list: List<T>): T;
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1351,7 +1359,7 @@ declare namespace R {
 
         // array-like
         map<T, U>(fn: (x: T) => U, list: List<T>): U[];
-        map<T, U>(fn: (x: T) => U): (list: List<T>) => U[]; // disabling for mix breaks a few tests?
+        // map<T, U>(fn: (x: T) => U): (list: List<T>) => U[]; // disabling for mix breaks a few tests?
         // map<T, U>: CurriedFunction2<(x: T) => U, List<T>, U[]>;
 
         // object: keyof version

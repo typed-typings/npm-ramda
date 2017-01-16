@@ -46,32 +46,31 @@ class F2 {
 
 // isArrayLike
 () => {
-    var x: boolean;
-    x = R.isArrayLike('a');
-    x = R.isArrayLike([1,2,3]);
-    x = R.isArrayLike([]);
+    var b = R.isArrayLike('a');
+    var b = R.isArrayLike([1,2,3]);
+    var b = R.isArrayLike([]);
 };
 
 // propIs
 (() => {
-    b = R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
-    b = R.propIs(Number, 'x')({x: 1, y: 2});  //=> true
-    b = R.propIs(Number)('x', {x: 1, y: 2});  //=> true
-    b = R.propIs(Number)('x')({x: 1, y: 2});  //=> true
-    b = R.propIs(Number, 'x', {x: 'foo'});    //=> false
+    var b = R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
+    var b = R.propIs(Number, 'x')({x: 1, y: 2});  //=> true
+    var b = R.propIs(Number)('x', {x: 1, y: 2});  //=> true
+    var b = R.propIs(Number)('x')({x: 1, y: 2});  //=> true
+    var b = R.propIs(Number, 'x', {x: 'foo'});    //=> false
     // v errors with `Argument of type '"x"' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
-    // b = R.propIs(Number, 'x', {});            //=> false
+    // var b = R.propIs(Number, 'x', {});            //=> false
 });
 
 // type
 (() => {
-    s = R.type({}); //=> "Object"
-    s = R.type(1); //=> "Number"
-    s = R.type(false); //=> "Boolean"
-    s = R.type('s'); //=> "String"
-    s = R.type(null); //=> "Null"
-    s = R.type([]); //=> "Array"
-    s = R.type(/[A-z]/); //=> "RegExp"
+    var s = R.type({}); //=> "Object"
+    var s = R.type(1); //=> "Number"
+    var s = R.type(false); //=> "Boolean"
+    var s = R.type('s'); //=> "String"
+    var s = R.type(null); //=> "Null"
+    var s = R.type([]); //=> "Array"
+    var s = R.type(/[A-z]/); //=> "RegExp"
 });
 
 // curry
@@ -138,8 +137,8 @@ class F2 {
 
 // nthArg
 (() => {
-    s = R.nthArg(1)('a', 'b', 'c'); //=> 'b'
-    s = R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
+    var s = R.nthArg(1)('a', 'b', 'c'); //=> 'b'
+    var s = R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
 });
 
 // unapply
@@ -150,7 +149,7 @@ class F2 {
 
 // until
 () => {
-    n = R.until(R.flip(R.gt)(100), R.multiply(2))(1) // => 128
+    var n = R.until(R.flip(R.gt)(100), R.multiply(2))(1) // => 128
 }
 
 // propSatisfies
@@ -159,8 +158,8 @@ class F2 {
         R.propSatisfies(R.flip(R.gt)(10), 'length'),
         R.pipe(R.take(10), R.append('…'), R.join(''))
     );
-    s = truncate('12345');         //=> '12345'
-    s = truncate('0123456789ABC'); //=> '0123456789…'
+    var s = truncate('12345');         //=> '12345'
+    var s = truncate('0123456789ABC'); //=> '0123456789…'
 }
 
 /* compose */
@@ -181,13 +180,13 @@ class F2 {
     const g2 = R.map((i: number) => i > 5 ? 'bigger' : 'smaller');
     const g3 = R.all((i: string) => i === 'smaller');
     const g: (list: number[]) => boolean = R.compose(g3, g2, g1, g0);
-    b = g([1, 2, 10, 13]);
+    var b = g([1, 2, 10, 13]);
 }
 
 /* pipe */
 () => {
     var func: (x: number) => string = R.pipe(double, double, shout)
-    s = R.pipe(double, double, shout)(10);
+    var s = R.pipe(double, double, shout)(10);
 
     const capitalize = (str: string) => R.pipe(
         R.split(''),
@@ -196,7 +195,7 @@ class F2 {
     )(str);
 
     var f = R.pipe(Math.pow, R.negate, R.inc);
-    n = f(3, 4); // -(3^4) + 1
+    var n = f(3, 4); // -(3^4) + 1
 }
 
 /* pipeP */
@@ -220,7 +219,7 @@ class F2 {
     let r: number[] = range(3, 4, 9, -3); //=> [-3, 9]
 
     const chopped = R.juxt([R.head, R.last]);
-    sr = chopped('longstring'); // => ["l", "g"]
+    var sr = chopped('longstring'); // => ["l", "g"]
 });
 
 // useWith
@@ -241,7 +240,7 @@ class F2 {
   var printXPlusFive = function(x: number) { console.log(x + 5); };
   R.forEach(printXPlusFive, [1, 2, 3]);
   let or: Object[] = R.clone([{},{},{}])
-  nr = R.clone([1,2,3]);
+  var nr = R.clone([1,2,3]);
 })();
 
 // forEach
@@ -261,7 +260,7 @@ class F2 {
   var triple = function(x: number): number { return x * 3; };
   var square = function(x: number): number { return x * x; };
   var squareThenDoubleThenTriple = R.pipe(square, double, triple);
-  n = squareThenDoubleThenTriple(5); //=> 150
+  var n = squareThenDoubleThenTriple(5); //=> 150
 })();
 
 // partial
@@ -275,10 +274,10 @@ class F2 {
     };
     var sayHello = R.partial(greet, ['Hello']);
     var sayHelloToMs = R.partial(sayHello, ['Ms.']);
-    s = sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
+    var s = sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
 
     var greetMsJaneJones = R.partialRight(greet, ['Ms.', 'Jane', 'Jones']);
-    s = greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
+    var s = greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
 })();
 
 // memoize
@@ -290,24 +289,24 @@ class F2 {
     };
     var memoTrackedAdd = R.memoize(trackedAdd);
 
-    n = memoTrackedAdd(1, 2); //=> 3
-    n = numberOfCalls; //=> 1
-    n = memoTrackedAdd(1, 2); //=> 3
-    n = numberOfCalls; //=> 1
-    n = memoTrackedAdd(2, 3); //=> 5
-    n = numberOfCalls; //=> 2
+    var n = memoTrackedAdd(1, 2); //=> 3
+    var n = numberOfCalls; //=> 1
+    var n = memoTrackedAdd(1, 2); //=> 3
+    var n = numberOfCalls; //=> 1
+    var n = memoTrackedAdd(2, 3); //=> 5
+    var n = numberOfCalls; //=> 2
 
     // Note that argument order matters
-    n = memoTrackedAdd(2, 1); //=> 3
-    n = numberOfCalls; //=> 3
+    var n = memoTrackedAdd(2, 1); //=> 3
+    var n = numberOfCalls; //=> 3
 })();
 
 // once
 (() => {
     let x: number;
     var addOneOnce = R.once(function(x: number){ return x + 1; });
-    n = addOneOnce(10); //=> 11
-    n = addOneOnce(addOneOnce(50)); //=> 11
+    var n = addOneOnce(10); //=> 11
+    var n = addOneOnce(addOneOnce(50)); //=> 11
 })();
 
 // wrap
@@ -316,15 +315,15 @@ class F2 {
       return R.match(/\/$/, x) ? x : f(x);
     });
 
-    s = slashify('a');  //=> 'a/'
-    s = slashify('a/'); //=> 'a/'
+    var s = slashify('a');  //=> 'a/'
+    var s = slashify('a/'); //=> 'a/'
 })();
 
 // match
 () => {
-    sr = R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
-    sr = R.match(/a/, 'b'); //=> []
-    // sr = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
+    var sr = R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+    var sr = R.match(/a/, 'b'); //=> []
+    // var sr = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
 }
 
 // reduce
@@ -333,7 +332,7 @@ class F2 {
     var add = function(a: number, b: number) {
         return a + b
     };
-    n = R.reduce(add, 10, numbers); //=> 16;
+    var n = R.reduce(add, 10, numbers); //=> 16;
 })();
 
 // add
@@ -354,10 +353,10 @@ class F2 {
 () => {
     var isOdd = (x: number, acc: number) => x % 2 === 1;
     var xs = [1, 3, 5, 60, 777, 800];
-    n = R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
+    var n = R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
 
     var ys = [2, 4, 6]
-    n = R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
+    var n = R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
 }
 
 // mapObjIndexed
@@ -371,22 +370,22 @@ class F2 {
 
 // ap, of
 (() => {
-    nr = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    var nr = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); //=> [[1]]
-    nr = R.of(1);
+    var nr = R.of(1);
 });
 
 // empty
 () => {
-    nr = R.empty([1,2,3,4,5]); //=> []
-    nr = R.empty([1, 2, 3]);     //=> []
-    s = R.empty('unicorns');    //=> ''
+    var nr = R.empty([1,2,3,4,5]); //=> []
+    var nr = R.empty([1, 2, 3]);     //=> []
+    var s = R.empty('unicorns');    //=> ''
     const a4: {} = R.empty({x: 1, y: 2});  //=> {}
 }
 
 // length
 (() => {
-    n = R.length([1, 2, 3]); //=> 3
+    var n = R.length([1, 2, 3]); //=> 3
 });
 
 // addIndex, filter, reject
@@ -396,17 +395,17 @@ class F2 {
     };
     const filterIndexed = R.addIndex(R.filter);
 
-    nr = R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+    var nr = R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
 
     var lastTwo = function(val: number, idx: number, list: number[]) {
       return list.length - idx <= 2;
     };
-    nr = filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    var nr = filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
 
     var isOdd = function(n: number) {
       return n % 2 === 1;
     };
-    nr = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    var nr = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
 });
 
 // take, takeWhile
@@ -414,16 +413,16 @@ class F2 {
     var isNotFour = function(x: number) {
       return !(x === 4);
     };
-    nr = R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
-    nr = R.take(2, [1, 2, 3, 4]); //=> [1, 2]
+    var nr = R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    var nr = R.take(2, [1, 2, 3, 4]); //=> [1, 2]
 });
 
 // unfold
 (() => {
     var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
-    nr = R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
+    var nr = R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
     let b = R.unfold(f); //=> [-10, -20, -30, -40, -50]
-    nr = b(10);
+    var nr = b(10);
 });
 
 /*****************************************************************
@@ -435,9 +434,9 @@ class F2 {
     var mergeThree = function(a: number, b: number, c: number): number[] {
       return ([] as number[]).concat(a, b, c);  // strictNullChecks: must cast array to right type
     };
-    nr = mergeThree(1, 2, 3); //=> [1, 2, 3]
+    var nr = mergeThree(1, 2, 3); //=> [1, 2, 3]
     var flipped = R.flip(mergeThree);
-    nr = flipped(1, 2, 3); //=> [2, 1, 3]
+    var nr = flipped(1, 2, 3); //=> [2, 1, 3]
  }
 
 /*********************
@@ -448,8 +447,8 @@ class F2 {
 () => {
     var lessThan2 = R.flip(R.lt)(2);
     var lessThan3 = R.flip(R.lt)(3);
-    b = R.all(lessThan2)([1, 2]); //=> false
-    b = R.all(lessThan3)([1, 2]); //=> true
+    var b = R.all(lessThan2)([1, 2]); //=> false
+    var b = R.all(lessThan3)([1, 2]); //=> true
 }
 
 // any
@@ -457,8 +456,8 @@ class F2 {
     let b: boolean;
     var lessThan0 = R.flip(R.lt)(0);
     var lessThan2 = R.flip(R.lt)(2);
-    b = R.any(lessThan0)([1, 2]); //=> false
-    b = R.any(lessThan2)([1, 2]); //=> true
+    var b = R.any(lessThan0)([1, 2]); //=> false
+    var b = R.any(lessThan2)([1, 2]); //=> true
 }
 
 // aperture
@@ -472,9 +471,9 @@ class F2 {
 
 // append
 () => {
-    sr = R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
-    sr = R.append('tests')(['write', 'more']); //=> ['write', 'more', 'tests']
-    sr = R.append('tests', []); //=> ['tests']
+    var sr = R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
+    var sr = R.append('tests')(['write', 'more']); //=> ['write', 'more', 'tests']
+    var sr = R.append('tests', []); //=> ['tests']
     let srr: Array<string[]|string>;
     srr = R.append<string, string[]>(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
     srr = R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
@@ -487,57 +486,57 @@ class F2 {
     var duplicate = function(n: number) {
         return [n, n];
     };
-    nr = R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
-    nr = R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+    var nr = R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+    var nr = R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
 }
 
 // clamp
 () => {
-    n = R.clamp(1, 10, -1) // => 1
-    n = R.clamp(1, 10)(11) // => 10
-    n = R.clamp(1)(10, 4)  // => 4
-    s = R.clamp('a', 'd', 'e')  // => 'd'
+    var n = R.clamp(1, 10, -1) // => 1
+    var n = R.clamp(1, 10)(11) // => 10
+    var n = R.clamp(1)(10, 4)  // => 4
+    var s = R.clamp('a', 'd', 'e')  // => 'd'
 }
 
 // concat
 () => {
     R.concat([], []); //=> []   // let r: [] =
-    nr = R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
-    nr = R.concat([4, 5, 6])([1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
-    s = R.concat('ABC')('DEF'); // 'ABCDEF'
+    var nr = R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+    var nr = R.concat([4, 5, 6])([1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+    var s = R.concat('ABC')('DEF'); // 'ABCDEF'
 }
 
 // contains
 () => {
-    b = R.contains(3)([1, 2, 3]); //=> true
-    b = R.contains(3, [1, 2, 3]); //=> true
-    b = R.contains(4)([1, 2, 3]); //=> false
-    b = R.contains({})([{}, {}]); //=> false
+    var b = R.contains(3)([1, 2, 3]); //=> true
+    var b = R.contains(3, [1, 2, 3]); //=> true
+    var b = R.contains(4)([1, 2, 3]); //=> false
+    var b = R.contains({})([{}, {}]); //=> false
     var obj = {};
-    b = R.contains(obj)([{}, obj, {}]); //=> true
+    var b = R.contains(obj)([{}, obj, {}]); //=> true
 }
 
 // drop
 () => {
     let nr: number[];
-    nr = R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
-    nr = R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
-    s = R.drop(3, 'ramda'); //=> 'ram'
-    s = R.drop(3)('ramda'); //=> 'ram'
+    var nr = R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
+    var nr = R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
+    var s = R.drop(3, 'ramda'); //=> 'ram'
+    var s = R.drop(3)('ramda'); //=> 'ram'
 }
 
 // dropLast
 (() => {
-    sr = R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
-    sr = R.dropLast(2)(['foo', 'bar', 'baz']); //=> ['foo']
-    s = R.dropLast(3, 'ramda');               //=> 'ra'
-    s = R.dropLast(3)('ramda');               //=> 'ra'
+    var sr = R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
+    var sr = R.dropLast(2)(['foo', 'bar', 'baz']); //=> ['foo']
+    var s = R.dropLast(3, 'ramda');               //=> 'ra'
+    var s = R.dropLast(3)('ramda');               //=> 'ra'
 });
 
 // dropLastWhile
 (() => {
     var lteThree = (x: number) => x <= 3;
-    nr = R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); //=> [1, 2, 3, 4]
+    var nr = R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); //=> [1, 2, 3, 4]
 });
 
 // dropWhile
@@ -545,8 +544,8 @@ class F2 {
     var lteTwo = function(x: number) {
         return x <= 2;
     };
-    nr = R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
-    nr = R.dropWhile(lteTwo)([1, 2, 3, 4]); //=> [3, 4]
+    var nr = R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
+    var nr = R.dropWhile(lteTwo)([1, 2, 3, 4]); //=> [3, 4]
 }
 
 // filter
@@ -555,16 +554,16 @@ class F2 {
         return n % 2 === 0;
     };
     // filter works with lists...
-    nr = R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+    var nr = R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
     var isEvenFn = R.filter(isEven);
     isEvenFn([1, 2, 3, 4]);
     // ... but also objects
-    no = R.filter(isEven, {a:1, b:2, c:3, d:4}); //=> {b:2, d:4}
+    var no = R.filter(isEven, {a:1, b:2, c:3, d:4}); //=> {b:2, d:4}
     var isEvenFnObj = R.filter(isEven);
     // see that we did not break anything
     // and we kept type information
-    nr = onlyNumberList(R.filter(isEven,[1,2,3,4]));
-    no = onlyNumberObj(R.filter(isEven, {a:1, b:2, c:3, d:4})); // strictNullChecks: Partial fails, consider Pick
+    var nr = onlyNumberList(R.filter(isEven,[1,2,3,4]));
+    var no = onlyNumberObj(R.filter(isEven, {a:1, b:2, c:3, d:4})); // strictNullChecks: Partial fails, consider Pick
 }
 
 // addIndex
@@ -574,15 +573,15 @@ class F2 {
     };
     var filterIndexed = R.addIndex(R.filter);
 
-    nr = filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    var nr = filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
     var lastTwoFn = filterIndexed(lastTwo);
-    nr = lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
+    var nr = lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 }
 
 // find, propEq
 () => {
     var xs = [{a: 1}, {a: 2}, {a: 3}];
-    no = R.find(R.propEq('a', 2))(xs); //=> {a: 2}
+    var no = R.find(R.propEq('a', 2))(xs); //=> {a: 2}
     u = R.find(R.propEq('a', 4))(xs); //=> undefined
 }
 
@@ -601,24 +600,24 @@ class F2 {
     let xs = [{a: 1}, {a: 2}, {a: 3}];
     const a: (list: Task[]) => number = R.findIndex(R.propEq('a', 2))
     const b: number = a(xs); //=> 1
-    n = R.findIndex(R.propEq('a', 4))(xs); //=> -1
+    var n = R.findIndex(R.propEq('a', 4))(xs); //=> -1
 
-    n = R.findIndex((x: number) => x === 1, [1, 2, 3]);
+    var n = R.findIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 // findLast
 () => {
     let xs = [{a: 1, b: 0}, {a:1, b: 1}];
-    no = R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
+    var no = R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
     u = R.findLast(R.propEq('a', 4))(xs); //=> undefined
 }
 
 // findLastIndex
 () => {
     let xs = [{a: 1, b: 0}, {a:1, b: 1}];
-    n = R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
-    n = R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-    nr = R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
+    var n = R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
+    var n = R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
+    var nr = R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 // pathEq
@@ -634,23 +633,23 @@ class F2 {
 // propEq
 () => {
     var xs: {[key:string]: string} = {a: '1', b: '0'};
-    b = R.propEq('a', '1', xs);//=> true
-    b = R.propEq('a', '4', xs); //=> false
+    var b = R.propEq('a', '1', xs);//=> true
+    var b = R.propEq('a', '4', xs); //=> false
 }
 () => {
     var xs: {[key:string]: number} = {a: 1, b: 0};
-    b = R.propEq('a', 1, xs);//=> true
-    b = R.propEq('a', 4, xs); //=> false
+    var b = R.propEq('a', 1, xs);//=> true
+    var b = R.propEq('a', 4, xs); //=> false
 }
 () => {
     var xs = {a: '1', b: '0'};
-    b = R.propEq('a', '1', xs);//=> true
-    b = R.propEq('a', '4', xs); //=> false
+    var b = R.propEq('a', '1', xs);//=> true
+    var b = R.propEq('a', '4', xs); //=> false
 }
 () => {
     var xs = {a: 1, b: 0};
-    b = R.propEq('a', 1, xs);//=> true
-    b = R.propEq('a', 4, xs); //=> false
+    var b = R.propEq('a', 1, xs);//=> true
+    var b = R.propEq('a', 4, xs); //=> false
 }
 interface Obj { a: number; b: number };
 () => {
@@ -672,7 +671,7 @@ interface Obj { a: number; b: number };
 // addIndex?
 () => {
     var plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
-    nr = R.addIndex(R.forEach)(plusFive)([1, 2, 3]); //=> [6, 7, 8]
+    var nr = R.addIndex(R.forEach)(plusFive)([1, 2, 3]); //=> [6, 7, 8]
 }
 
 // groupBy
@@ -700,15 +699,15 @@ interface Obj { a: number; b: number };
     // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
 
     const isVowel = (a: string) => R.contains(a, 'aeiou') ? a : '';
-    sr = R.groupWith(R.eqBy<string>(isVowel), 'aestiou')
+    var sr = R.groupWith(R.eqBy<string>(isVowel), 'aestiou')
     // ['ae', 'st', 'iou']
 }
 
 // head
 () => {
-    s = R.head(['fi', 'fo', 'fum']); //=> 'fi'
-    n = R.head([10, 'ten']); // => 10
-    s = R.head(['10', 10]); // => '10'
+    var s = R.head(['fi', 'fo', 'fum']); //=> 'fi'
+    var n = R.head([10, 'ten']); // => 10
+    var s = R.head(['10', 10]); // => '10'
 }
 
 // indexBy
@@ -722,37 +721,37 @@ interface Obj { a: number; b: number };
 
 // indexOf
 () => {
-    n = R.indexOf(3, [1,2,3,4]); //=> 2
-    n = R.indexOf(10)([1,2,3,4]); //=> -1
+    var n = R.indexOf(3, [1,2,3,4]); //=> 2
+    var n = R.indexOf(10)([1,2,3,4]); //=> -1
 }
 
 // init
 () => {
-    sr = R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
+    var sr = R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
 }
 
 // insert
 () => {
-    nr = R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
-    nr = R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
-    nr = R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
-    nr = R.insert(2)(5)([1,2,3,4]); //=> [1,2,5,3,4]
+    var nr = R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
+    var nr = R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
+    var nr = R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
+    var nr = R.insert(2)(5)([1,2,3,4]); //=> [1,2,5,3,4]
 }
 
 // insertAll
 () => {
-    nr = R.insertAll(2, [10,11,12], [1,2,3,4]);
-    nr = R.insertAll(2)([10,11,12], [1,2,3,4]);
-    nr = R.insertAll(2, [10,11,12])([1,2,3,4]);
-    nr = R.insertAll(2)([10,11,12])([1,2,3,4]);
+    var nr = R.insertAll(2, [10,11,12], [1,2,3,4]);
+    var nr = R.insertAll(2)([10,11,12], [1,2,3,4]);
+    var nr = R.insertAll(2, [10,11,12])([1,2,3,4]);
+    var nr = R.insertAll(2)([10,11,12])([1,2,3,4]);
 }
 
 // intersection
 () => {
-    nr = R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
-    nr = R.intersection([1,2,3,4])([7,6,5,4,3]); //=> [4, 3]
-    nr = R.intersection([1,2,4], [1,2,3]); // => [1,2]
-    nr = R.intersection([1,2,4])([1,2,3]); // => [1,2]
+    var nr = R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
+    var nr = R.intersection([1,2,3,4])([7,6,5,4,3]); //=> [4, 3]
+    var nr = R.intersection([1,2,4], [1,2,3]); // => [1,2]
+    var nr = R.intersection([1,2,4])([1,2,3]); // => [1,2]
 }
 
 // intersectionWith
@@ -785,20 +784,20 @@ interface Obj { a: number; b: number };
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
 
-    nr = R.into([], transducer, numbers); //=> [2, 3]
-    nr = R.into([])(transducer, numbers); //=> [2, 3]
-    nr = R.into([], transducer)(numbers); //=> [2, 3]
+    var nr = R.into([], transducer, numbers); //=> [2, 3]
+    var nr = R.into([])(transducer, numbers); //=> [2, 3]
+    var nr = R.into([], transducer)(numbers); //=> [2, 3]
 
     var intoArray = R.into([]);
-    nr = intoArray(transducer, numbers); //=> [2, 3]
-    nr = intoArray(transducer)(numbers); //=> [2, 3]
+    var nr = intoArray(transducer, numbers); //=> [2, 3]
+    var nr = intoArray(transducer)(numbers); //=> [2, 3]
 }
 
 // join
 () => {
     var spacer = R.join(' ');
-    s = spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
-    s = R.join('|', [1, 2, 3]);    //=> '1|2|3'
+    var s = spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
+    var s = R.join('|', [1, 2, 3]);    //=> '1|2|3'
 }
 
 // last
@@ -815,29 +814,29 @@ interface Obj { a: number; b: number };
 
 // length
 () => {
-    n = R.length([]); //=> 0
-    n = R.length([1, 2, 3]); //=> 3
+    var n = R.length([]); //=> 0
+    var n = R.length([1, 2, 3]); //=> 3
 }
 
 // lensIndex, set, view, over
 () => {
     var headLens = R.lensIndex(0);
-    n = headLens([10, 20, 30, 40]); //=> 10
+    var n = headLens([10, 20, 30, 40]); //=> 10
     let res: Array<number|string> = headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]   // wrong, currently naively assumes number[], yet no error...
-    s = R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
-    sr = R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
-    sr = R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
+    var s = R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
+    var sr = R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
+    var sr = R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
 }
 
 // map
 () => {
     let arrayify = <T>(v: T): T[] => [v];
     // homogeneous array
-    nr = R.map(double, [1, 2, 3]); //=> [2, 4, 6]
-    nr = R.map(double)([1, 2, 3]); //=> [2, 4, 6]
+    var nr = R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+    var nr = R.map(double)([1, 2, 3]); //=> [2, 4, 6]
     // homogeneous object
-    no = R.map(double, { a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
-    no = R.map(double)({ a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
+    var no = R.map(double, { a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
+    var no = R.map(double)({ a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
     // heterogeneous array
     let res1: [number[], string[]] = R.map(arrayify, [1, 'a']); //=> [[1], ['a']]
     let res2: [number[], string[]] = R.map(arrayify)([1, 'a']); //=> [[1], ['a']]
@@ -853,7 +852,7 @@ interface Obj { a: number; b: number };
     //         return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
     //     }
     // };
-    // s = R.map((x: number) => x-1, stringFunctor); // => "Hello World"
+    // var s = R.map((x: number) => x-1, stringFunctor); // => "Hello World"
 }
 
 // mapAccum
@@ -890,22 +889,22 @@ interface Obj { a: number; b: number };
         }
         return elt;
     };
-    nr = R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
-    nr = R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    var nr = R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    var nr = R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
 }
 
 // none
 () => {
-    b = R.none(R.isNaN, [1, 2, 3]); //=> true
-    b = R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
-    b = R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
+    var b = R.none(R.isNaN, [1, 2, 3]); //=> true
+    var b = R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
+    var b = R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
 }
 
 // nth
 () => {
     var list = ['foo', 'bar', 'baz', 'quux'];
-    s = R.nth(1, list); //=> 'bar'
-    s = R.nth(-1, list); //=> 'quux'
+    var s = R.nth(1, list); //=> 'bar'
+    var s = R.nth(-1, list); //=> 'quux'
     u = R.nth(-99, list); //=> undefined
     u = R.nth(-99)(list); //=> undefined
 }
@@ -921,22 +920,22 @@ interface Obj { a: number; b: number };
 
 // pluck
 () => {
-    nr = R.pluck('a', [{a: 1}, {a: 2}]); //=> [1, 2]
-    nr = R.pluck(0, [[1, 2], [3, 4]]);   //=> [1, 3]
-    nr = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-    nr = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    var nr = R.pluck('a', [{a: 1}, {a: 2}]); //=> [1, 2]
+    var nr = R.pluck(0, [[1, 2], [3, 4]]);   //=> [1, 3]
+    var nr = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    var nr = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 // prepend
 () => {
-    sr = R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
-    sr = R.prepend('fee')(['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+    var sr = R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+    var sr = R.prepend('fee')(['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
 }
 
 // range
 () => {
-    nr = R.range(1, 5);    //=> [1, 2, 3, 4]
-    nr = R.range(50)(53);  //=> [50, 51, 52]
+    var nr = R.range(1, 5);    //=> [1, 2, 3, 4]
+    var nr = R.range(50)(53);  //=> [50, 51, 52]
 }
 
 // reduce
@@ -945,9 +944,9 @@ interface Obj { a: number; b: number };
     var add = function(a: number, b: number) {
         return a + b;
     };
-    n = R.reduce(add, 10, numbers); //=> 16
-    n = R.reduce(add)(10, numbers); //=> 16
-    n = R.reduce(add, 10)(numbers); //=> 16
+    var n = R.reduce(add, 10, numbers); //=> 16
+    var n = R.reduce(add)(10, numbers); //=> 16
+    var n = R.reduce(add, 10)(numbers); //=> 16
 }
 
 // reduceBy
@@ -984,9 +983,9 @@ interface Student {
         accObject[elem] = idx;
         return accObject;
     };
-    no = reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-    no = reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-    no = reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    var no = reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    var no = reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    var no = reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
 // reduceRight
@@ -1008,9 +1007,9 @@ type Pair = KeyValuePair<string, number>;
     var isOdd = function(n: number) {
         return n % 2 === 1;
     };
-    nr = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    var nr = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
     const a2 = R.reject(isOdd);
-    nr = R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
+    var nr = R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
 }
 
 // rejectIndexed
@@ -1019,59 +1018,59 @@ type Pair = KeyValuePair<string, number>;
         return list.length - idx <= 2;
     };
     const rejectIndexed = R.addIndex(R.reject);
-    nr = rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
-    nr = rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    var nr = rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    var nr = rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 // remove
 () => {
-    nr = R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
-    nr = R.remove(2, 3)([1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
-    nr = R.remove(2)(3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    var nr = R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    var nr = R.remove(2, 3)([1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    var nr = R.remove(2)(3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
 }
 
 // repeat
 () => {
-    sr = R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
+    var sr = R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
     var obj = {};
     var repeatedObjs = R.repeat(obj, 5); //=> [{}, {}, {}, {}, {}]
-    b = repeatedObjs[0] === repeatedObjs[1]; //=> true
+    var b = repeatedObjs[0] === repeatedObjs[1]; //=> true
 }
 
 // reverse
 () => {
-    nr = R.reverse([1, 2, 3]);  //=> [3, 2, 1]
-    nr = R.reverse([1, 2]);     //=> [2, 1]
-    nr = R.reverse([1]);        //=> [1]
-    nr = R.reverse([]);         //=> []
+    var nr = R.reverse([1, 2, 3]);  //=> [3, 2, 1]
+    var nr = R.reverse([1, 2]);     //=> [2, 1]
+    var nr = R.reverse([1]);        //=> [1]
+    var nr = R.reverse([]);         //=> []
 }
 
 // scan
 () => {
     var numbers = [1, 2, 3, 4];
-    nr = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
-    nr = R.scan(R.multiply, 1)(numbers); //=> [1, 1, 2, 6, 24]
-    nr = R.scan(R.multiply)(1, numbers); //=> [1, 1, 2, 6, 24]
+    var nr = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
+    var nr = R.scan(R.multiply, 1)(numbers); //=> [1, 1, 2, 6, 24]
+    var nr = R.scan(R.multiply)(1, numbers); //=> [1, 1, 2, 6, 24]
 }
 
 // slice
 () => {
     var xs = R.range(0, 10);
-    nr = R.slice(2, 5, xs); //=> [2, 3, 4]
-    nr = R.slice(2, 5)(xs); //=> [2, 3, 4]
-    nr = R.slice(2)(5, xs); //=> [2, 3, 4]
+    var nr = R.slice(2, 5, xs); //=> [2, 3, 4]
+    var nr = R.slice(2, 5)(xs); //=> [2, 3, 4]
+    var nr = R.slice(2)(5, xs); //=> [2, 3, 4]
 
     var str = 'Hello World';
-    s = R.slice(2, 5, str); //=> 'llo'
-    s = R.slice(2, 5)(str); //=> 'llo'
-    s = R.slice(2)(5, str); //=> 'llo'
+    var s = R.slice(2, 5, str); //=> 'llo'
+    var s = R.slice(2, 5)(str); //=> 'llo'
+    var s = R.slice(2)(5, str); //=> 'llo'
 }
 
 // sort
 () => {
     var diff = function(a: number, b: number) { return a - b; };
-    nr = R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
-    nr = R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
+    var nr = R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
+    var nr = R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
 }
 
 // cond, equals, always
@@ -1081,47 +1080,47 @@ type Pair = KeyValuePair<string, number>;
         [R.equals(100), R.always('water boils at 100°C')],
         [R.T,           (temp: number) => 'nothing special happens at ' + temp + '°C']
     ]);
-    s = fn(0); //=> 'water freezes at 0°C'
-    s = fn(50); //=> 'nothing special happens at 50°C'
-    s = fn(100); //=> 'water boils at 100°C'
+    var s = fn(0); //=> 'water freezes at 0°C'
+    var s = fn(50); //=> 'nothing special happens at 50°C'
+    var s = fn(100); //=> 'water boils at 100°C'
 }
 
 // tail
 () => {
-    sr = R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
-    nr = R.tail([1, 2, 3]); //=> [2, 3]
+    var sr = R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
+    var nr = R.tail([1, 2, 3]); //=> [2, 3]
 }
 
 // take
 () => {
-    nr = R.take(3,[1,2,3,4,5]); //=> [1,2,3]
+    var nr = R.take(3,[1,2,3,4,5]); //=> [1,2,3]
 
     var members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
     "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
     "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
     var takeFive = R.take(5);
-    sr = takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
+    var sr = takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 }
 () => {
-    s = R.take(3,"Example"); //=> "Exa"
+    var s = R.take(3,"Example"); //=> "Exa"
 
     var takeThree = R.take(3);
-    s = takeThree("Example"); //=> "Exa"
+    var s = takeThree("Example"); //=> "Exa"
 }
 
 // takeLast
 () => {
-	  sr = R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
-    sr = R.takeLast(2)(['foo', 'bar', 'baz']); //=> ['bar', 'baz']
-    s = R.takeLast(3, 'ramda');               //=> 'mda'
-    s = R.takeLast(3)('ramda');               //=> 'mda'
+	  var sr = R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
+    var sr = R.takeLast(2)(['foo', 'bar', 'baz']); //=> ['bar', 'baz']
+    var s = R.takeLast(3, 'ramda');               //=> 'mda'
+    var s = R.takeLast(3)('ramda');               //=> 'mda'
 }
 
 // takeLastWhile
 () => {
 	const isNotOne = (x: number) => x !== 1;
-	nr = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); //=> [2, 3, 4]
-	nr = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); //=> [2, 3, 4]
+	var nr = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); //=> [2, 3, 4]
+	var nr = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); //=> [2, 3, 4]
 }
 
 // takeWhile
@@ -1129,26 +1128,26 @@ type Pair = KeyValuePair<string, number>;
     var isNotFour = function(x: number) {
         return !(x === 4);
     };
-    nr = R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
-    nr = R.takeWhile(isNotFour)([1, 2, 3, 4]); //=> [1, 2, 3]
+    var nr = R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    var nr = R.takeWhile(isNotFour)([1, 2, 3, 4]); //=> [1, 2, 3]
 }
 
 // tap
 () => {
 	  const sayX = (x: number) => console.log('x is ' + x);
-    n = R.tap(sayX, 100); //=> 100
+    var n = R.tap(sayX, 100); //=> 100
 }
 
 // test
 () => {
-	  b = R.test(/^x/, 'xyz'); //=> true
-    b = R.test(/^y/)('xyz'); //=> false
+	  var b = R.test(/^x/, 'xyz'); //=> true
+    var b = R.test(/^y/)('xyz'); //=> false
 }
 
 // times
 () => {
-    nr = R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
-    nr = R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
+    var nr = R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+    var nr = R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
 }
 
 // toString
@@ -1162,12 +1161,12 @@ type Pair = KeyValuePair<string, number>;
         	return 'new Point(' + this.x + ', ' + this.y + ')';
 		}
     };
-    s = R.toString(new Point(1, 2)); //=> 'new Point(1, 2)'
-    s = R.toString(42); //=> '42'
-    s = R.toString('abc'); //=> '"abc"'
-    s = R.toString([1, 2, 3]); //=> '[1, 2, 3]'
-    s = R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
-    s = R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
+    var s = R.toString(new Point(1, 2)); //=> 'new Point(1, 2)'
+    var s = R.toString(42); //=> '42'
+    var s = R.toString('abc'); //=> '"abc"'
+    var s = R.toString([1, 2, 3]); //=> '[1, 2, 3]'
+    var s = R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
+    var s = R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
 }
 
 // transduce
@@ -1175,10 +1174,10 @@ type Pair = KeyValuePair<string, number>;
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
     var fn = R.flip<number, number[], number[]>(R.append);
-    nr = R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
-    nr = R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
-    nr = R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
-    nr = R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
+    var nr = R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
+    var nr = R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
+    var nr = R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
+    var nr = R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
 }
 
 // // traverse
@@ -1200,13 +1199,13 @@ type Pair = KeyValuePair<string, number>;
 // tryCatch
 () => {
     const x = R.prop('x');
-    b = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
-    b = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
+    var b = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
+    var b = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
 }
 
 // uniq
 () => {
-    nr = R.uniq([1, 1, 2, 1]); //=> [1, 2]
+    var nr = R.uniq([1, 1, 2, 1]); //=> [1, 2]
     let r2: Object[] = R.uniq([{}, {}]);     //=> [{}, {}]
     let r3: any[] = R.uniq([1, '1']);     //=> [1, '1']
 }
@@ -1214,17 +1213,17 @@ type Pair = KeyValuePair<string, number>;
 // uniqWith
 () => {
     var strEq = function(a: any, b: any) { return String(a) === String(b); };
-    nr = R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
-    nr = R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
-    or = R.uniqWith(strEq)([{}, {}]);       //=> [{}]
-    nr = R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
-    sr = R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
+    var nr = R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
+    var nr = R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
+    var or = R.uniqWith(strEq)([{}, {}]);       //=> [{}]
+    var nr = R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
+    var sr = R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
 }
 
 // unnest, equals
 () => {
-    b = R.equals(R.unnest([1, [2], [[3]]]), [1,2,[3]]); //=> true
-    b = R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]),[1,2,3,4,5,6]); //=> true
+    var b = R.equals(R.unnest([1, [2], [[3]]]), [1,2,[3]]); //=> true
+    var b = R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]),[1,2,3,4,5,6]); //=> true
 }
 
 // xprod
@@ -1243,8 +1242,8 @@ type Pair = KeyValuePair<string, number>;
 
 // zipObj
 () => {
-    no = R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
-    no = R.zipObj(['a', 'b', 'c'])([1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+    var no = R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+    var no = R.zipObj(['a', 'b', 'c'])([1, 2, 3]); //=> {a: 1, b: 2, c: 3}
 }
 
 // zipWith
@@ -1252,9 +1251,9 @@ type Pair = KeyValuePair<string, number>;
     var f = function(x:number, y:string) {
         // ...
     };
-    ar = R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-    ar = R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-    ar = R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    var ar = R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    var ar = R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    var ar = R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
 }
 
 /*****************************************************************
@@ -1263,16 +1262,16 @@ type Pair = KeyValuePair<string, number>;
 
 // assoc
 () => {
-    no = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    no = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    no = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    var no = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    var no = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    var no = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 }
 
 // dissoc
 () => {
-    no = R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    no = R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    no = R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    var no = R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    var no = R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    var no = R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 }
 
 // assocPath
@@ -1296,20 +1295,20 @@ type Pair = KeyValuePair<string, number>;
 () => {
     var obj1 = [{}, {}, {}];
     var obj2 = [{a:1}, {a:2}, {a:3}];
-    ar = R.clone(obj1);
+    var ar = R.clone(obj1);
     const a2: {a: number}[] = R.clone(obj2);
     const a3: Object = R.clone({});
-    n = R.clone(10);
-    s = R.clone('foo');
-    n = R.clone(Date.now());
+    var n = R.clone(10);
+    var s = R.clone('foo');
+    var n = R.clone(Date.now());
 }
 
 // eqProps
 () => {
     var o1 = { a: 1, b: 2, c: 3, d: 4 };
     var o2 = { a: 10, b: 20, c: 3, d: 40 };
-    b = R.eqProps('a', o1, o2); //=> false
-    b = R.eqProps('c', o1, o2); //=> true
+    var b = R.eqProps('a', o1, o2); //=> false
+    var b = R.eqProps('c', o1, o2); //=> true
     const a3: {<T,U>(obj1: T, obj2: U): boolean} = R.eqProps('c');
     const a4: {<U>(obj2: U): boolean} = R.eqProps('c', o1);
 }
@@ -1329,15 +1328,15 @@ type Pair = KeyValuePair<string, number>;
 // has
 () => {
     const hasName = R.has('name');
-    b = hasName({name: 'alice'});   //=> true
-    b = hasName({name: 'bob'});     //=> true
-    b = hasName({});                //=> false
+    var b = hasName({name: 'alice'});   //=> true
+    var b = hasName({name: 'bob'});     //=> true
+    var b = hasName({});                //=> false
 
     const point = {x: 0, y: 0};
     const pointHas = R.flip(R.has)(point);
-    b = pointHas('x');  //=> true
-    b = pointHas('y');  //=> true
-    b = pointHas('z');  //=> false
+    var b = pointHas('x');  //=> true
+    var b = pointHas('y');  //=> true
+    var b = pointHas('z');  //=> false
 }
 
 // hasIn
@@ -1352,9 +1351,9 @@ class Rectangle {
 };
 () => {
     var square = new Rectangle(2, 2);
-    b = R.hasIn('width', square);  //=> true
-    b = R.hasIn('area', square);  //=> true
-    b = R.flip(R.hasIn)(square)('area');  //=> true
+    var b = R.hasIn('width', square);  //=> true
+    var b = R.hasIn('area', square);  //=> true
+    var b = R.flip(R.hasIn)(square)('area');  //=> true
 }
 
 // invert
@@ -1374,24 +1373,24 @@ class Rectangle {
       first: 'alice',
       second: 'jake'
     };
-    so = R.invertObj(raceResults0);
+    var so = R.invertObj(raceResults0);
     //=> { 'alice': 'first', 'jake':'second' }
 
     // Alternatively:
     let raceResults1 = ['alice', 'jake'];
-    so = R.invertObj(raceResults1);
+    var so = R.invertObj(raceResults1);
     //=> { 'alice': '0', 'jake':'1' }
 }
 
 // keys
 () => {
-    sr = R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+    var sr = R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
 // keysIn
 () => {
     var f = new F();
-    sr = R.keysIn(f); //=> ['x', 'y']
+    var sr = R.keysIn(f); //=> ['x', 'y']
 }
 
 // lens
@@ -1405,7 +1404,7 @@ class Rectangle {
     // var xLens = R.lens<number, xy>(R.prop('x'), R.assoc('x'));
     var xLens = R.lens<number>(R.prop('x'))(R.assoc('x'));
     // ^ works with only 1 generic, for curried version managed to split the inferred generic from the manual generic
-    n = R.view(xLens, {x: 1, y: 2});            //=> 1
+    var n = R.view(xLens, {x: 1, y: 2});            //=> 1
     z = R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     z = R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     z = R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}
@@ -1417,37 +1416,37 @@ class Rectangle {
 // lensIndex
 () => {
     var headLens = R.lensIndex(0);
-    s = R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
-    sr = R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
-    sr = R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
+    var s = R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
+    var sr = R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
+    var sr = R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
 }
 
 // lensProp
 () => {
     var xLens = R.lensProp('x');
-    n = R.view(xLens, {x: 1, y: 2});            //=> 1
-    no = R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
-    no = R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
+    var n = R.view(xLens, {x: 1, y: 2});            //=> 1
+    var no = R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+    var no = R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
 }
 
 // lensPath
 () => {
   let res: R.Dictionary<R.Dictionary<number>>;
   const xyLens = R.lensPath(['x', 'y']);
-  n = R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
+  var n = R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
   res = R.set(xyLens, 4, {x: {y: 2, z: 3}});          //=> {x: {y: 4, z: 3}}
   res = R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  //=> {x: {y: -2, z: 3}}
 }
 
 // keys
 () => {
-    sr = R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+    var sr = R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
 // keysIn
 () => {
     var f = new F();
-    sr = R.keysIn(f); //=> ['x', 'y']
+    var sr = R.keysIn(f); //=> ['x', 'y']
 }
 
 // lens
@@ -1469,9 +1468,9 @@ class Rectangle {
     );
     var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
     var obj2 = { phrase: "What's all this, then?"};
-    s = phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
-    s = phraseLens(obj2); // => "What's all this, then?"
-    so = phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    var s = phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    var s = phraseLens(obj2); // => "What's all this, then?"
+    var so = phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
 }
 
 // lensProp
@@ -1479,23 +1478,23 @@ class Rectangle {
     var phraseLens = R.lensProp('phrase');
     var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
     var obj2 = { phrase: "What's all this, then?"};
-    s = phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
-    s = phraseLens(obj2); // => "What's all this, then?"
-    so = phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    var s = phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    var s = phraseLens(obj2); // => "What's all this, then?"
+    var so = phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
 }
 
 // merge
 () => {
-    ao = R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+    var ao = R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
     //=> { 'name': 'fred', 'age': 40 }
     var resetToDefault = R.flip(R.merge)({x: 0});
-    no = resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
+    var no = resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
 }
 
 // megeAll
 () => {
-    no = R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
-    no = R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+    var no = R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+    var no = R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
 }
 
 // mergeWith
@@ -1519,21 +1518,21 @@ class Rectangle {
 
 // pathOr
 () => {
-    n = R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
-    n = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
-    n = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
-    n = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    var n = R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
+    var n = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
+    var n = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    var n = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
 }
 
 // pathSatisfies
 () => {
-    b = R.pathSatisfies(a => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> true
-    b = R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> false
-    b = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
-    b = R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); //=> true
-    b = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
-    b = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
-    b = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
+    var b = R.pathSatisfies(a => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> true
+    var b = R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> false
+    var b = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
+    var b = R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); //=> true
+    var b = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
+    var b = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
+    var b = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
 }
 
 // pickBy
@@ -1541,7 +1540,7 @@ class Rectangle {
     var isPositive = function(n: number) {
         return n > 0;
     };
-    no = R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    var no = R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
     var containsBackground = function(val: any) {
         return val.bgcolor;
     };
@@ -1549,17 +1548,17 @@ class Rectangle {
     let res: { 2: R.Dictionary<string> } = R.pickBy(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
 
     var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
-    no = R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+    var no = R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 
 // pick
 () => {
-    no = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    var no = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
     // the following should errror: e/f are not keys in these objects
-    // no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    // no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-    // no = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
+    // var no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    // var no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+    // var no = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); //=> {a: 1}
 }
 
 // objOf
@@ -1573,41 +1572,41 @@ class Rectangle {
 
 // omit
 () => {
-    no = R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
-    no = R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+    var no = R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+    var no = R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
 }
 
 // fromPairs
 () => {
-    no = R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
+    var no = R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
 }
 
 // pair
 () => {
     R.pair('foo', 'bar'); //=> ['foo', 'bar']
     let p = R.pair('foo', 1); //=> ['foo', 'bar']
-    s = p[0];
-    n = p[1];
+    var s = p[0];
+    var n = p[1];
 }
 
 // over, lensIndex
 () => {
     var headLens = R.lensIndex(0);
-    sr = R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); //=> ['FOO', 'bar', 'baz']
+    var sr = R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); //=> ['FOO', 'bar', 'baz']
 }
 
 // pickAll
 () => {
-    no = R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    no = R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    no = R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
-    no = R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}    // why does this pass while the above fails?
+    var no = R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    var no = R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    var no = R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
+    var no = R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}    // why does this pass while the above fails?
 }
 
 // pickBy
 () => {
     var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
-    no = R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+    var no = R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 // project
@@ -1621,7 +1620,7 @@ class Rectangle {
 
 // prop
 () => {
-    n = R.prop('x', {x: 100}); //=> 100
+    var n = R.prop('x', {x: 100}); //=> 100
     // errors: `Argument of type '"x"' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
     // u = R.prop('x', {}); //=> undefined
 }
@@ -1636,23 +1635,23 @@ class Rectangle {
     var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
     // u = favorite(alice);  //=> undefined  // now errors
-    s = favoriteWithDefault(alice);  //=> 'Ramda'
+    var s = favoriteWithDefault(alice);  //=> 'Ramda'
 }
 
 // propSatisfies
 () => {
-    b = R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
-    b = R.propSatisfies(x => x > 0, 'x')({x: 1, y: 2}); //=> true
-    b = R.propSatisfies(x => x > 0)('x')({x: 1, y: 2}); //=> true
+    var b = R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
+    var b = R.propSatisfies(x => x > 0, 'x')({x: 1, y: 2}); //=> true
+    var b = R.propSatisfies(x => x > 0)('x')({x: 1, y: 2}); //=> true
 }
 
 // props
 () => {
-    nr = R.props(['x', 'y'], {x: 1, y: 2}); //=> [1, 2]
+    var nr = R.props(['x', 'y'], {x: 1, y: 2}); //=> [1, 2]
     let res: Array<number|undefined> = R.props(['c', 'a', 'b'], {b: 2, a: 1}); //=> [undefined, 1, 2]
 
     var fullName = R.compose(R.join(' '), R.props(['first', 'last']));
-    s = fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); //=> 'Tony Bullet-Tooth'
+    var s = fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); //=> 'Tony Bullet-Tooth'
 }
 
 // toPairs
@@ -1669,30 +1668,30 @@ class Rectangle {
 
 // values
 () => {
-    nr = R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+    var nr = R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
 }
 
 // valuesIn
 () => {
     var f = new F();
-    sr = R.valuesIn(f); //=> ['X', 'Y']
+    var sr = R.valuesIn(f); //=> ['X', 'Y']
 }
 
 // where
 () => {
     var spec = {x: 2};
-    b = R.where(spec, {w: 10, x: 2, y: 300}); //=> true
-    b = R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
-    b = R.where(spec)({w: 10, x: 2, y: 300}); //=> true
-    b = R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
+    var b = R.where(spec, {w: 10, x: 2, y: 300}); //=> true
+    var b = R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
+    var b = R.where(spec)({w: 10, x: 2, y: 300}); //=> true
+    var b = R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
 
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
 
     var spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
-    b = R.where(spec2, {x: 2, y: 7}); //=> false
-    b = R.where(spec2, {x: 3, y: 8}); //=> true
+    var b = R.where(spec2, {x: 2, y: 7}); //=> false
+    var b = R.where(spec2, {x: 3, y: 8}); //=> true
 
     let xys: { x: number, y: number }[];
     var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
@@ -1704,32 +1703,32 @@ class Rectangle {
 () => {
     // pred :: Object -> Boolean
     var pred = R.whereEq({a: 1, b: 2});
-    b = pred({a: 1});              //=> false
-    b = pred({a: 1, b: 2});        //=> true
-    b = pred({a: 1, b: 2, c: 3});  //=> true
-    b = pred({a: 1, b: 1});        //=> false
-    b = R.whereEq({a: 'one'}, {a: 'one'}); // => true
+    var b = pred({a: 1});              //=> false
+    var b = pred({a: 1, b: 2});        //=> true
+    var b = pred({a: 1, b: 2, c: 3});  //=> true
+    var b = pred({a: 1, b: 1});        //=> false
+    var b = R.whereEq({a: 'one'}, {a: 'one'}); // => true
 }
 
 // without
 () => {
-    nr = R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
+    var nr = R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
 }
 
 // mapIndexed, addIndex
 () => {
     var mapIndexed = R.addIndex<string,string>(R.map);
-    sr = mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
-    sr = R.mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    var sr = mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    var sr = R.mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
       //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
-    nr = R.mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+    var nr = R.mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
       //=> [2, 56]
 }
 
 // addIndex
 () => {
     var reduceIndexed = R.addIndex(R.reduce);
-    sr = reduceIndexed(function(acc: string, val: string, idx: number) {
+    var sr = reduceIndexed(function(acc: string, val: string, idx: number) {
           return acc + ',' + idx + '-' + val;
       }
       ,''
@@ -1741,20 +1740,20 @@ class Rectangle {
 // always
 () => {
     var t = R.always('Tee');
-    s = t(); //=> 'Tee'
+    var s = t(); //=> 'Tee'
 }
 
 // ap
 () => {
-    nr = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
-    nr = R.ap([R.multiply(2), R.add(3)])([1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    var nr = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    var nr = R.ap([R.multiply(2), R.add(3)])([1,2,3]); //=> [2, 4, 6, 4, 5, 6]
 }
 
 // apply
 () => {
     var nums = [1, 2, 3, -99, 42, 6, 7];
-    n = R.apply(Math.max, nums); //=> 42
-    n = R.apply(Math.max)(nums); //=> 42
+    var n = R.apply(Math.max, nums); //=> 42
+    var n = R.apply(Math.max)(nums); //=> 42
 }
 
 // applySpec
@@ -1771,20 +1770,20 @@ class Rectangle {
     var takesThreeArgs = function(a: number, b: number, c: number) {
         return [a, b, c];
     };
-    n = takesThreeArgs.length; //=> 3
-    nr = takesThreeArgs(1, 2, 3); //=> [1, 2, 3]
+    var n = takesThreeArgs.length; //=> 3
+    var nr = takesThreeArgs(1, 2, 3); //=> [1, 2, 3]
 
     var takesTwoArgs = R.binary(takesThreeArgs);
-    n = takesTwoArgs.length; //=> 2
+    var n = takesTwoArgs.length; //=> 2
     // Only 2 arguments are passed to the wrapped function
     // errors: "Supplied parameters do not match any signature of call target." (can only use 2 arguments now)
-    // nr = takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
+    // var nr = takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
 }
 
 // pipe, inc, negate
 () => {
     const f = R.pipe(Math.pow, R.negate, R.inc);
-    n = f(3, 4); // -(3^4) + 1
+    var n = f(3, 4); // -(3^4) + 1
 }
 
 // comparator
@@ -1806,10 +1805,10 @@ class Rectangle {
     var subtract = function(a: number, b: number) { return a - b; };
 
     //≅ multiply( add(1, 2), subtract(1, 2) );
-    n = R.converge(multiply, [ add, subtract ])(1, 2); //=> -3
+    var n = R.converge(multiply, [ add, subtract ])(1, 2); //=> -3
 
     var add3 = function(a: number, b: number, c: number) { return a + b + c; };
-    n = R.converge(add3, [ multiply, add, subtract ])(1, 2); //=> 4
+    var n = R.converge(add3, [ multiply, add, subtract ])(1, 2); //=> 4
 }
 
 // compose
@@ -1820,12 +1819,12 @@ class Rectangle {
     const f3 = R.compose(R.inc, R.inc, R.negate, Math.pow);
     const f4 = R.compose(R.inc, R.inc, R.inc, R.negate, Math.pow);
     const f5 = R.compose(R.inc, R.inc, R.inc, R.inc, R.negate, Math.pow);
-    n = f0(3, 4); // -(3^4) + 1
-    n = f1(3, 4); // -(3^4) + 1
-    n = f2(3, 4); // -(3^4) + 1
-    n = f3(3, 4); // -(3^4) + 1
-    n = f4(3, 4); // -(3^4) + 1
-    n = f5(3, 4); // -(3^4) + 1
+    var n = f0(3, 4); // -(3^4) + 1
+    var n = f1(3, 4); // -(3^4) + 1
+    var n = f2(3, 4); // -(3^4) + 1
+    var n = f3(3, 4); // -(3^4) + 1
+    var n = f4(3, 4); // -(3^4) + 1
+    var n = f5(3, 4); // -(3^4) + 1
 }
 
 // compose
@@ -1834,7 +1833,7 @@ class Rectangle {
         return [a,b,c];
     }
     const gn = R.compose(R.length, fn);
-    n = gn('Hello', 4, "world");
+    var n = gn('Hello', 4, "world");
 }
 
 // construct, constructN
@@ -1859,14 +1858,14 @@ class Rectangle {
 () => {
     var numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
     var letters = R.split('', 'abcABCaaaBBc');
-    no = R.countBy(Math.floor)(numbers);    //=> {'1': 3, '2': 2, '3': 1}
-    no = R.countBy(R.toLower)(letters);   //=> {'a': 5, 'b': 4, 'c': 3}
+    var no = R.countBy(Math.floor)(numbers);    //=> {'1': 3, '2': 2, '3': 1}
+    var no = R.countBy(R.toLower)(letters);   //=> {'a': 5, 'b': 4, 'c': 3}
 }
 
 // difference
 () => {
-    nr = R.difference([1,2,3,4], [7,6,5,4,3]); //=> [1,2]
-    nr = R.difference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5]
+    var nr = R.difference([1,2,3,4], [7,6,5,4,3]); //=> [1,2]
+    var nr = R.difference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5]
 }
 
 // differenceWith
@@ -1882,39 +1881,39 @@ class Rectangle {
 
 // equals
 () => {
-    b = R.equals(1, 1); //=> true
-    b = R.equals('2', '1'); //=> false
-    b = R.equals([1, 2, 3], [1, 2, 3]); //=> true
+    var b = R.equals(1, 1); //=> true
+    var b = R.equals('2', '1'); //=> false
+    var b = R.equals([1, 2, 3], [1, 2, 3]); //=> true
 
     var a: any = {}; a.v = a;
     var b: any = {}; b.v = b;
-    b = R.equals(a, b); //=> true
+    var b = R.equals(a, b); //=> true
 }
 
 // identity
 () => {
     const a1 = R.identity(1); //=> 1
     let obj = {};
-    nr = R.identity([1,2,3]);
-    sr = R.identity(['a','b','c']);
-    b = R.identity(obj) === obj; //=> true
+    var nr = R.identity([1,2,3]);
+    var sr = R.identity(['a','b','c']);
+    var b = R.identity(obj) === obj; //=> true
 }
 
 // identical
 () => {
     var o = {};
-    b = R.identical(o, o); //=> true
-    b = R.identical(1, 1); //=> true
-    b = R.identical('2', '1'); //=> false
-    b = R.identical([], []); //=> false
-    b = R.identical(0, -0); //=> false
-    b = R.identical(NaN, NaN); //=> true
+    var b = R.identical(o, o); //=> true
+    var b = R.identical(1, 1); //=> true
+    var b = R.identical('2', '1'); //=> false
+    var b = R.identical([], []); //=> false
+    var b = R.identical(0, -0); //=> false
+    var b = R.identical(NaN, NaN); //=> true
 }
 
 // path
 () => {
-    n = R.path(['a', 'b'], {a: {b: 2}}); //=> 2
-    n = R.path(['a', 'b'])({a: {b: 2}}); //=> 2
+    var n = R.path(['a', 'b'], {a: {b: 2}}); //=> 2
+    var n = R.path(['a', 'b'])({a: {b: 2}}); //=> 2
 }
 
 // sortBy
@@ -1940,8 +1939,8 @@ class Rectangle {
 () => {
     const a: number[][] = R.splitAt(1, [1, 2, 3]);        //=> [[1], [2, 3]]
     const b: number[][] = R.splitAt(1)([1, 2, 3]);        //=> [[1], [2, 3]]
-    sr = R.splitAt(5, 'hello world');      //=> ['hello', ' world']
-    sr = R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
+    var sr = R.splitAt(5, 'hello world');      //=> ['hello', ' world']
+    var sr = R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
 }
 
 // splitWhen
@@ -1952,97 +1951,97 @@ class Rectangle {
 
 // add
 () => {
-    n = R.add(2, 3);       //=>  5
-    n = R.add(7)(10);      //=> 17
+    var n = R.add(2, 3);       //=>  5
+    var n = R.add(7)(10);      //=> 17
 }
 
 // dec
 () => {
-    n = R.dec(42); //=> 41
+    var n = R.dec(42); //=> 41
 }
 
 // divide
 () => {
-    n = R.divide(71, 100); //=> 0.71
+    var n = R.divide(71, 100); //=> 0.71
 
     var half = R.flip(R.divide)(2);
-    n = half(42); //=> 21
+    var n = half(42); //=> 21
 
     var reciprocal = R.divide(1);
-    n = reciprocal(4);   //=> 0.25
+    var n = reciprocal(4);   //=> 0.25
 }
 
 // gt
 () => {
-    b = R.gt(2, 6); //=> false
-    b = R.gt(2, 0); //=> true
-    b = R.gt(2, 2); //=> false
-    b = R.flip(R.gt)(2)(10); //=> true
-    b = R.gt(2)(10); //=> false
+    var b = R.gt(2, 6); //=> false
+    var b = R.gt(2, 0); //=> true
+    var b = R.gt(2, 2); //=> false
+    var b = R.flip(R.gt)(2)(10); //=> true
+    var b = R.gt(2)(10); //=> false
 }
 
 // gte
 () => {
-    b = R.gte(2, 6); //=> false
-    b = R.gte(2, 0); //=> true
-    b = R.gte(2, 2); //=> false
-    b = R.flip(R.gte)(2)(10); //=> true
-    b = R.gte(2)(10); //=> false
+    var b = R.gte(2, 6); //=> false
+    var b = R.gte(2, 0); //=> true
+    var b = R.gte(2, 2); //=> false
+    var b = R.flip(R.gte)(2)(10); //=> true
+    var b = R.gte(2)(10); //=> false
 }
 
 // isNaN
 () => {
-    b = R.isNaN(NaN);        //=> true
-    b = R.isNaN(undefined);  //=> false
-    b = R.isNaN({});         //=> false
+    var b = R.isNaN(NaN);        //=> true
+    var b = R.isNaN(undefined);  //=> false
+    var b = R.isNaN({});         //=> false
 }
 
 // lt
 () => {
-    b = R.lt(2, 6); //=> true
-    b = R.lt(2, 0); //=> false
-    b = R.lt(2, 2); //=> false
-    b = R.lt(5)(10); //=> true
-    b = R.flip(R.lt)(5)(10); //=> false // right-sectioned currying
+    var b = R.lt(2, 6); //=> true
+    var b = R.lt(2, 0); //=> false
+    var b = R.lt(2, 2); //=> false
+    var b = R.lt(5)(10); //=> true
+    var b = R.flip(R.lt)(5)(10); //=> false // right-sectioned currying
 }
 
 // lte
 () => {
-    b = R.lte(2, 6); //=> true
-    b = R.lte(2, 0); //=> false
-    b = R.lte(2, 2); //=> true
-    b = R.flip(R.lte)(2)(1); //=> true
-    b = R.lte(2)(10); //=> true
+    var b = R.lte(2, 6); //=> true
+    var b = R.lte(2, 0); //=> false
+    var b = R.lte(2, 2); //=> true
+    var b = R.flip(R.lte)(2)(1); //=> true
+    var b = R.lte(2)(10); //=> true
 }
 
 // mathMod
 () => {
-    n = R.mathMod(-17, 5);  //=> 3
-    n = R.mathMod(17, 5);   //=> 2
-    n = R.mathMod(17, -5);  //=> NaN
-    n = R.mathMod(17, 0);   //=> NaN
-    n = R.mathMod(17.2, 5); //=> NaN
-    n = R.mathMod(17, 5.3); //=> NaN
+    var n = R.mathMod(-17, 5);  //=> 3
+    var n = R.mathMod(17, 5);   //=> 2
+    var n = R.mathMod(17, -5);  //=> NaN
+    var n = R.mathMod(17, 0);   //=> NaN
+    var n = R.mathMod(17.2, 5); //=> NaN
+    var n = R.mathMod(17, 5.3); //=> NaN
 
     var clock = R.flip(R.mathMod)(12);
-    n = clock(15); //=> 3
-    n = clock(24); //=> 0
+    var n = clock(15); //=> 3
+    var n = clock(24); //=> 0
 
     var seventeenMod = R.mathMod(17);
-    n = seventeenMod(3);  //=> 2
+    var n = seventeenMod(3);  //=> 2
 }
 
 // max
 () => {
-    n = R.max(7, 3); //=> 7
-    s = R.max('a', 'z'); //=> 'z'
+    var n = R.max(7, 3); //=> 7
+    var s = R.max('a', 'z'); //=> 'z'
 }
 
 // maxBy
 () => {
     let res: { x: number };
     function cmp(obj: typeof res) { return obj.x; }
-    var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
+    var a = {x: 1}, var b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
     res = R.maxBy(cmp, a, c); //=> {x: 3}
     res = R.maxBy(cmp)(a, c); //=> {x: 3}
     res = R.maxBy(cmp)(a)(b);
@@ -2051,27 +2050,27 @@ class Rectangle {
 
 // mean
 () => {
-    n = R.mean([2, 7, 9]); //=> 6
-    n = R.mean([]); //=> NaN
+    var n = R.mean([2, 7, 9]); //=> 6
+    var n = R.mean([]); //=> NaN
 }
 
 // median
 () => {
-    n = R.median([7, 2, 10, 9]); //=> 8
-    n = R.median([]); //=> NaN
+    var n = R.median([7, 2, 10, 9]); //=> 8
+    var n = R.median([]); //=> NaN
 }
 
 // min
 () => {
-    n = R.min(9, 3); //=> 3
-    s = R.min('a', 'z'); //=> 'a'
+    var n = R.min(9, 3); //=> 3
+    var s = R.min('a', 'z'); //=> 'a'
 }
 
 // minBy
 () => {
     let res: { x: number };
     function cmp(obj: {x: typeof res}) { return obj.x; }
-    var a = {x: 1}, b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
+    var a = {x: 1}, var b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
     res = R.minBy(cmp, a, b); //=> {x: 1}
     res = R.minBy(cmp)(a, b); //=> {x: 1}
     res = R.minBy(cmp)(a)(c);
@@ -2080,56 +2079,56 @@ class Rectangle {
 
 // modulo
 () => {
-    n = R.modulo(17, 3); //=> 2
+    var n = R.modulo(17, 3); //=> 2
     // JS behavior:
-    n = R.modulo(-17, 3); //=> -2
-    n = R.modulo(17, -3); //=> 2
+    var n = R.modulo(-17, 3); //=> -2
+    var n = R.modulo(17, -3); //=> 2
 
     var isOdd = R.flip(R.modulo)(2);
-    n = isOdd(42); //=> 0
-    n = isOdd(21); //=> 1
+    var n = isOdd(42); //=> 0
+    var n = isOdd(21); //=> 1
 }
 
 // multiply
 () => {
     var double = R.multiply(2);
     var triple = R.multiply(3);
-    n = double(3);       //=>  6
-    n = triple(4);       //=> 12
-    n = R.multiply(2, 5);  //=> 10
+    var n = double(3);       //=>  6
+    var n = triple(4);       //=> 12
+    var n = R.multiply(2, 5);  //=> 10
 }
 
 // negate
 () => {
-    n = R.negate(42); //=> -42
+    var n = R.negate(42); //=> -42
 }
 
 // product
 () => {
-    n = R.product([2,4,6,8,100,1]); //=> 38400
+    var n = R.product([2,4,6,8,100,1]); //=> 38400
 }
 
 // subtract
 () => {
-    n = R.subtract(10, 8); //=> 2
+    var n = R.subtract(10, 8); //=> 2
 
     var minus5 = R.flip(R.subtract)(5);
-    n = minus5(17); //=> 12
+    var n = minus5(17); //=> 12
 
     var complementaryAngle = R.subtract(90);
-    n = complementaryAngle(30); //=> 60
-    n = complementaryAngle(72); //=> 18
+    var n = complementaryAngle(30); //=> 60
+    var n = complementaryAngle(72); //=> 18
 }
 
 // sum
 () => {
-    n = R.sum([2,4,6,8,100,1]); //=> 121
+    var n = R.sum([2,4,6,8,100,1]); //=> 121
 }
 
 // symmetricDifference
 () => {
-	nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); //=> [1,2,7,6,5]
-	nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); //=> [7,6,5,1,2]
+	var nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); //=> [1,2,7,6,5]
+	var nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); //=> [7,6,5,1,2]
 }
 
 // symmetricDifferenceWith
@@ -2149,15 +2148,15 @@ class Rectangle {
 
 // replace
 () => {
-    s = R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
-    s = R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
-    s = R.replace('foo')('bar')('foo foo foo'); //=> 'bar foo foo'
-    s = R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
+    var s = R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
+    var s = R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
+    var s = R.replace('foo')('bar')('foo foo foo'); //=> 'bar foo foo'
+    var s = R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
 
     // Use the "g" (global) flag to replace all occurrences:
-    s = R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
-    s = R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
-    s = R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
+    var s = R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+    var s = R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
+    var s = R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
 }
 
 /*****************************************************************
@@ -2165,22 +2164,22 @@ class Rectangle {
  */
 
 () => {
-    b = R.is(Object, {}); //=> true
-    b = R.is(Object)({}); //=> true
-    b = R.is(Number, 1); //=> true
-    b = R.is(Number)(1); //=> true
-    b = R.is(Object, 1); //=> false
-    b = R.is(Object)(1); //=> false
-    b = R.is(String, 's'); //=> true
-    b = R.is(String)('s'); //=> true
-    b = R.is(String, new String('')); //=> true
-    b = R.is(String)(new String('')); //=> true
-    b = R.is(Object, new String('')); //=> true
-    b = R.is(Object)(new String('')); //=> true
-    b = R.is(Object, 's'); //=> false
-    b = R.is(Object)('s'); //=> false
-    b = R.is(Number, {}); //=> false
-    b = R.is(Number)({}); //=> false
+    var b = R.is(Object, {}); //=> true
+    var b = R.is(Object)({}); //=> true
+    var b = R.is(Number, 1); //=> true
+    var b = R.is(Number)(1); //=> true
+    var b = R.is(Object, 1); //=> false
+    var b = R.is(Object)(1); //=> false
+    var b = R.is(String, 's'); //=> true
+    var b = R.is(String)('s'); //=> true
+    var b = R.is(String, new String('')); //=> true
+    var b = R.is(String)(new String('')); //=> true
+    var b = R.is(Object, new String('')); //=> true
+    var b = R.is(Object)(new String('')); //=> true
+    var b = R.is(Object, 's'); //=> false
+    var b = R.is(Object)('s'); //=> false
+    var b = R.is(Number, {}); //=> false
+    var b = R.is(Number)({}); //=> false
 }
 
 /*****************************************************************
@@ -2192,15 +2191,15 @@ class Rectangle {
     var gt10 = function(x: number) { return x > 10; };
     var even = function(x: number) { return x % 2 === 0};
     var f = R.allPass([gt10, even]);
-    b = f(11); //=> false
-    b = f(12); //=> true
+    var b = f(11); //=> false
+    var b = f(12); //=> true
 }
 
 // and
 () => {
-    b = R.and(false, true); //=> false
-    n = R.and(0, []); //=> 0
-    n = R.and(0)([]); //=> 0
+    var b = R.and(false, true); //=> false
+    var n = R.and(0, []); //=> 0
+    var n = R.and(0)([]); //=> 0
     let res: null = R.and(null, ''); //=> null
     var Why: any = (function(val: boolean) {
         var why: any;
@@ -2211,7 +2210,7 @@ class Rectangle {
         return Why;
     })(true);
     var why = new Why(true);
-    b = R.and(why, false); // false
+    var b = R.and(why, false); // false
 }
 
 // anyPass
@@ -2219,9 +2218,9 @@ class Rectangle {
     var gt10 = function(x: number) { return x > 10; };
     var even = function(x: number) { return x % 2 === 0};
     var f = R.anyPass([gt10, even]);
-    b = f(11); //=> true
-    b = f(8); //=> true
-    b = f(9); //=> false
+    var b = f(11); //=> true
+    var b = f(8); //=> true
+    var b = f(9); //=> false
 }
 
 // both
@@ -2230,31 +2229,31 @@ class Rectangle {
     var even = function(x: number) { return x % 2 === 0 };
     var f = R.both(gt10, even);
     var g = R.both(gt10)(even);
-    b = f(100); //=> true
-    b = f(101); //=> false
+    var b = f(100); //=> true
+    var b = f(101); //=> false
 }
 
 // complement
 () => {
     var isEven = function(n: number) { return n % 2 === 0; };
     var isOdd = R.complement(isEven);
-    b = isOdd(21); //=> true
-    b = isOdd(42); //=> false
+    var b = isOdd(21); //=> true
+    var b = isOdd(42); //=> false
 }
 
 // eqBy
 (() => {
-    b = R.eqBy(Math.abs, 5, -5); //=> true
-    b = R.eqBy(Math.abs)(5, -5); //=> true
-    b = R.eqBy(Math.abs, 5)(-5); //=> true
+    var b = R.eqBy(Math.abs, 5, -5); //=> true
+    var b = R.eqBy(Math.abs)(5, -5); //=> true
+    var b = R.eqBy(Math.abs, 5)(-5); //=> true
 });
 
 // defaultTo
 () => {
     var defaultTo42 = R.defaultTo(42);
-    n = defaultTo42(null);  //=> 42
-    n = defaultTo42(undefined);  //=> 42
-    s = defaultTo42('Ramda');  //=> 'Ramda'
+    var n = defaultTo42(null);  //=> 42
+    var n = defaultTo42(undefined);  //=> 42
+    var s = defaultTo42('Ramda');  //=> 'Ramda'
 }
 
 // either
@@ -2263,8 +2262,8 @@ class Rectangle {
     var even = function(x: number) { return x % 2 === 0 };
     var f = R.either(gt10, even);
     var g = R.either(gt10)(even);
-    b = f(101); //=> true
-    b = f(8); //=> true
+    var b = f(101); //=> true
+    var b = f(8); //=> true
 }
 
 // ifElse
@@ -2278,20 +2277,20 @@ class Rectangle {
 
 // isEmpty
 () => {
-    b = R.isEmpty([1, 2, 3]); //=> false
-    b = R.isEmpty([]); //=> true
-    b = R.isEmpty(''); //=> true
-    b = R.isEmpty(null); //=> false
-    b = R.isEmpty({}); //=>true
-    b = R.isEmpty({a:1}); //=> false
+    var b = R.isEmpty([1, 2, 3]); //=> false
+    var b = R.isEmpty([]); //=> true
+    var b = R.isEmpty(''); //=> true
+    var b = R.isEmpty(null); //=> false
+    var b = R.isEmpty({}); //=>true
+    var b = R.isEmpty({a:1}); //=> false
 }
 
 // not
 () => {
-    b = R.not(true); //=> false
-    b = R.not(false); //=> true
-    b = R.not(0); // => true
-    b = R.not(1); // => false
+    var b = R.not(true); //=> false
+    var b = R.not(false); //=> true
+    var b = R.not(0); // => true
+    var b = R.not(1); // => false
 }
 
 class Why {
@@ -2318,9 +2317,9 @@ class Why {
 
 // intersperse
 () => {
-    sr = R.intersperse(',', ['foo', 'bar']); //=> ['foo', ',', 'bar']
-    nr = R.intersperse(0, [1, 2]); //=> [1, 0, 2]
-    nr = R.intersperse(0, [1]); //=> [1]
+    var sr = R.intersperse(',', ['foo', 'bar']); //=> ['foo', ',', 'bar']
+    var nr = R.intersperse(0, [1, 2]); //=> [1, 0, 2]
+    var nr = R.intersperse(0, [1]); //=> [1]
 }
 
 // ISSUES:
@@ -2442,12 +2441,12 @@ class Why {
 
 () => {
     // #86: lose generics in compose
-    type so = { [index: string]: string };
+    type var so = { [index: string]: string };
     let pairs =                         [['1','A'], ['2','B'], ['3','C']];
-    let a1: so =           R.fromPairs ([['1','A'], ['2','B'], ['3','C']])
-    let a2: so =           R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
-    let b1: so = R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
-    let c1: so = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
+    let a1: var so =           R.fromPairs ([['1','A'], ['2','B'], ['3','C']])
+    let a2: var so =           R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
+    let b1: var so = R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
+    let c1: var so = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
 
     // generics in pipe loses generics
     R.pipe(R.identity)
@@ -2523,10 +2522,10 @@ class Why {
 
 () => {
   // #119: path
-  n = R.path(['a', 'b', 'c'], {a: {b: {c: 2}}})
+  var n = R.path(['a', 'b', 'c'], {a: {b: {c: 2}}})
   let a2: null = R.path(['a', 'b', 'c'], {a: {b: 2}})   // still fails
-  // n = R.path(['a', '0', 'c'], {a: [{c: 2}] })
-  n = R.path(['a', 0, 'c'], {a: [{c: 2}] })
+  // var n = R.path(['a', '0', 'c'], {a: [{c: 2}] })
+  var n = R.path(['a', 0, 'c'], {a: [{c: 2}] })
 }
 
 // */
