@@ -1,5 +1,5 @@
 {
-  "name": "@types/npm-ramda",
+  "name": "@types/ramda",
   "version": "0.22.1-RC1",
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
@@ -18,7 +18,7 @@
     "ts-node": "^2.0.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "gcnew/TypeScript#polyFuncUnification"
+    "typescript": "^2.2.0-dev.20170118"
   },
   "typings": "index.d.ts"
 }
