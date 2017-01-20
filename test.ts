@@ -95,11 +95,11 @@ class F2 {
     };
 
     const curriedFourNumbers = R.curry(addFourNumbers);
-    // $ExpectType R.CurriedFunction4<number, number, number, number, number>
+    // $ExpectType CurriedFunction4<number, number, number, number, number>
     curriedFourNumbers;
-    // $ExpectType R.CurriedFunction3<number, number, number, number>
+    // $ExpectType CurriedFunction3<number, number, number, number>
     curriedFourNumbers(1);
-    // $ExpectType R.CurriedFunction2<number, number, number>
+    // $ExpectType CurriedFunction2<number, number, number>
     curriedFourNumbers(1)(2);
     // $ExpectType <T1,R>(t1: T1) => R
     curriedFourNumbers(1)(2)(3);
@@ -424,7 +424,7 @@ class F2 {
     let prependKeyAndDouble = function(num: number, key: string, obj: any) {
         return key + (num * 2);
     };
-    // $ExpectType R.Dictionary<string>
+    // $ExpectType Dictionary<string>
     R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
 });
 
@@ -672,14 +672,14 @@ class F2 {
     let isEvenFn = R.filter(isEven);
     isEvenFn([1, 2, 3, 4]);
     // ... but also objects
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, d: 4}
     let isEvenFnObj = R.filter(isEven);
     // see that we did not break anything
     // and we kept type information
     // $ExpectType number[]
     onlyNumberList(R.filter(isEven,[1,2,3,4]));
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     onlyNumberObj(R.filter(isEven, {a: 1, b: 2, c: 3, d: 4})); // strictNullChecks: Partial fails, consider Pick
 };
 
@@ -700,7 +700,7 @@ class F2 {
 // find, propEq
 () => {
     let xs = [{a: 1}, {a: 2}, {a: 3}];
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.find(R.propEq('a', 2))(xs); // => {a: 2}
     // $ExpectType undefined
     R.find(R.propEq('a', 4))(xs); // => undefined
@@ -733,7 +733,7 @@ class F2 {
 // findLast
 () => {
     let xs = [{a: 1, b: 0}, {a: 1, b: 1}];
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.findLast(R.propEq('a', 1))(xs); // => {a: 1, b: 1}
     // $ExpectType undefined
     R.findLast(R.propEq('a', 4))(xs); // => undefined
@@ -830,7 +830,7 @@ interface Obj { a: number; b: number; };
     let students = [{name: 'Abby', score: 84},
       {name: 'Eddy', score: 58},
       {name: 'Jack', score: 69}];
-    // $ExpectType R.Dictionary<Object[]>
+    // $ExpectType Dictionary<Object[]>
     byGrade(students);
 };
 
@@ -863,11 +863,11 @@ interface Obj { a: number; b: number; };
 // indexBy
 (() => {
     let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    // $ExpectType { [s: string]: Object }
+    // $ExpectType Dictionary<Object>
     R.indexBy(R.prop('id'), list);
-    // $ExpectType { [s: string]: Object }
+    // $ExpectType Dictionary<Object>
     R.indexBy(R.prop('id'))(list);
-    // $ExpectType { [s: string]: Object }
+    // $ExpectType Dictionary<Object>
     R.indexBy<{id: string}>(R.prop('id'))(list);
 });
 
@@ -1021,9 +1021,9 @@ interface Obj { a: number; b: number; };
     // $ExpectType number[]
     R.map(double)([1, 2, 3]); // => [2, 4, 6]
     // homogeneous object
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.map(double, { a: 1, b: 2, c: 3 }); // => { a: 2, b: 4, c: 6 }
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.map(double)({ a: 1, b: 2, c: 3 }); // => { a: 2, b: 4, c: 6 }
     // heterogeneous array
     // $ExpectType [number[], string[]]
@@ -1190,7 +1190,7 @@ interface Student {
     let students = [{name: 'Lucy', score: 92},
                     {name: 'Drew', score: 85},
                     {name: 'Bart', score: 62}];
-    // $ExpectType R.Dictionary<string[]>
+    // $ExpectType Dictionary<string[]>
     namesByGrade(students);
     // {
     //   'A': ['Lucy'],
@@ -1207,11 +1207,11 @@ interface Student {
         accObject[elem] = idx;
         return accObject;
     };
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     reduceIndexed(objectify, {}, letters); // => { 'a': 0, 'b': 1, 'c': 2 }
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     reduceIndexed(objectify)({}, letters); // => { 'a': 0, 'b': 1, 'c': 2 }
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     reduceIndexed(objectify, {})(letters); // => { 'a': 0, 'b': 1, 'c': 2 }
 };
 
@@ -1544,9 +1544,9 @@ type Pair = KeyValuePair<string, number>;
 
 // zipObj
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.zipObj(['a', 'b', 'c'], [1, 2, 3]); // => {a: 1, b: 2, c: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.zipObj(['a', 'b', 'c'])([1, 2, 3]); // => {a: 1, b: 2, c: 3}
 };
 
@@ -1569,21 +1569,21 @@ type Pair = KeyValuePair<string, number>;
 
 // assoc
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.assoc('c', 3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.assoc('c')(3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.assoc('c', 3)({a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
 };
 
 // dissoc
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.dissoc<{a: number, c: number}>('b', {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.dissoc('b', {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.dissoc('b')<{a: number, c: number}>({a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
 };
 
@@ -1699,7 +1699,7 @@ class Rectangle {
       second: 'jake',
       third: 'alice'
     };
-    // $ExpectType R.Dictionary<string[]>
+    // $ExpectType Dictionary<string[]>
     R.invert(raceResultsByFirstName);
     // => { 'alice': ['first', 'third'], 'jake': ['second'] }
 };
@@ -1710,13 +1710,13 @@ class Rectangle {
       first: 'alice',
       second: 'jake'
     };
-    // $ExpectType { [k: string]: string }
+    // $ExpectType Dictionary<string>
     R.invertObj(raceResults0);
     // => { 'alice': 'first', 'jake': 'second' }
 
     // Alternatively:
     let raceResults1 = ['alice', 'jake'];
-    // $ExpectType { [k: string]: string }
+    // $ExpectType Dictionary<string>
     R.invertObj(raceResults1);
     // => { 'alice': '0', 'jake': '1' }
 };
@@ -1776,9 +1776,9 @@ class Rectangle {
     let xLens = R.lensProp('x');
     // $ExpectType number
     R.view(xLens, {x: 1, y: 2});            // => 1
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
 };
 
@@ -1829,7 +1829,7 @@ class Rectangle {
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
     phraseLens(obj2); // => "What's all this, then?"
-    // $ExpectType { [k: string]: string }
+    // $ExpectType Dictionary<string>
     phraseLens.set('Ooh Betty', obj1); // => { phrase: 'Ooh Betty'}
 };
 
@@ -1842,25 +1842,25 @@ class Rectangle {
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
     phraseLens(obj2); // => 'What's all this, then?'
-    // $ExpectType { [k: string]: string }
+    // $ExpectType Dictionary<string>
     phraseLens.set('Ooh Betty', obj1); // => { phrase: 'Ooh Betty'}
 };
 
 // merge
 () => {
-    // $ExpectType { [k: string]: any }
+    // $ExpectType Dictionary<any>
     R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
     // => { 'name': 'fred', 'age': 40 }
     let resetToDefault = R.flip(R.merge)({x: 0});
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     resetToDefault({x: 5, y: 2}); // => {x: 0, y: 2}
 };
 
 // megeAll
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.mergeAll([{foo: 1},{bar: 2},{baz: 3}]); // => {foo: 1,bar: 2,baz: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.mergeAll([{foo: 1},{foo: 2},{bar: 2}]); // => {foo: 2,bar: 2}
 };
 
@@ -1919,7 +1919,7 @@ class Rectangle {
     let isPositive = function(n: number) {
         return n > 0;
     };
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); // => {a: 1, b: 2, e: 5}
     let containsBackground = function(val: any) {
         return val.bgcolor;
@@ -1929,14 +1929,14 @@ class Rectangle {
     R.pickBy(containsBackground, colors); // => {2: {color: 'black', bgcolor: 'yellow'}}
 
     let isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; };
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); // => {A: 3, B: 4}
 };
 
 
 // pick
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
     // the following should errror: e/f are not keys in these objects
     // let no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
@@ -1956,15 +1956,15 @@ class Rectangle {
 
 // omit
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); // => {b: 2, c: 3}
 };
 
 // fromPairs
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); // => {a: 1, b: 2, c: 3}
 };
 
@@ -1987,20 +1987,20 @@ class Rectangle {
 
 // pickAll
 () => {
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, e: undefined, f: undefined}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1, e: undefined, f: undefined}    // why does this pass while the above fails?
 };
 
 // pickBy
 () => {
     let isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; };
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); // => {A: 3, B: 4}
 };
 
@@ -2305,9 +2305,9 @@ class Rectangle {
 () => {
     let numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
     let letters = R.split('', 'abcABCaaaBBc');
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.countBy(Math.floor)(numbers);    // => {'1': 3, '2': 2, '3': 1}
-    // $ExpectType { [k: string]: number }
+    // $ExpectType Dictionary<number>
     R.countBy(R.toLower)(letters);   // => {'a': 5, 'b': 4, 'c': 3}
 };
 
