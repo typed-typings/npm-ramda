@@ -796,9 +796,9 @@ interface Obj { a: number; b: number; };
     let printXPlusFive = function(x: number) { console.log(x + 5); };
     R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
     R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
-    //-> 6
-    //-> 7
-    //-> 8
+    // => 6
+    // => 7
+    // => 8
 };
 
 // addIndex?
@@ -1404,7 +1404,7 @@ type Pair = KeyValuePair<string, number>;
   class Point {
     constructor(public x: number, public y: number) {
         this.x = x;
-          this.y = y;
+        this.y = y;
     }
     toStringn() {
           return 'new Point(' + this.x + ', ' + this.y + ')';
@@ -1665,7 +1665,7 @@ class Rectangle {
     let raceResultsByFirstName = {
       first: 'alice',
       second: 'jake',
-      third: 'alice',
+      third: 'alice'
     };
     // $ExpectType R.Dictionary<string[]>
     R.invert(raceResultsByFirstName);
@@ -1786,37 +1786,37 @@ class Rectangle {
       }
     );
     let obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    let obj2 = { phrase: 'What's all this, then?'};
+    let obj2 = { phrase: "What's all this, then?"};
     // $ExpectType string
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
-    phraseLens(obj2); // => 'What's all this, then?'
+    phraseLens(obj2); // => "What's all this, then?"
     // $ExpectType { [k: string]: string }
     phraseLens.set('Ooh Betty', obj1); // => { phrase: 'Ooh Betty'}
-}
+};
 
 // lensProp
-(); => {
+() => {
     let phraseLens = R.lensProp('phrase');
     let obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    let obj2 = { phrase: 'What's all this, then?'};
+    let obj2 = { phrase: "What's all this, then?"};
     // $ExpectType string
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
     phraseLens(obj2); // => 'What's all this, then?'
     // $ExpectType { [k: string]: string }
     phraseLens.set('Ooh Betty', obj1); // => { phrase: 'Ooh Betty'}
-}
+};
 
 // merge
-(); => {
+() => {
     // $ExpectType { [k: string]: any }
     R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
     // => { 'name': 'fred', 'age': 40 }
     let resetToDefault = R.flip(R.merge)({x: 0});
     // $ExpectType { [k: string]: number }
     resetToDefault({x: 5, y: 2}); // => {x: 0, y: 2}
-}
+};
 
 // megeAll
 () => {
@@ -1837,7 +1837,7 @@ class Rectangle {
 
 // mergeWithKey
 () => {
-    let concatValues = (k:string, l: string, r: string) => k == 'values' ? R.concat(l, r) : r;
+    let concatValues = (k:string, l: string, r: string) => k === 'values' ? R.concat(l, r) : r;
     R.mergeWithKey(concatValues,
         { a: true, thing: 'foo', values: [10, 20] },
         { b: true, thing: 'bar', values: [15, 35] });
@@ -2201,7 +2201,7 @@ class Rectangle {
     let multiply = function(a: number, b: number) { return a * b; };
     let subtract = function(a: number, b: number) { return a - b; };
 
-    //≅ multiply( add(1, 2), subtract(1, 2) );
+    // ≅ multiply( add(1, 2), subtract(1, 2) );
     // $ExpectType number
     R.converge(multiply, [ add, subtract ])(1, 2); // => -3
 
@@ -2684,13 +2684,13 @@ class Rectangle {
     // $ExpectType boolean
     R.is(String)('s'); // => true
     // $ExpectType boolean
-    R.is(String, new String('')); // => true
+    R.is(String, ''); // => true
     // $ExpectType boolean
-    R.is(String)(new String('')); // => true
+    R.is(String)(''); // => true
     // $ExpectType boolean
-    R.is(Object, new String('')); // => true
+    R.is(Object, new Object()); // => true
     // $ExpectType boolean
-    R.is(Object)(new String('')); // => true
+    R.is(Object)(new Object()); // => true
     // $ExpectType boolean
     R.is(Object, 's'); // => false
     // $ExpectType boolean
@@ -2900,7 +2900,7 @@ class Why {
 () => {
     // #73
     let filterMatrix = function (v: number, m: Array<Array<number>>): Array<number> {
-      return R.chain(R.filter((c: number) => c == v), m);
+      return R.chain(R.filter((c: number) => c === v), m);
       // return R.chain(R.filter(R.equals(v)), m)
     };
     let b = [
@@ -2911,7 +2911,7 @@ class Why {
 
     // compiles
     let filterMatrix2 = function (v: number, m: Array<Array<number>>): Array<number> {
-        return R.chain((r) => R.filter((c) => c == v, r), m);
+        return R.chain((r) => R.filter((c) => c === v, r), m);
     };
 
     // also compiles
@@ -3079,7 +3079,7 @@ class Why {
     const x: SomeStruct = {
         'a': [],
         'b': [],
-        'c': {},
+        'c': {}
     };
     // const fun = <(y: SomeStruct) => SomeStruct>R.compose(        // annotated: works
     const fun = R.compose(
