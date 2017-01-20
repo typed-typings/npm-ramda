@@ -702,7 +702,8 @@ class F2 {
     let xs = [{a: 1}, {a: 2}, {a: 3}];
     // $ExpectType { [k: string]: number }
     R.find(R.propEq('a', 2))(xs); // => {a: 2}
-    u = R.find(R.propEq('a', 4))(xs); // => undefined
+    // $ExpectType undefined
+    R.find(R.propEq('a', 4))(xs); // => undefined
 };
 
 // find
@@ -1109,8 +1110,10 @@ interface Obj { a: number; b: number; };
     R.nth(1, list); // => 'bar'
     // $ExpectType string
     R.nth(-1, list); // => 'quux'
-    u = R.nth(-99, list); // => undefined
-    u = R.nth(-99)(list); // => undefined
+    // $ExpectType undefined
+    R.nth(-99, list); // => undefined
+    // $ExpectType undefined
+    R.nth(-99)(list); // => undefined
 };
 
 // partition, contains
@@ -2920,7 +2923,7 @@ class Why {
     // $ExpectType number|any[]
     R.or(0)([]); // => []
     // $ExpectType string
-    // R.or(null, ''); // => ''   // errors with strict null checks
+    R.or(null, ''); // => ''   // errors with strict null checks
 
     let why = new Why(true);
     why.or(true);
@@ -3094,7 +3097,7 @@ class Why {
 
     // can't infer cond paths, must annotate:
     // $ExpectType <T>(v: T) => T
-    R.cond([
+    const x = R.cond([
         [R.F, R.F],
         [R.T, R.identity]
     ]);
