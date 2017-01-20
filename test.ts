@@ -46,37 +46,53 @@ class F2 {
 
 // isArrayLike
 () => {
-    var b = R.isArrayLike('a');
-    var b = R.isArrayLike([1,2,3]);
-    var b = R.isArrayLike([]);
+    // $ExpectType boolean
+    R.isArrayLike('a');
+    // $ExpectType boolean
+    R.isArrayLike([1,2,3]);
+    // $ExpectType boolean
+    R.isArrayLike([]);
 };
 
 // propIs
 (() => {
-    var b = R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
-    var b = R.propIs(Number, 'x')({x: 1, y: 2});  //=> true
-    var b = R.propIs(Number)('x', {x: 1, y: 2});  //=> true
-    var b = R.propIs(Number)('x')({x: 1, y: 2});  //=> true
-    var b = R.propIs(Number, 'x', {x: 'foo'});    //=> false
+    // $ExpectType boolean
+    R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
+    // $ExpectType boolean
+    R.propIs(Number, 'x')({x: 1, y: 2});  //=> true
+    // $ExpectType boolean
+    R.propIs(Number)('x', {x: 1, y: 2});  //=> true
+    // $ExpectType boolean
+    R.propIs(Number)('x')({x: 1, y: 2});  //=> true
+    // $ExpectType boolean
+    R.propIs(Number, 'x', {x: 'foo'});    //=> false
     // v errors with `Argument of type '"x"' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
     // var b = R.propIs(Number, 'x', {});            //=> false
 });
 
 // type
 (() => {
-    var s = R.type({}); //=> "Object"
-    var s = R.type(1); //=> "Number"
-    var s = R.type(false); //=> "Boolean"
-    var s = R.type('s'); //=> "String"
-    var s = R.type(null); //=> "Null"
-    var s = R.type([]); //=> "Array"
-    var s = R.type(/[A-z]/); //=> "RegExp"
+    // $ExpectType string
+    R.type({}); //=> "Object"
+    // $ExpectType string
+    R.type(1); //=> "Number"
+    // $ExpectType string
+    R.type(false); //=> "Boolean"
+    // $ExpectType string
+    R.type('s'); //=> "String"
+    // $ExpectType string
+    R.type(null); //=> "Null"
+    // $ExpectType string
+    R.type([]); //=> "Array"
+    // $ExpectType string
+    R.type(/[A-z]/); //=> "RegExp"
 });
 
 // curry
 () => {
     const takeTwo = R.curry((x: number, y: number) => x + y)
-    const a: (y: number) => number = takeTwo(3);
+    // $ExpectType (y: number) => number
+    takeTwo(3);
 }
 
 // unary, binary, nAry
@@ -137,8 +153,10 @@ class F2 {
 
 // nthArg
 (() => {
-    var s = R.nthArg(1)('a', 'b', 'c'); //=> 'b'
-    var s = R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
+    // $ExpectType string
+    R.nthArg(1)('a', 'b', 'c'); //=> 'b'
+    // $ExpectType string
+    R.nthArg(-1)('a', 'b', 'c'); //=> 'c'
 });
 
 // unapply
@@ -149,7 +167,8 @@ class F2 {
 
 // until
 () => {
-    var n = R.until(R.flip(R.gt)(100), R.multiply(2))(1) // => 128
+    // $ExpectType number
+    R.until(R.flip(R.gt)(100), R.multiply(2))(1) // => 128
 }
 
 // propSatisfies
@@ -158,8 +177,10 @@ class F2 {
         R.propSatisfies(R.flip(R.gt)(10), 'length'),
         R.pipe(R.take(10), R.append('…'), R.join(''))
     );
-    var s = truncate('12345');         //=> '12345'
-    var s = truncate('0123456789ABC'); //=> '0123456789…'
+    // $ExpectType string
+    truncate('12345');         //=> '12345'
+    // $ExpectType string
+    truncate('0123456789ABC'); //=> '0123456789…'
 }
 
 /* compose */
@@ -180,13 +201,15 @@ class F2 {
     const g2 = R.map((i: number) => i > 5 ? 'bigger' : 'smaller');
     const g3 = R.all((i: string) => i === 'smaller');
     const g: (list: number[]) => boolean = R.compose(g3, g2, g1, g0);
-    var b = g([1, 2, 10, 13]);
+    // $ExpectType boolean
+    g([1, 2, 10, 13]);
 }
 
 /* pipe */
 () => {
     var func: (x: number) => string = R.pipe(double, double, shout)
-    var s = R.pipe(double, double, shout)(10);
+    // $ExpectType string
+    R.pipe(double, double, shout)(10);
 
     const capitalize = (str: string) => R.pipe(
         R.split(''),
@@ -195,7 +218,8 @@ class F2 {
     )(str);
 
     var f = R.pipe(Math.pow, R.negate, R.inc);
-    var n = f(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f(3, 4); // -(3^4) + 1
 }
 
 /* pipeP */
@@ -219,7 +243,8 @@ class F2 {
     let r: number[] = range(3, 4, 9, -3); //=> [-3, 9]
 
     const chopped = R.juxt([R.head, R.last]);
-    var sr = chopped('longstring'); // => ["l", "g"]
+    // $ExpectType string[]
+    chopped('longstring'); // => ["l", "g"]
 });
 
 // useWith
@@ -240,7 +265,8 @@ class F2 {
   var printXPlusFive = function(x: number) { console.log(x + 5); };
   R.forEach(printXPlusFive, [1, 2, 3]);
   let or: Object[] = R.clone([{},{},{}])
-  var nr = R.clone([1,2,3]);
+  // $ExpectType number[]
+  R.clone([1,2,3]);
 })();
 
 // forEach
@@ -260,7 +286,8 @@ class F2 {
   var triple = function(x: number): number { return x * 3; };
   var square = function(x: number): number { return x * x; };
   var squareThenDoubleThenTriple = R.pipe(square, double, triple);
-  var n = squareThenDoubleThenTriple(5); //=> 150
+  // $ExpectType number
+  squareThenDoubleThenTriple(5); //=> 150
 })();
 
 // partial
@@ -274,10 +301,12 @@ class F2 {
     };
     var sayHello = R.partial(greet, ['Hello']);
     var sayHelloToMs = R.partial(sayHello, ['Ms.']);
-    var s = sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
+    // $ExpectType string
+    sayHelloToMs('Jane', 'Jones'); //=> 'Hello, Ms. Jane Jones!'
 
     var greetMsJaneJones = R.partialRight(greet, ['Ms.', 'Jane', 'Jones']);
-    var s = greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
+    // $ExpectType string
+    greetMsJaneJones('Hello'); //=> 'Hello, Ms. Jane Jones!'
 })();
 
 // memoize
@@ -289,24 +318,34 @@ class F2 {
     };
     var memoTrackedAdd = R.memoize(trackedAdd);
 
-    var n = memoTrackedAdd(1, 2); //=> 3
-    var n = numberOfCalls; //=> 1
-    var n = memoTrackedAdd(1, 2); //=> 3
-    var n = numberOfCalls; //=> 1
-    var n = memoTrackedAdd(2, 3); //=> 5
-    var n = numberOfCalls; //=> 2
+    // $ExpectType number
+    memoTrackedAdd(1, 2); //=> 3
+    // $ExpectType number
+    numberOfCalls; //=> 1
+    // $ExpectType number
+    memoTrackedAdd(1, 2); //=> 3
+    // $ExpectType number
+    numberOfCalls; //=> 1
+    // $ExpectType number
+    memoTrackedAdd(2, 3); //=> 5
+    // $ExpectType number
+    numberOfCalls; //=> 2
 
     // Note that argument order matters
-    var n = memoTrackedAdd(2, 1); //=> 3
-    var n = numberOfCalls; //=> 3
+    // $ExpectType number
+    memoTrackedAdd(2, 1); //=> 3
+    // $ExpectType number
+    numberOfCalls; //=> 3
 })();
 
 // once
 (() => {
     let x: number;
     var addOneOnce = R.once(function(x: number){ return x + 1; });
-    var n = addOneOnce(10); //=> 11
-    var n = addOneOnce(addOneOnce(50)); //=> 11
+    // $ExpectType number
+    addOneOnce(10); //=> 11
+    // $ExpectType number
+    addOneOnce(addOneOnce(50)); //=> 11
 })();
 
 // wrap
@@ -315,14 +354,18 @@ class F2 {
       return R.match(/\/$/, x) ? x : f(x);
     });
 
-    var s = slashify('a');  //=> 'a/'
-    var s = slashify('a/'); //=> 'a/'
+    // $ExpectType string
+    slashify('a');  //=> 'a/'
+    // $ExpectType string
+    slashify('a/'); //=> 'a/'
 })();
 
 // match
 () => {
-    var sr = R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
-    var sr = R.match(/a/, 'b'); //=> []
+    // $ExpectType string[]
+    R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+    // $ExpectType string[]
+    R.match(/a/, 'b'); //=> []
     // var sr = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
 }
 
@@ -332,7 +375,8 @@ class F2 {
     var add = function(a: number, b: number) {
         return a + b
     };
-    var n = R.reduce(add, 10, numbers); //=> 16;
+    // $ExpectType number
+    R.reduce(add, 10, numbers); //=> 16;
 })();
 
 // add
@@ -353,10 +397,12 @@ class F2 {
 () => {
     var isOdd = (x: number, acc: number) => x % 2 === 1;
     var xs = [1, 3, 5, 60, 777, 800];
-    var n = R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
+    // $ExpectType number
+    R.reduceWhile(isOdd, R.add, 0, xs); //=> 9
 
     var ys = [2, 4, 6]
-    var n = R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
+    // $ExpectType number
+    R.reduceWhile(isOdd, R.add, 111, ys); //=> 111
 }
 
 // mapObjIndexed
@@ -370,22 +416,28 @@ class F2 {
 
 // ap, of
 (() => {
-    var nr = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    // $ExpectType number[]
+    R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); //=> [[1]]
-    var nr = R.of(1);
+    // $ExpectType number[]
+    R.of(1);
 });
 
 // empty
 () => {
-    var nr = R.empty([1,2,3,4,5]); //=> []
-    var nr = R.empty([1, 2, 3]);     //=> []
-    var s = R.empty('unicorns');    //=> ''
+    // $ExpectType number[]
+    R.empty([1,2,3,4,5]); //=> []
+    // $ExpectType number[]
+    R.empty([1, 2, 3]);     //=> []
+    // $ExpectType string
+    R.empty('unicorns');    //=> ''
     const a4: {} = R.empty({x: 1, y: 2});  //=> {}
 }
 
 // length
 (() => {
-    var n = R.length([1, 2, 3]); //=> 3
+    // $ExpectType number
+    R.length([1, 2, 3]); //=> 3
 });
 
 // addIndex, filter, reject
@@ -395,17 +447,20 @@ class F2 {
     };
     const filterIndexed = R.addIndex(R.filter);
 
-    var nr = R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+    // $ExpectType number[]
+    R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
 
     var lastTwo = function(val: number, idx: number, list: number[]) {
       return list.length - idx <= 2;
     };
-    var nr = filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    // $ExpectType number[]
+    filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
 
     var isOdd = function(n: number) {
       return n % 2 === 1;
     };
-    var nr = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    // $ExpectType number[]
+    R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
 });
 
 // take, takeWhile
@@ -413,16 +468,20 @@ class F2 {
     var isNotFour = function(x: number) {
       return !(x === 4);
     };
-    var nr = R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
-    var nr = R.take(2, [1, 2, 3, 4]); //=> [1, 2]
+    // $ExpectType number[]
+    R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    // $ExpectType number[]
+    R.take(2, [1, 2, 3, 4]); //=> [1, 2]
 });
 
 // unfold
 (() => {
     var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
-    var nr = R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
+    // $ExpectType number[]
+    R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
     let b = R.unfold(f); //=> [-10, -20, -30, -40, -50]
-    var nr = b(10);
+    // $ExpectType number[]
+    b(10);
 });
 
 /*****************************************************************
@@ -434,9 +493,11 @@ class F2 {
     var mergeThree = function(a: number, b: number, c: number): number[] {
       return ([] as number[]).concat(a, b, c);  // strictNullChecks: must cast array to right type
     };
-    var nr = mergeThree(1, 2, 3); //=> [1, 2, 3]
+    // $ExpectType number[]
+    mergeThree(1, 2, 3); //=> [1, 2, 3]
     var flipped = R.flip(mergeThree);
-    var nr = flipped(1, 2, 3); //=> [2, 1, 3]
+    // $ExpectType number[]
+    flipped(1, 2, 3); //=> [2, 1, 3]
  }
 
 /*********************
@@ -447,8 +508,10 @@ class F2 {
 () => {
     var lessThan2 = R.flip(R.lt)(2);
     var lessThan3 = R.flip(R.lt)(3);
-    var b = R.all(lessThan2)([1, 2]); //=> false
-    var b = R.all(lessThan3)([1, 2]); //=> true
+    // $ExpectType boolean
+    R.all(lessThan2)([1, 2]); //=> false
+    // $ExpectType boolean
+    R.all(lessThan3)([1, 2]); //=> true
 }
 
 // any
@@ -456,8 +519,10 @@ class F2 {
     let b: boolean;
     var lessThan0 = R.flip(R.lt)(0);
     var lessThan2 = R.flip(R.lt)(2);
-    var b = R.any(lessThan0)([1, 2]); //=> false
-    var b = R.any(lessThan2)([1, 2]); //=> true
+    // $ExpectType boolean
+    R.any(lessThan0)([1, 2]); //=> false
+    // $ExpectType boolean
+    R.any(lessThan2)([1, 2]); //=> true
 }
 
 // aperture
@@ -471,9 +536,12 @@ class F2 {
 
 // append
 () => {
-    var sr = R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
-    var sr = R.append('tests')(['write', 'more']); //=> ['write', 'more', 'tests']
-    var sr = R.append('tests', []); //=> ['tests']
+    // $ExpectType string[]
+    R.append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
+    // $ExpectType string[]
+    R.append('tests')(['write', 'more']); //=> ['write', 'more', 'tests']
+    // $ExpectType string[]
+    R.append('tests', []); //=> ['tests']
     let srr: Array<string[]|string>;
     srr = R.append<string, string[]>(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
     srr = R.append(['tests'], ['write', 'more']); //=> ['write', 'more', ['tests']]
@@ -486,57 +554,80 @@ class F2 {
     var duplicate = function(n: number) {
         return [n, n];
     };
-    var nr = R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
-    var nr = R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+    // $ExpectType number[]
+    R.chain(duplicate, [1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
+    // $ExpectType number[]
+    R.chain(duplicate)([1, 2, 3]); //=> [1, 1, 2, 2, 3, 3]
 }
 
 // clamp
 () => {
-    var n = R.clamp(1, 10, -1) // => 1
-    var n = R.clamp(1, 10)(11) // => 10
-    var n = R.clamp(1)(10, 4)  // => 4
-    var s = R.clamp('a', 'd', 'e')  // => 'd'
+    // $ExpectType number
+    R.clamp(1, 10, -1) // => 1
+    // $ExpectType number
+    R.clamp(1, 10)(11) // => 10
+    // $ExpectType number
+    R.clamp(1)(10, 4)  // => 4
+    // $ExpectType string
+    R.clamp('a', 'd', 'e')  // => 'd'
 }
 
 // concat
 () => {
     R.concat([], []); //=> []   // let r: [] =
-    var nr = R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
-    var nr = R.concat([4, 5, 6])([1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
-    var s = R.concat('ABC')('DEF'); // 'ABCDEF'
+    // $ExpectType number[]
+    R.concat([4, 5, 6], [1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+    // $ExpectType number[]
+    R.concat([4, 5, 6])([1, 2, 3]); //=> [4, 5, 6, 1, 2, 3]
+    // $ExpectType string
+    R.concat('ABC')('DEF'); // 'ABCDEF'
 }
 
 // contains
 () => {
-    var b = R.contains(3)([1, 2, 3]); //=> true
-    var b = R.contains(3, [1, 2, 3]); //=> true
-    var b = R.contains(4)([1, 2, 3]); //=> false
-    var b = R.contains({})([{}, {}]); //=> false
+    // $ExpectType boolean
+    R.contains(3)([1, 2, 3]); //=> true
+    // $ExpectType boolean
+    R.contains(3, [1, 2, 3]); //=> true
+    // $ExpectType boolean
+    R.contains(4)([1, 2, 3]); //=> false
+    // $ExpectType boolean
+    R.contains({})([{}, {}]); //=> false
     var obj = {};
-    var b = R.contains(obj)([{}, obj, {}]); //=> true
+    // $ExpectType boolean
+    R.contains(obj)([{}, obj, {}]); //=> true
 }
 
 // drop
 () => {
     let nr: number[];
-    var nr = R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
-    var nr = R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
-    var s = R.drop(3, 'ramda'); //=> 'ram'
-    var s = R.drop(3)('ramda'); //=> 'ram'
+    // $ExpectType number[]
+    R.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
+    // $ExpectType number[]
+    R.drop(3)([1,2,3,4,5,6,7]); //=> [4,5,6,7]
+    // $ExpectType string
+    R.drop(3, 'ramda'); //=> 'ram'
+    // $ExpectType string
+    R.drop(3)('ramda'); //=> 'ram'
 }
 
 // dropLast
 (() => {
-    var sr = R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
-    var sr = R.dropLast(2)(['foo', 'bar', 'baz']); //=> ['foo']
-    var s = R.dropLast(3, 'ramda');               //=> 'ra'
-    var s = R.dropLast(3)('ramda');               //=> 'ra'
+    // $ExpectType string[]
+    R.dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
+    // $ExpectType string[]
+    R.dropLast(2)(['foo', 'bar', 'baz']); //=> ['foo']
+    // $ExpectType string
+    R.dropLast(3, 'ramda');               //=> 'ra'
+    // $ExpectType string
+    R.dropLast(3)('ramda');               //=> 'ra'
 });
 
 // dropLastWhile
 (() => {
     var lteThree = (x: number) => x <= 3;
-    var nr = R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); //=> [1, 2, 3, 4]
+    // $ExpectType number[]
+    R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); //=> [1, 2, 3, 4]
 });
 
 // dropWhile
@@ -544,8 +635,10 @@ class F2 {
     var lteTwo = function(x: number) {
         return x <= 2;
     };
-    var nr = R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
-    var nr = R.dropWhile(lteTwo)([1, 2, 3, 4]); //=> [3, 4]
+    // $ExpectType number[]
+    R.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
+    // $ExpectType number[]
+    R.dropWhile(lteTwo)([1, 2, 3, 4]); //=> [3, 4]
 }
 
 // filter
@@ -554,16 +647,20 @@ class F2 {
         return n % 2 === 0;
     };
     // filter works with lists...
-    var nr = R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+    // $ExpectType number[]
+    R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
     var isEvenFn = R.filter(isEven);
     isEvenFn([1, 2, 3, 4]);
     // ... but also objects
-    var no = R.filter(isEven, {a:1, b:2, c:3, d:4}); //=> {b:2, d:4}
+    // $ExpectType { [k: string]: number }
+    R.filter(isEven, {a:1, b:2, c:3, d:4}); //=> {b:2, d:4}
     var isEvenFnObj = R.filter(isEven);
     // see that we did not break anything
     // and we kept type information
-    var nr = onlyNumberList(R.filter(isEven,[1,2,3,4]));
-    var no = onlyNumberObj(R.filter(isEven, {a:1, b:2, c:3, d:4})); // strictNullChecks: Partial fails, consider Pick
+    // $ExpectType number[]
+    onlyNumberList(R.filter(isEven,[1,2,3,4]));
+    // $ExpectType { [k: string]: number }
+    onlyNumberObj(R.filter(isEven, {a:1, b:2, c:3, d:4})); // strictNullChecks: Partial fails, consider Pick
 }
 
 // addIndex
@@ -573,15 +670,18 @@ class F2 {
     };
     var filterIndexed = R.addIndex(R.filter);
 
-    var nr = filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
+    // $ExpectType number[]
+    filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
     var lastTwoFn = filterIndexed(lastTwo);
-    var nr = lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
+    // $ExpectType number[]
+    lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 }
 
 // find, propEq
 () => {
     var xs = [{a: 1}, {a: 2}, {a: 3}];
-    var no = R.find(R.propEq('a', 2))(xs); //=> {a: 2}
+    // $ExpectType { [k: string]: number }
+    R.find(R.propEq('a', 2))(xs); //=> {a: 2}
     u = R.find(R.propEq('a', 4))(xs); //=> undefined
 }
 
@@ -600,24 +700,30 @@ class F2 {
     let xs = [{a: 1}, {a: 2}, {a: 3}];
     const a: (list: Task[]) => number = R.findIndex(R.propEq('a', 2))
     const b: number = a(xs); //=> 1
-    var n = R.findIndex(R.propEq('a', 4))(xs); //=> -1
+    // $ExpectType number
+    R.findIndex(R.propEq('a', 4))(xs); //=> -1
 
-    var n = R.findIndex((x: number) => x === 1, [1, 2, 3]);
+    // $ExpectType number
+    R.findIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 // findLast
 () => {
     let xs = [{a: 1, b: 0}, {a:1, b: 1}];
-    var no = R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
+    // $ExpectType { [k: string]: number }
+    R.findLast(R.propEq('a', 1))(xs); //=> {a: 1, b: 1}
     u = R.findLast(R.propEq('a', 4))(xs); //=> undefined
 }
 
 // findLastIndex
 () => {
     let xs = [{a: 1, b: 0}, {a:1, b: 1}];
-    var n = R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
-    var n = R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
-    var nr = R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
+    // $ExpectType number
+    R.findLastIndex(R.propEq('a', 1))(xs); //=> 1
+    // $ExpectType number
+    R.findLastIndex(R.propEq('a', 4))(xs); //=> -1
+    // $ExpectType number[]
+    R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
 }
 
 // pathEq
@@ -633,23 +739,31 @@ class F2 {
 // propEq
 () => {
     var xs: {[key:string]: string} = {a: '1', b: '0'};
-    var b = R.propEq('a', '1', xs);//=> true
-    var b = R.propEq('a', '4', xs); //=> false
+    // $ExpectType boolean
+    R.propEq('a', '1', xs);//=> true
+    // $ExpectType boolean
+    R.propEq('a', '4', xs); //=> false
 }
 () => {
     var xs: {[key:string]: number} = {a: 1, b: 0};
-    var b = R.propEq('a', 1, xs);//=> true
-    var b = R.propEq('a', 4, xs); //=> false
+    // $ExpectType boolean
+    R.propEq('a', 1, xs);//=> true
+    // $ExpectType boolean
+    R.propEq('a', 4, xs); //=> false
 }
 () => {
     var xs = {a: '1', b: '0'};
-    var b = R.propEq('a', '1', xs);//=> true
-    var b = R.propEq('a', '4', xs); //=> false
+    // $ExpectType boolean
+    R.propEq('a', '1', xs);//=> true
+    // $ExpectType boolean
+    R.propEq('a', '4', xs); //=> false
 }
 () => {
     var xs = {a: 1, b: 0};
-    var b = R.propEq('a', 1, xs);//=> true
-    var b = R.propEq('a', 4, xs); //=> false
+    // $ExpectType boolean
+    R.propEq('a', 1, xs);//=> true
+    // $ExpectType boolean
+    R.propEq('a', 4, xs); //=> false
 }
 interface Obj { a: number; b: number };
 () => {
@@ -671,7 +785,8 @@ interface Obj { a: number; b: number };
 // addIndex?
 () => {
     var plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
-    var nr = R.addIndex(R.forEach)(plusFive)([1, 2, 3]); //=> [6, 7, 8]
+    // $ExpectType number[]
+    R.addIndex(R.forEach)(plusFive)([1, 2, 3]); //=> [6, 7, 8]
 }
 
 // groupBy
@@ -699,15 +814,19 @@ interface Obj { a: number; b: number };
     // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
 
     const isVowel = (a: string) => R.contains(a, 'aeiou') ? a : '';
-    var sr = R.groupWith(R.eqBy<string>(isVowel), 'aestiou')
+    // $ExpectType string[]
+    R.groupWith(R.eqBy<string>(isVowel), 'aestiou')
     // ['ae', 'st', 'iou']
 }
 
 // head
 () => {
-    var s = R.head(['fi', 'fo', 'fum']); //=> 'fi'
-    var n = R.head([10, 'ten']); // => 10
-    var s = R.head(['10', 10]); // => '10'
+    // $ExpectType string
+    R.head(['fi', 'fo', 'fum']); //=> 'fi'
+    // $ExpectType number
+    R.head([10, 'ten']); // => 10
+    // $ExpectType string
+    R.head(['10', 10]); // => '10'
 }
 
 // indexBy
@@ -721,37 +840,52 @@ interface Obj { a: number; b: number };
 
 // indexOf
 () => {
-    var n = R.indexOf(3, [1,2,3,4]); //=> 2
-    var n = R.indexOf(10)([1,2,3,4]); //=> -1
+    // $ExpectType number
+    R.indexOf(3, [1,2,3,4]); //=> 2
+    // $ExpectType number
+    R.indexOf(10)([1,2,3,4]); //=> -1
 }
 
 // init
 () => {
-    var sr = R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
+    // $ExpectType string[]
+    R.init(['fi', 'fo', 'fum']); //=> ['fi', 'fo']
 }
 
 // insert
 () => {
-    var nr = R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
-    var nr = R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
-    var nr = R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
-    var nr = R.insert(2)(5)([1,2,3,4]); //=> [1,2,5,3,4]
+    // $ExpectType number[]
+    R.insert(2, 5, [1,2,3,4]); //=> [1,2,5,3,4]
+    // $ExpectType number[]
+    R.insert(2)(5, [1,2,3,4]); //=> [1,2,5,3,4]
+    // $ExpectType number[]
+    R.insert(2, 5)([1,2,3,4]); //=> [1,2,5,3,4]
+    // $ExpectType number[]
+    R.insert(2)(5)([1,2,3,4]); //=> [1,2,5,3,4]
 }
 
 // insertAll
 () => {
-    var nr = R.insertAll(2, [10,11,12], [1,2,3,4]);
-    var nr = R.insertAll(2)([10,11,12], [1,2,3,4]);
-    var nr = R.insertAll(2, [10,11,12])([1,2,3,4]);
-    var nr = R.insertAll(2)([10,11,12])([1,2,3,4]);
+    // $ExpectType number[]
+    R.insertAll(2, [10,11,12], [1,2,3,4]);
+    // $ExpectType number[]
+    R.insertAll(2)([10,11,12], [1,2,3,4]);
+    // $ExpectType number[]
+    R.insertAll(2, [10,11,12])([1,2,3,4]);
+    // $ExpectType number[]
+    R.insertAll(2)([10,11,12])([1,2,3,4]);
 }
 
 // intersection
 () => {
-    var nr = R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
-    var nr = R.intersection([1,2,3,4])([7,6,5,4,3]); //=> [4, 3]
-    var nr = R.intersection([1,2,4], [1,2,3]); // => [1,2]
-    var nr = R.intersection([1,2,4])([1,2,3]); // => [1,2]
+    // $ExpectType number[]
+    R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
+    // $ExpectType number[]
+    R.intersection([1,2,3,4])([7,6,5,4,3]); //=> [4, 3]
+    // $ExpectType number[]
+    R.intersection([1,2,4], [1,2,3]); // => [1,2]
+    // $ExpectType number[]
+    R.intersection([1,2,4])([1,2,3]); // => [1,2]
 }
 
 // intersectionWith
@@ -784,20 +918,27 @@ interface Obj { a: number; b: number };
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
 
-    var nr = R.into([], transducer, numbers); //=> [2, 3]
-    var nr = R.into([])(transducer, numbers); //=> [2, 3]
-    var nr = R.into([], transducer)(numbers); //=> [2, 3]
+    // $ExpectType number[]
+    R.into([], transducer, numbers); //=> [2, 3]
+    // $ExpectType number[]
+    R.into([])(transducer, numbers); //=> [2, 3]
+    // $ExpectType number[]
+    R.into([], transducer)(numbers); //=> [2, 3]
 
     var intoArray = R.into([]);
-    var nr = intoArray(transducer, numbers); //=> [2, 3]
-    var nr = intoArray(transducer)(numbers); //=> [2, 3]
+    // $ExpectType number[]
+    intoArray(transducer, numbers); //=> [2, 3]
+    // $ExpectType number[]
+    intoArray(transducer)(numbers); //=> [2, 3]
 }
 
 // join
 () => {
     var spacer = R.join(' ');
-    var s = spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
-    var s = R.join('|', [1, 2, 3]);    //=> '1|2|3'
+    // $ExpectType string
+    spacer(['a', 2, 3.4]);   //=> 'a 2 3.4'
+    // $ExpectType string
+    R.join('|', [1, 2, 3]);    //=> '1|2|3'
 }
 
 // last
@@ -814,29 +955,39 @@ interface Obj { a: number; b: number };
 
 // length
 () => {
-    var n = R.length([]); //=> 0
-    var n = R.length([1, 2, 3]); //=> 3
+    // $ExpectType number
+    R.length([]); //=> 0
+    // $ExpectType number
+    R.length([1, 2, 3]); //=> 3
 }
 
 // lensIndex, set, view, over
 () => {
     var headLens = R.lensIndex(0);
-    var n = headLens([10, 20, 30, 40]); //=> 10
+    // $ExpectType number
+    headLens([10, 20, 30, 40]); //=> 10
     let res: Array<number|string> = headLens.set('mu', [10, 20, 30, 40]); //=> ['mu', 20, 30, 40]   // wrong, currently naively assumes number[], yet no error...
-    var s = R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
-    var sr = R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
-    var sr = R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
+    // $ExpectType string
+    R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
+    // $ExpectType string[]
+    R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
+    // $ExpectType string[]
+    R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
 }
 
 // map
 () => {
     let arrayify = <T>(v: T): T[] => [v];
     // homogeneous array
-    var nr = R.map(double, [1, 2, 3]); //=> [2, 4, 6]
-    var nr = R.map(double)([1, 2, 3]); //=> [2, 4, 6]
+    // $ExpectType number[]
+    R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+    // $ExpectType number[]
+    R.map(double)([1, 2, 3]); //=> [2, 4, 6]
     // homogeneous object
-    var no = R.map(double, { a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
-    var no = R.map(double)({ a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
+    // $ExpectType { [k: string]: number }
+    R.map(double, { a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
+    // $ExpectType { [k: string]: number }
+    R.map(double)({ a: 1, b: 2, c: 3 }); //=> { a: 2, b: 4, c: 6 }
     // heterogeneous array
     let res1: [number[], string[]] = R.map(arrayify, [1, 'a']); //=> [[1], ['a']]
     let res2: [number[], string[]] = R.map(arrayify)([1, 'a']); //=> [[1], ['a']]
@@ -889,22 +1040,29 @@ interface Obj { a: number; b: number };
         }
         return elt;
     };
-    var nr = R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
-    var nr = R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    // $ExpectType number[]
+    R.addIndex(R.map)(squareEnds, [8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
+    // $ExpectType number[]
+    R.addIndex(R.map)(squareEnds)([8, 5, 3, 0, 9]); //=> [64, 5, 3, 0, 81]
 }
 
 // none
 () => {
-    var b = R.none(R.isNaN, [1, 2, 3]); //=> true
-    var b = R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
-    var b = R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
+    // $ExpectType boolean
+    R.none(R.isNaN, [1, 2, 3]); //=> true
+    // $ExpectType boolean
+    R.none(R.isNaN, [1, 2, 3, NaN]); //=> false
+    // $ExpectType boolean
+    R.none(R.isNaN)([1, 2, 3, NaN]); //=> false
 }
 
 // nth
 () => {
     var list = ['foo', 'bar', 'baz', 'quux'];
-    var s = R.nth(1, list); //=> 'bar'
-    var s = R.nth(-1, list); //=> 'quux'
+    // $ExpectType string
+    R.nth(1, list); //=> 'bar'
+    // $ExpectType string
+    R.nth(-1, list); //=> 'quux'
     u = R.nth(-99, list); //=> undefined
     u = R.nth(-99)(list); //=> undefined
 }
@@ -920,22 +1078,30 @@ interface Obj { a: number; b: number };
 
 // pluck
 () => {
-    var nr = R.pluck('a', [{a: 1}, {a: 2}]); //=> [1, 2]
-    var nr = R.pluck(0, [[1, 2], [3, 4]]);   //=> [1, 3]
-    var nr = R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
-    var nr = R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
+    // $ExpectType number[]
+    R.pluck('a', [{a: 1}, {a: 2}]); //=> [1, 2]
+    // $ExpectType number[]
+    R.pluck(0, [[1, 2], [3, 4]]);   //=> [1, 3]
+    // $ExpectType number[]
+    R.pluck('a')([{a: 1}, {a: 2}]); //=> [1, 2]
+    // $ExpectType number[]
+    R.pluck(0)([[1, 2], [3, 4]]);   //=> [1, 3]
 }
 
 // prepend
 () => {
-    var sr = R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
-    var sr = R.prepend('fee')(['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+    // $ExpectType string[]
+    R.prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+    // $ExpectType string[]
+    R.prepend('fee')(['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
 }
 
 // range
 () => {
-    var nr = R.range(1, 5);    //=> [1, 2, 3, 4]
-    var nr = R.range(50)(53);  //=> [50, 51, 52]
+    // $ExpectType number[]
+    R.range(1, 5);    //=> [1, 2, 3, 4]
+    // $ExpectType number[]
+    R.range(50)(53);  //=> [50, 51, 52]
 }
 
 // reduce
@@ -944,9 +1110,12 @@ interface Obj { a: number; b: number };
     var add = function(a: number, b: number) {
         return a + b;
     };
-    var n = R.reduce(add, 10, numbers); //=> 16
-    var n = R.reduce(add)(10, numbers); //=> 16
-    var n = R.reduce(add, 10)(numbers); //=> 16
+    // $ExpectType number
+    R.reduce(add, 10, numbers); //=> 16
+    // $ExpectType number
+    R.reduce(add)(10, numbers); //=> 16
+    // $ExpectType number
+    R.reduce(add, 10)(numbers); //=> 16
 }
 
 // reduceBy
@@ -983,9 +1152,12 @@ interface Student {
         accObject[elem] = idx;
         return accObject;
     };
-    var no = reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-    var no = reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
-    var no = reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    // $ExpectType { [k: string]: number }
+    reduceIndexed(objectify, {}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    // $ExpectType { [k: string]: number }
+    reduceIndexed(objectify)({}, letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
+    // $ExpectType { [k: string]: number }
+    reduceIndexed(objectify, {})(letters); //=> { 'a': 0, 'b': 1, 'c': 2 }
 }
 
 // reduceRight
@@ -1007,9 +1179,11 @@ type Pair = KeyValuePair<string, number>;
     var isOdd = function(n: number) {
         return n % 2 === 1;
     };
-    var nr = R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
+    // $ExpectType number[]
+    R.reject(isOdd, [1, 2, 3, 4]); //=> [2, 4]
     const a2 = R.reject(isOdd);
-    var nr = R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
+    // $ExpectType number[]
+    R.reject(isOdd)([1, 2, 3, 4]); //=> [2, 4]
 }
 
 // rejectIndexed
@@ -1018,59 +1192,81 @@ type Pair = KeyValuePair<string, number>;
         return list.length - idx <= 2;
     };
     const rejectIndexed = R.addIndex(R.reject);
-    var nr = rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
-    var nr = rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    // $ExpectType number[]
+    rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
+    // $ExpectType number[]
+    rejectIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
 }
 
 // remove
 () => {
-    var nr = R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
-    var nr = R.remove(2, 3)([1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
-    var nr = R.remove(2)(3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    // $ExpectType number[]
+    R.remove(2, 3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    // $ExpectType number[]
+    R.remove(2, 3)([1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
+    // $ExpectType number[]
+    R.remove(2)(3, [1,2,3,4,5,6,7,8]); //=> [1,2,6,7,8]
 }
 
 // repeat
 () => {
-    var sr = R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
+    // $ExpectType string[]
+    R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
     var obj = {};
     var repeatedObjs = R.repeat(obj, 5); //=> [{}, {}, {}, {}, {}]
-    var b = repeatedObjs[0] === repeatedObjs[1]; //=> true
+    // $ExpectType boolean
+    repeatedObjs[0] === repeatedObjs[1]; //=> true
 }
 
 // reverse
 () => {
-    var nr = R.reverse([1, 2, 3]);  //=> [3, 2, 1]
-    var nr = R.reverse([1, 2]);     //=> [2, 1]
-    var nr = R.reverse([1]);        //=> [1]
-    var nr = R.reverse([]);         //=> []
+    // $ExpectType number[]
+    R.reverse([1, 2, 3]);  //=> [3, 2, 1]
+    // $ExpectType number[]
+    R.reverse([1, 2]);     //=> [2, 1]
+    // $ExpectType number[]
+    R.reverse([1]);        //=> [1]
+    // $ExpectType number[]
+    R.reverse([]);         //=> []
 }
 
 // scan
 () => {
     var numbers = [1, 2, 3, 4];
-    var nr = R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
-    var nr = R.scan(R.multiply, 1)(numbers); //=> [1, 1, 2, 6, 24]
-    var nr = R.scan(R.multiply)(1, numbers); //=> [1, 1, 2, 6, 24]
+    // $ExpectType number[]
+    R.scan(R.multiply, 1, numbers); //=> [1, 1, 2, 6, 24]
+    // $ExpectType number[]
+    R.scan(R.multiply, 1)(numbers); //=> [1, 1, 2, 6, 24]
+    // $ExpectType number[]
+    R.scan(R.multiply)(1, numbers); //=> [1, 1, 2, 6, 24]
 }
 
 // slice
 () => {
     var xs = R.range(0, 10);
-    var nr = R.slice(2, 5, xs); //=> [2, 3, 4]
-    var nr = R.slice(2, 5)(xs); //=> [2, 3, 4]
-    var nr = R.slice(2)(5, xs); //=> [2, 3, 4]
+    // $ExpectType number[]
+    R.slice(2, 5, xs); //=> [2, 3, 4]
+    // $ExpectType number[]
+    R.slice(2, 5)(xs); //=> [2, 3, 4]
+    // $ExpectType number[]
+    R.slice(2)(5, xs); //=> [2, 3, 4]
 
     var str = 'Hello World';
-    var s = R.slice(2, 5, str); //=> 'llo'
-    var s = R.slice(2, 5)(str); //=> 'llo'
-    var s = R.slice(2)(5, str); //=> 'llo'
+    // $ExpectType string
+    R.slice(2, 5, str); //=> 'llo'
+    // $ExpectType string
+    R.slice(2, 5)(str); //=> 'llo'
+    // $ExpectType string
+    R.slice(2)(5, str); //=> 'llo'
 }
 
 // sort
 () => {
     var diff = function(a: number, b: number) { return a - b; };
-    var nr = R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
-    var nr = R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
+    // $ExpectType number[]
+    R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
+    // $ExpectType number[]
+    R.sort(diff)([4,2,7,5]); //=> [2, 4, 5, 7]
 }
 
 // cond, equals, always
@@ -1080,40 +1276,53 @@ type Pair = KeyValuePair<string, number>;
         [R.equals(100), R.always('water boils at 100°C')],
         [R.T,           (temp: number) => 'nothing special happens at ' + temp + '°C']
     ]);
-    var s = fn(0); //=> 'water freezes at 0°C'
-    var s = fn(50); //=> 'nothing special happens at 50°C'
-    var s = fn(100); //=> 'water boils at 100°C'
+    // $ExpectType string
+    fn(0); //=> 'water freezes at 0°C'
+    // $ExpectType string
+    fn(50); //=> 'nothing special happens at 50°C'
+    // $ExpectType string
+    fn(100); //=> 'water boils at 100°C'
 }
 
 // tail
 () => {
-    var sr = R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
-    var nr = R.tail([1, 2, 3]); //=> [2, 3]
+    // $ExpectType string[]
+    R.tail(['fi', 'fo', 'fum']); //=> ['fo', 'fum']
+    // $ExpectType number[]
+    R.tail([1, 2, 3]); //=> [2, 3]
 }
 
 // take
 () => {
-    var nr = R.take(3,[1,2,3,4,5]); //=> [1,2,3]
+    // $ExpectType number[]
+    R.take(3,[1,2,3,4,5]); //=> [1,2,3]
 
     var members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
     "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
     "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
     var takeFive = R.take(5);
-    var sr = takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
+    // $ExpectType string[]
+    takeFive(members); //=> ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 }
 () => {
-    var s = R.take(3,"Example"); //=> "Exa"
+    // $ExpectType string
+    R.take(3,"Example"); //=> "Exa"
 
     var takeThree = R.take(3);
-    var s = takeThree("Example"); //=> "Exa"
+    // $ExpectType string
+    takeThree("Example"); //=> "Exa"
 }
 
 // takeLast
 () => {
-	  var sr = R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
-    var sr = R.takeLast(2)(['foo', 'bar', 'baz']); //=> ['bar', 'baz']
-    var s = R.takeLast(3, 'ramda');               //=> 'mda'
-    var s = R.takeLast(3)('ramda');               //=> 'mda'
+	  // $ExpectType string[]
+	  R.takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
+    // $ExpectType string[]
+    R.takeLast(2)(['foo', 'bar', 'baz']); //=> ['bar', 'baz']
+    // $ExpectType string
+    R.takeLast(3, 'ramda');               //=> 'mda'
+    // $ExpectType string
+    R.takeLast(3)('ramda');               //=> 'mda'
 }
 
 // takeLastWhile
@@ -1128,26 +1337,33 @@ type Pair = KeyValuePair<string, number>;
     var isNotFour = function(x: number) {
         return !(x === 4);
     };
-    var nr = R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
-    var nr = R.takeWhile(isNotFour)([1, 2, 3, 4]); //=> [1, 2, 3]
+    // $ExpectType number[]
+    R.takeWhile(isNotFour, [1, 2, 3, 4]); //=> [1, 2, 3]
+    // $ExpectType number[]
+    R.takeWhile(isNotFour)([1, 2, 3, 4]); //=> [1, 2, 3]
 }
 
 // tap
 () => {
 	  const sayX = (x: number) => console.log('x is ' + x);
-    var n = R.tap(sayX, 100); //=> 100
+    // $ExpectType number
+    R.tap(sayX, 100); //=> 100
 }
 
 // test
 () => {
-	  var b = R.test(/^x/, 'xyz'); //=> true
-    var b = R.test(/^y/)('xyz'); //=> false
+	  // $ExpectType boolean
+	  R.test(/^x/, 'xyz'); //=> true
+    // $ExpectType boolean
+    R.test(/^y/)('xyz'); //=> false
 }
 
 // times
 () => {
-    var nr = R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
-    var nr = R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
+    // $ExpectType number[]
+    R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
+    // $ExpectType number[]
+    R.times(R.identity)(5); //=> [0, 1, 2, 3, 4]
 }
 
 // toString
@@ -1161,12 +1377,18 @@ type Pair = KeyValuePair<string, number>;
         	return 'new Point(' + this.x + ', ' + this.y + ')';
 		}
     };
-    var s = R.toString(new Point(1, 2)); //=> 'new Point(1, 2)'
-    var s = R.toString(42); //=> '42'
-    var s = R.toString('abc'); //=> '"abc"'
-    var s = R.toString([1, 2, 3]); //=> '[1, 2, 3]'
-    var s = R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
-    var s = R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
+    // $ExpectType string
+    R.toString(new Point(1, 2)); //=> 'new Point(1, 2)'
+    // $ExpectType string
+    R.toString(42); //=> '42'
+    // $ExpectType string
+    R.toString('abc'); //=> '"abc"'
+    // $ExpectType string
+    R.toString([1, 2, 3]); //=> '[1, 2, 3]'
+    // $ExpectType string
+    R.toString({foo: 1, bar: 2, baz: 3}); //=> '{"bar": 2, "baz": 3, "foo": 1}'
+    // $ExpectType string
+    R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
 }
 
 // transduce
@@ -1174,10 +1396,14 @@ type Pair = KeyValuePair<string, number>;
     var numbers = [1, 2, 3, 4];
     var transducer = R.compose(R.map(R.add(1)), R.take(2));
     var fn = R.flip<number, number[], number[]>(R.append);
-    var nr = R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
-    var nr = R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
-    var nr = R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
-    var nr = R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
+    // $ExpectType number[]
+    R.transduce(transducer, fn, [] as number[], numbers); //=> [2, 3]   // strictNullChecks: must annotate empty array type
+    // $ExpectType number[]
+    R.transduce(transducer, fn, [] as number[])(numbers); //=> [2, 3]
+    // $ExpectType number[]
+    R.transduce(transducer, fn)([] as number[], numbers); //=> [2, 3]
+    // $ExpectType number[]
+    R.transduce(transducer)(fn, [] as number[], numbers); //=> [2, 3]
 }
 
 // // traverse
@@ -1199,13 +1425,16 @@ type Pair = KeyValuePair<string, number>;
 // tryCatch
 () => {
     const x = R.prop('x');
-    var b = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
-    var b = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
+    // $ExpectType boolean
+    R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
+    // $ExpectType boolean
+    R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
 }
 
 // uniq
 () => {
-    var nr = R.uniq([1, 1, 2, 1]); //=> [1, 2]
+    // $ExpectType number[]
+    R.uniq([1, 1, 2, 1]); //=> [1, 2]
     let r2: Object[] = R.uniq([{}, {}]);     //=> [{}, {}]
     let r3: any[] = R.uniq([1, '1']);     //=> [1, '1']
 }
@@ -1213,17 +1442,24 @@ type Pair = KeyValuePair<string, number>;
 // uniqWith
 () => {
     var strEq = function(a: any, b: any) { return String(a) === String(b); };
-    var nr = R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
-    var nr = R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
-    var or = R.uniqWith(strEq)([{}, {}]);       //=> [{}]
-    var nr = R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
-    var sr = R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
+    // $ExpectType number[]
+    R.uniqWith(strEq, [1, '1', 2, 1]); //=> [1, 2]
+    // $ExpectType number[]
+    R.uniqWith(strEq)([1, '1', 2, 1]); //=> [1, 2]
+    // $ExpectType Object[]
+    R.uniqWith(strEq)([{}, {}]);       //=> [{}]
+    // $ExpectType number[]
+    R.uniqWith(strEq)([1, '1', 1]);    //=> [1]
+    // $ExpectType string[]
+    R.uniqWith(strEq)(['1', 1, 1]);    //=> ['1']
 }
 
 // unnest, equals
 () => {
-    var b = R.equals(R.unnest([1, [2], [[3]]]), [1,2,[3]]); //=> true
-    var b = R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]),[1,2,3,4,5,6]); //=> true
+    // $ExpectType boolean
+    R.equals(R.unnest([1, [2], [[3]]]), [1,2,[3]]); //=> true
+    // $ExpectType boolean
+    R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]),[1,2,3,4,5,6]); //=> true
 }
 
 // xprod
@@ -1242,8 +1478,10 @@ type Pair = KeyValuePair<string, number>;
 
 // zipObj
 () => {
-    var no = R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
-    var no = R.zipObj(['a', 'b', 'c'])([1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.zipObj(['a', 'b', 'c'], [1, 2, 3]); //=> {a: 1, b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.zipObj(['a', 'b', 'c'])([1, 2, 3]); //=> {a: 1, b: 2, c: 3}
 }
 
 // zipWith
@@ -1251,9 +1489,12 @@ type Pair = KeyValuePair<string, number>;
     var f = function(x:number, y:string) {
         // ...
     };
-    var ar = R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-    var ar = R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
-    var ar = R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    // $ExpectType any[]
+    R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    // $ExpectType any[]
+    R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+    // $ExpectType any[]
+    R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
 }
 
 /*****************************************************************
@@ -1262,16 +1503,22 @@ type Pair = KeyValuePair<string, number>;
 
 // assoc
 () => {
-    var no = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    var no = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    var no = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 }
 
 // dissoc
 () => {
-    var no = R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    var no = R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
-    var no = R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 }
 
 // assocPath
@@ -1295,20 +1542,26 @@ type Pair = KeyValuePair<string, number>;
 () => {
     var obj1 = [{}, {}, {}];
     var obj2 = [{a:1}, {a:2}, {a:3}];
-    var ar = R.clone(obj1);
+    // $ExpectType any[]
+    R.clone(obj1);
     const a2: {a: number}[] = R.clone(obj2);
     const a3: Object = R.clone({});
-    var n = R.clone(10);
-    var s = R.clone('foo');
-    var n = R.clone(Date.now());
+    // $ExpectType number
+    R.clone(10);
+    // $ExpectType string
+    R.clone('foo');
+    // $ExpectType number
+    R.clone(Date.now());
 }
 
 // eqProps
 () => {
     var o1 = { a: 1, b: 2, c: 3, d: 4 };
     var o2 = { a: 10, b: 20, c: 3, d: 40 };
-    var b = R.eqProps('a', o1, o2); //=> false
-    var b = R.eqProps('c', o1, o2); //=> true
+    // $ExpectType boolean
+    R.eqProps('a', o1, o2); //=> false
+    // $ExpectType boolean
+    R.eqProps('c', o1, o2); //=> true
     const a3: {<T,U>(obj1: T, obj2: U): boolean} = R.eqProps('c');
     const a4: {<U>(obj2: U): boolean} = R.eqProps('c', o1);
 }
@@ -1328,15 +1581,21 @@ type Pair = KeyValuePair<string, number>;
 // has
 () => {
     const hasName = R.has('name');
-    var b = hasName({name: 'alice'});   //=> true
-    var b = hasName({name: 'bob'});     //=> true
-    var b = hasName({});                //=> false
+    // $ExpectType boolean
+    hasName({name: 'alice'});   //=> true
+    // $ExpectType boolean
+    hasName({name: 'bob'});     //=> true
+    // $ExpectType boolean
+    hasName({});                //=> false
 
     const point = {x: 0, y: 0};
     const pointHas = R.flip(R.has)(point);
-    var b = pointHas('x');  //=> true
-    var b = pointHas('y');  //=> true
-    var b = pointHas('z');  //=> false
+    // $ExpectType boolean
+    pointHas('x');  //=> true
+    // $ExpectType boolean
+    pointHas('y');  //=> true
+    // $ExpectType boolean
+    pointHas('z');  //=> false
 }
 
 // hasIn
@@ -1351,9 +1610,12 @@ class Rectangle {
 };
 () => {
     var square = new Rectangle(2, 2);
-    var b = R.hasIn('width', square);  //=> true
-    var b = R.hasIn('area', square);  //=> true
-    var b = R.flip(R.hasIn)(square)('area');  //=> true
+    // $ExpectType boolean
+    R.hasIn('width', square);  //=> true
+    // $ExpectType boolean
+    R.hasIn('area', square);  //=> true
+    // $ExpectType boolean
+    R.flip(R.hasIn)(square)('area');  //=> true
 }
 
 // invert
@@ -1373,24 +1635,28 @@ class Rectangle {
       first: 'alice',
       second: 'jake'
     };
-    var so = R.invertObj(raceResults0);
+    // $ExpectType { [k: string]: string }
+    R.invertObj(raceResults0);
     //=> { 'alice': 'first', 'jake':'second' }
 
     // Alternatively:
     let raceResults1 = ['alice', 'jake'];
-    var so = R.invertObj(raceResults1);
+    // $ExpectType { [k: string]: string }
+    R.invertObj(raceResults1);
     //=> { 'alice': '0', 'jake':'1' }
 }
 
 // keys
 () => {
-    var sr = R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+    // $ExpectType string[]
+    R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
 // keysIn
 () => {
     var f = new F();
-    var sr = R.keysIn(f); //=> ['x', 'y']
+    // $ExpectType string[]
+    R.keysIn(f); //=> ['x', 'y']
 }
 
 // lens
@@ -1404,7 +1670,8 @@ class Rectangle {
     // var xLens = R.lens<number, xy>(R.prop('x'), R.assoc('x'));
     var xLens = R.lens<number>(R.prop('x'))(R.assoc('x'));
     // ^ works with only 1 generic, for curried version managed to split the inferred generic from the manual generic
-    var n = R.view(xLens, {x: 1, y: 2});            //=> 1
+    // $ExpectType number
+    R.view(xLens, {x: 1, y: 2});            //=> 1
     z = R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     z = R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     z = R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}
@@ -1416,37 +1683,46 @@ class Rectangle {
 // lensIndex
 () => {
     var headLens = R.lensIndex(0);
-    var s = R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
-    var sr = R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
-    var sr = R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
+    // $ExpectType string
+    R.view(headLens, ['a', 'b', 'c']);            //=> 'a'
+    // $ExpectType string[]
+    R.set(headLens, 'x', ['a', 'b', 'c']);        //=> ['x', 'b', 'c']
+    // $ExpectType string[]
+    R.over(headLens, R.toUpper, ['a', 'b', 'c']); //=> ['A', 'b', 'c']
 }
 
 // lensProp
 () => {
     var xLens = R.lensProp('x');
-    var n = R.view(xLens, {x: 1, y: 2});            //=> 1
-    var no = R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
-    var no = R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
+    // $ExpectType number
+    R.view(xLens, {x: 1, y: 2});            //=> 1
+    // $ExpectType { [k: string]: number }
+    R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
+    // $ExpectType { [k: string]: number }
+    R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
 }
 
 // lensPath
 () => {
   let res: R.Dictionary<R.Dictionary<number>>;
   const xyLens = R.lensPath(['x', 'y']);
-  var n = R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
+  // $ExpectType number
+  R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
   res = R.set(xyLens, 4, {x: {y: 2, z: 3}});          //=> {x: {y: 4, z: 3}}
   res = R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  //=> {x: {y: -2, z: 3}}
 }
 
 // keys
 () => {
-    var sr = R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+    // $ExpectType string[]
+    R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
 }
 
 // keysIn
 () => {
     var f = new F();
-    var sr = R.keysIn(f); //=> ['x', 'y']
+    // $ExpectType string[]
+    R.keysIn(f); //=> ['x', 'y']
 }
 
 // lens
@@ -1468,9 +1744,12 @@ class Rectangle {
     );
     var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
     var obj2 = { phrase: "What's all this, then?"};
-    var s = phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
-    var s = phraseLens(obj2); // => "What's all this, then?"
-    var so = phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    // $ExpectType string
+    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    // $ExpectType string
+    phraseLens(obj2); // => "What's all this, then?"
+    // $ExpectType { [k: string]: string }
+    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
 }
 
 // lensProp
@@ -1478,23 +1757,30 @@ class Rectangle {
     var phraseLens = R.lensProp('phrase');
     var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
     var obj2 = { phrase: "What's all this, then?"};
-    var s = phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
-    var s = phraseLens(obj2); // => "What's all this, then?"
-    var so = phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
+    // $ExpectType string
+    phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
+    // $ExpectType string
+    phraseLens(obj2); // => "What's all this, then?"
+    // $ExpectType { [k: string]: string }
+    phraseLens.set('Ooh Betty', obj1); //=> { phrase: 'Ooh Betty'}
 }
 
 // merge
 () => {
-    var ao = R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+    // $ExpectType { [k: string]: any }
+    R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
     //=> { 'name': 'fred', 'age': 40 }
     var resetToDefault = R.flip(R.merge)({x: 0});
-    var no = resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
+    // $ExpectType { [k: string]: number }
+    resetToDefault({x: 5, y: 2}); //=> {x: 0, y: 2}
 }
 
 // megeAll
 () => {
-    var no = R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
-    var no = R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
+    // $ExpectType { [k: string]: number }
+    R.mergeAll([{foo:1},{bar:2},{baz:3}]); //=> {foo:1,bar:2,baz:3}
+    // $ExpectType { [k: string]: number }
+    R.mergeAll([{foo:1},{foo:2},{bar:2}]); //=> {foo:2,bar:2}
 }
 
 // mergeWith
@@ -1518,21 +1804,32 @@ class Rectangle {
 
 // pathOr
 () => {
-    var n = R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
-    var n = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
-    var n = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
-    var n = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    // $ExpectType number
+    R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
+    // $ExpectType number
+    R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
+    // $ExpectType number
+    R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    // $ExpectType number
+    R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
 }
 
 // pathSatisfies
 () => {
-    var b = R.pathSatisfies(a => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> true
-    var b = R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> false
-    var b = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
-    var b = R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); //=> true
-    var b = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
-    var b = R.pathSatisfies(a => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
-    var b = R.pathSatisfies(a => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
+    // $ExpectType boolean
+    R.pathSatisfies(a => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> true
+    // $ExpectType boolean
+    R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); //=> false
+    // $ExpectType boolean
+    R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
+    // $ExpectType boolean
+    R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); //=> true
+    // $ExpectType boolean
+    R.pathSatisfies(a => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); //=> true
+    // $ExpectType boolean
+    R.pathSatisfies(a => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
+    // $ExpectType boolean
+    R.pathSatisfies(a => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); //=> true
 }
 
 // pickBy
@@ -1540,7 +1837,8 @@ class Rectangle {
     var isPositive = function(n: number) {
         return n > 0;
     };
-    var no = R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
+    // $ExpectType { [k: string]: number }
+    R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); //=> {a: 1, b: 2, e: 5}
     var containsBackground = function(val: any) {
         return val.bgcolor;
     };
@@ -1548,13 +1846,15 @@ class Rectangle {
     let res: { 2: R.Dictionary<string> } = R.pickBy(containsBackground, colors); //=> {2: {color: 'black', bgcolor: 'yellow'}}
 
     var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
-    var no = R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+    // $ExpectType { [k: string]: number }
+    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 
 // pick
 () => {
-    var no = R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    // $ExpectType { [k: string]: number }
+    R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
     // the following should errror: e/f are not keys in these objects
     // var no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
     // var no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
@@ -1572,41 +1872,52 @@ class Rectangle {
 
 // omit
 () => {
-    var no = R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
-    var no = R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
 }
 
 // fromPairs
 () => {
-    var no = R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
+    // $ExpectType { [k: string]: number }
+    R.fromPairs([['a', 1], ['b', 2],  ['c', 3]]); //=> {a: 1, b: 2, c: 3}
 }
 
 // pair
 () => {
     R.pair('foo', 'bar'); //=> ['foo', 'bar']
     let p = R.pair('foo', 1); //=> ['foo', 'bar']
-    var s = p[0];
-    var n = p[1];
+    // $ExpectType string
+    p[0];
+    // $ExpectType number
+    p[1];
 }
 
 // over, lensIndex
 () => {
     var headLens = R.lensIndex(0);
-    var sr = R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); //=> ['FOO', 'bar', 'baz']
+    // $ExpectType string[]
+    R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); //=> ['FOO', 'bar', 'baz']
 }
 
 // pickAll
 () => {
-    var no = R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    var no = R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-    var no = R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
-    var no = R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}    // why does this pass while the above fails?
+    // $ExpectType { [k: string]: number }
+    R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    // $ExpectType { [k: string]: number }
+    R.pickAll(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+    // $ExpectType { [k: string]: number }
+    R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
+    // $ExpectType { [k: string]: number }
+    R.pickAll(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}    // why does this pass while the above fails?
 }
 
 // pickBy
 () => {
     var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
-    var no = R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
+    // $ExpectType { [k: string]: number }
+    R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); //=> {A: 3, B: 4}
 }
 
 // project
@@ -1620,7 +1931,8 @@ class Rectangle {
 
 // prop
 () => {
-    var n = R.prop('x', {x: 100}); //=> 100
+    // $ExpectType number
+    R.prop('x', {x: 100}); //=> 100
     // errors: `Argument of type '"x"' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
     // u = R.prop('x', {}); //=> undefined
 }
@@ -1635,23 +1947,29 @@ class Rectangle {
     var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
     // u = favorite(alice);  //=> undefined  // now errors
-    var s = favoriteWithDefault(alice);  //=> 'Ramda'
+    // $ExpectType string
+    favoriteWithDefault(alice);  //=> 'Ramda'
 }
 
 // propSatisfies
 () => {
-    var b = R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
-    var b = R.propSatisfies(x => x > 0, 'x')({x: 1, y: 2}); //=> true
-    var b = R.propSatisfies(x => x > 0)('x')({x: 1, y: 2}); //=> true
+    // $ExpectType boolean
+    R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
+    // $ExpectType boolean
+    R.propSatisfies(x => x > 0, 'x')({x: 1, y: 2}); //=> true
+    // $ExpectType boolean
+    R.propSatisfies(x => x > 0)('x')({x: 1, y: 2}); //=> true
 }
 
 // props
 () => {
-    var nr = R.props(['x', 'y'], {x: 1, y: 2}); //=> [1, 2]
+    // $ExpectType number[]
+    R.props(['x', 'y'], {x: 1, y: 2}); //=> [1, 2]
     let res: Array<number|undefined> = R.props(['c', 'a', 'b'], {b: 2, a: 1}); //=> [undefined, 1, 2]
 
     var fullName = R.compose(R.join(' '), R.props(['first', 'last']));
-    var s = fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); //=> 'Tony Bullet-Tooth'
+    // $ExpectType string
+    fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); //=> 'Tony Bullet-Tooth'
 }
 
 // toPairs
@@ -1668,30 +1986,38 @@ class Rectangle {
 
 // values
 () => {
-    var nr = R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
+    // $ExpectType number[]
+    R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
 }
 
 // valuesIn
 () => {
     var f = new F();
-    var sr = R.valuesIn(f); //=> ['X', 'Y']
+    // $ExpectType string[]
+    R.valuesIn(f); //=> ['X', 'Y']
 }
 
 // where
 () => {
     var spec = {x: 2};
-    var b = R.where(spec, {w: 10, x: 2, y: 300}); //=> true
-    var b = R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
-    var b = R.where(spec)({w: 10, x: 2, y: 300}); //=> true
-    var b = R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
+    // $ExpectType boolean
+    R.where(spec, {w: 10, x: 2, y: 300}); //=> true
+    // $ExpectType boolean
+    R.where(spec, {x: 1, y: 'moo', z: true}); //=> false
+    // $ExpectType boolean
+    R.where(spec)({w: 10, x: 2, y: 300}); //=> true
+    // $ExpectType boolean
+    R.where(spec)({x: 1, y: 'moo', z: true}); //=> false
 
     // There's no way to represent the below functionality in typescript
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
 
     var spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
-    var b = R.where(spec2, {x: 2, y: 7}); //=> false
-    var b = R.where(spec2, {x: 3, y: 8}); //=> true
+    // $ExpectType boolean
+    R.where(spec2, {x: 2, y: 7}); //=> false
+    // $ExpectType boolean
+    R.where(spec2, {x: 3, y: 8}); //=> true
 
     let xys: { x: number, y: number }[];
     var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
@@ -1703,32 +2029,42 @@ class Rectangle {
 () => {
     // pred :: Object -> Boolean
     var pred = R.whereEq({a: 1, b: 2});
-    var b = pred({a: 1});              //=> false
-    var b = pred({a: 1, b: 2});        //=> true
-    var b = pred({a: 1, b: 2, c: 3});  //=> true
-    var b = pred({a: 1, b: 1});        //=> false
-    var b = R.whereEq({a: 'one'}, {a: 'one'}); // => true
+    // $ExpectType boolean
+    pred({a: 1});              //=> false
+    // $ExpectType boolean
+    pred({a: 1, b: 2});        //=> true
+    // $ExpectType boolean
+    pred({a: 1, b: 2, c: 3});  //=> true
+    // $ExpectType boolean
+    pred({a: 1, b: 1});        //=> false
+    // $ExpectType boolean
+    R.whereEq({a: 'one'}, {a: 'one'}); // => true
 }
 
 // without
 () => {
-    var nr = R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
+    // $ExpectType number[]
+    R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
 }
 
 // mapIndexed, addIndex
 () => {
     var mapIndexed = R.addIndex<string,string>(R.map);
-    var sr = mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
-    var sr = R.mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    // $ExpectType string[]
+    mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+    // $ExpectType string[]
+    R.mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
       //=> ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
-    var nr = R.mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+    // $ExpectType number[]
+    R.mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
       //=> [2, 56]
 }
 
 // addIndex
 () => {
     var reduceIndexed = R.addIndex(R.reduce);
-    var sr = reduceIndexed(function(acc: string, val: string, idx: number) {
+    // $ExpectType string[]
+    reduceIndexed(function(acc: string, val: string, idx: number) {
           return acc + ',' + idx + '-' + val;
       }
       ,''
@@ -1740,20 +2076,25 @@ class Rectangle {
 // always
 () => {
     var t = R.always('Tee');
-    var s = t(); //=> 'Tee'
+    // $ExpectType string
+    t(); //=> 'Tee'
 }
 
 // ap
 () => {
-    var nr = R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
-    var nr = R.ap([R.multiply(2), R.add(3)])([1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    // $ExpectType number[]
+    R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
+    // $ExpectType number[]
+    R.ap([R.multiply(2), R.add(3)])([1,2,3]); //=> [2, 4, 6, 4, 5, 6]
 }
 
 // apply
 () => {
     var nums = [1, 2, 3, -99, 42, 6, 7];
-    var n = R.apply(Math.max, nums); //=> 42
-    var n = R.apply(Math.max)(nums); //=> 42
+    // $ExpectType number
+    R.apply(Math.max, nums); //=> 42
+    // $ExpectType number
+    R.apply(Math.max)(nums); //=> 42
 }
 
 // applySpec
@@ -1770,11 +2111,14 @@ class Rectangle {
     var takesThreeArgs = function(a: number, b: number, c: number) {
         return [a, b, c];
     };
-    var n = takesThreeArgs.length; //=> 3
-    var nr = takesThreeArgs(1, 2, 3); //=> [1, 2, 3]
+    // $ExpectType number
+    takesThreeArgs.length; //=> 3
+    // $ExpectType number[]
+    takesThreeArgs(1, 2, 3); //=> [1, 2, 3]
 
     var takesTwoArgs = R.binary(takesThreeArgs);
-    var n = takesTwoArgs.length; //=> 2
+    // $ExpectType number
+    takesTwoArgs.length; //=> 2
     // Only 2 arguments are passed to the wrapped function
     // errors: "Supplied parameters do not match any signature of call target." (can only use 2 arguments now)
     // var nr = takesTwoArgs(1, 2, 3); //=> [1, 2, undefined]
@@ -1783,7 +2127,8 @@ class Rectangle {
 // pipe, inc, negate
 () => {
     const f = R.pipe(Math.pow, R.negate, R.inc);
-    var n = f(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f(3, 4); // -(3^4) + 1
 }
 
 // comparator
@@ -1805,10 +2150,12 @@ class Rectangle {
     var subtract = function(a: number, b: number) { return a - b; };
 
     //≅ multiply( add(1, 2), subtract(1, 2) );
-    var n = R.converge(multiply, [ add, subtract ])(1, 2); //=> -3
+    // $ExpectType number
+    R.converge(multiply, [ add, subtract ])(1, 2); //=> -3
 
     var add3 = function(a: number, b: number, c: number) { return a + b + c; };
-    var n = R.converge(add3, [ multiply, add, subtract ])(1, 2); //=> 4
+    // $ExpectType number
+    R.converge(add3, [ multiply, add, subtract ])(1, 2); //=> 4
 }
 
 // compose
@@ -1819,12 +2166,18 @@ class Rectangle {
     const f3 = R.compose(R.inc, R.inc, R.negate, Math.pow);
     const f4 = R.compose(R.inc, R.inc, R.inc, R.negate, Math.pow);
     const f5 = R.compose(R.inc, R.inc, R.inc, R.inc, R.negate, Math.pow);
-    var n = f0(3, 4); // -(3^4) + 1
-    var n = f1(3, 4); // -(3^4) + 1
-    var n = f2(3, 4); // -(3^4) + 1
-    var n = f3(3, 4); // -(3^4) + 1
-    var n = f4(3, 4); // -(3^4) + 1
-    var n = f5(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f0(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f1(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f2(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f3(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f4(3, 4); // -(3^4) + 1
+    // $ExpectType number
+    f5(3, 4); // -(3^4) + 1
 }
 
 // compose
@@ -1833,7 +2186,8 @@ class Rectangle {
         return [a,b,c];
     }
     const gn = R.compose(R.length, fn);
-    var n = gn('Hello', 4, "world");
+    // $ExpectType number
+    gn('Hello', 4, "world");
 }
 
 // construct, constructN
@@ -1858,14 +2212,18 @@ class Rectangle {
 () => {
     var numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
     var letters = R.split('', 'abcABCaaaBBc');
-    var no = R.countBy(Math.floor)(numbers);    //=> {'1': 3, '2': 2, '3': 1}
-    var no = R.countBy(R.toLower)(letters);   //=> {'a': 5, 'b': 4, 'c': 3}
+    // $ExpectType { [k: string]: number }
+    R.countBy(Math.floor)(numbers);    //=> {'1': 3, '2': 2, '3': 1}
+    // $ExpectType { [k: string]: number }
+    R.countBy(R.toLower)(letters);   //=> {'a': 5, 'b': 4, 'c': 3}
 }
 
 // difference
 () => {
-    var nr = R.difference([1,2,3,4], [7,6,5,4,3]); //=> [1,2]
-    var nr = R.difference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5]
+    // $ExpectType number[]
+    R.difference([1,2,3,4], [7,6,5,4,3]); //=> [1,2]
+    // $ExpectType number[]
+    R.difference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5]
 }
 
 // differenceWith
@@ -1881,39 +2239,54 @@ class Rectangle {
 
 // equals
 () => {
-    var b = R.equals(1, 1); //=> true
-    var b = R.equals('2', '1'); //=> false
-    var b = R.equals([1, 2, 3], [1, 2, 3]); //=> true
+    // $ExpectType boolean
+    R.equals(1, 1); //=> true
+    // $ExpectType boolean
+    R.equals('2', '1'); //=> false
+    // $ExpectType boolean
+    R.equals([1, 2, 3], [1, 2, 3]); //=> true
 
     var a: any = {}; a.v = a;
     var b: any = {}; b.v = b;
-    var b = R.equals(a, b); //=> true
+    // $ExpectType boolean
+    R.equals(a, b); //=> true
 }
 
 // identity
 () => {
     const a1 = R.identity(1); //=> 1
     let obj = {};
-    var nr = R.identity([1,2,3]);
-    var sr = R.identity(['a','b','c']);
-    var b = R.identity(obj) === obj; //=> true
+    // $ExpectType number[]
+    R.identity([1,2,3]);
+    // $ExpectType string[]
+    R.identity(['a','b','c']);
+    // $ExpectType boolean
+    R.identity(obj) === obj; //=> true
 }
 
 // identical
 () => {
     var o = {};
-    var b = R.identical(o, o); //=> true
-    var b = R.identical(1, 1); //=> true
-    var b = R.identical('2', '1'); //=> false
-    var b = R.identical([], []); //=> false
-    var b = R.identical(0, -0); //=> false
-    var b = R.identical(NaN, NaN); //=> true
+    // $ExpectType boolean
+    R.identical(o, o); //=> true
+    // $ExpectType boolean
+    R.identical(1, 1); //=> true
+    // $ExpectType boolean
+    R.identical('2', '1'); //=> false
+    // $ExpectType boolean
+    R.identical([], []); //=> false
+    // $ExpectType boolean
+    R.identical(0, -0); //=> false
+    // $ExpectType boolean
+    R.identical(NaN, NaN); //=> true
 }
 
 // path
 () => {
-    var n = R.path(['a', 'b'], {a: {b: 2}}); //=> 2
-    var n = R.path(['a', 'b'])({a: {b: 2}}); //=> 2
+    // $ExpectType number
+    R.path(['a', 'b'], {a: {b: 2}}); //=> 2
+    // $ExpectType number
+    R.path(['a', 'b'])({a: {b: 2}}); //=> 2
 }
 
 // sortBy
@@ -1939,8 +2312,10 @@ class Rectangle {
 () => {
     const a: number[][] = R.splitAt(1, [1, 2, 3]);        //=> [[1], [2, 3]]
     const b: number[][] = R.splitAt(1)([1, 2, 3]);        //=> [[1], [2, 3]]
-    var sr = R.splitAt(5, 'hello world');      //=> ['hello', ' world']
-    var sr = R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
+    // $ExpectType string[]
+    R.splitAt(5, 'hello world');      //=> ['hello', ' world']
+    // $ExpectType string[]
+    R.splitAt(-1, 'foobar');          //=> ['fooba', 'r']
 }
 
 // splitWhen
@@ -1951,90 +2326,130 @@ class Rectangle {
 
 // add
 () => {
-    var n = R.add(2, 3);       //=>  5
-    var n = R.add(7)(10);      //=> 17
+    // $ExpectType number
+    R.add(2, 3);       //=>  5
+    // $ExpectType number
+    R.add(7)(10);      //=> 17
 }
 
 // dec
 () => {
-    var n = R.dec(42); //=> 41
+    // $ExpectType number
+    R.dec(42); //=> 41
 }
 
 // divide
 () => {
-    var n = R.divide(71, 100); //=> 0.71
+    // $ExpectType number
+    R.divide(71, 100); //=> 0.71
 
     var half = R.flip(R.divide)(2);
-    var n = half(42); //=> 21
+    // $ExpectType number
+    half(42); //=> 21
 
     var reciprocal = R.divide(1);
-    var n = reciprocal(4);   //=> 0.25
+    // $ExpectType number
+    reciprocal(4);   //=> 0.25
 }
 
 // gt
 () => {
-    var b = R.gt(2, 6); //=> false
-    var b = R.gt(2, 0); //=> true
-    var b = R.gt(2, 2); //=> false
-    var b = R.flip(R.gt)(2)(10); //=> true
-    var b = R.gt(2)(10); //=> false
+    // $ExpectType boolean
+    R.gt(2, 6); //=> false
+    // $ExpectType boolean
+    R.gt(2, 0); //=> true
+    // $ExpectType boolean
+    R.gt(2, 2); //=> false
+    // $ExpectType boolean
+    R.flip(R.gt)(2)(10); //=> true
+    // $ExpectType boolean
+    R.gt(2)(10); //=> false
 }
 
 // gte
 () => {
-    var b = R.gte(2, 6); //=> false
-    var b = R.gte(2, 0); //=> true
-    var b = R.gte(2, 2); //=> false
-    var b = R.flip(R.gte)(2)(10); //=> true
-    var b = R.gte(2)(10); //=> false
+    // $ExpectType boolean
+    R.gte(2, 6); //=> false
+    // $ExpectType boolean
+    R.gte(2, 0); //=> true
+    // $ExpectType boolean
+    R.gte(2, 2); //=> false
+    // $ExpectType boolean
+    R.flip(R.gte)(2)(10); //=> true
+    // $ExpectType boolean
+    R.gte(2)(10); //=> false
 }
 
 // isNaN
 () => {
-    var b = R.isNaN(NaN);        //=> true
-    var b = R.isNaN(undefined);  //=> false
-    var b = R.isNaN({});         //=> false
+    // $ExpectType boolean
+    R.isNaN(NaN);        //=> true
+    // $ExpectType boolean
+    R.isNaN(undefined);  //=> false
+    // $ExpectType boolean
+    R.isNaN({});         //=> false
 }
 
 // lt
 () => {
-    var b = R.lt(2, 6); //=> true
-    var b = R.lt(2, 0); //=> false
-    var b = R.lt(2, 2); //=> false
-    var b = R.lt(5)(10); //=> true
-    var b = R.flip(R.lt)(5)(10); //=> false // right-sectioned currying
+    // $ExpectType boolean
+    R.lt(2, 6); //=> true
+    // $ExpectType boolean
+    R.lt(2, 0); //=> false
+    // $ExpectType boolean
+    R.lt(2, 2); //=> false
+    // $ExpectType boolean
+    R.lt(5)(10); //=> true
+    // $ExpectType boolean
+    R.flip(R.lt)(5)(10); //=> false // right-sectioned currying
 }
 
 // lte
 () => {
-    var b = R.lte(2, 6); //=> true
-    var b = R.lte(2, 0); //=> false
-    var b = R.lte(2, 2); //=> true
-    var b = R.flip(R.lte)(2)(1); //=> true
-    var b = R.lte(2)(10); //=> true
+    // $ExpectType boolean
+    R.lte(2, 6); //=> true
+    // $ExpectType boolean
+    R.lte(2, 0); //=> false
+    // $ExpectType boolean
+    R.lte(2, 2); //=> true
+    // $ExpectType boolean
+    R.flip(R.lte)(2)(1); //=> true
+    // $ExpectType boolean
+    R.lte(2)(10); //=> true
 }
 
 // mathMod
 () => {
-    var n = R.mathMod(-17, 5);  //=> 3
-    var n = R.mathMod(17, 5);   //=> 2
-    var n = R.mathMod(17, -5);  //=> NaN
-    var n = R.mathMod(17, 0);   //=> NaN
-    var n = R.mathMod(17.2, 5); //=> NaN
-    var n = R.mathMod(17, 5.3); //=> NaN
+    // $ExpectType number
+    R.mathMod(-17, 5);  //=> 3
+    // $ExpectType number
+    R.mathMod(17, 5);   //=> 2
+    // $ExpectType number
+    R.mathMod(17, -5);  //=> NaN
+    // $ExpectType number
+    R.mathMod(17, 0);   //=> NaN
+    // $ExpectType number
+    R.mathMod(17.2, 5); //=> NaN
+    // $ExpectType number
+    R.mathMod(17, 5.3); //=> NaN
 
     var clock = R.flip(R.mathMod)(12);
-    var n = clock(15); //=> 3
-    var n = clock(24); //=> 0
+    // $ExpectType number
+    clock(15); //=> 3
+    // $ExpectType number
+    clock(24); //=> 0
 
     var seventeenMod = R.mathMod(17);
-    var n = seventeenMod(3);  //=> 2
+    // $ExpectType number
+    seventeenMod(3);  //=> 2
 }
 
 // max
 () => {
-    var n = R.max(7, 3); //=> 7
-    var s = R.max('a', 'z'); //=> 'z'
+    // $ExpectType number
+    R.max(7, 3); //=> 7
+    // $ExpectType string
+    R.max('a', 'z'); //=> 'z'
 }
 
 // maxBy
@@ -2050,20 +2465,26 @@ class Rectangle {
 
 // mean
 () => {
-    var n = R.mean([2, 7, 9]); //=> 6
-    var n = R.mean([]); //=> NaN
+    // $ExpectType number
+    R.mean([2, 7, 9]); //=> 6
+    // $ExpectType number
+    R.mean([]); //=> NaN
 }
 
 // median
 () => {
-    var n = R.median([7, 2, 10, 9]); //=> 8
-    var n = R.median([]); //=> NaN
+    // $ExpectType number
+    R.median([7, 2, 10, 9]); //=> 8
+    // $ExpectType number
+    R.median([]); //=> NaN
 }
 
 // min
 () => {
-    var n = R.min(9, 3); //=> 3
-    var s = R.min('a', 'z'); //=> 'a'
+    // $ExpectType number
+    R.min(9, 3); //=> 3
+    // $ExpectType string
+    R.min('a', 'z'); //=> 'a'
 }
 
 // minBy
@@ -2079,50 +2500,65 @@ class Rectangle {
 
 // modulo
 () => {
-    var n = R.modulo(17, 3); //=> 2
+    // $ExpectType number
+    R.modulo(17, 3); //=> 2
     // JS behavior:
-    var n = R.modulo(-17, 3); //=> -2
-    var n = R.modulo(17, -3); //=> 2
+    // $ExpectType number
+    R.modulo(-17, 3); //=> -2
+    // $ExpectType number
+    R.modulo(17, -3); //=> 2
 
     var isOdd = R.flip(R.modulo)(2);
-    var n = isOdd(42); //=> 0
-    var n = isOdd(21); //=> 1
+    // $ExpectType number
+    isOdd(42); //=> 0
+    // $ExpectType number
+    isOdd(21); //=> 1
 }
 
 // multiply
 () => {
     var double = R.multiply(2);
     var triple = R.multiply(3);
-    var n = double(3);       //=>  6
-    var n = triple(4);       //=> 12
-    var n = R.multiply(2, 5);  //=> 10
+    // $ExpectType number
+    double(3);       //=>  6
+    // $ExpectType number
+    triple(4);       //=> 12
+    // $ExpectType number
+    R.multiply(2, 5);  //=> 10
 }
 
 // negate
 () => {
-    var n = R.negate(42); //=> -42
+    // $ExpectType number
+    R.negate(42); //=> -42
 }
 
 // product
 () => {
-    var n = R.product([2,4,6,8,100,1]); //=> 38400
+    // $ExpectType number
+    R.product([2,4,6,8,100,1]); //=> 38400
 }
 
 // subtract
 () => {
-    var n = R.subtract(10, 8); //=> 2
+    // $ExpectType number
+    R.subtract(10, 8); //=> 2
 
     var minus5 = R.flip(R.subtract)(5);
-    var n = minus5(17); //=> 12
+    // $ExpectType number
+    minus5(17); //=> 12
 
     var complementaryAngle = R.subtract(90);
-    var n = complementaryAngle(30); //=> 60
-    var n = complementaryAngle(72); //=> 18
+    // $ExpectType number
+    complementaryAngle(30); //=> 60
+    // $ExpectType number
+    complementaryAngle(72); //=> 18
 }
 
 // sum
 () => {
-    var n = R.sum([2,4,6,8,100,1]); //=> 121
+    // $ExpectType number
+    R.sum([2,4,6,8,100,1]); //=> 121
 }
 
 // symmetricDifference
@@ -2148,15 +2584,22 @@ class Rectangle {
 
 // replace
 () => {
-    var s = R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
-    var s = R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
-    var s = R.replace('foo')('bar')('foo foo foo'); //=> 'bar foo foo'
-    var s = R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
+    // $ExpectType string
+    R.replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
+    // $ExpectType string
+    R.replace('foo', 'bar')('foo foo foo'); //=> 'bar foo foo'
+    // $ExpectType string
+    R.replace('foo')('bar')('foo foo foo'); //=> 'bar foo foo'
+    // $ExpectType string
+    R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
 
     // Use the "g" (global) flag to replace all occurrences:
-    var s = R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
-    var s = R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
-    var s = R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
+    // $ExpectType string
+    R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+    // $ExpectType string
+    R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
+    // $ExpectType string
+    R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
 }
 
 /*****************************************************************
@@ -2164,22 +2607,38 @@ class Rectangle {
  */
 
 () => {
-    var b = R.is(Object, {}); //=> true
-    var b = R.is(Object)({}); //=> true
-    var b = R.is(Number, 1); //=> true
-    var b = R.is(Number)(1); //=> true
-    var b = R.is(Object, 1); //=> false
-    var b = R.is(Object)(1); //=> false
-    var b = R.is(String, 's'); //=> true
-    var b = R.is(String)('s'); //=> true
-    var b = R.is(String, new String('')); //=> true
-    var b = R.is(String)(new String('')); //=> true
-    var b = R.is(Object, new String('')); //=> true
-    var b = R.is(Object)(new String('')); //=> true
-    var b = R.is(Object, 's'); //=> false
-    var b = R.is(Object)('s'); //=> false
-    var b = R.is(Number, {}); //=> false
-    var b = R.is(Number)({}); //=> false
+    // $ExpectType boolean
+    R.is(Object, {}); //=> true
+    // $ExpectType boolean
+    R.is(Object)({}); //=> true
+    // $ExpectType boolean
+    R.is(Number, 1); //=> true
+    // $ExpectType boolean
+    R.is(Number)(1); //=> true
+    // $ExpectType boolean
+    R.is(Object, 1); //=> false
+    // $ExpectType boolean
+    R.is(Object)(1); //=> false
+    // $ExpectType boolean
+    R.is(String, 's'); //=> true
+    // $ExpectType boolean
+    R.is(String)('s'); //=> true
+    // $ExpectType boolean
+    R.is(String, new String('')); //=> true
+    // $ExpectType boolean
+    R.is(String)(new String('')); //=> true
+    // $ExpectType boolean
+    R.is(Object, new String('')); //=> true
+    // $ExpectType boolean
+    R.is(Object)(new String('')); //=> true
+    // $ExpectType boolean
+    R.is(Object, 's'); //=> false
+    // $ExpectType boolean
+    R.is(Object)('s'); //=> false
+    // $ExpectType boolean
+    R.is(Number, {}); //=> false
+    // $ExpectType boolean
+    R.is(Number)({}); //=> false
 }
 
 /*****************************************************************
@@ -2191,15 +2650,20 @@ class Rectangle {
     var gt10 = function(x: number) { return x > 10; };
     var even = function(x: number) { return x % 2 === 0};
     var f = R.allPass([gt10, even]);
-    var b = f(11); //=> false
-    var b = f(12); //=> true
+    // $ExpectType boolean
+    f(11); //=> false
+    // $ExpectType boolean
+    f(12); //=> true
 }
 
 // and
 () => {
-    var b = R.and(false, true); //=> false
-    var n = R.and(0, []); //=> 0
-    var n = R.and(0)([]); //=> 0
+    // $ExpectType boolean
+    R.and(false, true); //=> false
+    // $ExpectType number
+    R.and(0, []); //=> 0
+    // $ExpectType number
+    R.and(0)([]); //=> 0
     let res: null = R.and(null, ''); //=> null
     var Why: any = (function(val: boolean) {
         var why: any;
@@ -2210,7 +2674,8 @@ class Rectangle {
         return Why;
     })(true);
     var why = new Why(true);
-    var b = R.and(why, false); // false
+    // $ExpectType boolean
+    R.and(why, false); // false
 }
 
 // anyPass
@@ -2218,9 +2683,12 @@ class Rectangle {
     var gt10 = function(x: number) { return x > 10; };
     var even = function(x: number) { return x % 2 === 0};
     var f = R.anyPass([gt10, even]);
-    var b = f(11); //=> true
-    var b = f(8); //=> true
-    var b = f(9); //=> false
+    // $ExpectType boolean
+    f(11); //=> true
+    // $ExpectType boolean
+    f(8); //=> true
+    // $ExpectType boolean
+    f(9); //=> false
 }
 
 // both
@@ -2229,31 +2697,41 @@ class Rectangle {
     var even = function(x: number) { return x % 2 === 0 };
     var f = R.both(gt10, even);
     var g = R.both(gt10)(even);
-    var b = f(100); //=> true
-    var b = f(101); //=> false
+    // $ExpectType boolean
+    f(100); //=> true
+    // $ExpectType boolean
+    f(101); //=> false
 }
 
 // complement
 () => {
     var isEven = function(n: number) { return n % 2 === 0; };
     var isOdd = R.complement(isEven);
-    var b = isOdd(21); //=> true
-    var b = isOdd(42); //=> false
+    // $ExpectType boolean
+    isOdd(21); //=> true
+    // $ExpectType boolean
+    isOdd(42); //=> false
 }
 
 // eqBy
 (() => {
-    var b = R.eqBy(Math.abs, 5, -5); //=> true
-    var b = R.eqBy(Math.abs)(5, -5); //=> true
-    var b = R.eqBy(Math.abs, 5)(-5); //=> true
+    // $ExpectType boolean
+    R.eqBy(Math.abs, 5, -5); //=> true
+    // $ExpectType boolean
+    R.eqBy(Math.abs)(5, -5); //=> true
+    // $ExpectType boolean
+    R.eqBy(Math.abs, 5)(-5); //=> true
 });
 
 // defaultTo
 () => {
     var defaultTo42 = R.defaultTo(42);
-    var n = defaultTo42(null);  //=> 42
-    var n = defaultTo42(undefined);  //=> 42
-    var s = defaultTo42('Ramda');  //=> 'Ramda'
+    // $ExpectType number
+    defaultTo42(null);  //=> 42
+    // $ExpectType number
+    defaultTo42(undefined);  //=> 42
+    // $ExpectType string
+    defaultTo42('Ramda');  //=> 'Ramda'
 }
 
 // either
@@ -2262,8 +2740,10 @@ class Rectangle {
     var even = function(x: number) { return x % 2 === 0 };
     var f = R.either(gt10, even);
     var g = R.either(gt10)(even);
-    var b = f(101); //=> true
-    var b = f(8); //=> true
+    // $ExpectType boolean
+    f(101); //=> true
+    // $ExpectType boolean
+    f(8); //=> true
 }
 
 // ifElse
@@ -2277,20 +2757,30 @@ class Rectangle {
 
 // isEmpty
 () => {
-    var b = R.isEmpty([1, 2, 3]); //=> false
-    var b = R.isEmpty([]); //=> true
-    var b = R.isEmpty(''); //=> true
-    var b = R.isEmpty(null); //=> false
-    var b = R.isEmpty({}); //=>true
-    var b = R.isEmpty({a:1}); //=> false
+    // $ExpectType boolean
+    R.isEmpty([1, 2, 3]); //=> false
+    // $ExpectType boolean
+    R.isEmpty([]); //=> true
+    // $ExpectType boolean
+    R.isEmpty(''); //=> true
+    // $ExpectType boolean
+    R.isEmpty(null); //=> false
+    // $ExpectType boolean
+    R.isEmpty({}); //=>true
+    // $ExpectType boolean
+    R.isEmpty({a:1}); //=> false
 }
 
 // not
 () => {
-    var b = R.not(true); //=> false
-    var b = R.not(false); //=> true
-    var b = R.not(0); // => true
-    var b = R.not(1); // => false
+    // $ExpectType boolean
+    R.not(true); //=> false
+    // $ExpectType boolean
+    R.not(false); //=> true
+    // $ExpectType boolean
+    R.not(0); // => true
+    // $ExpectType boolean
+    R.not(1); // => false
 }
 
 class Why {
@@ -2317,9 +2807,12 @@ class Why {
 
 // intersperse
 () => {
-    var sr = R.intersperse(',', ['foo', 'bar']); //=> ['foo', ',', 'bar']
-    var nr = R.intersperse(0, [1, 2]); //=> [1, 0, 2]
-    var nr = R.intersperse(0, [1]); //=> [1]
+    // $ExpectType string[]
+    R.intersperse(',', ['foo', 'bar']); //=> ['foo', ',', 'bar']
+    // $ExpectType number[]
+    R.intersperse(0, [1, 2]); //=> [1, 0, 2]
+    // $ExpectType number[]
+    R.intersperse(0, [1]); //=> [1]
 }
 
 // ISSUES:
@@ -2522,10 +3015,12 @@ class Why {
 
 () => {
   // #119: path
-  var n = R.path(['a', 'b', 'c'], {a: {b: {c: 2}}})
+  // $ExpectType number
+  R.path(['a', 'b', 'c'], {a: {b: {c: 2}}})
   let a2: null = R.path(['a', 'b', 'c'], {a: {b: 2}})   // still fails
   // var n = R.path(['a', '0', 'c'], {a: [{c: 2}] })
-  var n = R.path(['a', 0, 'c'], {a: [{c: 2}] })
+  // $ExpectType number
+  R.path(['a', 0, 'c'], {a: [{c: 2}] })
 }
 
 // */
