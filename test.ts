@@ -1,34 +1,22 @@
 import * as R from './index';
 
 declare let console: any
-var s: string;
-var b: boolean;
-var n: number;
-var sr: string[];
-var br: boolean[];
-var nr: number[];
-var or: Object[];
-var ar: any[];
-var no: R.Dictionary<number>;
-var so: R.Dictionary<string>;
-var ao: R.Dictionary<any>;
-var u: undefined;
 
 let double = (x: number): number => x + x;
 
-var shout = function(x: number): string {
+let shout = function(x: number): string {
     return x >= 10
         ? 'big'
         : 'small'
 };
 
 // check type information is not lost for lists
-var onlyNumberList = function(xs: number[]): number[] {
+let onlyNumberList = function(xs: number[]): number[] {
   return xs;
 }
 
 // check type information is not lost for simple objects
-var onlyNumberObj = function(xs: {[key:string]: number}): {[key:string]: number} {
+let onlyNumberObj = function(xs: {[key:string]: number}): {[key:string]: number} {
   return xs;
 }
 
@@ -66,26 +54,26 @@ class F2 {
     R.propIs(Number)('x')({x: 1, y: 2});  // => true
     // $ExpectType boolean
     R.propIs(Number, 'x', {x: 'foo'});    // => false
-    // v errors with `Argument of type '"x"' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
+    // v errors with `Argument of type ''x'' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
     // let b = R.propIs(Number, 'x', {});            // => false
 });
 
 // type
 (() => {
     // $ExpectType string
-    R.type({}); // => "Object"
+    R.type({}); // => 'Object'
     // $ExpectType string
-    R.type(1); // => "Number"
+    R.type(1); // => 'Number'
     // $ExpectType string
-    R.type(false); // => "Boolean"
+    R.type(false); // => 'Boolean'
     // $ExpectType string
-    R.type('s'); // => "String"
+    R.type('s'); // => 'String'
     // $ExpectType string
-    R.type(null); // => "Null"
+    R.type(null); // => 'Null'
     // $ExpectType string
-    R.type([]); // => "Array"
+    R.type([]); // => 'Array'
     // $ExpectType string
-    R.type(/[A-z]/); // => "RegExp"
+    R.type(/[A-z]/); // => 'RegExp'
 });
 
 // curry
@@ -244,7 +232,7 @@ class F2 {
 
     const chopped = R.juxt([R.head, R.last]);
     // $ExpectType string[]
-    chopped('longstring'); // => ["l", "g"]
+    chopped('longstring'); // => ['l', 'g']
 });
 
 // useWith
@@ -999,11 +987,11 @@ interface Obj { a: number; b: number };
     // I'm sorry, I have no clue how to make this example work with proper functor typing
     // const stringFunctor = {
     //     map: (fn: (c: number) => number) => {
-    //         let chars = "Ifmmp!Xpsme".split("");
-    //         return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
+    //         let chars = 'Ifmmp!Xpsme'.split('');
+    //         return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join('');
     //     }
     // };
-    // let s = R.map((x: number) => x-1, stringFunctor); // => "Hello World"
+    // let s = R.map((x: number) => x-1, stringFunctor); // => 'Hello World'
 }
 
 // mapAccum
@@ -1297,20 +1285,20 @@ type Pair = KeyValuePair<string, number>;
     // $ExpectType number[]
     R.take(3,[1,2,3,4,5]); // => [1,2,3]
 
-    let members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
-    "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
-    "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
+    let members= [ 'Paul Desmond','Bob Bates','Joe Dodge','Ron Crotty','Lloyd Davis','Joe Morello','Norman Bates',
+    'Eugene Wright','Gerry Mulligan','Jack Six','Alan Dawson','Darius Brubeck','Chris Brubeck',
+    'Dan Brubeck','Bobby Militello','Michael Moore','Randy Jones'];
     let takeFive = R.take(5);
     // $ExpectType string[]
-    takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
+    takeFive(members); // => ['Paul Desmond','Bob Bates','Joe Dodge','Ron Crotty','Lloyd Davis']
 }
 () => {
     // $ExpectType string
-    R.take(3,"Example"); // => "Exa"
+    R.take(3,'Example'); // => 'Exa'
 
     let takeThree = R.take(3);
     // $ExpectType string
-    takeThree("Example"); // => "Exa"
+    takeThree('Example'); // => 'Exa'
 }
 
 // takeLast
@@ -1328,8 +1316,10 @@ type Pair = KeyValuePair<string, number>;
 // takeLastWhile
 () => {
   const isNotOne = (x: number) => x !== 1;
-  var nr = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); // => [2, 3, 4]
-  var nr = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); // => [2, 3, 4]
+  // $ExpectType number[]
+  R.takeLastWhile(isNotOne, [1, 2, 3, 4]); // => [2, 3, 4]
+  // $ExpectType number[]
+  R.takeLastWhile(isNotOne)([1, 2, 3, 4]); // => [2, 3, 4]
 }
 
 // takeWhile
@@ -1382,13 +1372,13 @@ type Pair = KeyValuePair<string, number>;
     // $ExpectType string
     R.toString(42); // => '42'
     // $ExpectType string
-    R.toString('abc'); // => '"abc"'
+    R.toString('abc'); // => ''abc''
     // $ExpectType string
     R.toString([1, 2, 3]); // => '[1, 2, 3]'
     // $ExpectType string
-    R.toString({foo: 1, bar: 2, baz: 3}); // => '{"bar": 2, "baz": 3, "foo": 1}'
+    R.toString({foo: 1, bar: 2, baz: 3}); // => '{'bar': 2, 'baz': 3, 'foo': 1}'
     // $ExpectType string
-    R.toString(new Date('2001-02-03T04:05:06Z')); // => 'new Date("2001-02-03T04:05:06.000Z")'
+    R.toString(new Date('2001-02-03T04:05:06Z')); // => 'new Date('2001-02-03T04:05:06.000Z')'
 }
 
 // transduce
@@ -1732,7 +1722,7 @@ class Rectangle {
       function set(val: number, arr: number[]) { return [val].concat(arr.slice(1)); }
     );
     headLens([10, 20, 30, 40]); // => 10
-    // headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40] // errors: [ts] Argument of type '"mu"' is not assignable to parameter of type 'number'.
+    // headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40] // errors: [ts] Argument of type ''mu'' is not assignable to parameter of type 'number'.
 
     let phraseLens = R.lens(
       function get(obj: any) { return obj.phrase; },
@@ -1743,11 +1733,11 @@ class Rectangle {
       }
     );
     let obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    let obj2 = { phrase: "What's all this, then?"};
+    let obj2 = { phrase: 'What's all this, then?'};
     // $ExpectType string
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
-    phraseLens(obj2); // => "What's all this, then?"
+    phraseLens(obj2); // => 'What's all this, then?'
     // $ExpectType { [k: string]: string }
     phraseLens.set('Ooh Betty', obj1); // => { phrase: 'Ooh Betty'}
 }
@@ -1756,11 +1746,11 @@ class Rectangle {
 () => {
     let phraseLens = R.lensProp('phrase');
     let obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    let obj2 = { phrase: "What's all this, then?"};
+    let obj2 = { phrase: 'What's all this, then?'};
     // $ExpectType string
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
-    phraseLens(obj2); // => "What's all this, then?"
+    phraseLens(obj2); // => 'What's all this, then?'
     // $ExpectType { [k: string]: string }
     phraseLens.set('Ooh Betty', obj1); // => { phrase: 'Ooh Betty'}
 }
@@ -1809,9 +1799,9 @@ class Rectangle {
     // $ExpectType number
     R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); // => 2
     // $ExpectType number
-    R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); // => "N/A"
+    R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); // => 'N/A'
     // $ExpectType number
-    R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); // => "N/A"
+    R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); // => 'N/A'
 }
 
 // pathSatisfies
@@ -1933,7 +1923,7 @@ class Rectangle {
 () => {
     // $ExpectType number
     R.prop('x', {x: 100}); // => 100
-    // errors: `Argument of type '"x"' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
+    // errors: `Argument of type ''x'' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
     // u = R.prop('x', {}); // => undefined
 }
 
@@ -2120,7 +2110,7 @@ class Rectangle {
     // $ExpectType number
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
-    // errors: "Supplied parameters do not match any signature of call target." (can only use 2 arguments now)
+    // errors: 'Supplied parameters do not match any signature of call target.' (can only use 2 arguments now)
     // let nr = takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
 }
 
@@ -2187,7 +2177,7 @@ class Rectangle {
     }
     const gn = R.compose(R.length, fn);
     // $ExpectType number
-    gn('Hello', 4, "world");
+    gn('Hello', 4, 'world');
 }
 
 // construct, constructN
@@ -2456,7 +2446,7 @@ class Rectangle {
 () => {
     let res: { x: number };
     function cmp(obj: typeof res) { return obj.x; }
-    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
+    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: 'a'}, e = {x:'z'};
     res = R.maxBy(cmp, a, c); // => {x: 3}
     res = R.maxBy(cmp)(a, c); // => {x: 3}
     res = R.maxBy(cmp)(a)(b);
@@ -2491,7 +2481,7 @@ class Rectangle {
 () => {
     let res: { x: number };
     function cmp(obj: {x: typeof res}) { return obj.x; }
-    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
+    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: 'a'}, e = {x: 'z'};
     res = R.minBy(cmp, a, b); // => {x: 1}
     res = R.minBy(cmp)(a, b); // => {x: 1}
     res = R.minBy(cmp)(a)(c);
@@ -2563,8 +2553,8 @@ class Rectangle {
 
 // symmetricDifference
 () => {
-  var nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); // => [1,2,7,6,5]
-  var nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); // => [7,6,5,1,2]
+  let nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); // => [1,2,7,6,5]
+  let nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); // => [7,6,5,1,2]
 }
 
 // symmetricDifferenceWith
@@ -2593,7 +2583,7 @@ class Rectangle {
     // $ExpectType string
     R.replace(/foo/, 'bar', 'foo foo foo'); // => 'bar foo foo'
 
-    // Use the "g" (global) flag to replace all occurrences:
+    // Use the 'g' (global) flag to replace all occurrences:
     // $ExpectType string
     R.replace(/foo/g, 'bar', 'foo foo foo'); // => 'bar bar bar'
     // $ExpectType string
@@ -2752,7 +2742,7 @@ class Rectangle {
     let flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
 
     let r1: any[] = flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
-    let r2: any[] = flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
+    let r2: any[] = flattenArrays([[[10], 123], [8, [10]], 'hello']); // => [[10, 123], [8, 10], 'hello']
 }
 
 // isEmpty
@@ -2866,12 +2856,12 @@ class Why {
 
 () => {
     // #29
-    const letters: string[] = R.pipe(R.append("a"), R.uniq)(["a", "b", "c"]);
+    const letters: string[] = R.pipe(R.append('a'), R.uniq)(['a', 'b', 'c']);
 
     const strArrArr: string[][] = R.pipe(
         R.split(''),
         R.map(letter => ([ letter ]))
-    )("dave");
+    )('dave');
 
     const b: number = R.pipe(
         R.prop<string>('name'),
@@ -2913,8 +2903,8 @@ class Why {
         {items: []},
         {items: []}
     ]}
-    const elem = "Hello"
-    R.over(R.compose(R.lensProp("sections"), R.lensIndex(sectioneditems.sections.length - 1), R.lensProp("items")), R.append(elem), sectioneditems)
+    const elem = 'Hello'
+    R.over(R.compose(R.lensProp('sections'), R.lensIndex(sectioneditems.sections.length - 1), R.lensProp('items')), R.append(elem), sectioneditems)
 }
 
 () => {
@@ -2934,12 +2924,12 @@ class Why {
 
 () => {
     // #86: lose generics in compose
-    type let so = { [index: string]: string };
+    type so = { [index: string]: string };
     let pairs =                         [['1','A'], ['2','B'], ['3','C']];
-    let a1: let so =           R.fromPairs ([['1','A'], ['2','B'], ['3','C']])
-    let a2: let so =           R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
-    let b1: let so = R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
-    let c1: let so = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
+    let a1: so =           R.fromPairs ([['1','A'], ['2','B'], ['3','C']])
+    let a2: so =           R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
+    let b1: so = R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
+    let c1: so = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
 
     // generics in pipe loses generics
     R.pipe(R.identity)
