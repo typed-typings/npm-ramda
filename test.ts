@@ -1315,8 +1315,8 @@ type Pair = KeyValuePair<string, number>;
 
 // takeLast
 () => {
-	  // $ExpectType string[]
-	  R.takeLast(1, ['foo', 'bar', 'baz']); // => ['baz']
+    // $ExpectType string[]
+    R.takeLast(1, ['foo', 'bar', 'baz']); // => ['baz']
     // $ExpectType string[]
     R.takeLast(2)(['foo', 'bar', 'baz']); // => ['bar', 'baz']
     // $ExpectType string
@@ -1327,9 +1327,9 @@ type Pair = KeyValuePair<string, number>;
 
 // takeLastWhile
 () => {
-	const isNotOne = (x: number) => x !== 1;
-	var nr = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); // => [2, 3, 4]
-	var nr = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); // => [2, 3, 4]
+  const isNotOne = (x: number) => x !== 1;
+  var nr = R.takeLastWhile(isNotOne, [1, 2, 3, 4]); // => [2, 3, 4]
+  var nr = R.takeLastWhile(isNotOne)([1, 2, 3, 4]); // => [2, 3, 4]
 }
 
 // takeWhile
@@ -1345,15 +1345,15 @@ type Pair = KeyValuePair<string, number>;
 
 // tap
 () => {
-	  const sayX = (x: number) => console.log('x is ' + x);
+    const sayX = (x: number) => console.log('x is ' + x);
     // $ExpectType number
     R.tap(sayX, 100); // => 100
 }
 
 // test
 () => {
-	  // $ExpectType boolean
-	  R.test(/^x/, 'xyz'); // => true
+    // $ExpectType boolean
+    R.test(/^x/, 'xyz'); // => true
     // $ExpectType boolean
     R.test(/^y/)('xyz'); // => false
 }
@@ -1368,14 +1368,14 @@ type Pair = KeyValuePair<string, number>;
 
 // toString
 () => {
-	class Point {
-		constructor(public x: number, public y: number) {
-    		this.x = x;
-        	this.y = y;
-		}
-		toStringn() {
-        	return 'new Point(' + this.x + ', ' + this.y + ')';
-		}
+  class Point {
+    constructor(public x: number, public y: number) {
+        this.x = x;
+          this.y = y;
+    }
+    toStringn() {
+          return 'new Point(' + this.x + ', ' + this.y + ')';
+    }
     };
     // $ExpectType string
     R.toString(new Point(1, 2)); // => 'new Point(1, 2)'
@@ -2320,8 +2320,8 @@ class Rectangle {
 
 // splitWhen
 () => {
-	const a: number[][] = R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
-	const b: number[][] = R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
+  const a: number[][] = R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
+  const b: number[][] = R.splitWhen(R.equals(2))([1, 2, 3, 1, 2, 3]);   // => [[1], [2, 3, 1, 2, 3]]
 }
 
 // add
@@ -2563,19 +2563,19 @@ class Rectangle {
 
 // symmetricDifference
 () => {
-	var nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); // => [1,2,7,6,5]
-	var nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); // => [7,6,5,1,2]
+  var nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); // => [1,2,7,6,5]
+  var nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); // => [7,6,5,1,2]
 }
 
 // symmetricDifferenceWith
 () => {
   let res: { a: number }[];
-	const eqA = R.eqBy(R.prop('a'));
-	const l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
-	const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
-	res = R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-	res = R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-	const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+  const eqA = R.eqBy(R.prop('a'));
+  const l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
+  const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
+  res = R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+  res = R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+  const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 }
 
 /*****************************************************************
