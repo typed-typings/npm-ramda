@@ -3064,15 +3064,14 @@ class Why {
 
 () => {
     // #86: lose generics in compose
-    type so = { [index: string]: string };
-    let pairs =                         [['1','A'], ['2','B'], ['3','C']];
-    // $ExpectType so
-              R.fromPairs ([['1','A'], ['2','B'], ['3','C']]);
-    // $ExpectType so
-              R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
-    // $ExpectType so
+    let pairs = [['1','A'], ['2','B'], ['3','C']];
+    // $ExpectType { [index: string]: string }
+    R.fromPairs ([['1','A'], ['2','B'], ['3','C']]);
+    // $ExpectType { [index: string]: string }
+    R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
+    // $ExpectType { [index: string]: string }
     R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']]);  // fails, generics turn to {} => {}
-    // $ExpectType so
+    // $ExpectType { [index: string]: string }
     R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']]);  // fails, generics turn to {} => {}
 
     // generics in pipe loses generics

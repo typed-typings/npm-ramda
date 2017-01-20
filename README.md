@@ -3,7 +3,15 @@
 [![Build Status](https://travis-ci.org/types/npm-ramda.svg?branch=master)](https://travis-ci.org/types/npm-ramda)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Test with `npm test`.
+Testing:
+```
+# old way, easy
+npm test
+# without npm
+./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit
+# diffing, more detailed
+ts-node typecheck.ts test.ts 2>&1 | tee typecheck.txt
+```
 
 Pull requests are welcome!
 
