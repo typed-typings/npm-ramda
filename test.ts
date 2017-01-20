@@ -1,6 +1,6 @@
 import * as R from './index';
 
-declare var console: any
+declare let console: any
 var s: string;
 var b: boolean;
 var n: number;
@@ -67,7 +67,7 @@ class F2 {
     // $ExpectType boolean
     R.propIs(Number, 'x', {x: 'foo'});    // => false
     // v errors with `Argument of type '"x"' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
-    // var b = R.propIs(Number, 'x', {});            // => false
+    // let b = R.propIs(Number, 'x', {});            // => false
 });
 
 // type
@@ -97,43 +97,43 @@ class F2 {
 
 // unary, binary, nAry
 () => {
-    var takesNoArg = function() { return true; };
-    var takesOneArg = function(a: number) { return [a]; };
-    var takesTwoArgs = function(a: number, b: number) { return [a, b]; };
-    var takesThreeArgs = function(a: number, b: number, c: number) { return [a, b, c]; };
+    let takesNoArg = function() { return true; };
+    let takesOneArg = function(a: number) { return [a]; };
+    let takesTwoArgs = function(a: number, b: number) { return [a, b]; };
+    let takesThreeArgs = function(a: number, b: number, c: number) { return [a, b, c]; };
 
-    var addFourNumbers = function(a: number, b: number, c: number, d: number): number {
+    let addFourNumbers = function(a: number, b: number, c: number, d: number): number {
       return a + b + c + d;
     };
 
     const curriedFourNumbers = R.curry(addFourNumbers);
-    var x1: R.CurriedFunction4<number, number, number, number, number> = curriedFourNumbers
-    var x2: R.CurriedFunction3<number, number, number, number> = curriedFourNumbers(1)
-    var x3: R.CurriedFunction2<number, number, number> = curriedFourNumbers(1)(2)
-    var x4: <T1,R>(t1: T1) => R = curriedFourNumbers(1)(2)(3)
-    var x5: <T1,R>(t1: T1) => R = curriedFourNumbers(1,2,4)
-    var y1: number = curriedFourNumbers(1)(2)(3)(4)
-    var y2: number = curriedFourNumbers(1,2)(3,4)
-    var y3: number = curriedFourNumbers(1,2,3)(4)
+    let x1: R.CurriedFunction4<number, number, number, number, number> = curriedFourNumbers
+    let x2: R.CurriedFunction3<number, number, number, number> = curriedFourNumbers(1)
+    let x3: R.CurriedFunction2<number, number, number> = curriedFourNumbers(1)(2)
+    let x4: <T1,R>(t1: T1) => R = curriedFourNumbers(1)(2)(3)
+    let x5: <T1,R>(t1: T1) => R = curriedFourNumbers(1,2,4)
+    let y1: number = curriedFourNumbers(1)(2)(3)(4)
+    let y2: number = curriedFourNumbers(1,2)(3,4)
+    let y3: number = curriedFourNumbers(1,2,3)(4)
 
     R.nAry(0, takesNoArg);
     R.nAry(0, takesOneArg);
     R.nAry(1, takesTwoArgs);
     R.nAry(1, takesThreeArgs);
 
-    var u1: {(a: any): any} = R.unary(takesOneArg);
-    var u2: {(a: any): any} = R.unary(takesTwoArgs);
-    var u3: {(a: any): any} = R.unary(takesThreeArgs);
+    let u1: {(a: any): any} = R.unary(takesOneArg);
+    let u2: {(a: any): any} = R.unary(takesTwoArgs);
+    let u3: {(a: any): any} = R.unary(takesThreeArgs);
 
     R.binary(takesTwoArgs);
     R.binary(takesThreeArgs);
 
-    var addTwoNumbers = function(a:number, b:number) { return a + b; }
-    var addTwoNumbersCurried = R.curry(addTwoNumbers);
+    let addTwoNumbers = function(a:number, b:number) { return a + b; }
+    let addTwoNumbersCurried = R.curry(addTwoNumbers);
 
-    var inc = addTwoNumbersCurried(1);
-    var z1:number = inc(2);
-    var z2:number = addTwoNumbersCurried(2,3);
+    let inc = addTwoNumbersCurried(1);
+    let z1:number = inc(2);
+    let z2:number = addTwoNumbersCurried(2,3);
 }
 
 // uncurry
@@ -185,11 +185,11 @@ class F2 {
 
 /* compose */
 () => {
-    var limit10 = function(x: number): boolean {
+    let limit10 = function(x: number): boolean {
         return x >= 10
     }
-    var func: (x: number) => boolean = R.compose(limit10, double)
-    var res: boolean = R.compose(limit10, double)(10)
+    let func: (x: number) => boolean = R.compose(limit10, double)
+    let res: boolean = R.compose(limit10, double)(10)
 
     const f0 = (s: string) => +s;      // string -> number
     const f1 = (n: number) => n === 1; // number -> boolean
@@ -207,7 +207,7 @@ class F2 {
 
 /* pipe */
 () => {
-    var func: (x: number) => string = R.pipe(double, double, shout)
+    let func: (x: number) => string = R.pipe(double, double, shout)
     // $ExpectType string
     R.pipe(double, double, shout)(10);
 
@@ -217,7 +217,7 @@ class F2 {
         R.join('')
     )(str);
 
-    var f = R.pipe(Math.pow, R.negate, R.inc);
+    let f = R.pipe(Math.pow, R.negate, R.inc);
     // $ExpectType number
     f(3, 4); // -(3^4) + 1
 }
@@ -249,10 +249,10 @@ class F2 {
 
 // useWith
 (() => {
-    var square = function(x: number) { return x * x; };
-    var add = function(a: number, b: number) { return a + b; };
+    let square = function(x: number) { return x * x; };
+    let add = function(a: number, b: number) { return a + b; };
     // Adds any number of arguments together
-    var addAll = function() {
+    let addAll = function() {
       return 0;
     };
 
@@ -262,7 +262,7 @@ class F2 {
 
 // clone
 (() => {
-  var printXPlusFive = function(x: number) { console.log(x + 5); };
+  let printXPlusFive = function(x: number) { console.log(x + 5); };
   R.forEach(printXPlusFive, [1, 2, 3]);
   let or: Object[] = R.clone([{},{},{}])
   // $ExpectType number[]
@@ -271,52 +271,52 @@ class F2 {
 
 // forEach
 // (() => {
-//   var printXPlusFive = function(x, i) { console.log(i + 5); };
+//   let printXPlusFive = function(x, i) { console.log(i + 5); };
 //   R.forEach.idx(printXPlusFive, [{name: 1}, {name: 2}, {name: 3}]);
 // })();
 
 // times
 (() => {
-    var i = function(x: number) {return x;};
+    let i = function(x: number) {return x;};
     R.times(i, 5);
 })();
 
 // pipe
 (() => {
-  var triple = function(x: number): number { return x * 3; };
-  var square = function(x: number): number { return x * x; };
-  var squareThenDoubleThenTriple = R.pipe(square, double, triple);
+  let triple = function(x: number): number { return x * 3; };
+  let square = function(x: number): number { return x * x; };
+  let squareThenDoubleThenTriple = R.pipe(square, double, triple);
   // $ExpectType number
   squareThenDoubleThenTriple(5); // => 150
 })();
 
 // partial
 (() => {
-    var multiply = function(a: number, b: number) { return a * b; };
-    var double = R.partial(multiply, [2]);
+    let multiply = function(a: number, b: number) { return a * b; };
+    let double = R.partial(multiply, [2]);
     double(2); // => 4
 
-    var greet = function(salutation: string, title: string, firstName: string, lastName: string) {
+    let greet = function(salutation: string, title: string, firstName: string, lastName: string) {
       return salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!';
     };
-    var sayHello = R.partial(greet, ['Hello']);
-    var sayHelloToMs = R.partial(sayHello, ['Ms.']);
+    let sayHello = R.partial(greet, ['Hello']);
+    let sayHelloToMs = R.partial(sayHello, ['Ms.']);
     // $ExpectType string
     sayHelloToMs('Jane', 'Jones'); // => 'Hello, Ms. Jane Jones!'
 
-    var greetMsJaneJones = R.partialRight(greet, ['Ms.', 'Jane', 'Jones']);
+    let greetMsJaneJones = R.partialRight(greet, ['Ms.', 'Jane', 'Jones']);
     // $ExpectType string
     greetMsJaneJones('Hello'); // => 'Hello, Ms. Jane Jones!'
 })();
 
 // memoize
 (() => {
-    var numberOfCalls = 0;
-    var trackedAdd = function(a: number, b: number) {
+    let numberOfCalls = 0;
+    let trackedAdd = function(a: number, b: number) {
       numberOfCalls += 1;
       return a + b;
     };
-    var memoTrackedAdd = R.memoize(trackedAdd);
+    let memoTrackedAdd = R.memoize(trackedAdd);
 
     // $ExpectType number
     memoTrackedAdd(1, 2); // => 3
@@ -341,7 +341,7 @@ class F2 {
 // once
 (() => {
     let x: number;
-    var addOneOnce = R.once(function(x: number){ return x + 1; });
+    let addOneOnce = R.once(function(x: number){ return x + 1; });
     // $ExpectType number
     addOneOnce(10); // => 11
     // $ExpectType number
@@ -350,7 +350,7 @@ class F2 {
 
 // wrap
 (() => {
-    var slashify = R.wrap(R.flip(R.add)('/'), function(f: Function, x: string) {
+    let slashify = R.wrap(R.flip(R.add)('/'), function(f: Function, x: string) {
       return R.match(/\/$/, x) ? x : f(x);
     });
 
@@ -366,13 +366,13 @@ class F2 {
     R.match(/([a-z]a)/g, 'bananas'); // => ['ba', 'na', 'na']
     // $ExpectType string[]
     R.match(/a/, 'b'); // => []
-    // var sr = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
+    // let sr = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
 }
 
 // reduce
 (() => {
-    var numbers = [1, 2, 3];
-    var add = function(a: number, b: number) {
+    let numbers = [1, 2, 3];
+    let add = function(a: number, b: number) {
         return a + b
     };
     // $ExpectType number
@@ -381,13 +381,13 @@ class F2 {
 
 // add
 (() => {
-    var plus3 = R.add(3);
+    let plus3 = R.add(3);
 })();
 
 // reduceRight
 (() => {
-    var pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc: [string, number], pair: [string, number]) {
+    let pairs = [ ['a', 1], ['b', 2], ['c', 3] ];
+    let flattenPairs = function(acc: [string, number], pair: [string, number]) {
       return acc.concat(pair);
     };
     let res: Array<number|string> = R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
@@ -395,20 +395,20 @@ class F2 {
 
 // reduceWhile
 () => {
-    var isOdd = (x: number, acc: number) => x % 2 === 1;
-    var xs = [1, 3, 5, 60, 777, 800];
+    let isOdd = (x: number, acc: number) => x % 2 === 1;
+    let xs = [1, 3, 5, 60, 777, 800];
     // $ExpectType number
     R.reduceWhile(isOdd, R.add, 0, xs); // => 9
 
-    var ys = [2, 4, 6]
+    let ys = [2, 4, 6]
     // $ExpectType number
     R.reduceWhile(isOdd, R.add, 111, ys); // => 111
 }
 
 // mapObjIndexed
 (() => {
-    var values = { x: 1, y: 2, z: 3 };
-    var prependKeyAndDouble = function(num: number, key: string, obj: any) {
+    let values = { x: 1, y: 2, z: 3 };
+    let prependKeyAndDouble = function(num: number, key: string, obj: any) {
         return key + (num * 2);
     };
     let res: R.Dictionary<string> = R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
@@ -450,13 +450,13 @@ class F2 {
     // $ExpectType number[]
     R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
 
-    var lastTwo = function(val: number, idx: number, list: number[]) {
+    let lastTwo = function(val: number, idx: number, list: number[]) {
       return list.length - idx <= 2;
     };
     // $ExpectType number[]
     filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); // => [0, 9]
 
-    var isOdd = function(n: number) {
+    let isOdd = function(n: number) {
       return n % 2 === 1;
     };
     // $ExpectType number[]
@@ -465,7 +465,7 @@ class F2 {
 
 // take, takeWhile
 (() => {
-    var isNotFour = function(x: number) {
+    let isNotFour = function(x: number) {
       return !(x === 4);
     };
     // $ExpectType number[]
@@ -476,7 +476,7 @@ class F2 {
 
 // unfold
 (() => {
-    var f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
+    let f = function(n: number) { return n > 50 ? false : [-n, n + 10] };
     // $ExpectType number[]
     R.unfold(f, 10); // => [-10, -20, -30, -40, -50]
     let b = R.unfold(f); // => [-10, -20, -30, -40, -50]
@@ -490,12 +490,12 @@ class F2 {
 
 // flip
 () => {
-    var mergeThree = function(a: number, b: number, c: number): number[] {
+    let mergeThree = function(a: number, b: number, c: number): number[] {
       return ([] as number[]).concat(a, b, c);  // strictNullChecks: must cast array to right type
     };
     // $ExpectType number[]
     mergeThree(1, 2, 3); // => [1, 2, 3]
-    var flipped = R.flip(mergeThree);
+    let flipped = R.flip(mergeThree);
     // $ExpectType number[]
     flipped(1, 2, 3); // => [2, 1, 3]
  }
@@ -506,8 +506,8 @@ class F2 {
 
 // all
 () => {
-    var lessThan2 = R.flip(R.lt)(2);
-    var lessThan3 = R.flip(R.lt)(3);
+    let lessThan2 = R.flip(R.lt)(2);
+    let lessThan3 = R.flip(R.lt)(3);
     // $ExpectType boolean
     R.all(lessThan2)([1, 2]); // => false
     // $ExpectType boolean
@@ -517,8 +517,8 @@ class F2 {
 // any
 () => {
     let b: boolean;
-    var lessThan0 = R.flip(R.lt)(0);
-    var lessThan2 = R.flip(R.lt)(2);
+    let lessThan0 = R.flip(R.lt)(0);
+    let lessThan2 = R.flip(R.lt)(2);
     // $ExpectType boolean
     R.any(lessThan0)([1, 2]); // => false
     // $ExpectType boolean
@@ -551,7 +551,7 @@ class F2 {
 
 // chain
 () => {
-    var duplicate = function(n: number) {
+    let duplicate = function(n: number) {
         return [n, n];
     };
     // $ExpectType number[]
@@ -593,7 +593,7 @@ class F2 {
     R.contains(4)([1, 2, 3]); // => false
     // $ExpectType boolean
     R.contains({})([{}, {}]); // => false
-    var obj = {};
+    let obj = {};
     // $ExpectType boolean
     R.contains(obj)([{}, obj, {}]); // => true
 }
@@ -625,14 +625,14 @@ class F2 {
 
 // dropLastWhile
 (() => {
-    var lteThree = (x: number) => x <= 3;
+    let lteThree = (x: number) => x <= 3;
     // $ExpectType number[]
     R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
 });
 
 // dropWhile
 () => {
-    var lteTwo = function(x: number) {
+    let lteTwo = function(x: number) {
         return x <= 2;
     };
     // $ExpectType number[]
@@ -643,18 +643,18 @@ class F2 {
 
 // filter
 () => {
-    var isEven = function(n: number) {
+    let isEven = function(n: number) {
         return n % 2 === 0;
     };
     // filter works with lists...
     // $ExpectType number[]
     R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
-    var isEvenFn = R.filter(isEven);
+    let isEvenFn = R.filter(isEven);
     isEvenFn([1, 2, 3, 4]);
     // ... but also objects
     // $ExpectType { [k: string]: number }
     R.filter(isEven, {a:1, b:2, c:3, d:4}); // => {b:2, d:4}
-    var isEvenFnObj = R.filter(isEven);
+    let isEvenFnObj = R.filter(isEven);
     // see that we did not break anything
     // and we kept type information
     // $ExpectType number[]
@@ -665,21 +665,21 @@ class F2 {
 
 // addIndex
 () => {
-    var lastTwo = function(val: number, idx: number, list: number[]) {
+    let lastTwo = function(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     };
-    var filterIndexed = R.addIndex(R.filter);
+    let filterIndexed = R.addIndex(R.filter);
 
     // $ExpectType number[]
     filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); // => [0, 9]
-    var lastTwoFn = filterIndexed(lastTwo);
+    let lastTwoFn = filterIndexed(lastTwo);
     // $ExpectType number[]
     lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 }
 
 // find, propEq
 () => {
-    var xs = [{a: 1}, {a: 2}, {a: 3}];
+    let xs = [{a: 1}, {a: 2}, {a: 3}];
     // $ExpectType { [k: string]: number }
     R.find(R.propEq('a', 2))(xs); // => {a: 2}
     u = R.find(R.propEq('a', 4))(xs); // => undefined
@@ -728,38 +728,38 @@ class F2 {
 
 // pathEq
 () => {
-    var user1 = { address: { zipCode: 90210 } };
-    var user2 = { address: { zipCode: 55555 } };
-    var user3 = { name: 'Bob' };
-    var users = [ user1, user2, user3 ];
-    var isFamous = R.pathEq(['address', 'zipCode'], 90210);
+    let user1 = { address: { zipCode: 90210 } };
+    let user2 = { address: { zipCode: 55555 } };
+    let user3 = { name: 'Bob' };
+    let users = [ user1, user2, user3 ];
+    let isFamous = R.pathEq(['address', 'zipCode'], 90210);
     const a: Object[] = R.filter(isFamous, users); // => [ user1 ]
 }
 
 // propEq
 () => {
-    var xs: {[key:string]: string} = {a: '1', b: '0'};
+    let xs: {[key:string]: string} = {a: '1', b: '0'};
     // $ExpectType boolean
     R.propEq('a', '1', xs);// => true
     // $ExpectType boolean
     R.propEq('a', '4', xs); // => false
 }
 () => {
-    var xs: {[key:string]: number} = {a: 1, b: 0};
+    let xs: {[key:string]: number} = {a: 1, b: 0};
     // $ExpectType boolean
     R.propEq('a', 1, xs);// => true
     // $ExpectType boolean
     R.propEq('a', 4, xs); // => false
 }
 () => {
-    var xs = {a: '1', b: '0'};
+    let xs = {a: '1', b: '0'};
     // $ExpectType boolean
     R.propEq('a', '1', xs);// => true
     // $ExpectType boolean
     R.propEq('a', '4', xs); // => false
 }
 () => {
-    var xs = {a: 1, b: 0};
+    let xs = {a: 1, b: 0};
     // $ExpectType boolean
     R.propEq('a', 1, xs);// => true
     // $ExpectType boolean
@@ -767,14 +767,14 @@ class F2 {
 }
 interface Obj { a: number; b: number };
 () => {
-    var xs: Obj = {a: 1, b: 0};
+    let xs: Obj = {a: 1, b: 0};
     R.propEq('a', 1, xs);// => true
     R.propEq('a', 4, xs); // => false
 }
 
 // forEach
 () => {
-    var printXPlusFive = function(x: number) { console.log(x + 5); };
+    let printXPlusFive = function(x: number) { console.log(x + 5); };
     R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
     R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
     //-> 6
@@ -784,21 +784,21 @@ interface Obj { a: number; b: number };
 
 // addIndex?
 () => {
-    var plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
+    let plusFive = function(num: number, idx: number, list: number[]) { list[idx] = num + 5 };
     // $ExpectType number[]
     R.addIndex(R.forEach)(plusFive)([1, 2, 3]); // => [6, 7, 8]
 }
 
 // groupBy
 () => {
-    var byGrade = R.groupBy(function(student: {score: number; name: string}) {
-        var score = student.score;
+    let byGrade = R.groupBy(function(student: {score: number; name: string}) {
+        let score = student.score;
         return score < 65 ? 'F' :
         score < 70 ? 'D' :
         score < 80 ? 'C' :
         score < 90 ? 'B' : 'A';
     });
-    var students = [{name: 'Abby', score: 84},
+    let students = [{name: 'Abby', score: 84},
       {name: 'Eddy', score: 58},
       {name: 'Jack', score: 69}];
     let res: R.Dictionary<Object[]> = byGrade(students);
@@ -890,14 +890,14 @@ interface Obj { a: number; b: number };
 
 // intersectionWith
 () => {
-    var buffaloSpringfield = [
+    let buffaloSpringfield = [
       {id: 824, name: 'Richie Furay'},
       {id: 956, name: 'Dewey Martin'},
       {id: 313, name: 'Bruce Palmer'},
       {id: 456, name: 'Stephen Stills'},
       {id: 177, name: 'Neil Young'}
     ];
-    var csny = [
+    let csny = [
       {id: 204, name: 'David Crosby'},
       {id: 456, name: 'Stephen Stills'},
       {id: 539, name: 'Graham Nash'},
@@ -915,8 +915,8 @@ interface Obj { a: number; b: number };
 
 // into
 () => {
-    var numbers = [1, 2, 3, 4];
-    var transducer = R.compose(R.map(R.add(1)), R.take(2));
+    let numbers = [1, 2, 3, 4];
+    let transducer = R.compose(R.map(R.add(1)), R.take(2));
 
     // $ExpectType number[]
     R.into([], transducer, numbers); // => [2, 3]
@@ -925,7 +925,7 @@ interface Obj { a: number; b: number };
     // $ExpectType number[]
     R.into([], transducer)(numbers); // => [2, 3]
 
-    var intoArray = R.into([]);
+    let intoArray = R.into([]);
     // $ExpectType number[]
     intoArray(transducer, numbers); // => [2, 3]
     // $ExpectType number[]
@@ -934,7 +934,7 @@ interface Obj { a: number; b: number };
 
 // join
 () => {
-    var spacer = R.join(' ');
+    let spacer = R.join(' ');
     // $ExpectType string
     spacer(['a', 2, 3.4]);   // => 'a 2 3.4'
     // $ExpectType string
@@ -963,7 +963,7 @@ interface Obj { a: number; b: number };
 
 // lensIndex, set, view, over
 () => {
-    var headLens = R.lensIndex(0);
+    let headLens = R.lensIndex(0);
     // $ExpectType number
     headLens([10, 20, 30, 40]); // => 10
     let res: Array<number|string> = headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40]   // wrong, currently naively assumes number[], yet no error...
@@ -999,18 +999,18 @@ interface Obj { a: number; b: number };
     // I'm sorry, I have no clue how to make this example work with proper functor typing
     // const stringFunctor = {
     //     map: (fn: (c: number) => number) => {
-    //         var chars = "Ifmmp!Xpsme".split("");
+    //         let chars = "Ifmmp!Xpsme".split("");
     //         return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
     //     }
     // };
-    // var s = R.map((x: number) => x-1, stringFunctor); // => "Hello World"
+    // let s = R.map((x: number) => x-1, stringFunctor); // => "Hello World"
 }
 
 // mapAccum
 () => {
     let srr: Array<string[]|string>;
-    var digits = ['1', '2', '3', '4'];
-    var append = function(a: string, b: string): [string, string]{
+    let digits = ['1', '2', '3', '4'];
+    let append = function(a: string, b: string): [string, string]{
         return [a + b, a + b];
     }
     srr = R.mapAccum(append, '0', digits); // => ['01234', ['01', '012', '0123', '01234']]
@@ -1022,8 +1022,8 @@ interface Obj { a: number; b: number };
 // mapAccumRight
 () => {
     let srr: Array<string[]|string>;
-    var digits = ['1', '2', '3', '4'];
-    var append = function(a: string, b: string): [string, string] {
+    let digits = ['1', '2', '3', '4'];
+    let append = function(a: string, b: string): [string, string] {
         return [a + b, a + b];
     }
     srr = R.mapAccumRight(append, '0', digits); // => ['04321', ['04321', '0432', '043', '04']]
@@ -1034,7 +1034,7 @@ interface Obj { a: number; b: number };
 
 // addIndex
 () => {
-    var squareEnds = function(elt: number, idx: number, list: number[]) {
+    let squareEnds = function(elt: number, idx: number, list: number[]) {
         if (idx === 0 || idx === list.length - 1) {
             return elt * elt;
         }
@@ -1058,7 +1058,7 @@ interface Obj { a: number; b: number };
 
 // nth
 () => {
-    var list = ['foo', 'bar', 'baz', 'quux'];
+    let list = ['foo', 'bar', 'baz', 'quux'];
     // $ExpectType string
     R.nth(1, list); // => 'bar'
     // $ExpectType string
@@ -1106,8 +1106,8 @@ interface Obj { a: number; b: number };
 
 // reduce
 () => {
-    var numbers = [1, 2, 3];
-    var add = function(a: number, b: number) {
+    let numbers = [1, 2, 3];
+    let add = function(a: number, b: number) {
         return a + b;
     };
     // $ExpectType number
@@ -1146,9 +1146,9 @@ interface Student {
 
 // addIndex
 () => {
-    var reduceIndexed = R.addIndex(R.reduce);
-    var letters = ['a', 'b', 'c'];
-    var objectify = function(accObject: {[elem:string]: number}, elem: string, idx: number, list: string[]) {
+    let reduceIndexed = R.addIndex(R.reduce);
+    let letters = ['a', 'b', 'c'];
+    let objectify = function(accObject: {[elem:string]: number}, elem: string, idx: number, list: string[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -1165,8 +1165,8 @@ interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 type Pair = KeyValuePair<string, number>;
 () => {
     let mixed: Array<string|number>;
-    var pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
-    var flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
+    let pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
+    let flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
         return acc.concat(pair);
     };
     mixed = R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
@@ -1176,7 +1176,7 @@ type Pair = KeyValuePair<string, number>;
 
 // reject
 () => {
-    var isOdd = function(n: number) {
+    let isOdd = function(n: number) {
         return n % 2 === 1;
     };
     // $ExpectType number[]
@@ -1212,8 +1212,8 @@ type Pair = KeyValuePair<string, number>;
 () => {
     // $ExpectType string[]
     R.repeat('hi', 5); // => ['hi', 'hi', 'hi', 'hi', 'hi']
-    var obj = {};
-    var repeatedObjs = R.repeat(obj, 5); // => [{}, {}, {}, {}, {}]
+    let obj = {};
+    let repeatedObjs = R.repeat(obj, 5); // => [{}, {}, {}, {}, {}]
     // $ExpectType boolean
     repeatedObjs[0] === repeatedObjs[1]; // => true
 }
@@ -1232,7 +1232,7 @@ type Pair = KeyValuePair<string, number>;
 
 // scan
 () => {
-    var numbers = [1, 2, 3, 4];
+    let numbers = [1, 2, 3, 4];
     // $ExpectType number[]
     R.scan(R.multiply, 1, numbers); // => [1, 1, 2, 6, 24]
     // $ExpectType number[]
@@ -1243,7 +1243,7 @@ type Pair = KeyValuePair<string, number>;
 
 // slice
 () => {
-    var xs = R.range(0, 10);
+    let xs = R.range(0, 10);
     // $ExpectType number[]
     R.slice(2, 5, xs); // => [2, 3, 4]
     // $ExpectType number[]
@@ -1251,7 +1251,7 @@ type Pair = KeyValuePair<string, number>;
     // $ExpectType number[]
     R.slice(2)(5, xs); // => [2, 3, 4]
 
-    var str = 'Hello World';
+    let str = 'Hello World';
     // $ExpectType string
     R.slice(2, 5, str); // => 'llo'
     // $ExpectType string
@@ -1262,7 +1262,7 @@ type Pair = KeyValuePair<string, number>;
 
 // sort
 () => {
-    var diff = function(a: number, b: number) { return a - b; };
+    let diff = function(a: number, b: number) { return a - b; };
     // $ExpectType number[]
     R.sort(diff, [4,2,7,5]); // => [2, 4, 5, 7]
     // $ExpectType number[]
@@ -1297,10 +1297,10 @@ type Pair = KeyValuePair<string, number>;
     // $ExpectType number[]
     R.take(3,[1,2,3,4,5]); // => [1,2,3]
 
-    var members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
+    let members= [ "Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis","Joe Morello","Norman Bates",
     "Eugene Wright","Gerry Mulligan","Jack Six","Alan Dawson","Darius Brubeck","Chris Brubeck",
     "Dan Brubeck","Bobby Militello","Michael Moore","Randy Jones"];
-    var takeFive = R.take(5);
+    let takeFive = R.take(5);
     // $ExpectType string[]
     takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 }
@@ -1308,7 +1308,7 @@ type Pair = KeyValuePair<string, number>;
     // $ExpectType string
     R.take(3,"Example"); // => "Exa"
 
-    var takeThree = R.take(3);
+    let takeThree = R.take(3);
     // $ExpectType string
     takeThree("Example"); // => "Exa"
 }
@@ -1334,7 +1334,7 @@ type Pair = KeyValuePair<string, number>;
 
 // takeWhile
 () => {
-    var isNotFour = function(x: number) {
+    let isNotFour = function(x: number) {
         return !(x === 4);
     };
     // $ExpectType number[]
@@ -1393,9 +1393,9 @@ type Pair = KeyValuePair<string, number>;
 
 // transduce
 () => {
-    var numbers = [1, 2, 3, 4];
-    var transducer = R.compose(R.map(R.add(1)), R.take(2));
-    var fn = R.flip<number, number[], number[]>(R.append);
+    let numbers = [1, 2, 3, 4];
+    let transducer = R.compose(R.map(R.add(1)), R.take(2));
+    let fn = R.flip<number, number[], number[]>(R.append);
     // $ExpectType number[]
     R.transduce(transducer, fn, [] as number[], numbers); // => [2, 3]   // strictNullChecks: must annotate empty array type
     // $ExpectType number[]
@@ -1441,7 +1441,7 @@ type Pair = KeyValuePair<string, number>;
 
 // uniqWith
 () => {
-    var strEq = function(a: any, b: any) { return String(a) === String(b); };
+    let strEq = function(a: any, b: any) { return String(a) === String(b); };
     // $ExpectType number[]
     R.uniqWith(strEq, [1, '1', 2, 1]); // => [1, 2]
     // $ExpectType number[]
@@ -1486,7 +1486,7 @@ type Pair = KeyValuePair<string, number>;
 
 // zipWith
 () => {
-    var f = function(x:number, y:string) {
+    let f = function(x:number, y:string) {
         // ...
     };
     // $ExpectType any[]
@@ -1540,8 +1540,8 @@ type Pair = KeyValuePair<string, number>;
 
 // clone
 () => {
-    var obj1 = [{}, {}, {}];
-    var obj2 = [{a:1}, {a:2}, {a:3}];
+    let obj1 = [{}, {}, {}];
+    let obj2 = [{a:1}, {a:2}, {a:3}];
     // $ExpectType any[]
     R.clone(obj1);
     const a2: {a: number}[] = R.clone(obj2);
@@ -1556,8 +1556,8 @@ type Pair = KeyValuePair<string, number>;
 
 // eqProps
 () => {
-    var o1 = { a: 1, b: 2, c: 3, d: 4 };
-    var o2 = { a: 10, b: 20, c: 3, d: 40 };
+    let o1 = { a: 1, b: 2, c: 3, d: 4 };
+    let o2 = { a: 10, b: 20, c: 3, d: 40 };
     // $ExpectType boolean
     R.eqProps('a', o1, o2); // => false
     // $ExpectType boolean
@@ -1568,8 +1568,8 @@ type Pair = KeyValuePair<string, number>;
 
 // evolve
 () => {
-    var tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
-    var transformations = {
+    let tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
+    let transformations = {
         firstName: R.trim,
         lastName: R.trim, // Will not get invoked.
         data: {elapsed: R.add(1), remaining: R.add(-1)}
@@ -1609,7 +1609,7 @@ class Rectangle {
     }
 };
 () => {
-    var square = new Rectangle(2, 2);
+    let square = new Rectangle(2, 2);
     // $ExpectType boolean
     R.hasIn('width', square);  // => true
     // $ExpectType boolean
@@ -1620,7 +1620,7 @@ class Rectangle {
 
 // invert
 () => {
-    var raceResultsByFirstName = {
+    let raceResultsByFirstName = {
       first: 'alice',
       second: 'jake',
       third: 'alice',
@@ -1654,7 +1654,7 @@ class Rectangle {
 
 // keysIn
 () => {
-    var f = new F();
+    let f = new F();
     // $ExpectType string[]
     R.keysIn(f); // => ['x', 'y']
 }
@@ -1666,9 +1666,9 @@ class Rectangle {
       y: number;
     }
     let z: xy;
-    // var xLens = R.lens(R.prop('x'), R.assoc('x'));
-    // var xLens = R.lens<number, xy>(R.prop('x'), R.assoc('x'));
-    var xLens = R.lens<number>(R.prop('x'))(R.assoc('x'));
+    // let xLens = R.lens(R.prop('x'), R.assoc('x'));
+    // let xLens = R.lens<number, xy>(R.prop('x'), R.assoc('x'));
+    let xLens = R.lens<number>(R.prop('x'))(R.assoc('x'));
     // ^ works with only 1 generic, for curried version managed to split the inferred generic from the manual generic
     // $ExpectType number
     R.view(xLens, {x: 1, y: 2});            // => 1
@@ -1682,7 +1682,7 @@ class Rectangle {
 
 // lensIndex
 () => {
-    var headLens = R.lensIndex(0);
+    let headLens = R.lensIndex(0);
     // $ExpectType string
     R.view(headLens, ['a', 'b', 'c']);            // => 'a'
     // $ExpectType string[]
@@ -1693,7 +1693,7 @@ class Rectangle {
 
 // lensProp
 () => {
-    var xLens = R.lensProp('x');
+    let xLens = R.lensProp('x');
     // $ExpectType number
     R.view(xLens, {x: 1, y: 2});            // => 1
     // $ExpectType { [k: string]: number }
@@ -1720,30 +1720,30 @@ class Rectangle {
 
 // keysIn
 () => {
-    var f = new F();
+    let f = new F();
     // $ExpectType string[]
     R.keysIn(f); // => ['x', 'y']
 }
 
 // lens
 () => {
-    var headLens = R.lens(
+    let headLens = R.lens(
       function get(arr: number[]) { return arr[0]; },
       function set(val: number, arr: number[]) { return [val].concat(arr.slice(1)); }
     );
     headLens([10, 20, 30, 40]); // => 10
     // headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40] // errors: [ts] Argument of type '"mu"' is not assignable to parameter of type 'number'.
 
-    var phraseLens = R.lens(
+    let phraseLens = R.lens(
       function get(obj: any) { return obj.phrase; },
       function set(val: string, obj: any) {
-        var out = R.clone(obj);
+        let out = R.clone(obj);
         out.phrase = val;
         return out;
       }
     );
-    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    var obj2 = { phrase: "What's all this, then?"};
+    let obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
+    let obj2 = { phrase: "What's all this, then?"};
     // $ExpectType string
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
@@ -1754,9 +1754,9 @@ class Rectangle {
 
 // lensProp
 () => {
-    var phraseLens = R.lensProp('phrase');
-    var obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
-    var obj2 = { phrase: "What's all this, then?"};
+    let phraseLens = R.lensProp('phrase');
+    let obj1 = { phrase: 'Absolute filth . . . and I LOVED it!'};
+    let obj2 = { phrase: "What's all this, then?"};
     // $ExpectType string
     phraseLens(obj1); // => 'Absolute filth . . . and I LOVED it!'
     // $ExpectType string
@@ -1770,7 +1770,7 @@ class Rectangle {
     // $ExpectType { [k: string]: any }
     R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
     // => { 'name': 'fred', 'age': 40 }
-    var resetToDefault = R.flip(R.merge)({x: 0});
+    let resetToDefault = R.flip(R.merge)({x: 0});
     // $ExpectType { [k: string]: number }
     resetToDefault({x: 5, y: 2}); // => {x: 0, y: 2}
 }
@@ -1834,18 +1834,18 @@ class Rectangle {
 
 // pickBy
 () => {
-    var isPositive = function(n: number) {
+    let isPositive = function(n: number) {
         return n > 0;
     };
     // $ExpectType { [k: string]: number }
     R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5}); // => {a: 1, b: 2, e: 5}
-    var containsBackground = function(val: any) {
+    let containsBackground = function(val: any) {
         return val.bgcolor;
     };
-    var colors = {1: {color: 'read'}, 2: {color: 'black', bgcolor: 'yellow'}};
+    let colors = {1: {color: 'read'}, 2: {color: 'black', bgcolor: 'yellow'}};
     let res: { 2: R.Dictionary<string> } = R.pickBy(containsBackground, colors); // => {2: {color: 'black', bgcolor: 'yellow'}}
 
-    var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
+    let isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
     // $ExpectType { [k: string]: number }
     R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); // => {A: 3, B: 4}
 }
@@ -1856,9 +1856,9 @@ class Rectangle {
     // $ExpectType { [k: string]: number }
     R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
     // the following should errror: e/f are not keys in these objects
-    // var no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
-    // var no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
-    // var no = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); // => {a: 1}
+    // let no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
+    // let no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
+    // let no = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]); // => {a: 1}
 }
 
 // objOf
@@ -1896,7 +1896,7 @@ class Rectangle {
 
 // over, lensIndex
 () => {
-    var headLens = R.lensIndex(0);
+    let headLens = R.lensIndex(0);
     // $ExpectType string[]
     R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); // => ['FOO', 'bar', 'baz']
 }
@@ -1915,7 +1915,7 @@ class Rectangle {
 
 // pickBy
 () => {
-    var isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
+    let isUpperCase = function(val: number, key: string) { return key.toUpperCase() === key; }
     // $ExpectType { [k: string]: number }
     R.pickBy(isUpperCase, {a: 1, b: 2, A: 3, B: 4}); // => {A: 3, B: 4}
 }
@@ -1923,9 +1923,9 @@ class Rectangle {
 // project
 () => {
     let x: { name: string, grade: number }[];
-    var abby = {name: 'Abby', age: 7, hair: 'blond', grade: 2};
-    var fred = {name: 'Fred', age: 12, hair: 'brown', grade: 7};
-    var kids = [abby, fred];
+    let abby = {name: 'Abby', age: 7, hair: 'blond', grade: 2};
+    let fred = {name: 'Fred', age: 12, hair: 'brown', grade: 7};
+    let kids = [abby, fred];
     x = R.project(['name', 'grade'], kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
 }
 
@@ -1939,12 +1939,12 @@ class Rectangle {
 
 // propOr
 () => {
-    var alice = {
+    let alice = {
       name: 'ALICE',
       age: 101
     };
-    var favorite = R.prop('favoriteLibrary');
-    var favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
+    let favorite = R.prop('favoriteLibrary');
+    let favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
     // u = favorite(alice);  // => undefined  // now errors
     // $ExpectType string
@@ -1967,7 +1967,7 @@ class Rectangle {
     R.props(['x', 'y'], {x: 1, y: 2}); // => [1, 2]
     let res: Array<number|undefined> = R.props(['c', 'a', 'b'], {b: 2, a: 1}); // => [undefined, 1, 2]
 
-    var fullName = R.compose(R.join(' '), R.props(['first', 'last']));
+    let fullName = R.compose(R.join(' '), R.props(['first', 'last']));
     // $ExpectType string
     fullName({last: 'Bullet-Tooth', age: 33, first: 'Tony'}); // => 'Tony Bullet-Tooth'
 }
@@ -1979,7 +1979,7 @@ class Rectangle {
 
 // toPairsIn
 () => {
-    var f = new F();
+    let f = new F();
     const a1: [string, string][] = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
     const a2: [string, string][] = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
 }
@@ -1992,14 +1992,14 @@ class Rectangle {
 
 // valuesIn
 () => {
-    var f = new F();
+    let f = new F();
     // $ExpectType string[]
     R.valuesIn(f); // => ['X', 'Y']
 }
 
 // where
 () => {
-    var spec = {x: 2};
+    let spec = {x: 2};
     // $ExpectType boolean
     R.where(spec, {w: 10, x: 2, y: 300}); // => true
     // $ExpectType boolean
@@ -2013,14 +2013,14 @@ class Rectangle {
     // per http://stackoverflow.com/a/29803848/632495
     // will need a work around.
 
-    var spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
+    let spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
     // $ExpectType boolean
     R.where(spec2, {x: 2, y: 7}); // => false
     // $ExpectType boolean
     R.where(spec2, {x: 3, y: 8}); // => true
 
     let xys: { x: number, y: number }[];
-    var xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
+    let xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
     xys = R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
     xys = R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 }
@@ -2028,7 +2028,7 @@ class Rectangle {
 // whereEq
 () => {
     // pred :: Object -> Boolean
-    var pred = R.whereEq({a: 1, b: 2});
+    let pred = R.whereEq({a: 1, b: 2});
     // $ExpectType boolean
     pred({a: 1});              // => false
     // $ExpectType boolean
@@ -2049,7 +2049,7 @@ class Rectangle {
 
 // mapIndexed, addIndex
 () => {
-    var mapIndexed = R.addIndex<string,string>(R.map);
+    let mapIndexed = R.addIndex<string,string>(R.map);
     // $ExpectType string[]
     mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
     // $ExpectType string[]
@@ -2062,7 +2062,7 @@ class Rectangle {
 
 // addIndex
 () => {
-    var reduceIndexed = R.addIndex(R.reduce);
+    let reduceIndexed = R.addIndex(R.reduce);
     // $ExpectType string[]
     reduceIndexed(function(acc: string, val: string, idx: number) {
           return acc + ',' + idx + '-' + val;
@@ -2075,7 +2075,7 @@ class Rectangle {
 
 // always
 () => {
-    var t = R.always('Tee');
+    let t = R.always('Tee');
     // $ExpectType string
     t(); // => 'Tee'
 }
@@ -2090,7 +2090,7 @@ class Rectangle {
 
 // apply
 () => {
-    var nums = [1, 2, 3, -99, 42, 6, 7];
+    let nums = [1, 2, 3, -99, 42, 6, 7];
     // $ExpectType number
     R.apply(Math.max, nums); // => 42
     // $ExpectType number
@@ -2108,7 +2108,7 @@ class Rectangle {
 
 // binary
 () => {
-    var takesThreeArgs = function(a: number, b: number, c: number) {
+    let takesThreeArgs = function(a: number, b: number, c: number) {
         return [a, b, c];
     };
     // $ExpectType number
@@ -2116,12 +2116,12 @@ class Rectangle {
     // $ExpectType number[]
     takesThreeArgs(1, 2, 3); // => [1, 2, 3]
 
-    var takesTwoArgs = R.binary(takesThreeArgs);
+    let takesTwoArgs = R.binary(takesThreeArgs);
     // $ExpectType number
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
     // errors: "Supplied parameters do not match any signature of call target." (can only use 2 arguments now)
-    // var nr = takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
+    // let nr = takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
 }
 
 // pipe, inc, negate
@@ -2134,10 +2134,10 @@ class Rectangle {
 // comparator
 () => {
     type T = {age: number};
-    var cmp = R.comparator(function(a: T, b: T) {
+    let cmp = R.comparator(function(a: T, b: T) {
       return a.age < b.age;
     });
-    var people = [
+    let people = [
       {name: 'Agy', age:33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
     ];
     let res: { age: number, name: string }[] = R.sort(cmp, people);
@@ -2145,15 +2145,15 @@ class Rectangle {
 
 // converge
 () => {
-    var add = function(a: number, b: number) { return a + b; };
-    var multiply = function(a: number, b: number) { return a * b; };
-    var subtract = function(a: number, b: number) { return a - b; };
+    let add = function(a: number, b: number) { return a + b; };
+    let multiply = function(a: number, b: number) { return a * b; };
+    let subtract = function(a: number, b: number) { return a - b; };
 
     //≅ multiply( add(1, 2), subtract(1, 2) );
     // $ExpectType number
     R.converge(multiply, [ add, subtract ])(1, 2); // => -3
 
-    var add3 = function(a: number, b: number, c: number) { return a + b + c; };
+    let add3 = function(a: number, b: number, c: number) { return a + b + c; };
     // $ExpectType number
     R.converge(add3, [ multiply, add, subtract ])(1, 2); // => 4
 }
@@ -2193,15 +2193,15 @@ class Rectangle {
 // construct, constructN
 (() => {
     type circle = { r: number, colors: string[] };
-    var Circle = function(r: number) {
+    let Circle = function(r: number) {
         this.r = r;
         this.colors = Array.prototype.slice.call(arguments, 1);
     };
     Circle.prototype.area = function() {return Math.PI * Math.pow(this.r, 2);};
-    var circleN = R.constructN(2, Circle);
-    var c1: circle = circleN(1, 'red');
-    var circle = R.construct(Circle);
-    var c1: circle = circle(1, 'red');
+    let circleN = R.constructN(2, Circle);
+    let c1: circle = circleN(1, 'red');
+    let circle = R.construct(Circle);
+    let c1: circle = circle(1, 'red');
 })();
 
 /*****************************************************************
@@ -2210,8 +2210,8 @@ class Rectangle {
 
 // countBy
 () => {
-    var numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
-    var letters = R.split('', 'abcABCaaaBBc');
+    let numbers = [1.0, 1.1, 1.2, 2.0, 3.0, 2.2];
+    let letters = R.split('', 'abcABCaaaBBc');
     // $ExpectType { [k: string]: number }
     R.countBy(Math.floor)(numbers);    // => {'1': 3, '2': 2, '3': 1}
     // $ExpectType { [k: string]: number }
@@ -2230,8 +2230,8 @@ class Rectangle {
 () => {
     let res: {a:number}[];
     function cmp(x: any, y: any) { return x.a === y.a; }
-    var l1 = [{a: 1}, {a: 2}, {a: 3}];
-    var l2 = [{a: 3}, {a: 4}];
+    let l1 = [{a: 1}, {a: 2}, {a: 3}];
+    let l2 = [{a: 3}, {a: 4}];
     res = R.differenceWith(cmp, l1, l2); // => [{a: 1}, {a: 2}]
     res = R.differenceWith(cmp)(l1, l2); // => [{a: 1}, {a: 2}]
     res = R.differenceWith(cmp)(l1)(l2); // => [{a: 1}, {a: 2}]
@@ -2246,8 +2246,8 @@ class Rectangle {
     // $ExpectType boolean
     R.equals([1, 2, 3], [1, 2, 3]); // => true
 
-    var a: any = {}; a.v = a;
-    var b: any = {}; b.v = b;
+    let a: any = {}; a.v = a;
+    let b: any = {}; b.v = b;
     // $ExpectType boolean
     R.equals(a, b); // => true
 }
@@ -2266,7 +2266,7 @@ class Rectangle {
 
 // identical
 () => {
-    var o = {};
+    let o = {};
     // $ExpectType boolean
     R.identical(o, o); // => true
     // $ExpectType boolean
@@ -2291,20 +2291,20 @@ class Rectangle {
 
 // sortBy
 () => {
-    var sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
-    var alice = {
+    let sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
+    let alice = {
       name: 'ALICE',
       age: 101
     };
-    var bob = {
+    let bob = {
       name: 'Bob',
       age: -10
     };
-    var clara = {
+    let clara = {
       name: 'clara',
       age: 314.159
     };
-    var people = [clara, bob, alice];
+    let people = [clara, bob, alice];
     let res: { name: string, age: number }[] = sortByNameCaseInsensitive(people); // => [alice, bob, clara]
 }
 
@@ -2343,11 +2343,11 @@ class Rectangle {
     // $ExpectType number
     R.divide(71, 100); // => 0.71
 
-    var half = R.flip(R.divide)(2);
+    let half = R.flip(R.divide)(2);
     // $ExpectType number
     half(42); // => 21
 
-    var reciprocal = R.divide(1);
+    let reciprocal = R.divide(1);
     // $ExpectType number
     reciprocal(4);   // => 0.25
 }
@@ -2433,13 +2433,13 @@ class Rectangle {
     // $ExpectType number
     R.mathMod(17, 5.3); // => NaN
 
-    var clock = R.flip(R.mathMod)(12);
+    let clock = R.flip(R.mathMod)(12);
     // $ExpectType number
     clock(15); // => 3
     // $ExpectType number
     clock(24); // => 0
 
-    var seventeenMod = R.mathMod(17);
+    let seventeenMod = R.mathMod(17);
     // $ExpectType number
     seventeenMod(3);  // => 2
 }
@@ -2456,7 +2456,7 @@ class Rectangle {
 () => {
     let res: { x: number };
     function cmp(obj: typeof res) { return obj.x; }
-    var a = {x: 1}, var b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
+    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x:"z"};
     res = R.maxBy(cmp, a, c); // => {x: 3}
     res = R.maxBy(cmp)(a, c); // => {x: 3}
     res = R.maxBy(cmp)(a)(b);
@@ -2491,7 +2491,7 @@ class Rectangle {
 () => {
     let res: { x: number };
     function cmp(obj: {x: typeof res}) { return obj.x; }
-    var a = {x: 1}, var b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
+    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: "a"}, e = {x: "z"};
     res = R.minBy(cmp, a, b); // => {x: 1}
     res = R.minBy(cmp)(a, b); // => {x: 1}
     res = R.minBy(cmp)(a)(c);
@@ -2508,7 +2508,7 @@ class Rectangle {
     // $ExpectType number
     R.modulo(17, -3); // => 2
 
-    var isOdd = R.flip(R.modulo)(2);
+    let isOdd = R.flip(R.modulo)(2);
     // $ExpectType number
     isOdd(42); // => 0
     // $ExpectType number
@@ -2517,8 +2517,8 @@ class Rectangle {
 
 // multiply
 () => {
-    var double = R.multiply(2);
-    var triple = R.multiply(3);
+    let double = R.multiply(2);
+    let triple = R.multiply(3);
     // $ExpectType number
     double(3);       // =>  6
     // $ExpectType number
@@ -2544,11 +2544,11 @@ class Rectangle {
     // $ExpectType number
     R.subtract(10, 8); // => 2
 
-    var minus5 = R.flip(R.subtract)(5);
+    let minus5 = R.flip(R.subtract)(5);
     // $ExpectType number
     minus5(17); // => 12
 
-    var complementaryAngle = R.subtract(90);
+    let complementaryAngle = R.subtract(90);
     // $ExpectType number
     complementaryAngle(30); // => 60
     // $ExpectType number
@@ -2647,9 +2647,9 @@ class Rectangle {
 
 // allPass
 () => {
-    var gt10 = function(x: number) { return x > 10; };
-    var even = function(x: number) { return x % 2 === 0};
-    var f = R.allPass([gt10, even]);
+    let gt10 = function(x: number) { return x > 10; };
+    let even = function(x: number) { return x % 2 === 0};
+    let f = R.allPass([gt10, even]);
     // $ExpectType boolean
     f(11); // => false
     // $ExpectType boolean
@@ -2665,24 +2665,24 @@ class Rectangle {
     // $ExpectType number
     R.and(0)([]); // => 0
     let res: null = R.and(null, ''); // => null
-    var Why: any = (function(val: boolean) {
-        var why: any;
+    let Why: any = (function(val: boolean) {
+        let why: any;
         why.val = val;
         why.and = function(x: boolean) {
             return this.val && x;
         }
         return Why;
     })(true);
-    var why = new Why(true);
+    let why = new Why(true);
     // $ExpectType boolean
     R.and(why, false); // false
 }
 
 // anyPass
 () => {
-    var gt10 = function(x: number) { return x > 10; };
-    var even = function(x: number) { return x % 2 === 0};
-    var f = R.anyPass([gt10, even]);
+    let gt10 = function(x: number) { return x > 10; };
+    let even = function(x: number) { return x % 2 === 0};
+    let f = R.anyPass([gt10, even]);
     // $ExpectType boolean
     f(11); // => true
     // $ExpectType boolean
@@ -2693,10 +2693,10 @@ class Rectangle {
 
 // both
 () => {
-    var gt10 = function(x: number) { return x > 10; };
-    var even = function(x: number) { return x % 2 === 0 };
-    var f = R.both(gt10, even);
-    var g = R.both(gt10)(even);
+    let gt10 = function(x: number) { return x > 10; };
+    let even = function(x: number) { return x % 2 === 0 };
+    let f = R.both(gt10, even);
+    let g = R.both(gt10)(even);
     // $ExpectType boolean
     f(100); // => true
     // $ExpectType boolean
@@ -2705,8 +2705,8 @@ class Rectangle {
 
 // complement
 () => {
-    var isEven = function(n: number) { return n % 2 === 0; };
-    var isOdd = R.complement(isEven);
+    let isEven = function(n: number) { return n % 2 === 0; };
+    let isOdd = R.complement(isEven);
     // $ExpectType boolean
     isOdd(21); // => true
     // $ExpectType boolean
@@ -2725,7 +2725,7 @@ class Rectangle {
 
 // defaultTo
 () => {
-    var defaultTo42 = R.defaultTo(42);
+    let defaultTo42 = R.defaultTo(42);
     // $ExpectType number
     defaultTo42(null);  // => 42
     // $ExpectType number
@@ -2736,10 +2736,10 @@ class Rectangle {
 
 // either
 () => {
-    var gt10 = function(x: number) { return x > 10; };
-    var even = function(x: number) { return x % 2 === 0 };
-    var f = R.either(gt10, even);
-    var g = R.either(gt10)(even);
+    let gt10 = function(x: number) { return x > 10; };
+    let even = function(x: number) { return x % 2 === 0 };
+    let f = R.either(gt10, even);
+    let g = R.either(gt10)(even);
     // $ExpectType boolean
     f(101); // => true
     // $ExpectType boolean
@@ -2749,7 +2749,7 @@ class Rectangle {
 // ifElse
 () => {
     // Flatten all arrays in the list but leave other values alone.
-    var flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
+    let flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
 
     let r1: any[] = flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
     let r2: any[] = flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
@@ -2800,7 +2800,7 @@ class Why {
     const x2: number|any[] = R.or(0)([]); // => []
     // const x3: string = R.or(null, ''); // => ''   // errors with strict null checks
 
-    var why = new Why(true);
+    let why = new Why(true);
     why.or(true)
     const x4: Why|boolean = R.or(why, false); // false
 }
@@ -2824,7 +2824,7 @@ class Why {
     const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
     const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
     interface xpto  { a: number, b: number };
-    var test: xpto = { a: 1, b: 2};
+    let test: xpto = { a: 1, b: 2};
     const a3: xpto = R.evolve({ a: R.add(1)}, test );
 }
 
@@ -2934,12 +2934,12 @@ class Why {
 
 () => {
     // #86: lose generics in compose
-    type var so = { [index: string]: string };
+    type let so = { [index: string]: string };
     let pairs =                         [['1','A'], ['2','B'], ['3','C']];
-    let a1: var so =           R.fromPairs ([['1','A'], ['2','B'], ['3','C']])
-    let a2: var so =           R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
-    let b1: var so = R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
-    let c1: var so = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
+    let a1: let so =           R.fromPairs ([['1','A'], ['2','B'], ['3','C']])
+    let a2: let so =           R.fromPairs (pairs);   // fails -- variable reduced to string[][], killing tuples
+    let b1: let so = R.pipe   (R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
+    let c1: let so = R.compose(R.fromPairs)([['1','A'], ['2','B'], ['3','C']])  // fails, generics turn to {} => {}
 
     // generics in pipe loses generics
     R.pipe(R.identity)
@@ -3018,7 +3018,7 @@ class Why {
   // $ExpectType number
   R.path(['a', 'b', 'c'], {a: {b: {c: 2}}})
   let a2: null = R.path(['a', 'b', 'c'], {a: {b: 2}})   // still fails
-  // var n = R.path(['a', '0', 'c'], {a: [{c: 2}] })
+  // let n = R.path(['a', '0', 'c'], {a: [{c: 2}] })
   // $ExpectType number
   R.path(['a', 0, 'c'], {a: [{c: 2}] })
 }
