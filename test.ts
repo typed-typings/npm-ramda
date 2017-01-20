@@ -16,7 +16,7 @@ let onlyNumberList = function(xs: number[]): number[] {
 };
 
 // check type information is not lost for simple objects
-let onlyNumberObj = function(xs: {[key:string]: number}): {[key:string]: number} {
+let onlyNumberObj = function(xs: {[key: string]: number}): {[key: string]: number} {
   return xs;
 };
 
@@ -127,7 +127,7 @@ class F2 {
     R.binary(takesTwoArgs);
     R.binary(takesThreeArgs);
 
-    let addTwoNumbers = function(a:number, b:number) { return a + b; };
+    let addTwoNumbers = function(a: number, b: number) { return a + b; };
     let addTwoNumbersCurried = R.curry(addTwoNumbers);
 
     let inc = addTwoNumbersCurried(1);
@@ -139,7 +139,7 @@ class F2 {
 
 // uncurry
 () => {
-    const addFour = (a:number) => (b:number) => (c:number) => (d:number) => a + b + c + d;
+    const addFour = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;
     const uncurriedAddFour = R.uncurryN<number>(4, addFour);
     // $ExpectType number
     uncurriedAddFour(1, 2, 3, 4); // => 10
@@ -147,7 +147,7 @@ class F2 {
 
 // unless
 () => {
-    // coerceArray :: (a|[a]) -> [a]
+    // $ExpectType <a>(v: a|[a]) => [a]
     const coerceArray = R.unless(R.isArrayLike, R.of);
     // $ExpectType number[]
     coerceArray([1, 2, 3]); // => [1, 2, 3]
@@ -532,7 +532,6 @@ class F2 {
 
 // any
 () => {
-    let b: boolean;
     let lessThan0 = R.flip(R.lt)(0);
     let lessThan2 = R.flip(R.lt)(2);
     // $ExpectType boolean
@@ -543,11 +542,14 @@ class F2 {
 
 // aperture
 () => {
-    let ns: number[][];
-    ns = R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]]
-    ns = R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
-    ns = R.aperture(7, [1, 2, 3, 4, 5]); // => []
-    ns = R.aperture(7)([1, 2, 3, 4, 5]); // => []
+    // $ExpectType number[][]
+    R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]]
+    // $ExpectType number[][]
+    R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+    // $ExpectType number[][]
+    R.aperture(7, [1, 2, 3, 4, 5]); // => []
+    // $ExpectType number[][]
+    R.aperture(7)([1, 2, 3, 4, 5]); // => []
 };
 
 // append
@@ -558,11 +560,14 @@ class F2 {
     R.append('tests')(['write', 'more']); // => ['write', 'more', 'tests']
     // $ExpectType string[]
     R.append('tests', []); // => ['tests']
-    let srr: Array<string[]|string>;
-    srr = R.append<string, string[]>(['tests'], ['write', 'more']); // => ['write', 'more', ['tests']]
-    srr = R.append(['tests'], ['write', 'more']); // => ['write', 'more', ['tests']]
-    srr = R.append<string[]>(['tests'])(['write', 'more']); // => ['write', 'more', ['tests']]
-    srr = R.append(['tests'])(['write', 'more']); // => ['write', 'more', ['tests']]
+    // $ExpectType Array<string[]|string>
+    R.append<string, string[]>(['tests'], ['write', 'more']); // => ['write', 'more', ['tests']]
+    // $ExpectType Array<string[]|string>
+    R.append(['tests'], ['write', 'more']); // => ['write', 'more', ['tests']]
+    // $ExpectType Array<string[]|string>
+    R.append<string[]>(['tests'])(['write', 'more']); // => ['write', 'more', ['tests']]
+    // $ExpectType Array<string[]|string>
+    R.append(['tests'])(['write', 'more']); // => ['write', 'more', ['tests']]
 };
 
 // chain
@@ -616,7 +621,6 @@ class F2 {
 
 // drop
 () => {
-    let nr: number[];
     // $ExpectType number[]
     R.drop(3, [1,2,3,4,5,6,7]); // => [4,5,6,7]
     // $ExpectType number[]
@@ -669,14 +673,14 @@ class F2 {
     isEvenFn([1, 2, 3, 4]);
     // ... but also objects
     // $ExpectType { [k: string]: number }
-    R.filter(isEven, {a:1, b:2, c:3, d:4}); // => {b:2, d:4}
+    R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, d: 4}
     let isEvenFnObj = R.filter(isEven);
     // see that we did not break anything
     // and we kept type information
     // $ExpectType number[]
     onlyNumberList(R.filter(isEven,[1,2,3,4]));
     // $ExpectType { [k: string]: number }
-    onlyNumberObj(R.filter(isEven, {a:1, b:2, c:3, d:4})); // strictNullChecks: Partial fails, consider Pick
+    onlyNumberObj(R.filter(isEven, {a: 1, b: 2, c: 3, d: 4})); // strictNullChecks: Partial fails, consider Pick
 };
 
 // addIndex
@@ -727,15 +731,16 @@ class F2 {
 
 // findLast
 () => {
-    let xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    let xs = [{a: 1, b: 0}, {a: 1, b: 1}];
     // $ExpectType { [k: string]: number }
     R.findLast(R.propEq('a', 1))(xs); // => {a: 1, b: 1}
-    u = R.findLast(R.propEq('a', 4))(xs); // => undefined
+    // $ExpectType undefined
+    R.findLast(R.propEq('a', 4))(xs); // => undefined
 };
 
 // findLastIndex
 () => {
-    let xs = [{a: 1, b: 0}, {a:1, b: 1}];
+    let xs = [{a: 1, b: 0}, {a: 1, b: 1}];
     // $ExpectType number
     R.findLastIndex(R.propEq('a', 1))(xs); // => 1
     // $ExpectType number
@@ -757,14 +762,14 @@ class F2 {
 
 // propEq
 () => {
-    let xs: {[key:string]: string} = {a: '1', b: '0'};
+    let xs: {[key: string]: string} = {a: '1', b: '0'};
     // $ExpectType boolean
     R.propEq('a', '1', xs);// => true
     // $ExpectType boolean
     R.propEq('a', '4', xs); // => false
 };
 () => {
-    let xs: {[key:string]: number} = {a: 1, b: 0};
+    let xs: {[key: string]: number} = {a: 1, b: 0};
     // $ExpectType boolean
     R.propEq('a', 1, xs);// => true
     // $ExpectType boolean
@@ -787,14 +792,18 @@ class F2 {
 interface Obj { a: number; b: number; };
 () => {
     let xs: Obj = {a: 1, b: 0};
+    // $ExpectType boolean
     R.propEq('a', 1, xs);// => true
+    // $ExpectType boolean
     R.propEq('a', 4, xs); // => false
 };
 
 // forEach
 () => {
     let printXPlusFive = function(x: number) { console.log(x + 5); };
+    // $ExpectType number[]
     R.forEach(printXPlusFive, [1, 2, 3]); // => [1, 2, 3]
+    // $ExpectType number[]
     R.forEach(printXPlusFive)([1, 2, 3]); // => [1, 2, 3]
     // => 6
     // => 7
@@ -826,11 +835,12 @@ interface Obj { a: number; b: number; };
 
 // groupWith
 () => {
-    let nrr: number[][];
-    nrr = R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
+    // $ExpectType number[][]
+    R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
     // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
 
-    nrr = R.groupWith((a: number, b: number) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
+    // $ExpectType number[][]
+    R.groupWith((a: number, b: number) => a % 2 === b % 2, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
     // [[0], [1, 1], [2], [3, 5], [8], [13, 21]]
 
     const isVowel = (a: string) => R.contains(a, 'aeiou') ? a : '';
@@ -851,11 +861,13 @@ interface Obj { a: number; b: number; };
 
 // indexBy
 (() => {
-    let res: R.Dictionary<Object>;
     let list = [{id: 'xyz', title: 'A'}, {id: 'abc', title: 'B'}];
-    res = R.indexBy(R.prop('id'), list);
-    res = R.indexBy(R.prop('id'))(list);
-    res = R.indexBy<{id:string}>(R.prop('id'))(list);
+    // $ExpectType { [s: string]: Object }
+    R.indexBy(R.prop('id'), list);
+    // $ExpectType { [s: string]: Object }
+    R.indexBy(R.prop('id'))(list);
+    // $ExpectType { [s: string]: Object }
+    R.indexBy<{id: string}>(R.prop('id'))(list);
 });
 
 // indexOf
@@ -924,13 +936,16 @@ interface Obj { a: number; b: number; };
       {id: 177, name: 'Neil Young'}
     ];
 
-    let res: { id: number, name: string }[];
-    res = R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+    // $ExpectType { id: number, name: string }[]
+    R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
     // => [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
-    res = R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+    // $ExpectType { id: number, name: string }[]
+    R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
         // => [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
-    res = R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
-    res = R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny);
+    // $ExpectType { id: number, name: string }[]
+    R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
+    // $ExpectType { id: number, name: string }[]
+    R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny);
 };
 
 // into
@@ -1033,28 +1048,34 @@ interface Obj { a: number; b: number; };
 
 // mapAccum
 () => {
-    let srr: Array<string[]|string>;
     let digits = ['1', '2', '3', '4'];
     let append = function(a: string, b: string): [string, string]{
         return [a + b, a + b];
     };
-    srr = R.mapAccum(append, '0', digits); // => ['01234', ['01', '012', '0123', '01234']]
-    srr = R.mapAccum(append)('0', digits); // => ['01234', ['01', '012', '0123', '01234']]
-    srr = R.mapAccum(append, '0')(digits); // => ['01234', ['01', '012', '0123', '01234']]
-    srr = R.mapAccum(append)('0')(digits); // => ['01234', ['01', '012', '0123', '01234']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccum(append, '0', digits); // => ['01234', ['01', '012', '0123', '01234']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccum(append)('0', digits); // => ['01234', ['01', '012', '0123', '01234']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccum(append, '0')(digits); // => ['01234', ['01', '012', '0123', '01234']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccum(append)('0')(digits); // => ['01234', ['01', '012', '0123', '01234']]
 };
 
 // mapAccumRight
 () => {
-    let srr: Array<string[]|string>;
     let digits = ['1', '2', '3', '4'];
     let append = function(a: string, b: string): [string, string] {
         return [a + b, a + b];
     };
-    srr = R.mapAccumRight(append, '0', digits); // => ['04321', ['04321', '0432', '043', '04']]
-    srr = R.mapAccumRight(append)('0', digits); // => ['04321', ['04321', '0432', '043', '04']]
-    srr = R.mapAccumRight(append, '0')(digits); // => ['04321', ['04321', '0432', '043', '04']]
-    srr = R.mapAccumRight(append)('0')(digits); // => ['04321', ['04321', '0432', '043', '04']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccumRight(append, '0', digits); // => ['04321', ['04321', '0432', '043', '04']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccumRight(append)('0', digits); // => ['04321', ['04321', '0432', '043', '04']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccumRight(append, '0')(digits); // => ['04321', ['04321', '0432', '043', '04']]
+    // $ExpectType Array<string[]|string>
+    R.mapAccumRight(append)('0')(digits); // => ['04321', ['04321', '0432', '043', '04']]
 };
 
 // addIndex
@@ -1179,7 +1200,7 @@ interface Student {
 () => {
     let reduceIndexed = R.addIndex(R.reduce);
     let letters = ['a', 'b', 'c'];
-    let objectify = function(accObject: {[elem:string]: number}, elem: string, idx: number, list: string[]) {
+    let objectify = function(accObject: {[elem: string]: number}, elem: string, idx: number, list: string[]) {
         accObject[elem] = idx;
         return accObject;
     };
@@ -1195,14 +1216,16 @@ interface Student {
 interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 type Pair = KeyValuePair<string, number>;
 () => {
-    let mixed: Array<string|number>;
     let pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
     let flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
         return acc.concat(pair);
     };
-    mixed = R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
-    mixed = R.reduceRight(flattenPairs, [])(pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
-    mixed = R.reduceRight(flattenPairs)([], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
+    // $ExpectType Array<string[]|string>
+    R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
+    // $ExpectType Array<string[]|string>
+    R.reduceRight(flattenPairs, [])(pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
+    // $ExpectType Array<string[]|string>
+    R.reduceRight(flattenPairs)([], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
 };
 
 // reject
@@ -1421,7 +1444,7 @@ type Pair = KeyValuePair<string, number>;
     // $ExpectType string
     R.toString({foo: 1, bar: 2, baz: 3}); // => '{'bar': 2, 'baz': 3, 'foo': 1}'
     // $ExpectType string
-    R.toString(new Date('2001-02-03T04:05:06Z')); // => 'new Date('2001-02-03T04:05:06.000Z')'
+    R.toString(new Date('2001-02-03T04: 05: 06Z')); // => 'new Date('2001-02-03T04: 05: 06.000Z')'
 };
 
 // transduce
@@ -1502,16 +1525,18 @@ type Pair = KeyValuePair<string, number>;
 
 // xprod
 () => {
-    let pairs: [number, string][];
-    pairs = R.xprod([1, 2], ['a', 'b']); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
-    pairs = R.xprod([1, 2])(['a', 'b']); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+    // $ExpectType [number, string][]
+    R.xprod([1, 2], ['a', 'b']); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+    // $ExpectType [number, string][]
+    R.xprod([1, 2])(['a', 'b']); // => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
 };
 
 // zip
 () => {
-    let pairs: [number, string][];
-    pairs = R.zip([1, 2, 3], ['a', 'b', 'c']); // => [[1, 'a'], [2, 'b'], [3, 'c']]
-    pairs = R.zip([1, 2, 3])(['a', 'b', 'c']); // => [[1, 'a'], [2, 'b'], [3, 'c']]
+    // $ExpectType [number, string][]
+    R.zip([1, 2, 3], ['a', 'b', 'c']); // => [[1, 'a'], [2, 'b'], [3, 'c']]
+    // $ExpectType [number, string][]
+    R.zip([1, 2, 3])(['a', 'b', 'c']); // => [[1, 'a'], [2, 'b'], [3, 'c']]
 };
 
 // zipObj
@@ -1524,7 +1549,7 @@ type Pair = KeyValuePair<string, number>;
 
 // zipWith
 () => {
-    let f = function(x:number, y:string) {
+    let f = function(x: number, y: string) {
         // ...
     };
     // $ExpectType any[]
@@ -1552,34 +1577,38 @@ type Pair = KeyValuePair<string, number>;
 // dissoc
 () => {
     // $ExpectType { [k: string]: number }
-    R.dissoc<{a:number, c:number}>('b', {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
+    R.dissoc<{a: number, c: number}>('b', {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
     // $ExpectType { [k: string]: number }
     R.dissoc('b', {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
     // $ExpectType { [k: string]: number }
-    R.dissoc('b')<{a:number, c:number}>({a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
+    R.dissoc('b')<{a: number, c: number}>({a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
 };
 
 // assocPath
 () => {
-    let abcn: {a:{b:{c:number}}};
-    abcn = R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); // => {a: {b: {c: 42}}}
-    abcn = R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); // => {a: {b: {c: 42}}}
-    abcn = R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); // => {a: {b: {c: 42}}}
+    // $ExpectType {a: {b: {c: number}}}
+    R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); // => {a: {b: {c: 42}}}
+    // $ExpectType {a: {b: {c: number}}}
+    R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); // => {a: {b: {c: 42}}}
+    // $ExpectType {a: {b: {c: number}}}
+    R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); // => {a: {b: {c: 42}}}
 };
 
 // dissocPath
 () => {
-    let abo: {a:{b:{}}};
-    abo = R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); // => {a: {b: {}}}
+    // $ExpectType {a: {b: {}}}
+    R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); // => {a: {b: {}}}
     // optionally specify return type
-    abo = R.dissocPath<{a :{ b: number}}>(['a', 'b', 'c'], {a: {b: {c: 42}}}); // => {a: {b: {}}}
-    abo = R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); // => {a: {b: {}}}
+    // $ExpectType {a: {b: {}}}
+    R.dissocPath<{a : { b: number}}>(['a', 'b', 'c'], {a: {b: {c: 42}}}); // => {a: {b: {}}}
+    // $ExpectType {a: {b: {}}}
+    R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); // => {a: {b: {}}}
 };
 
 // clone
 () => {
     let obj1 = [{}, {}, {}];
-    let obj2 = [{a:1}, {a:2}, {a:3}];
+    let obj2 = [{a: 1}, {a: 2}, {a: 3}];
     // $ExpectType any[]
     R.clone(obj1);
     // $ExpectType {a: number}[]
@@ -1610,14 +1639,14 @@ type Pair = KeyValuePair<string, number>;
 
 // evolve
 () => {
-    let tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
+    let tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id: 123};
     let transformations = {
         firstName: R.trim,
         lastName: R.trim, // Will not get invoked.
         data: {elapsed: R.add(1), remaining: R.add(-1)}
     };
-    const a: typeof tomato = R.evolve(transformations, tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
-    const b: typeof tomato = R.evolve(transformations)(tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    const a: typeof tomato = R.evolve(transformations, tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id: 123}
+    const b: typeof tomato = R.evolve(transformations)(tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id: 123}
 };
 
 // has
@@ -1646,7 +1675,7 @@ class Rectangle {
         this.width = width;
         this.height = height;
     }
-    area():number {
+    area(): number {
         return this.width * this.height;
     }
 };
@@ -1669,7 +1698,7 @@ class Rectangle {
     };
     // $ExpectType R.Dictionary<string[]>
     R.invert(raceResultsByFirstName);
-    // => { 'alice': ['first', 'third'], 'jake':['second'] }
+    // => { 'alice': ['first', 'third'], 'jake': ['second'] }
 };
 
 // invertObj
@@ -1680,13 +1709,13 @@ class Rectangle {
     };
     // $ExpectType { [k: string]: string }
     R.invertObj(raceResults0);
-    // => { 'alice': 'first', 'jake':'second' }
+    // => { 'alice': 'first', 'jake': 'second' }
 
     // Alternatively:
     let raceResults1 = ['alice', 'jake'];
     // $ExpectType { [k: string]: string }
     R.invertObj(raceResults1);
-    // => { 'alice': '0', 'jake':'1' }
+    // => { 'alice': '0', 'jake': '1' }
 };
 
 // keys
@@ -1708,19 +1737,24 @@ class Rectangle {
       x: number;
       y: number;
     }
-    let z: xy;
     // let xLens = R.lens(R.prop('x'), R.assoc('x'));
     // let xLens = R.lens<number, xy>(R.prop('x'), R.assoc('x'));
     let xLens = R.lens<number>(R.prop('x'))(R.assoc('x'));
     // ^ works with only 1 generic, for curried version managed to split the inferred generic from the manual generic
     // $ExpectType number
     R.view(xLens, {x: 1, y: 2});            // => 1
-    z = R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    z = R.set(xLens)(4, {x: 1, y: 2});          // => {x: 4, y: 2}
-    z = R.set(xLens, 4)({x: 1, y: 2});          // => {x: 4, y: 2}
-    z = R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
-    z = R.over(xLens, R.negate)({x: 1, y: 2});  // => {x: -1, y: 2}
-    z = R.over(xLens)(R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
+    // $ExpectType { x: number, y: number }
+    R.set(xLens, 4, {x: 1, y: 2});          // => {x: 4, y: 2}
+    // $ExpectType { x: number, y: number }
+    R.set(xLens)(4, {x: 1, y: 2});          // => {x: 4, y: 2}
+    // $ExpectType { x: number, y: number }
+    R.set(xLens, 4)({x: 1, y: 2});          // => {x: 4, y: 2}
+    // $ExpectType { x: number, y: number }
+    R.over(xLens, R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
+    // $ExpectType { x: number, y: number }
+    R.over(xLens, R.negate)({x: 1, y: 2});  // => {x: -1, y: 2}
+    // $ExpectType { x: number, y: number }
+    R.over(xLens)(R.negate, {x: 1, y: 2});  // => {x: -1, y: 2}
 };
 
 // lensIndex
@@ -1747,12 +1781,13 @@ class Rectangle {
 
 // lensPath
 () => {
-  let res: R.Dictionary<R.Dictionary<number>>;
   const xyLens = R.lensPath(['x', 'y']);
   // $ExpectType number
   R.view(xyLens, {x: {y: 2, z: 3}});            // => 2
-  res = R.set(xyLens, 4, {x: {y: 2, z: 3}});          // => {x: {y: 4, z: 3}}
-  res = R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  // => {x: {y: -2, z: 3}}
+  // $ExpectType { [s: string]: { [s: string]: number } }
+  R.set(xyLens, 4, {x: {y: 2, z: 3}});          // => {x: {y: 4, z: 3}}
+  // $ExpectType { [s: string]: { [s: string]: number } }
+  R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  // => {x: {y: -2, z: 3}}
 };
 
 // keys
@@ -1821,15 +1856,15 @@ class Rectangle {
 // megeAll
 () => {
     // $ExpectType { [k: string]: number }
-    R.mergeAll([{foo:1},{bar:2},{baz:3}]); // => {foo:1,bar:2,baz:3}
+    R.mergeAll([{foo: 1},{bar: 2},{baz: 3}]); // => {foo: 1,bar: 2,baz: 3}
     // $ExpectType { [k: string]: number }
-    R.mergeAll([{foo:1},{foo:2},{bar:2}]); // => {foo:2,bar:2}
+    R.mergeAll([{foo: 1},{foo: 2},{bar: 2}]); // => {foo: 2,bar: 2}
 };
 
 // mergeWith
 () => {
-    let res: { a: boolean, b: boolean, values: number[] };
-    res = R.mergeWith(R.concat,
+    // $ExpectType { a: boolean, b: boolean, values: number[] }
+    R.mergeWith(R.concat,
         { a: true, values: [10, 20] },
         { b: true, values: [15, 35] });
         // => { a: true, b: true, values: [10, 20, 15, 35] }
@@ -1837,7 +1872,7 @@ class Rectangle {
 
 // mergeWithKey
 () => {
-    let concatValues = (k:string, l: string, r: string) => k === 'values' ? R.concat(l, r) : r;
+    let concatValues = (k: string, l: string, r: string) => k === 'values' ? R.concat(l, r) : r;
     R.mergeWithKey(concatValues,
         { a: true, thing: 'foo', values: [10, 20] },
         { b: true, thing: 'bar', values: [15, 35] });
@@ -1855,7 +1890,7 @@ class Rectangle {
     // $ExpectType number
     R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); // => 'N/A'
     // $ExpectType number
-    R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); // => 'N/A'
+    R.pathOr({c: 2})(['a', 'b'], {c: {b: 2}}); // => 'N/A'
 };
 
 // pathSatisfies
@@ -1968,11 +2003,11 @@ class Rectangle {
 
 // project
 () => {
-    let x: { name: string, grade: number }[];
     let abby = {name: 'Abby', age: 7, hair: 'blond', grade: 2};
     let fred = {name: 'Fred', age: 12, hair: 'brown', grade: 7};
     let kids = [abby, fred];
-    x = R.project(['name', 'grade'], kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
+    // $ExpectType { name: string, grade: number }[]
+    R.project(['name', 'grade'], kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
 };
 
 // prop
@@ -2060,7 +2095,7 @@ class Rectangle {
     R.where(spec)({x: 1, y: 'moo', z: true}); // => false
 
     // There's no way to represent the below functionality in typescript
-    // per http://stackoverflow.com/a/29803848/632495
+    // per http: //stackoverflow.com/a/29803848/632495
     // will need a work around.
 
     let spec2 = {x: function(val: number, obj: any) { return  val + obj.y > 10; }};
@@ -2069,15 +2104,16 @@ class Rectangle {
     // $ExpectType boolean
     R.where(spec2, {x: 3, y: 8}); // => true
 
-    let xys: { x: number, y: number }[];
     let xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
-    xys = R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
-    xys = R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+    // $ExpectType { x: number, y: number }[]
+    R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+    // $ExpectType { x: number, y: number }[]
+    R.filter(R.where({x: 10}))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
 };
 
 // whereEq
 () => {
-    // pred :: Object -> Boolean
+    // $ExpectType (v: Object) => Boolean
     let pred = R.whereEq({a: 1, b: 2});
     // $ExpectType boolean
     pred({a: 1});              // => false
@@ -2106,7 +2142,7 @@ class Rectangle {
     R.mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
       // => ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
     // $ExpectType number[]
-    R.mapIndexed((rectangle: Rectangle, idx: number):number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
+    R.mapIndexed((rectangle: Rectangle, idx: number): number => rectangle.area()*idx, [new Rectangle(1,2), new Rectangle(4,7)]);
       // => [2, 56]
 };
 
@@ -2189,7 +2225,7 @@ class Rectangle {
       return a.age < b.age;
     });
     let people = [
-      {name: 'Agy', age:33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
+      {name: 'Agy', age: 33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
     ];
     // $ExpectType { age: number, name: string }[]
     R.sort(cmp, people);
@@ -2282,13 +2318,15 @@ class Rectangle {
 
 // differenceWith
 () => {
-    let res: {a:number}[];
     function cmp(x: any, y: any) { return x.a === y.a; }
     let l1 = [{a: 1}, {a: 2}, {a: 3}];
     let l2 = [{a: 3}, {a: 4}];
-    res = R.differenceWith(cmp, l1, l2); // => [{a: 1}, {a: 2}]
-    res = R.differenceWith(cmp)(l1, l2); // => [{a: 1}, {a: 2}]
-    res = R.differenceWith(cmp)(l1)(l2); // => [{a: 1}, {a: 2}]
+    // $ExpectType {a: number}[]
+    R.differenceWith(cmp, l1, l2); // => [{a: 1}, {a: 2}]
+    // $ExpectType {a: number}[]
+    R.differenceWith(cmp)(l1, l2); // => [{a: 1}, {a: 2}]
+    // $ExpectType {a: number}[]
+    R.differenceWith(cmp)(l1)(l2); // => [{a: 1}, {a: 2}]
 };
 
 // equals
@@ -2513,13 +2551,20 @@ class Rectangle {
 
 // maxBy
 () => {
-    let res: { x: number };
-    function cmp(obj: typeof res) { return obj.x; }
-    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: 'a'}, e = {x:'z'};
-    res = R.maxBy(cmp, a, c); // => {x: 3}
-    res = R.maxBy(cmp)(a, c); // => {x: 3}
-    res = R.maxBy(cmp)(a)(b);
-    res = R.maxBy(cmp)(d)(e);
+    function cmp(obj: { x: number }) { return obj.x; }
+    let a = {x: 1};
+    let b = {x: 2};
+    let c = {x: 3};
+    let d = {x: 'a'};
+    let e = {x: 'z'};
+    // $ExpectType { x: number }
+    R.maxBy(cmp, a, c); // => {x: 3}
+    // $ExpectType { x: number }
+    R.maxBy(cmp)(a, c); // => {x: 3}
+    // $ExpectType { x: number }
+    R.maxBy(cmp)(a)(b);
+    // $ExpectType { x: number }
+    R.maxBy(cmp)(d)(e);
 };
 
 // mean
@@ -2548,13 +2593,20 @@ class Rectangle {
 
 // minBy
 () => {
-    let res: { x: number };
-    function cmp(obj: {x: typeof res}) { return obj.x; }
-    let a = {x: 1}, let b = {x: 2}, c = {x: 3}, d = {x: 'a'}, e = {x: 'z'};
-    res = R.minBy(cmp, a, b); // => {x: 1}
-    res = R.minBy(cmp)(a, b); // => {x: 1}
-    res = R.minBy(cmp)(a)(c);
-    res = R.minBy(cmp, d, e);
+    function cmp(obj: { x: number }) { return obj.x; }
+    let a = {x: 1};
+    let b = {x: 2};
+    let c = {x: 3};
+    let d = {x: 'a'};
+    let e = {x: 'z'};
+    // $ExpectType { x: number }
+    R.minBy(cmp, a, b); // => {x: 1}
+    // $ExpectType { x: number }
+    R.minBy(cmp)(a, b); // => {x: 1}
+    // $ExpectType { x: number }
+    R.minBy(cmp)(a)(c);
+    // $ExpectType { x: number }
+    R.minBy(cmp, d, e);
 };
 
 // modulo
@@ -2622,18 +2674,21 @@ class Rectangle {
 
 // symmetricDifference
 () => {
-  let nr = R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); // => [1,2,7,6,5]
-  let nr = R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); // => [7,6,5,1,2]
+  // $ExpectType number[]
+  R.symmetricDifference([1,2,3,4], [7,6,5,4,3]); // => [1,2,7,6,5]
+  // $ExpectType number[]
+  R.symmetricDifference([7,6,5,4,3])([1,2,3,4]); // => [7,6,5,1,2]
 };
 
 // symmetricDifferenceWith
 () => {
-  let res: { a: number }[];
   const eqA = R.eqBy(R.prop('a'));
   const l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
   const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
-  res = R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
-  res = R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+  // $ExpectType { a: number }[]
+  R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+  // $ExpectType { a: number }[]
+  R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
   // $ExpectType (a: any[]) => any[]
   R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
 };
@@ -2831,7 +2886,7 @@ class Rectangle {
     // $ExpectType boolean
     R.isEmpty({}); // =>true
     // $ExpectType boolean
-    R.isEmpty({a:1}); // => false
+    R.isEmpty({a: 1}); // => false
 };
 
 // not
@@ -2891,9 +2946,8 @@ class Why {
     // #65, evolve issue
     const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: 'Tomato', elapsed: 100, remaining: 1400 });
     const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: 'Tomato', elapsed: 100, remaining: 1400 });
-    interface xpto  { a: number; b: number; };
-    let test: xpto = { a: 1, b: 2};
-    // $ExpectType xpto
+    let test = { a: 1, b: 2};
+    // $ExpectType { a: number, b: number }
     R.evolve({ a: R.add(1)}, test );
 };
 
