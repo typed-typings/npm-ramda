@@ -168,7 +168,7 @@ class F2 {
 // until
 () => {
     // $ExpectType number
-    R.until(R.flip(R.gt)(100), R.multiply(2))(1) // => 128
+    R.until(R.flip(R.gt)(100), R.multiply(2))(1); // => 128
 }
 
 // propSatisfies
@@ -563,13 +563,13 @@ class F2 {
 // clamp
 () => {
     // $ExpectType number
-    R.clamp(1, 10, -1) // => 1
+    R.clamp(1, 10, -1); // => 1
     // $ExpectType number
-    R.clamp(1, 10)(11) // => 10
+    R.clamp(1, 10)(11); // => 10
     // $ExpectType number
-    R.clamp(1)(10, 4)  // => 4
+    R.clamp(1)(10, 4);  // => 4
     // $ExpectType string
-    R.clamp('a', 'd', 'e')  // => 'd'
+    R.clamp('a', 'd', 'e');  // => 'd'
 }
 
 // concat
@@ -1417,9 +1417,9 @@ type Pair = KeyValuePair<string, number>;
 
 // transpose
 () => {
-    const a: any[][] = R.transpose([[1, 'a'], [2, 'b'], [3, 'c']]) // => [[1, 2, 3], ['a', 'b', 'c']]
-    const b: any[][] = R.transpose([[1, 2, 3], ['a', 'b', 'c']]) // => [[1, 'a'], [2, 'b'], [3, 'c']]
-    const c: number[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]) // => [[10, 20, 30], [11, 31], [32]]
+    const a: any[][] = R.transpose([[1, 'a'], [2, 'b'], [3, 'c']]); // => [[1, 2, 3], ['a', 'b', 'c']]
+    const b: any[][] = R.transpose([[1, 2, 3], ['a', 'b', 'c']]); // => [[1, 'a'], [2, 'b'], [3, 'c']]
+    const c: number[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]); // => [[10, 20, 30], [11, 31], [32]]
 }
 
 // tryCatch
