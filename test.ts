@@ -54,7 +54,7 @@ class F2 {
     R.propIs(Number)('x')({x: 1, y: 2});  // => true
     // $ExpectType boolean
     R.propIs(Number, 'x', {x: 'foo'});    // => false
-    // v errors with `Argument of type ''x'' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
+    // $ExpectError Argument of type 'x' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
     // let b = R.propIs(Number, 'x', {});            // => false
 });
 
@@ -378,7 +378,8 @@ class F2 {
     R.match(/([a-z]a)/g, 'bananas'); // => ['ba', 'na', 'na']
     // $ExpectType string[]
     R.match(/a/, 'b'); // => []
-    // let sr = R.match(/a/, null); // error with strict null checks: Argument of type 'null' is not assignable to parameter of type 'string'.
+    // $ExpectError Argument of type 'null' is not assignable to parameter of type 'string'.
+    let sr = R.match(/a/, null); // error with strict null checks
 };
 
 // reduce
@@ -1003,7 +1004,7 @@ interface Obj { a: number; b: number; };
     // $ExpectType number
     headLens([10, 20, 30, 40]); // => 10
     // $ExpectType Array<number|string>
-    headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40]   // wrong, currently naively assumes number[], yet no error...
+    headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40]
     // $ExpectType string
     R.view(headLens, ['a', 'b', 'c']);            // => 'a'
     // $ExpectType string[]
@@ -1813,7 +1814,8 @@ class Rectangle {
       function set(val: number, arr: number[]) { return [val].concat(arr.slice(1)); }
     );
     headLens([10, 20, 30, 40]); // => 10
-    // headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40] // errors: [ts] Argument of type ''mu'' is not assignable to parameter of type 'number'.
+    // $ExpectError Argument of type 'mu' is not assignable to parameter of type 'number'.
+    // headLens.set('mu', [10, 20, 30, 40]); // => ['mu', 20, 30, 40]
 
     let phraseLens = R.lens(
       function get(obj: any) { return obj.phrase; },
@@ -2017,8 +2019,8 @@ class Rectangle {
 () => {
     // $ExpectType number
     R.prop('x', {x: 100}); // => 100
-    // errors: `Argument of type ''x'' is not assignable to parameter of type 'never'.` cuz no 'x' in {}
-    // u = R.prop('x', {}); // => undefined
+    // $ExpectError Argument of type 'x' is not assignable to parameter of type 'never'.
+    R.prop('x', {}); // => undefined
 };
 
 // propOr
@@ -2030,7 +2032,8 @@ class Rectangle {
     let favorite = R.prop('favoriteLibrary');
     let favoriteWithDefault = R.propOr('Ramda', 'favoriteLibrary');
 
-    // u = favorite(alice);  // => undefined  // now errors
+    // $ExpectType undefined
+    favorite(alice);  // => undefined
     // $ExpectType string
     favoriteWithDefault(alice);  // => 'Ramda'
 };
@@ -2210,8 +2213,8 @@ class Rectangle {
     // $ExpectType number
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
-    // errors: 'Supplied parameters do not match any signature of call target.' (can only use 2 arguments now)
-    // let nr = takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
+    // $ExpectError Supplied parameters do not match any signature of call target.
+    takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
 };
 
 // pipe, inc, negate
@@ -2923,7 +2926,7 @@ class Why {
     // $ExpectType number|any[]
     R.or(0)([]); // => []
     // $ExpectType string
-    R.or(null, ''); // => ''   // errors with strict null checks
+    R.or(null, ''); // => ''
 
     let why = new Why(true);
     why.or(true);
