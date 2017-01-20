@@ -3,7 +3,8 @@
   "version": "0.22.1-RC1",
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
-    "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit"
+    "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit",
+    "diff": "echo diffing... && ts-node typecheck.ts test.ts 2>&1 | tee typecheck.txt"
   },
   "devDependencies": {
     "@types/del": "^2.2.31",
@@ -20,7 +21,7 @@
     "ts-node": "^2.0.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "^2.2.0-dev.20170118"
+    "typescript": "^2.2.0-dev.20170120"
   },
   "typings": "index.d.ts"
 }

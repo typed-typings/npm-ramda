@@ -9,7 +9,9 @@ Testing:
 npm test
 # without npm
 ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit
-# diffing, more detailed
+# diffing, more detailed, with npm
+npm diff
+# without
 ts-node typecheck.ts test.ts 2>&1 | tee typecheck.txt
 ```
 
