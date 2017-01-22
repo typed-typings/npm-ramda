@@ -1,4 +1,4 @@
-import * as R from './index';
+import * as R from '../index';
 
 declare let console: any;
 
