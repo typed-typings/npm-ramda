@@ -4,24 +4,14 @@
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
     "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit",
-    "diff": "echo diffing... && ts-node typecheck.ts test.ts 2>&1 | tee typecheck.txt"
+    "diff": "echo diffing... && node ./node_modules/typings-checker/src/index.js test.ts 2>&1 | tee typecheck.txt"
   },
   "devDependencies": {
-    "@types/del": "^2.2.31",
-    "@types/gulp": "^3.8.32",
-    "@types/gulp-insert": "^0.5.5",
-    "@types/lodash": "^4.14.50",
-    "@types/merge2": "^0.3.29",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-insert": "^0.5.0",
-    "lodash": "^4.17.4",
-    "merge2": "^1.0.3",
     "ramda": "0.22.1",
-    "ts-node": "^2.0.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "^2.2.0-dev.20170120"
+    "typescript": "^2.2.0-dev.20170120",
+    "typings-checker": "^1.1.0"
   },
   "typings": "index.d.ts"
 }
