@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
     "test": "echo testing... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit",
-    "diff": "echo diffing... && node ./node_modules/typings-checker/src/index.js test.ts 2>&1 | tee typecheck.txt"
+    "diff": "echo diffing... && node ./node_modules/typings-checker/dist/index.js test.ts 2>&1 | tee typecheck.txt"
   },
   "devDependencies": {
     "ramda": "0.22.1",
