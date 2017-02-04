@@ -297,16 +297,6 @@ class F2 {
     addOneOnce(addOneOnce(50)); // => 11 // $ExpectType number
 })();
 
-// wrap
-(() => {
-    let slashify = R.wrap(R.flip(R.add)('/'), function(f: Function, x: string) {
-      return R.match(/\/$/, x) ? x : f(x);
-    });
-
-    slashify('a');  // => 'a/' // $ExpectType string
-    slashify('a/'); // => 'a/' // $ExpectType string
-})();
-
 // match
 () => {
     R.match(/([a-z]a)/g, 'bananas'); // => ['ba', 'na', 'na'] // $ExpectType string[]
@@ -448,6 +438,25 @@ class F2 {
     R.any(lessThan2)([1, 2]); // => true // $ExpectType boolean
 };
 
+// ascend
+() => {
+  let byAge = R.ascend(R.prop('age'));
+  let alice = {
+    name: 'ALICE',
+    age: 101
+  };
+  let bob = {
+    name: 'Bob',
+    age: -10
+  };
+  let clara = {
+    name: 'clara',
+    age: 314.159
+  };
+  let people = [clara, bob, alice];
+  let peopleByYoungestFirst = R.sort(byAge, people); // $ExpectType typeof people
+};
+
 // aperture
 () => {
     R.aperture(2, [1, 2, 3, 4, 5]); // => [[1, 2], [2, 3], [3, 4], [4, 5]] // $ExpectType number[][]
@@ -500,6 +509,25 @@ class F2 {
     R.contains({})([{}, {}]); // => false // $ExpectType boolean
     let obj = {};
     R.contains(obj)([{}, obj, {}]); // => true // $ExpectType boolean
+};
+
+// descend
+() => {
+  let byAge = R.descend(R.prop('age'));
+  let alice = {
+    name: 'ALICE',
+    age: 101
+  };
+  let bob = {
+    name: 'Bob',
+    age: -10
+  };
+  let clara = {
+    name: 'clara',
+    age: 314.159
+  };
+  let people = [clara, bob, alice];
+  let peopleByOldestFirst = R.sort(byAge, people); // $ExpectType typeof people
 };
 
 // drop
@@ -651,6 +679,15 @@ interface Obj { a: number; b: number; };
     // => 6
     // => 7
     // => 8
+};
+
+// forEach
+() => {
+    let printKeyConcatValue = (value: any, key: string, obj: any) => console.log(key + ':' + value);
+    R.forEachObjIndexed(printKeyConcatValue, {x: 1, y: 2}); // $ExpectType {x: 1, y: 2}
+    R.forEachObjIndexed(printKeyConcatValue)({x: 1, y: 2}); // $ExpectType {x: 1, y: 2}
+    R.forEachObjIndexed(printKeyConcatValue, [1, 2]); // $ExpectType [1, 2]
+    R.forEachObjIndexed(printKeyConcatValue)([1, 2]); // $ExpectType [1, 2]
 };
 
 // addIndex?
@@ -1904,6 +1941,35 @@ class Rectangle {
     };
     let people = [clara, bob, alice];
     sortByNameCaseInsensitive(people); // => [alice, bob, clara] // $ExpectType { name: string, age: number }[]
+};
+
+// sortWith
+() => {
+  let alice = {
+    name: 'alice',
+    age: 40
+  };
+  let bob = {
+    name: 'bob',
+    age: 30
+  };
+  let clara = {
+    name: 'clara',
+    age: 40
+  };
+  let people = [clara, bob, alice];
+  // $ExpectType typeof people
+  R.sortWith([
+    R.descend(R.prop('age')),
+    R.ascend(R.prop('name'))
+  ], people);
+  let ageNameSort = R.sortWith([
+    R.descend(R.prop('age')),
+    R.ascend(R.prop('name'))
+  ]);
+  // $ExpectType typeof people
+  ageNameSort(people);
+  // => [alice, clara, bob]
 };
 
 // splitAt

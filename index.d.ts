@@ -290,7 +290,6 @@ declare namespace R {
         */
         always<T>(val: T): () => T;
 
-
         /**
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
@@ -358,6 +357,14 @@ declare namespace R {
         applySpec<T>(obj: any): Variadic<T>;
 
         /**
+         * Makes an ascending comparator function out of a function that returns a value that can be compared with `<` and `>`.
+         */
+        ascend<T, V extends Ord>(comparator: (val: T) => V, a: T, b: T): number;
+        ascend<T, V extends Ord>(comparator: (val: T) => V, a: T): (b: T) => number;
+        ascend<T, V extends Ord>(comparator: (val: T) => V): CurriedFunction2<T, T, number>;
+        // ascend<T, V extends Ord>: CurriedFunction3<(val: T) => V, T, T, number>;
+
+        /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
         // hard to mix cuz different initial generics?
@@ -379,7 +386,6 @@ declare namespace R {
         assoc(prop: Prop, val: any): <T>(obj: T) => T;
         assoc<T>(prop: Prop): CurriedFunction2<any, T, T>; // generics too early?
         // assoc<T>: CurriedFunction3<Prop, any, T, T>;
-
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
@@ -650,6 +656,14 @@ declare namespace R {
         // defaultTo<T,U>: CurriedFunction2<T, U, T|U>;
 
         /**
+         * Makes a descending comparator function out of a function that returns a value that can be compared with `<` and `>`.
+         */
+        descend<T, V extends Ord>(comparator: (val: T) => V, a: T, b: T): number;
+        descend<T, V extends Ord>(comparator: (val: T) => V, a: T): (b: T) => number;
+        descend<T, V extends Ord>(comparator: (val: T) => V): CurriedFunction2<T, T, number>;
+        // descend<T, V extends Ord>: CurriedFunction3<(val: T) => V, T, T, number>;
+
+        /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          */
         difference<T>(list1: List<T>, list2: List<T>): T[];
@@ -912,6 +926,7 @@ declare namespace R {
          */
         forEachObjIndexed<T, Inp extends Struct<T>>(fn: (val: T, key: string, obj?: Inp) => void, o: Inp): Inp;
         forEachObjIndexed<T, Inp extends Struct<T>>(fn: (val: T, key: string, obj?: Inp) => void): (o: Inp) => Inp;
+        // forEachObjIndexed<T, Inp extends Struct<T>>: CurriedFunction2<(val: T, key: string, obj?: Inp) => void, Inp, Inp>;
 
         /**
          * Creates a new object out of a list key-value pairs.
@@ -2456,6 +2471,13 @@ declare namespace R {
         sortBy<T>(fn: (a: T) => string, list: List<T>): T[];
         sortBy<T>(fn: (a: T) => string): (list: List<T>) => T[];
         // sortBy<T>: CurriedFunction2<(a: T) => string, List<T>, T[]>;
+
+        /**
+         * Sorts a list according to a list of comparators.
+         */
+        sortWith(comparators: List<(a: T, b: T) => number>, list: List<T>): T[];
+        sortWith(comparators: List<(a: T, b: T) => number>): (list: List<T>) => T[];
+        // sortWith: CurriedFunction2<List<(a: T, b: T) => number>, List<T>, T[]>;
 
         /**
          * Splits a string into an array of strings based on the given
