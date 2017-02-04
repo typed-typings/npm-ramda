@@ -906,12 +906,12 @@ declare namespace R {
         forEach<T>(fn: (x: T) => void, list: List<T>): T[];
         forEach<T>(fn: (x: T) => void): (list: List<T>) => T[];
         // forEach<T>: CurriedFunction2<(x: T) => void, List<T>, T[]>;
-  
+
         /**
          * Iterate over an input object, calling a provided function fn for each key and value in the object.
          */
-        forEachObjIndexed<A>(fn: (val: A, key: string|number) => void, o: Obj<A>): Obj<A>;
-        forEachObjIndexed<A>(fn: (val: A, key: string|number) => void): (o: Obj<A>) => Obj<A>;
+        forEachObjIndexed<T, Inp extends Struct<T>>(fn: (val: T, key: string, obj?: Inp) => void, o: Inp): Inp;
+        forEachObjIndexed<T, Inp extends Struct<T>>(fn: (val: T, key: string, obj?: Inp) => void): (o: Inp) => Inp;
 
         /**
          * Creates a new object out of a list key-value pairs.
