@@ -1182,6 +1182,7 @@ declare namespace R {
 
         /**
          * Tests whether or not an object is similar to an array.
+         * @deprecated: 0.23.0
          */
         isArrayLike(val: any): val is List<any>;
         // isArrayLike(val: any): boolean;
@@ -2918,15 +2919,6 @@ declare namespace R {
         without<T>(list1: List<T>, list2: List<T>): T[];
         without<T>(list1: List<T>): (list2: List<T>) => T[];
         // without<T>: CurriedFunction2<List<T>, List<T>, T[]>;
-
-        /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
-         * either before the internal function is called or with its results.
-         */
-        // deprecated: 0.22.0
-        wrap<T>(fn: Variadic<any>, wrapper: Variadic<T>): Variadic<T>;
-        wrap<T>(fn: Variadic<any>): (wrapper: Variadic<T>) => Variadic<T>;
-        // wrap<T>: CurriedFunction2<Variadic<any>, Variadic<T>, Variadic<T>>;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
