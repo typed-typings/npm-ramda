@@ -444,6 +444,11 @@ declare namespace R {
         chain<T, U>(fn: (n: T) => Chain<U>): (list: Chain<T>) => Chain<U>;
         // chain<T, U>: CurriedFunction2<(n: T) => Chain<U>, Chain<T>, Chain<U>>;
 
+        // function argument
+        chain<T, U, V>(fn: (v: V) => (list: Chain<T>) => Chain<U>, monad: (chain: Chain<T>) => V): (list: Chain<T>) => Chain<U>;
+        chain<T, U, V>(fn: (v: V) => (list: Chain<T>) => Chain<U>): (monad: (chain: Chain<T>) => V) => (list: Chain<T>) => Chain<U>;
+        // chain<T, U, V>: CurriedFunction2<(v: V) => (list: Chain<T>) => Chain<U>, (chain: Chain<T>) => V, (list: Chain<T>) => Chain<U>>;
+
         /**
          * Restricts a number to be within a range.
          * Also works for other ordered types such as Strings and Date

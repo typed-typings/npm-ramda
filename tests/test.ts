@@ -485,6 +485,8 @@ class F2 {
     };
     R.chain(duplicate, [1, 2, 3]); // => [1, 1, 2, 2, 3, 3] // $ExpectType number[]
     R.chain(duplicate)([1, 2, 3]); // => [1, 1, 2, 2, 3, 3] // $ExpectType number[]
+    R.chain(R.append, R.head)([1, 2, 3]); // => [1, 2, 3, 1] // $ExpectType number[]
+    R.chain(R.append)(R.head)([1, 2, 3]); // => [1, 2, 3, 1] // $ExpectType number[]
 };
 
 // clamp
