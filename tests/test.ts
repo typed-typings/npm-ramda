@@ -195,6 +195,8 @@ class F2 {
     )(10);
 };
 
+// TODO: pipeK
+
 // invoker
 () => {
     R.invoker<string>(0, 'charAt', String.prototype); // $ExpectType string
@@ -892,10 +894,10 @@ interface Obj { a: number; b: number; };
     let append = function(a: string, b: string): [string, string] {
         return [a + b, a + b];
     };
-    R.mapAccumRight(append, '0', digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string[]|string>
-    R.mapAccumRight(append)('0', digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string[]|string>
-    R.mapAccumRight(append, '0')(digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string[]|string>
-    R.mapAccumRight(append)('0')(digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string[]|string>
+    R.mapAccumRight(append, '0', digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string|string[]>
+    R.mapAccumRight(append)('0', digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string|string[]>
+    R.mapAccumRight(append, '0')(digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string|string[]>
+    R.mapAccumRight(append)('0')(digits); // => ['04321', ['04321', '0432', '043', '04']] // $ExpectType Array<string|string[]>
 };
 
 // addIndex
@@ -1010,7 +1012,7 @@ interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
 type Pair = KeyValuePair<string, number>;
 () => {
     let pairs: Pair[] = [ ['a', 1], ['b', 2], ['c', 3] ];
-    let flattenPairs = function(acc: Pair[], pair: Pair): Pair[] {
+    let flattenPairs = function(pair: Pair, acc: Pair[]): Pair[] {
         return acc.concat(pair);
     };
     R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ] // $ExpectType Array<string[]|string>
@@ -1844,6 +1846,10 @@ class Rectangle {
     const gn = R.compose(R.length, fn);
     gn('Hello', 4, 'world'); // $ExpectType number
 };
+
+// TODO: composeP
+
+// TODO: composeK
 
 // construct, constructN
 (() => {

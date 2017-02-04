@@ -433,9 +433,16 @@ declare namespace R {
          * `chain` maps a function over a list and concatenates the results.
          * This implementation is compatible with the Fantasy-land Chain spec
          */
+
+        // List version
         chain<T, U>(fn: (n: T) => U[], list: List<T>): U[];
         chain<T, U>(fn: (n: T) => U[]): (list: List<T>) => U[];
         // chain<T, U>: CurriedFunction2<(n: T) => U[], List<T>, U[]>;
+
+        // generic Chain version
+        chain<T, U>(fn: (n: T) => Chain<U>, list: Chain<T>): Chain<U>;
+        chain<T, U>(fn: (n: T) => Chain<U>): (list: Chain<T>) => Chain<U>;
+        // chain<T, U>: CurriedFunction2<(n: T) => Chain<U>, Chain<T>, Chain<U>>;
 
         /**
          * Restricts a number to be within a range.
@@ -510,15 +517,15 @@ declare namespace R {
         /**
          * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
          */
-        composeK<V, T1>(fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T1>;
-        composeK<V, T1, T2>(fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T2>;
-        composeK<V, T1, T2, T3>(fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T3>;
-        composeK<V, T1, T2, T3, T4>(fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T4>;
-        composeK<V, T1, T2, T3, T4, T5>(fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T5>;
-        composeK<V, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T6>;
-        composeK<V, T1, T2, T3, T4, T5, T6, T7>(fn6: (x: T6) => Chain<T7>, fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T7>;
-        composeK<V, T1, T2, T3, T4, T5, T6, T7, T8>(fn7: (x: T7) => Chain<T8>, fn6: (x: T6) => Chain<T7>, fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T8>;
-        composeK<V, T1, T2, T3, T4, T5, T6, T7, T8, T9>(fn8: (x: T8) => Chain<T9>, fn7: (x: T7) => Chain<T8>, fn6: (x: T6) => Chain<T7>, fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T9>;
+        composeK<V, T1>(fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T1>;
+        composeK<V, T1, T2>(fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T2>;
+        composeK<V, T1, T2, T3>(fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T3>;
+        composeK<V, T1, T2, T3, T4>(fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T4>;
+        composeK<V, T1, T2, T3, T4, T5>(fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T5>;
+        composeK<V, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T6>;
+        composeK<V, T1, T2, T3, T4, T5, T6, T7>(fn6: (x: T6) => Chain<T7>, fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T7>;
+        composeK<V, T1, T2, T3, T4, T5, T6, T7, T8>(fn7: (x: T7) => Chain<T8>, fn6: (x: T6) => Chain<T7>, fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T8>;
+        composeK<V, T1, T2, T3, T4, T5, T6, T7, T8, T9>(fn8: (x: T8) => Chain<T9>, fn7: (x: T7) => Chain<T8>, fn6: (x: T6) => Chain<T7>, fn5: (x: T5) => Chain<T6>, fn4: (x: T4) => Chain<T5>, fn3: (x: T3) => Chain<T4>, fn2: (x: T2) => Chain<T3>, fn1: (x: T1) => Chain<T2>, fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T9>;
 
         /**
          * Performs right-to-left composition of one or more Promise-returning functions. The rightmost function may have any arity; the remaining functions must be unary.
@@ -1430,10 +1437,10 @@ declare namespace R {
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: List<T>): [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: List<T>) => [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): CurriedFunction2<U, List<T>, [U, TResult[]]>;
-        // mapAccumRight<T, U, TResult>: CurriedFunction3<(acc: U, value: T) => [U, TResult], U, List<T>, [U, TResult[]]>;
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U, list: List<T>): [TResult[], U];
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U): (list: List<T>) => [TResult[], U];
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U]): CurriedFunction2<U, List<T>, [TResult[], U]>;
+        // mapAccumRight<T, U, TResult>: CurriedFunction3<(value: T, acc: U) => [TResult, U], U, List<T>, [TResult[], U]>;
 
         /**
          * Like map, but but passes additional parameters to the mapping function.
@@ -2057,15 +2064,15 @@ declare namespace R {
          * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
          */
         // skipped extra params on fn0 -- not mentioned in the docs!
-        pipeK<V, T1>(fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T1>;
-        pipeK<V, T1, T2>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>): (v: Chain<V>) => Chain<T2>;
-        pipeK<V, T1, T2, T3>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>): (v: Chain<V>) => Chain<T3>;
-        pipeK<V, T1, T2, T3, T4>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>): (v: Chain<V>) => Chain<T4>;
-        pipeK<V, T1, T2, T3, T4, T5>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>): (v: Chain<V>) => Chain<T5>;
-        pipeK<V, T1, T2, T3, T4, T5, T6>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>): (v: Chain<V>) => Chain<T6>;
-        pipeK<V, T1, T2, T3, T4, T5, T6, T7>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>, fn6: (x: T6) => Chain<T7>): (v: Chain<V>) => Chain<T7>;
-        pipeK<V, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>, fn6: (x: T6) => Chain<T7>, fn7: (x: T7) => Chain<T8>): (v: Chain<V>) => Chain<T8>;
-        pipeK<V, T1, T2, T3, T4, T5, T6, T7, T8, T9>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>, fn6: (x: T6) => Chain<T7>, fn7: (x: T7) => Chain<T8>, fn8: (x: T8) => Chain<T9>): (v: Chain<V>) => Chain<T9>;
+        pipeK<V, T1>(fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T1>;
+        pipeK<V, T1, T2>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>): (v: V) => Chain<T2>;
+        pipeK<V, T1, T2, T3>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>): (v: V) => Chain<T3>;
+        pipeK<V, T1, T2, T3, T4>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>): (v: V) => Chain<T4>;
+        pipeK<V, T1, T2, T3, T4, T5>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>): (v: V) => Chain<T5>;
+        pipeK<V, T1, T2, T3, T4, T5, T6>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>): (v: V) => Chain<T6>;
+        pipeK<V, T1, T2, T3, T4, T5, T6, T7>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>, fn6: (x: T6) => Chain<T7>): (v: V) => Chain<T7>;
+        pipeK<V, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>, fn6: (x: T6) => Chain<T7>, fn7: (x: T7) => Chain<T8>): (v: V) => Chain<T8>;
+        pipeK<V, T1, T2, T3, T4, T5, T6, T7, T8, T9>(fn0: (v: Chain<V>) => Chain<T1>, fn1: (x: T1) => Chain<T2>, fn2: (x: T2) => Chain<T3>, fn3: (x: T3) => Chain<T4>, fn4: (x: T4) => Chain<T5>, fn5: (x: T5) => Chain<T6>, fn6: (x: T6) => Chain<T7>, fn7: (x: T7) => Chain<T8>, fn8: (x: T8) => Chain<T9>): (v: V) => Chain<T9>;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -2287,17 +2294,12 @@ declare namespace R {
          * then passing the result to the next call.
          */
         // reason for 'any' on acc: somehow empty accumulators like '[]' won't work well when matching
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any, list: List<T>): TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced, acc: TResult|any): (list: List<T>) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): CurriedFunction2<TResult, List<T>, TResult>;
-        // reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any, list: List<T>) => TResult;
-        // reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult|Reduced): (acc: TResult|any) => (list: List<T>) => TResult;
-        // reduceRight<T, TResult>: CurriedFunction3<(acc: TResult, elem: T) => TResult|Reduced, TResult|any, List<T>, TResult>;
-
-        // does this function still/already exist?
-        reduceRightIndexed<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult, list: R): TResult;
-        reduceRightIndexed<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced, acc: TResult): (list: R) => TResult;
-        reduceRightIndexed<T, TResult, R extends List<T>>(fn: (acc: TResult, elem: T, idx: Number, list: R) => TResult|Reduced): CurriedFunction2<TResult,R,TResult>;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult|Reduced, acc: TResult|any, list: List<T>): TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult|Reduced, acc: TResult|any): (list: List<T>) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult|Reduced): CurriedFunction2<TResult, List<T>, TResult>;
+        // reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult|Reduced): (acc: TResult|any, list: List<T>) => TResult;
+        // reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult|Reduced): (acc: TResult|any) => (list: List<T>) => TResult;
+        // reduceRight<T, TResult>: CurriedFunction3<(elem: T, acc: TResult) => TResult|Reduced, TResult|any, List<T>, TResult>;
 
         /**
          * Like reduce, reduceWhile returns a single item by iterating through the list, successively calling the iterator function.

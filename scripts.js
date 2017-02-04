@@ -61,14 +61,14 @@ R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipePDef(i,j)))).join('\r
 function pipeKDef(i) {
     let fns = nm(i-1, n => `fn${n+1}: (x: T${n+1}) => Chain<T${n+2}>`);
     let types = nm(i, n => `T${n+1}`);
-    return `pipeK<V, ${types}>(fn0: (v: Chain<V>) => Chain<T1>${i>1?', ':''}${fns}): (v: Chain<V>) => Chain<T${i}>;`
+    return `pipeK<V, ${types}>(fn0: (v: Chain<V>) => Chain<T1>${i>1?', ':''}${fns}): (v: V) => Chain<T${i}>;`
 }
 R.flatten(R.range(1,10).map(i => pipeKDef(i))).join('\r\n')
 
 function composeKDef(i) {
     let fns = nm(i-1, n => `fn${i-1-n}: (x: T${i-1-n}) => Chain<T${i-n}>`);
     let types = nm(i, n => `T${n+1}`);
-    return `composeK<V, ${types}>(${fns}${i>1?', ':''}fn0: (v: Chain<V>) => Chain<T1>): (v: Chain<V>) => Chain<T${i}>;`
+    return `composeK<V, ${types}>(${fns}${i>1?', ':''}fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T${i}>;`
 }
 R.flatten(R.range(1,10).map(i => composeKDef(i))).join('\r\n')
 
