@@ -2482,9 +2482,9 @@ declare namespace R {
         /**
          * Sorts a list according to a list of comparators.
          */
-        sortWith(comparators: List<(a: T, b: T) => number>, list: List<T>): T[];
-        sortWith(comparators: List<(a: T, b: T) => number>): (list: List<T>) => T[];
-        // sortWith: CurriedFunction2<List<(a: T, b: T) => number>, List<T>, T[]>;
+        sortWith<T>(comparators: List<(a: T, b: T) => number>, list: List<T>): T[];
+        sortWith<T>(comparators: List<(a: T, b: T) => number>): (list: List<T>) => T[];
+        // sortWith<T>: CurriedFunction2<List<(a: T, b: T) => number>, List<T>, T[]>;
 
         /**
          * Splits a string into an array of strings based on the given
