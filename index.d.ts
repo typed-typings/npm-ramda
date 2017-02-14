@@ -1030,7 +1030,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends List<any>>(list: T): T[0];
+        head<T extends List<any>>(list: T): any;
         // tuple attempts; it doesn't like these.
         head<T>(list: [T]): T;
         head<T0, T1>(list: [T0, T1]): T0;
@@ -2482,8 +2482,8 @@ declare namespace R {
         /**
          * Sorts a list according to a list of comparators.
          */
-        sortWith(comparators: List<(a: T, b: T) => number>, list: List<T>): T[];
-        sortWith(comparators: List<(a: T, b: T) => number>): (list: List<T>) => T[];
+        sortWith<T>(comparators: List<(a: T, b: T) => number>, list: List<T>): T[];
+        sortWith<T>(comparators: List<(a: T, b: T) => number>): (list: List<T>) => T[];
         // sortWith: CurriedFunction2<List<(a: T, b: T) => number>, List<T>, T[]>;
 
         /**
