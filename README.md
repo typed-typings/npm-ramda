@@ -61,3 +61,9 @@ Typing compatible with ramda version 0.22.1.
 - compose: use like extend rather than forcing types to be the same?
 - Curry<Fn>?
 - issue: allow separating manual/inferred generics to allow providing hints to e.g. pipe/compose
+
+##TS notes:
+- [source](https://github.com/Microsoft/TypeScript/issues/9949#issuecomment-271926278)
+- [instructions](https://github.com/Microsoft/TypeScript/issues/10247):
+- `gulp local` (`jake local` works too)
+- then point VSCode's `typescript.tsdk` to `PATH_TO_FORK/built/local`
