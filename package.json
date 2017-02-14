@@ -21,7 +21,8 @@
     "ts-node": "^2.0.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "^2.2.0-dev.20170120"
+    "typescript": "^2.2.1-insiders.20170209",
+    "typings-checker": "github:tycho01/typings-checker"
   },
   "typings": "index.d.ts"
 }
