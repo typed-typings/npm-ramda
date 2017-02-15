@@ -2575,4 +2575,14 @@ class Why {
   R.path(['a', 0, 'c'], {a: [{c: 2}] }); // $ExpectType number
 };
 
+() => {
+  // #129: nested evolve
+  type FormState = { index: number };
+  function ramdaIssue(state: FormState): FormState {
+    return R.evolve({
+        index: R.inc
+    }, state);
+  }
+};
+
 // */
