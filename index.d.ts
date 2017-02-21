@@ -370,9 +370,9 @@ declare namespace R {
         // hard to mix cuz different initial generics?
 
         // extend object with new property
-        assoc<T, U extends Struct<any>, K extends keyof U>(prop: K, val: T, obj: U): {[P in K]: T} & U;
-        assoc<T, U extends Struct<any>, K extends keyof U>(prop: K, val: T): (obj: U) => {[P in K]: T} & U; // generics too early?
         assoc<T, U extends Struct<any>, K extends keyof U>(prop: K): CurriedFunction2<T,U, {[P in K]: T} & U>; // generics too early?
+        assoc<K extends string, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
+        assoc<K extends string, T>(prop: K, val: T): <U extends Struct<any>>(obj: U) => {[P in K]: T} & U; // generics too early?
         // assoc<T, U extends Struct<any>, K extends keyof U>: CurriedFunction3<K, T, U, {[P in K]: T} & U>;
 
         // // homogeneous object
