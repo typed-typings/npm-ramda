@@ -152,4 +152,98 @@ function pathDefPoly(i, j) {
 }
 R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(i, j)))).join('\r\n')
 
+function CurriedCustomFunctionDef(i) {
+  let types = nm(i, n => `T${n+1}`);
+  let curriedDef = (j) => { // , extraGenerics = false
+      let pars = nm(j, n => `t${n+1}: T${n+1}`);
+      let tps = nm(i-j, n => `T${j+n+1}`);
+      let gens = nm(i, n => `T${n+1}`);
+      let curried = (i-j > 1) ? `CurriedFunction${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
+      // return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
+      return `(${pars}): ${curried};`
+  }
+  let nums = R.range(0,i);
+  // let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
+  let defs = nums.map(n => curriedDef(n+1)).join('\r\n    ');
+  return `interface CurriedFunction${i}<${types}, R> {
+  ${defs}
+  }`;
+}
 
+// type Option = [/*generics*/ string[], ParamObj, /*retval*/ string | Option[]];
+// type ParamObj = { [name: string]: string };
+
+var whitespace = (indentation) => R.repeat(' ', indentation).join('');
+
+function genCurried(options /*: { [name: Option }*/, indent = 0) /*: string */ {
+  return `{\r\n${
+    R.toPairs(options).map(([k,o]) => `${whitespace(indent+2)}// ${k}\r\n` + genOption(o, indent+2)).join('\r\n')
+  }\r\n${whitespace(indent)}}`;
+}
+
+function genOption(option /*: Option*/, indent = 0) /*: string */ {
+  let ws = R.repeat(' ', indent).join('');
+  let [generics, paramObj, returnOrOptions] = option;
+  let genericNames = generics.map(R.pipe(R.match(/\w+/), R.head));
+  let genericObj = R.fromPairs(R.zip(genericNames, generics));
+  let params = R.toPairs(paramObj);
+  let rest = R.is(Object)(returnOrOptions) ? genCurried(returnOrOptions, indent + 2) : returnOrOptions;
+  let [paramInfos, retGenerics] = params.reduce(([paramTypes, generics], pair) => {
+    let [k,v] = pair;
+    let usedGenerics = R.keys(generics)
+        .filter((name) => R.test(new RegExp(`\\b${name}\\b`), v));
+    let remainingGenerics = R.omit(usedGenerics, generics);
+    return [
+      R.concat([[
+        [k,v],
+        usedGenerics.map(k => generics[k]),
+      ]], paramTypes),
+      remainingGenerics,
+    ];
+  }, [[], genericObj]);
+  let nums = R.range(0, params.length); // number of params delegated to the right side. for 4: 0, 1, 2, 3.
+  return nums.map((num) => {
+    let numLeft = params.length - num;
+    let [left, right] = [R.take(numLeft, paramInfos), R.drop(numLeft, paramInfos)];
+    let [leftParams, rightParams] = R.map(R.map(R.prop(0)))([left, right]);
+    let [leftGenerics, rightGenerics] = R.map(R.chain(R.prop(1)))([left, right]);
+    let unusedGenerics = R.values(retGenerics);
+    if (num) {
+      rightGenerics = rightGenerics.concat(unusedGenerics);
+    } else {
+      leftGenerics = leftGenerics.concat(unusedGenerics);
+    }
+    let genericStr = leftGenerics.length ? `<${leftGenerics.join(', ')}>` : '';
+    let parStr = leftParams.map(/*([k,v]) => `${k}: ${v}`*/ R.join(': ')).join(', ');
+    let returnVal = !num ? ` ${rest}` : (`{\r\n${
+      genOption([rightGenerics, R.fromPairs(rightParams), rest], indent + 2)
+    }${ws}}`);
+    return `${ws}${genericStr}(${parStr}):${returnVal};\r\n`;
+  }).join('');
+}
+
+// propOr
+genCurried({
+  base: [['T'], { val: 'T' }, {
+    record: [['K extends string', 'V', 'U extends Record<K,V>'], { p: 'K', obj: 'U' }, 'V|T'],
+    keyof: [['U', 'K extends keyof U'], { p: 'K', obj: 'U' }, 'U[K]|T'],
+    same: [[], { p: 'Prop', obj: 'Struct<any>' }, 'T'],
+    unbound: [['U', 'V'], { p: 'Prop', obj: 'U' }, 'V'],
+  }],
+})
+
+// map
+genCurried({
+  base: [['T','U'], { fn: '(value: T) => U' }, {
+    array: [[], { list: 'List<T>' }, 'U[]'],
+    obj_keyof: [['M extends Obj<T>'], { obj: 'M' }, '{[K in keyof M]: U}'],
+    obj_keyof: [['K extends string'], { obj: 'Record<K, T>' }, 'Record<K, U>'],
+    functor: [[], { obj: 'Functor<T>' }, 'Functor<U>'],
+  }],
+})
+
+// dissoc
+genCurried({
+  accurate: [['T'], { prop: 'keyof T', obj: 'T' }, 'T'],
+  easier: [['T'], { prop: 'Prop', obj: 'Struct<any>' }, 'T'],
+})
