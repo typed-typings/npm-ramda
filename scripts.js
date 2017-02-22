@@ -194,10 +194,10 @@ function genOption(option /*: Option*/, indent = 0) /*: string */ {
         .filter((name) => R.test(new RegExp(`\\b${name}\\b`), v));
     let remainingGenerics = R.omit(usedGenerics, generics);
     return [
-      R.concat([[
+      R.concat(paramTypes, [[
         [k,v],
         usedGenerics.map(k => generics[k]),
-      ]], paramTypes),
+      ]]),
       remainingGenerics,
     ];
   }, [[], genericObj]);
