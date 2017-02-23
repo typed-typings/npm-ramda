@@ -1586,6 +1586,19 @@ genCurried({
   ]
 });
 
+// mergeWithKey
+genCurried({
+    'mergeWithKey': [
+        ['U', 'V'],
+        {
+            fn: '(str: string, x: any, z: any) => any',
+            a: 'U',
+            b: 'V',
+        },
+        'U & V'
+    ]
+});
+
 // minBy
 genCurried({
   base: [
@@ -1622,7 +1635,7 @@ genCurried({
   'unbound value': [
     ['T', 'V'],
     {
-      lens: 'Lens<T, V>|ManualLens|UnknownLens',
+      lens: 'Lens<T, V>|ManualLens<V>|UnknownLens',
       fn: '(v: V) => V',
       value: 'T',
     },
@@ -1679,6 +1692,14 @@ genCurried({
       obj: 'U'
     },
     'U[K] | T'
+  ],
+  'other': [
+    ['T'],
+    {
+      val: 'T',
+      p: 'Prop',
+    },
+    'Struct<any>'
   ]
 });
 
@@ -1807,6 +1828,15 @@ genCurried({
       obj: 'T'
     },
     'T'
+  ],
+  unknow: [
+    ['T'],
+    {
+      lens: 'UnknownLens',
+      a: 'any',
+      obj: 'T',
+    },
+    'T'
   ]
 });
 
@@ -1923,5 +1953,28 @@ genCurried({
     'U'
   ]
 });
+
+
+// assoc
+genCurried({
+  'extend object with new property': [
+    ['T', 'U extends Struct<any>' ,'K extends keyof U'],
+    {
+      prop: 'K',
+      val: 'T',
+      obj: 'U',
+    },
+    '{[P in K]: T} & U'
+  ],
+  'any object as long as the type remains unchanged': [
+    ['T'],
+    {
+      prop: 'Prop',
+      val: 'any',
+      obj: 'T',
+    },
+    'T'
+  ]
+})
 
 
