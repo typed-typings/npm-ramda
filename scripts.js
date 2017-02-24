@@ -1743,7 +1743,7 @@ genCurried({
   base: [
     ['T', 'TResult', 'R extends List<T>'],
     {
-      valueFn: '(acc: TResult, elem: T, idx: nuber, list: R) => TResult',
+      valueFn: '(acc: TResult, elem: T, idx: number, list: R) => TResult',
       acc: 'TResult|any',
       keyFn: '(elem: T) => string',
       list: 'R',
