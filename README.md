@@ -21,11 +21,11 @@ Pull requests are welcome!
 
 Install the typings for node using:
 ```bash
-npm install @types/ramda --saveDev
+npm install types/npm-ramda --saveDev
 ```
 If you use the package through a script tag, use:
 ```bash
-npm install @types/ramda --saveDev --global
+npm install types/npm-ramda --saveDev --global
 ```
 
 ##Note on placeholders
