@@ -7,6 +7,7 @@
     "diff": "echo diffing... && node ./node_modules/typings-checker/dist/index.js tests/test.ts 2>&1 | tee typecheck.txt"
   },
   "devDependencies": {
+    "es6-promise": "^4.0.5",
     "ramda": "0.23.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",

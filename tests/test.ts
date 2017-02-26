@@ -1,4 +1,5 @@
 import * as R from '../index';
+import {Promise} from 'es6-promise';
 
 declare let console: any;
 
