@@ -2491,44 +2491,9 @@ declare namespace R {
         /**
          * Returns true if the specified object property is of the given type; false otherwise.
          */
-
-        // Record
-        propIs<T extends Function, K extends string, V, U extends Record<K,V>>(type: T, name: K, obj: U): obj is (U & Record<K, T>);
-        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
-        // propIs<T extends Function>(type: T): {
-        //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
-        //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
-        // }
-        // propIs<T extends Function, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V is (V & Record<K, T>)>; // obj is? name unavailable...
-
-        // inference, fails if name and object are supplied separately
-        propIs<T extends Function, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>);
-        // propIs<T extends Function, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        // propIs<T extends Function>(type: T): {
-        //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
-        //     <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        // }
-        // propIs<T extends Function, V, K extends keyof V>: CurriedFunction3<T, K, V, V is (V & Record<K, T>)>; // obj is? name unavailable...
-
-        // // curry-friendlier fallback
-        // // propIs(type: Function, name: Prop, obj: Struct<any>): boolean;
-        // propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
-        // propIs(type: Function): CurriedFunction2<Prop, Struct<any>, boolean>;
-        // // propIs(type: Function): {
-        // //     (name: Prop, obj: Struct<any>): boolean;
-        // //     (name: Prop): (obj: Struct<any>) => boolean;
-        // // }
-        // // propIs: CurriedFunction3<Function, Prop, Struct<any>, boolean>;
-
-        // mixed:
-        propIs<T extends Function>(type: T): {
-            // record
-            <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
-            <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
-            // keyof
-            <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
-            // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        };
+        propIs(type: Function, name: string, obj: Object): boolean;
+        propIs(type: Function, name: string): CurriedFunction1<Object, boolean>;
+        propIs(type: Function): CurriedFunction2<string, Object, boolean>;
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
