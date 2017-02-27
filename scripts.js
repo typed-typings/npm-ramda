@@ -237,7 +237,7 @@ genCurried({
   base: [['T','U'], { fn: '(value: T) => U' }, {
     array: [[], { list: 'List<T>' }, 'U[]'],
     obj_keyof: [['M extends Obj<T>'], { obj: 'M' }, '{[K in keyof M]: U}'],
-    obj_keyof: [['K extends string'], { obj: 'Record<K, T>' }, 'Record<K, U>'],
+    obj_record: [['K extends string'], { obj: 'Record<K, T>' }, 'Record<K, U>'],
     functor: [[], { obj: 'Functor<T>' }, 'Functor<U>'],
   }],
 })
@@ -433,7 +433,7 @@ genCurried({
     },
     '{[P in K]: T} & U'
   ],
-  'any object as long as the type remains unchanged': {
+  'any object as long as the type remains unchanged': [
     ['T'],
     {
       prop: 'Prop',
@@ -441,7 +441,7 @@ genCurried({
       obj: 'T',
     },
     'T',
-  }
+  ]
 });
 
 // assocPath
@@ -561,13 +561,13 @@ genCurried({
     },
     'T'
   ],
-  'Arrays': {
+  'Arrays': [
     ['T'],
     {
       value: 'List<T>',
     },
     'T[]',
-  }
+  ]
 });
 
 // comparator
@@ -653,7 +653,7 @@ genCurried({
       list: 'string',
     },
     'boolean',
-  ]
+  ],
   generics: [
     ['T', 'R extends List<T>'],
     {
@@ -750,7 +750,7 @@ genCurried({
       obj: 'T'
     },
     'T'
-  ]
+  ],
   'struct': [
     ['T'],
     {
@@ -838,7 +838,7 @@ genCurried({
   base: [
     ['T'],
     {
-      pred1: 'Pred<T>'
+      pred1: 'Pred<T>',
       pred2: 'Pred<T>',
     },
     'Pred<T>'
@@ -934,7 +934,7 @@ genCurried({
       list: 'List<T>',
     },
     'T[]'
-  ]
+  ],
   'functor to functor': [
     ['T'],
     {
@@ -1028,7 +1028,7 @@ genCurried({
       fn: '(arg0: T, arg1: U) => TResult'
     },
     '(arg1:U, arg0?:T) => TResult'
-  ]
+  ],
   'rest arguments': [
     ['T', 'U', 'Rest', 'TResult'],
     {
