@@ -192,6 +192,8 @@ function genOption(option /*: Option*/, indent = 0) /*: string */ {
     let [k,v] = pair;
     let usedGenerics = R.keys(generics)
         .filter((name) => R.test(new RegExp(`\\b${name}\\b`), v));
+        // TODO: also check if the generic has been used in other used generics.
+        // potentially need to recheck for more as long as I've added new ones!
     let remainingGenerics = R.omit(usedGenerics, generics);
     return [
       R.concat(paramTypes, [[
