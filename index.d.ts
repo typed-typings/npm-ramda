@@ -2289,6 +2289,9 @@ declare namespace R {
         pick<T, K extends keyof T>(names: List<K>): (obj: T) => Pick<T, K>;
         // pick<T, K extends keyof T>: CurriedFunction2<List<K>, T, Pick<T, K>>;
 
+        pick<T>(names: List<Prop>, obj: T): Partial<T>;
+        pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
+        // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -2459,7 +2462,7 @@ declare namespace R {
         // prop<T, K extends Prop>: CurriedFunction2<K, T, T[K]>;
 
         // Record version, more curry-friendly
-        // prop<K extends string, V, T extends Record<K,V>>(p: K, obj: T): V; // uncurried doesn't add value
+        prop<K extends string, V, T extends Record<K,V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
         prop<K extends string>(p: K): <V, T extends Record<K,V>>(obj: T) => V;
         // prop<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, T, V>;
 
@@ -2510,15 +2513,15 @@ declare namespace R {
         // }
         // propIs<T extends Function, V, K extends keyof V>: CurriedFunction3<T, K, V, V is (V & Record<K, T>)>; // obj is? name unavailable...
 
-        // // curry-friendlier fallback
-        // // propIs(type: Function, name: Prop, obj: Struct<any>): boolean;
-        // propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
-        // propIs(type: Function): CurriedFunction2<Prop, Struct<any>, boolean>;
-        // // propIs(type: Function): {
-        // //     (name: Prop, obj: Struct<any>): boolean;
-        // //     (name: Prop): (obj: Struct<any>) => boolean;
-        // // }
-        // // propIs: CurriedFunction3<Function, Prop, Struct<any>, boolean>;
+        // curry-friendlier fallback
+        propIs(type: Function, name: Prop, obj: Struct<any>): boolean;
+        propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
+        propIs(type: Function): CurriedFunction2<Prop, Struct<any>, boolean>;
+        // propIs(type: Function): {
+        //     (name: Prop, obj: Struct<any>): boolean;
+        //     (name: Prop): (obj: Struct<any>) => boolean;
+        // }
+        // propIs: CurriedFunction3<Function, Prop, Struct<any>, boolean>;
 
         // mixed:
         propIs<T extends Function>(type: T): {
@@ -2549,8 +2552,8 @@ declare namespace R {
         // propOr<T>(val: T): <U,K extends keyof U>(p: K) => (obj: U) => U[K]|T;  // U too early?
         // propOr<T,U,K extends keyof U>: CurriedFunction3<T, K, U, U[K]|T>;
 
-        // // presume the value at the given key matches the type of the default value, bad but less likely to fail with currying
-        // // propOr<T>(val: T, p: Prop, obj: Struct<any>): T; // don't think this adds value for the uncurried version
+        // presume the value at the given key matches the type of the default value, bad but less likely to fail with currying
+        propOr<T>(val: T, p: Prop, obj: Struct<any>): T; // adds value only to protect against {} from e.g. generic degeneration
         // propOr<T>(val: T, p: Prop): (obj: Struct<any>) => T;
         // // propOr<T>(val: T): (p: Prop, obj: Struct<any>) => T;
         // propOr<T>(val: T): CurriedFunction2<Prop, Struct<any>, T>;
