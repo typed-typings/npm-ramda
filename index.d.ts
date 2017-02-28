@@ -84,11 +84,12 @@ declare namespace R {
     }
 
     // simple types
-    type Ord = number | string | boolean | Date;
+    type Index = string | number;
     type Primitive = string | number | boolean;
+    type Ord = string | number | boolean | Date;
     type List<T> = ArrayLike<T>;
     type StringLike = string | StringRepresentable<string>;
-    type Prop = Primitive | StringRepresentable<Primitive>;
+    type Prop = Index | StringRepresentable<Index>;
     type Path = List<Prop>;
     type Struct<T> = Obj<T> | List<T>;
     type AccOpts<T,U> = List<any>|Obj<any>|Transformer<T, U, U>;
