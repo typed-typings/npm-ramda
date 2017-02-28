@@ -403,14 +403,23 @@ genCurried({
 
 // apply
 genCurried({
-  base: [
-    ['T', 'U', 'TResult'],
+  // // fails, can't use ... on Args because it only indirectly represents an array...
+  // capture: [
+  //   ['Args extends any[]', 'TResult'],
+  //   {
+  //     fn: '(...args: Args) => TResult',
+  //     args: 'Args',
+  //   },
+  //   'TResult',
+  // ],
+  any: [
+    ['TResult'],
     {
-      fn: '(arg0: T, ...args: T[]) => TResult',
-      args: 'List<U>',
+      fn: '(...args: any[]) => TResult',
+      args: 'any[]',
     },
     'TResult',
-  ]
+  ],
 });
 
 // applySpec

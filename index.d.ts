@@ -359,9 +359,9 @@ declare namespace R {
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
          * a variadic function. fn should be a bound function if context is significant.
          */
-        apply<T, U, TResult>(fn: (arg0: T, ...args: T[]) => TResult, args: List<U>): TResult;
-        apply<T, TResult>(fn: (arg0: T, ...args: T[]) => TResult): <U>(args: List<U>) => TResult;
-        // apply<T, U, TResult>: CurriedFunction2<(arg0: T, ...args: T[]) => TResult, List<U>, TResult>;
+        apply<TResult>(fn: (...args: any[]) => TResult, args: any[]): TResult;
+        apply<TResult>(fn: (...args: any[]) => TResult): <U>(args: any[]) => TResult;
+        // apply<TResult>: CurriedFunction2<(...args: any[]) => TResult, any[], TResult>;
 
         /**
          * Given a spec object recursively mapping properties to functions, creates a function producing an object
