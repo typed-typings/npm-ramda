@@ -255,7 +255,7 @@ genCurried({
   base: [
     [],
     {
-      p: 'string|number[]',
+      p: 'Path',
       v: 'any',
       o: 'any',
     },

@@ -2224,15 +2224,15 @@ declare namespace R {
         // // pathEq: CurriedFunction3<Path, any, Struct<any>, boolean>;
 
         // base
-        pathEq(p: string|number[], v: any, o: any): boolean;
-        pathEq(p: string|number[], v: any):{
-            (o: any): boolean;
+        pathEq(p: Path, v: any, o: any): boolean;
+        pathEq(p: Path, v: any): {
+          (o: any): boolean;
         };
-        pathEq(p: string|number[]):{
-            (v: any, o: any): boolean;
-            (v: any):{
-                (o: any): boolean;
-            };
+        pathEq(p: Path):{
+          (v: any, o: any): boolean;
+          (v: any):{
+            (o: any): boolean;
+          };
         };
 
 
