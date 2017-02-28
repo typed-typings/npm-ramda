@@ -46,7 +46,7 @@ class F2 {
     R.propIs(Number)('x', {x: 1, y: 2});  // => true // $ExpectType boolean
     R.propIs(Number)('x')({x: 1, y: 2});  // => true // $ExpectType boolean
     R.propIs(Number, 'x', {x: 'foo'});    // => false // $ExpectType boolean
-    R.propIs(Number, 'x', {});            // => false // $ExpectError Argument of type 'x' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
+    R.propIs(Number, 'x', {});            // => false // $ExpectType boolean
 });
 
 // type
