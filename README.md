@@ -8,11 +8,11 @@ Testing:
 # old way, easy
 npm test
 # without npm
-./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs test.ts --noEmit
+./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs tests/test.ts --noEmit
 # diffing, more detailed, with npm
 npm run diff
 # without
-ts-node typecheck.ts test.ts 2>&1 | tee typecheck.txt
+ts-node typecheck.ts tests/test.ts 2>&1 | tee typecheck.txt
 ```
 
 Pull requests are welcome!
@@ -21,11 +21,11 @@ Pull requests are welcome!
 
 Install the typings for node using:
 ```bash
-npm install @types/ramda --saveDev
+npm install types/npm-ramda --saveDev
 ```
 If you use the package through a script tag, use:
 ```bash
-npm install @types/ramda --saveDev --global
+npm install types/npm-ramda --saveDev --global
 ```
 
 ##Note on placeholders
@@ -55,7 +55,7 @@ Typing compatible with ramda version 0.22.1.
 
 ##Testing
 - unix: `npm test`
-- windows: `tsc  --lib es2015 --module commonjs test.ts --noEmit`
+- windows: `node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test.ts --noEmit`
 
 ##Todo
 - compose: use like extend rather than forcing types to be the same?
