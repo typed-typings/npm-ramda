@@ -190,7 +190,7 @@ class F2 {
     // $ExpectType Promise<number>
     R.pipeP(
         (m: number) => Promise.resolve(R.multiply(2, m)),
-        m => Promise.resolve(m / 2),
+        (m: number) => Promise.resolve(m / 2),
         R.multiply(2)
     )(10);
 };
@@ -606,8 +606,8 @@ class F2 {
 () => {
     type Task = {id: number};
     let tasks: Task[] = [];
-    const a = R.find(task => task.id === 1, tasks); // this works
-    const f: (list: Task[]) => Task = R.find<Task>(task => task.id === 1);
+    const a = R.find((task: Task) => task.id === 1, tasks); // this works
+    const f: (list: Task[]) => Task = R.find<Task>((task: Task) => task.id === 1);
     f(tasks); // works // $ExpectType Task
 };
 
@@ -978,7 +978,7 @@ interface Student {
 }
 () => {
     const reduceToNamesBy = R.reduceBy((acc: string[], student: Student) => acc.concat(student.name), []);
-    const namesByGrade = reduceToNamesBy(function(student) {
+    const namesByGrade = reduceToNamesBy(function(student: Student) {
           let score = student.score;
           return score < 65 ? 'F' :
                  score < 70 ? 'D' :
@@ -1541,13 +1541,13 @@ class Rectangle {
 
 // pathSatisfies
 () => {
-    R.pathSatisfies(a => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); // => true // $ExpectType boolean
-    R.pathSatisfies(a => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); // => false // $ExpectType boolean
-    R.pathSatisfies(a => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); // => true // $ExpectType boolean
-    R.pathSatisfies(a => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); // => true // $ExpectType boolean
-    R.pathSatisfies(a => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); // => true // $ExpectType boolean
-    R.pathSatisfies(a => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); // => true // $ExpectType boolean
-    R.pathSatisfies(a => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); // => true // $ExpectType boolean
+    R.pathSatisfies((a: any) => a === 'foo', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); // => true // $ExpectType boolean
+    R.pathSatisfies((a: any) => a === 'bar', ['a', 'b', 'c'], {a: {b: {c: 'foo'}}}); // => false // $ExpectType boolean
+    R.pathSatisfies((a: any) => a === 1, ['a', 'b', 'c'], {a: {b: {c: 1}}}); // => true // $ExpectType boolean
+    R.pathSatisfies((a: any) => a !== 1, ['a', 'b', 'c'], {a: {b: {c: 2}}}); // => true // $ExpectType boolean
+    R.pathSatisfies((a: any) => a === 1)(['a', 'b', 'c'], {a: {b: {c: 1}}}); // => true // $ExpectType boolean
+    R.pathSatisfies((a: any) => a === 1, ['a', 'b', 'c'])({a: {b: {c: 1}}}); // => true // $ExpectType boolean
+    R.pathSatisfies((a: any) => a === 1)(['a', 'b', 'c'])({a: {b: {c: 1}}}); // => true // $ExpectType boolean
 };
 
 // pickBy
@@ -1573,9 +1573,9 @@ class Rectangle {
 () => {
     R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4} // $ExpectType Dictionary<number>
     // the following should errror: e/f are not keys in these objects
-    let no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
-    let no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
-    let no = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]);             // => {a: 1} // $ExpectError not keys
+    let no1 = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
+    let no2 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
+    let no3 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]);             // => {a: 1} // $ExpectError not keys
 };
 
 // objOf
@@ -1655,9 +1655,9 @@ class Rectangle {
 
 // propSatisfies
 () => {
-    R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); // => true // $ExpectType boolean
-    R.propSatisfies(x => x > 0, 'x')({x: 1, y: 2}); // => true // $ExpectType boolean
-    R.propSatisfies(x => x > 0)('x')({x: 1, y: 2}); // => true // $ExpectType boolean
+    R.propSatisfies((x: number) => x > 0, 'x', {x: 1, y: 2}); // => true // $ExpectType boolean
+    R.propSatisfies((x: number) => x > 0, 'x')({x: 1, y: 2}); // => true // $ExpectType boolean
+    R.propSatisfies((x: number) => x > 0)('x')({x: 1, y: 2}); // => true // $ExpectType boolean
 };
 
 // props
@@ -2398,7 +2398,7 @@ class Why {
 
     // compiles
     let filterMatrix2 = function (v: number, m: Array<Array<number>>): Array<number> {
-        return R.chain((r) => R.filter((c) => c === v, r), m);
+        return R.chain((r: number[]) => R.filter((c: number) => c === v, r), m);
     };
 
     // also compiles
@@ -2425,7 +2425,7 @@ class Why {
     R.pipe(R.append('a'), R.uniq)(['a', 'b', 'c']); // $ExpectType string[]
     R.pipe( // $ExpectType string[][]
         R.split(''),
-        R.map(letter => ([ letter ]))
+        R.map((letter: string) => ([ letter ]))
     )('dave');
 
     R.pipe( // $ExpectType number
@@ -2434,8 +2434,8 @@ class Why {
     )({ name: 'dave' });
 
     let build: string;
-    let mapPackages = R.partial(R.map, [test => test.package]);
-    let filterBuild = R.partial(R.filter, [test => test.build === build]);
+    let mapPackages = R.partial(R.map, [(test: any) => test.package]);
+    let filterBuild = R.partial(R.filter, [(test: any) => test.build === build]);
     let getPackages = R.compose(R.uniq, mapPackages, filterBuild);
     this.packages = getPackages(this._tests);
     // ^ expected: ??
@@ -2476,7 +2476,7 @@ class Why {
     // #78: curry loses generics
     // : <T>R.CurriedFunction3<R.Pred<T>, T, T[], T[]>
     // : R.CurriedFunction3<R.Pred<any>, any, any[], any[]>
-    let updateBy = R.curry(<T>(pred: R.Pred<T>, val: T, array: T[]): T[] => {
+    let updateBy = R.curry(<T>(pred: (v: T) => boolean, val: T, array: T[]): T[] => {
         let i = R.findIndex(pred, array);
         if (i >= 0) {
             return R.update(i, val, array);
