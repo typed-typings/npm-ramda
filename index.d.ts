@@ -2665,17 +2665,17 @@ declare namespace R {
         // reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult): CurriedFunction3<TResult|any, (elem: T) => string, R, TResult>;
         // // reduceBy<T, TResult, R extends List<T>>: CurriedFunction4<(acc: TResult, elem: T, idx: number, list: R) => TResult, TResult|any, (elem: T) => string, R, TResult>;
         // base
-        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: nuber, list: R) => TResult, acc: TResult|any, keyFn: (elem: T) => string, list: R): TResult;
-        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: nuber, list: R) => TResult, acc: TResult|any, keyFn: (elem: T) => string):{
+        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult, acc: TResult|any, keyFn: (elem: T) => string, list: R): TResult;
+        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult, acc: TResult|any, keyFn: (elem: T) => string):{
             (list: R): TResult;
         };
-        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: nuber, list: R) => TResult, acc: TResult|any):{
+        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult, acc: TResult|any):{
             (keyFn: (elem: T) => string, list: R): TResult;
             (keyFn: (elem: T) => string):{
                 (list: R): TResult;
             };
         };
-        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: nuber, list: R) => TResult):{
+        reduceBy<T, TResult, R extends List<T>>(valueFn: (acc: TResult, elem: T, idx: number, list: R) => TResult):{
             (acc: TResult|any, keyFn: (elem: T) => string, list: R): TResult;
             (acc: TResult|any, keyFn: (elem: T) => string):{
                 (list: R): TResult;
