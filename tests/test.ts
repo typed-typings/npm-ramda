@@ -805,7 +805,10 @@ interface Obj { a: number; b: number; };
 // into
 () => {
     let numbers = [1, 2, 3, 4];
-    let transducer = R.compose(R.map(R.add(1)), R.take(2));
+    let a  = R.map(R.add(1), R.take(2, numbers));
+    let b = R.take<string>(2);
+    let transducer = R.compose(R.map(R.add(1)), R.take<number>(2));
+    
 
     R.into([], transducer, numbers); // => [2, 3] // $ExpectType number[]
     R.into([])(transducer, numbers); // => [2, 3] // $ExpectType number[]
@@ -1573,9 +1576,9 @@ class Rectangle {
 () => {
     R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4} // $ExpectType Dictionary<number>
     // the following should errror: e/f are not keys in these objects
-    let no = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
-    let no = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
-    let no = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]);             // => {a: 1} // $ExpectError not keys
+    let no1 = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
+    let no2 = R.pick(['a', 'e', 'f'])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1} // $ExpectError not keys
+    let no3 = R.pick(['a', 'e', 'f'], [1, 2, 3, 4]);             // => {a: 1} // $ExpectError not keys
 };
 
 // objOf
