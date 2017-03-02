@@ -391,11 +391,11 @@ declare namespace R {
         // assoc<T, U extends Struct<any>, K extends keyof U>: CurriedFunction3<K, T, U, {[P in K]: T} & U>;
 
         // extend object with new property
-        assoc<K extends keyof U, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
-        assoc<K extends keyof U, T, U>(prop: K, val: T):{
+        assoc<K extends string, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
+        assoc<K extends string, T>(prop: K, val: T):{
             <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
         };
-        assoc<K extends keyof U, U>(prop: K):{
+        assoc<K extends string>(prop: K):{
             <T, U extends Struct<any>>(val: T, obj: U): {[P in K]: T} & U;
             <T>(val: T):{
                 <U extends Struct<any>>(obj: U): {[P in K]: T} & U;

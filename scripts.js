@@ -1969,7 +1969,7 @@ genCurried({
 // assoc
 genCurried({
   'extend object with new property': [
-    ['T', 'U extends Struct<any>' ,'K extends keyof U'],
+    ['T', 'U extends Struct<any>' ,'K extends string'],
     {
       prop: 'K',
       val: 'T',
