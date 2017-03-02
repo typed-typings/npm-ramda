@@ -2562,6 +2562,9 @@ class Why {
         R.assoc('c', { 'k': 'v'})
     );
     let struct: SomeStruct = fun(x);
+    
+    let a = R.assoc('a', 2, {z:3});
+    let b = R.assoc('b', 2);
 };
 
 () => {
