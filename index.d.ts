@@ -1596,10 +1596,10 @@ declare namespace R {
 
         // mixed:
         map<T, U>(fn: (x: T) => U): {
-          (list: List<T>): U[];
           <M extends Obj<T>>(obj: M): {[K in keyof M]: U};
           <K extends string>(obj: Record<K, T>): Record<K, U>;
           (obj: Functor<T>): Functor<U>;
+          (list: List<T>): U[];
         };
 
         /**
@@ -1632,11 +1632,11 @@ declare namespace R {
         // mapAccumRight<T, U, TResult>: CurriedFunction3<(value: T, acc: U) => [TResult, U], U, List<T>, [TResult[], U]>;
 
         // base
-        <T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U, list: List<T>): [TResult[], U];
-        <T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U):{
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U, list: List<T>): [TResult[], U];
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U):{
             (list: List<T>): [TResult[], U];
         };
-        <T, U, TResult>(fn: (value: T, acc: U) => [TResult, U]):{
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U]):{
             (acc: U, list: List<T>): [TResult[], U];
             (acc: U):{
                 (list: List<T>): [TResult[], U];

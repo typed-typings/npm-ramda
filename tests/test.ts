@@ -805,7 +805,10 @@ interface Obj { a: number; b: number; };
 // into
 () => {
     let numbers = [1, 2, 3, 4];
-    let transducer = R.compose(R.map(R.add(1)), R.take(2));
+    let a  = R.map(R.add(1), R.take(2, numbers));
+    let b = R.take<string>(2);
+    let transducer = R.compose(R.map(R.add(1)), R.take<number>(2));
+    
 
     R.into([], transducer, numbers); // => [2, 3] // $ExpectType number[]
     R.into([])(transducer, numbers); // => [2, 3] // $ExpectType number[]
