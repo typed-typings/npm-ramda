@@ -54,6 +54,10 @@ R.insert(2)('x')([1,2,3,4]) // => type error!
 Typing compatible with ramda version 0.22.1.
 
 ##Testing
+
+Types (recommended): `npm run diff`
+
+Compile errors only (doesn't prevent `any`, and can give false positives for bits that should error):
 - unix: `npm test`
 - windows: `node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test.ts --noEmit`
 
