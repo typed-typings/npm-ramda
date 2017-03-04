@@ -391,11 +391,11 @@ declare namespace R {
         // assoc<T, U extends Struct<any>, K extends keyof U>: CurriedFunction3<K, T, U, {[P in K]: T} & U>;
 
         // extend object with new property
-        assoc<K extends keyof U, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
-        assoc<K extends keyof U, T, U>(prop: K, val: T):{
+        assoc<K extends string, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
+        assoc<K extends string, T>(prop: K, val: T):{
             <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
         };
-        assoc<K extends keyof U, U>(prop: K):{
+        assoc<K extends string>(prop: K):{
             <T, U extends Struct<any>>(val: T, obj: U): {[P in K]: T} & U;
             <T>(val: T):{
                 <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
@@ -1596,10 +1596,10 @@ declare namespace R {
 
         // mixed:
         map<T, U>(fn: (x: T) => U): {
-          (list: List<T>): U[];
           <M extends Obj<T>>(obj: M): {[K in keyof M]: U};
           <K extends string>(obj: Record<K, T>): Record<K, U>;
           (obj: Functor<T>): Functor<U>;
+          (list: List<T>): U[];
         };
 
         /**
@@ -1632,11 +1632,11 @@ declare namespace R {
         // mapAccumRight<T, U, TResult>: CurriedFunction3<(value: T, acc: U) => [TResult, U], U, List<T>, [TResult[], U]>;
 
         // base
-        <T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U, list: List<T>): [TResult[], U];
-        <T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U):{
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U, list: List<T>): [TResult[], U];
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U], acc: U):{
             (list: List<T>): [TResult[], U];
         };
-        <T, U, TResult>(fn: (value: T, acc: U) => [TResult, U]):{
+        mapAccumRight<T, U, TResult>(fn: (value: T, acc: U) => [TResult, U]):{
             (acc: U, list: List<T>): [TResult[], U];
             (acc: U):{
                 (list: List<T>): [TResult[], U];
