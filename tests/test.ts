@@ -153,7 +153,7 @@ class F2 {
     let limit10 = function(x: number): boolean {
         return x >= 10;
     };
-    R.compose(limit10, double); // $ExpectType (x: number) => boolean
+    R.compose(limit10, double); // $ExpectType (x0: number) => boolean
     R.compose(limit10, double)(10); // $ExpectType boolean
 
     const f0 = (s: string) => +s;      // string -> number
@@ -171,7 +171,7 @@ class F2 {
 
 /* pipe */
 () => {
-    R.pipe(double, double, shout); // $ExpectType (x: number) => string
+    R.pipe(double, double, shout); // $ExpectType (x0: number) => string
     R.pipe(double, double, shout)(10); // $ExpectType string
 
     // $ExpectType string
@@ -808,7 +808,7 @@ interface Obj { a: number; b: number; };
     let a  = R.map(R.add(1), R.take(2, numbers));
     let b = R.take<string>(2);
     let transducer = R.compose(R.map(R.add(1)), R.take<number>(2));
-    
+
 
     R.into([], transducer, numbers); // => [2, 3] // $ExpectType number[]
     R.into([])(transducer, numbers); // => [2, 3] // $ExpectType number[]
@@ -1317,8 +1317,8 @@ type Pair = KeyValuePair<string, number>;
     R.clone(obj1); // $ExpectType any[]
     R.clone(obj2); // $ExpectType {a: number}[]
     R.clone({}); // $ExpectType Object
-    R.clone(10); // $ExpectType number
-    R.clone('foo'); // $ExpectType string
+    R.clone(10); // $ExpectType 10
+    R.clone('foo'); // $ExpectType "foo"
     R.clone(Date.now()); // $ExpectType number
 };
 
@@ -2093,10 +2093,10 @@ class Rectangle {
     let c = {x: 3};
     let d = {x: 'a'};
     let e = {x: 'z'};
-    R.maxBy(cmp, a, c); // => {x: 3} // $ExpectType { x: number }
-    R.maxBy(cmp)(a, c); // => {x: 3} // $ExpectType { x: number }
-    R.maxBy(cmp)(a)(b); // $ExpectType { x: number }
-    R.maxBy(cmp)(d)(e); // $ExpectType { x: number }
+    R.maxBy(cmp, a, c); // => {x: 3} // $ExpectType { x: number; }
+    R.maxBy(cmp)(a, c); // => {x: 3} // $ExpectType { x: number; }
+    R.maxBy(cmp)(a)(b); // $ExpectType { x: number; }
+    R.maxBy(cmp)(d)(e); // $ExpectType { x: number; }
 };
 
 // mean
@@ -2562,7 +2562,7 @@ class Why {
         R.assoc('c', { 'k': 'v'})
     );
     let struct: SomeStruct = fun(x);
-    
+
     let a = R.assoc('a', 2, {z:3});
     let b = R.assoc('b', 2);
 };

@@ -82,33 +82,12 @@ Expected type
 but got:
   Variadic<string>
 
-tests/test.ts:R.compose(limit10, double);
-
-Expected type
-  (x: number) => boolean
-but got:
-  (x0: number) => boolean
-
 tests/test.ts:const g = R.compose(g3, g2, g1, g0);
 
 Expected type
   (list: number[]) => boolean
 but got:
   any
-
-tests/test.ts:g([1, 2, 10, 13]);
-
-Expected type
-  boolean
-but got:
-  T4
-
-tests/test.ts:R.pipe(double, double, shout);
-
-Expected type
-  (x: number) => string
-but got:
-  (x0: number) => string
 
 tests/test.ts:const capitalize = (str: string) => R.pipe(
         R.split(''),
@@ -910,21 +889,10 @@ but got:
   {}[]
 
 tests/test.ts: Unexpected error
-  The type argument for type parameter 'T1' cannot be inferred from the usage. Consider specifying the type arguments explicitly.
-  Type argument candidate 'Functor<number>' is not a valid type argument because it is not a supertype of candidate 'ArrayLike<any>'.
-    Property 'map' is missing in type 'ArrayLike<any>'.
+  Supplied parameters do not match any signature of call target.
 
 tests/test.ts: Unexpected error
-  Property 'mapAccumRight' does not exist on type 'Static'.
-
-tests/test.ts: Unexpected error
-  Property 'mapAccumRight' does not exist on type 'Static'.
-
-tests/test.ts: Unexpected error
-  Property 'mapAccumRight' does not exist on type 'Static'.
-
-tests/test.ts: Unexpected error
-  Property 'mapAccumRight' does not exist on type 'Static'.
+  Supplied parameters do not match any signature of call target.
 
 tests/test.ts:namesByGrade(students);
 
@@ -932,10 +900,6 @@ Expected type
   Dictionary<string[]>
 but got:
   string[]
-
-tests/test.ts: Unexpected error
-  The type argument for type parameter 'T1' cannot be inferred from the usage. Consider specifying the type arguments explicitly.
-  Type argument candidate 'Functor<number>' is not a valid type argument because it is not a supertype of candidate 'ArrayLike<any>'.
 
 tests/test.ts:R.clone(obj1);
 
@@ -957,20 +921,6 @@ Expected type
   Object
 but got:
   {}
-
-tests/test.ts:R.clone(10);
-
-Expected type
-  number
-but got:
-  10
-
-tests/test.ts:R.clone('foo');
-
-Expected type
-  string
-but got:
-  "foo"
 
 tests/test.ts:R.eqProps('c');
 
@@ -1116,20 +1066,6 @@ Expected type
 but got:
   {}[]
 
-tests/test.ts:R.maxBy(cmp)(a)(b);
-
-Expected type
-  { x: number }
-but got:
-  { x: number; }
-
-tests/test.ts:R.maxBy(cmp)(d)(e);
-
-Expected type
-  { x: number }
-but got:
-  { x: number; }
-
 tests/test.ts:R.minBy(cmp)(a)(c);
 
 Expected type
@@ -1143,6 +1079,78 @@ Expected type
   { x: number }
 but got:
   T
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
 
 tests/test.ts: Unexpected error
   Cannot find name 'Promise'.
@@ -1629,95 +1637,20 @@ tests/test.ts: Unexpected error
   Cannot find name 'Promise'.
 
 tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
   Type '{}[]' is not assignable to type 'number[]'.
   Type '{}' is not assignable to type 'number'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts: Unexpected error
-  Cannot find name 'Promise'.
 
 tests/test.ts: Unexpected error
   Cannot find name 'Promise'.
@@ -1786,16 +1719,6 @@ Expected type
 but got:
   ({} & string)[]
 
-tests/test.ts:R.pipe( // $ExpectType string[][]
-        R.split(''),
-        R.map((letter: string) => ([ letter ]))
-    )('dave');
-
-Expected type
-  string[][]
-but got:
-  Functor<string[]>
-
 tests/test.ts: Unexpected error
   Argument of type '(x0: any) => {}' is not assignable to parameter of type 'UnknownLens | ManualLens<{}> | Lens<any, {}>'.
   Type '(x0: any) => {}' is not assignable to type 'Lens<any, {}>'.
@@ -1830,8 +1753,8 @@ but got:
   any
 
 tests/test.ts: Unexpected error
-  Type '{}' is not assignable to type 'SomeStruct'.
-  Property 'a' is missing in type '{}'.
+  Type '{ a: number[]; } & {}' is not assignable to type 'SomeStruct'.
+  Property 'b' is missing in type '{ a: number[]; } & {}'.
 
 tests/test.ts:R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
 
@@ -1840,4 +1763,4 @@ Expected type
 but got:
   (number | (number | (number | (number | number[])[])[])[])[]
 
-tests/test.ts: 48 / 552 checks passed.
+tests/test.ts: 56 / 547 checks passed.
