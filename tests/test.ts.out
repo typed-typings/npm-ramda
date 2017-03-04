@@ -1,1620 +1,1843 @@
-tests/test.ts:8: Unexpected error
-  Cannot find name 'Promise'.
+tests/test.ts:curriedFourNumbers(1)(2);
 
-tests/test.ts:37: Expected type
-  boolean // $ExpectType boolean
-but got:
-  boolean
-
-tests/test.ts:82: Expected type
+Expected type
   (t2: number) => number // CurriedFunction2<number, number, number>
 but got:
   CurriedFunction2<number, number, number>
 
-tests/test.ts:83: Expected type
+tests/test.ts:curriedFourNumbers(1)(2)(3);
+
+Expected type
   <T1,R>(t1: T1) => R
 but got:
   (t2: number) => number
 
-tests/test.ts:84: Expected type
+tests/test.ts:curriedFourNumbers(1,2,4);
+
+Expected type
   <T1,R>(t1: T1) => R
 but got:
   (t4: number) => number
 
-tests/test.ts:94: Expected type
-  {(a: any): any}
-but got:
-  (a: number) => number[]
+tests/test.ts:R.nAry(0, takesNoArg);
 
-tests/test.ts:95: Expected type
-  {(a: any): any}
+Expected type
+  () => boolean
 but got:
-  (a: number) => number[]
+  Variadic<boolean>
 
-tests/test.ts:96: Expected type
-  {(a: any): any}
+tests/test.ts:R.nAry(0, takesOneArg);
+
+Expected type
+  () => number[]
 but got:
-  (a: number) => number[]
+  Variadic<number[]>
 
-tests/test.ts:118: Expected type
+tests/test.ts:R.nAry(1, takesTwoArgs);
+
+Expected type
+  (a: number) => number[]
+but got:
+  Variadic<number[]>
+
+tests/test.ts:R.nAry(1, takesThreeArgs);
+
+Expected type
+  (a: number) => number[]
+but got:
+  Variadic<number[]>
+
+tests/test.ts:R.binary(takesTwoArgs);
+
+Expected type
+  (a: number, b: number) => number[]
+but got:
+  (a: any, b: any) => number[]
+
+tests/test.ts:R.binary(takesThreeArgs);
+
+Expected type
+  (a: number, b: number) => number[]
+but got:
+  (a: any, b: any) => number[]
+
+tests/test.ts:let addTwoNumbersCurried = R.curry(addTwoNumbers);
+
+Expected type
+  CurriedFunction2<number, number, number>
+but got:
+  any
+
+tests/test.ts:const coerceArray = R.unless(R.isArrayLike, R.of);
+
+Expected type
   <a>(v: a|[a]) => [a]
 but got:
   any
 
-tests/test.ts:131: Expected type
+tests/test.ts:R.unapply(JSON.stringify);
+
+Expected type
   (...args: string[])=>string
 but got:
   Variadic<string>
 
-tests/test.ts:155: Expected type
+tests/test.ts:R.compose(limit10, double);
+
+Expected type
   (x: number) => boolean
 but got:
   (x0: number) => boolean
 
-tests/test.ts:167: Unexpected error
-  The type argument for type parameter 'T3' cannot be inferred from the usage. Consider specifying the type arguments explicitly.
-  Type argument candidate 'ArrayLike<string>' is not a valid type argument because it is not a supertype of candidate 'Functor<"bigger" | "smaller">'.
-    Property 'length' is missing in type 'Functor<"bigger" | "smaller">'.
+tests/test.ts:const g = R.compose(g3, g2, g1, g0);
 
-tests/test.ts:173: Expected type
+Expected type
+  (list: number[]) => boolean
+but got:
+  any
+
+tests/test.ts:g([1, 2, 10, 13]);
+
+Expected type
+  boolean
+but got:
+  T4
+
+tests/test.ts:R.pipe(double, double, shout);
+
+Expected type
   (x: number) => string
 but got:
   (x0: number) => string
 
-tests/test.ts:188: Expected type
+tests/test.ts:const capitalize = (str: string) => R.pipe(
+        R.split(''),
+        R.adjust(R.toUpper, 0),
+        R.join('')
+    )(str);
+
+Expected type
+  string
+but got:
+  any
+
+tests/test.ts:R.pipeP(
+        (m: number) => Promise.resolve(R.multiply(2, m)),
+        (m: number) => Promise.resolve(m / 2),
+        R.multiply(2)
+    )(10);
+
+Expected type
   Promise<number>
 but got:
   any
 
-tests/test.ts:189: Unexpected error
+tests/test.ts: Unexpected error
   Cannot find name 'Promise'.
 
-tests/test.ts:190: Unexpected error
+tests/test.ts: Unexpected error
   Cannot find name 'Promise'.
 
-tests/test.ts:190: Unexpected error
-  The left-hand side of an arithmetic operation must be of type 'any', 'number' or an enum type.
+tests/test.ts:R.invoker<string>(0, 'charAt', String.prototype);
 
-tests/test.ts:227: Expected type
+Expected type
+  string
+but got:
+  any
+
+tests/test.ts:R.invoker<string>(1, 'charAt', String.prototype, 1);
+
+Expected type
+  string
+but got:
+  any
+
+tests/test.ts:R.clone([{},{},{}]);
+
+Expected type
   Object[]
 but got:
   {}[]
 
-tests/test.ts:311: Unexpected error
+tests/test.ts: Unexpected error
   Argument of type 'null' is not assignable to parameter of type 'string'.
 
-tests/test.ts:520: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:520: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:521: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:521: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:522: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:522: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:523: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:523: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:524: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:524: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:524: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:525: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:525: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:525: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:526: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:526: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:526: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:527: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:527: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:527: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:528: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:528: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:528: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:528: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:529: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:529: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:529: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:529: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:530: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:530: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:530: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:530: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:531: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:531: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:531: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:531: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:532: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:532: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:532: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:532: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:532: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:533: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:533: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:533: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:533: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:533: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:534: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:534: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:534: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:534: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:534: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:535: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:535: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:535: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:535: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:535: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:536: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:536: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:536: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:536: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:536: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:536: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:537: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:537: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:537: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:537: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:537: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:537: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:538: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:538: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:538: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:538: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:538: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:538: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:539: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:539: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:539: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:539: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:539: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:539: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:540: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:541: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:542: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:543: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:544: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:545: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
+tests/test.ts: Unexpected error
+  Argument of type '(n: number) => false | number[]' is not assignable to parameter of type '(seed: number) => false | [{}, number]'.
+  Type 'false | number[]' is not assignable to type 'false | [{}, number]'.
+    Type 'number[]' is not assignable to type 'false | [{}, number]'.
+      Type 'number[]' is not assignable to type '[{}, number]'.
+        Property '0' is missing in type 'number[]'.
+
+tests/test.ts: Unexpected error
+  Argument of type '(n: number) => false | number[]' is not assignable to parameter of type '(seed: number) => false | [{}, number]'.
+  Type 'false | number[]' is not assignable to type 'false | [{}, number]'.
+    Type 'number[]' is not assignable to type 'false | [{}, number]'.
+      Type 'number[]' is not assignable to type '[{}, number]'.
+
+tests/test.ts:b(10);
+
+Expected type
+  number[]
+but got:
+  TResult[]
+
+tests/test.ts:let peopleByYoungestFirst = R.sort(byAge, people);
+
+Expected type
+  typeof people
+but got:
+  any
+
+tests/test.ts: Unexpected error
+  Argument of type '{ <T, U>(el: U, list: ArrayLike<T>): (T & U)[]; <U>(el: U): <T>(list: ArrayLike<T>) => (T & U)[]; }' is not assignable to parameter of type '(v: any) => (list: Chain<any>) => Chain<any>'.
+
+tests/test.ts: Unexpected error
+  Argument of type '{ <T, U>(el: U, list: ArrayLike<T>): (T & U)[]; <U>(el: U): <T>(list: ArrayLike<T>) => (T & U)[]; }' is not assignable to parameter of type '(v: any) => (list: Chain<{}>) => Chain<any>'.
+
+tests/test.ts:let peopleByOldestFirst = R.sort(byAge, people);
+
+Expected type
+  typeof people
+but got:
+  any
+
+tests/test.ts: Unexpected error
   Argument of type 'Partial<{ a: number; b: number; c: number; d: number; }>' is not assignable to parameter of type '{ [key: string]: number; }'.
   Property 'a' is incompatible with index signature.
     Type 'number | undefined' is not assignable to type 'number'.
       Type 'undefined' is not assignable to type 'number'.
 
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
+tests/test.ts:lastTwoFn([8, 6, 7, 5, 3, 0, 9]);
 
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:547: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:548: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:549: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:550: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:551: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:552: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:553: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:554: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:555: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:559: Expected type
+Expected type
   number[]
 but got:
   any[]
 
-tests/test.ts:601: Expected type
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts:R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
+
+Expected type
   number[]
 but got:
   number
 
-tests/test.ts:670: Expected type
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts:R.forEachObjIndexed(printKeyConcatValue, {x: 1, y: 2});
+
+Expected type
+  {x: 1, y: 2}
+but got:
+  { x: number; y: number; }
+
+tests/test.ts:R.forEachObjIndexed(printKeyConcatValue)({x: 1, y: 2});
+
+Expected type
+  {x: 1, y: 2}
+but got:
+  any
+
+tests/test.ts:R.forEachObjIndexed(printKeyConcatValue, [1, 2]);
+
+Expected type
+  [1, 2]
+but got:
+  number[]
+
+tests/test.ts:R.forEachObjIndexed(printKeyConcatValue)([1, 2]);
+
+Expected type
+  [1, 2]
+but got:
+  any
+
+tests/test.ts:byGrade(students);
+
+Expected type
   Dictionary<Object[]>
 but got:
   Dictionary<{ score: number; name: string; }[]>
 
-tests/test.ts:696: Expected type
+tests/test.ts:R.indexBy(R.prop('id'), list);
+
+Expected type
   Dictionary<Object>
 but got:
   Dictionary<{}>
 
-tests/test.ts:697: Expected type
+tests/test.ts:R.indexBy(R.prop('id'))(list);
+
+Expected type
   Dictionary<Object>
 but got:
   Dictionary<{}>
 
-tests/test.ts:698: Expected type
+tests/test.ts:R.indexBy<{id: string}>(R.prop('id'))(list);
+
+Expected type
   Dictionary<Object>
 but got:
   Dictionary<{ id: string; }>
 
-tests/test.ts:723: Expected type
-  number[]
-but got:
-  {}[]
+tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
 
-tests/test.ts:724: Expected type
-  number[]
-but got:
-  (number | {})[]
-
-tests/test.ts:725: Expected type
-  number[]
-but got:
-  {}[]
-
-tests/test.ts:752: Expected type
+Expected type
   { id: number, name: string }[]
 but got:
   {}[]
 
-tests/test.ts:754: Expected type
+tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
+
+Expected type
   { id: number, name: string }[]
 but got:
   {}[]
 
-tests/test.ts:756: Expected type
+tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
+
+Expected type
   { id: number, name: string }[]
 but got:
   {}[]
 
-tests/test.ts:757: Expected type
+tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny);
+
+Expected type
   { id: number, name: string }[]
 but got:
   {}[]
 
-tests/test.ts:763: Unexpected error
+tests/test.ts: Unexpected error
   The type argument for type parameter 'T1' cannot be inferred from the usage. Consider specifying the type arguments explicitly.
   Type argument candidate 'Functor<number>' is not a valid type argument because it is not a supertype of candidate 'ArrayLike<any>'.
     Property 'map' is missing in type 'ArrayLike<any>'.
 
-tests/test.ts:946: Expected type
+tests/test.ts: Unexpected error
+  Property 'mapAccumRight' does not exist on type 'Static'.
+
+tests/test.ts: Unexpected error
+  Property 'mapAccumRight' does not exist on type 'Static'.
+
+tests/test.ts: Unexpected error
+  Property 'mapAccumRight' does not exist on type 'Static'.
+
+tests/test.ts: Unexpected error
+  Property 'mapAccumRight' does not exist on type 'Static'.
+
+tests/test.ts:namesByGrade(students);
+
+Expected type
   Dictionary<string[]>
 but got:
   string[]
 
-tests/test.ts:1000: Unexpected error
-  Type '0' cannot be used to index type 'T'.
-
-tests/test.ts:1150: Unexpected error
+tests/test.ts: Unexpected error
   The type argument for type parameter 'T1' cannot be inferred from the usage. Consider specifying the type arguments explicitly.
   Type argument candidate 'Functor<number>' is not a valid type argument because it is not a supertype of candidate 'ArrayLike<any>'.
 
-tests/test.ts:1155: Unexpected error
-  Argument of type '(arg1: number[], arg0?: number | undefined) => number[]' is not assignable to parameter of type '(acc: ArrayLike<{}>, val: {}) => ArrayLike<{}>'.
-  Types of parameters 'arg0' and 'val' are incompatible.
-    Type '{}' is not assignable to type 'number | undefined'.
-      Type '{}' is not assignable to type 'number'.
+tests/test.ts:R.clone(obj1);
 
-tests/test.ts:1269: Expected type
+Expected type
   any[]
 but got:
   {}[]
 
-tests/test.ts:1270: Expected type
+tests/test.ts:R.clone(obj2);
+
+Expected type
   {a: number}[]
 but got:
   { a: number; }[]
 
-tests/test.ts:1271: Expected type
+tests/test.ts:R.clone({});
+
+Expected type
   Object
 but got:
   {}
 
-tests/test.ts:1272: Expected type
+tests/test.ts:R.clone(10);
+
+Expected type
   number
 but got:
   10
 
-tests/test.ts:1273: Expected type
+tests/test.ts:R.clone('foo');
+
+Expected type
   string
 but got:
   "foo"
 
-tests/test.ts:1283: Expected type
+tests/test.ts:R.eqProps('c');
+
+Expected type
   {<T,U>(obj1: T, obj2: U): boolean}
 but got:
-  CurriedFunction2<{}, {}, boolean>
+  { <T, U>(obj1: T, obj2: U): boolean; <T>(obj1: T): <U>(obj2: U) => boolean; }
 
-tests/test.ts:1284: Expected type
+tests/test.ts:R.eqProps('c', o1);
+
+Expected type
   {<U>(obj2: U): boolean}
 but got:
   <U>(obj2: U) => boolean
 
-tests/test.ts:1296: Unexpected error
+tests/test.ts: Unexpected error
   Type '{}' is not assignable to type '{ firstName: string; data: { elapsed: number; remaining: number; }; id: number; }'.
   Property 'firstName' is missing in type '{}'.
 
-tests/test.ts:1337: Expected type
+tests/test.ts:R.invert(raceResultsByFirstName);
+
+Expected type
   Dictionary<string[]>
 but got:
   Dictionary<ArrayLike<string>>
 
-tests/test.ts:1382: Unexpected error
-  Argument of type '{ x: number; y: number; }' is not assignable to parameter of type 'Functor<number>'.
-  Object literal may only specify known properties, and 'x' does not exist in type 'Functor<number>'.
+tests/test.ts:R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
 
-tests/test.ts:1457: Expected type
+Expected type
   Dictionary<any>
 but got:
   { 'name': string; 'age': number; } & { 'age': number; }
 
-tests/test.ts:1471: Expected type
+tests/test.ts:R.mergeWith(R.concat,
+        { a: true, values: [10, 20] },
+        { b: true, values: [15, 35] });
+
+Expected type
   { a: boolean, b: boolean, values: number[] }
 but got:
   { a: boolean; values: number[]; } & { b: boolean; values: number[]; }
 
-tests/test.ts:1484: Expected type
+tests/test.ts:merge({ a: true, thing: 'foo', values: [10, 20] }, { b: true, thing: 'bar', values: [15, 35] });
+
+Expected type
   { a: boolean, b: boolean, values: number[], thing: string }
 but got:
-  {}
+  { a: boolean; thing: string; values: number[]; } & { b: boolean; thing: string; values: number[]; }
 
-tests/test.ts:1538: Expected type
+tests/test.ts:R.pickBy(isPositive, {a: 1, b: 2, c: -1, d: 0, e: 5});
+
+Expected type
+  Dictionary<number>
+but got:
+  Partial<{ a: number; b: number; c: number; d: number; e: number; }>
+
+tests/test.ts:R.pickBy(containsBackground, colors);
+
+Expected type
+  { 2: R.Dictionary<string> }
+but got:
+  Partial<{ 1: { color: string; }; 2: { color: string; bgcolor: string; }; }>
+
+tests/test.ts:matchPhrases(['foo', 'bar', 'baz']);
+
+Expected type
   { must: { match_phrase: string }[] }
 but got:
   Record<"must", {}>
 
-tests/test.ts:1591: Unexpected error
-  Argument of type '"x"' is not assignable to parameter of type 'never'.
+tests/test.ts: Unexpected error
+  Argument of type '{}' is not assignable to parameter of type 'Record<"x", {}>'.
+  Property 'x' is missing in type '{}'.
 
-tests/test.ts:1603: Unexpected error
+tests/test.ts: Unexpected error
   Argument of type '{ name: string; age: number; }' is not assignable to parameter of type 'Record<"favoriteLibrary", {}>'.
   Property 'favoriteLibrary' is missing in type '{ name: string; age: number; }'.
 
-tests/test.ts:1669: Expected type
+tests/test.ts: Unexpected error
+  Cannot invoke an expression whose type lacks a call signature. Type 'Struct<any>' has no compatible call signatures.
+
+tests/test.ts:let pred = R.whereEq({a: 1, b: 2});
+
+Expected type
   (v: Object) => Boolean
 but got:
   any
 
-tests/test.ts:1670: Unexpected error
+tests/test.ts: Unexpected error
   Argument of type '{ a: number; }' is not assignable to parameter of type '{ a: number; b: number; }'.
   Property 'b' is missing in type '{ a: number; }'.
 
-tests/test.ts:1672: Unexpected error
+tests/test.ts: Unexpected error
   Argument of type '{ a: number; b: number; c: number; }' is not assignable to parameter of type '{ a: number; b: number; }'.
   Object literal may only specify known properties, and 'c' does not exist in type '{ a: number; b: number; }'.
 
-tests/test.ts:1695: Expected type
+tests/test.ts:reduceIndexed(
+      (acc: string, val: string, idx: number) => acc + ',' + idx + '-' + val
+      ,''
+      ,['f', 'o', 'o', 'b', 'a', 'r']
+    );
+
+Expected type
   string[]
 but got:
   any
 
-tests/test.ts:1742: Unexpected error
-  Supplied parameters do not match any signature of call target.
+tests/test.ts:R.sort(cmp, people);
 
-tests/test.ts:1760: Expected type
+Expected type
   { age: number, name: string }[]
 but got:
   T[]
 
-tests/test.ts:1810: Expected type
+tests/test.ts:circleN(1, 'red');
+
+Expected type
   circle
 but got:
   any
 
-tests/test.ts:1812: Expected type
+tests/test.ts:circle(1, 'red');
+
+Expected type
   circle
 but got:
   any
 
-tests/test.ts:1997: Unexpected error
-  Cannot find name 'Promise'.
+tests/test.ts:R.sortWith([
+    R.descend(R.prop('age')),
+    R.ascend(R.prop('name'))
+  ], people);
 
-tests/test.ts:1997: Unexpected error
-  Cannot find name 'Promise'.
+Expected type
+  typeof people
+but got:
+  {}[]
 
-tests/test.ts:1998: Unexpected error
-  Cannot find name 'Promise'.
+tests/test.ts:ageNameSort(people);
 
-tests/test.ts:1998: Unexpected error
-  Cannot find name 'Promise'.
+Expected type
+  typeof people
+but got:
+  {}[]
 
-tests/test.ts:1999: Unexpected error
-  Cannot find name 'Promise'.
+tests/test.ts:R.maxBy(cmp)(a)(b);
 
-tests/test.ts:1999: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2000: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2000: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2001: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2001: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2001: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2002: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2002: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2002: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2003: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2003: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2003: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2004: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2004: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2004: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2005: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2005: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2005: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2005: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2006: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2006: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2006: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2006: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2007: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2007: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2007: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2007: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2008: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2008: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2008: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2008: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2009: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2009: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2009: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2009: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2009: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2010: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2010: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2010: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2010: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2010: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2011: Expected type
+Expected type
   { x: number }
 but got:
   { x: number; }
 
-tests/test.ts:2012: Expected type
+tests/test.ts:R.maxBy(cmp)(d)(e);
+
+Expected type
   { x: number }
 but got:
   { x: number; }
 
-tests/test.ts:2013: Unexpected error
-  Cannot find name 'Promise'.
+tests/test.ts:R.minBy(cmp)(a)(c);
 
-tests/test.ts:2013: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2013: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2013: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2013: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2013: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2014: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2014: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2014: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2014: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2014: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2014: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2015: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2015: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2015: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2015: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2015: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2015: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2016: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2016: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2016: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2016: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2016: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2016: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2017: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2018: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2019: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2020: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2021: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2022: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2023: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2024: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2025: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2026: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2027: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2028: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2029: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2030: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2031: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2032: Unexpected error
-  Cannot find name 'Promise'.
-
-tests/test.ts:2043: Expected type
+Expected type
   { x: number }
 but got:
   { x: number; }
 
-tests/test.ts:2044: Expected type
+tests/test.ts:R.minBy(cmp, d, e);
+
+Expected type
   { x: number }
 but got:
   T
 
-tests/test.ts:2300: Expected type
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts:R.evolve({ a: R.add(1)}, test );
+
+Expected type
   { a: number, b: number }
 but got:
   { a: number; b: number; }
 
-tests/test.ts:2306: Unexpected error
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
   Type '{}[]' is not assignable to type 'number[]'.
   Type '{}' is not assignable to type 'number'.
 
-tests/test.ts:2341: Expected type
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts: Unexpected error
+  Cannot find name 'Promise'.
+
+tests/test.ts:R.pipe(R.append('a'), R.uniq)(['a', 'b', 'c']);
+
+Expected type
   string[]
 but got:
   ({} & string)[]
 
-tests/test.ts:2342: Expected type
+tests/test.ts:R.pipe( // $ExpectType string[][]
+        R.split(''),
+        R.map((letter: string) => ([ letter ]))
+    )('dave');
+
+Expected type
   string[][]
 but got:
-  Functor<{}[]>
+  Functor<string[]>
 
-tests/test.ts:2353: Unexpected error
-  Parameter 'test' implicitly has an 'any' type.
-
-tests/test.ts:2354: Unexpected error
-  Parameter 'test' implicitly has an 'any' type.
-
-tests/test.ts:2388: Unexpected error
+tests/test.ts: Unexpected error
   Argument of type '(x0: any) => {}' is not assignable to parameter of type 'UnknownLens | ManualLens<{}> | Lens<any, {}>'.
   Type '(x0: any) => {}' is not assignable to type 'Lens<any, {}>'.
     Property 'set' is missing in type '(x0: any) => {}'.
 
-tests/test.ts:2403: Expected type
+tests/test.ts:updateBy((n: number) => n > 1, 0, [1,2,3]);
+
+Expected type
   number[]
 but got:
   {}[]
 
-tests/test.ts:2409: Expected type
+tests/test.ts:R.fromPairs ([['1','A'], ['2','B'], ['3','C']]);
+
+Expected type
   { [index: string]: string }
 but got:
   Dictionary<string>
 
-tests/test.ts:2410: Unexpected error
+tests/test.ts: Unexpected error
   The type argument for type parameter 'V' cannot be inferred from the usage. Consider specifying the type arguments explicitly.
   Type argument candidate 'string' is not a valid type argument because it is not a supertype of candidate 'string[]'.
 
-tests/test.ts:2427: Unexpected error
-  Argument of type 'CurriedFunction2<any, {}, {}>' is not assignable to parameter of type '(some: string) => (x: number) => 1'.
-  Type '(t2: {}) => {}' is not assignable to type '(x: number) => 1'.
-    Type '{}' is not assignable to type '1'.
+tests/test.ts:const x = R.cond([ // $ExpectType <T>(v: T) => T
+        [R.F, R.F],
+        [R.T, R.identity]
+    ]);
 
-tests/test.ts:2428: Unexpected error
-  Argument of type 'CurriedFunction2<any, {}, {}>' is not assignable to parameter of type '(some: string, other: string) => "1"'.
-  Type '(t2: {}) => {}' is not assignable to type '"1"'.
-
-tests/test.ts:2435: Expected type
+Expected type
   <T>(v: T) => T
 but got:
   any
 
-tests/test.ts:2477: Unexpected error
+tests/test.ts: Unexpected error
   Type '{}' is not assignable to type 'SomeStruct'.
   Property 'a' is missing in type '{}'.
 
-tests/test.ts:2482: Expected type
+tests/test.ts:R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
+
+Expected type
   number[]
 but got:
   (number | (number | (number | (number | number[])[])[])[])[]
 
-tests/test.ts: 39 / 534 checks passed.
+tests/test.ts: 48 / 552 checks passed.
