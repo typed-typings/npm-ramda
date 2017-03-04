@@ -533,10 +533,10 @@ genCurried({
   'function argument': [
     ['T', 'U', 'V'],
     {
-      fn: '(v: V) => (list: Chain<T>) => Chain<U>',
-      monad: '(chain: Chain<T>) => V'
+      fn: '(v: V) => (list: List<T>) => U[]',
+      monad: '(list: List<T>) => V'
     },
-    '(list: Chain<T>) => Chain<U>',
+    '(list: List<T>) => U[]',
   ]
 });
 
