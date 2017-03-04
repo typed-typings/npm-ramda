@@ -192,7 +192,7 @@ function genOption(option /*: Option*/, indent = 0) /*: string */ {
     let [k,v] = pair;
     let usedGenerics = R.keys(generics)
         .filter((name) => R.test(new RegExp(`\\b${name}\\b`), v));
-        // TODO: also check if the generic has been used in other used generics.
+        // TODO: for `keyOf` also check if the generic has been used in other used generics.
         // potentially need to recheck for more as long as I've added new ones!
     let remainingGenerics = R.omit(usedGenerics, generics);
     return [
@@ -231,16 +231,6 @@ genCurried({
     keyof: [['U', 'K extends keyof U'], { p: 'K', obj: 'U' }, 'U[K]|T'],
     same: [[], { p: 'Prop', obj: 'Struct<any>' }, 'T'],
     unbound: [['U', 'V'], { p: 'Prop', obj: 'U' }, 'V'],
-  }],
-})
-
-// map
-genCurried({
-  base: [['T','U'], { fn: '(value: T) => U' }, {
-    array: [[], { list: 'List<T>' }, 'U[]'],
-    obj_keyof: [['M extends Obj<T>'], { obj: 'M' }, '{[K in keyof M]: U}'],
-    obj_record: [['K extends string'], { obj: 'Record<K, T>' }, 'Record<K, U>'],
-    functor: [[], { obj: 'Functor<T>' }, 'Functor<U>'],
   }],
 })
 
@@ -1421,10 +1411,22 @@ genCurried({
 
 // map
 genCurried({
+  base: [['T','U'], { fn: '(value: T) => U' }, {
+    array: [[], { list: 'List<T>' }, 'U[]'],
+    obj_keyof: [['M extends Obj<T>'], { obj: 'M' }, '{[K in keyof M]: U}'],
+    obj_record: [['K extends string'], { obj: 'Record<K, T>' }, 'Record<K, U>'],
+    functor: [[], { obj: 'Functor<T>' }, 'Functor<U>'],
+    // compose: [['Args extends any[]'], { f1: '(...args: Args) => T' }, '(...args: Args) => U'],
+    compose: [[], { f1: '(...args: any[]) => T' }, '(...args: any[]) => U'],
+  }],
+})
+
+// map
+genCurried({
   base: [
     ['T', 'U'],
     {
-      fn: '(x: T) => U',
+      fn: '(val: T) => U',
       list: 'List<T>',
     },
     'U[]'
@@ -1432,7 +1434,7 @@ genCurried({
   'object: keyof version': [
     ['T', 'U', 'M extends Obj<T>'],
     {
-      fn: '(value: T) => U',
+      fn: '(val: T) => U',
       obj: 'M',
     },
     '{[K in keyof M]: U}'
@@ -1440,7 +1442,7 @@ genCurried({
   'object: Record version': [
     ['T', 'U', 'K extends string'],
     {
-      f: '(x: T) => U',
+      fn: '(val: T) => U',
       obj: 'Record<K, T>',
     },
     'Record<K, U>'
@@ -1448,7 +1450,7 @@ genCurried({
   'functor': [
     ['T', 'U'],
     {
-      x: '(x: T) => U',
+      fn: '(val: T) => U',
       obj: 'Functor<T>',
     },
     'Functor<U>'
