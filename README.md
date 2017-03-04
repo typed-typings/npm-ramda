@@ -14,8 +14,6 @@ npm test
 node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test.ts --noEmit
 ```
 
-Pull requests are welcome!
-
 ## Usage
 
 Install the typings for node using:
@@ -51,3 +49,15 @@ R.insert(2)('x')([1,2,3,4]) // => type error!
 
 ## Status
 Typing compatible with ramda version 0.23.0.
+
+## Contributing
+
+Pull requests are welcome!
+If you'd like to help out, two good places to start are the [issues](https://github.com/types/npm-ramda/issues)
+as well as the [failed tests](https://github.com/types/npm-ramda/blob/master/tests/test.ts.out).
+
+Do note that quite some of the typings are now being generated (manually) using the
+[scripts](https://github.com/types/npm-ramda/blob/master/scripts.js),
+as the typings are gradually getting out of hand to manually defined in the
+[typings file](https://github.com/types/npm-ramda/blob/master/index.d.ts).
+
