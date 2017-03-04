@@ -3,21 +3,20 @@
 [![Build Status](https://travis-ci.org/types/npm-ramda.svg?branch=master)](https://travis-ci.org/types/npm-ramda)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Testing:
+## Testing:
 ```
-# old way, easy
+# check using `typings-checker` (recommended):
+npm run types
+
+# compile errors only (doesn't prevent `any`, and can give false positives for bits that should error):
 npm test
-# without npm
-./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs tests/test.ts --noEmit
-# diffing, more detailed, with npm
-npm run diff
-# without
-ts-node typecheck.ts tests/test.ts 2>&1 | tee typecheck.txt
+# without npm (useful on Windows):
+node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test.ts --noEmit
 ```
 
 Pull requests are welcome!
 
-##Usage
+## Usage
 
 Install the typings for node using:
 ```bash
@@ -28,14 +27,14 @@ If you use the package through a script tag, use:
 npm install types/npm-ramda --saveDev --global
 ```
 
-##Note on placeholders
+## Note on placeholders
 Due to incompatiblity problems with typescript's typing system, Ramda's placeholder
 typing is removed. For binary functions the same functionally can be achieved using
 `R.flip`. For example:
 
 ```typescript
 // using a placeholder ...
-R.subtract(*placeholder*, 3);
+R.subtract(R.__, 3);
 // ... is the same as
 R.flip(R.subtract)(3);
 ```
@@ -50,18 +49,5 @@ R.insert(2, 'x')([1,2,3,4])
 R.insert(2)('x')([1,2,3,4]) // => type error!
 ```
 
-##Status
-Typing compatible with ramda version 0.22.1.
-
-##Testing
-
-Types (recommended): `npm run diff`
-
-Compile errors only (doesn't prevent `any`, and can give false positives for bits that should error):
-- unix: `npm test`
-- windows: `node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test.ts --noEmit`
-
-##Todo
-- compose: use like extend rather than forcing types to be the same?
-- Curry<Fn>?
-- issue: allow separating manual/inferred generics to allow providing hints to e.g. pipe/compose
+## Status
+Typing compatible with ramda version 0.23.0.
