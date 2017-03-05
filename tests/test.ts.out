@@ -132,13 +132,20 @@ Expected type
 but got:
   any
 
-tests/test.ts: Unexpected error
-  'Promise' only refers to a type, but is being used as a value here.
+tests/test.ts:R.pipe(R.identity, double);
+
+Expected type
+  (x0: number) => number
+but got:
+  (x0: {}) => number
 
 tests/test.ts: Unexpected error
   'Promise' only refers to a type, but is being used as a value here.
 
-tests/test.ts:R.invoker<string>(0, 'charAt', 'foo');
+tests/test.ts: Unexpected error
+  'Promise' only refers to a type, but is being used as a value here.
+
+tests/test.ts:R.invoker<string>(0, 'toUpperCase', 'foo');
 
 Expected type
   string
@@ -1506,6 +1513,13 @@ Expected type
 but got:
   T[]
 
+tests/test.ts:R.compose(double, R.identity);
+
+Expected type
+  (x0: number) => number
+but got:
+  (x0: {}) => number
+
 tests/test.ts:circleN(1, 'red');
 
 Expected type
@@ -1857,4 +1871,4 @@ Expected type
 but got:
   { b: number; }
 
-tests/test.ts: 441 / 709 checks passed.
+tests/test.ts: 441 / 711 checks passed.

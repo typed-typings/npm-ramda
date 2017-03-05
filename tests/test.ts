@@ -237,7 +237,11 @@ class F2 {
 
     let f = R.pipe(Math.pow, R.negate, R.inc);
     // $ExpectType number
-    f(3, 4); // -(3^4) + 1 
+    f(3, 4); // -(3^4) + 1
+
+    // test for type degeneration if the first function has generics
+    // $ExpectType (x0: number) => number
+    R.pipe(R.identity, double);
 };
 
 /* pipeP */
@@ -255,7 +259,7 @@ class F2 {
 // invoker
 () => {
     // $ExpectType string
-    R.invoker<string>(0, 'charAt', 'foo'); 
+    R.invoker<string>(0, 'toUpperCase', 'foo'); 
     // $ExpectType string
     R.invoker<string>(1, 'charAt', 'foo', 1); 
 };
@@ -2342,6 +2346,10 @@ class Rectangle {
     f4(3, 4); // -(3^4) + 1 
     // $ExpectType number
     f5(3, 4); // -(3^4) + 1 
+
+    // test for type degeneration if the first function has generics
+    // $ExpectType (x0: number) => number
+    R.compose(double, R.identity); 
 };
 
 // compose
