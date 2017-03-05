@@ -64,7 +64,9 @@ as the typings are gradually getting out of hand to manually defined in the
 High-level to-do to address recurring issues:
 - `pipe` / `compose` using optional generics so as to allow annotating input parameter type(s)
 - `curry` using codegen instead of interface
-- tuple `map` using [`Return`](https://github.com/Microsoft/TypeScript/issues/6606#issuecomment-284215602)
+- tuple `map`:
+  - ~~[`Return`](https://github.com/Microsoft/TypeScript/issues/6606#issuecomment-284215602)~~
+  - [`gcnew/TypeScript#polyFuncUnification`](https://github.com/Microsoft/TypeScript/issues/9949#issuecomment-271926278)
 - `genCurried`:
   - track generics' dependencies
   - ensure both uncurried and mixed curried versions are generated
