@@ -215,12 +215,15 @@ function genOption(option /*: Option*/, indent = 0) /*: string */ {
     } else {
       leftGenerics = leftGenerics.concat(unusedGenerics);
     }
-    let genericStr = leftGenerics.length ? `<${leftGenerics.join(', ')}>` : '';
-    let parStr = leftParams.map(/*([k,v]) => `${k}: ${v}`*/ R.join(': ')).join(', ');
-    let returnVal = !num ? ` ${rest}` : (`{\r\n${
-      genOption([rightGenerics, R.fromPairs(rightParams), rest], indent + 2)
-    }${ws}}`);
-    return `${ws}${genericStr}(${parStr}):${returnVal};\r\n`;
+    const genStr = (gens) => gens.length ? `<${gens.join(', ')}>` : '';
+    const parStr = R.pipe(R.map(/*([k,v]) => `${k}: ${v}`*/ R.join(': ')), R.join(', '));
+    const fnStr = (gens, pars, retVal, useArrow = false) => `${genStr(gens)}(${parStr(pars)})${useArrow ? ' =>' : ':'} ${retVal}`;
+    let returnVal = !num ? rest :
+        num == 1 ? fnStr(rightGenerics, rightParams, rest, true) :
+        (`{\n${
+          genOption([rightGenerics, R.fromPairs(rightParams), rest], indent + 2)
+        }${ws}}`);
+    return `${ws}${fnStr(leftGenerics, leftParams, returnVal)};\n`;
   }).join('');
 }
 
