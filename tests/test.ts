@@ -199,8 +199,8 @@ class F2 {
 
 // invoker
 () => {
-    R.invoker<string>(0, 'charAt', String.prototype); // $ExpectType string
-    R.invoker<string>(1, 'charAt', String.prototype, 1); // $ExpectType string
+    R.invoker<string>(0, 'charAt', 'foo'); // $ExpectType string
+    R.invoker<string>(1, 'charAt', 'foo', 1); // $ExpectType string
 };
 
 // juxt
