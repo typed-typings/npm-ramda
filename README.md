@@ -67,6 +67,7 @@ High-level to-do to address recurring issues:
   - [`gcnew/TypeScript#polyFuncUnification`](https://github.com/Microsoft/TypeScript/issues/9949#issuecomment-271926278)?
 - tuple `map`:
   - ~~[`Return`](https://github.com/Microsoft/TypeScript/issues/6606#issuecomment-284215602)~~
+- fix curry type degeneration with generics
 - `genCurried`:
   - track generics' dependencies
   - ensure both uncurried and mixed curried versions are generated
