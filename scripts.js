@@ -20,7 +20,7 @@ function sanctPipeDef(i, j) {
     let types = nm(j, n => `A${n}`);
     return `export function pipe<${types}${i>1?', ':''}${ups.splice(1).join(', ')}, Z>(functions: [(${pars})=>${zipped.splice(1).map(([low, up]) => `${up}, (${low}: ${up})=>`).join('')}Z]): CurriedFunction${j}<${types}, Z>;`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => sanctPipeDef(i,j)))).join('\r\n')
+R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => sanctPipeDef(i,j)))).join('\n')
 
 function composeDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -29,7 +29,7 @@ function composeDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `compose<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => T1): (${pars}) => T${i};`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composeDef(i,j)))).join('\r\n')
+R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composeDef(i,j)))).join('\n')
 
 function composePDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -38,7 +38,7 @@ function composePDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `composeP<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => Promise<T1>): (${pars}) => Promise<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composePDef(i,j)))).join('\r\n')
+R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composePDef(i,j)))).join('\n')
 
 function pipeDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -47,7 +47,7 @@ function pipeDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `pipe<${vals}, ${types}>(fn0: (${pars}) => T1${i>1?', ':''}${fns}): (${pars}) => T${i};`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipeDef(i,j)))).join('\r\n')
+R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipeDef(i,j)))).join('\n')
 
 function pipePDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -56,21 +56,21 @@ function pipePDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `pipeP<${vals}, ${types}>(fn0: (${pars}) => Promise<T1>${i>1?', ':''}${fns}): (${pars}) => Promise<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipePDef(i,j)))).join('\r\n')
+R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipePDef(i,j)))).join('\n')
 
 function pipeKDef(i) {
     let fns = nm(i-1, n => `fn${n+1}: (x: T${n+1}) => Chain<T${n+2}>`);
     let types = nm(i, n => `T${n+1}`);
     return `pipeK<V, ${types}>(fn0: (v: Chain<V>) => Chain<T1>${i>1?', ':''}${fns}): (v: V) => Chain<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => pipeKDef(i))).join('\r\n')
+R.flatten(R.range(1,10).map(i => pipeKDef(i))).join('\n')
 
 function composeKDef(i) {
     let fns = nm(i-1, n => `fn${i-1-n}: (x: T${i-1-n}) => Chain<T${i-n}>`);
     let types = nm(i, n => `T${n+1}`);
     return `composeK<V, ${types}>(${fns}${i>1?', ':''}fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => composeKDef(i))).join('\r\n')
+R.flatten(R.range(1,10).map(i => composeKDef(i))).join('\n')
 
 function curryDef(i) {
     let lows = lower(i);
@@ -78,7 +78,7 @@ function curryDef(i) {
     let types = nm(i, n => `T${n+1}`);
     return `curry<${types}, TResult>(fn: (${pars}) => TResult): CurriedFunction${i}<${types}, TResult>;`
 }
-R.flatten(R.range(2,10).map(i => curryDef(i))).join('\r\n')
+R.flatten(R.range(2,10).map(i => curryDef(i))).join('\n')
 
 function CurriedFunctionDef(i) {
     let types = nm(i, n => `T${n+1}`);
@@ -91,13 +91,13 @@ function CurriedFunctionDef(i) {
         return `(${pars}): ${curried};`
     }
     let nums = R.range(0,i);
-    // let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
-    let defs = nums.map(n => curriedDef(n+1)).join('\r\n    ');
+    // let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\n    ');
+    let defs = nums.map(n => curriedDef(n+1)).join('\n    ');
     return `interface CurriedFunction${i}<${types}, R> {
     ${defs}
 }`;
 }
-R.flatten(R.range(2,10).map(i => CurriedFunctionDef(i))).join('\r\n')
+R.flatten(R.range(2,10).map(i => CurriedFunctionDef(i))).join('\n')
 
 function liftDef(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -105,7 +105,7 @@ function liftDef(i) {
     let types = nm(i, n => `T${n+1}`);
     return `lift<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`
 }
-R.flatten(R.range(0,10).map(i => liftDef(i))).join('\r\n')
+R.flatten(R.range(0,10).map(i => liftDef(i))).join('\n')
 
 function liftNDef(i, together = true) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -114,8 +114,8 @@ function liftNDef(i, together = true) {
     return together ? `liftN<${types}, TResult>(n: number, fn: (${pars}) => TResult): (${listPars}) => TResult[];` :
                       `liftN(n: number): <${types}, TResult>(fn: (${pars}) => TResult) => (${listPars}) => TResult[];`;
 }
-R.flatten(R.range(0,10).map(i => liftNDef(i, true))).join('\r\n');
-// R.flatten(R.range(0,10).map(i => liftNDef(i, false))).join('\r\n');
+R.flatten(R.range(0,10).map(i => liftNDef(i, true))).join('\n');
+// R.flatten(R.range(0,10).map(i => liftNDef(i, false))).join('\n');
 
 function liftNDefSeparate(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -123,7 +123,7 @@ function liftNDefSeparate(i) {
     let types = nm(i, n => `T${n+1}`);
     return `<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`;
 }
-R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\r\n');
+R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\n');
 
 function pathDef(i) {
     let obj = R.range(1,i+1).reduce((str, n) => `{[K${i-n+1} in T${i-n+1}]: ${str}}`, 'TResult');
@@ -131,7 +131,7 @@ function pathDef(i) {
     let typesStr = nm(i, n => `T${n+1} extends string`);
     return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
 }
-R.flatten(R.range(2,10).map(i => pathDef(i))).join('\r\n')
+R.flatten(R.range(2,10).map(i => pathDef(i))).join('\n')
 
 function pathDefRecord(i) {
     let obj = R.range(1,i+1).reduce((str, n) => `Record<K${i-n+1},${str}>`, 'TResult');
@@ -139,7 +139,7 @@ function pathDefRecord(i) {
     let typesStr = nm(i, n => `K${n+1} extends string`);
     return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
 }
-R.flatten(R.range(2,10).map(i => pathDefRecord(i))).join('\r\n')
+R.flatten(R.range(2,10).map(i => pathDefRecord(i))).join('\n')
 
 function pathDefPoly(i, j) {
     let isArrs = bits(i, j);
@@ -175,10 +175,10 @@ function CurriedCustomFunctionDef(i) {
 
 var whitespace = (indentation) => R.repeat(' ', indentation).join('');
 
-function genCurried(options /*: { [name: Option }*/, indent = 0) /*: string */ {
-  return `{\r\n${
-    R.toPairs(options).map(([k,o]) => `${whitespace(indent+2)}// ${k}\r\n` + genOption(o, indent+2)).join('\r\n')
-  }\r\n${whitespace(indent)}}`;
+function genCurried(options /*: { [name: string]: Option }*/, indent = 0) /*: string */ {
+  return `{\n${
+    R.toPairs(options).map(([k,o]) => `${whitespace(indent+2)}// ${k}\n` + genOption(o, indent+2)).join('\n')
+  }\n${whitespace(indent)}}`;
 }
 
 function genOption(option /*: Option*/, indent = 0) /*: string */ {
