@@ -93,10 +93,10 @@ R.flatten(R.range(1,10).map(i => curryDefGen(i))).join('\n')
 function CurriedFunctionDef(i) {
     let types = nm(i, n => `T${n+1}`);
     let curriedDef = (j) => { // , extraGenerics = false
-        let pars = nm(j, n => `t${n+1}: T${n+1}`);
+        let pars = nm(j, n => `v${n+1}: T${n+1}`);
         let tps = nm(i-j, n => `T${j+n+1}`);
         let gens = nm(i, n => `T${n+1}`);
-        let curried = (i-j > 1) ? `CurriedFunction${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
+        let curried = (i-j > 1) ? `CurriedFunction${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(v${i}: T${i}) => R`;
         // return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
         return `(${pars}): ${curried};`
     }
