@@ -78,9 +78,22 @@ class F2 {
 
 // curry
 () => {
-    const takeTwo = R.curry((x: number, y: number) => x + y);
-    // $ExpectType (t2: number) => number
-    takeTwo(3); 
+    const addTwo = R.curry((x: number, y: number) => x + y);
+    // $ExpectType (b: number) => number
+    addTwo(3); 
+    // $ExpectType number
+    addTwo(3)(1); 
+    const addThree = R.curry((x: number, y: number, z: number) => x + y + z);
+    // $ExpectType number
+    addThree(3, 2, 1);
+    // $ExpectType number
+    addThree(3)(2)(1);
+    // $ExpectType (c: number) => number
+    addThree(3, 2);
+    // $ExpectType (c: number) => number
+    addThree(3)(2);
+    // $ExpectType (b: number) => (c: number) => number
+    addThree(3);
 };
 
 // unary, binary, nAry
@@ -99,7 +112,7 @@ class F2 {
     curriedFourNumbers; 
     // $ExpectType CurriedFunction3<number, number, number, number>
     curriedFourNumbers(1); 
-    // $ExpectType (t2: number) => number // CurriedFunction2<number, number, number>
+    // $ExpectType (b: number) => number // CurriedFunction2<number, number, number>
     curriedFourNumbers(1)(2); 
     // $ExpectType <T1,R>(t1: T1) => R
     curriedFourNumbers(1)(2)(3); 
