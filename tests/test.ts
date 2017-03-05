@@ -2096,7 +2096,7 @@ class Rectangle {
     R.maxBy(cmp, a, c); // => {x: 3} // $ExpectType { x: number; }
     R.maxBy(cmp)(a, c); // => {x: 3} // $ExpectType { x: number; }
     R.maxBy(cmp)(a)(b); // $ExpectType { x: number; }
-    R.maxBy(cmp)(d)(e); // $ExpectType { x: number; }
+    R.maxBy(cmp)(d)(e); // $ExpectError Argument of type '{ x: string; }' is not assignable to parameter of type '{ x: number; }'
 };
 
 // mean
@@ -2128,7 +2128,7 @@ class Rectangle {
     R.minBy(cmp, a, b); // => {x: 1} // $ExpectType { x: number }
     R.minBy(cmp)(a, b); // => {x: 1} // $ExpectType { x: number }
     R.minBy(cmp)(a)(c); // $ExpectType { x: number }
-    R.minBy(cmp, d, e); // $ExpectType { x: number }
+    R.minBy(cmp, d, e); // $ExpectError Argument of type '{ x: string; }' is not assignable to parameter of type '{ x: number; }'
 };
 
 // modulo
