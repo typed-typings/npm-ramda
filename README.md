@@ -61,3 +61,10 @@ Do note that quite some of the typings are now being generated (manually) using 
 as the typings are gradually getting out of hand to manually defined in the
 [typings file](https://github.com/types/npm-ramda/blob/master/index.d.ts).
 
+High-level to-do to address recurring issues:
+- `pipe` / `compose` using optional generics so as to allow annotating input parameter type(s)
+- `curry` using codegen instead of interface
+- tuple `map` using [`Return`](https://github.com/Microsoft/TypeScript/issues/6606#issuecomment-284215602)
+- `genCurried`:
+  - track generics' dependencies
+  - ensure both uncurried and mixed curried versions are generated
