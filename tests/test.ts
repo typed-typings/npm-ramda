@@ -79,7 +79,7 @@ class F2 {
 // curry
 () => {
     const addTwo = R.curry((x: number, y: number) => x + y);
-    // $ExpectType (b: number) => number
+    // $ExpectType (v1: number) => number
     addTwo(3); 
     // $ExpectType number
     addTwo(3)(1); 
@@ -88,12 +88,29 @@ class F2 {
     addThree(3, 2, 1);
     // $ExpectType number
     addThree(3)(2)(1);
-    // $ExpectType (c: number) => number
+    // $ExpectType (v2: number) => number
     addThree(3, 2);
-    // $ExpectType (c: number) => number
+    // $ExpectType (v2: number) => number
     addThree(3)(2);
-    // $ExpectType (b: number) => (c: number) => number
+    // $ExpectType { (v1: number, v2: number): number; (v1: number): (v2: number) => number; }
     addThree(3);
+
+    const xy = R.curry(<X,Y>(x: X, y: Y) => ({ x, y }));
+    // $ExpectType <Y>(v1: Y) => { x: number; y: Y; }
+    xy(3); 
+    // $ExpectType { x: number; y: number; }
+    xy(3)(1); 
+    const xyz = R.curry(<X,Y,Z>(x: X, y: Y, z: Z) => ({ x, y, z }));
+    // $ExpectType { x: number; y: number; z: number; }
+    xyz(3, 2, 1);
+    // $ExpectType { x: number; y: number; z: number; }
+    xyz(3)(2)(1);
+    // $ExpectType <Z>(v2: Z) => ({ x: number; y: number; z: Z; })
+    xyz(3, 2);
+    // $ExpectType <Z>(v2: Z) => ({ x: number; y: number; z: Z; })
+    xyz(3)(2);
+    // $ExpectType <Y, Z>(v1: Y, v2: Z) => ({ x: number; y: Y; z: Z; })
+    xyz(3);
 };
 
 // unary, binary, nAry
@@ -108,11 +125,11 @@ class F2 {
     };
 
     const curriedFourNumbers = R.curry(addFourNumbers);
-    // $ExpectType CurriedFunction4<number, number, number, number, number>
+    // $ExpectType CurriedFn4<number, number, number, number, number>
     curriedFourNumbers; 
-    // $ExpectType CurriedFunction3<number, number, number, number>
+    // $ExpectType CurriedFn3<number, number, number, number>
     curriedFourNumbers(1); 
-    // $ExpectType (b: number) => number // CurriedFunction2<number, number, number>
+    // $ExpectType CurriedFn2<number, number, number>
     curriedFourNumbers(1)(2); 
     // $ExpectType <T1,R>(t1: T1) => R
     curriedFourNumbers(1)(2)(3); 
@@ -147,7 +164,7 @@ class F2 {
     R.binary(takesThreeArgs); 
 
     let addTwoNumbers = function(a: number, b: number) { return a + b; };
-    // $ExpectType CurriedFunction2<number, number, number>
+    // $ExpectType CurriedFn2<number, number, number>
     let addTwoNumbersCurried = R.curry(addTwoNumbers); 
 
     let inc = addTwoNumbersCurried(1);
@@ -3175,8 +3192,8 @@ class Why {
 
 () => {
     // #78: curry loses generics
-    // : <T>R.CurriedFunction3<R.Pred<T>, T, T[], T[]>
-    // : R.CurriedFunction3<R.Pred<any>, any, any[], any[]>
+    // : <T>R.CurriedFn3<R.Pred<T>, T, T[], T[]>
+    // : R.CurriedFn3<R.Pred<any>, any, any[], any[]>
     let updateBy = R.curry(<T>(pred: (v: T) => boolean, val: T, array: T[]): T[] => {
         let i = R.findIndex(pred, array);
         if (i >= 0) {

@@ -2,26 +2,89 @@ tests/test.ts:R.propIs(Number, 'x', {});
 
 Expected error Argument of type 'x' is not assignable to parameter of type 'never'.`, because 'x' is not in `{}`.
 
+tests/test.ts:xy(3);
+
+Expected type
+  <Y>(v1: Y) => { x: number; y: Y; }
+but got:
+  (v1: {}) => { x: {}; y: {}; }
+
+tests/test.ts:xy(3)(1);
+
+Expected type
+  { x: number; y: number; }
+but got:
+  { x: {}; y: {}; }
+
+tests/test.ts:xyz(3, 2, 1);
+
+Expected type
+  { x: number; y: number; z: number; }
+but got:
+  { x: {}; y: {}; z: {}; }
+
+tests/test.ts:xyz(3)(2)(1);
+
+Expected type
+  { x: number; y: number; z: number; }
+but got:
+  { x: {}; y: {}; z: {}; }
+
+tests/test.ts:xyz(3, 2);
+
+Expected type
+  <Z>(v2: Z) => ({ x: number; y: number; z: Z; })
+but got:
+  (v2: {}) => { x: {}; y: {}; z: {}; }
+
+tests/test.ts:xyz(3)(2);
+
+Expected type
+  <Z>(v2: Z) => ({ x: number; y: number; z: Z; })
+but got:
+  (v2: {}) => { x: {}; y: {}; z: {}; }
+
+tests/test.ts:xyz(3);
+
+Expected type
+  <Y, Z>(v1: Y, v2: Z) => ({ x: number; y: Y; z: Z; })
+but got:
+  { (v1: {}, v2: {}): { x: {}; y: {}; z: {}; }; (v1: {}): (v2: {}) => { x: {}; y: {}; z: {}; }; }
+
+tests/test.ts:curriedFourNumbers;
+
+Expected type
+  CurriedFn4<number, number, number, number, number>
+but got:
+  { (v0: number, v1: number, v2: number, v3: number): number; (v0: number, v1: number, v2: number):...
+
+tests/test.ts:curriedFourNumbers(1);
+
+Expected type
+  CurriedFn3<number, number, number, number>
+but got:
+  { (v1: number, v2: number, v3: number): number; (v1: number, v2: number): (v3: number) => number;...
+
 tests/test.ts:curriedFourNumbers(1)(2);
 
 Expected type
-  (t2: number) => number // CurriedFunction2<number, number, number>
+  CurriedFn2<number, number, number>
 but got:
-  CurriedFunction2<number, number, number>
+  { (v2: number, v3: number): number; (v2: number): (v3: number) => number; }
 
 tests/test.ts:curriedFourNumbers(1)(2)(3);
 
 Expected type
   <T1,R>(t1: T1) => R
 but got:
-  (t2: number) => number
+  (v3: number) => number
 
 tests/test.ts:curriedFourNumbers(1,2,4);
 
 Expected type
   <T1,R>(t1: T1) => R
 but got:
-  (t4: number) => number
+  (v3: number) => number
 
 tests/test.ts:R.nAry(0, takesNoArg);
 
@@ -68,7 +131,7 @@ but got:
 tests/test.ts:let addTwoNumbersCurried = R.curry(addTwoNumbers);
 
 Expected type
-  CurriedFunction2<number, number, number>
+  CurriedFn2<number, number, number>
 but got:
   any
 
@@ -1871,4 +1934,4 @@ Expected type
 but got:
   { b: number; }
 
-tests/test.ts: 441 / 711 checks passed.
+tests/test.ts: 445 / 724 checks passed.
