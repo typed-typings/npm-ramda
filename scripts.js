@@ -80,6 +80,18 @@ function curryDef(i) {
 }
 R.flatten(R.range(2,10).map(i => curryDef(i))).join('\n')
 
+function curryDefGen(i) {
+    let lows = lower(i);
+    let pars = nm(i, n => `${lows[n]}: T${n+1}`);
+    let types = nm(i, n => `T${n+1}`);
+    // let gens = R.range(0,i).map(n => `T${n+1}`);
+    let parObj = R.pipe(R.range(0), R.map(n => [lows[n], `T${n+1}`]), R.fromPairs)(i);
+    // let curried = genCurried({ [i]: [[], parObj, 'TResult'] }, 0); // gens
+    let curried = genOption([[], parObj, 'TResult'], 2);
+    return `curry<${types}, TResult>(fn: (${pars}) => TResult): {\n${curried}};`
+}
+R.flatten(R.range(1,10).map(i => curryDefGen(i))).join('\n')
+
 function CurriedFunctionDef(i) {
     let types = nm(i, n => `T${n+1}`);
     let curriedDef = (j) => { // , extraGenerics = false
@@ -150,25 +162,7 @@ function pathDefPoly(i, j) {
     // let typesExt = R.reverse(R.range(0,i).map(n => `T${n+1} extends ${isArrs[n] ? 'number' : 'string'}`)).join(', ');
     return `path<${typesExt}, TResult>(path: [${types}], obj: ${obj}): TResult;`
 }
-R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(i, j)))).join('\r\n')
-
-function CurriedCustomFunctionDef(i) {
-  let types = nm(i, n => `T${n+1}`);
-  let curriedDef = (j) => { // , extraGenerics = false
-      let pars = nm(j, n => `t${n+1}: T${n+1}`);
-      let tps = nm(i-j, n => `T${j+n+1}`);
-      let gens = nm(i, n => `T${n+1}`);
-      let curried = (i-j > 1) ? `CurriedFunction${i-j}<${tps}, R>` : (i-j == 0) ? 'R' : `(t${i}: T${i}) => R`;
-      // return (extraGenerics ? `<${gens}, R>` : '') + `(${pars}): ${curried};`
-      return `(${pars}): ${curried};`
-  }
-  let nums = R.range(0,i);
-  // let defs = [...nums.map(n => curriedDef(n+1)), ...nums.map(n => curriedDef(n+1, true))].join('\r\n    ');
-  let defs = nums.map(n => curriedDef(n+1)).join('\r\n    ');
-  return `interface CurriedFunction${i}<${types}, R> {
-  ${defs}
-  }`;
-}
+R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(i, j)))).join('\n')
 
 // type Option = [/*generics*/ string[], ParamObj, /*retval*/ string | Option[]];
 // type ParamObj = { [name: string]: string };
