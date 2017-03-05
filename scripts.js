@@ -81,12 +81,10 @@ function curryDef(i) {
 R.flatten(R.range(2,10).map(i => curryDef(i))).join('\n')
 
 function curryDefGen(i) {
-    let lows = lower(i);
-    let pars = nm(i, n => `${lows[n]}: T${n+1}`);
+    // let lows = lower(i);
+    let pars = nm(i, n => `v${n}: T${n+1}`); // lows[n]
     let types = nm(i, n => `T${n+1}`);
-    // let gens = R.range(0,i).map(n => `T${n+1}`);
-    let parObj = R.pipe(R.range(0), R.map(n => [lows[n], `T${n+1}`]), R.fromPairs)(i);
-    // let curried = genCurried({ [i]: [[], parObj, 'TResult'] }, 0); // gens
+    let parObj = R.pipe(R.range(0), R.map(n => [`v${n}`, `T${n+1}`]), R.fromPairs)(i); // lows[n]
     let curried = genOption([[], parObj, 'TResult'], 2);
     return `curry<${types}, TResult>(fn: (${pars}) => TResult): {\n${curried}};`
 }
@@ -110,6 +108,26 @@ function CurriedFunctionDef(i) {
 }`;
 }
 R.flatten(R.range(2,10).map(i => CurriedFunctionDef(i))).join('\n')
+
+function CurriedFnDef(i) {
+    let types = nm(i, n => `T${n+1}`);
+    let curriedDef = (j) => {
+        let pars = nm(j, n => `v${n+1}: T${n+1}`);
+        let tps = nm(i-j, n => `T${j+n+1}`);
+        let gens = nm(i, n => `T${n+1}`);
+        let parObj = R.pipe(R.range(j), R.map(n => [`v${n+1}`, `T${n+1}`]), R.fromPairs)(i);
+        let curried = (i-j > 1) ? `{\n${
+              genOption([[], parObj, 'R'], 4)
+            }  }` :
+            (i-j == 0) ? 'R' :
+            `(v${i}: T${i}) => R`;
+        return `(${pars}): ${curried};`
+    }
+    let nums = R.range(0,i);
+    let defs = nums.map(n => curriedDef(i-n)).join('\n  ');
+    return `interface CurriedFn${i}<${types}, R> {\n  ${defs}\n}`;
+}
+R.flatten(R.range(1,10).map(i => CurriedFnDef(i))).join('\n')
 
 function liftDef(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
