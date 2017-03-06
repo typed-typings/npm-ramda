@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
     "test": "echo testing errors... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs tests/test.ts --noEmit",
-    "types": "echo testing types... && bash update-tests.sh"
+    "types": "echo testing types... && bash test.sh"
   },
   "devDependencies": {
     "ramda": "0.23.0",
