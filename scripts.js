@@ -1,4 +1,5 @@
-import * as R from 'ramda';
+// usage: paste this whole file into a console with Ramda available to get generated typings
+// import * as R from 'ramda';
 
 let letters = (idx) => (n) => R.range(idx, idx + R.clamp(0, 26, n)).map(i => String.fromCharCode(i));
 let upper = letters(65);
@@ -13,15 +14,6 @@ let bits = (k, i) => {
   })
 };
 
-function sanctPipeDef(i, j) {
-    let [lows, ups] = [lower, upper].map(f => f(i));
-    let zipped = R.zip(lows, ups);
-    let pars = nm(j, n => `a${n}: A${n}`);
-    let types = nm(j, n => `A${n}`);
-    return `export function pipe<${types}${i>1?', ':''}${ups.splice(1).join(', ')}, Z>(functions: [(${pars})=>${zipped.splice(1).map(([low, up]) => `${up}, (${low}: ${up})=>`).join('')}Z]): CurriedFunction${j}<${types}, Z>;`
-}
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => sanctPipeDef(i,j)))).join('\n')
-
 function composeDef(i, j) {
     let vals = nm(j, n => `V${n}`);
     let pars = nm(j, n => `x${n}: V${n}`);
@@ -29,7 +21,6 @@ function composeDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `compose<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => T1): (${pars}) => T${i};`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composeDef(i,j)))).join('\n')
 
 function composePDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -38,7 +29,6 @@ function composePDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `composeP<${vals}, ${types}>(${fns}${i>1?', ':''}fn0: (${pars}) => Promise<T1>): (${pars}) => Promise<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composePDef(i,j)))).join('\n')
 
 function pipeDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -47,7 +37,6 @@ function pipeDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `pipe<${vals}, ${types}>(fn0: (${pars}) => T1${i>1?', ':''}${fns}): (${pars}) => T${i};`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipeDef(i,j)))).join('\n')
 
 function pipePDef(i, j) {
     let vals = nm(j, n => `V${n}`);
@@ -56,21 +45,18 @@ function pipePDef(i, j) {
     let types = nm(i, n => `T${n+1}`);
     return `pipeP<${vals}, ${types}>(fn0: (${pars}) => Promise<T1>${i>1?', ':''}${fns}): (${pars}) => Promise<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipePDef(i,j)))).join('\n')
 
 function pipeKDef(i) {
     let fns = nm(i-1, n => `fn${n+1}: (x: T${n+1}) => Chain<T${n+2}>`);
     let types = nm(i, n => `T${n+1}`);
     return `pipeK<V, ${types}>(fn0: (v: Chain<V>) => Chain<T1>${i>1?', ':''}${fns}): (v: V) => Chain<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => pipeKDef(i))).join('\n')
 
 function composeKDef(i) {
     let fns = nm(i-1, n => `fn${i-1-n}: (x: T${i-1-n}) => Chain<T${i-n}>`);
     let types = nm(i, n => `T${n+1}`);
     return `composeK<V, ${types}>(${fns}${i>1?', ':''}fn0: (v: Chain<V>) => Chain<T1>): (v: V) => Chain<T${i}>;`
 }
-R.flatten(R.range(1,10).map(i => composeKDef(i))).join('\n')
 
 function curryDef(i) {
     let lows = lower(i);
@@ -135,7 +121,6 @@ function liftDef(i) {
     let types = nm(i, n => `T${n+1}`);
     return `lift<${types}, TResult>(fn: (${pars}) => TResult): (${listPars}) => TResult[];`
 }
-R.flatten(R.range(0,10).map(i => liftDef(i))).join('\n')
 
 function liftNDef(i, together = true) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -144,8 +129,6 @@ function liftNDef(i, together = true) {
     return together ? `liftN<${types}, TResult>(n: number, fn: (${pars}) => TResult): (${listPars}) => TResult[];` :
                       `liftN(n: number): <${types}, TResult>(fn: (${pars}) => TResult) => (${listPars}) => TResult[];`;
 }
-R.flatten(R.range(0,10).map(i => liftNDef(i, true))).join('\n');
-// R.flatten(R.range(0,10).map(i => liftNDef(i, false))).join('\n');
 
 function liftNDefSeparate(i) {
     let pars = nm(i, n => `v${n+1}: T${n+1}`);
@@ -161,7 +144,6 @@ function pathDef(i) {
     let typesStr = nm(i, n => `T${n+1} extends string`);
     return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
 }
-R.flatten(R.range(2,10).map(i => pathDef(i))).join('\n')
 
 function pathDefRecord(i) {
     let obj = R.range(1,i+1).reduce((str, n) => `Record<K${i-n+1},${str}>`, 'TResult');
@@ -187,16 +169,17 @@ R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(
 var whitespace = (indentation = 0) => R.repeat(' ', indentation).join('');
 var comment = (s, indent = 0) => `${whitespace(indent)}// ${s}`;
 
-function genCurried(options /*: { [name: string]: Option }*/, indent = 0, name = false) /*: string */ {
+function genCurried(options /*: { [name: string]: Option }*/, indent = 0, name = false, isTop = false) /*: string */ {
+  let ws = indent + isTop ? 0 : 2;
   let strs = R.pipe(
     R.toPairs,
     R.chain(([k,o]) => [
-      comment(k, indent+2),
-      genOption(o, indent+2, name),
+      comment(k, ws),
+      genOption(o, ws, name),
     ]),
     R.join('\n'),
   )(options);
-  return `{\n${strs}\n${whitespace(indent)}}`;
+  return isTop ? strs : `{\n${strs}\n${whitespace(indent)}}`;
 }
 
 function genOption(option /*: Option*/, indent = 0, name = false, skipLeft = 0) /*: string */ {
@@ -251,7 +234,7 @@ function genOption(option /*: Option*/, indent = 0, name = false, skipLeft = 0) 
         (`{\n${
           genOption([rightGenerics, R.fromPairs(rightParams), rest], indent + 2) //, name
         }${ws}}`);
-    return `${ws}${fnStr(leftGenerics, leftParams, returnVal, false, true)};`;
+    return `${ws}${fnStr(leftGenerics, leftParams, returnVal, false, true)};\n`;
   }).join('');
   return uncurried.concat(current).join('\n');
 }
@@ -569,11 +552,11 @@ complement: [
   'Variadic<boolean>',
 ],
 
-// compose
+compose: R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composeDef(i,j)))).join('\n'),
 
-// composeK
+composeK: R.flatten(R.range(1,10).map(i => composeKDef(i))).join('\n'),
 
-// composeP
+composeP: R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => composePDef(i,j)))).join('\n'),
 
 concat: [
   ['T extends List<any>'],
@@ -1189,9 +1172,9 @@ lens: {
 
 // lensPath
 
-// lift --
+lift: R.flatten(R.range(0,10).map(i => liftDef(i))).join('\n'),
 
-// liftN
+liftN: R.flatten(R.range(0,10).map(i => liftNDef(i, true))).join('\n'), // false
 
 lt: [
   [],
@@ -1418,6 +1401,8 @@ over: {
 ]
 },
 
+path: R.flatten(R.range(2,10).map(i => pathDef(i))).join('\n'),
+
 pathOr: [
   ['T'],
   {
@@ -1437,6 +1422,12 @@ pathSatisfies: [
   },
   'boolean'
 ],
+
+pipe: R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipeDef(i,j)))).join('\n'),
+
+pipeK: R.flatten(R.range(1,10).map(i => pipeKDef(i))).join('\n'),
+
+pipeP: R.flatten(R.range(1,10).map(i => R.range(1,5).map(j => pipePDef(i,j)))).join('\n'),
 
 propEq: [
   ['T extends Struct<any>'],
@@ -1558,7 +1549,7 @@ set: {
     },
     'T'
   ],
-  unknow: [
+  unknown: [
     ['T'],
     {
       lens: 'UnknownLens',
@@ -1663,4 +1654,11 @@ when: [
 
 };
 
-R.mapObjIndexed((v, k) => (Array.isArray(v) ? genOption : genCurried)(v, 0, k))(defs)
+let defStrs = R.mapObjIndexed((v, k) =>
+  !R.is(Object, v) ? v : // string
+    Array.isArray(v) ?
+      genOption(v, 0, k) : // array
+      genCurried(v, 0, k, true) // object
+)(defs);
+
+R.pipe(R.values, R.join('\n\n'))(defStrs);
