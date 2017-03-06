@@ -1652,6 +1652,1166 @@ when: [
   'U'
 ],
 
+and: {
+  'dispatch to some `and` method:': [
+    ['T extends {and?: Function}'],
+    {
+      fn1: 'T',
+      val2: 'boolean|any'
+    },
+    'boolean'
+  ],
+  'no generics': [
+    [],
+    {
+      v1: 'any',
+      v2: 'any',
+    },
+    'boolean'
+  ]
+},
+
+difference: [
+  ['T'],
+  {
+    list1: 'List<T>',
+    list2: 'List<T>',
+  },
+  'T[]',
+],
+
+// dropRepeats
+
+// dropRepeatsWith
+
+identity: [
+  ['T'],
+  {
+    a: 'T'
+  },
+  'T'
+],
+
+inc: [
+  [],
+  {
+    n: 'number',
+  },
+  'number',
+],
+
+init: [
+  ['T extends List<any>'],
+  {
+    list: 'T',
+  },
+  'T'
+],
+
+invert: [
+  [],
+  {
+    obj: 'Struct<Prop>'
+  },
+  'Obj<List<string>>'
+],
+
+invertObj: [
+  [],
+  {
+    obj: 'Struct<Prop>' 
+  },
+  'Obj<string>'
+],
+
+isArrayLike: [
+  [],
+  {
+    val: 'any',
+  },
+  'val in List<any>'
+],
+
+isEmpty: [
+  [],
+  {
+    val: 'any',
+  },
+  'boolean'
+],
+
+isNil: [
+  [],
+  {
+    val: 'any',
+  },
+  'boolean',
+],
+
+keys: [
+  [],
+  {
+    x: 'Struct<any>',
+  },
+  'string[]'
+],
+
+keysIn: [
+  [],
+  {
+    obj: 'Struct<any>',
+  },
+  'string[]'
+],
+
+last: [
+  ['T', 'R extends List<T>'],
+  {
+    list: 'R',
+  },
+  'T'
+],
+
+length: [
+  [],
+  {
+    list: 'List<any>',
+  },
+  'number'
+],
+
+lensIndex: {
+  'generics': [
+    ['T'],
+    {
+      n: 'number'
+    },
+    'ManualLens<T>'
+  ],
+  'non-generic': [
+    [],
+    {
+      n: 'number',
+    },
+    'UnknownLens'
+  ],
+},
+
+lensPath: {
+  'generics': [
+    ['T'],
+    {
+      path: 'Path'
+    },
+    'ManualLens<T>'
+  ],
+  'non-generic': [
+    [],
+    {
+      path: 'Path',
+    },
+    'UnknownLens'
+  ],
+},
+
+lensProp: {
+  'generics': [
+    ['T'],
+    {
+      prop: 'Prop'
+    },
+    'ManualLens<T>'
+  ],
+  'non-generic': [
+    [],
+    {
+      prop: 'Prop',
+    },
+    'UnknownLens'
+  ],
+},
+
+mean: [
+  [],
+  {
+    list: 'List<number>',
+  },
+  'number'
+],
+
+median: [
+  [],
+  {
+    list: 'List<number>',
+  },
+  'number'
+],
+
+memoize: [
+  ['T'],
+  {
+    fn: 'Variadic<T>'
+  },
+  'Variadic<T>'
+],
+
+min: [
+  ['T extends Ord'],
+  {
+    a: 'T',
+    b: 'T',
+  },
+  'T'
+],
+
+modulo: [
+  [],
+  {
+    a: 'number',
+    b: 'number',
+  },
+  'number'
+],
+
+multiply: [
+  [],
+  {
+    a: 'number',
+    b: 'number',
+  },
+  'number'
+],
+
+nAry: [
+  ['T'],
+  {
+    n: 'number',
+    fn: 'Variadic<T>',
+  },
+  'Variadic<T>'
+],
+
+negate: [
+  [],
+  {
+    n: 'number',
+  },
+  'number',
+],
+
+none: [
+  ['T'],
+  {
+    fn: '(a: T) => boolean',
+    list: 'List<T>',
+  },
+  'boolean'
+],
+
+not: [
+  [],
+  {
+    value: 'any',
+  },
+  'boolean',
+],
+
+nth: [
+  ['T'],
+  {
+    n: 'number',
+    list: 'list<T>'
+  },
+],
+
+nthArg: [
+  [],
+  {
+    n: 'number',
+  },
+  '<T>(...a : T[]) => T'
+],
+
+objOf: [
+  ['K extends string', 'V', 'T extends Record<K, V>'],
+  {
+    key: 'K',
+    value: 'V',
+  },
+  'T'
+],
+
+of: [
+  ['T'],
+  {
+    x: 'T'
+  },
+  'T[]'
+],
+
+omit: [
+  ['T'],
+  {
+    names: 'List<Prop>',
+    obj: 'T',
+  },
+  'T'
+],
+
+once: [
+  ['T'],
+  {
+    fn: 'Variadic<T>',
+  },
+  'Variadic<T>'
+],
+
+or: {
+  'dispatch to some `or` method': [
+    ['T extends {or?: (alt: U) => T|U}', 'U'],
+    {
+      fn1: 'T',
+      val2: 'U'
+    },
+    'T|U'
+  ],
+  'values': [
+    ['T', 'U'],
+    {
+      a: 'T',
+      b: 'U',
+    },
+    'T|U'
+  ],
+},
+
+pair: [
+  ['F', 'S'],
+  {
+    fst: 'F',
+    snd: 'S',
+  },
+  '[F, S]'
+],
+
+partial: [
+  ['T'],
+  {
+    fn: 'Variadic<T>',
+    args: 'any[]',
+  },
+  'Variadic<T>',
+],
+
+partialRight: [
+  ['T'],
+  {
+    fn: 'Variadic<T>',
+    args: 'any[]',
+  },
+  'Variadic<T>',
+],
+
+partition: {
+  'arrays': [
+    ['T'],
+    {
+      fn: '(a: T) => boolean',
+      list: 'List<T>',
+    },
+    '[T[], T[]]'
+  ],
+  'objects': [
+    ['T extends Obj<V>', 'U extends Obj<V>', 'V'],
+    {
+      fn: '(a: V) => boolean',
+      obj: 'T & U'
+    },
+    '[T, U]'
+  ],
+  'objects, alternative notation': [
+    ['T', 'U extends Obj<T>'],
+    {
+      fn: '(a: T) => boolean',
+      obj: 'U',
+    },
+    '[Partial<U>, Partial<U>]'
+  ],
+},
+
+pick: {
+  'generic 1': [
+    ['T', 'K extends keyof T'],
+    {
+      names: 'List<K>',
+      obj: 'T'
+    },
+    'Pick<T, K>'
+  ],
+  'generic 2': [
+    ['T'],
+    {
+      names: 'List<Prop>',
+      obj: 'T',
+    },
+    'Partial<T>'
+  ],
+},
+
+pickAll: [
+  ['T', 'K'],
+  {
+    names: 'List<K>',
+    obj: 'T',
+  },
+  'Partial<T>'
+],
+
+pickBy: [
+  ['T'],
+  {
+    pred: 'ObjPred<any>',
+    obj: 'T',
+  },
+  'Partial<T>'
+],
+
+pluck: {
+  'infer': [
+    ['T extends Struct<any>', 'K extends keyof T'],
+    {
+      p: 'K',
+      list: 'List<T>'
+    },
+    'T[K][]'
+  ],
+  'supply return object type manually when unable to infer it...': [
+    ['T'],
+    {
+      p: 'Prop',
+      list: 'Struct<any>[]',
+    },
+    'T[]',
+  ],
+},
+
+prepend: [
+  ['T'],
+  {
+    el: 'T',
+    list: 'List<T>',
+  },
+  'T[]'
+],
+
+product: [
+  [],
+  {
+    list: 'List<number>',
+  },
+  'number'
+],
+
+project: {
+  'infer': [
+    ['T', 'K extends keyof T'],
+    {
+      props: 'List<K>',
+      objs: 'List<T>',
+    },
+    'Pick<K, T>[]'
+  ],
+  'supply return object type manually when unable to infer it...': [
+    ['T', 'U'],
+    {
+      props: 'List<Prop>',
+      objs: 'List<T>',
+    },
+    'U[]'
+  ],
+},
+
+prop: {
+  'keyof version': [
+    ['T', 'K extends keyof T'],
+    {
+      p: 'K',
+      obj: 'T',
+    },
+    'T[K]',
+  ],
+  'Record version, more curry-friendly': [
+    ['K extends string', 'V', 'T extends Record<K, V>'],
+    {
+      p: 'K',
+      obj: 'T',
+    },
+    'V',
+  ],
+},
+
+propIs: {
+  'Record': [
+    ['T extends Function', 'K extends string', 'V', 'U extends Record<K, V>'],
+    {
+      type: 'T',
+      name: 'K',
+      obj: 'U',
+    },
+    'obj is (U & Record<K, V>)'
+  ],
+  'curry-friendlier fallback': [
+    [],
+    {
+      type: 'Function',
+      name: 'Prop',
+      obj: 'Struct<any>'
+    },
+    'boolean'
+  ],
+  // unsure
+  // 'mixed': 
+},
+
+propSatisfies: {
+  'Record': [
+    ['V', 'K extends string', 'U extends Record<K, V>'],
+    {
+      pred: 'Pred<V>',
+      name: 'K',
+      obj: 'U',
+    },
+    'boolean',
+  ],
+  'keyof, info too late on currying': [
+    ['T', 'U'],
+    {
+      pred: 'Pred<T>',
+      name: 'Pred',
+      obj: 'U',
+    },
+    'boolean'
+  ],
+},
+
+props: [
+  ['T'],
+  {
+    ps: 'List<Prop>',
+    obj: 'Struct<T>',
+  },
+  'T[]'
+],
+
+range: [
+  [],
+  {
+    from: 'number',
+    to: 'number',
+  },
+  'number[]',
+],
+
+reduced: [
+  ['T'],
+  {
+    el: 'T'
+  },
+  'Reduced'
+],
+
+reject: {
+  'array': [
+    ['T'],
+    {
+      pred: 'Pred<T>',
+      list: 'List<T>',
+    },
+    'T[]',
+  ],
+  'functor to functor': [
+    ['T'],
+    {
+      pred: 'Pred<T>',
+      list: 'Functor<T>',
+    },
+    'Functor<T>',
+  ],
+  'functor to array': [
+    ['T'],
+    {
+      pred: 'Pred<T>',
+      list: 'Functor<T>',
+    },
+    'T[]'
+  ],
+  'object': [
+    ['T', 'U extends Obj<T>'],
+    {
+      pred: 'Pred<T>',
+      obj: 'U',
+    },
+    'Partial<U>'
+  ],
+  // mixed
+},
+
+repeat: [
+  ['T'],
+  {
+    a: 'T',
+    n: 'number',
+  },
+  'T[]',
+],
+
+reverse: [
+  ['T'],
+  {
+    list: 'List<T>',
+  },
+  'T[]'
+],
+
+sequence: {
+  'common case of array as traversable': [
+    ['T'],
+    {
+      fn: '(v: T) => Applicative<T>',
+      traversable: 'List<Applicative<T>>',
+    },
+    'Applicative<Array<T>>'
+  ],
+  'general ADT case:': [
+    ['T'],
+    {
+      fn: '(v: T) => Applicative<T>',
+      traversable: 'Traversable<Applicative<T>  >',
+    },
+    'Applicative<Traversable<T>>'
+  ],
+  // mixed
+},
+
+sort: [
+  ['T'],
+  {
+    fn: '(a: T, b: T) => number',
+    list: 'List<T>'
+  },
+  'T[]'
+],
+
+sortBy: [
+  ['T'],
+  {
+    fn: '(a: T) => string',
+    list: 'List<T>'
+  },
+  'T[]'
+],
+
+sortWith: [
+  ['T'],
+  {
+    comparators: 'List<(a: T, b: T) => number>',
+    list: 'List<T>'
+  },
+  'T[]',
+],
+
+split: [
+  [],
+  {
+    sep: 'RegExp|Prop',
+    str: 'string',
+  },
+  'string[]',
+],
+
+splitAt: {
+  'string': [
+    [],
+    {
+      index: 'number',
+      list: 'string',
+    },
+    'string[]'
+  ],
+  'array': [
+    ['T'],
+    {
+      index: 'number',
+      list: 'List<T>',
+    },
+    'T[][]'
+  ],
+  // mixed
+},
+
+splitEvery: [
+  ['T', 'R extends List<T>'],
+  {
+    a: 'number',
+    list: 'R',
+  },
+  'R[]',
+],
+
+splitWhen: [
+  ['T', 'R extends List<T>'],
+  {
+    pred: 'Pred<T>',
+    list: 'R',
+  },
+  'R[]',
+],
+
+subtract: [
+  [],
+  {
+    a: 'number',
+    b: 'number',
+  },
+  'number',
+],
+
+sum: [
+  [],
+  {
+    list: 'List<number>',
+  },
+  'number'
+],
+
+symmetricDifference: [
+  ['T'],
+  {
+    list1: 'List<T>',
+    list2: 'List<T>',
+  },
+  'T[]'
+],
+
+tail: [
+  ['T exetnds List<any>'],
+  {
+    list: 'T'
+  },
+  'T'
+],
+
+take: [
+  ['T extends List<any>'],
+  {
+    n: 'number',
+    xs: 'T',
+  },
+  'T'
+],
+
+takeLast: [
+  ['T extends List<any>'],
+  {
+    n: 'number',
+    xs: 'T',
+  },
+  'T'
+],
+
+takeLastWhile: [
+  ['T', 'R extends List<T>'],
+  {
+    pred: 'Pred<T>',
+    list: 'R',
+  },
+  'R'
+],
+
+takeWhile: [
+  ['T', 'R extends List<T>'],
+  {
+    pred: 'Pred<T>',
+    list: 'R',
+  },
+  'R'
+],
+
+tap: [
+  ['T'],
+  {
+    fn: '(a: T) => any',
+    value: 'T'
+  },
+  'T'
+],
+
+test: [
+  [],
+  {
+    regexp: 'RegExp',
+    str: 'Prop',
+  },
+  'boolean'
+],
+
+times: [
+  ['T'],
+  {
+    fn: '(i: number) => T',
+    n: 'number',
+  },
+  'T[]'
+],
+
+toLower: [
+  [],
+  {
+    str: 'string',
+  },
+  'string'
+],
+
+toPairs: [
+  ['T'],
+  {
+    obj: 'Obj<T>',
+  },
+  '[string, T][]'
+],
+
+toPairsIn: {
+  'generics': [
+    ['T'],
+    {
+      obj: 'Obj<T>',
+    },
+    '[string, T][]'
+  ],
+  'non-generic': [
+    [],
+    {
+      obj: 'Object',
+    },
+    '[string, any][]'
+  ],
+},
+
+toString: [
+  [],
+  {
+    val: 'StringRepresentable<string> | any'
+  },
+  'string'
+],
+
+toUpper: [
+  [],
+  {
+    str: 'string',
+  },
+  'string'
+],
+
+transpose: {
+  'generics 1': [
+    ['T'],
+    {
+      list: 'List<List<T>>'
+    },
+    'T[][]'
+  ],
+  'generics 2': [
+    [],
+    {
+      list: 'List<List<any>>',
+    },
+    'any[][]'
+  ],
+},
+
+trim: [
+  [],
+  {
+    str: 'string',
+  },
+  'string'
+],
+
+tryCatch: [
+  ['T'],
+  {
+    tryer: 'Variadic<T>',
+    catcher: 'Variadic<T>',
+  },
+  'Variadic<T>'
+],
+
+type: [
+  [],
+  {
+    val: 'any',
+  },
+  'string'
+],
+
+unapply: [
+  ['T'],
+  {
+    fn: '(args: any[]) => T',
+  },
+  'Variadic<T>'
+],
+
+unary: [
+  ['T', 'U'],
+  {
+    fn: '(a: T, ...args: any[]) => U',
+  },
+  '(a: T) => U'
+],
+
+uncurryN: [
+  ['T'],
+  {
+    len: 'number',
+    fn: '(a: any) => any',
+  },
+  'Variadic<T>'
+],
+
+unfold: [
+  ['T', 'TResult'],
+  {
+    fn: '(seed: T) => [TResult, T] | false',
+    seed: 'T',
+  },
+  'TResult[]'
+],
+
+union: [
+  ['T'],
+  {
+    as: 'List<T>',
+    bs: 'List<T>',
+  },
+  'T[]'
+],
+
+uniq: [
+  ['T'],
+  {
+    list: 'List<T>',
+  },
+  'T[]'
+],
+
+uniqBy: [
+  ['T', 'U'],
+  {
+    fn: '(a: T) => U',
+    list: 'List<T>',
+  },
+  'T[]'
+],
+
+uniqWith: [
+  ['T', 'U'],
+  {
+    pred: '(x: T, y: T) => boolean',
+    list: 'List<T>',
+  },
+  'T[]'
+],
+
+unless: [
+  ['T', 'U'],
+  {
+    pred: 'Pred<T>',
+    whenFalseFn: '(a: T) => U',
+    obj: 'T',
+  },
+  'U'
+],
+
+unnest: [
+  ['T'],
+  {
+    x: 'List<List<T>>',
+  },
+  'T[]'
+],
+
+useWith: [
+  ['T'],
+  {
+    fn: 'Variadic<T>',
+    transformers: 'List<Function>',
+  },
+  'Variadic<T>'
+],
+
+values: {
+  'Struct': [
+    ['T'],
+    {
+      obj: 'Struct<T>',
+    },
+    'T[]'
+  ],
+  'Object': [
+    ['T'],
+    {
+      obj: 'Object',
+    },
+    'any[]'
+  ]
+},
+
+valuesIn: {
+  'Struct': [
+    ['T'],
+    {
+      obj: 'Struct<T>',
+    },
+    'T[]'
+  ],
+  'Object': [
+    ['T'],
+    {
+      obj: 'Object',
+    },
+    'any[]'
+  ]
+},
+
+view: {
+  'smart approach, unreliable': [
+    ['T', 'U'],
+    {
+      lens: 'Lens<T, U>',
+      obj: 'T',
+    },
+    'U'
+  ],
+  'lens with type manually set': [
+    ['T'],
+    {
+      lens: 'ManualLens<T>',
+      obj: 'Struct<any>',
+    },
+    'T'
+  ],
+  'unknown lens, manually supply return type. does this add to the above case?': [
+    ['T'],
+    {
+      lens: 'UnknownLens',
+      obj: 'Struct<any>',
+    },
+    'any'
+  ],
+},
+
+where: {
+  'heterogeneous version': [
+    ['T extends Obj<any>'],
+    {
+      spec: '{[P in keyof K]?: Pred<T[P]>}',
+      testObj: 'T',
+    },
+    'boolean'
+  ],
+  'homogeneous version': [
+    ['T'],
+    {
+      spec: 'Obj<Pred<T>>',
+      testObj: 'Obj<T>'
+    },
+    'boolean'
+  ],
+  'DIY "fill in the type params yourself" version': [
+    ['T', 'U'],
+    {
+      spec: 'T',
+      testObj: 'U'
+    },
+    'boolean'
+  ],
+},
+
+whereEq: {
+  'heterogeneous version': [
+    ['T extends Obj<any>'],
+    {
+      spec: 'Partial<T>',
+      testObj: 'T',
+    },
+    'boolean'
+  ],
+  'homogeneous version': [
+    ['T'],
+    {
+      spec: 'Obj<T>',
+      testObj: 'Obj<T>'
+    },
+    'boolean'
+  ],
+  'DIY "fill in the type params yourself" version': [
+    ['T', 'U'],
+    {
+      spec: 'T',
+      testObj: 'U',
+    },
+    'boolean'
+  ],
+},
+
+without: [
+  ['T'],
+  {
+    list1: 'List<T>',
+    list2: 'List<T>',
+  },
+  'T[]'
+],
+
+xprod: [
+  ['K', 'V'],
+  {
+    as: 'List<K>',
+    bs: 'List<V>',
+  },
+  'KeyValuePair<K, V>[]'
+],
+
+zip: [
+  ['K', 'V'],
+  {
+    list1: 'List<K>',
+    list2: 'List<V>',
+  },
+  'KeyValuePair<K, V>[]'
+],
+
+zipObj: [
+  ['T'],
+  {
+    keys: 'List<Prop>',
+    values: 'List<T>',
+  },
+  'Obj<T>'
+],
+
+zipWith: [
+  ['T', 'U', 'TResult'],
+  {
+    fn: '(x: T, y: U) => TResult',
+    list1: 'List<T>',
+    list2: 'List<U>',
+  },
+  'TResult[]'
+],
+
 };
 
 let defStrs = R.mapObjIndexed((v, k) =>
@@ -1662,3 +2822,4 @@ let defStrs = R.mapObjIndexed((v, k) =>
 )(defs);
 
 R.pipe(R.values, R.join('\n\n'))(defStrs);
+
