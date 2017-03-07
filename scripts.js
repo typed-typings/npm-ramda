@@ -2812,6 +2812,50 @@ zipWith: [
   'TResult[]'
 ],
 
+F: 'F(): false;',
+
+T: 'T(): true;',
+
+head: {
+  'triple': [
+    ['T0', 'T1', 'T2'],
+    {
+      list: '[T0, T1, T2]',
+    },
+    'T0',
+  ],
+  'tuple': [
+    ['T0', 'T1'],
+    {
+      list: '[T0, T1]',
+    },
+    'T0',
+  ],
+  'single': [
+    ['T'],
+    {
+      list: '[T]',
+    },
+    'T'
+  ],
+  'any': [
+    ['T extends List<any>'],
+    {
+      list: 'T'
+    },
+    'any'
+  ]
+},
+
+curryN: [
+  ['T'],
+  {
+    length: 'number',
+    fn: 'Variadic<T>'
+  },
+  'Variadic<T>',
+],
+
 };
 
 let defStrs = R.mapObjIndexed((v, k) =>
