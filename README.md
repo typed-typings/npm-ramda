@@ -69,3 +69,4 @@ High-level to-do to address recurring issues:
   - ~~[`Return`](https://github.com/Microsoft/TypeScript/issues/6606#issuecomment-284215602)~~
 - fix curry type degeneration with generics
 - `genCurried`: track generics' dependencies
+- consider [dts-dom](https://github.com/RyanCavanaugh/dts-dom) as a codegen alternative
