@@ -28,17 +28,17 @@
 
 -> 3310-3315: can not find name ['Pick', 'Partial']
 
-3440-3443: [k];
+-> 3440-3443: [k];
 
-3469-3472: can not find name 'Pick'
+-> 3469-3472: can not find name 'Pick'
 
-3483-3493: keyword 'keyof', can not find name 'Record';
+-> 3483-3493: keyword 'keyof', can not find name 'Record';
 
-3524-3531: can not find name 'Record';
+-> 3524-3531: can not find name 'Record';
 
-3533-3540: keyof, Record
+-> 3533-3540: keyof, Record
 
-3552-3560: keyof, Record
+-> 3552-3560: keyof, Record
 
 -> 3573-3579: [k];
 

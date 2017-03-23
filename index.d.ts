@@ -3437,10 +3437,10 @@ declare namespace R {
          */
         // hard to mix cuz different generics
 
-        // // infer
-        // pluck<T extends Struct<any>, K extends keyof T>(p: K, list: List<T>): T[K][]; // fails on number keys
-        // pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: List<T>) => T[K][]; // doesn't work, T info late
-        // // pluck<T extends Struct<any>, K extends keyof T>: CurriedFunction2<K, List<T>, T[K][]>;
+        // infer
+        pluck<U, T extends Struct<U>, K extends keyof T>(p: K, list: List<T>): U[]; // fails on number keys
+        pluck<U, T extends Struct<U>, K extends keyof T>(p: K): (list: List<T>) => U[]; // doesn't work, T info late
+        // pluck<T extends Struct<any>, K extends keyof T>: CurriedFunction2<K, List<T>, T[K][]>;
 
         // supply return object type manually when unable to infer it...
         pluck<T>(p: Prop, list: Struct<any>[]): T[];
@@ -3466,10 +3466,10 @@ declare namespace R {
          */
         // hard to mix cuz different generics
 
-        // // infer
-        // project<T, K extends keyof T>(props: List<K>, objs: List<T>): Pick<T, K>[];
-        // project<T, K extends keyof T>(props: List<K>): (objs: List<T>) => Pick<T, K>[]; // T info probably too late
-        // // project<T, K extends keyof T>: CurriedFunction2<List<K>, List<T>, Pick<T, K>[]>;
+        // infer
+        project<T, K extends Prop>(props: List<K>, objs: List<T>): T[];
+        project<T, K extends Prop>(props: List<K>): (objs: List<T>) => T[]; // T info probably too late
+        // project<T, K extends keyof T>: CurriedFunction2<List<K>, List<T>, Pick<T, K>[]>;
 
         // supply return object type manually when unable to infer it...
         project<T,U>(props: List<Prop>, objs: List<T>): U[];
@@ -3480,17 +3480,17 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
 
-        // // keyof version
-        // prop<T, K extends keyof T>(p: K, obj: T): T[K];
-        // // prop<T, K extends keyof T>(p: K): (obj: T) => T[K]; // T info late
-        // // prop<T, K extends keyof T>: CurriedFunction2<K, T, T[K]>;
-        // // prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // K redefined, fails
-        // // prop<T, K extends Prop>: CurriedFunction2<K, T, T[K]>;
+        // keyof version
+        prop<T>(p: Prop, obj: T): T;
+        // prop<T, K extends keyof T>(p: K): (obj: T) => T[K]; // T info late
+        // prop<T, K extends keyof T>: CurriedFunction2<K, T, T[K]>;
+        // prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // K redefined, fails
+        // prop<T, K extends Prop>: CurriedFunction2<K, T, T[K]>;
 
-        // // Record version, more curry-friendly
-        // prop<K extends string, V, T extends Record<K,V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
-        // prop<K extends string>(p: K): <V, T extends Record<K,V>>(obj: T) => V;
-        // // prop<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, T, V>;
+        // Record version, more curry-friendly
+        prop<K extends string, V, T extends Obj<V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
+        prop<K extends string>(p: K): <V, T extends Obj<V>>(obj: T) => V;
+        // prop<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, T, V>;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -3521,23 +3521,23 @@ declare namespace R {
          * Returns true if the specified object property is of the given type; false otherwise.
          */
 
-        // // Record
-        // propIs<T extends Function, K extends string, V, U extends Record<K,V>>(type: T, name: K, obj: U): obj is (U & Record<K, T>);
-        // propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
-        // // propIs<T extends Function>(type: T): {
-        // //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
-        // //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
-        // // }
-        // // propIs<T extends Function, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V is (V & Record<K, T>)>; // obj is? name unavailable...
+        // Record
+        propIs<T extends Function, K extends string, V, U extends Obj<V>>(type: T, name: K, obj: U): obj is (U & Obj<T>);
+        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Obj<T>);
+        // propIs<T extends Function>(type: T): {
+        //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
+        //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
+        // }
+        // propIs<T extends Function, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V is (V & Record<K, T>)>; // obj is? name unavailable...
 
-        // // inference, fails if name and object are supplied separately
-        // propIs<T extends Function, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>);
-        // // propIs<T extends Function, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        // // propIs<T extends Function>(type: T): {
-        // //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
-        // //     <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        // // }
-        // // propIs<T extends Function, V, K extends keyof V>: CurriedFunction3<T, K, V, V is (V & Record<K, T>)>; // obj is? name unavailable...
+        // inference, fails if name and object are supplied separately
+        propIs<T extends Function, V>(type: T, name: Prop, obj: V): obj is (V & Obj<T>);
+        // propIs<T extends Function, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
+        // propIs<T extends Function>(type: T): {
+        //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
+        //     <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
+        // }
+        // propIs<T extends Function, V, K extends keyof V>: CurriedFunction3<T, K, V, V is (V & Record<K, T>)>; // obj is? name unavailable...
 
         // curry-friendlier fallback
         propIs(type: Function, name: Prop, obj: Struct<any>): boolean;
@@ -3549,15 +3549,15 @@ declare namespace R {
         // }
         // propIs: CurriedFunction3<Function, Prop, Struct<any>, boolean>;
 
-        // // mixed:
-        // propIs<T extends Function>(type: T): {
-        //     // record
-        //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
-        //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
-        //     // keyof
-        //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
-        //     // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
-        // };
+        // mixed:
+        propIs<T extends Function>(type: T): {
+            // record
+            <K extends string, V, U extends Obj<V>>(name: K, obj: U): obj is (U & Obj<T>);
+            <K extends string>(name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Obj<T>);
+            // keyof
+            <V>(name: Prop, obj: V): obj is (V & Obj<T>);
+            // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
+        };
 
         /**
          * If the given, non-null object has an own property with the specified name, returns the value of that property.
