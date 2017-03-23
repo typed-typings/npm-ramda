@@ -1429,16 +1429,16 @@ declare namespace R {
 
 
 
-        // // homogeneous object
-        // assoc<T, U extends Struct<T>>(prop: Prop, val: T, obj: U): U;
-        // assoc<T>(prop: Prop, val: T): <U extends Struct<T>>(obj: U) => U;
-        // assoc<T, U extends Struct<T>>(prop: Prop): CurriedFunction2<T, U, U>; // generics too early?
-        // // assoc<T, U extends Struct<T>>: CurriedFunction3<Prop, T, U, U>;
+        // homogeneous object
+        assoc<T, U extends Struct<T>>(prop: Prop, val: T, obj: U): U;
+        assoc<T>(prop: Prop, val: T): <U extends Struct<T>>(obj: U) => U;
+        assoc<T, U extends Struct<T>>(prop: Prop): CurriedFunction2<T, U, U>; // generics too early?
+        // assoc<T, U extends Struct<T>>: CurriedFunction3<Prop, T, U, U>;
 
         // any object as long as the type remains unchanged
-        // assoc<T>(prop: Prop, val: any, obj: T): T;
-        // assoc(prop: Prop, val: any): <T>(obj: T) => T;
-        // assoc<T>(prop: Prop): CurriedFunction2<any, T, T>; // generics too early?
+        assoc<T>(prop: Prop, val: any, obj: T): T;
+        assoc(prop: Prop, val: any): <T>(obj: T) => T;
+        assoc<T>(prop: Prop): CurriedFunction2<any, T, T>; // generics too early?
         // assoc<T>: CurriedFunction3<Prop, any, T, T>;
 
         // any object as long as the type remains unchanged
