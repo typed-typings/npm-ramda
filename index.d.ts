@@ -3438,8 +3438,8 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // infer
-        pluck<U, T extends Struct<U>, K extends keyof T>(p: K, list: List<T>): U[]; // fails on number keys
-        pluck<U, T extends Struct<U>, K extends keyof T>(p: K): (list: List<T>) => U[]; // doesn't work, T info late
+        pluck<U, T extends Struct<U>, K extends Prop>(p: K, list: List<T>): U[]; // fails on number keys
+        pluck<U, T extends Struct<U>, K extends Prop>(p: K): (list: List<T>) => U[]; // doesn't work, T info late
         // pluck<T extends Struct<any>, K extends keyof T>: CurriedFunction2<K, List<T>, T[K][]>;
 
         // supply return object type manually when unable to infer it...
@@ -3571,9 +3571,9 @@ declare namespace R {
         // // propOr<T, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V|T>;
 
         // infer with keyof (not curry-friendly), allowing a default value with a type different from the actual one
-        propOr<T,U,K extends keyof U>(val: T, p: K, obj: Obj<K>): K|T; // obj[K]?
-        propOr<T,U,K extends keyof U>(val: T, p: K): (obj: Obj<K>) => K|T;  // generics too early?
-        propOr<T,U,K extends keyof U>(val: T): CurriedFunction2<K, Obj<K>, K|T>;  // generics too early?
+        propOr<T,U,K extends Prop>(val: T, p: K, obj: Obj<K>): K|T; // obj[K]?
+        propOr<T,U,K extends Prop>(val: T, p: K): (obj: Obj<K>) => K|T;  // generics too early?
+        propOr<T,U,K extends Prop>(val: T): CurriedFunction2<K, Obj<K>, K|T>;  // generics too early?
         // propOr<T>(val: T): <U,K extends keyof U>(p: K, obj: U) => U[K]|T;
         // propOr<T>(val: T): <U,K extends keyof U>(p: K) => (obj: U) => U[K]|T;  // U too early?
         // propOr<T,U,K extends keyof U>: CurriedFunction3<T, K, U, U[K]|T>;
