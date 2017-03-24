@@ -2688,8 +2688,8 @@ declare namespace R {
         // mapObjIndexed<T, V, M extends Obj<T>>: CurriedFunction2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
 
         // Record
-        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U, obj: Obj<T>): Obj<U>;
-        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U): <K extends string>(obj: Obj<T>) => Obj<U>;  // potentially overwriting K but whatever
+        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Obj<T>) => U, obj: Obj<T>): Obj<U>;
+        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Obj<T>) => U): <K extends string>(obj: Obj<T>) => Obj<U>;  // potentially overwriting K but whatever
         // mapObjIndexed<T, U, K extends string>: CurriedFunction2<(value: T, key: string, obj?: Record<K, T>) => U, Record<K, T>), Record<K, U>>;
 
         /**
@@ -3632,7 +3632,7 @@ declare namespace R {
             <U extends Obj<V>>(obj: U): boolean;
         };
         propSatisfies<V>(pred: Pred<V>):{
-            <K extends string, U extends Record<K, V>>(name: K, obj: U): boolean;
+            <K extends string, U extends Obj<V>>(name: K, obj: U): boolean;
             <K extends string>(name: K):{
                 <U extends Obj<V>>(obj: U): boolean;
             };
