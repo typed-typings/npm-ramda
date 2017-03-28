@@ -2199,7 +2199,7 @@ declare namespace R {
          * Creates a function that will process either the onTrue or the onFalse function depending upon the result
          * of the condition predicate.
          */
-        ifElse<U,V>(fn: (...k: any[]) => boolean, onTrue: (...v: any[]) => U, onFalse: (...v: any[]) => V): (v: T) => U|V;
+        ifElse<U,V>(fn: (...k: any[]) => boolean, onTrue: (...v: any[]) => U, onFalse: (...v: any[]) => V): (...v: any[]) => U|V;
         // ifElse<T,U,V>: CurriedFunction3<Pred<T>, (v: T) => U, (v: T) => V, (v: T) => U|V>;
 
 
