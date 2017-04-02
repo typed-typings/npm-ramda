@@ -3,6 +3,9 @@
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import curry from './src/curry'
+import merge from './src/merge'
+
 declare var R: R.Static;
 
 declare namespace R {
@@ -1727,20 +1730,7 @@ declare namespace R {
         countBy<T>(fn: (a: T) => Prop): (list: List<T>) => Obj<number>;
         // countBy<T>: CurriedFunction2<(a: T) => Prop, List<T>, Obj<number>>;
 
-        /**
-         * Returns a curried equivalent of the provided function.
-         */
-        curry<T1, TResult>(fn: (a: T1) => TResult): CurriedFunction1<T1, TResult>;
-        curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1, T2, TResult>;
-        curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFunction3<T1, T2, T3, TResult>;
-        curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFunction4<T1, T2, T3, T4, TResult>;
-        curry<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): CurriedFunction5<T1, T2, T3, T4, T5, TResult>;
-        curry<T1, T2, T3, T4, T5, T6, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => TResult): CurriedFunction6<T1, T2, T3, T4, T5, T6, TResult>;
-        curry<T1, T2, T3, T4, T5, T6, T7, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7) => TResult): CurriedFunction7<T1, T2, T3, T4, T5, T6, T7, TResult>;
-        curry<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8) => TResult): CurriedFunction8<T1, T2, T3, T4, T5, T6, T7, T8, TResult>;
-        curry<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6, g: T7, h: T8, i: T9) => TResult): CurriedFunction9<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>;
-        // curry(fn: Function): Function
-
+        curry: typeof curry
 
         /**
          * Returns a curried equivalent of the provided function, with the specified arity.
@@ -2758,15 +2748,8 @@ declare namespace R {
          */
         memoize<T>(fn: Variadic<T>): Variadic<T>;
 
-        /**
-         * Create a new object with the own properties of a
-         * merged with the own properties of object b.
-         * This function will *not* mutate passed-in objects.
-         */
-        merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>(a: T1, b: T2): T1 & T2;
-        merge<V1, T1 extends Struct<V1>>(a: T1): <V2, T2 extends Struct<V2>>(b: T2) => T1 & T2;
-        // merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>: CurriedFunction2<T1, T2, T1 & T2>;
-
+        merge: typeof merge
+        
 
         /**
          * Merges a list of objects together into one object.
