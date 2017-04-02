@@ -2763,9 +2763,9 @@ declare namespace R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
-        merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>(a: T1, b: T2): T1 & T2;
-        merge<V1, T1 extends Struct<V1>>(a: T1): <V2, T2 extends Struct<V2>>(b: T2) => T1 & T2;
-        // merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>: CurriedFunction2<T1, T2, T1 & T2>;
+        merge<T1 extends Struct<any>, T2 extends Struct<any>>(a: T1, b: T2): T1 & T2;
+        merge<T1 extends Struct<any>>(a: T1): <T2 extends Struct<any>>(b: T2) => T1 & T2;
+        // merge<T1 extends Struct<any>, T2 extends Struct<any>>: CurriedFunction2<T1, T2, T1 & T2>;
 
 
         /**
