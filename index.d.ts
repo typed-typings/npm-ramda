@@ -7,6 +7,7 @@ declare var R: R.Static;
 
 declare namespace R {
 
+
     // Fantasyland interfaces
 
     // TODO: incorporate generalized inheritance e.g.: `<U extends
@@ -391,30 +392,30 @@ declare namespace R {
         // assoc<T, U extends Struct<any>, K extends keyof U>(prop: K): CurriedFunction2<T,U, {[P in K]: T} & U>; // generics too early?
         // assoc<T, U extends Struct<any>, K extends keyof U>: CurriedFunction3<K, T, U, {[P in K]: T} & U>;
 
-        // extend object with new property
-        assoc<K extends string, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
-        assoc<K extends string, T>(prop: K, val: T):{
-            <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
-        };
-        assoc<K extends string>(prop: K):{
-            <T, U extends Struct<any>>(val: T, obj: U): {[P in K]: T} & U;
-            <T>(val: T):{
-                <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
-            };
-        };
+        // // extend object with new property
+        // assoc<K extends string, T, U extends Struct<any>>(prop: K, val: T, obj: U): {[P in K]: T} & U;
+        // assoc<K extends string, T>(prop: K, val: T):{
+        //     <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
+        // };
+        // assoc<K extends string>(prop: K):{
+        //     <T, U extends Struct<any>>(val: T, obj: U): {[P in K]: T} & U;
+        //     <T>(val: T):{
+        //         <U extends Struct<any>>(obj: U): {[P in K]: T} & U;
+        //     };
+        // };
 
 
 
-        // // homogeneous object
-        // assoc<T, U extends Struct<T>>(prop: Prop, val: T, obj: U): U;
-        // assoc<T>(prop: Prop, val: T): <U extends Struct<T>>(obj: U) => U;
-        // assoc<T, U extends Struct<T>>(prop: Prop): CurriedFunction2<T, U, U>; // generics too early?
-        // // assoc<T, U extends Struct<T>>: CurriedFunction3<Prop, T, U, U>;
+        // homogeneous object
+        assoc<T, U extends Struct<T>>(prop: Prop, val: T, obj: U): U;
+        assoc<T>(prop: Prop, val: T): <U extends Struct<T>>(obj: U) => U;
+        assoc<T, U extends Struct<T>>(prop: Prop): CurriedFunction2<T, U, U>; // generics too early?
+        // assoc<T, U extends Struct<T>>: CurriedFunction3<Prop, T, U, U>;
 
         // any object as long as the type remains unchanged
-        // assoc<T>(prop: Prop, val: any, obj: T): T;
-        // assoc(prop: Prop, val: any): <T>(obj: T) => T;
-        // assoc<T>(prop: Prop): CurriedFunction2<any, T, T>; // generics too early?
+        assoc<T>(prop: Prop, val: any, obj: T): T;
+        assoc(prop: Prop, val: any): <T>(obj: T) => T;
+        assoc<T>(prop: Prop): CurriedFunction2<any, T, T>; // generics too early?
         // assoc<T>: CurriedFunction3<Prop, any, T, T>;
 
         // any object as long as the type remains unchanged
@@ -783,8 +784,8 @@ declare namespace R {
         // dissoc<T,U extends Struct<any>>(prop: keyof U, obj: U): T;
 
         // simplified but inferrable: leave the key in
-        dissoc<T>(prop: keyof T, obj: T): T;
-        // dissoc(prop: Prop): <T>(obj: T) => T; // mix
+        // dissoc<T>(prop: keyof T, obj: T): T;
+        dissoc(prop: Prop): <T>(obj: T) => T; // mix
         // dissoc<T>: CurriedFunction2<keyof T, T, T>;
         // dissoc<T>: CurriedFunction2<Prop, T, T>;
 
@@ -977,8 +978,8 @@ declare namespace R {
         // filter<T>: CurriedFunction2<(value: T) => boolean, Functor<T>, T[]>;
 
         // object
-        filter<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
-        // filter<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => Partial<U>; // mix
+        // filter<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        filter<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => U; // mix
         // filter<T,U extends Obj<T>>: CurriedFunction2<(value: T) => boolean, U, Partial<U>>;
 
         // mixed
@@ -986,9 +987,8 @@ declare namespace R {
           (list: List<T>): T[];
           (list: Functor<T>): Functor<T>;
           (list: Functor<T>): T[];
-          <U extends Obj<T>>(obj: U): Partial<U>;
+          <U extends Obj<T>>(obj: U): U;
         };
-
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -1150,7 +1150,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends List<any>>(list: T): T[0];
+        // head<T extends List<any>>(list: T): T[0];
         // tuple attempts; it doesn't like these.
         head<T>(list: [T]): T;
         head<T0, T1>(list: [T0, T1]): T0;
@@ -1565,13 +1565,13 @@ declare namespace R {
         // map<T, U>: CurriedFunction2<(x: T) => U, List<T>, U[]>;
 
         // object: keyof version
-        map<T, U, M extends Obj<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
-        map<T, U, M extends Obj<T>>(fn: (value: T) => U, obj: M): {[K in keyof M]: U};
+        map<T, U, M extends Obj<T>>(fn: (value: T) => U, obj: M): Obj<U>;
+        map<T, U, M extends Obj<T>>(fn: (value: T) => U, obj: M): Obj<U>;
         // map<T, U>(fn: (value: T) => U): <M extends Obj<T>>(obj: M) => {[K in keyof M]: U}; // mix
         // map<T, U, M extends Obj<T>>: CurriedFunction2<(value: T) => U, M, {[K in keyof M]: U}>;
 
         // object: Record version
-        map<T, U, K extends string>(f: (x: T) => U, obj: Record<K, T>): Record<K, U>;
+        map<T, U, K extends string>(f: (x: T) => U, obj:Obj<T>): Obj<U>;
         // map<T, U>(f: (x: T) => U): <K extends string>(obj: Record<K, T>) => Record<K, U>; // mix
         // map<T, U, K extends string>: CurriedFunction2<(x: T) => U, Record<K, T>), Record<K, U>>;
 
@@ -1597,8 +1597,8 @@ declare namespace R {
 
         // mixed:
         map<T, U>(fn: (x: T) => U): {
-          <M extends Obj<T>>(obj: M): {[K in keyof M]: U};
-          <K extends string>(obj: Record<K, T>): Record<K, U>;
+          <M extends Obj<T>>(obj: M): Obj<U>;
+          <K extends string>(obj: Obj<T>): Obj<U>;
           (obj: Functor<T>): Functor<U>;
           (list: List<T>): U[];
         };
@@ -1659,13 +1659,13 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // keyof
-        mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): {[K in keyof M]: V};
-        mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => {[K in keyof M]: V};
+        mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): Obj<V>;
+        mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => Obj<V>;
         // mapObjIndexed<T, V, M extends Obj<T>>: CurriedFunction2<(value: T, key: string, obj?: M) => V, M, {[K in keyof M]: V}>;
 
         // Record
-        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U, obj: Record<K, T>): Record<K, U>;
-        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U): <K extends string>(obj: Record<K, T>) => Record<K, U>;  // potentially overwriting K but whatever
+        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U, obj: Obj<T>): Obj<U>;
+        mapObjIndexed<T, U, K extends string>(f: (value: T, key: string, obj?: Record<K, T>) => U): <K extends string>(obj: Obj<T>) => Obj<U>;  // potentially overwriting K but whatever
         // mapObjIndexed<T, U, K extends string>: CurriedFunction2<(value: T, key: string, obj?: Record<K, T>) => U, Record<K, T>), Record<K, U>>;
 
         /**
@@ -1738,9 +1738,9 @@ declare namespace R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
-        merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>(a: T1, b: T2): T1 & T2;
-        merge<V1, T1 extends Struct<V1>>(a: T1): <V2, T2 extends Struct<V2>>(b: T2) => T1 & T2;
-        // merge<V1, V2, T1 extends Struct<V1>, T2 extends Struct<V2>>: CurriedFunction2<T1, T2, T1 & T2>;
+        merge<T1 extends Struct<any>, T2 extends Struct<any>>(a: T1, b: T2): T1 & T2;
+        merge<T1 extends Struct<any>>(a: T1): <T2 extends Struct<any>>(b: T2) => T1 & T2;
+        // merge<T1 extends Struct<any>, T2 extends Struct<any>>: CurriedFunction2<T1, T2, T1 & T2>;
 
 
         /**
@@ -1889,8 +1889,8 @@ declare namespace R {
          */
 
         // Record-based, key intact
-        objOf<K extends string, V, T extends Record<K,V>>(key: K, value: V): T;
-        objOf<K extends string>(key: K): <V, T extends Record<K,V>>(value: V) => T;
+        objOf<K extends string, V, T extends Obj<V>>(key: K, value: V): T;
+        objOf<K extends string>(key: K): <V, T extends Obj<V>>(value: V) => T;
         // objOf<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, V, T>;
 
         // // Obj-based, loses key
@@ -1940,12 +1940,12 @@ declare namespace R {
          */
         // hard to mix cuz different generics
 
-        // // key lens:
-        // over<T, K extends keyof T>(lens: KeyLens<T,K>, fn: (v: T[K]) => T[K], value: T): T;
-        // over<T, K extends keyof T>(lens: KeyLens<T,K>, fn: (v: T[K]) => T[K]): (value: T) => T;
-        // // over(lens: KeyLens<T,K>): <T, K extends keyof T>(fn: (v: T[K]) => T[K], value: T) => T;
-        // over<T, K extends keyof T>(lens: KeyLens<T,K>): CurriedFunction2<(v: T[K]) => T[K], T, T>;
-        // // over<T, K extends keyof T>: CurriedFunction3<KeyLens<T,K>, (v: T[K]) => T[K], T, T>;
+        // key lens:
+        over<T, K extends string>(lens: UnknownLens, fn: (v: any) => any, value: T): T;
+        over<T, K extends string>(lens: UnknownLens, fn: (v: any) => any): (value: T) => T;
+        // over(lens: KeyLens<T,K>): <T, K extends keyof T>(fn: (v: T[K]) => T[K], value: T) => T;
+        over<T, K extends string>(lens: UnknownLens): CurriedFunction2<(v: any) => any, T, T>;
+        // over<T, K extends keyof T>: CurriedFunction3<KeyLens<T,K>, (v: T[K]) => T[K], T, T>;
 
         // regular lenses:
 
@@ -2046,7 +2046,7 @@ declare namespace R {
         partition<T extends Obj<V>,U extends Obj<V>,V>(fn: (a: V) => boolean, obj: T & U) : [T,U];
         // partition<T extends Obj<V>,U extends Obj<V>,V>: CurriedFunction2<(a: T) => boolean, obj: T & U, [T,U]>;
         // objects, alternative notation
-        partition<T, U extends Obj<T>>(fn: (a: T) => boolean, obj: U) : [Partial<U>,Partial<U>];
+        partition<T, U extends Obj<T>>(fn: (a: T) => boolean, obj: U) : [Obj<T>, Obj<T>];
         // partition<T, U extends Obj<T>>: CurriedFunction2<(a: T) => boolean, U, [Partial<U>,Partial<U>]>;
 
         /**
@@ -2287,28 +2287,28 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends keyof T>(names: List<K>, obj: T): Pick<T, K>;
-        pick<T, K extends keyof T>(names: List<K>): (obj: T) => Pick<T, K>;
+        pick<T, K extends Prop>(names: List<K>, obj: T): T;
+        pick<T, K extends Prop>(names: List<K>): (obj: T) => T;
         // pick<T, K extends keyof T>: CurriedFunction2<List<K>, T, Pick<T, K>>;
 
-        pick<T>(names: List<Prop>, obj: T): Partial<T>;
-        pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
-        // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
+       //  pick<T>(names: List<Prop>, obj: T): Partial<T>;
+       //  pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
+       //  // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
 
-        /**
-         * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
-         */
-        pickAll<T, K /*extends keyof T*/>(names: List<K>, obj: T): Partial<T>;
-        pickAll<T, K /*extends keyof T*/>(names: List<K>): (obj: T) => Partial<T>;
-        // pickAll<T, K /*extends keyof T*/>: CurriedFunction2<List<K>, T, Partial<T>>;
+       //  /**
+       //   * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
+       //   */
+       //  pickAll<T, K /*extends keyof T*/>(names: List<K>, obj: T): Partial<T>;
+       //  pickAll<T, K /*extends keyof T*/>(names: List<K>): (obj: T) => Partial<T>;
+       //  // pickAll<T, K /*extends keyof T*/>: CurriedFunction2<List<K>, T, Partial<T>>;
 
 
-        /**
-         * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
-         */
-        pickBy<T>(pred: ObjPred<any>, obj: T): Partial<T>;
-        pickBy(pred: ObjPred<any>): <T>(obj: T) => Partial<T>;
-        // pickBy<T>: CurriedFunction2<ObjPred<any>, T, Partial<T>>;
+       //  /**
+       //   * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
+       //   */
+       //  pickBy<T>(pred: ObjPred<any>, obj: T): Partial<T>;
+       //  pickBy(pred: ObjPred<any>): <T>(obj: T) => Partial<T>;
+       //  // pickBy<T>: CurriedFunction2<ObjPred<any>, T, Partial<T>>;
 
 
         /**
@@ -2414,8 +2414,8 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // infer
-        pluck<T extends Struct<any>, K extends keyof T>(p: K, list: List<T>): T[K][]; // fails on number keys
-        pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: List<T>) => T[K][]; // doesn't work, T info late
+        pluck<U, T extends Struct<U>, K extends keyof T>(p: K, list: List<T>): U[]; // fails on number keys
+        pluck<U, T extends Struct<U>, K extends keyof T>(p: K): (list: List<T>) => U[]; // doesn't work, T info late
         // pluck<T extends Struct<any>, K extends keyof T>: CurriedFunction2<K, List<T>, T[K][]>;
 
         // supply return object type manually when unable to infer it...
@@ -2443,8 +2443,8 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // infer
-        project<T, K extends keyof T>(props: List<K>, objs: List<T>): Pick<T, K>[];
-        project<T, K extends keyof T>(props: List<K>): (objs: List<T>) => Pick<T, K>[]; // T info probably too late
+        project<T, K extends Prop>(props: List<K>, objs: List<T>): T[];
+        project<T, K extends Prop>(props: List<K>): (objs: List<T>) => T[]; // T info probably too late
         // project<T, K extends keyof T>: CurriedFunction2<List<K>, List<T>, Pick<T, K>[]>;
 
         // supply return object type manually when unable to infer it...
@@ -2457,15 +2457,15 @@ declare namespace R {
          */
 
         // keyof version
-        prop<T, K extends keyof T>(p: K, obj: T): T[K];
+        prop<T>(p: Prop, obj: T): T;
         // prop<T, K extends keyof T>(p: K): (obj: T) => T[K]; // T info late
         // prop<T, K extends keyof T>: CurriedFunction2<K, T, T[K]>;
         // prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // K redefined, fails
         // prop<T, K extends Prop>: CurriedFunction2<K, T, T[K]>;
 
         // Record version, more curry-friendly
-        prop<K extends string, V, T extends Record<K,V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
-        prop<K extends string>(p: K): <V, T extends Record<K,V>>(obj: T) => V;
+        prop<K extends string, V, T extends Obj<V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
+        prop<K extends string>(p: K): <V, T extends Obj<V>>(obj: T) => V;
         // prop<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, T, V>;
 
         /**
@@ -2498,8 +2498,8 @@ declare namespace R {
          */
 
         // Record
-        propIs<T extends Function, K extends string, V, U extends Record<K,V>>(type: T, name: K, obj: U): obj is (U & Record<K, T>);
-        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
+        propIs<T extends Function, K extends string, V, U extends Obj<V>>(type: T, name: K, obj: U): obj is (U & Obj<T>);
+        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Obj<T>);
         // propIs<T extends Function>(type: T): {
         //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
         //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
@@ -2507,7 +2507,7 @@ declare namespace R {
         // propIs<T extends Function, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V is (V & Record<K, T>)>; // obj is? name unavailable...
 
         // inference, fails if name and object are supplied separately
-        propIs<T extends Function, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>);
+        propIs<T extends Function, V>(type: T, name: Prop, obj: V): obj is (V & Obj<T>);
         // propIs<T extends Function, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
         // propIs<T extends Function>(type: T): {
         //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
@@ -2528,10 +2528,10 @@ declare namespace R {
         // mixed:
         propIs<T extends Function>(type: T): {
             // record
-            <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
-            <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
+            <K extends string, V, U extends Obj<V>>(name: K, obj: U): obj is (U & Obj<T>);
+            <K extends string>(name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Obj<T>);
             // keyof
-            <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
+            <V>(name: Prop, obj: V): obj is (V & Obj<T>);
             // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
         };
 
@@ -2547,9 +2547,9 @@ declare namespace R {
         // // propOr<T, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V|T>;
 
         // infer with keyof (not curry-friendly), allowing a default value with a type different from the actual one
-        propOr<T,U,K extends keyof U>(val: T, p: K, obj: U): U[K]|T; // obj[K]?
-        propOr<T,U,K extends keyof U>(val: T, p: K): (obj: U) => U[K]|T;  // generics too early?
-        propOr<T,U,K extends keyof U>(val: T): CurriedFunction2<K, U, U[K]|T>;  // generics too early?
+        propOr<T,U,K extends keyof U>(val: T, p: K, obj: Obj<K>): K|T; // obj[K]?
+        propOr<T,U,K extends keyof U>(val: T, p: K): (obj: Obj<K>) => K|T;  // generics too early?
+        propOr<T,U,K extends keyof U>(val: T): CurriedFunction2<K, Obj<K>, K|T>;  // generics too early?
         // propOr<T>(val: T): <U,K extends keyof U>(p: K, obj: U) => U[K]|T;
         // propOr<T>(val: T): <U,K extends keyof U>(p: K) => (obj: U) => U[K]|T;  // U too early?
         // propOr<T,U,K extends keyof U>: CurriedFunction3<T, K, U, U[K]|T>;
@@ -2603,14 +2603,14 @@ declare namespace R {
         // // propSatisfies<T,U>: CurriedFunction3<Pred<T>, Prop, U, boolean>;
 
         // Record (curry-friendly)
-        propSatisfies<V, K extends string, U extends Record<K, V>>(pred: Pred<V>, name: K, obj: U): boolean;
+        propSatisfies<V, K extends string, U extends Obj<V>>(pred: Pred<V>, name: K, obj: U): boolean;
         propSatisfies<V, K extends string>(pred: Pred<V>, name: K):{
-            <U extends Record<K, V>>(obj: U): boolean;
+            <U extends Obj<V>>(obj: U): boolean;
         };
         propSatisfies<V>(pred: Pred<V>):{
             <K extends string, U extends Record<K, V>>(name: K, obj: U): boolean;
             <K extends string>(name: K):{
-                <U extends Record<K, V>>(obj: U): boolean;
+                <U extends Obj<V>>(obj: U): boolean;
             };
         };
 
@@ -2784,7 +2784,7 @@ declare namespace R {
         // reject<T>: CurriedFunction2<Pred<T>, Functor<T>, T[]>;
 
         // object
-        reject<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        reject<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : U;
         // reject<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => Partial<U>; // mix
         // reject<T,U extends Obj<T>>: CurriedFunction2<Pred<T>, U, Partial<U>>;
 
@@ -2793,7 +2793,7 @@ declare namespace R {
           (list: List<T>): T[];
           (list: Functor<T>): Functor<T>;
           (list: Functor<T>): T[];
-          <U extends Obj<T>>(obj: U): Partial<U>;
+          <U extends Obj<T>>(obj: U): U;
         };
 
         /**
@@ -3546,10 +3546,10 @@ declare namespace R {
          */
         // hard to mix cuz different generics
 
-        // heterogeneous version
-        where<T extends Obj<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }, testObj: T): boolean;
-        where<T extends Obj<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }): (testObj: T) => boolean;  // generics too early?
-        // where<T extends Obj<any>>: CurriedFunction2<{ [P in keyof T]?: Pred<T[P]>; }, T, boolean>;
+        // // heterogeneous version
+        // where<T extends Obj<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }, testObj: T): boolean;
+        // where<T extends Obj<any>>(spec: { [P in keyof T]?: Pred<T[P]>; }): (testObj: T) => boolean;  // generics too early?
+        // // where<T extends Obj<any>>: CurriedFunction2<{ [P in keyof T]?: Pred<T[P]>; }, T, boolean>;
 
         // homogeneous version
         where<T>(spec: Obj<Pred<T>>, testObj: Obj<T>): boolean;
@@ -3569,10 +3569,10 @@ declare namespace R {
         */
         // hard to mix cuz different generics
 
-        // heterogeneous version
-        whereEq<T extends Obj<any>>(spec: Partial<T>, testObj: T): boolean;
-        whereEq<T extends Obj<any>>(spec: Partial<T>): (testObj: T) => boolean;
-        // whereEq<T extends Obj<any>>: CurriedFunction2<Partial<T>, T, boolean>;
+        // // heterogeneous version
+        // whereEq<T extends Obj<any>>(spec: Partial<T>, testObj: T): boolean;
+        // whereEq<T extends Obj<any>>(spec: Partial<T>): (testObj: T) => boolean;
+        // // whereEq<T extends Obj<any>>: CurriedFunction2<Partial<T>, T, boolean>;
 
         // homogeneous version
         whereEq<T>(spec: Obj<T>, testObj: Obj<T>): boolean;

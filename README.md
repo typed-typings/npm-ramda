@@ -1,7 +1,21 @@
-##Type definitions for [Ramda](https://github.com/ramda/ramda)
+## Type definitions for [Ramda](https://github.com/ramda/ramda)
 
 [![Build Status](https://travis-ci.org/types/npm-ramda.svg?branch=master)](https://travis-ci.org/types/npm-ramda)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/donnut/typescript-ramda?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/donnut/typescript-ramda)
+
+## Status
+
+Typing compatible with ramda version 0.23.0.
+
+***Note***: many of the functions in Ramda are still hard to properly type in Ramda, with issues mainly centered around partial application, currying, and composition, especially so in the presence of generics. And yes, those are probably why you'd be using Ramda in the first place, making these issues particularly problematic to type Ramda for TypeScript. A few links to issues at TS can be found [below](#Roadmap).
+
+## Usage
+
+Install the typings for node using:
+```bash
+npm install types/npm-ramda --saveDev
+```
+If you use the package through a script tag, install with the `--global` flag instead.
 
 ## Testing:
 ```
@@ -14,16 +28,10 @@ npm test
 node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test.ts --noEmit
 ```
 
-## Usage
+## FAQ
 
-Install the typings for node using:
-```bash
-npm install types/npm-ramda --saveDev
-```
-If you use the package through a script tag, use:
-```bash
-npm install types/npm-ramda --saveDev --global
-```
+> Why are the typings here not carbon copies of the ones in the Ramda docs?
+- There are some differences, among which TypeScript's syntax, though the goal differs here as well: while the Ramda docs aim to explain the functions, the goal here is to accurately infer types within TypeScript.
 
 ## Note on placeholders
 Due to incompatiblity problems with typescript's typing system, Ramda's placeholder
@@ -47,9 +55,6 @@ R.insert(2, 'x')([1,2,3,4])
 R.insert(2)('x')([1,2,3,4]) // => type error!
 ```
 
-## Status
-Typing compatible with ramda version 0.23.0.
-
 ## Contributing
 
 Pull requests are welcome!
@@ -60,6 +65,8 @@ Do note that quite some of the typings are now being generated (manually) using 
 [scripts](https://github.com/types/npm-ramda/blob/master/scripts.js),
 as the typings are gradually getting out of hand to manually defined in the
 [typings file](https://github.com/types/npm-ramda/blob/master/index.d.ts).
+
+## Roadmap
 
 High-level to-do to address recurring issues:
 - `pipe` / `compose`:
