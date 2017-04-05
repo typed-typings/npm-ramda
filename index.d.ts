@@ -95,7 +95,7 @@ declare namespace R {
     }
 
     type Obj<T> = Dictionary<T>;
-    type List<T> = ArrayLike<T>;
+    type List<T> = T[] | ArrayLike<T>;
     type StringLike = string | StringRepresentable<string>;
     type Prop = Index | StringRepresentable<Index>;
     type Path = List<Prop>;
