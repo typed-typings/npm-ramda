@@ -7,7 +7,9 @@
     "types": "echo testing types... && bash test.sh"
   },
   "devDependencies": {
+    "@types/tape": "^4.2.29",
     "ramda": "0.23.0",
+    "tape": "^4.6.3",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
     "typescript": "^2.2.1-insiders.20170209",

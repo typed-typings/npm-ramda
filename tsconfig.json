@@ -4,6 +4,11 @@
     "module": "commonjs",
     "noEmit": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "ramda": ["."],
+      "ramda/src/*": ["./src/*"]
+    }
   }
 }
