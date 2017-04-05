@@ -14,6 +14,7 @@ const tsFiles = fs.readdirSync(testDir)
   .map(fileName => path.join(testDir, fileName));
 
 const program = ts.createProgram(tsFiles, options, host);
+
 const checker = program.getTypeChecker();
 const getType = (node: ts.Node) =>
   checker.typeToString(checker.getTypeAtLocation(node));
@@ -32,10 +33,10 @@ describe('Check typings', () => {
             const secondArgType = getType(secondArg);
             const pos = source.getLineAndCharacterOfPosition(child.pos);
             it(`${expressionText} at ${tsFile}:${pos.line}:${pos.character}`, () => {
-              equal(firstArgType, secondArgType, 
-              //`` +  
-              `\`${firstArg.getText()}\` type \`${firstArgType}\`` +
-              `doesn't match \`${firstArg.getText()}\` type \`${secondArgType}\``
+              equal(firstArgType, secondArgType,
+                //`` +  
+                `\`${firstArg.getText()}\` type \`${firstArgType}\`` +
+                `doesn't match \`${secondArg.getText()}\` type \`${secondArgType}\``
               );
             });
           }
