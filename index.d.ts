@@ -978,8 +978,8 @@ declare namespace R {
         // filter<T>: CurriedFunction2<(value: T) => boolean, Functor<T>, T[]>;
 
         // object
-        // filter<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
-        filter<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => U; // mix
+        filter<T,U extends Obj<T>>(pred: Pred<T>, obj: U) : Partial<U>;
+        // filter<T>(pred: Pred<T>): <U extends Obj<T>>(obj: U) => U; // mix
         // filter<T,U extends Obj<T>>: CurriedFunction2<(value: T) => boolean, U, Partial<U>>;
 
         // mixed
