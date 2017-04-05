@@ -1,4 +1,4 @@
-import * as R from '..';
+import * as R from 'ramda';
 
 () => {
   // $ExpectType Dictionary<any>

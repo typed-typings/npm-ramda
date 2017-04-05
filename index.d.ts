@@ -8,6 +8,7 @@ import add from './src/add'
 import addIndex from './src/addIndex'
 import curry from './src/curry'
 import merge from './src/merge'
+import props = require('./src/props')
 
 declare var R: R.Static;
 
