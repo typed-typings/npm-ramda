@@ -20,30 +20,31 @@ const getType = (node: ts.Node) =>
   checker.typeToString(checker.getTypeAtLocation(node));
 describe('Check typings', () => {
   tsFiles.forEach(tsFile => {
-    const source = program.getSourceFile(tsFile);
-    const traverseNodes = (node: ts.Node) => {
-      node.getChildren().forEach(child => {
-        const expressionText = child.getText()
-        if (expressionText.match(checkCallMatch)) {
-          if (child.kind === ts.SyntaxKind.CallExpression) {
-            const argsNode = child.getChildren()[2];
-            const firstArg = argsNode.getChildren()[0];
-            const secondArg = argsNode.getChildren()[2];
-            const firstArgType = getType(firstArg);
-            const secondArgType = getType(secondArg);
-            const pos = source.getLineAndCharacterOfPosition(child.pos);
-            it(`${expressionText} at ${tsFile}:${pos.line}:${pos.character}`, () => {
+    it(`${tsFile}`, () => {
+      const source = program.getSourceFile(tsFile);
+      const traverseNodes = (node: ts.Node) => {
+        node.getChildren().forEach(child => {
+          const expressionText = child.getText()
+          if (expressionText.match(checkCallMatch)) {
+            if (child.kind === ts.SyntaxKind.CallExpression) {
+              const argsNode = child.getChildren()[2];
+              const firstArg = argsNode.getChildren()[0];
+              const secondArg = argsNode.getChildren()[2];
+              const firstArgType = getType(firstArg);
+              const secondArgType = getType(secondArg);
+              const pos = source.getLineAndCharacterOfPosition(child.pos);
+
               equal(firstArgType, secondArgType,
-                //`` +  
+                `${tsFile}:${pos.line}:${pos.character}\n` +  
                 `\`${firstArg.getText()}\` type \`${firstArgType}\`` +
                 `doesn't match \`${secondArg.getText()}\` type \`${secondArgType}\``
               );
-            });
+            }
           }
-        }
-        traverseNodes(child);
-      });
-    };
-    traverseNodes(source);
+          traverseNodes(child);
+        });
+      };
+      traverseNodes(source);
+    });
   });
 });
