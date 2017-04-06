@@ -2414,9 +2414,14 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // infer
-        pluck<U, T extends Struct<U>, K extends keyof T>(p: K, list: List<T>): U[]; // fails on number keys
-        pluck<U, T extends Struct<U>, K extends keyof T>(p: K): (list: List<T>) => U[]; // doesn't work, T info late
+        pluck<T extends Struct<any>, K extends keyof T>(p: K, list: List<T>): T[K][]; // fails on number keys
+        // pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: List<T>) => T[K][]; // doesn't work, T info late
         // pluck<T extends Struct<any>, K extends keyof T>: CurriedFunction2<K, List<T>, T[K][]>;
+
+        // infer
+        pluck<U, T extends Struct<U>, K extends keyof T>(p: K, list: List<T>): U[]; // fails on number keys
+        // pluck<U, T extends Struct<U>, K extends keyof T>(p: K): (list: List<T>) => U[]; // doesn't work, T info late
+        // pluck<U, T extends Struct<U>, K extends keyof T>: CurriedFunction2<K, List<T>, U[]>;
 
         // supply return object type manually when unable to infer it...
         pluck<T>(p: Prop, list: Struct<any>[]): T[];
@@ -2442,31 +2447,49 @@ declare namespace R {
          */
         // hard to mix cuz different generics
 
-        // infer
-        project<T, K extends Prop>(props: List<K>, objs: List<T>): T[];
-        project<T, K extends Prop>(props: List<K>): (objs: List<T>) => T[]; // T info probably too late
+        // infer (keyof)
+        project<T, K extends keyof T>(props: List<K>, objs: List<T>): Pick<T, K>[]>;
+        // project<T, K extends keyof T>(props: List<K>): (objs: List<T>) => Pick<T, K>[]>; // T info probably too late
         // project<T, K extends keyof T>: CurriedFunction2<List<K>, List<T>, Pick<T, K>[]>;
 
-        // supply return object type manually when unable to infer it...
-        project<T,U>(props: List<Prop>, objs: List<T>): U[];
-        project(props: List<Prop>): <T,U>(objs: List<T>) => U[];
-        // project<T,U>: CurriedFunction2<List<Prop>, List<T>, U[]>;
+        // fallback: presume the original structure is intact
+        project<T>(props: List<Prop>, objs: List<T>): T[];
+        project(props: List<Prop>): <T>(objs: List<T>) => T[];
+        // project<T>: CurriedFunction2<List<Prop>, List<T>, T[];
+
+        // manually typed: supply return array type by explicit generic
+        project<T>(props: List<Prop>, objs: List<any>): T[];
+        project(props: List<Prop>): <T>(objs: List<any>) => T[];
+        // project<T,U>: CurriedFunction2<List<Prop>, List<any>, T[]>;
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
 
         // keyof version
-        prop<T>(p: Prop, obj: T): T;
+        prop<T, K extends keyof T>(p: K, obj: T): T[K];
         // prop<T, K extends keyof T>(p: K): (obj: T) => T[K]; // T info late
         // prop<T, K extends keyof T>: CurriedFunction2<K, T, T[K]>;
         // prop<K extends Prop>(p: K): <T, K extends keyof T>(obj: T) => T[K]; // K redefined, fails
         // prop<T, K extends Prop>: CurriedFunction2<K, T, T[K]>;
 
         // Record version, more curry-friendly
-        prop<K extends string, V, T extends Obj<V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
-        prop<K extends string>(p: K): <V, T extends Obj<V>>(obj: T) => V;
+        prop<K extends string, V, T extends Record<K, V>>(p: K, obj: T): V; // uncurried adds value only for {} from e.g. degeneration
+        // prop<K extends string>(p: K): <V, T extends Record<K, V>>(obj: T) => V;
         // prop<K extends string, V, T extends Record<K,V>>: CurriedFunction2<K, T, V>;
+
+        // manually type with explicit generic
+        prop<T>(p: Prop, obj: Struct<any>): T;
+        // prop(p: Prop): <T>(obj: Struct<any>) => T;
+        // prop<T>: CurriedFunction2<Prop, Struct<any>, T>;
+  
+        // mixed for currying:
+        prop<K extends string>(p: K): {
+          // Record version
+          <V, T extends Record<K, V>>(obj: T) => V;
+          // manually typed
+          <T>(obj: Struct<any>) => T;
+        }
 
         /**
          * Determines whether the given property of an object has a specific
@@ -2498,8 +2521,8 @@ declare namespace R {
          */
 
         // Record
-        propIs<T extends Function, K extends string, V, U extends Obj<V>>(type: T, name: K, obj: U): obj is (U & Obj<T>);
-        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Obj<T>);
+        propIs<T extends Function, K extends string, V, U extends Record<K, V>>(type: T, name: K, obj: U): obj is (U & Record<K, T>);
+        propIs<T extends Function, K extends string>(type: T, name: K): <V, U extends Record<K, V>>(obj: U) => obj is (U & Record<K, T>);
         // propIs<T extends Function>(type: T): {
         //     <K extends string, V, U extends Record<K,V>>(name: K, obj: U): obj is (U & Record<K, T>);
         //     <K extends string>(name: K): <V, U extends Record<K,V>>(obj: U) => obj is (U & Record<K, T>);
@@ -2507,7 +2530,7 @@ declare namespace R {
         // propIs<T extends Function, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V is (V & Record<K, T>)>; // obj is? name unavailable...
 
         // inference, fails if name and object are supplied separately
-        propIs<T extends Function, V>(type: T, name: Prop, obj: V): obj is (V & Obj<T>);
+        // propIs<T extends Function, V, K extends keyof V>(type: T, name: K, obj: V): obj is (V & Record<K, T>);
         // propIs<T extends Function, V, K extends keyof V>(type: T, name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
         // propIs<T extends Function>(type: T): {
         //     <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
@@ -2515,8 +2538,11 @@ declare namespace R {
         // }
         // propIs<T extends Function, V, K extends keyof V>: CurriedFunction3<T, K, V, V is (V & Record<K, T>)>; // obj is? name unavailable...
 
+        // trying to predict outcome without keyof
+        propIs<T extends Function, V>(type: T, name: Prop, obj: V): obj is (V & Obj<T>);
+
         // curry-friendlier fallback
-        propIs(type: Function, name: Prop, obj: Struct<any>): boolean;
+        propIs(type: Function, name: Prop, obj: Struct<any>): boolean; // overlap with above?
         propIs(type: Function, name: Prop): (obj: Struct<any>) => boolean;
         propIs(type: Function): CurriedFunction2<Prop, Struct<any>, boolean>;
         // propIs(type: Function): {
@@ -2528,9 +2554,10 @@ declare namespace R {
         // mixed:
         propIs<T extends Function>(type: T): {
             // record
-            <K extends string, V, U extends Obj<V>>(name: K, obj: U): obj is (U & Obj<T>);
-            <K extends string>(name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Obj<T>);
+            <K extends string, V, U extends Obj<V>>(name: K, obj: U): obj is (U & Record<K, T>);
+            <K extends string>(name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Record<K, >);
             // keyof
+            <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
             <V>(name: Prop, obj: V): obj is (V & Obj<T>);
             // <V, K extends keyof V>(name: K): (obj: V) => obj is (V & Record<K, T>);  // object info not available in time :(
         };
