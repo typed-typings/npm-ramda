@@ -3,10 +3,10 @@
   "version": "0.23.0-RC1",
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
-    "test": "mocha --compilers ts:ts-node/register test/*.ts type-check.ts",
-    "test-watch": "npm test -- --watch",
+    "test": "mocha --compilers ts:ts-node/register test/*.ts type-check.ts",    
     "_test": "echo testing errors... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs tests/test.ts --noEmit",
-    "types": "echo testing types... && bash test.sh"
+    "types": "echo testing types... && bash test.sh",
+    "gen": "ts-node remove-generated && mocha --compilers ts:ts-node/register gen.ts"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",

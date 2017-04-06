@@ -1,5 +1,5 @@
 import props = require('ramda/src/props');
-import { equal, throws } from 'assert';
+import { equal } from 'assert';
 import { typeFail } from '../type-fail';
 
 interface Obj {
@@ -36,13 +36,13 @@ describe('props', () => {
   });
 
 
-  it('four props - not typed', () => {
-    const res = props(['p1', 'p2', 'p3', 'p4'], obj);
-    equal(res[0], obj.p1 as any);
-    equal(res[1], obj.p2 as any);
-    equal(res[2], obj.p3 as any);
-    equal(res[3], obj.p4 as any);
-  });
+  // it('four props - not typed', () => {
+  //   const res = props(['p1', 'p2', 'p3', 'p4'], obj);
+  //   equal(res[0], obj.p1 as any);
+  //   equal(res[1], obj.p2 as any);
+  //   equal(res[2], obj.p3 as any);
+  //   equal(res[3], obj.p4 as any);
+  // });
 
   it('curried: one prop', () => {
     const res = props(['p1'])(obj);
