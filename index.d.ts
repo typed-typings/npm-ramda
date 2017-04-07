@@ -2325,10 +2325,10 @@ declare namespace R {
     /**
      * Acts as multiple `prop`: array of keys in, array of values out. Preserves order.
      */
-
-    // generic version
-    props<T>(ps: List<Prop>, obj: Struct<T>): T[];
-    props(ps: List<Prop>): <T>(obj: Struct<T>) => T[];
+     props: typeof props
+    // generic version    
+    //props<T>(ps: List<Prop>, obj: Struct<T>): T[];
+    //props(ps: List<Prop>): <T>(obj: Struct<T>) => T[];
     // props<T>: CurriedFunction2<List<Prop>, Struct<T>, T[]>;
 
     // TODO: heterogeneous version
