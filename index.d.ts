@@ -5,19 +5,35 @@
 
 import __ from './src/__'
 import add from './src/add'
-import addIndex from './src/addIndex'
-import curry from './src/curry'
-import merge from './src/merge'
+import addIndex = require('./src/addIndex')
+import curry = require('./src/curry')
+import merge = require('./src/merge')
 import props = require('./src/props')
+import {
+  List, Struct, Obj, NestedObj,
+  Pred, Variadic, Functor, Type, Transformer, Prop, Path,
+  NestedArray, KeyValuePair, AccOpts,
+  Ord, Chain, Lens, ManualLens, UnknownLens,  
+  Applicative, Traversable,
+  StringRepresentable,
+  CurriedFunction1,
+  CurriedFunction2,
+  CurriedFunction3,
+  CurriedFunction4,
+  CurriedFunction5,
+  CurriedFunction6,
+  CurriedFunction7,
+  CurriedFunction8
+} from './interfaces'
 
 declare var R: R.Static;
 
 declare namespace R {
-  
+
   interface Reduced { }
 
   interface Static {
-    
+
     __: typeof __
     add: typeof add
     addIndex: typeof addIndex

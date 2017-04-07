@@ -52,7 +52,7 @@ export interface Chain<T> extends Apply<T> {
 }
 
 export interface ChainRec<T> extends Chain<T> {
-    /* static */ chainRec<A,B,C>(f: (next: (a: A) => C, done: (b: B) => C, value: A) => ChainRec<C>, i: A): ChainRec<B>;
+    /* static */ chainRec<A, B, C>(f: (next: (a: A) => C, done: (b: B) => C, value: A) => ChainRec<C>, i: A): ChainRec<B>;
 }
 
 export interface Monad<T> extends Applicative<T>, Chain<T> {
@@ -66,12 +66,12 @@ export interface Comonad<T> extends Functor<T>, Extend<T> {
     extract<U>(): U; // 'same U as in extend's f -- how to bind?
 }
 
-export interface Bifunctor<T,U> extends Functor<T> /*, Functor<U>*/ {
-    bimap<B,D>(f: (v: T) => B, g: (v: U) => D): Bifunctor<B,D>;
+export interface Bifunctor<T, U> extends Functor<T> /*, Functor<U>*/ {
+    bimap<B, D>(f: (v: T) => B, g: (v: U) => D): Bifunctor<B, D>;
 }
 
-export interface Profunctor<T,U> extends Functor<T> /*, Functor<U>*/ {
-    promap<B,D>(f: (v: T) => B, g: (v: U) => D): Profunctor<B,D>;
+export interface Profunctor<T, U> extends Functor<T> /*, Functor<U>*/ {
+    promap<B, D>(f: (v: T) => B, g: (v: U) => D): Profunctor<B, D>;
 }
 
 // simple types
@@ -90,7 +90,7 @@ type StringLike = string | StringRepresentable<string>;
 type Prop = Index | StringRepresentable<Index>;
 type Path = List<Prop>;
 type Struct<T> = Obj<T> | List<T>;
-type AccOpts<T,U> = List<any>|Obj<any>|Transformer<T, U, U>;
+type AccOpts<T, U> = List<any> | Obj<any> | Transformer<T, U, U>;
 type Pred<T> = (v: T) => boolean;
 type ObjPred<T> = (value: T, key: string) => boolean;
 
@@ -104,7 +104,7 @@ export interface Variadic<T> {
     (...args: any[]): T;
 }
 
-export interface KeyValuePair<K, V> extends Array<K | V> { 0 : K; 1 : V; }
+export interface KeyValuePair<K, V> extends Array<K | V> { 0: K; 1: V; }
 
 export interface Transformer<T, Acc, Res> {
     step: (acc: Acc, v: T) => Acc;
@@ -121,14 +121,14 @@ export interface StringRepresentable<T> {
 }
 
 export interface NestedObj<T> {
-    [index: string]: T|NestedObj<T>;
+    [index: string]: T | NestedObj<T>;
 }
 
 // export interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
 // export interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
-export interface NestedArray <T> {
-  [index: number]: T | NestedArray<T>;
-  length: number;
+export interface NestedArray<T> {
+    [index: number]: T | NestedArray<T>;
+    length: number;
 }
 
 // // an unfortunate compromise -- while the actual lens should be generic, for the purpose of TS the structure should be supplied beforehand
@@ -138,7 +138,7 @@ export interface NestedArray <T> {
 //     set(v: T[K], obj: T): T;
 //     // map(fn: (v: T[K]) => T[K], obj: T): T
 // }
-export interface Lens<T,U> {
+export interface Lens<T, U> {
     (obj: T): U; // get
     set(v: U, obj: T): T;
     // map(fn: (v: U) => U, obj: T): T
@@ -149,8 +149,8 @@ export interface ManualLens<U> {
     // <T extends Struct<any>>map(fn: (v: U) => U, obj: T): T
 }
 export interface UnknownLens {
-    <T,U>(obj: T): U; // get
-    set<T,U>(v: U, obj: T): T;
+    <T, U>(obj: T): U; // get
+    set<T, U>(v: U, obj: T): T;
     // map<T,U>(fn: (v: U) => U, obj: T): T
 }
 

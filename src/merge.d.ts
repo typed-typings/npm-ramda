@@ -1,4 +1,4 @@
-import { Struct } from '..'
+import { Struct } from '../interfaces'
 
 /**
  * Create a new object with the own properties of a
@@ -8,4 +8,4 @@ import { Struct } from '..'
 declare function merge<T1 extends Struct<any>, T2 extends Struct<any>>(a: T1, b: T2): T1 & T2;
 declare function merge<T1 extends Struct<any>>(a: T1): <V2, T2 extends Struct<any>>(b: T2) => T1 & T2;
 
-export default merge;
+export = merge;

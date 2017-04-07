@@ -5,7 +5,8 @@ import {
   getParamsNums
 } from '../gen';
 
-const numParams = getParamsNums(8).reverse();
+const propsParams = getParamsNums(8).reverse()
+  .map(nums => nums.map(n => 'P' + n));
 
 const docs = `
 /**
@@ -15,29 +16,29 @@ const docs = `
 
 module.exports = [
   importInterfaces(['Struct', 'List', 'Prop']),
-  ...numParams.map((nums) =>
+  ...propsParams.map((props) =>
     docs +
     declareFunction('props',
-      nums.map(n => `P${n} extends string & keyof O`)
-        .concat(`O extends {[K in ${nums.map(n => 'P' + n).join(' | ')}]: any}`),
+      props.map(Pn => `${Pn} extends string & keyof O`)
+        .concat(`O extends {[K in ${props.join(' | ')}]: any}`),
       [
-        { ps: `[${nums.map(n => 'P' + n).join(', ')}]` },
+        { ps: `[${props.join(', ')}]` },
         { obj: 'O' }
       ],
-      `[${nums.map(n => 'O[P' + n + ']').join(', ')}]`
+      `[${props.map(Pn => 'O[' + Pn + ']').join(', ')}]`
     )),
   `// curried`,
-  ...numParams.map((nums) =>
+  ...propsParams.map((props) =>
     docs +
     declareFunction('props',
-      nums.map(n => `P${n} extends string`),
+      props.map(Pn => `${Pn} extends string`),
       [
-        { ps: `[${nums.map(n => 'P' + n).join(', ')}]` }
+        { ps: `[${props.join(', ')}]` }
       ],
       arrowFunction(
-        [`O extends {[K in ${nums.map(n => 'P' + n).join(' | ')}]: any}`],
+        [`O extends {[K in ${props.join(' | ')}]: any}`],
         [{ obj: 'O' }],
-        `[${nums.map(n => 'O[P' + n + ']').join(', ')}]`
+        `[${props.map(Pn => 'O[' + Pn + ']').join(', ')}]`
       )
     )),
   docs +

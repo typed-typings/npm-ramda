@@ -24,7 +24,7 @@ describe('Check typings', () => {
       const source = program.getSourceFile(tsFile);
       const traverseNodes = (node: ts.Node) => {
         node.getChildren().forEach(child => {
-          const expressionText = child.getText()
+          const expressionText = child.getText();
           if (expressionText.match(checkCallMatch)) {
             if (child.kind === ts.SyntaxKind.CallExpression) {
               const argsNode = child.getChildren()[2];
@@ -35,7 +35,7 @@ describe('Check typings', () => {
               const pos = source.getLineAndCharacterOfPosition(child.pos);
 
               equal(firstArgType, secondArgType,
-                `${tsFile}:${pos.line}:${pos.character}\n` +  
+                `${tsFile}:${pos.line}:${pos.character}\n` +
                 `\`${firstArg.getText()}\` type \`${firstArgType}\`` +
                 `doesn't match \`${secondArg.getText()}\` type \`${secondArgType}\``
               );

@@ -17,4 +17,4 @@ declare function addIndex<T>(fn: (f: (item: T) => void, list: List<T>) => T[]):
 declare function addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: List<T>) => U): 
   CurriedFunction3<(acc: U, item: T, idx: number, list?: List<T>) => U, U, List<T>, U>;
 
-export default addIndex
+export = addIndex
