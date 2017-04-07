@@ -2448,7 +2448,7 @@ declare namespace R {
         // hard to mix cuz different generics
 
         // infer (keyof)
-        project<T, K extends keyof T>(props: List<K>, objs: List<T>): Pick<T, K>[]>;
+        project<T, K extends keyof T>(props: List<K>, objs: List<T>): Pick<T, K>[];
         // project<T, K extends keyof T>(props: List<K>): (objs: List<T>) => Pick<T, K>[]>; // T info probably too late
         // project<T, K extends keyof T>: CurriedFunction2<List<K>, List<T>, Pick<T, K>[]>;
 
@@ -2486,9 +2486,9 @@ declare namespace R {
         // mixed for currying:
         prop<K extends string>(p: K): {
           // Record version
-          <V, T extends Record<K, V>>(obj: T) => V;
+          <V, T extends Record<K, V>>(obj: T): V;
           // manually typed
-          <T>(obj: Struct<any>) => T;
+          <T>(obj: Struct<any>): T;
         }
 
         /**
@@ -2555,7 +2555,7 @@ declare namespace R {
         propIs<T extends Function>(type: T): {
             // record
             <K extends string, V, U extends Obj<V>>(name: K, obj: U): obj is (U & Record<K, T>);
-            <K extends string>(name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Record<K, >);
+            <K extends string>(name: K): <V, U extends Obj<V>>(obj: U) => obj is (U & Record<K, T>);
             // keyof
             <V, K extends keyof V>(name: K, obj: V): obj is (V & Record<K, T>);
             <V>(name: Prop, obj: V): obj is (V & Obj<T>);
