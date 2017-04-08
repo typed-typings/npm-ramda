@@ -2292,24 +2292,24 @@ declare namespace R {
         pick<T, K extends Prop>(names: List<K>): (obj: T) => T;
         // pick<T, K extends keyof T>: CurriedFunction2<List<K>, T, Pick<T, K>>;
 
-       //  pick<T>(names: List<Prop>, obj: T): Partial<T>;
-       //  pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
-       //  // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
+        pick<T>(names: List<Prop>, obj: T): Partial<T>;
+        pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
+        // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
 
-       //  /**
-       //   * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
-       //   */
-       //  pickAll<T, K /*extends keyof T*/>(names: List<K>, obj: T): Partial<T>;
-       //  pickAll<T, K /*extends keyof T*/>(names: List<K>): (obj: T) => Partial<T>;
-       //  // pickAll<T, K /*extends keyof T*/>: CurriedFunction2<List<K>, T, Partial<T>>;
+        /**
+         * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
+         */
+        pickAll<T, K /*extends keyof T*/>(names: List<K>, obj: T): Partial<T>;
+        pickAll<T, K /*extends keyof T*/>(names: List<K>): (obj: T) => Partial<T>;
+        // pickAll<T, K /*extends keyof T*/>: CurriedFunction2<List<K>, T, Partial<T>>;
 
 
-       //  /**
-       //   * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
-       //   */
-       //  pickBy<T>(pred: ObjPred<any>, obj: T): Partial<T>;
-       //  pickBy(pred: ObjPred<any>): <T>(obj: T) => Partial<T>;
-       //  // pickBy<T>: CurriedFunction2<ObjPred<any>, T, Partial<T>>;
+        /**
+         * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
+         */
+        pickBy<T>(pred: ObjPred<any>, obj: T): Partial<T>;
+        pickBy(pred: ObjPred<any>): <T>(obj: T) => Partial<T>;
+        // pickBy<T>: CurriedFunction2<ObjPred<any>, T, Partial<T>>;
 
 
         /**
