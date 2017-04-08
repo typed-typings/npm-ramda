@@ -1150,7 +1150,8 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        // head<T extends List<any>>(list: T): T[0];
+        head<T extends List<any>>(list: T): T[0];
+        head(list: string): string;
         // tuple attempts; it doesn't like these.
         head<T>(list: [T]): T;
         head<T0, T1>(list: [T0, T1]): T0;
@@ -3125,6 +3126,7 @@ declare namespace R {
          * Returns all but the first element of a list.
          */
         tail<T extends List<any>>(list: T): T;
+        tail(list: string): string;
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
