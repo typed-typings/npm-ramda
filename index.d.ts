@@ -9,6 +9,7 @@ import addIndex = require('./src/addIndex')
 import curry = require('./src/curry')
 import merge = require('./src/merge')
 import props = require('./src/props')
+import path = require('./src/path')
 import flatten = require('./src/flatten')
 import {
   List, Struct, Obj, NestedObj,
@@ -1785,25 +1786,8 @@ declare namespace R {
     // objects, alternative notation
     partition<T, U extends Obj<T>>(fn: (a: T) => boolean, obj: U): [Obj<T>, Obj<T>];
     // partition<T, U extends Obj<T>>: CurriedFunction2<(a: T) => boolean, U, [Partial<U>,Partial<U>]>;
-
- 
-    // fallback, prevents errors but lacks inference; expected result must be supplied manually.
-    path<T>(path: Path, obj: Struct<any>): T;
-    path(path: Path): <T>(obj: Struct<any>) => T;
-
-    // path<T>: CurriedFunction2<Path, Struct<any>, T>;
-    // failed attempt at proper typing, see https://github.com/Microsoft/TypeScript/issues/12393 :
-    // path<U, K1 extends keyof T, K2 extends keyof T[K1], T extends { [K1]: { [K2]: U } }>(keys: [K1, K2], obj: T): U;
-    // path<K1 extends keyof T, K2 extends keyof T[K1], T extends {}>(keys: [K1, K2], obj: T): T[K1][K2];
-
-    /**
-     * Determines whether a nested path on an object has a specific value,
-     * in `R.equals` terms. Most likely used to filter a list.
-     */
-    // pathEq(path: Path, val: any, obj: Struct<any>): boolean;
-    // pathEq(path: Path, val: any): (obj: Struct<any>) => boolean;
-    // pathEq(path: Path): CurriedFunction2<any, Struct<any>, boolean>;
-    // // pathEq: CurriedFunction3<Path, any, Struct<any>, boolean>;
+    
+    path: typeof path;
 
     // base
     pathEq(p: Path, v: any, o: any): boolean;

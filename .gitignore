@@ -1,5 +1,7 @@
 node_modules
 /tmp
+/ts-node-*
+
 dist
 *.swp
 *.swo
@@ -7,3 +9,4 @@ dist
 .sizecache.json
 test.js
 *.log*
+
