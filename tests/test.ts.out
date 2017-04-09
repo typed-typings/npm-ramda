@@ -163,7 +163,7 @@ Expected type
 but got:
   any
 
-tests/test.ts:const capitalize = (str: string) => R.pipe( 
+tests/test.ts:const capitalize = (str: string) => R.pipe(
         R.split(''),
         R.adjust(R.toUpper, 0),
         R.join('')
@@ -187,26 +187,26 @@ tests/test.ts: Unexpected error
 tests/test.ts: Unexpected error
   'Promise' only refers to a type, but is being used as a value here.
 
-tests/test.ts:R.invoker<string>(0, 'toUpperCase', 'foo');
+tests/test.ts:R.invoker(0, 'toUpperCase', 'foo');
 
 Expected type
   string
 but got:
-  any
+  {}
 
-tests/test.ts:R.invoker<string>(1, 'charAt', 'foo', 1);
+tests/test.ts:R.invoker(1, 'charAt', 'foo', 1);
 
 Expected type
   string
 but got:
-  any
+  {}
 
 tests/test.ts:chopped('longstring');
 
 Expected type
   string[]
 but got:
-  any[]
+  {}[]
 
 tests/test.ts:R.clone([{},{},{}]);
 
@@ -221,13 +221,6 @@ Expected type
   Array<number|string>
 but got:
   [string, number]
-
-tests/test.ts:R.mapObjIndexed(prependKeyAndDouble, values);
-
-Expected type
-  Dictionary<string>
-but got:
-  { x: string; y: string; z: string; }
 
 tests/test.ts:R.empty('unicorns');
 
@@ -345,7 +338,7 @@ tests/test.ts:R.drop(3)([1,2,3,4,5,6,7]);
 Expected type
   number[]
 but got:
-  ArrayLike<any>
+  List<any>
 
 tests/test.ts:R.drop(3, 'ramda');
 
@@ -359,14 +352,14 @@ tests/test.ts:R.drop(3)('ramda');
 Expected type
   string
 but got:
-  ArrayLike<any>
+  List<any>
 
 tests/test.ts:R.dropLast(2)(['foo', 'bar', 'baz']);
 
 Expected type
   string[]
 but got:
-  ArrayLike<any>
+  List<any>
 
 tests/test.ts:R.dropLast(3, 'ramda');
 
@@ -380,7 +373,7 @@ tests/test.ts:R.dropLast(3)('ramda');
 Expected type
   string
 but got:
-  ArrayLike<any>
+  List<any>
 
 tests/test.ts:R.filter(isEven, {a: 1, b: 2, c: 3, d: 4});
 
@@ -513,14 +506,14 @@ tests/test.ts:R.indexBy(R.prop('id'), list);
 Expected type
   Dictionary<Object>
 but got:
-  Dictionary<{}>
+  Dictionary<Struct<any>>
 
 tests/test.ts:R.indexBy(R.prop('id'))(list);
 
 Expected type
   Dictionary<Object>
 but got:
-  Dictionary<{}>
+  Dictionary<Struct<any>>
 
 tests/test.ts:R.indexBy<{id: string}>(R.prop('id'))(list);
 
@@ -534,34 +527,28 @@ tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny)
 Expected type
   { id: number, name: string }[]
 but got:
-  {}[]
+  any[]
 
 tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
 
 Expected type
   { id: number, name: string }[]
 but got:
-  {}[]
+  any[]
 
 tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
 
 Expected type
   { id: number, name: string }[]
 but got:
-  {}[]
+  any[]
 
 tests/test.ts:R.intersectionWith(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny);
 
 Expected type
   { id: number, name: string }[]
 but got:
-  {}[]
-
-tests/test.ts: Unexpected error
-  Supplied parameters do not match any signature of call target.
-
-tests/test.ts: Unexpected error
-  Supplied parameters do not match any signature of call target.
+  any[]
 
 tests/test.ts:R.last(['fi', 'fo', 'fum']);
 
@@ -598,33 +585,12 @@ Expected type
 but got:
   any
 
-tests/test.ts:R.over(headLens, R.toUpper, ['a', 'b', 'c']);
-
-Expected type
-  string[]
-but got:
-  any
-
 tests/test.ts:R.map(double)([1, 2, 3]);
 
 Expected type
   number[]
 but got:
   Functor<number>
-
-tests/test.ts:R.map(double, { a: 1, b: 2, c: 3 });
-
-Expected type
-  Dictionary<number>
-but got:
-  { a: number; b: number; c: number; }
-
-tests/test.ts:R.map(double)({ a: 1, b: 2, c: 3 });
-
-Expected type
-  Dictionary<number>
-but got:
-  { a: number; b: number; c: number; }
 
 tests/test.ts:R.map(arrayify, [1, 'a']);
 
@@ -638,21 +604,21 @@ tests/test.ts:R.map(arrayify)([1, 'a']);
 Expected type
   [number[], string[]]
 but got:
-  Record<"length" | "toString" | "toLocaleString" | "push" | "pop" | "concat" | "join" | "reverse" ...
+  Functor<{}[]>
 
 tests/test.ts:R.map(arrayify, { a: 1, b: 'c' });
 
 Expected type
   { a: number[], b: string[] }
 but got:
-  { a: {}[]; b: {}[]; }
+  Dictionary<{}[]>
 
 tests/test.ts:R.map(arrayify)({ a: 1, b: 'c' });
 
 Expected type
   { a: number[], b: string[] }
 but got:
-  { a: {}[]; b: {}[]; }
+  Dictionary<{}[]>
 
 tests/test.ts:R.mapAccum(append, '0', digits);
 
@@ -1002,21 +968,21 @@ tests/test.ts:R.assoc('c', 3, {a: 1, b: 2});
 Expected type
   Dictionary<number>
 but got:
-  { c: number; } & { a: number; b: number; }
+  { a: number; b: number; }
 
 tests/test.ts:R.assoc('c')(3, {a: 1, b: 2});
 
 Expected type
   Dictionary<number>
 but got:
-  { c: number; } & { a: number; b: number; }
+  Struct<{}>
 
 tests/test.ts:R.assoc('c', 3)({a: 1, b: 2});
 
 Expected type
   Dictionary<number>
 but got:
-  { c: number; } & { a: number; b: number; }
+  { a: number; b: number; }
 
 tests/test.ts:R.dissoc<{a: number, c: number}>('b', {a: 1, b: 2, c: 3});
 
@@ -1030,7 +996,7 @@ tests/test.ts:R.dissoc('b', {a: 1, b: 2, c: 3});
 Expected type
   Dictionary<number>
 but got:
-  { a: number; b: number; c: number; }
+  {}
 
 tests/test.ts:R.dissoc('b')<{a: number, c: number}>({a: 1, b: 2, c: 3});
 
@@ -1135,7 +1101,7 @@ tests/test.ts:R.invert(raceResultsByFirstName);
 Expected type
   Dictionary<string[]>
 but got:
-  Dictionary<ArrayLike<string>>
+  Dictionary<List<string>>
 
 tests/test.ts:R.set(xLens, 4, {x: 1, y: 2});
 
@@ -1163,21 +1129,21 @@ tests/test.ts:R.over(xLens, R.negate, {x: 1, y: 2});
 Expected type
   { x: number, y: number }
 but got:
-  any
+  { x: number; y: number; }
 
 tests/test.ts:R.over(xLens, R.negate)({x: 1, y: 2});
 
 Expected type
   { x: number, y: number }
 but got:
-  any
+  {}
 
 tests/test.ts:R.over(xLens)(R.negate, {x: 1, y: 2});
 
 Expected type
   { x: number, y: number }
 but got:
-  any
+  {}
 
 tests/test.ts:R.view(headLens, ['a', 'b', 'c']);
 
@@ -1187,13 +1153,6 @@ but got:
   {}
 
 tests/test.ts:R.set(headLens, 'x', ['a', 'b', 'c']);
-
-Expected type
-  string[]
-but got:
-  any
-
-tests/test.ts:R.over(headLens, R.toUpper, ['a', 'b', 'c']);
 
 Expected type
   string[]
@@ -1219,7 +1178,7 @@ tests/test.ts:R.over(xLens, R.negate, {x: 1, y: 2});
 Expected type
   Dictionary<number>
 but got:
-  any
+  { x: number; y: number; }
 
 tests/test.ts:R.view(xyLens, {x: {y: 2, z: 3}});
 
@@ -1240,7 +1199,7 @@ tests/test.ts:R.over(xyLens, R.negate, {x: {y: 2, z: 3}});
 Expected type
   { [s: string]: { [s: string]: number } }
 but got:
-  any
+  { x: { y: number; z: number; }; }
 
 tests/test.ts:phraseLens(obj1);
 
@@ -1312,7 +1271,7 @@ Expected type
 but got:
   {}
 
-tests/test.ts:R.mergeWith(R.concat, 
+tests/test.ts:R.mergeWith(R.concat,
         { a: true, values: [10, 20] },
         { b: true, values: [15, 35] });
 
@@ -1382,7 +1341,7 @@ tests/test.ts:R.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4});
 Expected type
   Dictionary<number>
 but got:
-  Pick<{ a: number; b: number; c: number; d: number; }, "a" | "d">
+  { a: number; b: number; c: number; d: number; }
 
 tests/test.ts:let no1 = R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4});
 
@@ -1401,7 +1360,7 @@ tests/test.ts:matchPhrases(['foo', 'bar', 'baz']);
 Expected type
   { must: { match_phrase: string }[] }
 but got:
-  Record<"must", {}>
+  Dictionary<{}>
 
 tests/test.ts:R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4});
 
@@ -1416,13 +1375,6 @@ Expected type
   Dictionary<number>
 but got:
   { a: number; b: number; c: number; d: number; }
-
-tests/test.ts:R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']);
-
-Expected type
-  string[]
-but got:
-  any
 
 tests/test.ts:R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4});
 
@@ -1468,18 +1420,14 @@ but got:
 
 tests/test.ts:R.prop('x', {});
 
-Expected error
-  Argument of type 'x' is not assignable to parameter of type 'never'.
-but got:
-  Argument of type '{}' is not assignable to parameter of type 'Record<"x", {}>'.
-  Property 'x' is missing in type '{}'.
+Expected error Argument of type 'x' is not assignable to parameter of type 'never'.
 
 tests/test.ts:favorite(alice);
 
 Expected type
   undefined
 but got:
-  V
+  {}
 
 tests/test.ts:favoriteWithDefault(alice);
 
@@ -1537,7 +1485,7 @@ Expected type
 but got:
   any
 
-tests/test.ts:reduceIndexed( 
+tests/test.ts:reduceIndexed(
       (acc: string, val: string, idx: number) => acc + ',' + idx + '-' + val
       ,''
       ,['f', 'o', 'o', 'b', 'a', 'r']
@@ -1609,9 +1557,9 @@ tests/test.ts:sortByNameCaseInsensitive(people);
 Expected type
   { name: string, age: number }[]
 but got:
-  {}[]
+  Struct<any>[]
 
-tests/test.ts:R.sortWith([ 
+tests/test.ts:R.sortWith([
     R.descend(R.prop('age')),
     R.ascend(R.prop('name'))
   ], people);
@@ -1619,14 +1567,14 @@ tests/test.ts:R.sortWith([
 Expected type
   typeof people
 but got:
-  {}[]
+  Struct<any>[]
 
 tests/test.ts:ageNameSort(people);
 
 Expected type
   typeof people
 but got:
-  {}[]
+  Struct<any>[]
 
 tests/test.ts:R.splitAt(5, 'hello world');
 
@@ -1706,21 +1654,21 @@ tests/test.ts:R.symmetricDifferenceWith(eqA, l1, l2);
 Expected type
   { a: number }[]
 but got:
-  {}[]
+  any[]
 
 tests/test.ts:R.symmetricDifferenceWith(eqA)(l1, l2);
 
 Expected type
   { a: number }[]
 but got:
-  {}[]
+  any[]
 
 tests/test.ts:R.symmetricDifferenceWith(eqA)(l1);
 
 Expected type
   (a: any[]) => any[]
 but got:
-  (list2: ArrayLike<{}>) => {}[]
+  (list2: List<any>) => any[]
 
 tests/test.ts:R.and(0, []);
 
@@ -1769,14 +1717,14 @@ tests/test.ts:flattenArrays([[0], [[10], [8]], 1234, {}]);
 Expected type
   any[]
 but got:
-  { length: any; toString: any; toLocaleString: any; push: any; pop: any; concat: any; join: any; r...
+  Dictionary<any>
 
 tests/test.ts:flattenArrays([[[10], 123], [8, [10]], 'hello']);
 
 Expected type
   any[]
 but got:
-  { length: any; toString: any; toLocaleString: any; push: any; pop: any; concat: any; join: any; r...
+  Dictionary<any>
 
 tests/test.ts:R.or(0, []);
 
@@ -1864,7 +1812,17 @@ Expected type
 but got:
   Dictionary<{}>
 
-tests/test.ts:const x = R.cond([ 
+tests/test.ts: Unexpected error
+  Argument of type 'CurriedFunction2<{}, Struct<{}>, Struct<{}>>' is not assignable to parameter of type '(some: string) => (x: number) => 1'.
+  Type '(v2: Struct<{}>) => Struct<{}>' is not assignable to type '(x: number) => 1'.
+    Types of parameters 'v2' and 'x' are incompatible.
+      Type 'number' is not assignable to type 'Struct<{}>'.
+
+tests/test.ts: Unexpected error
+  Argument of type 'CurriedFunction2<{}, Struct<{}>, Struct<{}>>' is not assignable to parameter of type '(some: string, other: string) => "1"'.
+  Type '(v2: Struct<{}>) => Struct<{}>' is not assignable to type '"1"'.
+
+tests/test.ts:const x = R.cond([
         [R.F, R.F],
         [R.T, R.identity]
     ]);
@@ -1896,8 +1854,9 @@ but got:
   {}
 
 tests/test.ts: Unexpected error
-  Type '{ a: number[]; } & {}' is not assignable to type 'SomeStruct'.
-  Property 'b' is missing in type '{ a: number[]; } & {}'.
+  Type 'Struct<number[]>' is not assignable to type 'SomeStruct'.
+  Type 'number[][]' is not assignable to type 'SomeStruct'.
+    Property 'a' is missing in type 'number[][]'.
 
 tests/test.ts:R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
 
@@ -1913,4 +1872,4 @@ Expected type
 but got:
   { b: number; }
 
-tests/test.ts: 448 / 724 checks passed.
+tests/test.ts: 454 / 724 checks passed.
