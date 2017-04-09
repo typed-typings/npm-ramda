@@ -2413,6 +2413,8 @@ declare namespace R {
          */
         // hard to mix cuz different generics
 
+        // array
+
         // infer
         pluck<T extends Struct<any>, K extends keyof T>(p: K, list: List<T>): T[K][]; // fails on number keys
         // pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: List<T>) => T[K][]; // doesn't work, T info late
@@ -2427,6 +2429,23 @@ declare namespace R {
         pluck<T>(p: Prop, list: Struct<any>[]): T[];
         pluck(p: Prop): <T>(list: Struct<any>[]) => T[];
         // pluck<T>: CurriedFunction2<Prop, Struct<any>[], T[]>;
+
+        // object
+
+        // infer
+        pluck<T extends Struct<any>, K extends keyof T>(p: K, list: Obj<T>): Obj<T[K]>; // fails on number keys
+        // pluck<T extends Struct<any>, K extends keyof T>(p: K): (list: Obj<T>) => Obj<T[K]>; // doesn't work, T info late
+        // pluck<T extends Struct<any>, K extends keyof T>: CurriedFunction2<K, Obj<T>, Obj<T[K]>>;
+
+        // infer
+        pluck<U, T extends Struct<U>, K extends keyof T>(p: K, list: Obj<T>): Obj<U>; // fails on number keys
+        // pluck<U, T extends Struct<U>, K extends keyof T>(p: K): (list: Obj<T>) => Obj<U>; // doesn't work, T info late
+        // pluck<U, T extends Struct<U>, K extends keyof T>: CurriedFunction2<K, Obj<T>, Obj<U>>;
+
+        // supply return object type manually when unable to infer it...
+        pluck<T>(p: Prop, list: Obj<Struct<any>>): Obj<T>;
+        pluck(p: Prop): <T>(list: Obj<Struct<any>>) => Obj<T>;
+        // pluck<T>: CurriedFunction2<Prop, Obj<Struct<any>>, Obj<T>>;
 
         /**
          * Returns a new list with the given element at the front, followed by the contents of the
