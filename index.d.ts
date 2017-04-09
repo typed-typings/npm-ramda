@@ -9,11 +9,11 @@ import addIndex = require('./src/addIndex')
 import curry = require('./src/curry')
 import merge = require('./src/merge')
 import props = require('./src/props')
-import flatten = require('./src/props')
+import flatten = require('./src/flatten')
 import {
   List, Struct, Obj, NestedObj,
   Pred, Variadic, Functor, Type, Transformer, Prop, Path,
-  NestedArray, KeyValuePair, AccOpts,
+  KeyValuePair, AccOpts,
   Ord, Chain, Lens, ManualLens, UnknownLens,  
   Applicative, Traversable,
   StringRepresentable,
