@@ -678,9 +678,9 @@ declare namespace R {
         contains(a: string, list: string): boolean;
         contains(a: string): (list: string) => boolean;
         // contains: CurriedFunction2<string, string, boolean>;
-        contains<T, R extends List<T>>(a: T, list: R): boolean;
-        contains<T, R extends List<T>>(a: T): (list: R) => boolean;
-        // contains<T, R extends List<T>>: CurriedFunction2<T, R, boolean>;
+        contains<T, U, R extends List<T|U>>(a: T, list: R): boolean;
+        contains<T>(a: T): <U, R extends List<T|U>>(list: R) => boolean;
+        // contains<T, U, R extends List<T|U>>: CurriedFunction2<T, R, boolean>;
 
         /**
          * Accepts a converging function and a list of branching functions and returns a new
@@ -1150,8 +1150,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends List<any>>(list: T): T[0];
-        head(list: string): string;
+        // head<T extends List<any>>(list: T): T[0];
         // tuple attempts; it doesn't like these.
         head<T>(list: [T]): T;
         head<T0, T1>(list: [T0, T1]): T0;
@@ -2292,24 +2291,24 @@ declare namespace R {
         pick<T, K extends Prop>(names: List<K>): (obj: T) => T;
         // pick<T, K extends keyof T>: CurriedFunction2<List<K>, T, Pick<T, K>>;
 
-        pick<T>(names: List<Prop>, obj: T): Partial<T>;
-        pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
-        // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
+       //  pick<T>(names: List<Prop>, obj: T): Partial<T>;
+       //  pick<T>(names: List<Prop>): (obj: T) => Partial<T>;
+       //  // pick<T>: CurriedFunction2<List<Prop>, T, Partial<T>>;
 
-        /**
-         * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
-         */
-        pickAll<T, K /*extends keyof T*/>(names: List<K>, obj: T): Partial<T>;
-        pickAll<T, K /*extends keyof T*/>(names: List<K>): (obj: T) => Partial<T>;
-        // pickAll<T, K /*extends keyof T*/>: CurriedFunction2<List<K>, T, Partial<T>>;
+       //  /**
+       //   * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
+       //   */
+       //  pickAll<T, K /*extends keyof T*/>(names: List<K>, obj: T): Partial<T>;
+       //  pickAll<T, K /*extends keyof T*/>(names: List<K>): (obj: T) => Partial<T>;
+       //  // pickAll<T, K /*extends keyof T*/>: CurriedFunction2<List<K>, T, Partial<T>>;
 
 
-        /**
-         * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
-         */
-        pickBy<T>(pred: ObjPred<any>, obj: T): Partial<T>;
-        pickBy(pred: ObjPred<any>): <T>(obj: T) => Partial<T>;
-        // pickBy<T>: CurriedFunction2<ObjPred<any>, T, Partial<T>>;
+       //  /**
+       //   * Returns a partial copy of an object containing only the keys that satisfy the supplied predicate.
+       //   */
+       //  pickBy<T>(pred: ObjPred<any>, obj: T): Partial<T>;
+       //  pickBy(pred: ObjPred<any>): <T>(obj: T) => Partial<T>;
+       //  // pickBy<T>: CurriedFunction2<ObjPred<any>, T, Partial<T>>;
 
 
         /**
@@ -3126,7 +3125,6 @@ declare namespace R {
          * Returns all but the first element of a list.
          */
         tail<T extends List<any>>(list: T): T;
-        tail(list: string): string;
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
