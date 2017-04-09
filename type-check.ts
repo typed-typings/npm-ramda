@@ -8,7 +8,7 @@ const options: ts.CompilerOptions = ts.readConfigFile('tsconfig.json', ts.sys.re
 const host = ts.createCompilerHost(options, true);
 
 const testDir = 'test';
-const checkCallMatch = /^equal\W/;
+const checkCallMatch = /^(equal\W|deepEqual\W)/;
 
 const tsFiles = fs.readdirSync(testDir)
   .map(fileName => path.join(testDir, fileName));
@@ -32,12 +32,12 @@ describe('Check typings', () => {
               const secondArg = argsNode.getChildren()[2];
               const firstArgType = getType(firstArg);
               const secondArgType = getType(secondArg);
-              const pos = source.getLineAndCharacterOfPosition(child.pos);
+              const pos = source.getLineAndCharacterOfPosition(firstArg.pos);
 
               equal(firstArgType, secondArgType,
-                `${tsFile}:${pos.line}:${pos.character}\n` +
+                `${tsFile}:${pos.line + 1}:${pos.character + 1}: ` +
                 `\`${firstArg.getText()}\` type \`${firstArgType}\`` +
-                `doesn't match \`${secondArg.getText()}\` type \`${secondArgType}\``
+                ` doesn't match \`${secondArg.getText()}\` type \`${secondArgType}\``
               );
             }
           }

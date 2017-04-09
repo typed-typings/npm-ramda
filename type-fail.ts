@@ -9,9 +9,10 @@ export const typeFail = (source: string, errorMatch?: RegExp) => {
   }
   const filePath = path.join(dir, Math.random() + '.ts');
   fs.writeFileSync(filePath, source, 'utf-8');
+  let noError = false;
   try {
     require(filePath);
-    assert.ok(false, 'file imported without error');
+    noError = true;
   } catch (e) {
     if (errorMatch) {
       const tsErrorMessage = e.diagnostics[0].message;
@@ -23,4 +24,13 @@ export const typeFail = (source: string, errorMatch?: RegExp) => {
     }
   }
   fs.unlinkSync(filePath);
+  if (noError) {
+    assert.ok(false, 'file imported without error');
+  }
+
 };
+
+export const itFailsType = (name: string, src: string, errorMatch?: RegExp) =>
+  it('ts error: ' + name, () => {
+    typeFail(src, errorMatch);
+  });
