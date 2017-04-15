@@ -681,6 +681,7 @@ declare namespace R {
         contains<T, U, R extends List<T|U>>(a: T, list: R): boolean;
         contains<T>(a: T): <U, R extends List<T|U>>(list: R) => boolean;
         // contains<T, U, R extends List<T|U>>: CurriedFunction2<T, R, boolean>;
+
         /**
          * Accepts a converging function and a list of branching functions and returns a new
          * function. When invoked, this new function is applied to some arguments, each branching
