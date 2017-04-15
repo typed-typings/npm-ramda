@@ -139,17 +139,17 @@ function liftNDefSeparate(i) {
 R.flatten(R.range(2,10).map(i => liftNDefSeparate(i))).join('\n');
 
 function pathDef(i) {
-    let obj = R.range(1,i+1).reduce((str, n) => `{[K${i-n+1} in T${i-n+1}]: ${str}}`, 'TResult');
+    let obj = R.range(1,i+1).reduce((str, n) => `{[K${i-n+1} in T${i-n+1}]: ${str}}`, 'TResult | undefined');
     let types = nm(i, n => `T${n+1}`);
     let typesStr = nm(i, n => `T${n+1} extends string`);
-    return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
+    return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult | undefined;`
 }
 
 function pathDefRecord(i) {
-    let obj = R.range(1,i+1).reduce((str, n) => `Record<K${i-n+1},${str}>`, 'TResult');
+    let obj = R.range(1,i+1).reduce((str, n) => `Record<K${i-n+1},${str}>`, 'TResult | undefined');
     let types = nm(i, n => `K${n+1}`);
     let typesStr = nm(i, n => `K${n+1} extends string`);
-    return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult;`
+    return `path<${typesStr}, TResult>(path: [${types}], obj: ${obj}): TResult | undefined;`
 }
 R.flatten(R.range(2,10).map(i => pathDefRecord(i))).join('\n')
 
@@ -159,7 +159,7 @@ function pathDefPoly(i, j) {
     let types = nm(i, n => `T${n+1}`);
     let typesExt = nm(i, n => `T${n+1} extends ${isArrs[i-n-1] ? 'number' : 'string'}`);
     // let typesExt = R.reverse(R.range(0,i).map(n => `T${n+1} extends ${isArrs[n] ? 'number' : 'string'}`)).join(', ');
-    return `path<${typesExt}, TResult>(path: [${types}], obj: ${obj}): TResult;`
+    return `path<${typesExt}, TResult>(path: [${types}], obj: ${obj}): TResult | undefined;`
 }
 R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(i, j)))).join('\n')
 
@@ -645,7 +645,7 @@ defaultTo: [
   ['T', 'U'],
   {
     a: 'T',
-    b: 'U',
+    b: 'U | null | undefined',
   },
   'T|U',
 ],
@@ -1719,7 +1719,7 @@ invert: [
 invertObj: [
   [],
   {
-    obj: 'Struct<Prop>' 
+    obj: 'Struct<Prop>'
   },
   'Obj<string>'
 ],
@@ -2170,7 +2170,7 @@ propIs: {
     'boolean'
   ],
   // unsure
-  // 'mixed': 
+  // 'mixed':
 },
 
 propSatisfies: {
@@ -2822,21 +2822,21 @@ head: {
     {
       list: '[T0, T1, T2]',
     },
-    'T0',
+    'T0 | undefined',
   ],
   'tuple': [
     ['T0', 'T1'],
     {
       list: '[T0, T1]',
     },
-    'T0',
+    'T0 | undefined',
   ],
   'single': [
     ['T'],
     {
       list: '[T]',
     },
-    'T'
+    'T | undefined'
   ],
   'any': [
     ['T extends List<any>'],
