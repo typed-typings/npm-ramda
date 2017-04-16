@@ -2509,7 +2509,7 @@ declare namespace R {
           <V, T extends Record<K, V>>(obj: T): V;
           // manually typed
           <T>(obj: Struct<any>): T;
-        }
+        };
 
         /**
          * Determines whether the given property of an object has a specific
