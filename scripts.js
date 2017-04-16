@@ -2822,21 +2822,21 @@ head: {
     {
       list: '[T0, T1, T2]',
     },
-    'T0 | undefined',
+    'T0',
   ],
   'tuple': [
     ['T0', 'T1'],
     {
       list: '[T0, T1]',
     },
-    'T0 | undefined',
+    'T0',
   ],
   'single': [
     ['T'],
     {
       list: '[T]',
     },
-    'T | undefined'
+    'T'
   ],
   'any': [
     ['T extends List<any>'],
