@@ -2080,20 +2080,20 @@ declare namespace R {
 
         // for each path length list all combinations of objects and homogeneous arrays... tuples not supported yet.
 
-        path<T1 extends string, TResult>(path: [T1], obj: {[K1 in T1]: TResult}): TResult | undefined;
-        path<T1 extends number, TResult>(path: [T1], obj: TResult[]): TResult | undefined;
-        path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult | undefined;
-        path<T1 extends string, T2 extends number, TResult>(path: [T1, T2], obj: {[K1 in T1]: TResult[]}): TResult | undefined;
-        path<T1 extends number, T2 extends string, TResult>(path: [T1, T2], obj: {[K2 in T2]: TResult}[]): TResult | undefined;
-        path<T1 extends number, T2 extends number, TResult>(path: [T1, T2], obj: TResult[][]): TResult | undefined;
-        path<T1 extends string, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult}}}): TResult | undefined;
-        path<T1 extends string, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: TResult[]}}): TResult | undefined;
-        path<T1 extends string, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K3 in T3]: TResult}[]}): TResult | undefined;
-        path<T1 extends string, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: TResult[][]}): TResult | undefined;
-        path<T1 extends number, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: {[K3 in T3]: TResult}}[]): TResult | undefined;
-        path<T1 extends number, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: TResult[]}[]): TResult | undefined;
-        path<T1 extends number, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K3 in T3]: TResult}[][]): TResult | undefined;
-        path<T1 extends number, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: TResult[][][]): TResult | undefined;
+        path<T1 extends string, TResult>(path: [T1], obj: {[K1 in T1]: TResult}): TResult;
+        path<T1 extends number, TResult>(path: [T1], obj: TResult[]): TResult;
+        path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult;
+        path<T1 extends string, T2 extends number, TResult>(path: [T1, T2], obj: {[K1 in T1]: TResult[]}): TResult;
+        path<T1 extends number, T2 extends string, TResult>(path: [T1, T2], obj: {[K2 in T2]: TResult}[]): TResult;
+        path<T1 extends number, T2 extends number, TResult>(path: [T1, T2], obj: TResult[][]): TResult;
+        path<T1 extends string, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult}}}): TResult;
+        path<T1 extends string, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: TResult[]}}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K3 in T3]: TResult}[]}): TResult;
+        path<T1 extends string, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: TResult[][]}): TResult;
+        path<T1 extends number, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: {[K3 in T3]: TResult}}[]): TResult;
+        path<T1 extends number, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: TResult[]}[]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K3 in T3]: TResult}[][]): TResult;
+        path<T1 extends number, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: TResult[][][]): TResult;
         // path<T1 extends string, T2 extends string, T3 extends string, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: {[K4 in T4]: TResult}}}}): TResult;
         // path<T1 extends string, T2 extends string, T3 extends string, T4 extends number, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult[]}}}): TResult;
         // path<T1 extends string, T2 extends string, T3 extends number, T4 extends string, TResult>(path: [T1, T2, T3, T4], obj: {[K1 in T1]: {[K2 in T2]: {[K4 in T4]: TResult}[]}}): TResult;
@@ -2505,7 +2505,7 @@ declare namespace R {
 
         // mixed for currying:
         prop<K extends string>(p: K): {
-          // Record version
+          // Record versionq
           <V, T extends Record<K, V>>(obj: T): V;
           // manually typed
           <T>(obj: Struct<any>): T;
