@@ -206,7 +206,7 @@ tests/test.ts:chopped('longstring');
 Expected type
   string[]
 but got:
-  {}[]
+  ({} | undefined)[]
 
 tests/test.ts:R.clone([{},{},{}]);
 
@@ -487,19 +487,26 @@ Expected type
 but got:
   Dictionary<{ score: number; name: string; }[]>
 
+tests/test.ts:R.head(['fi', 'fo', 'fum']);
+
+Expected type
+  string
+but got:
+  string | undefined
+
 tests/test.ts:R.head([10, 'ten']);
 
 Expected type
   number
 but got:
-  Index
+  string | number | undefined
 
 tests/test.ts:R.head(['10', 10]);
 
 Expected type
   string
 but got:
-  Index
+  string | number | undefined
 
 tests/test.ts:R.indexBy(R.prop('id'), list);
 
@@ -555,7 +562,7 @@ tests/test.ts:R.last(['fi', 'fo', 'fum']);
 Expected type
   string
 but got:
-  {}
+  {} | undefined
 
 tests/test.ts:headLens([10, 20, 30, 40]);
 
@@ -690,19 +697,33 @@ Expected type
 but got:
   any[]
 
+tests/test.ts:R.nth(1, list);
+
+Expected type
+  string
+but got:
+  string | undefined
+
+tests/test.ts:R.nth(-1, list);
+
+Expected type
+  string
+but got:
+  string | undefined
+
 tests/test.ts:R.nth(-99, list);
 
 Expected type
   undefined
 but got:
-  string
+  string | undefined
 
 tests/test.ts:R.nth(-99)(list);
 
 Expected type
   undefined
 but got:
-  string
+  string | undefined
 
 tests/test.ts:R.partition(R.contains('s'),{ a: 'sss', b: 'ttt', foo: 'bars' });
 
@@ -1485,6 +1506,17 @@ Expected type
 but got:
   any
 
+tests/test.ts: Unexpected error
+  Argument of type '{ <T, U>(fn: (x: T) => U, list: List<T>): U[]; <T, U, M extends Dictionary<T>>(fn: (value: T) => ...' is not assignable to parameter of type '(f: (acc: string, item: string) => string, aci: string, list: List<string>) => string'.
+  Type 'any[]' is not assignable to type 'string'.
+
+tests/test.ts:mapIndexed(function(val: string, idx: number) {return idx + '-' + val;})(['f', 'o', 'o', 'b', 'a', 'r']);
+
+Expected type
+  string[]
+but got:
+  (v2: List<string>) => string
+
 tests/test.ts:reduceIndexed(
       (acc: string, val: string, idx: number) => acc + ',' + idx + '-' + val
       ,''
@@ -1550,7 +1582,7 @@ tests/test.ts:R.path(['a', 'b'])({a: {b: 2}});
 Expected type
   number
 but got:
-  {}
+  {} | undefined
 
 tests/test.ts:sortByNameCaseInsensitive(people);
 
@@ -1872,4 +1904,4 @@ Expected type
 but got:
   { b: number; }
 
-tests/test.ts: 454 / 724 checks passed.
+tests/test.ts: 450 / 725 checks passed.
