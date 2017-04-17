@@ -645,7 +645,7 @@ defaultTo: [
   ['T', 'U'],
   {
     a: 'T',
-    b: 'U',
+    b: 'U | null | undefined',
   },
   'T|U',
 ],
@@ -1719,7 +1719,7 @@ invert: [
 invertObj: [
   [],
   {
-    obj: 'Struct<Prop>' 
+    obj: 'Struct<Prop>'
   },
   'Obj<string>'
 ],
@@ -2170,7 +2170,7 @@ propIs: {
     'boolean'
   ],
   // unsure
-  // 'mixed': 
+  // 'mixed':
 },
 
 propSatisfies: {

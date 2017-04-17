@@ -680,7 +680,7 @@ declare namespace R {
         contains<T, U, R extends List<T|U>>(a: T, list: R): boolean;
         contains<T>(a: T): <U, R extends List<T|U>>(list: R) => boolean;
         // contains<T, U, R extends List<T|U>>: CurriedFunction2<T, R, boolean>;
-  
+
         /**
          * Accepts a converging function and a list of branching functions and returns a new
          * function. When invoked, this new function is applied to some arguments, each branching
@@ -732,8 +732,8 @@ declare namespace R {
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
          * first (default) argument is returned.
          */
-        defaultTo<T,U>(a: T, b: U): T|U;
-        defaultTo<T>(a: T): <U>(b: U) => T|U;
+        defaultTo<T,U>(a: T, b: U | null | undefined): T|U;
+        defaultTo<T>(a: T): <U>(b: U | null | undefined) => T|U;
         // defaultTo<T,U>: CurriedFunction2<T, U, T|U>;
 
         /**
@@ -1149,8 +1149,8 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T extends List<any>>(list: T): T[0];
-        head(list: string): string;
+        head<T extends List<any>>(list: T): T[0] | undefined;
+        head(list: string): string | undefined;
         // tuple attempts; it doesn't like these.
         head<T>(list: [T]): T;
         head<T0, T1>(list: [T0, T1]): T0;
@@ -1437,7 +1437,7 @@ declare namespace R {
         /**
          * Returns the last element from a list.
          */
-        last<T, R extends List<T>>(list: R): T;
+        last<T, R extends List<T>>(list: R): T | undefined;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
@@ -1875,8 +1875,8 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: number, list: List<T>): T;
-        nth(n: number): <T>(list: List<T>) => T;
+        nth<T>(n: number, list: List<T>): T | undefined;
+        nth(n: number): <T>(list: List<T>) => T | undefined;
         // nth<T>: CurriedFunction2<number, List<T>, T>;
 
         /**
@@ -2207,8 +2207,8 @@ declare namespace R {
         // path<T1 extends number, T2 extends number, T3 extends number, T4 extends number, T5 extends number, T6 extends number, TResult>(path: [T1, T2, T3, T4, T5, T6], obj: TResult[][][][][][]): TResult;
 
         // fallback, prevents errors but lacks inference; expected result must be supplied manually.
-        path<T>(path: Path, obj: Struct<any>): T;
-        path(path: Path): <T>(obj: Struct<any>) => T;
+        path<T>(path: Path, obj: Struct<any>): T | undefined;
+        path(path: Path): <T>(obj: Struct<any>) => T | undefined;
 
         // path<T>: CurriedFunction2<Path, Struct<any>, T>;
         // failed attempt at proper typing, see https://github.com/Microsoft/TypeScript/issues/12393 :
@@ -2501,14 +2501,14 @@ declare namespace R {
         prop<T>(p: Prop, obj: Struct<any>): T;
         // prop(p: Prop): <T>(obj: Struct<any>) => T;
         // prop<T>: CurriedFunction2<Prop, Struct<any>, T>;
-  
+
         // mixed for currying:
         prop<K extends string>(p: K): {
           // Record version
           <V, T extends Record<K, V>>(obj: T): V;
           // manually typed
           <T>(obj: Struct<any>): T;
-        }
+        };
 
         /**
          * Determines whether the given property of an object has a specific
