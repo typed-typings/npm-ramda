@@ -2593,11 +2593,9 @@ declare namespace R {
         // // propOr<T, K extends string, V, U extends Record<K,V>>: CurriedFunction3<T, K, U, V|T>;
 
         // infer with keyof (not curry-friendly), allowing a default value with a type different from the actual one
-        propOr<T,U,K extends keyof U>(val: T, p: K, obj: Obj<K>): K|T; // obj[K]?
-        propOr<T,U,K extends keyof U>(val: T, p: K): (obj: Obj<K>) => K|T;  // generics too early?
-        propOr<T,U,K extends keyof U>(val: T): CurriedFunction2<K, Obj<K>, K|T>;  // generics too early?
-        // propOr<T>(val: T): <U,K extends keyof U>(p: K, obj: U) => U[K]|T;
-        // propOr<T>(val: T): <U,K extends keyof U>(p: K) => (obj: U) => U[K]|T;  // U too early?
+        propOr<T, U, K extends keyof U>(val: T, key: K, obj: U): U[K] | T;
+        // propOr<T, U, K extends keyof U>(val: T, key: K): (obj: U) => U[K] | T;  // generics too early?
+        propOr<T>(val: T): <U, K extends keyof U>(key: K, obj: U) => U[K] | T;
         // propOr<T,U,K extends keyof U>: CurriedFunction3<T, K, U, U[K]|T>;
 
         // presume the value at the given key matches the type of the default value, bad but less likely to fail with currying
