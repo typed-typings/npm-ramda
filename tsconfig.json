@@ -8,6 +8,6 @@
   },
   "files": [
     "index.d.ts",
-    "tests/test.ts"
+    "ramda-tests.ts"
   ]
 }

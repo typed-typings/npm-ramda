@@ -2502,6 +2502,7 @@ class Rectangle {
 // sortBy
 () => {
     let sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
+    let sortByAgeDescending = R.sortBy(R.compose(R.negate, R.prop('age')));
     let sortByAgeAscending = R.sortBy(R.prop('age'));
     let alice = {
       name: 'ALICE',
@@ -2517,7 +2518,10 @@ class Rectangle {
     };
     let people = [clara, bob, alice];
     // $ExpectType { name: string, age: number }[]
+    sortByAgeDescending(people); //=> [alice, bob, clara]
+    // $ExpectType { name: string, age: number }[]
     sortByNameCaseInsensitive(people); // => [alice, bob, clara]
+    // $ExpectType { name: string, age: number }[]
     sortByAgeAscending(people); // => [bob, alice, clara]
 };
 
