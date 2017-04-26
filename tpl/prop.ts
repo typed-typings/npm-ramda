@@ -2,10 +2,10 @@ import {
   importInterfaces,
   declareFunction,
   arrowFunction,
-  getParamsNums
+  makeParamStringNumbers
 } from '../gen';
 
-const propsParams = getParamsNums(8).reverse()
+const propsParams = makeParamStringNumbers(8).reverse()
   .map(nums => nums.map(n => 'P' + n));
 
 const docs = `

@@ -12,8 +12,8 @@ describe('flatten', () => {
     equal(res, list[0]);
   });
 
-  it('takes list', () => {
+  it('takes tuple', () => {
     const res = head(tuple);
-    equal(res, list[0]);
+    equal(res, tuple[0]);
   });
 });

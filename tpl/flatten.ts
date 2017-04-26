@@ -1,10 +1,10 @@
 import {
   declareFunction,
-  getParamsNums,
+  makeParamStringNumbers,
   defineType, docs
 } from '../gen';
 
-const nestedListLevels = getParamsNums(5).reverse();
+const nestedListLevels = makeParamStringNumbers(5).reverse();
 
 const desc = `Returns a new list by pulling every item out 
 of it (and all its sub-arrays) and putting them in a new array, depth-first.`;

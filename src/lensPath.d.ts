@@ -209,4 +209,4 @@ declare function props<T>(ps: List<Prop>, obj: List<T>): T[];
  */
 declare function props<T>(ps: List<Prop>): <T>(obj: List<T>) => T[];
 
-export = lensPath
+export = lensPath 

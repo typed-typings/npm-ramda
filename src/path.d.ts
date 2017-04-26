@@ -4,7 +4,7 @@
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, T>(path: [P1] & { 1?: void },
@@ -12,7 +12,7 @@ declare function path<P1 extends string, T>(path: [P1] & { 1?: void },
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, T>(path: [P1] & { 1?: void },
@@ -20,7 +20,7 @@ declare function path<P1 extends number, T>(path: [P1] & { 1?: void },
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string, T>(
@@ -28,7 +28,7 @@ declare function path<P1 extends string, P2 extends string, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number, T>(
@@ -36,7 +36,7 @@ declare function path<P1 extends string, P2 extends number, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string, T>(
@@ -44,7 +44,7 @@ declare function path<P1 extends number, P2 extends string, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number, T>(
@@ -52,7 +52,7 @@ declare function path<P1 extends number, P2 extends number, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -61,7 +61,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -70,7 +70,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -79,7 +79,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -88,7 +88,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -97,7 +97,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -106,7 +106,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -115,7 +115,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -123,7 +123,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -133,7 +133,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -143,7 +143,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -153,7 +153,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -163,7 +163,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -173,7 +173,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -183,7 +183,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -193,7 +193,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -202,7 +202,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -212,7 +212,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -222,7 +222,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -232,7 +232,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -241,7 +241,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -251,7 +251,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -260,7 +260,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -269,7 +269,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -278,7 +278,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -288,7 +288,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -298,7 +298,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -308,7 +308,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -318,7 +318,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -328,7 +328,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -338,7 +338,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -348,7 +348,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -358,7 +358,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -368,7 +368,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -378,7 +378,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -388,7 +388,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -398,7 +398,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -408,7 +408,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -418,7 +418,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -428,7 +428,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -437,7 +437,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -447,7 +447,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -457,7 +457,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -467,7 +467,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -477,7 +477,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -487,7 +487,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -497,7 +497,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -507,7 +507,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -516,7 +516,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -526,7 +526,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -536,7 +536,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -546,7 +546,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -555,7 +555,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -565,7 +565,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -574,7 +574,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -583,7 +583,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -594,7 +594,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, T>(path: [P1] & { 1?: void }):
@@ -602,7 +602,7 @@ declare function path<P1 extends string, T>(path: [P1] & { 1?: void }):
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, T>(path: [P1] & { 1?: void }):
@@ -610,7 +610,7 @@ declare function path<P1 extends number, T>(path: [P1] & { 1?: void }):
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string, T>(
@@ -619,7 +619,7 @@ declare function path<P1 extends string, P2 extends string, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number, T>(
@@ -627,7 +627,7 @@ declare function path<P1 extends string, P2 extends number, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string, T>(
@@ -635,7 +635,7 @@ declare function path<P1 extends number, P2 extends string, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number, T>(
@@ -643,7 +643,7 @@ declare function path<P1 extends number, P2 extends number, T>(
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -652,7 +652,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -661,7 +661,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -670,7 +670,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -679,7 +679,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -688,7 +688,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -697,7 +697,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -706,7 +706,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -715,7 +715,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -725,7 +725,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -735,7 +735,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -745,7 +745,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -755,7 +755,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -765,7 +765,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -775,7 +775,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -785,7 +785,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -795,7 +795,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -805,7 +805,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -815,7 +815,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -825,7 +825,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -835,7 +835,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -845,7 +845,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -855,7 +855,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -865,7 +865,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -874,7 +874,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -885,7 +885,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -895,7 +895,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -905,7 +905,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -915,7 +915,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -925,7 +925,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -935,7 +935,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -945,7 +945,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends string,
@@ -955,7 +955,7 @@ declare function path<P1 extends string, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -965,7 +965,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -975,7 +975,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -985,7 +985,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -995,7 +995,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -1005,7 +1005,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -1015,7 +1015,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -1025,7 +1025,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends string, P2 extends number,
@@ -1035,7 +1035,7 @@ declare function path<P1 extends string, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1045,7 +1045,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1055,7 +1055,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1065,7 +1065,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1075,7 +1075,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1085,7 +1085,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1095,7 +1095,7 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends string,
@@ -1105,17 +1105,17 @@ declare function path<P1 extends number, P2 extends string,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
-declare function path<P1 extends number, P2 extends string,
+declare function path<P1 extends number, P2 extends string | string,
   P3 extends number, P4 extends number, P5 extends number, T>(
   path: [P1, P2, P3, P4, P5] & { 5?: void }):
   <T>(obj: {[K2 in P2]: T[][][]}[]) => T;
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1125,7 +1125,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1135,7 +1135,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1145,7 +1145,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1155,7 +1155,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1165,7 +1165,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1175,7 +1175,7 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
@@ -1185,11 +1185,11 @@ declare function path<P1 extends number, P2 extends number,
 
 /**
  * Retrieve the value at a given path. 
- * Note: Nested tuples are not supported for typings. 
+ * Note: Tuples are not supported by typings. 
  * Max path depth typed is 5.
  */
 declare function path<P1 extends number, P2 extends number,
   P3 extends number, P4 extends number, P5 extends number, T>(
   path: [P1, P2, P3, P4, P5] & { 5?: void }): <T>(obj: T[][][][][]) => T;
 
-export = path
+export = path 

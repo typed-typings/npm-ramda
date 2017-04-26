@@ -2,7 +2,7 @@ import {
   importInterfaces,
   declareFunction,
   arrowFunction,
-  makeParamsStringNumberCombination,
+  makeParamStringNumberCombinations,
   makeNestedObjPath,
   makeTuple, docs
 } from '../gen';
@@ -10,10 +10,10 @@ import {
 const maxPathDepth = 5;
 
 const propsParams =
-  makeParamsStringNumberCombination(maxPathDepth);
+  makeParamStringNumberCombinations(maxPathDepth);
 
 const desc = `Retrieve the value at a given path. 
-Note: Nested tuples are not supported for typings. 
+Note: Tuples are not supported by typings. 
 Max path depth typed is ${maxPathDepth}.`;
 
 module.exports = [

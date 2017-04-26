@@ -4,10 +4,16 @@ import * as path from 'path';
 export const importInterfaces = (names: string[]) =>
   `import { ${names.join(', ')} } from '../interfaces';`;
 
-export type FunParams = { [name: string]: string }[];
+export type MethodParams = { [name: string]: string }[];
 
-const parseFunParams = (params: FunParams) =>
+const parseFunParams = (params: MethodParams) =>
   params.map(p => `${Object.keys(p)[0]}: ${p[Object.keys(p)[0]]}`);
+
+export const docsLines = (description: string) =>
+  (['/**']).concat(
+    description.trim().split('\n').map(d => ' * ' + d )
+    ).concat('*/');
+
 
 export const docs = (description: string) =>
   ('/**\n' + description.trim()).split('\n').join('\n * ') + '\n */\n';
@@ -36,7 +42,7 @@ const addCommaExeptLast = (parts: string[]) =>
 
 export const declareFunction = (name: string,
   typeParams: string[],
-  params: FunParams,
+  params: MethodParams,
   result: string
 ): string => [`declare function ${name}<`,
 ...addCommaExeptLast(typeParams),
@@ -45,23 +51,30 @@ export const declareFunction = (name: string,
 
 export const arrowFunction = (
   typeParams: string[],
-  params: FunParams,
+  params: MethodParams,
   result: string) => {
   return [`<`, ...addCommaExeptLast(typeParams),
     `>`, `(`, ...addCommaExeptLast(parseFunParams(params)), `) =>`, ` ${result}`]
     .reduce(joinWithMaxLineSize, ['']).join('\n  ');
 };
 
-export function getParamsNums(max: number) {
+export function makeParamStringNumbers(max: number) {
   return Array.from(Array(max + 1).keys()).map(i =>
     Array.from(Array(i + 1).keys()).slice(1)
+    .map(x => x.toString())
   ).slice(1);
 }
+
+
 
 const zeroPad = (count: number) =>
   (str: string): string =>
     Array(count + 1).join('0')
       .substring(0, count - str.length) + str;
+
+const spacePadding = (count: number) =>
+    Array((count + 1)).join('  ') 
+
 
 type Binary = 0 | 1;
 
@@ -71,15 +84,15 @@ const toBinaryArray = (length: number) =>
     .map(x => parseInt(x) as Binary);
 
 const makeStringNumberCombination =
-  (nums: number[]): (string | number)[][] =>
+  (nums: string[]): (string | number)[][] =>
     Array.from(Array(Math.pow(2, nums.length)).keys())
       .map(toBinaryArray(nums.length))
       .map((binary) =>
         binary.map((x, index) => x ? (index + 1) : (index + 1).toString())
       );
 
-export const makeParamsStringNumberCombination = (max: number) =>
-  getParamsNums(max)
+export const makeParamStringNumberCombinations = (max: number) =>
+  makeParamStringNumbers(max)
     .map(makeStringNumberCombination)
     .reduce((flat, props) => flat.concat(props), []);
 
@@ -99,20 +112,79 @@ export const makeTuple = (items: (string | number)[], size?: number) =>
 
 const tplFiles = fs.readdirSync(__dirname + '/tpl');
 
+export type MethodSignature = {
+  d?: string,
+  t?: string[],
+  p?: MethodParams,
+  r: string | MethodSignature[]
+};
+
+export type MethodInterface = MethodSignature[];
+
+export type Template = {
+  imports?: string[],
+  signatures: MethodSignature[] | MethodSignature[][]
+};
+
+const capitalizeFirstLetter = (name: string) =>
+  name.charAt(0).toUpperCase() + name.slice(1);
+
+
 const g = (global as any);
 g.genFileCache = g.genFileCache || {};
+
+export const genarateSignature = (sig: MethodSignature, padding: number): string => {
+  return (sig.d ? docsLines(sig.d) : []).concat((
+    (sig.t && sig.t.length)
+      ? [`<`, ...addCommaExeptLast(sig.t), `>`] : []
+  ).concat(
+    [`(`, ...addCommaExeptLast(parseFunParams(sig.p || [])), `):`]
+    ).concat(
+    typeof (sig.r) === 'string' ? [` ${sig.r};`]
+      : [
+        ` {\n`, 
+          ` ${generateSignatures(sig.r, padding + 1)}`, 
+          `\n${spacePadding(padding)}}`
+        ]
+    )
+    .reduce(joinWithMaxLineSize, ['']))
+    .join('\n' + spacePadding(padding));
+};
+const reduceFlatten = <T>(flat: T[], props: T | T[]) =>
+  flat.concat(props)
+
+const generateSignatures =
+  (signatures: MethodSignature[], padding = 1) =>
+    spacePadding(padding) + signatures.map(sig => genarateSignature(sig, padding))
+    .join('\n' + spacePadding(padding));
+
 
 describe('Generation', () => {
   tplFiles.forEach(tplFile => {
     const name = tplFile.replace(/\.ts$/, '');
     it(name, () => {
-      const lines = require(__dirname + '/tpl/' + tplFile);
+      const tpl = require(__dirname + '/tpl/' + tplFile);
+      let lines: string[] = [];
+      // TODO handle empty tlp
+      if (tpl.signatures) {
+        const signatures: MethodSignature[] = tpl.signatures.reduce(reduceFlatten);
+        const interfaceName = capitalizeFirstLetter(name);
+        lines.push(`interface ${interfaceName} {`);
+        lines.push(generateSignatures(signatures));
+        lines.push(`}`);
+        lines = [lines.join('\n')];
+        if (tpl.imports) {
+          lines.unshift(importInterfaces(tpl.imports));
+        }
+        lines.push(`declare const ${name}: ${interfaceName}`);
+      } else {
+        lines = tpl as string[];
+      }
       const src =
         docs('This is auto generated source.') + '\n' +
-        lines.concat(`export = ${name}`)
+        lines.concat(`export = ${name} `)
           .join('\n\n')
           .concat('\n');
-
       if (g.genFileCache[name] !== src) {
         fs.writeFileSync(__dirname + `/src/${name}.d.ts`, src);
         g.genFileCache[name] = src;
