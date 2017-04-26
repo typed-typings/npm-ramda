@@ -7,10 +7,14 @@ import __ from './src/__'
 import add from './src/add'
 import addIndex = require('./src/addIndex')
 import curry = require('./src/curry')
+import flatten = require('./src/flatten')
+import head = require('./src/head')
 import merge = require('./src/merge')
 import props = require('./src/props')
 import path = require('./src/path')
-import flatten = require('./src/flatten')
+
+import assocPath = require('./src/assocPath')
+//import mapObjIndexed = require('./src/mapObjIndexed')
 import {
   List, Struct, Obj, NestedObj,
   Pred, Variadic, Functor, Type, Transformer, Prop, Path,
@@ -201,29 +205,8 @@ declare namespace R {
       };
     };
 
-
-    /**
-     * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
-     * placing the specific value at the tail end of that path.
-     */
-    // assocPath<T,U>(path: Path, val: T, obj: U): U;
-    // assocPath<T>(path: Path, val: T): <U>(obj: U) => U;
-    // assocPath<T,U>(path: Path): CurriedFunction2<T, U, U>;
-    // assocPath<T,U>: CurriedFunction3<Path, T, U, U>;
-
-    // base
-    assocPath<T, U>(path: Path, val: T, obj: U): U;
-    assocPath<T>(path: Path, val: T): {
-      <U>(obj: U): U;
-    };
-    assocPath(path: Path): {
-      <T, U>(val: T, obj: U): U;
-      <T>(val: T): {
-        <U>(obj: U): U;
-      };
-    };
-
-
+    assocPath: typeof assocPath;
+    
     /**
      * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
      * parameters. Any extraneous parameters will not be passed to the supplied function.
@@ -891,15 +874,7 @@ declare namespace R {
     //   <T>(obj: T): boolean;
     // }
 
-    /**
-     * Returns the first element in a list.
-     * In some libraries this function is named `first`.
-     */
-    // head<T extends List<any>>(list: T): T[0];
-    // tuple attempts; it doesn't like these.
-    head<T>(list: [T]): T;
-    head<T0, T1>(list: [T0, T1]): T0;
-    head<T0, T1, T2>(list: [T0, T1, T2]): T0;
+    head: typeof head;
 
     /**
      * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1402,7 +1377,8 @@ declare namespace R {
      * Like mapObj, but but passes additional arguments to the predicate function.
      */
     // hard to mix cuz different generics
-
+    
+    
     // keyof
     mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V, obj: M): Obj<V>;
     mapObjIndexed<T, V, M extends Obj<T>>(fn: (value: T, key: string, obj?: M) => V): (obj: M) => Obj<V>;

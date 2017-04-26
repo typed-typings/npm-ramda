@@ -38,4 +38,4 @@ declare function flatten<T>(list: NestedArray2<T>): T[];
  */
 declare function flatten<T>(list: NestedArray1<T>): T[];
 
-export = flatten
+export = flatten 
