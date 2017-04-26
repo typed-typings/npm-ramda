@@ -7,20 +7,18 @@
     "src"
   ],
   "scripts": {
-    "lint": "echo linting... && tslint index.d.ts",
-    "test": "mocha --compilers ts:ts-node/register test/*.ts type-check.ts",
-    "types": "echo testing types... && bash test.sh",
-    "gen": "ts-node remove-generated && mocha --compilers ts:ts-node/register gen.ts"
+    "gen": "ts-node remove-generated && mocha --compilers ts:ts-node/register gen.ts",
+    "test": "mocha --compilers ts:ts-node/register test/*.ts type-check.ts"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.13",
+    "del-cli": "^0.2.1",
     "mocha": "^3.2.0",
     "ramda": "0.23.0",
     "ts-node": "^3.0.2",
-    "tslint": "^4.2.0",
+    "tslint": "^5.1.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "^2.2.1-insiders.20170209",
-    "typings-checker": "github:tycho01/typings-checker"
-  },
-  "typings": "index.d.ts"
+    "typescript": "^2.2.2"
+  }
 }

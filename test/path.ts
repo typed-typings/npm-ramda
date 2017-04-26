@@ -34,13 +34,22 @@ describe('path', () => {
 
   it('list with object inside', () => {
     const value: number = 43;
-    const res = path([ 1, 'c'], list);
+    const res = path([1, 'c'], list);
     equal(res, value);
   });
 
   it('object with list inside', () => {
     const value: number = 43;
     const res = path(['a', 1, 'c', 0, 'd'], objWithNestedList);
+    equal(res, value);
+  });
+
+  it('generic path sting[]', () => {
+    const value: number = 42;
+    const f = <T>(p: string[]) => {
+      return path<T>(p, obj);
+    };
+    const res = f<number>(['a', 'b', 'c']);
     equal(res, value);
   });
 

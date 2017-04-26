@@ -11,8 +11,8 @@ const parseFunParams = (params: MethodParams) =>
 
 export const docsLines = (description: string) =>
   (['/**']).concat(
-    description.trim().split('\n').map(d => ' * ' + d )
-    ).concat('*/');
+    description.trim().split('\n').map(d => ' * ' + d)
+  ).concat('*/');
 
 
 export const docs = (description: string) =>
@@ -20,7 +20,9 @@ export const docs = (description: string) =>
 
 export const defineType = (type: string, def: string) =>
   `type ${type} = ${def};`;
-;
+
+const isArray = Array.isArray
+const isString = (obj: any) => typeof obj === 'string'
 
 const maxGeneratedLineSize = 75;
 
@@ -61,11 +63,9 @@ export const arrowFunction = (
 export function makeParamStringNumbers(max: number) {
   return Array.from(Array(max + 1).keys()).map(i =>
     Array.from(Array(i + 1).keys()).slice(1)
-    .map(x => x.toString())
+      .map(x => x.toString())
   ).slice(1);
 }
-
-
 
 const zeroPad = (count: number) =>
   (str: string): string =>
@@ -73,7 +73,7 @@ const zeroPad = (count: number) =>
       .substring(0, count - str.length) + str;
 
 const spacePadding = (count: number) =>
-    Array((count + 1)).join('  ') 
+  Array((count + 1)).join('  ')
 
 
 type Binary = 0 | 1;
@@ -99,12 +99,16 @@ export const makeParamStringNumberCombinations = (max: number) =>
 export const addLetter = (letter = 'P') => (prop: string) =>
   parseInt(prop) ? letter + prop : prop;
 
-export const makeNestedObjPath = (props: (string | number)[], init: string) =>
+/**
+ * Makes nestes path like {[K1 in P1]: {[K2 in P2]: T[]}}): T 
+ * for "1"(string), "2" (string), 3 (number)
+ */
+export const makeNestedObjPath = (props: (string | number)[], T: string) =>
   props.concat([]).reverse().reduce<string>((prev, prop, index) =>
     typeof prop === 'string'
       ? `{[K${props.length - index} in ${addLetter()(prop)}]: ${prev}}`
       : `${prev}[]`
-    , init);
+    , T);
 
 export const makeTuple = (items: (string | number)[], size?: number) =>
   `[` + items.map(addLetter()).join(', ') + `]`
@@ -116,7 +120,7 @@ export type MethodSignature = {
   d?: string,
   t?: string[],
   p?: MethodParams,
-  r: string | MethodSignature[]
+  r: string | MethodSignature | MethodSignature[]
 };
 
 export type MethodInterface = MethodSignature[];
@@ -130,10 +134,20 @@ const capitalizeFirstLetter = (name: string) =>
   name.charAt(0).toUpperCase() + name.slice(1);
 
 
+export function methodSignature(
+  docs: string,
+  types: string[],
+  params: MethodParams,
+  result: string | MethodSignature | MethodSignature[]): MethodSignature {
+  return {
+    d: docs, t: types, p: params, r: result
+  }
+}
+
 const g = (global as any);
 g.genFileCache = g.genFileCache || {};
 
-export const genarateSignature = (sig: MethodSignature, padding: number): string => {
+const genarateSignature = (sig: MethodSignature, padding: number): string => {
   return (sig.d ? docsLines(sig.d) : []).concat((
     (sig.t && sig.t.length)
       ? [`<`, ...addCommaExeptLast(sig.t), `>`] : []
@@ -142,21 +156,22 @@ export const genarateSignature = (sig: MethodSignature, padding: number): string
     ).concat(
     typeof (sig.r) === 'string' ? [` ${sig.r};`]
       : [
-        ` {\n`, 
-          ` ${generateSignatures(sig.r, padding + 1)}`, 
-          `\n${spacePadding(padding)}}`
-        ]
+        ` {\n`,
+        ` ${generateSignatures(isArray(sig.r) ? sig.r : [sig.r], padding + 1)}`,
+        `\n${spacePadding(padding)}}`
+      ]
     )
     .reduce(joinWithMaxLineSize, ['']))
     .join('\n' + spacePadding(padding));
 };
+
 const reduceFlatten = <T>(flat: T[], props: T | T[]) =>
   flat.concat(props)
 
 const generateSignatures =
   (signatures: MethodSignature[], padding = 1) =>
     spacePadding(padding) + signatures.map(sig => genarateSignature(sig, padding))
-    .join('\n' + spacePadding(padding));
+      .join('\n' + spacePadding(padding));
 
 
 describe('Generation', () => {
@@ -167,7 +182,11 @@ describe('Generation', () => {
       let lines: string[] = [];
       // TODO handle empty tlp
       if (tpl.signatures) {
-        const signatures: MethodSignature[] = tpl.signatures.reduce(reduceFlatten);
+        // TODO: remove this nesting and flattening
+        const signatures: MethodSignature[] =
+          isArray(tpl.signatures[0]) ?
+            tpl.signatures.reduce(reduceFlatten)
+            : tpl.signatures;
         const interfaceName = capitalizeFirstLetter(name);
         lines.push(`interface ${interfaceName} {`);
         lines.push(generateSignatures(signatures));

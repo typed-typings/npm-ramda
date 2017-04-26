@@ -2,11 +2,15 @@ node_modules
 /tmp
 /ts-node-*
 
-dist
-*.swp
-*.swo
-.session.vim
-.sizecache.json
-test.js
 *.log*
 
+# generated
+
+src/assocPath.d.ts
+src/flatten.d.ts
+src/head.d.ts
+src/lensPath.d.ts
+src/mapObjIndexed.d.ts
+src/merge.d.ts
+src/path.d.ts
+src/props.d.ts
