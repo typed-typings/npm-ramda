@@ -1150,7 +1150,7 @@ declare namespace R {
          * In some libraries this function is named `first`.
          */
         head<T extends List<any>>(list: T): T[0] | undefined;
-        head(list: string): string | undefined;
+        head(list: string): string;
         // tuple attempts; it doesn't like these.
         head<T>(list: [T]): T;
         head<T0, T1>(list: [T0, T1]): T0;
