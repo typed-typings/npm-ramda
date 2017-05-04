@@ -1,5 +1,7 @@
 ## Type definitions for [Ramda](https://github.com/ramda/ramda)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/types/npm-ramda.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/types/npm-ramda.svg?branch=master)](https://travis-ci.org/types/npm-ramda)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/donnut/typescript-ramda)
 
