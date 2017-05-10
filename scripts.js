@@ -295,7 +295,7 @@ always: [
   '() => T'
 ],
 
-add: {
+and: {
   base: [
     ['T extends {and?: Function}'],
     {
