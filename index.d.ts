@@ -167,7 +167,7 @@ declare namespace R {
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     // @see https://github.com/types/npm-ramda/issues/173
 
-    type PH = { "@@functional/placeholder": true };
+    type PH = { '@@functional/placeholder': true };
     type CurriedFunction1<T1, R> = (v1: T1) => R;
     interface CurriedFunction2<T1, T2, R> {
         (_1: PH, v2: T2): CurriedFunction1<T1, R>;
