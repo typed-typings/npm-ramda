@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "ramda": "0.23.0",
-    "tslint": "^5.2.0",
+    "tslint": "^5.3.0",
     "tslint-config-typings": "^0.3.1",
     "typescript": "^2.3.3",
     "typings-checker": "github:tycho01/typings-checker"
