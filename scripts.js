@@ -169,20 +169,20 @@ R.flatten(R.range(1,7).map(i => R.range(0, Math.pow(2, i)).map(j => pathDefPoly(
 var whitespace = (indentation = 0) => R.repeat(' ', indentation).join('');
 var comment = (s, indent = 0) => `${whitespace(indent)}// ${s}`;
 
-function genCurried(options /*: { [name: string]: Option }*/, indent = 0, name = false, isTop = false) /*: string */ {
-  let ws = indent + isTop ? 0 : 2;
+function genCurried(options /*: { [name: string]: Option }*/, indent = 0, name = false) /*: string */ {
+  let ws = indent + 2;
   let strs = R.pipe(
     R.toPairs,
     R.chain(([k,o]) => [
       comment(k, ws),
-      genOption(o, ws, name),
+      genOption(o, ws),
     ]),
     R.join('\n'),
   )(options);
-  return isTop ? strs : `{\n${strs}\n${whitespace(indent)}}`;
+  return `${name ? `${name}: ` : ''}{\n${strs + (name ? '' : '\n')}${whitespace(indent)}}`;
 }
 
-function genOption(option /*: Option*/, indent = 0, name = false, skipLeft = 0) /*: string */ {
+function genOption(option /*: Option*/, indent = 0, skipLeft = 0) /*: string */ {
   let ws = R.repeat(' ', indent).join('');
   let [generics, paramObj, returnOrOptions] = option;
   let genericNames = generics.map(R.pipe(R.match(/\w+/), R.head));
@@ -193,7 +193,7 @@ function genOption(option /*: Option*/, indent = 0, name = false, skipLeft = 0) 
     R.toPairs,
     R.chain(([k, [gens, parObj, ret]]) => [
       comment(k, indent),
-      genOption([R.concat(generics, gens), R.merge(paramObj, parObj), ret], indent, name, R.pipe(R.values, R.length)(paramObj)),
+      genOption([R.concat(generics, gens), R.merge(paramObj, parObj), ret], indent, R.pipe(R.values, R.length)(paramObj)),
     ]), // mergeOptions(v)
     R.values,
     R.when(R.length, R.append(comment('mixed', indent))),
@@ -227,14 +227,14 @@ function genOption(option /*: Option*/, indent = 0, name = false, skipLeft = 0) 
     }
     const genStr = (gens) => gens.length ? `<${gens.join(', ')}>` : '';
     const parStr = R.pipe(R.map(/*([k,v]) => `${k}: ${v}`*/ R.join(': ')), R.join(', '));
-    const fnStr = (gens, pars, retVal, useArrow = false, useName = false) =>
-        `${useName && name || ''}${genStr(gens)}(${parStr(pars)})${useArrow ? ' =>' : ':'} ${retVal}`;
+    const fnStr = (gens, pars, retVal, useArrow = false) =>
+        `${genStr(gens)}(${parStr(pars)})${useArrow ? ' =>' : ':'} ${retVal}`;
     let returnVal = !num ? rest :
         num == 1 ? fnStr(rightGenerics, rightParams, rest, true, false) :
         (`{\n${
-          genOption([rightGenerics, R.fromPairs(rightParams), rest], indent + 2) //, name
+          genOption([rightGenerics, R.fromPairs(rightParams), rest], indent + 2)
         }${ws}}`);
-    return `${ws}${fnStr(leftGenerics, leftParams, returnVal, false, true)};\n`;
+    return `${ws}${fnStr(leftGenerics, leftParams, returnVal, false)};\n`;
   }).join('');
   return uncurried.concat(current).join('\n');
 }
@@ -295,7 +295,7 @@ always: [
   '() => T'
 ],
 
-add: {
+and: {
   base: [
     ['T extends {and?: Function}'],
     {
@@ -2861,8 +2861,9 @@ curryN: [
 let defStrs = R.mapObjIndexed((v, k) =>
   !R.is(Object, v) ? v : // string
     Array.isArray(v) ?
-      genOption(v, 0, k) : // array
-      genCurried(v, 0, k, true) // object
+      // genOption(v, 0) : // array
+      genCurried({ sole: v }, 0, k) : // array
+      genCurried(v, 0, k) // object
 )(defs);
 
 R.pipe(R.values, R.join('\n\n'))(defStrs);
