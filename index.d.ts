@@ -2979,24 +2979,37 @@ declare namespace R {
         // // set<T,U>(lens: UnknownLens, a: U): (obj: T) => T;
         // // set<T,U>(lens: UnknownLens): CurriedFunction2<U,T,T>;
         // // // set<T,U>: CurriedFunction3<UnknownLens, U, T, T>;
-        // base
+
+        // lens
         set<T, U>(lens: Lens<T, U>, a: U, obj: T): T;
-        set<T, U>(lens: Lens<T, U>, a: U):{
+        set<T, U>(lens: Lens<T, U>, a: U): {
             (obj: T): T;
         };
-        set<T, U>(lens: Lens<T, U>):{
+        set<T, U>(lens: Lens<T, U>): {
             (a: U, obj: T): T;
             (a: U):{
                 (obj: T): T;
             };
         };
 
-        // unknow
-        set<T>(lens: UnknownLens, a: any, obj: T): T;
-        set(lens: UnknownLens, a: any):{
+        // lens
+        set<T, U>(lens: ManualLens<U>, a: U, obj: T): T;
+        set<U>(lens: ManualLens<U>, a: U):{
             <T>(obj: T): T;
         };
-        set(lens: UnknownLens):{
+        set<U>(lens: ManualLens<U>): {
+            <T>(a: U, obj: T): T;
+            (a: U):{
+                <T>(obj: T): T;
+            };
+        };
+
+        // unknown
+        set<T>(lens: UnknownLens, a: any, obj: T): T;
+        set(lens: UnknownLens, a: any): {
+            <T>(obj: T): T;
+        };
+        set(lens: UnknownLens): {
             <T>(a: any, obj: T): T;
             (a: any):{
                 <T>(obj: T): T;
