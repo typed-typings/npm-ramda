@@ -10,7 +10,7 @@
     "ramda": "0.23.0",
     "tslint": "^5.2.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "^2.2.1-insiders.20170209",
+    "typescript": "^2.3.4",
     "typings-checker": "github:tycho01/typings-checker"
   },
   "typings": "index.d.ts"
