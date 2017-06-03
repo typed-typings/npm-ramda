@@ -310,11 +310,6 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        // dispatch to some `and` method:
-        and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
-        and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
-        // and<T extends {and?: Function;}>: CurriedFunction2<T, boolean|any, boolean>;
-        // // functions, does this still exist?
         // and<T extends () => boolean>(fn1: T, fn2: T): T;
         // and<T extends () => boolean>(fn1: T): (fn2: T) => T;
         // no generics:
