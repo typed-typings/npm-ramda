@@ -7,6 +7,7 @@
     "types": "echo testing types... && bash test.sh"
   },
   "devDependencies": {
+    "es6-promise": "^4.0.5",
     "ramda": "0.23.0",
     "tslint": "^5.2.0",
     "tslint-config-typings": "^0.3.1",
