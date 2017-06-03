@@ -33,7 +33,7 @@ node ./node_modules/typescript/bin/tsc --lib es2015 --module commonjs tests/test
 ## FAQ
 
 > Why are the typings here not carbon copies of the ones in the Ramda docs?
-- There are some differences, among which TypeScript's syntax, though the goal differs here as well: while the Ramda docs aim to explain the functions, the goal here is to accurately infer types within TypeScript.
+- There are some differences, among which TypeScript's syntax, though the goal differs here as well: while the Ramda docs aim to explain the functions, the goal here is to accurately infer types within TypeScript. Longer version [here](https://github.com/types/npm-ramda/pull/147).
 
 ## Note on placeholders
 Due to incompatiblity problems with typescript's typing system, Ramda's placeholder
