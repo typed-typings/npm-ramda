@@ -7,7 +7,7 @@ tests/test.ts:xy(3);
 Expected type
   <Y>(v2: Y) => { x: number; y: Y; }
 but got:
-  (v2: {}) => { x: {}; y: {}; }
+  CurriedFunction1<{}, { x: {}; y: {}; }>
 
 tests/test.ts:xy(3)(1);
 
@@ -35,14 +35,14 @@ tests/test.ts:xyz(3, 2);
 Expected type
   <Z>(v3: Z) => ({ x: number; y: number; z: Z; })
 but got:
-  (v3: {}) => { x: {}; y: {}; z: {}; }
+  CurriedFunction1<{}, { x: {}; y: {}; z: {}; }>
 
 tests/test.ts:xyz(3)(2);
 
 Expected type
   <Z>(v3: Z) => ({ x: number; y: number; z: Z; })
 but got:
-  (v2: {}) => { x: {}; y: {}; z: {}; }
+  CurriedFunction1<{}, { x: {}; y: {}; z: {}; }>
 
 tests/test.ts:xyz(3);
 
@@ -56,14 +56,14 @@ tests/test.ts:curriedFourNumbers(1)(2)(3);
 Expected type
   <T1,R>(v1: T1) => R
 but got:
-  (v2: number) => number
+  CurriedFunction1<number, number>
 
 tests/test.ts:curriedFourNumbers(1,2,4);
 
 Expected type
   <T1,R>(v1: T1) => R
 but got:
-  (v4: number) => number
+  CurriedFunction1<number, number>
 
 tests/test.ts:R.nAry(0, takesNoArg);
 
@@ -1515,7 +1515,7 @@ tests/test.ts:mapIndexed(function(val: string, idx: number) {return idx + '-' + 
 Expected type
   string[]
 but got:
-  (v2: List<string>) => string
+  CurriedFunction1<List<string>, string>
 
 tests/test.ts:reduceIndexed(
       (acc: string, val: string, idx: number) => acc + ',' + idx + '-' + val
@@ -1584,7 +1584,21 @@ Expected type
 but got:
   {} | undefined
 
+tests/test.ts:sortByAgeDescending(people);
+
+Expected type
+  { name: string, age: number }[]
+but got:
+  Struct<any>[]
+
 tests/test.ts:sortByNameCaseInsensitive(people);
+
+Expected type
+  { name: string, age: number }[]
+but got:
+  Struct<any>[]
+
+tests/test.ts:sortByAgeAscending(people);
 
 Expected type
   { name: string, age: number }[]
@@ -1846,13 +1860,11 @@ but got:
 
 tests/test.ts: Unexpected error
   Argument of type 'CurriedFunction2<{}, Struct<{}>, Struct<{}>>' is not assignable to parameter of type '(some: string) => (x: number) => 1'.
-  Type '(v2: Struct<{}>) => Struct<{}>' is not assignable to type '(x: number) => 1'.
-    Types of parameters 'v2' and 'x' are incompatible.
-      Type 'number' is not assignable to type 'Struct<{}>'.
 
 tests/test.ts: Unexpected error
   Argument of type 'CurriedFunction2<{}, Struct<{}>, Struct<{}>>' is not assignable to parameter of type '(some: string, other: string) => "1"'.
-  Type '(v2: Struct<{}>) => Struct<{}>' is not assignable to type '"1"'.
+  Types of parameters '_1' and 'some' are incompatible.
+    Type 'string' is not assignable to type 'PH'.
 
 tests/test.ts:const x = R.cond([
         [R.F, R.F],
@@ -1904,4 +1916,4 @@ Expected type
 but got:
   { b: number; }
 
-tests/test.ts: 450 / 725 checks passed.
+tests/test.ts: 450 / 727 checks passed.

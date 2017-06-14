@@ -79,7 +79,7 @@ class F2 {
 // curry
 () => {
     const addTwo = R.curry((x: number, y: number) => x + y);
-    // $ExpectType (v2: number) => number
+    // $ExpectType CurriedFunction1<number, number>
     addTwo(3);
     // $ExpectType number
     addTwo(3)(1);
@@ -88,9 +88,9 @@ class F2 {
     addThree(3, 2, 1);
     // $ExpectType number
     addThree(3)(2)(1);
-    // $ExpectType (v3: number) => number
+    // $ExpectType CurriedFunction1<number, number>
     addThree(3, 2);
-    // $ExpectType (v2: number) => number
+    // $ExpectType CurriedFunction1<number, number>
     addThree(3)(2);
     // $ExpectType CurriedFunction2<number, number, number>
     addThree(3);
