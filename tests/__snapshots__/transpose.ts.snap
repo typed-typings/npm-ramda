@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_transpose(boolean_array_array) 1`] = `"boolean[][]"`;
+
+exports[`R_transpose(number_array_array) 1`] = `"number[][]"`;
+
+exports[`R_transpose(number_list_list) 1`] = `"number[][]"`;

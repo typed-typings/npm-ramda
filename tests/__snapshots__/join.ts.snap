@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_join(string) 1`] = `"(list: any[]) => string"`;
+
+exports[`R_join(string)(number_array) 1`] = `"string"`;
+
+exports[`R_join(string, number_array) 1`] = `"string"`;

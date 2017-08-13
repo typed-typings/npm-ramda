@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_tryCatch(T_to_T) 1`] = `"(catcher: <T>(x: T) => T) => <T>(x: T) => T"`;
+
+exports[`R_tryCatch(T_to_T)(T_to_T) 1`] = `"<T>(x: T) => T"`;
+
+exports[`R_tryCatch(T_to_T, T_to_T) 1`] = `"<T>(x: T) => T"`;

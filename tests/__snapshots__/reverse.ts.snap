@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_reverse(number_list) 1`] = `"number[]"`;
+
+exports[`R_reverse(string) 1`] = `"string"`;

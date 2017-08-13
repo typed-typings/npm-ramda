@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_eqProps(property)(string, string) 1`] = `"boolean"`;
+
+exports[`R_eqProps(property, string) 1`] = `"(b: string) => boolean"`;
+
+exports[`R_eqProps(property, string, string) 1`] = `"boolean"`;

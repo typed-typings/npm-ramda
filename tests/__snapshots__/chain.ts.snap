@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_chain(number_chain_to_string_chain) 1`] = `"(list: Chain<number>) => Chain<string>"`;
+
+exports[`R_chain(number_chain_to_string_chain)(number_chain) 1`] = `"Chain<string>"`;
+
+exports[`R_chain(number_chain_to_string_chain, number_chain) 1`] = `"Chain<string>"`;
+
+exports[`R_chain(number_to_string_string_tuple) 1`] = `"(list: List<number>) => string[]"`;
+
+exports[`R_chain(number_to_string_string_tuple)(number_array) 1`] = `"string[]"`;
+
+exports[`R_chain(number_to_string_string_tuple, number_array) 1`] = `"string[]"`;
+
+exports[`R_chain(string_to_number_list_to_object) 1`] = `"(monad: (value: List<number>) => string) => (value: List<number>) => object"`;
+
+exports[`R_chain(string_to_number_list_to_object)(number_list_to_string) 1`] = `"(value: List<number>) => object"`;
+
+exports[`R_chain(string_to_number_list_to_object, number_list_to_string) 1`] = `"(value: List<number>) => object"`;

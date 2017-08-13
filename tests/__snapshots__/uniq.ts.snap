@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_uniq(number_array) 1`] = `"number[]"`;
+
+exports[`R_uniq(string_array) 1`] = `"string[]"`;

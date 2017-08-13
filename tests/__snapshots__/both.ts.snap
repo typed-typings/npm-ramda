@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_both(string_predicate) 1`] = `"(fn2: (value: string) => boolean) => (value: string) => boolean"`;
+
+exports[`R_both(string_predicate, string_predicate) 1`] = `"(value: string) => boolean"`;

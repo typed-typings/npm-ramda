@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_partition(number_to_boolean)(a_1_b_2_c_3) 1`] = `"[Partial<{ a: 1; b: 2; c: 3; }>, Partial<{ a: 1; b: 2; c: 3; }>]"`;
+
+exports[`R_partition(number_to_boolean)(number_array) 1`] = `"[number[], number[]]"`;
+
+exports[`R_partition(number_to_boolean, a_1_b_2_c_3) 1`] = `"[Partial<{ a: 1; b: 2; c: 3; }>, Partial<{ a: 1; b: 2; c: 3; }>]"`;
+
+exports[`R_partition(number_to_boolean, number_array) 1`] = `"[number[], number[]]"`;

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_invert(number_object_record) 1`] = `"Dictionary<string[]>"`;

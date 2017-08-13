@@ -1,0 +1,15 @@
+{
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["ts", "js", "json"],
+  "testRegex": "/tests/.+\\.ts$",
+  "transform": {"/tests/.+\\.ts$": "dts-jest/transform"},
+  "globals": {
+    "_dts_jest_": {
+      "tsconfig": {
+        "strict": true,
+        "target": 5,
+        "types": []
+      }
+    }
+  }
+}

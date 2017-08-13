@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_zipWith(number_string_to_object)(number_array)(string_array) 1`] = `"object[]"`;
+
+exports[`R_zipWith(number_string_to_object, number_array) 1`] = `"(b: string[] | ArrayLike<string>) => object[]"`;
+
+exports[`R_zipWith(number_string_to_object, number_array, string_array) 1`] = `"object[]"`;

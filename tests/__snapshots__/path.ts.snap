@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_path(['a', 'b', 'c'])(a_1_b_2_c_3) 1`] = `"{} | undefined"`;
+
+exports[`R_path(['a', 'b', 'c'], a_1_b_2_c_3) 1`] = `"{} | undefined"`;
+
+exports[`R_path(path) 1`] = `"<T>(object: {}) => T | undefined"`;
+
+exports[`R_path(path)(object) 1`] = `"{} | undefined"`;
+
+exports[`R_path(path, object) 1`] = `"{} | undefined"`;

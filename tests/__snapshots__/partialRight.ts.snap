@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_partialRight(number_string_to_object) 1`] = `"(args: any[]) => (...args: any[]) => object"`;
+
+exports[`R_partialRight(number_string_to_object, [string]) 1`] = `"(...args: any[]) => object"`;
+
+exports[`R_partialRight(number_string_to_object, [string])(number) 1`] = `"object"`;

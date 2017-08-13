@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_test(regex) 1`] = `"(str: string) => boolean"`;
+
+exports[`R_test(regex, string) 1`] = `"boolean"`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_pluck('a') 1`] = `"<V, T extends Record<\\"a\\", V>>(list: T[] | ArrayLike<T>) => T[\\"a\\"][]"`;
+
+exports[`R_pluck('a')([a_number_record, a_number_record]) 1`] = `"number[]"`;
+
+exports[`R_pluck('a', [a_number_record, a_number_record]) 1`] = `"number[]"`;
+
+exports[`R_pluck(0, [string_array]) 1`] = `"string[]"`;
+
+exports[`R_pluck(placeholder, [a_number_record, a_number_record]) 1`] = `"<K extends \\"a\\">(key: K) => Record<\\"a\\", number>[K][]"`;
+
+exports[`R_pluck(placeholder, [a_number_record, a_number_record])('a') 1`] = `"number[]"`;

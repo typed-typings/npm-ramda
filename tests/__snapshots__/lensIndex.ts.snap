@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_lensIndex(0) 1`] = `"PseudoLens<0>"`;
+
+exports[`R_lensIndex(number) 1`] = `"PseudoLens<number>"`;

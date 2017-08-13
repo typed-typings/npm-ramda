@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_prop('a') 1`] = `"<T extends Record<\\"a\\", any>>(object: T) => T[\\"a\\"]"`;
+
+exports[`R_prop('a')(a_b_number_record) 1`] = `"number"`;
+
+exports[`R_prop('a', a_b_number_record) 1`] = `"number"`;
+
+exports[`R_prop(placeholder, a_b_number_record) 1`] = `"<K extends \\"a\\" | \\"b\\">(key: K) => Record<\\"a\\" | \\"b\\", number>[K]"`;
+
+exports[`R_prop(placeholder, a_b_number_record)('a') 1`] = `"number"`;

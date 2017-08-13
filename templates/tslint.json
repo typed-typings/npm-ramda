@@ -1,0 +1,15 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "no-default-export": false,
+    "filename-convention": [
+      true,
+      {
+        "namingStyle": "camelCase",
+        "allowPatterns": ["^(__|T|F)(\\.r)?$"],
+        "allowPrefixes": ["$"],
+        "allowSuffixes": [".c", ".r"]
+      }
+    ]
+  }
+}

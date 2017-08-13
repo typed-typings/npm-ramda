@@ -1,0 +1,18 @@
+{
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["ts", "js", "json"],
+  "testMatch": ["**/__tests__/**/*.ts"],
+  "transform": {"\\.ts$": "ts-jest/preprocessor"},
+  "mapCoverage": true,
+  "coverageReporters": ["lcov", "text-summary"],
+  "collectCoverageFrom": ["templates/utils/**/*.ts"],
+  "coveragePathIgnorePatterns": ["/constants\\.ts$"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100
+    }
+  }
+}

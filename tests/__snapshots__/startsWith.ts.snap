@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_startsWith(boolean_array) 1`] = `"(list: boolean[]) => boolean"`;
+
+exports[`R_startsWith(boolean_array, boolean_array) 1`] = `"boolean"`;
+
+exports[`R_startsWith(string) 1`] = `"(list: string) => boolean"`;
+
+exports[`R_startsWith(string, string) 1`] = `"boolean"`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_unary(object_variadic) 1`] = `"(a: any) => object"`;
+
+exports[`R_unary(string_number_symbol_to_boolean) 1`] = `"(a: string) => boolean"`;
