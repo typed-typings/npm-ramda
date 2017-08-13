@@ -468,9 +468,9 @@ declare namespace R {
          * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
          * that the second function will not be invoked if the first returns a false-y value.
          */
-        both<T>(pred1: Pred<T>, pred2: Pred<T>): Pred<T>;
-        both<T>(pred1: Pred<T>): (pred2: Pred<T>) => Pred<T>;
-        // both<T>: CurriedFunction2<Pred<T>, Pred<T>, Pred<T>>;
+        both<T extends (...args: any[]) => boolean>(pred1: T, pred2: T): T;
+        both<T extends (...args: any[]) => boolean>(pred1: T): (pred2: T) => T;
+        // both<T extends (...args: any[]) => boolean>: CurriedFunction2<T, T, T>;
 
         /**
          * Returns the result of calling its first argument with the remaining arguments. This is occasionally useful
@@ -3682,3 +3682,4 @@ declare namespace R {
 }
 
 export = R;
+export as namespace R;
