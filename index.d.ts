@@ -310,11 +310,6 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        // dispatch to some `and` method:
-        and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
-        and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
-        // and<T extends {and?: Function;}>: CurriedFunction2<T, boolean|any, boolean>;
-        // // functions, does this still exist?
         // and<T extends () => boolean>(fn1: T, fn2: T): T;
         // and<T extends () => boolean>(fn1: T): (fn2: T) => T;
         // no generics:
@@ -2979,24 +2974,37 @@ declare namespace R {
         // // set<T,U>(lens: UnknownLens, a: U): (obj: T) => T;
         // // set<T,U>(lens: UnknownLens): CurriedFunction2<U,T,T>;
         // // // set<T,U>: CurriedFunction3<UnknownLens, U, T, T>;
-        // base
+
+        // lens
         set<T, U>(lens: Lens<T, U>, a: U, obj: T): T;
-        set<T, U>(lens: Lens<T, U>, a: U):{
+        set<T, U>(lens: Lens<T, U>, a: U): {
             (obj: T): T;
         };
-        set<T, U>(lens: Lens<T, U>):{
+        set<T, U>(lens: Lens<T, U>): {
             (a: U, obj: T): T;
             (a: U):{
                 (obj: T): T;
             };
         };
 
-        // unknow
-        set<T>(lens: UnknownLens, a: any, obj: T): T;
-        set(lens: UnknownLens, a: any):{
+        // lens
+        set<T, U>(lens: ManualLens<U>, a: U, obj: T): T;
+        set<U>(lens: ManualLens<U>, a: U):{
             <T>(obj: T): T;
         };
-        set(lens: UnknownLens):{
+        set<U>(lens: ManualLens<U>): {
+            <T>(a: U, obj: T): T;
+            (a: U):{
+                <T>(obj: T): T;
+            };
+        };
+
+        // unknown
+        set<T>(lens: UnknownLens, a: any, obj: T): T;
+        set(lens: UnknownLens, a: any): {
+            <T>(obj: T): T;
+        };
+        set(lens: UnknownLens): {
             <T>(a: any, obj: T): T;
             (a: any):{
                 <T>(obj: T): T;
