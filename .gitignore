@@ -1,0 +1,8 @@
+node_modules
+dist
+*.swp
+*.swo
+.session.vim
+.sizecache.json
+test.js
+*.log
