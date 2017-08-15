@@ -1,4 +1,4 @@
-import { List, PseudoLens } from "./$types";
+import { PseudoLens } from "./$types";
 /**
  * Returns a lens whose focus is the specified index.
  *
