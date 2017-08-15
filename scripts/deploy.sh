@@ -14,7 +14,7 @@ function deploy_branch() {
   git clone --depth=1 --branch "$branch_name" "https://github.com/$TRAVIS_REPO_SLUG.git" ./$branch_name
 
   rm -rf ./$branch_name/*
-  cp -rf ./package.json ./README.md ./CHANGELOG.md ./LICENSE ./ramda/$branch_name/* ./$branch_name
+  cp -rf ./package.json ./README.md ./LICENSE ./ramda/$branch_name/* ./$branch_name
 
   cd ./$branch_name
 
