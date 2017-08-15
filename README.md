@@ -92,16 +92,3 @@ as well as the [tests](https://github.com/types/npm-ramda/blob/master/tests/ramd
 
 Do note that all of the typings are now being generated (automatically) using the
 [tempaltes](https://github.com/types/npm-ramda/tree/master/templates#readme).
-
-## Roadmap
-
-High-level to-do to address recurring issues:
-
-- `pipe` / `compose`:
-  - ~~using optional generics so as to allow annotating input parameter type(s)?~~
-  - [`gcnew/TypeScript#polyFuncUnification`](https://github.com/Microsoft/TypeScript/issues/9949#issuecomment-271926278)?
-- tuple `map`:
-  - ~~[`Return`](https://github.com/Microsoft/TypeScript/issues/6606#issuecomment-284215602)~~
-- fix curry type degeneration with generics
-- `genCurried`: track generics' dependencies
-- consider [dts-dom](https://github.com/RyanCavanaugh/dts-dom) as a codegen alternative
