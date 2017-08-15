@@ -1,0 +1,13 @@
+// Type definitions for ramda 0.24
+// Project: https://github.com/types/npm-ramda
+// Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Matt DeKrey <https://github.com/mdekrey>
+//                 Liam Goodacre <https://github.com/LiamGoodacre>
+//                 Matt Dziuban <https://github.com/mrdziuban>
+//                 Stephen King <https://github.com/sbking>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
+//                 Vítor Castro <https://github.com/teves-castro>
+//                 Jordan Quagliatini <https://github.com/1M0reBug>
+//                 Simon Højberg <https://github.com/hojberg>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3

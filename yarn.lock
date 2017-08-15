@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/babel-types@*":
+  version "6.25.1"
+  resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-6.25.1.tgz#ce8f126a4403e11e1b0033a424f11638afac7889"
+
 "@types/chalk@*":
   version "0.4.31"
   resolved "https://registry.yarnpkg.com/@types/chalk/-/chalk-0.4.31.tgz#a31d74241a6b1edbb973cf36d97a2896834a51f9"
@@ -44,7 +48,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/gulp-util@3.0.31":
+"@types/gulp-util@3.0.31", "@types/gulp-util@^3.0.31":
   version "3.0.31"
   resolved "https://registry.yarnpkg.com/@types/gulp-util/-/gulp-util-3.0.31.tgz#272e298220365717e1f7f979b50ebadb44297cbf"
   dependencies:
@@ -88,6 +92,12 @@
     "@types/node" "*"
     "@types/q" "^0"
 
+"@types/prettier@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-1.5.0.tgz#35ed47a24bd92bcab439c3670742219499a6b717"
+  dependencies:
+    "@types/babel-types" "*"
+
 "@types/q@^0":
   version "0.0.36"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.36.tgz#97d786389641bcbd0e22bfc729a534175976371d"
@@ -103,7 +113,7 @@
     "@types/gulp" "*"
     "@types/node" "*"
 
-"@types/through2@*", "@types/through2@2.0.33":
+"@types/through2@*", "@types/through2@2.0.33", "@types/through2@^2.0.33":
   version "2.0.33"
   resolved "https://registry.yarnpkg.com/@types/through2/-/through2-2.0.33.tgz#1ff2e88a100dfb5b140e7bb98791f1194400d131"
   dependencies:
@@ -1250,11 +1260,27 @@ gulp-diff@1.0.0:
     gulp-util "^3.0.6"
     through2 "^2.0.0"
 
+gulp-modify@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/gulp-modify/-/gulp-modify-0.1.1.tgz#4a99a0bb8b7769921c7b09618762ccc179da3675"
+  dependencies:
+    gulp-util "*"
+    through2 "*"
+
+gulp-plugin-prettier@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-plugin-prettier/-/gulp-plugin-prettier-1.0.0.tgz#89f820419b3185389cb551a2fef30ac7f179e52a"
+  dependencies:
+    "@types/gulp-util" "^3.0.31"
+    "@types/through2" "^2.0.33"
+    gulp-util "^3.0.8"
+    through2 "^2.0.3"
+
 gulp-rename@1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/gulp-rename/-/gulp-rename-1.2.2.tgz#3ad4428763f05e2764dec1c67d868db275687817"
 
-gulp-util@3.0.8, gulp-util@^3.0.0, gulp-util@^3.0.6, gulp-util@^3.0.8:
+gulp-util@*, gulp-util@3.0.8, gulp-util@^3.0.0, gulp-util@^3.0.6, gulp-util@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
   dependencies:
@@ -3052,7 +3078,7 @@ throat@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-3.2.0.tgz#50cb0670edbc40237b9e347d7e1f88e4620af836"
 
-through2@2.0.3, through2@^2.0.0:
+through2@*, through2@2.0.3, through2@^2.0.0, through2@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:

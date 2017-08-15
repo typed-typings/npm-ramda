@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+      "callable-types": false,
+      "interface-over-type-literal": false
+    }
+}

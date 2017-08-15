@@ -10,6 +10,7 @@ script:
 - yarn run test-utils -- --verbose --coverage
 - yarn run test -- --verbose
 - yarn run test-actual -- --verbose -u
+- bash ./scripts/test-dt.sh
 
 after_success:
 - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/deploy.sh; fi

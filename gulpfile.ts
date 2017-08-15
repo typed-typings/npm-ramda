@@ -3,9 +3,15 @@ import * as gulp from 'gulp';
 import * as gulp_diff from 'gulp-diff';
 import * as gulp_rename from 'gulp-rename';
 import * as gulp_run from 'run-sequence';
+import {
+  build_dt_chores,
+  build_dt_definitions,
+  build_dt_tests,
+} from './tasks/build-dt';
 import { build_watch } from './tasks/build-watch';
 import { remap_watch } from './tasks/remap-watch';
 import {
+  dt_ramda_dirname,
   glob_templates,
   output_relative_dirname,
 } from './tasks/utils/constants';
@@ -14,11 +20,13 @@ import { generate_files } from './tasks/utils/generate-files';
 import { generate_index } from './tasks/utils/generate-index';
 import { generate_remap_content } from './tasks/utils/generate-remap-content';
 
+type RunCallback = (error?: any) => void;
+
 gulp.task('clean', async () => del(`${output_relative_dirname}/`));
 gulp.task('build-index', generate_index);
 gulp.task('build-files', () => generate_files(glob_templates));
 
-gulp.task('build', ['clean'], (callback: (error?: any) => void) =>
+gulp.task('build', ['clean'], (callback: RunCallback) =>
   gulp_run(['build-index', 'build-files'], callback),
 );
 
@@ -47,3 +55,18 @@ gulp.task('remap-check', () => {
 });
 
 gulp.task('remap-watch', ['remap'], remap_watch);
+
+gulp.task('clean-dt', async () => del(dt_ramda_dirname));
+
+gulp.task('build-dt-definitions', build_dt_definitions);
+gulp.task('build-dt-chores', build_dt_chores);
+gulp.task('build-dt-tests', build_dt_tests);
+
+gulp.task('build-dt', ['clean-dt', 'build'], (callback: RunCallback) =>
+  gulp_run(
+    'build-dt-definitions',
+    'build-dt-chores',
+    'build-dt-tests',
+    callback,
+  ),
+);
