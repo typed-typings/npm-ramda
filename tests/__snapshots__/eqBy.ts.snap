@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_eqBy(string_to_number)(string)(string) 1`] = `"boolean"`;
+
+exports[`R_eqBy(string_to_number, string) 1`] = `"(b: string) => boolean"`;
+
+exports[`R_eqBy(string_to_number, string, string) 1`] = `"boolean"`;

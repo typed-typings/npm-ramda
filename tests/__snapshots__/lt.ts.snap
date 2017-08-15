@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_lt(number, number) 1`] = `"boolean"`;
+
+exports[`R_lt(string) 1`] = `"(b: string) => boolean"`;
+
+exports[`R_lt(string, string) 1`] = `"boolean"`;

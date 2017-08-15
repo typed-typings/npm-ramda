@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_none(string_predicate)(string_array) 1`] = `"boolean"`;
+
+exports[`R_none(string_predicate, string_array) 1`] = `"boolean"`;

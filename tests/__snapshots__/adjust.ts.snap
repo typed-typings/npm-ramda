@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_adjust(string_to_number)(number, string_array) 1`] = `"(string | number)[]"`;
+
+exports[`R_adjust(string_to_number, number)(string_array) 1`] = `"(string | number)[]"`;
+
+exports[`R_adjust(string_to_number, number, string_array) 1`] = `"(string | number)[]"`;
+
+exports[`R_adjust(string_to_string)(number, string_array) 1`] = `"string[]"`;
+
+exports[`R_adjust(string_to_string, number)(string_array) 1`] = `"string[]"`;
+
+exports[`R_adjust(string_to_string, number, string_array) 1`] = `"string[]"`;

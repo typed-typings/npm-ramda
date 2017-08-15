@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_objOf('key') 1`] = `"<V>(value: V) => Record<\\"key\\", V>"`;
+
+exports[`R_objOf('key', object) 1`] = `"Record<\\"key\\", object>"`;
+
+exports[`R_objOf(string) 1`] = `"<V>(value: V) => Record<string, V>"`;
+
+exports[`R_objOf(string, object) 1`] = `"Record<string, object>"`;

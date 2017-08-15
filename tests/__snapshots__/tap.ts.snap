@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_tap(string_to_void) 1`] = `"(value: string) => string"`;
+
+exports[`R_tap(string_to_void, string) 1`] = `"string"`;

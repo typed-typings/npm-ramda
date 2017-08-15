@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_remove(number)(number)(boolean_array) 1`] = `"boolean[]"`;
+
+exports[`R_remove(number, number) 1`] = `"<T>(list: T[]) => T[]"`;
+
+exports[`R_remove(number, number, boolean_array) 1`] = `"boolean[]"`;

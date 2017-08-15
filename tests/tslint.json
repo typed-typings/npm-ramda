@@ -1,0 +1,18 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "deprecation": false,
+    "max-classes-per-file": false,
+    "no-inferred-empty-object-type": false,
+    "no-unbound-method": false,
+    "no-unused-expression": false,
+    "promise-function-async": false,
+    "filename-convention": [
+      true,
+      {
+        "namingStyle": "camelCase",
+        "allowPatterns": ["^(__|T|F|ramda-tests)$"]
+      }
+    ]
+  }
+}

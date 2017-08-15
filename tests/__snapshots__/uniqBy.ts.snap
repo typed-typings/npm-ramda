@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_uniqBy(number_to_object) 1`] = `"(list: number[] | ArrayLike<number>) => number[]"`;
+
+exports[`R_uniqBy(number_to_object)(number_array) 1`] = `"number[]"`;
+
+exports[`R_uniqBy(number_to_object, number_array) 1`] = `"number[]"`;
+
+exports[`R_uniqBy(string_to_any) 1`] = `"(list: string[] | ArrayLike<string>) => string[]"`;
+
+exports[`R_uniqBy(string_to_any)(string_array) 1`] = `"string[]"`;
+
+exports[`R_uniqBy(string_to_any, string_array) 1`] = `"string[]"`;

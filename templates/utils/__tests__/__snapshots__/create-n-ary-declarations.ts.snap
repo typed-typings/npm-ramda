@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should generate correctly with generate_additional 1`] = `
+"declare function $0arity<R>(n: 0, fn: (...args: any[]) => R): () => R;
+declare function $1arity<T1, R>(n: 1, fn: (v1: T1, ...args: any[]) => R): (v1: T1) => R;
+declare function $2arity<T1, T2, R>(n: 2, fn: (v1: T1, v2: T2, ...args: any[]) => R): (v1: T1, v2: T2) => R;
+declare function $3arity<T1, T2, T3, R>(n: 3, fn: (v1: T1, v2: T2, v3: T3, ...args: any[]) => R): (v1: T1, v2: T2, v3: T3) => R;
+declare function $variadic<R>(n: number, fn: (...args: any[]) => R): (...args: any[]) => R;
+"
+`;
+
+exports[`should generate correctly without generate_additional 1`] = `
+"declare function $0arity<R>(n: 0, fn: (...args: any[]) => R): () => R;
+declare function $1arity<T1, R>(n: 1, fn: (v1: T1, ...args: any[]) => R): (v1: T1) => R;
+declare function $2arity<T1, T2, R>(n: 2, fn: (v1: T1, v2: T2, ...args: any[]) => R): (v1: T1, v2: T2) => R;
+declare function $3arity<T1, T2, T3, R>(n: 3, fn: (v1: T1, v2: T2, v3: T3, ...args: any[]) => R): (v1: T1, v2: T2, v3: T3) => R;
+"
+`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_times(number_to_object) 1`] = `"(n: number) => object[]"`;
+
+exports[`R_times(number_to_object, number) 1`] = `"object[]"`;

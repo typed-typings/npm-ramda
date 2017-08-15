@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_without(number_array) 1`] = `"(b: number[] | ArrayLike<number>) => number[]"`;
+
+exports[`R_without(number_array, number_array) 1`] = `"number[]"`;

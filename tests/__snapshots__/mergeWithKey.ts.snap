@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_mergeWithKey(string_number_number_to_string)(a_1_c_1)(b_2_c_2) 1`] = `"Pick<{ a: 1; c: 1; }, \\"a\\"> & Pick<{ b: 2; c: 2; }, \\"b\\"> & Record<\\"c\\", string>"`;
+
+exports[`R_mergeWithKey(string_number_number_to_string, a_1_c_1, b_2_c_2) 1`] = `"Pick<{ a: 1; c: 1; }, \\"a\\"> & Pick<{ b: 2; c: 2; }, \\"b\\"> & Record<\\"c\\", string>"`;

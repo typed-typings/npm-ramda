@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_init(string) 1`] = `"string"`;
+
+exports[`R_init(string_array) 1`] = `"string[]"`;

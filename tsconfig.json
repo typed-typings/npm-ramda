@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
-    "noEmit": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true
+    "strict": true,
+    "module": "commonjs"
   },
-  "files": [
-    "index.d.ts",
-    "ramda-tests.ts"
+  "include": [
+    "gulpfile.ts",
+    "scripts/**/*.ts",
+    "templates/**/*.ts",
+    "tests/**/*.ts",
+    "tasks/**/*.ts"
   ]
 }

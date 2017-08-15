@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_pathOr(number)(path)(object) 1`] = `"number | {}"`;
+
+exports[`R_pathOr(number, path) 1`] = `"<U>(object: {}) => number | U"`;
+
+exports[`R_pathOr(number, path, object) 1`] = `"number | {}"`;

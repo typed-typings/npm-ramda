@@ -1,23 +1,26 @@
-sudo: false
 language: node_js
 
-notifications:
-  email:
-    on_success: never
-    on_failure: never # change
+node_js:
+- stable
 
 script:
-  - npm run lint
-  # - npm run bundle
-  - npm rm tslint
-  - npm install $TYPESCRIPT --force
-  # - npm run exec
-  - npm run test
+- yarn run lint
+- yarn run build-check
+- yarn run remap-check
+- yarn run test-utils -- --verbose --coverage
+- yarn run test -- --verbose
+- yarn run test-actual -- --verbose -u
 
-env:
-  # - TYPESCRIPT=typescript@2.2
-  - TYPESCRIPT=typescript@latest
-  - TYPESCRIPT=typescript@next
+after_success:
+- if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/deploy.sh; fi
 
-node_js:
-  - "stable"
+cache:
+  yarn: true
+  directories:
+  - node_modules
+
+matrix:
+  fast_finish: true
+
+notifications:
+  email: false

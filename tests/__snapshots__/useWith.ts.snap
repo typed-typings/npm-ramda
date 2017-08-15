@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_useWith(any_args_to_object) 1`] = `"(fns: never[]) => () => object"`;
+
+exports[`R_useWith(string_number_boolean_to_object) 1`] = `"<T1, T2, T3>(fns: [(value: T1) => string, (value: T2) => number, (value: T3) => boolean]) => CurriedFunction3<T1, T2, T3, object>"`;
+
+exports[`R_useWith(string_number_boolean_to_object)([
+      number_to_string,
+      symbol_to_number,
+      number_to_boolean,
+    ]) 1`] = `"CurriedFunction3<number, symbol, number, object>"`;
+
+exports[`R_useWith(string_number_boolean_to_object, [
+      number_to_string,
+      symbol_to_number,
+      number_to_boolean,
+    ]) 1`] = `"CurriedFunction3<number, symbol, number, object>"`;
+
+exports[`R_useWith<'1', '2arity'>()(any_args_to_object) 1`] = `"<T1, T2>(fns: [(value: T1) => any, (value: T2) => any]) => CurriedFunction2<T1, T2, object>"`;
+
+exports[`R_useWith<'1', 'variadic'>()(any_args_to_object) 1`] = `"(fns: Function[]) => (...args: any[]) => object"`;

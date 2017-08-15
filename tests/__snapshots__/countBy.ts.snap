@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_countBy(object_to_string) 1`] = `"(list: object[] | ArrayLike<object>) => Dictionary<number>"`;
+
+exports[`R_countBy(object_to_string, object_array) 1`] = `"Dictionary<number>"`;

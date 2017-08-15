@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_bind(object_variadic) 1`] = `"(context: any) => Variadic<object>"`;
+
+exports[`R_bind(object_variadic, object) 1`] = `"Variadic<object>"`;
+
+exports[`R_bind(string_number_symbol_to_boolean) 1`] = `"(context: any) => (a: string, b: number, c: symbol) => boolean"`;
+
+exports[`R_bind(string_number_symbol_to_boolean, object) 1`] = `"(a: string, b: number, c: symbol) => boolean"`;

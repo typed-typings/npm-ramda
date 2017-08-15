@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_memoizeWith(any_to_string) 1`] = `"<T extends Function>(fn: T) => T"`;
+
+exports[`R_memoizeWith(any_to_string)(T_to_T) 1`] = `"<T>(value: T) => T"`;
+
+exports[`R_memoizeWith(any_to_string, T_to_T) 1`] = `"<T>(value: T) => T"`;

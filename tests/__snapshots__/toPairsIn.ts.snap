@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_toPairsIn(a_1_b_2_c_3) 1`] = `"[\\"a\\" | \\"b\\" | \\"c\\", 1 | 2 | 3][]"`;
+
+exports[`R_toPairsIn(string_number_record) 1`] = `"[string, number][]"`;

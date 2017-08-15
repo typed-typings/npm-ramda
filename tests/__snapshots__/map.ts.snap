@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_map(string_to_number)(string_array) 1`] = `"number[]"`;
+
+exports[`R_map(string_to_number)(string_functor) 1`] = `"Functor<number>"`;
+
+exports[`R_map(string_to_number)(string_object) 1`] = `"Record<string, number>"`;
+
+exports[`R_map(string_to_number, string_array) 1`] = `"number[]"`;
+
+exports[`R_map(string_to_number, string_functor) 1`] = `"Functor<number>"`;
+
+exports[`R_map(string_to_number, string_object) 1`] = `"Record<string, number>"`;

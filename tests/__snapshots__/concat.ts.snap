@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_concat(number_array, number_array) 1`] = `"number[]"`;
+
+exports[`R_concat(number_list, number_list) 1`] = `
+"Argument of type 'List<number>' is not assignable to parameter of type 'string | number[]'.
+  Type 'ArrayLike<number>' is not assignable to type 'string | number[]'.
+    Type 'ArrayLike<number>' is not assignable to type 'number[]'.
+      Property 'includes' is missing in type 'ArrayLike<number>'."
+`;
+
+exports[`R_concat(object_array, number_array) 1`] = `"(number | object)[]"`;
+
+exports[`R_concat(string, string) 1`] = `"string"`;

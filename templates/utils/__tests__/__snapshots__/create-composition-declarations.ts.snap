@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should generate correctly for compose 1`] = `
+"declare const test: typeof $;
+declare function $<V1, R1>(fn1: (v1: G<V1>) => R<R1>): (v1: G<V1>) => R<R1>;
+declare function $<V1, V2, R1>(fn1: (v1: G<V1>, v2: G<V2>) => R<R1>): (v1: G<V1>, v2: G<V2>) => R<R1>;
+declare function $<V1, V2, V3, R1>(fn1: (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>): (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>;
+declare function $<V1, R1, R2>(fn2: (v: G<R1>) => R<R2>, fn1: (v1: G<V1>) => R<R1>): (v1: G<V1>) => R<R2>;
+declare function $<V1, V2, R1, R2>(fn2: (v: G<R1>) => R<R2>, fn1: (v1: G<V1>, v2: G<V2>) => R<R1>): (v1: G<V1>, v2: G<V2>) => R<R2>;
+declare function $<V1, V2, V3, R1, R2>(fn2: (v: G<R1>) => R<R2>, fn1: (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>): (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R2>;
+declare function $<V1, R1, R2, R3>(fn3: (v: G<R2>) => R<R3>, fn2: (v: G<R1>) => R<R2>, fn1: (v1: G<V1>) => R<R1>): (v1: G<V1>) => R<R3>;
+declare function $<V1, V2, R1, R2, R3>(fn3: (v: G<R2>) => R<R3>, fn2: (v: G<R1>) => R<R2>, fn1: (v1: G<V1>, v2: G<V2>) => R<R1>): (v1: G<V1>, v2: G<V2>) => R<R3>;
+declare function $<V1, V2, V3, R1, R2, R3>(fn3: (v: G<R2>) => R<R3>, fn2: (v: G<R1>) => R<R2>, fn1: (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>): (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R3>;
+"
+`;
+
+exports[`should generate correctly for pipe 1`] = `
+"declare const test: typeof $;
+declare function $<V1, R1>(fn1: (v1: G<V1>) => R<R1>): (v1: G<V1>) => R<R1>;
+declare function $<V1, V2, R1>(fn1: (v1: G<V1>, v2: G<V2>) => R<R1>): (v1: G<V1>, v2: G<V2>) => R<R1>;
+declare function $<V1, V2, V3, R1>(fn1: (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>): (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>;
+declare function $<V1, R1, R2>(fn1: (v1: G<V1>) => R<R1>, fn2: (v: G<R1>) => R<R2>): (v1: G<V1>) => R<R2>;
+declare function $<V1, V2, R1, R2>(fn1: (v1: G<V1>, v2: G<V2>) => R<R1>, fn2: (v: G<R1>) => R<R2>): (v1: G<V1>, v2: G<V2>) => R<R2>;
+declare function $<V1, V2, V3, R1, R2>(fn1: (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>, fn2: (v: G<R1>) => R<R2>): (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R2>;
+declare function $<V1, R1, R2, R3>(fn1: (v1: G<V1>) => R<R1>, fn2: (v: G<R1>) => R<R2>, fn3: (v: G<R2>) => R<R3>): (v1: G<V1>) => R<R3>;
+declare function $<V1, V2, R1, R2, R3>(fn1: (v1: G<V1>, v2: G<V2>) => R<R1>, fn2: (v: G<R1>) => R<R2>, fn3: (v: G<R2>) => R<R3>): (v1: G<V1>, v2: G<V2>) => R<R3>;
+declare function $<V1, V2, V3, R1, R2, R3>(fn1: (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R1>, fn2: (v: G<R1>) => R<R2>, fn3: (v: G<R2>) => R<R3>): (v1: G<V1>, v2: G<V2>, v3: G<V3>) => R<R3>;
+"
+`;

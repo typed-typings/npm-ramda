@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_uniqWith(number_number_to_boolean) 1`] = `"(list: number[] | ArrayLike<number>) => number[]"`;
+
+exports[`R_uniqWith(number_number_to_boolean)(number_array) 1`] = `"number[]"`;
+
+exports[`R_uniqWith(number_number_to_boolean, number_array) 1`] = `"number[]"`;
+
+exports[`R_uniqWith(string_string_to_boolean) 1`] = `"(list: string[] | ArrayLike<string>) => string[]"`;
+
+exports[`R_uniqWith(string_string_to_boolean)(string_array) 1`] = `"string[]"`;
+
+exports[`R_uniqWith(string_string_to_boolean, string_array) 1`] = `"string[]"`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`R_add(number)(number) 1`] = `"number"`;
+
+exports[`R_add(number, number) 1`] = `"number"`;
