@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as glob from 'glob';
 import * as gulp from 'gulp';
 import * as gulp_prettier from 'gulp-plugin-prettier';
 import * as gulp_util from 'gulp-util';
