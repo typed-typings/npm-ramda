@@ -1,7 +1,5 @@
 import * as R from '../ramda/dist/index';
 
-// https://github.com/types/npm-ramda/blob/master/tests/test.ts
-
 // tslint:disable max-file-line-count comment-format naming-convention
 
 // @dts-jest:group __
