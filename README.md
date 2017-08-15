@@ -24,10 +24,15 @@ The following command install the types from the `dist` branch, which is the new
 
 ```sh
 # using npm
-npm install --save-dev ikatyang/types-ramda#dist
+npm install --save-dev types/npm-ramda#dist
 
 # using yarn
-yarn add --dev ikatyang/types-ramda#dist
+yarn add --dev types/npm-ramda#dist
+
+# you can also choose which version to install using #<branch/commit/tag>
+yarn add --dev types/npm-ramda#dist-simple # contains basic features
+yarn add --dev types/npm-ramda#dist-selectable # contains selectable-overloads
+yarn add --dev types/npm-ramda#dist-placeholder # contains placeholder
 ```
 
 If you use the package through a script tag, install with the `--global` flag instead.
