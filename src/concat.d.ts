@@ -1,4 +1,3 @@
-import { List } from "./$types";
 /**
  * Returns the result of concatenating the given lists or strings.
  *

@@ -1,4 +1,4 @@
-import { List, Property } from "./$types";
+import { Property } from "./$types";
 /**
  * If the given, non-null object has an own property with the specified name,
  * returns the value of that property. Otherwise returns the provided default

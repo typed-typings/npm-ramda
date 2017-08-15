@@ -1,4 +1,4 @@
-import { Functor, List, Property } from "./$types";
+import { List, Property } from "./$types";
 /**
  * Returns a new list by plucking the same named property off all objects in
  * the list supplied.
