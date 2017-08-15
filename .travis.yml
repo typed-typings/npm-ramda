@@ -5,6 +5,7 @@ node_js:
 
 script:
 - yarn run lint
+- yarn run lint-dts
 - yarn run build-check
 - yarn run remap-check
 - yarn run test-utils -- --verbose --coverage

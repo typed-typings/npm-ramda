@@ -12,6 +12,7 @@
   "scripts": {
     "prepublish": "yarn run build",
     "lint": "tslint --project ./tsconfig.json",
+    "lint-dts": "tslint \"templates/**/*.d.ts\"",
     "test": "jest --config ./jest.json",
     "test-actual": "jest --config ./jest.actual.json",
     "test-utils": "jest --config ./jest.utils.json",
