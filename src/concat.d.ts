@@ -1,4 +1,3 @@
-import { List } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
 /**
  * Returns the result of concatenating the given lists or strings.
