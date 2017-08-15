@@ -1,4 +1,4 @@
-import { List, Property } from "./$types";
+import { Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
 /**
  * Returns a function that when supplied an object returns the indicated

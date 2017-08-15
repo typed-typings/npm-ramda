@@ -1,4 +1,4 @@
-import { List, Property } from "./$types";
+import { Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
 /**
  * If the given, non-null object has an own property with the specified name,

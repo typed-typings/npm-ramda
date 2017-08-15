@@ -1,4 +1,3 @@
-import { List } from "./$types";
 /**
  * Creates a deep copy of the value which may contain (nested) `Array`s and
  * `Object`s, `Number`s, `String`s, `Boolean`s and `Date`s. `Function`s are

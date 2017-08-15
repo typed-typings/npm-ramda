@@ -1,4 +1,4 @@
-import { Functor, List, Property } from "./$types";
+import { List, Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
 /**
  * Returns a new list by plucking the same named property off all objects in
