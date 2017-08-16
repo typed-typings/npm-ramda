@@ -1,4 +1,4 @@
-import { List, Property } from './$types';
+import { Property } from './$types';
 
 export function $keyof<T extends {}, K extends keyof T>(
   key: K,

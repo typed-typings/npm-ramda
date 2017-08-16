@@ -12,6 +12,7 @@
   "scripts": {
     "prepublish": "yarn run build",
     "lint": "tslint --project ./tsconfig.json",
+    "lint-dts": "tslint -c ./templates/tslint.dts.json \"templates/**/*.d.ts\"",
     "test": "jest --config ./jest.json",
     "test-actual": "jest --config ./jest.actual.json",
     "test-utils": "jest --config ./jest.utils.json",
@@ -28,7 +29,7 @@
   },
   "devDependencies": {
     "@types/del": "3.0.0",
-    "@types/glob": "5.0.30",
+    "@types/glob": "5.0.31",
     "@types/gulp": "3.8.33",
     "@types/gulp-diff": "1.0.0",
     "@types/gulp-rename": "0.0.32",
@@ -62,7 +63,7 @@
     "tslint": "5.6.0",
     "tslint-config-ikatyang": "2.2.0",
     "tslint-config-prettier-ext": "1.5.0",
-    "tslint-plugin-prettier": "1.0.0",
+    "tslint-plugin-prettier": "1.1.0",
     "typescript": "2.4.2",
     "yargs": "8.0.2"
   }
