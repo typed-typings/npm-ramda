@@ -10,6 +10,8 @@
         "allowPrefixes": ["$"],
         "allowSuffixes": [".c", ".r"]
       }
-    ]
+    ],
+    "array-type": [true, "array-simple"],
+    "naming-convention": false
   }
 }
