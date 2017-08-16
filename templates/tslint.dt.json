@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "array-type": [true, "array-simple"],
+    "ban-types": [true, ["Function"], ["Object"]]
+  }
+}
