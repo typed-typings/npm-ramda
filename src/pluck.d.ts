@@ -60,7 +60,7 @@ type pluck_general_01 = {
     (key: Property): pluck_general_11;
 };
 type pluck_list_11<U> = U[];
-type pluck_keyof_11<T, K extends keyof T> = T[K][];
-type pluck_record_11<K extends string, V, T extends Record<K, V>> = T[K][];
+type pluck_keyof_11<T, K extends keyof T> = Array<T[K]>;
+type pluck_record_11<K extends string, V, T extends Record<K, V>> = Array<T[K]>;
 type pluck_general_11 = any[];
 export = pluck;

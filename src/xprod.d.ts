@@ -28,5 +28,5 @@ type xprod_10<T> = {
 type xprod_01<U> = {
     <T>(a: List<T>): xprod_11<T, U>;
 };
-type xprod_11<T, U> = [T, U][];
+type xprod_11<T, U> = Array<[T, U]>;
 export = xprod;

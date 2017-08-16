@@ -51,5 +51,5 @@ type adjust_101<T, U> = {
 type adjust_011<T> = {
     <U>(fn: Morphism<T, U>): adjust_111<T, U>;
 };
-type adjust_111<T, U> = (T | U)[];
+type adjust_111<T, U> = Array<T | U>;
 export = adjust;

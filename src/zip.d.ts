@@ -29,5 +29,5 @@ type zip_10<T> = {
 type zip_01<U> = {
     <T>(a: List<T>): zip_11<T, U>;
 };
-type zip_11<T, U> = [T, U][];
+type zip_11<T, U> = Array<[T, U]>;
 export = zip;

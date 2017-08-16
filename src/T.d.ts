@@ -13,5 +13,5 @@
  *
  *      R.T(); //=> true
  */
-declare const T: () => true;
+declare function T(): true;
 export = T;
