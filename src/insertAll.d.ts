@@ -53,5 +53,5 @@ type insertAll_101<U> = {
 type insertAll_011<T, U> = {
     (index: number): insertAll_111<T, U>;
 };
-type insertAll_111<T, U> = (T | U)[];
+type insertAll_111<T, U> = Array<T | U>;
 export = insertAll;

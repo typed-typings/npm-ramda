@@ -51,7 +51,7 @@ type project_record_01<K extends string, T extends Record<K, any>> = {
 type project_general_01 = {
     (keys: Property[]): project_general_11;
 };
-type project_keyof_11<T, K extends keyof T> = Pick<T, K>[];
-type project_record_11<K extends string, T extends Record<K, any>> = Pick<T, K>[];
+type project_keyof_11<T, K extends keyof T> = Array<Pick<T, K>>;
+type project_record_11<K extends string, T extends Record<K, any>> = Array<Pick<T, K>>;
 type project_general_11 = any[];
 export = project;

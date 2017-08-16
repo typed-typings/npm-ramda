@@ -13,5 +13,5 @@
  *
  *      R.F(); //=> false
  */
-declare const F: () => false;
+declare function F(): false;
 export = F;
