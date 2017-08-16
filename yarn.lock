@@ -25,9 +25,16 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@types/glob@*", "@types/glob@5.0.30":
+"@types/glob@*":
   version "5.0.30"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.30.tgz#1026409c5625a8689074602808d082b2867b8a51"
+  dependencies:
+    "@types/minimatch" "*"
+    "@types/node" "*"
+
+"@types/glob@5.0.31":
+  version "5.0.31"
+  resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.31.tgz#6cb8500bd170750c1948f785cc5828e9cff0c36a"
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
