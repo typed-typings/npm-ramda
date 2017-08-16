@@ -1,6 +1,0 @@
-{
-  "extends": "./tslint.json",
-  "rules": {
-    "naming-convention": false
-  }
-}
