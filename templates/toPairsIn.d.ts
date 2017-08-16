@@ -1,1 +1,1 @@
-export function $<T>(object: T): [keyof T, T[keyof T]][];
+export function $<T>(object: T): Array<[keyof T, T[keyof T]]>;
