@@ -35,5 +35,5 @@ type append_10<T> = {
 type append_01<U> = {
     <T>(value: T): append_11<T, U>;
 };
-type append_11<T, U> = (T | U)[];
+type append_11<T, U> = Array<T | U>;
 export = append;
