@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/del": "3.0.0",
-    "@types/glob": "5.0.30",
+    "@types/glob": "5.0.31",
     "@types/gulp": "3.8.33",
     "@types/gulp-diff": "1.0.0",
     "@types/gulp-rename": "0.0.32",
