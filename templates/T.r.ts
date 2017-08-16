@@ -1,1 +1,1 @@
-declare const T: () => true;
+declare function T(): true

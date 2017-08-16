@@ -4,4 +4,4 @@ export function $<T, U>(
   fn: Morphism<T, U>,
   index: number,
   list: List<T>,
-): (T | U)[];
+): Array<T | U>;

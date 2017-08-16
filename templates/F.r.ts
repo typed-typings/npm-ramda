@@ -1,1 +1,1 @@
-declare const F: () => false;
+declare function F(): false
