@@ -56,5 +56,5 @@ type update_101<U> = {
 type update_011<T, U> = {
     (index: number): update_111<T, U>;
 };
-type update_111<T, U> = (T | U)[];
+type update_111<T, U> = Array<T | U>;
 export = update;

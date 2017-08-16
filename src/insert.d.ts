@@ -53,5 +53,5 @@ type insert_101<U> = {
 type insert_011<T, U> = {
     (index: number): insert_111<T, U>;
 };
-type insert_111<T, U> = (T | U)[];
+type insert_111<T, U> = Array<T | U>;
 export = insert;

@@ -50,7 +50,7 @@ type props_record_01<K extends string, T extends Record<K, any>> = {
 type props_general_01 = {
     (keys: Property[]): props_general_11;
 };
-type props_keyof_11<T extends {}, K extends keyof T> = T[K][];
-type props_record_11<K extends string, T extends Record<K, any>> = T[K][];
+type props_keyof_11<T extends {}, K extends keyof T> = Array<T[K]>;
+type props_record_11<K extends string, T extends Record<K, any>> = Array<T[K]>;
 type props_general_11 = any[];
 export = props;
