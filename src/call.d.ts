@@ -31,5 +31,5 @@ import { Variadic } from "./$types";
  *      format({indent: 2, value: 'foo\nbar\nbaz\n'}); //=> '  foo\n  bar\n  baz\n'
  * @symb R.call(f, a, b) = f(a, b)
  */
-declare const call: <T>(fn: Variadic<T>, ...args: any[]) => T;
+declare function call<T>(fn: Variadic<T>, ...args: any[]): T;
 export = call;
