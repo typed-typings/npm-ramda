@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as gulp from 'gulp';
 import * as gulp_prettier from 'gulp-plugin-prettier';
 import * as gulp_util from 'gulp-util';
+import * as prettier from 'prettier';
+import * as tslint from 'tslint';
 import {
   dt_dirname,
   dt_ramda_dirname,
@@ -14,6 +16,15 @@ const gulp_modify = require('gulp-modify');
 const test_filename = 'ramda-tests.ts';
 
 const definition_names: string[] = [];
+
+// DT style (https://github.com/Microsoft/dtslint/blob/master/dt.json)
+const prettier_options: prettier.Options = {
+  bracketSpacing: true,
+  printWidth: 120, // original 200, decreased due to trailing comments
+  tabWidth: 4,
+  trailingComma: 'all',
+  parser: 'typescript',
+};
 
 export const build_dt_definitions = () =>
   gulp
@@ -35,16 +46,9 @@ export const build_dt_definitions = () =>
       }),
     )
     .pipe(
-      gulp_prettier.format(
-        // DT style (https://github.com/Microsoft/dtslint/blob/master/dt.json)
-        {
-          bracketSpacing: true,
-          printWidth: 200,
-          tabWidth: 4,
-          trailingComma: 'all',
-        },
-        { reporter: gulp_prettier.Reporter.None },
-      ),
+      gulp_prettier.format(prettier_options, {
+        reporter: gulp_prettier.Reporter.None,
+      }),
     )
     .pipe(gulp.dest(dt_ramda_dirname));
 
@@ -66,9 +70,21 @@ export const build_dt_chores = () =>
     .pipe(gulp.dest(dt_ramda_dirname));
 
 export const build_dt_tests = () => {
-  // TODO: transform tests to be DT compatible
-  fs.writeFileSync(
-    `${dt_ramda_dirname}/${test_filename}`,
-    `import * as R from 'ramda';\n`,
+  const linter = new tslint.Linter({ fix: true });
+
+  const snapshot_filename = `snapshots/${test_filename}`;
+  const output_filename = `${dt_ramda_dirname}/${test_filename}`;
+
+  linter.lint(
+    output_filename,
+    prettier.format(
+      fs
+        .readFileSync(snapshot_filename, 'utf8')
+        .replace(`'../ramda/dist/index'`, `'ramda'`)
+        .replace(/\/\/ @dts-jest:fail ->.+/g, '// $ExpectError')
+        .replace(/\/\/ @dts-jest:pass ->/g, '// $ExpectType'),
+      prettier_options,
+    ),
+    tslint.Linter.findConfiguration(null, output_filename).results,
   );
 };
