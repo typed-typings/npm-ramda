@@ -37,9 +37,9 @@ export interface PseudoLens<K extends string | number> {
     _fake_lens_prop: K;
 }
 export interface Transformer<T, U, R> {
-    "@@transducer/init": () => U;
-    "@@transducer/step": (accumulator: U, value: T) => U;
-    "@@transducer/result": (accumulator: U) => R;
+    "@@transducer/init"(): U;
+    "@@transducer/step"(accumulator: U, value: T): U;
+    "@@transducer/result"(accumulator: U): R;
 }
 export interface Reduced<T> {
     "@@transducer/value": T;
