@@ -6,9 +6,10 @@ export default create_n_ary_declarations(
   max_curry_level,
   args => `
     function $${args.curry_level}arity<${args.generics.join(',')}>(
-      fns: [(${args.parameters.join(',')}) => boolean, (${args.parameters.join(
-    ',',
-  )}) => ${args.return_type}][]
+      fns: Array<[
+        (${args.parameters.join(',')}) => boolean,
+        (${args.parameters.join(',')}) => ${args.return_type}
+      ]>
     ): (${args.parameters.join(',')}) => ${args.return_type};
   `,
 );
