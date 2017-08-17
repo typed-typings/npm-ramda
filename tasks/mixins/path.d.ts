@@ -1,4 +1,4 @@
-// tslint:disable:prettier naming-convention
+// tslint:disable:prettier
 
 // in-based
 declare function path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult;
@@ -24,13 +24,13 @@ declare function path<K1 extends string, K2 extends string, K3 extends string, K
 
 declare function path<T1 extends string, T2 extends string, TResult>(path: [T1, T2], obj: {[K1 in T1]: {[K2 in T2]: TResult}}): TResult;
 declare function path<T1 extends string, T2 extends number, TResult>(path: [T1, T2], obj: {[K1 in T1]: TResult[]}): TResult;
-declare function path<T1 extends number, T2 extends string, TResult>(path: [T1, T2], obj: {[K2 in T2]: TResult}[]): TResult;
+declare function path<T1 extends number, T2 extends string, TResult>(path: [T1, T2], obj: Array<{[K2 in T2]: TResult}>): TResult;
 declare function path<T1 extends number, T2 extends number, TResult>(path: [T1, T2], obj: TResult[][]): TResult;
 declare function path<T1 extends string, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: {[K3 in T3]: TResult}}}): TResult;
 declare function path<T1 extends string, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K2 in T2]: TResult[]}}): TResult;
-declare function path<T1 extends string, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: {[K3 in T3]: TResult}[]}): TResult;
+declare function path<T1 extends string, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: Array<{[K3 in T3]: TResult}>}): TResult;
 declare function path<T1 extends string, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K1 in T1]: TResult[][]}): TResult;
-declare function path<T1 extends number, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: {[K3 in T3]: TResult}}[]): TResult;
-declare function path<T1 extends number, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: {[K2 in T2]: TResult[]}[]): TResult;
-declare function path<T1 extends number, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: {[K3 in T3]: TResult}[][]): TResult;
+declare function path<T1 extends number, T2 extends string, T3 extends string, TResult>(path: [T1, T2, T3], obj: Array<{[K2 in T2]: {[K3 in T3]: TResult}}>): TResult;
+declare function path<T1 extends number, T2 extends string, T3 extends number, TResult>(path: [T1, T2, T3], obj: Array<{[K2 in T2]: TResult[]}>): TResult;
+declare function path<T1 extends number, T2 extends number, T3 extends string, TResult>(path: [T1, T2, T3], obj: Array<Array<{[K3 in T3]: TResult}>>): TResult;
 declare function path<T1 extends number, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: TResult[][][]): TResult;

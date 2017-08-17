@@ -76,9 +76,9 @@ export interface PseudoLens<K extends string | number> {
 
 export interface Transformer<T, U, R> {
   // https://github.com/cognitect-labs/transducers-js#transformer-protocol
-  '@@transducer/init': () => U;
-  '@@transducer/step': (accumulator: U, value: T) => U;
-  '@@transducer/result': (accumulator: U) => R;
+  '@@transducer/init'(): U;
+  '@@transducer/step'(accumulator: U, value: T): U;
+  '@@transducer/result'(accumulator: U): R;
 }
 
 export interface Reduced<T> {
