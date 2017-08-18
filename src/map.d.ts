@@ -48,18 +48,6 @@ type map_10<T, U> = {
     <K extends string>(object: Record<K, T>): map_object_11<U, K>;
     <K extends string>(target: List<T> | Functor<T> | Record<K, T>): map_mixed_11<U, K>;
 };
-type map_list_01<T> = {
-    <U>(fn: Morphism<T, U>): map_list_11<U>;
-};
-type map_functor_01<T> = {
-    <U>(fn: Morphism<T, U>): map_functor_11<U>;
-};
-type map_object_01<T, K extends string> = {
-    <U>(fn: Morphism<T, U>): map_object_11<U, K>;
-};
-type map_mixed_01<T, K extends string> = {
-    <U>(fn: Morphism<T, U>): map_mixed_11<U, K>;
-};
 type map_list_11<U> = U[];
 type map_functor_11<U> = Functor<U>;
 type map_object_11<U, K extends string> = Record<K, U>;

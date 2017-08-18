@@ -27,8 +27,5 @@ type append_00 = {
 type append_10<T> = {
     <U>(list: List<U>): append_11<T, U>;
 };
-type append_01<U> = {
-    <T>(value: T): append_11<T, U>;
-};
 type append_11<T, U> = Array<T | U>;
 export = append;

@@ -33,8 +33,5 @@ type hasIn_00 = {
 type hasIn_10 = {
     (object: {}): hasIn_11;
 };
-type hasIn_01 = {
-    (property: Property): hasIn_11;
-};
 type hasIn_11 = boolean;
 export = hasIn;

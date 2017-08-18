@@ -31,8 +31,5 @@ type partialRight_00 = {
 type partialRight_10<T> = {
     (args: any[]): partialRight_11<T>;
 };
-type partialRight_01 = {
-    <T>(fn: Variadic<T>): partialRight_11<T>;
-};
 type partialRight_11<T> = Variadic<T>;
 export = partialRight;

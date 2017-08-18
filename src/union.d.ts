@@ -24,8 +24,5 @@ type union_00 = {
 type union_10<T> = {
     (b: List<T>): union_11<T>;
 };
-type union_01<T> = {
-    (a: List<T>): union_11<T>;
-};
 type union_11<T> = T[];
 export = union;

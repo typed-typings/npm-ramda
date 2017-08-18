@@ -60,30 +60,6 @@ type liftN_6arity_10 = {
 type liftN_variadic_10 = {
     <R>(fn: Variadic<R>): liftN_variadic_11<R>;
 };
-type liftN_0arity_01<R> = {
-    (n: 0): liftN_0arity_11<R>;
-};
-type liftN_1arity_01<T1, R> = {
-    (n: 1): liftN_1arity_11<T1, R>;
-};
-type liftN_2arity_01<T1, T2, R> = {
-    (n: 2): liftN_2arity_11<T1, T2, R>;
-};
-type liftN_3arity_01<T1, T2, T3, R> = {
-    (n: 3): liftN_3arity_11<T1, T2, T3, R>;
-};
-type liftN_4arity_01<T1, T2, T3, T4, R> = {
-    (n: 4): liftN_4arity_11<T1, T2, T3, T4, R>;
-};
-type liftN_5arity_01<T1, T2, T3, T4, T5, R> = {
-    (n: 5): liftN_5arity_11<T1, T2, T3, T4, T5, R>;
-};
-type liftN_6arity_01<T1, T2, T3, T4, T5, T6, R> = {
-    (n: 6): liftN_6arity_11<T1, T2, T3, T4, T5, T6, R>;
-};
-type liftN_variadic_01<R> = {
-    (n: number): liftN_variadic_11<R>;
-};
 type liftN_0arity_11<R> = CurriedFunction0<R[]>;
 type liftN_1arity_11<T1, R> = CurriedFunction1<List<T1>, R[]>;
 type liftN_2arity_11<T1, T2, R> = CurriedFunction2<List<T1>, List<T2>, R[]>;

@@ -23,8 +23,5 @@ type pair_00 = {
 type pair_10<K extends Property> = {
     <V>(value: V): pair_11<K, V>;
 };
-type pair_01<V> = {
-    <K extends Property>(key: K): pair_11<K, V>;
-};
 type pair_11<K extends Property, V> = KeyValuePair<K, V>;
 export = pair;

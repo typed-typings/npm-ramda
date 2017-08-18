@@ -173,8 +173,5 @@ type path_00 = {
 type path_10 = {
     <T>(object: {}): path_11<T>;
 };
-type path_01 = {
-    <T>(path: Path): path_11<T>;
-};
 type path_11<T> = T | undefined;
 export = path;

@@ -31,8 +31,5 @@ type modulo_00 = {
 type modulo_10 = {
     (b: number): modulo_11;
 };
-type modulo_01 = {
-    (a: number): modulo_11;
-};
 type modulo_11 = number;
 export = modulo;

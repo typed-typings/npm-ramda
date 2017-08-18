@@ -47,8 +47,5 @@ type groupBy_00 = {
 type groupBy_10<T> = {
     (list: List<T>): groupBy_11<T>;
 };
-type groupBy_01<T> = {
-    (fn: Morphism<T, Property>): groupBy_11<T>;
-};
 type groupBy_11<T> = Dictionary<T[]>;
 export = groupBy;

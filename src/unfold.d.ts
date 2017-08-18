@@ -31,8 +31,5 @@ type unfold_00 = {
 type unfold_10<T, R> = {
     (initial: T): unfold_11<R>;
 };
-type unfold_01<T> = {
-    <R>(fn: (seed: T) => [R, T] | false): unfold_11<R>;
-};
 type unfold_11<R> = R[];
 export = unfold;

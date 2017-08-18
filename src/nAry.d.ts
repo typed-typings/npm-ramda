@@ -72,30 +72,6 @@ type nAry_6arity_10 = {
 type nAry_variadic_10 = {
     <R>(fn: Variadic<R>): nAry_variadic_11<R>;
 };
-type nAry_0arity_01<R> = {
-    (n: 0): nAry_0arity_11<R>;
-};
-type nAry_1arity_01<T1, R> = {
-    (n: 1): nAry_1arity_11<T1, R>;
-};
-type nAry_2arity_01<T1, T2, R> = {
-    (n: 2): nAry_2arity_11<T1, T2, R>;
-};
-type nAry_3arity_01<T1, T2, T3, R> = {
-    (n: 3): nAry_3arity_11<T1, T2, T3, R>;
-};
-type nAry_4arity_01<T1, T2, T3, T4, R> = {
-    (n: 4): nAry_4arity_11<T1, T2, T3, T4, R>;
-};
-type nAry_5arity_01<T1, T2, T3, T4, T5, R> = {
-    (n: 5): nAry_5arity_11<T1, T2, T3, T4, T5, R>;
-};
-type nAry_6arity_01<T1, T2, T3, T4, T5, T6, R> = {
-    (n: 6): nAry_6arity_11<T1, T2, T3, T4, T5, T6, R>;
-};
-type nAry_variadic_01<R> = {
-    (n: number): nAry_variadic_11<R>;
-};
 type nAry_0arity_11<R> = () => R;
 type nAry_1arity_11<T1, R> = (v1: T1) => R;
 type nAry_2arity_11<T1, T2, R> = (v1: T1, v2: T2) => R;

@@ -35,8 +35,5 @@ type both_00 = {
 type both_10<F extends Variadic<boolean>> = {
     (fn2: F): both_11<F>;
 };
-type both_01<F extends Variadic<boolean>> = {
-    (fn1: F): both_11<F>;
-};
 type both_11<F extends Variadic<boolean>> = F;
 export = both;

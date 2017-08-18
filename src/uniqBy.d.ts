@@ -25,8 +25,5 @@ type uniqBy_00 = {
 type uniqBy_10<T> = {
     (list: List<T>): uniqBy_11<T>;
 };
-type uniqBy_01<T> = {
-    (fn: Morphism<T, any>): uniqBy_11<T>;
-};
 type uniqBy_11<T> = T[];
 export = uniqBy;

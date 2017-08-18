@@ -32,22 +32,6 @@ type unless_000 = {
     <T, U, V extends T>(pred: (value: T) => value is V, whenFalseFn: Morphism<T, U>, value: T): unless_predicate_111<T, U, V>;
     <T, U>(pred: Predicate<T>, whenFalseFn: Morphism<T, U>, value: T): unless_general_111<T, U>;
 };
-type unless_010<T, U> = {
-    <V extends T>(pred: (value: T) => value is V): unless_predicate_110<T, U, V>;
-    (pred: Predicate<T>): unless_general_110<T, U>;
-    <V extends T>(pred: (value: T) => value is V, value: T): unless_predicate_111<T, U, V>;
-    (pred: Predicate<T>, value: T): unless_general_111<T, U>;
-};
-type unless_001<T> = {
-    <V extends T>(pred: (value: T) => value is V): unless_predicate_101<T, V>;
-    (pred: Predicate<T>): unless_general_101<T>;
-    <U, V extends T>(pred: (value: T) => value is V, whenFalseFn: Morphism<T, U>): unless_predicate_111<T, U, V>;
-    <U>(pred: Predicate<T>, whenFalseFn: Morphism<T, U>): unless_general_111<T, U>;
-};
-type unless_011<T, U> = {
-    <V extends T>(pred: (value: T) => value is V): unless_predicate_111<T, U, V>;
-    (pred: Predicate<T>): unless_general_111<T, U>;
-};
 type unless_predicate_100<T, V extends T> = {
     <U>(whenFalseFn: Morphism<T, U>): unless_predicate_110<T, U, V>;
     <U>(whenFalseFn: Morphism<T, U>, value: T): unless_predicate_111<T, U, V>;
@@ -61,12 +45,6 @@ type unless_predicate_110<T, U, V extends T> = {
 };
 type unless_general_110<T, U> = {
     (value: T): unless_general_111<T, U>;
-};
-type unless_predicate_101<T, V extends T> = {
-    <U>(whenFalseFn: Morphism<T, U>): unless_predicate_111<T, U, V>;
-};
-type unless_general_101<T> = {
-    <U>(whenFalseFn: Morphism<T, U>): unless_general_111<T, U>;
 };
 type unless_predicate_111<T, U, V extends T> = V | U;
 type unless_general_111<T, U> = T | U;

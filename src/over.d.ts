@@ -61,24 +61,6 @@ type over_general_100<V> = {
     <X>(fn: Morphism<X, X>): over_general_110<X, V>;
     <X>(fn: Morphism<X, X>, target: V): over_general_111<V>;
 };
-type over_number_010<N extends number, U extends {
-        [index: number]: any;
-    }> = {
-    (lens: PseudoLens<N>): over_number_110<N, U>;
-    (lens: PseudoLens<N>, target: U): over_number_111<U>;
-};
-type over_string_010<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): over_string_110<K, U>;
-    (lens: PseudoLens<K>, target: U): over_string_111<K, U>;
-};
-type over_manual_010<T> = {
-    <U>(lens: ManualLens<T, U>): over_manual_110<T, U>;
-    <U>(lens: ManualLens<T, U>, target: U): over_manual_111<U>;
-};
-type over_general_010<X> = {
-    <V>(lens: PseudoLens<any> | ManualLens<any, V>): over_general_110<X, V>;
-    <V>(lens: PseudoLens<any> | ManualLens<any, V>, target: V): over_general_111<V>;
-};
 type over_number_110<N extends number, U extends {
         [index: number]: any;
     }> = {
@@ -92,52 +74,6 @@ type over_manual_110<T, U> = {
 };
 type over_general_110<X, V> = {
     (target: V): over_general_111<V>;
-};
-type over_number_001<U extends {
-        [index: number]: any;
-    }> = {
-    <N extends number>(lens: PseudoLens<N>): over_number_101<N, U>;
-    <N extends number>(lens: PseudoLens<N>, fn: Morphism<U[NumberToString[N]], U[NumberToString[N]]>): over_number_111<U>;
-};
-type over_string_001<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): over_string_101<K, U>;
-    (lens: PseudoLens<K>, fn: Morphism<U[K], U[K]>): over_string_111<K, U>;
-};
-type over_manual_001<U> = {
-    <T>(lens: ManualLens<T, U>): over_manual_101<T, U>;
-    <T>(lens: ManualLens<T, U>, fn: Morphism<T, T>): over_manual_111<U>;
-};
-type over_general_001<V> = {
-    (lens: PseudoLens<any> | ManualLens<any, V>): over_general_101<V>;
-    <X>(lens: PseudoLens<any> | ManualLens<any, V>, fn: Morphism<X, X>): over_general_111<V>;
-};
-type over_number_101<N extends number, U extends {
-        [index: number]: any;
-    }> = {
-    (fn: Morphism<U[NumberToString[N]], U[NumberToString[N]]>): over_number_111<U>;
-};
-type over_string_101<K extends string, U extends Record<K, any>> = {
-    (fn: Morphism<U[K], U[K]>): over_string_111<K, U>;
-};
-type over_manual_101<T, U> = {
-    (fn: Morphism<T, T>): over_manual_111<U>;
-};
-type over_general_101<V> = {
-    <X>(fn: Morphism<X, X>): over_general_111<V>;
-};
-type over_number_011<N extends number, U extends {
-        [index: number]: any;
-    }> = {
-    (lens: PseudoLens<N>): over_number_111<U>;
-};
-type over_string_011<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): over_string_111<K, U>;
-};
-type over_manual_011<T, U> = {
-    (lens: ManualLens<T, U>): over_manual_111<U>;
-};
-type over_general_011<X, V> = {
-    (lens: PseudoLens<any> | ManualLens<any, V>): over_general_111<V>;
 };
 type over_number_111<U extends {
         [index: number]: any;

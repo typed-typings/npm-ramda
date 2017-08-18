@@ -30,8 +30,5 @@ type lens_00 = {
 type lens_10<T, U> = {
     (setter: (focus: T, target: U) => U): lens_11<T, U>;
 };
-type lens_01<T, U> = {
-    (getter: (target: U) => T): lens_11<T, U>;
-};
 type lens_11<T, U> = ManualLens<T, U>;
 export = lens;

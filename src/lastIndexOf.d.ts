@@ -26,8 +26,5 @@ type lastIndexOf_00 = {
 type lastIndexOf_10<T> = {
     (list: List<T>): lastIndexOf_11;
 };
-type lastIndexOf_01<T> = {
-    (target: T): lastIndexOf_11;
-};
 type lastIndexOf_11 = number;
 export = lastIndexOf;

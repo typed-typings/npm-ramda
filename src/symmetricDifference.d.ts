@@ -25,8 +25,5 @@ type symmetricDifference_00 = {
 type symmetricDifference_10<T> = {
     (b: List<T>): symmetricDifference_11<T>;
 };
-type symmetricDifference_01<T> = {
-    (a: List<T>): symmetricDifference_11<T>;
-};
 type symmetricDifference_11<T> = T[];
 export = symmetricDifference;

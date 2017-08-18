@@ -34,8 +34,5 @@ type either_00 = {
 type either_10<F extends Variadic<boolean>> = {
     (fn2: F): either_11<F>;
 };
-type either_01<F extends Variadic<boolean>> = {
-    (fn1: F): either_11<F>;
-};
 type either_11<F extends Variadic<boolean>> = F;
 export = either;

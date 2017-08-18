@@ -25,8 +25,5 @@ type and_00 = {
 type and_10<T> = {
     <U>(b: U): and_11<T, U>;
 };
-type and_01<U> = {
-    <T>(a: T): and_11<T, U>;
-};
 type and_11<T, U> = T | U;
 export = and;

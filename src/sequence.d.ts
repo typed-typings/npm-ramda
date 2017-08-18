@@ -35,15 +35,6 @@ type sequence_10<T> = {
     (traversable: Traversable<Applicative<T>>): sequence_traversable_11<T>;
     (traversable: List<Applicative<T>> | Traversable<Applicative<T>>): sequence_mixed_11<T>;
 };
-type sequence_list_01<T> = {
-    (of: Morphism<T, Applicative<T>>): sequence_list_11<T>;
-};
-type sequence_traversable_01<T> = {
-    (of: Morphism<T, Applicative<T>>): sequence_traversable_11<T>;
-};
-type sequence_mixed_01<T> = {
-    (of: Morphism<T, Applicative<T>>): sequence_mixed_11<T>;
-};
 type sequence_list_11<T> = Applicative<T[]>;
 type sequence_traversable_11<T> = Applicative<Traversable<T>>;
 type sequence_mixed_11<T> = Applicative<T[]> | Applicative<Traversable<T>>;

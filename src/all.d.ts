@@ -31,8 +31,5 @@ type all_00 = {
 type all_10<T> = {
     (list: List<T>): all_11;
 };
-type all_01<T> = {
-    (fn: Predicate<T>): all_11;
-};
 type all_11 = boolean;
 export = all;

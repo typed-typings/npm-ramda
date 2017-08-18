@@ -24,8 +24,5 @@ type intersection_00 = {
 type intersection_10<T> = {
     (b: List<T>): intersection_11<T>;
 };
-type intersection_01<T> = {
-    (a: List<T>): intersection_11<T>;
-};
 type intersection_11<T> = T[];
 export = intersection;

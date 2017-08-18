@@ -29,15 +29,6 @@ type splitAt_10 = {
     <T>(list: List<T>): splitAt_list_11<T>;
     <T>(list: string | List<T>): splitAt_mixed_11<T>;
 };
-type splitAt_string_01 = {
-    (index: number): splitAt_string_11;
-};
-type splitAt_list_01<T> = {
-    (index: number): splitAt_list_11<T>;
-};
-type splitAt_mixed_01<T> = {
-    (index: number): splitAt_mixed_11<T>;
-};
 type splitAt_string_11 = [string, string];
 type splitAt_list_11<T> = [T[], T[]];
 type splitAt_mixed_11<T> = [string, string] | [T[], T[]];

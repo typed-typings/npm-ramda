@@ -29,8 +29,5 @@ type dropLastWhile_00 = {
 type dropLastWhile_10<T> = {
     (list: List<T>): dropLastWhile_11<T>;
 };
-type dropLastWhile_01<T> = {
-    (fn: Predicate<T>): dropLastWhile_11<T>;
-};
 type dropLastWhile_11<T> = T[];
 export = dropLastWhile;

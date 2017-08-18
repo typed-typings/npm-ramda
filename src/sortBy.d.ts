@@ -39,8 +39,5 @@ type sortBy_00 = {
 type sortBy_10<T> = {
     (list: List<T>): sortBy_11<T>;
 };
-type sortBy_01<T> = {
-    (fn: Morphism<T, Ordered>): sortBy_11<T>;
-};
 type sortBy_11<T> = T[];
 export = sortBy;

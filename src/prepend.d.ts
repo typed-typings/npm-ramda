@@ -24,8 +24,5 @@ type prepend_00 = {
 type prepend_10<T> = {
     <U>(list: List<U>): prepend_11<T, U>;
 };
-type prepend_01<U> = {
-    <T>(value: T): prepend_11<T, U>;
-};
 type prepend_11<T, U> = Array<T | U>;
 export = prepend;

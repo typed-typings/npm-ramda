@@ -49,21 +49,6 @@ type chain_chainFn_10<T, U, V> = {
 type chain_mixed_10<T, U, V> = {
     (monad: List<T> | Chain<T> | Morphism<List<T>, V> | Morphism<Chain<T>, V>): chain_mixed_11<T, U>;
 };
-type chain_list_01<T> = {
-    <U>(fn: Morphism<T, List<U>>): chain_list_11<U>;
-};
-type chain_chain_01<T> = {
-    <U>(fn: Morphism<T, Chain<U>>): chain_chain_11<U>;
-};
-type chain_listFn_01<T, V> = {
-    <U>(fn: NestedMorphism<V, List<T>, U>): chain_listFn_11<T, U>;
-};
-type chain_chainFn_01<T, V> = {
-    <U>(fn: NestedMorphism<V, Chain<T>, Chain<U>>): chain_chainFn_11<T, U>;
-};
-type chain_mixed_01<T, V> = {
-    <U>(fn: Morphism<T, List<U>> | Morphism<T, Chain<U>> | NestedMorphism<V, List<T>, U> | NestedMorphism<V, Chain<T>, Chain<U>>): chain_mixed_11<T, U>;
-};
 type chain_list_11<U> = U[];
 type chain_chain_11<U> = Chain<U>;
 type chain_listFn_11<T, U> = Morphism<List<T>, U>;

@@ -37,22 +37,8 @@ type when_100<T> = {
     <U>(whenTrueFn: Morphism<T, U>): when_110<T, U>;
     <U>(whenTrueFn: Morphism<T, U>, value: T): when_111<T, U>;
 };
-type when_010<T, U> = {
-    (pred: Predicate<T>): when_110<T, U>;
-    (pred: Predicate<T>, value: T): when_111<T, U>;
-};
 type when_110<T, U> = {
     (value: T): when_111<T, U>;
-};
-type when_001<T> = {
-    (pred: Predicate<T>): when_101<T>;
-    <U>(pred: Predicate<T>, whenTrueFn: Morphism<T, U>): when_111<T, U>;
-};
-type when_101<T> = {
-    <U>(whenTrueFn: Morphism<T, U>): when_111<T, U>;
-};
-type when_011<T, U> = {
-    (pred: Predicate<T>): when_111<T, U>;
 };
 type when_111<T, U> = T | U;
 export = when;

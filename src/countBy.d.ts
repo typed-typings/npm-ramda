@@ -31,8 +31,5 @@ type countBy_00 = {
 type countBy_10<T> = {
     (list: List<T>): countBy_11;
 };
-type countBy_01<T> = {
-    (fn: Morphism<T, Property>): countBy_11;
-};
 type countBy_11 = Dictionary<number>;
 export = countBy;

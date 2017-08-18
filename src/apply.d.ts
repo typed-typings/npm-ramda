@@ -27,8 +27,5 @@ type apply_00 = {
 type apply_10<T> = {
     (args: any[]): apply_11<T>;
 };
-type apply_01 = {
-    <T>(fn: Variadic<T>): apply_11<T>;
-};
 type apply_11<T> = T;
 export = apply;

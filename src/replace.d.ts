@@ -28,22 +28,8 @@ type replace_100 = {
     (replacement: string): replace_110;
     (replacement: string, str: string): replace_111;
 };
-type replace_010 = {
-    (pattern: RegExp | string): replace_110;
-    (pattern: RegExp | string, str: string): replace_111;
-};
 type replace_110 = {
     (str: string): replace_111;
-};
-type replace_001 = {
-    (pattern: RegExp | string): replace_101;
-    (pattern: RegExp | string, replacement: string): replace_111;
-};
-type replace_101 = {
-    (replacement: string): replace_111;
-};
-type replace_011 = {
-    (pattern: RegExp | string): replace_111;
 };
 type replace_111 = string;
 export = replace;

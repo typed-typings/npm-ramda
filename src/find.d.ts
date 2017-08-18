@@ -31,8 +31,5 @@ type find_00 = {
 type find_10<T> = {
     (list: List<T>): find_11<T>;
 };
-type find_01<T> = {
-    (fn: Predicate<T>): find_11<T>;
-};
 type find_11<T> = T | undefined;
 export = find;

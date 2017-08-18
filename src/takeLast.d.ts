@@ -33,15 +33,6 @@ type takeLast_10 = {
     <T>(list: List<T>): takeLast_list_11<T>;
     <T>(list: string | List<T>): takeLast_mixed_11<T>;
 };
-type takeLast_string_01 = {
-    (n: number): takeLast_string_11;
-};
-type takeLast_list_01<T> = {
-    (n: number): takeLast_list_11<T>;
-};
-type takeLast_mixed_01<T> = {
-    (n: number): takeLast_mixed_11<T>;
-};
 type takeLast_string_11 = string;
 type takeLast_list_11<T> = T[];
 type takeLast_mixed_11<T> = string | T[];
