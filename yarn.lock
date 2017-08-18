@@ -781,14 +781,13 @@ dts-element@2.2.1:
   dependencies:
     typescript "~2.4.1"
 
-dts-jest@20.5.1:
-  version "20.5.1"
-  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-20.5.1.tgz#deeb39da318f40d5ed20031baa91718438047e3d"
+dts-jest@21.0.0:
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-21.0.0.tgz#3d402f6e58f94e01f26a6f695a5d7a017b771fe5"
   dependencies:
     require-from-string "^1.2.1"
     ts-comment "^1.0.1"
     tsconfig-extends "^1.0.1"
-    typescript "^2.4.0"
 
 duplexer2@0.0.2:
   version "0.0.2"
