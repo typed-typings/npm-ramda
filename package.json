@@ -40,7 +40,7 @@
     "@types/yargs": "8.0.2",
     "del": "3.0.0",
     "dts-element": "2.2.1",
-    "dts-element-fp": "1.1.0",
+    "dts-element-fp": "1.1.1",
     "dts-jest": "20.5.1",
     "glob": "7.1.2",
     "gulp": "3.9.1",
