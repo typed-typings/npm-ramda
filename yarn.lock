@@ -92,9 +92,9 @@
   version "8.0.20"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.20.tgz#65c7375255c24b184c215a5d0b63247c32f01c91"
 
-"@types/node@8.0.23":
-  version "8.0.23"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.23.tgz#c746697004782346594a0d755c34425bbf3014d2"
+"@types/node@8.0.24":
+  version "8.0.24"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
 
 "@types/node@^6.0.46":
   version "6.0.87"
@@ -823,9 +823,9 @@ doctrine@^0.7.2:
     esutils "^1.1.6"
     isarray "0.0.1"
 
-dts-element-fp@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/dts-element-fp/-/dts-element-fp-1.0.2.tgz#0ec25671032557ecfe90bd56e5dd3e063c876436"
+dts-element-fp@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/dts-element-fp/-/dts-element-fp-1.1.0.tgz#805f2adc88add9d0121933cf33f8d73fc100996b"
   dependencies:
     ramda "^0.24.1"
 
