@@ -94,30 +94,6 @@ type constructN_6arity_10 = {
 type constructN_variadic_10 = {
     <R>(constructor: Constructor<R>): constructN_variadic_11<R>;
 };
-type constructN_0arity_01<R> = {
-    (n: 0): constructN_0arity_11<R>;
-};
-type constructN_1arity_01<T1, R> = {
-    (n: 1): constructN_1arity_11<T1, R>;
-};
-type constructN_2arity_01<T1, T2, R> = {
-    (n: 2): constructN_2arity_11<T1, T2, R>;
-};
-type constructN_3arity_01<T1, T2, T3, R> = {
-    (n: 3): constructN_3arity_11<T1, T2, T3, R>;
-};
-type constructN_4arity_01<T1, T2, T3, T4, R> = {
-    (n: 4): constructN_4arity_11<T1, T2, T3, T4, R>;
-};
-type constructN_5arity_01<T1, T2, T3, T4, T5, R> = {
-    (n: 5): constructN_5arity_11<T1, T2, T3, T4, T5, R>;
-};
-type constructN_6arity_01<T1, T2, T3, T4, T5, T6, R> = {
-    (n: 6): constructN_6arity_11<T1, T2, T3, T4, T5, T6, R>;
-};
-type constructN_variadic_01<R> = {
-    (n: number): constructN_variadic_11<R>;
-};
 type constructN_0arity_11<R> = CurriedFunction0<R>;
 type constructN_1arity_11<T1, R> = CurriedFunction1<T1, R>;
 type constructN_2arity_11<T1, T2, R> = CurriedFunction2<T1, T2, R>;

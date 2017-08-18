@@ -43,8 +43,5 @@ type where_00 = {
 type where_10 = {
     (object: Dictionary<any>): where_11;
 };
-type where_01 = {
-    (spec: Dictionary<Predicate<any>>): where_11;
-};
 type where_11 = boolean;
 export = where;

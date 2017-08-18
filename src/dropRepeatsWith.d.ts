@@ -30,8 +30,5 @@ type dropRepeatsWith_00 = {
 type dropRepeatsWith_10<T> = {
     (list: List<T>): dropRepeatsWith_11<T>;
 };
-type dropRepeatsWith_01<T> = {
-    (fn: Morphism<T, any>): dropRepeatsWith_11<T>;
-};
 type dropRepeatsWith_11<T> = T[];
 export = dropRepeatsWith;

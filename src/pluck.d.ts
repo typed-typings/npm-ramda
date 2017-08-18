@@ -55,18 +55,6 @@ type pluck_record_10<K extends string> = {
 type pluck_general_10 = {
     (list: List<any>): pluck_general_11;
 };
-type pluck_list_01<U> = {
-    (index: number): pluck_list_11<U>;
-};
-type pluck_keyof_01<T> = {
-    <K extends keyof T>(key: K): pluck_keyof_11<T, K>;
-};
-type pluck_record_01<K extends string, V, T extends Record<K, V>> = {
-    (key: K): pluck_record_11<K, V, T>;
-};
-type pluck_general_01 = {
-    (key: Property): pluck_general_11;
-};
 type pluck_list_11<U> = U[];
 type pluck_keyof_11<T, K extends keyof T> = Array<T[K]>;
 type pluck_record_11<K extends string, V, T extends Record<K, V>> = Array<T[K]>;

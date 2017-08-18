@@ -31,8 +31,5 @@ type takeLastWhile_00 = {
 type takeLastWhile_10<T> = {
     (list: List<T>): takeLastWhile_11<T>;
 };
-type takeLastWhile_01<T> = {
-    (fn: Predicate<T>): takeLastWhile_11<T>;
-};
 type takeLastWhile_11<T> = T[];
 export = takeLastWhile;

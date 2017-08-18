@@ -28,8 +28,5 @@ type indexOf_00 = {
 type indexOf_10<T> = {
     (list: List<T>): indexOf_11;
 };
-type indexOf_01<T> = {
-    (target: T): indexOf_11;
-};
 type indexOf_11 = number;
 export = indexOf;

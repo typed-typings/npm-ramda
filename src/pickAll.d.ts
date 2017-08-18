@@ -28,12 +28,6 @@ type pickAll_00 = {
     <$SEL extends "11", $KIND extends "general">(): <T extends {}>(keys: List<Property>, object: T) => pickAll_general_11<T>;
     <T extends {}>(keys: List<Property>, object: T): pickAll_general_11<T>;
 };
-type pickAll_01<T extends {}> = {
-    <K extends keyof T>(keys: List<K>): pickAll_pick_11<T, K>;
-    <$SEL extends "1", $KIND extends "pick">(): <K extends keyof T>(keys: List<K>) => pickAll_pick_11<T, K>;
-    <$SEL extends "1", $KIND extends "general">(): (keys: List<Property>) => pickAll_general_11<T>;
-    (keys: List<Property>): pickAll_general_11<T>;
-};
 type pickAll_pick_10<T extends {}, K extends keyof T> = {
     (object: T): pickAll_pick_11<T, K>;
 };

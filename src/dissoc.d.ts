@@ -40,15 +40,6 @@ type dissoc_record_10<V extends string> = {
 type dissoc_general_10 = {
     <T extends {}>(object: T): dissoc_general_11<T>;
 };
-type dissoc_keyof_01<T extends {}> = {
-    <K extends keyof T>(property: K): dissoc_keyof_11<T, K>;
-};
-type dissoc_record_01<U extends Record<V, any>, V extends string> = {
-    (property: V): dissoc_record_11<U, V>;
-};
-type dissoc_general_01<T extends {}> = {
-    (property: Property): dissoc_general_11<T>;
-};
 type dissoc_keyof_11<T extends {}, K extends keyof T> = Omit<T, K>;
 type dissoc_record_11<U extends Record<V, any>, V extends string> = Omit<U, V>;
 type dissoc_general_11<T extends {}> = T;

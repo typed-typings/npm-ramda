@@ -28,8 +28,5 @@ type split_00 = {
 type split_10 = {
     (str: string): split_11;
 };
-type split_01 = {
-    (separator: RegExp | string): split_11;
-};
 type split_11 = string[];
 export = split;

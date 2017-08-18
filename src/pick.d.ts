@@ -41,15 +41,6 @@ type pick_record_10<V extends string> = {
 type pick_general_10 = {
     <T extends {}>(object: T): pick_general_11<T>;
 };
-type pick_keyof_01<T extends {}> = {
-    <K extends keyof T>(keys: List<K>): pick_keyof_11<T, K>;
-};
-type pick_record_01<U extends Record<V, any>, V extends string> = {
-    (keys: List<V>): pick_record_11<U, V>;
-};
-type pick_general_01<T extends {}> = {
-    (keys: List<Property>): pick_general_11<T>;
-};
 type pick_keyof_11<T extends {}, K extends keyof T> = Pick<T, K>;
 type pick_record_11<U extends Record<V, any>, V extends string> = Pick<U, V>;
 type pick_general_11<T extends {}> = Partial<T>;

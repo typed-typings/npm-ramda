@@ -31,8 +31,5 @@ type indexBy_00 = {
 type indexBy_10<T> = {
     (list: List<T>): indexBy_11<T>;
 };
-type indexBy_01<T> = {
-    (fn: Morphism<T, Property>): indexBy_11<T>;
-};
 type indexBy_11<T> = Dictionary<T>;
 export = indexBy;

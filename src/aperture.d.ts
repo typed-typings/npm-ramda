@@ -30,8 +30,5 @@ type aperture_00 = {
 type aperture_10 = {
     <T>(list: List<T>): aperture_11<T>;
 };
-type aperture_01<T> = {
-    (n: number): aperture_11<T>;
-};
 type aperture_11<T> = T[][];
 export = aperture;

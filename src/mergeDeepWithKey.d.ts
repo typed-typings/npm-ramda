@@ -41,26 +41,8 @@ type mergeDeepWithKey_100<V> = {
     <$SEL extends "11">(): (left: object, right: object) => mergeDeepWithKey_111;
     (left: object, right: object): mergeDeepWithKey_111;
 };
-type mergeDeepWithKey_010 = {
-    <V>(fn: (key: string, a: V, b: V) => any): mergeDeepWithKey_110<V>;
-    <$SEL extends "1">(): <V>(fn: (key: string, a: V, b: V) => any) => mergeDeepWithKey_110<V>;
-    <$SEL extends "11">(): <V>(fn: (key: string, a: V, b: V) => any, right: object) => mergeDeepWithKey_111;
-    <V>(fn: (key: string, a: V, b: V) => any, right: object): mergeDeepWithKey_111;
-};
 type mergeDeepWithKey_110<V> = {
     (right: object): mergeDeepWithKey_111;
-};
-type mergeDeepWithKey_001 = {
-    <V>(fn: (key: string, a: V, b: V) => any): mergeDeepWithKey_101<V>;
-    <$SEL extends "1">(): <V>(fn: (key: string, a: V, b: V) => any) => mergeDeepWithKey_101<V>;
-    <$SEL extends "11">(): <V>(fn: (key: string, a: V, b: V) => any, left: object) => mergeDeepWithKey_111;
-    <V>(fn: (key: string, a: V, b: V) => any, left: object): mergeDeepWithKey_111;
-};
-type mergeDeepWithKey_101<V> = {
-    (left: object): mergeDeepWithKey_111;
-};
-type mergeDeepWithKey_011 = {
-    <V>(fn: (key: string, a: V, b: V) => any): mergeDeepWithKey_111;
 };
 type mergeDeepWithKey_111 = object;
 export = mergeDeepWithKey;

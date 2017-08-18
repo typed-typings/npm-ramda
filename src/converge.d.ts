@@ -163,63 +163,6 @@ type converge_i3f6_10<U1, U2, U3, U4, U5, U6, R> = {
 type converge_variadic_10<R> = {
     (fns: List<Variadic<any>>): converge_variadic_11<R>;
 };
-type converge_i1f1_01<T1, U1> = {
-    <R>(after: (v1: U1) => R): converge_i1f1_11<T1, R>;
-};
-type converge_i1f2_01<T1, U1, U2> = {
-    <R>(after: (v1: U1, v2: U2) => R): converge_i1f2_11<T1, R>;
-};
-type converge_i1f3_01<T1, U1, U2, U3> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3) => R): converge_i1f3_11<T1, R>;
-};
-type converge_i1f4_01<T1, U1, U2, U3, U4> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4) => R): converge_i1f4_11<T1, R>;
-};
-type converge_i1f5_01<T1, U1, U2, U3, U4, U5> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4, v5: U5) => R): converge_i1f5_11<T1, R>;
-};
-type converge_i1f6_01<T1, U1, U2, U3, U4, U5, U6> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4, v5: U5, v6: U6) => R): converge_i1f6_11<T1, R>;
-};
-type converge_i2f1_01<T1, T2, U1> = {
-    <R>(after: (v1: U1) => R): converge_i2f1_11<T1, T2, R>;
-};
-type converge_i2f2_01<T1, T2, U1, U2> = {
-    <R>(after: (v1: U1, v2: U2) => R): converge_i2f2_11<T1, T2, R>;
-};
-type converge_i2f3_01<T1, T2, U1, U2, U3> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3) => R): converge_i2f3_11<T1, T2, R>;
-};
-type converge_i2f4_01<T1, T2, U1, U2, U3, U4> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4) => R): converge_i2f4_11<T1, T2, R>;
-};
-type converge_i2f5_01<T1, T2, U1, U2, U3, U4, U5> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4, v5: U5) => R): converge_i2f5_11<T1, T2, R>;
-};
-type converge_i2f6_01<T1, T2, U1, U2, U3, U4, U5, U6> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4, v5: U5, v6: U6) => R): converge_i2f6_11<T1, T2, R>;
-};
-type converge_i3f1_01<T1, T2, T3, U1> = {
-    <R>(after: (v1: U1) => R): converge_i3f1_11<T1, T2, T3, R>;
-};
-type converge_i3f2_01<T1, T2, T3, U1, U2> = {
-    <R>(after: (v1: U1, v2: U2) => R): converge_i3f2_11<T1, T2, T3, R>;
-};
-type converge_i3f3_01<T1, T2, T3, U1, U2, U3> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3) => R): converge_i3f3_11<T1, T2, T3, R>;
-};
-type converge_i3f4_01<T1, T2, T3, U1, U2, U3, U4> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4) => R): converge_i3f4_11<T1, T2, T3, R>;
-};
-type converge_i3f5_01<T1, T2, T3, U1, U2, U3, U4, U5> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4, v5: U5) => R): converge_i3f5_11<T1, T2, T3, R>;
-};
-type converge_i3f6_01<T1, T2, T3, U1, U2, U3, U4, U5, U6> = {
-    <R>(after: (v1: U1, v2: U2, v3: U3, v4: U4, v5: U5, v6: U6) => R): converge_i3f6_11<T1, T2, T3, R>;
-};
-type converge_variadic_01 = {
-    <R>(after: Variadic<R>): converge_variadic_11<R>;
-};
 type converge_i1f1_11<T1, R> = CurriedFunction1<T1, R>;
 type converge_i1f2_11<T1, R> = CurriedFunction1<T1, R>;
 type converge_i1f3_11<T1, R> = CurriedFunction1<T1, R>;

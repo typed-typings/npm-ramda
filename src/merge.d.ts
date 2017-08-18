@@ -32,8 +32,5 @@ type merge_00 = {
 type merge_10<T> = {
     <U>(b: U): merge_11<T, U>;
 };
-type merge_01<U> = {
-    <T>(a: T): merge_11<T, U>;
-};
 type merge_11<T, U> = Merge<T, U>;
 export = merge;

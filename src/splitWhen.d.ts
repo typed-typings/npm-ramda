@@ -28,8 +28,5 @@ type splitWhen_00 = {
 type splitWhen_10<T> = {
     (list: List<T>): splitWhen_11<T>;
 };
-type splitWhen_01<T> = {
-    (fn: Predicate<T>): splitWhen_11<T>;
-};
 type splitWhen_11<T> = [T[], T[]];
 export = splitWhen;

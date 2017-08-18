@@ -30,8 +30,5 @@ type mapObjIndexed_00 = {
 type mapObjIndexed_10<T, U, K extends string> = {
     (object: Record<K, T>): mapObjIndexed_11<U, K>;
 };
-type mapObjIndexed_01<T, K extends string> = {
-    <U>(fn: KeyedObjectMorphism<T, U, K>): mapObjIndexed_11<U, K>;
-};
 type mapObjIndexed_11<U, K extends string> = Record<K, U>;
 export = mapObjIndexed;

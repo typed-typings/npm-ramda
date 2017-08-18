@@ -26,8 +26,5 @@ type min_00 = {
 type min_10<T extends Ordered> = {
     (b: T): min_11<T>;
 };
-type min_01<T extends Ordered> = {
-    (a: T): min_11<T>;
-};
 type min_11<T extends Ordered> = T;
 export = min;

@@ -46,18 +46,6 @@ type reject_10<T> = {
     <$SEL extends "1", $KIND extends "mixed">(): <U extends List<T> | Filterable<T> | Dictionary<T>>(target: U) => reject_mixed_11<T, U>;
     <U extends List<T> | Filterable<T> | Dictionary<T>>(target: U): reject_mixed_11<T, U>;
 };
-type reject_list_01<T> = {
-    (fn: Predicate<T>): reject_list_11<T>;
-};
-type reject_filterable_01<T, U extends Filterable<T>> = {
-    (fn: Predicate<T>): reject_filterable_11<T, U>;
-};
-type reject_object_01<T, U extends Dictionary<T>> = {
-    (fn: Predicate<T>): reject_object_11<T, U>;
-};
-type reject_mixed_01<T, U extends List<T> | Filterable<T> | Dictionary<T>> = {
-    (fn: Predicate<T>): reject_mixed_11<T, U>;
-};
 type reject_list_11<T> = T[];
 type reject_filterable_11<T, U extends Filterable<T>> = U;
 type reject_object_11<T, U extends Dictionary<T>> = Partial<U>;

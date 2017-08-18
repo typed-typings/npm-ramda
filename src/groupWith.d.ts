@@ -39,8 +39,5 @@ type groupWith_00 = {
 type groupWith_10<T> = {
     <U extends List<T>>(list: U): groupWith_11<T, U>;
 };
-type groupWith_01<T, U extends List<T>> = {
-    (fn: Comparator<T, boolean>): groupWith_11<T, U>;
-};
 type groupWith_11<T, U extends List<T>> = U[];
 export = groupWith;

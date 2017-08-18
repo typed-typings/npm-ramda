@@ -39,15 +39,6 @@ type dropLast_10 = {
     <$SEL extends "1", $KIND extends "mixed">(): <T>(list: string | List<T>) => dropLast_mixed_11<T>;
     <T>(list: string | List<T>): dropLast_mixed_11<T>;
 };
-type dropLast_string_01 = {
-    (n: number): dropLast_string_11;
-};
-type dropLast_list_01<T> = {
-    (n: number): dropLast_list_11<T>;
-};
-type dropLast_mixed_01<T> = {
-    (n: number): dropLast_mixed_11<T>;
-};
 type dropLast_string_11 = string;
 type dropLast_list_11<T> = T[];
 type dropLast_mixed_11<T> = string | T[];

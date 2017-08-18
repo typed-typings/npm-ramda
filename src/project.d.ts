@@ -42,15 +42,6 @@ type project_record_10<K extends string> = {
 type project_general_10 = {
     (object: List<any>): project_general_11;
 };
-type project_keyof_01<T> = {
-    <K extends keyof T>(keys: List<K>): project_keyof_11<T, K>;
-};
-type project_record_01<K extends string, T extends Record<K, any>> = {
-    (keys: List<K>): project_record_11<K, T>;
-};
-type project_general_01 = {
-    (keys: Property[]): project_general_11;
-};
 type project_keyof_11<T, K extends keyof T> = Array<Pick<T, K>>;
 type project_record_11<K extends string, T extends Record<K, any>> = Array<Pick<T, K>>;
 type project_general_11 = any[];

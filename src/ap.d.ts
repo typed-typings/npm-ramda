@@ -30,8 +30,5 @@ type ap_00 = {
 type ap_10<T, U> = {
     (list: List<T>): ap_11<U>;
 };
-type ap_01<T> = {
-    <U>(fns: Array<Morphism<T, U>>): ap_11<U>;
-};
 type ap_11<U> = U[];
 export = ap;

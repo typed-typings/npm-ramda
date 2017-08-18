@@ -61,15 +61,6 @@ type take_10 = {
     <$SEL extends "1", $KIND extends "mixed">(): <T>(list: string | List<T>) => take_mixed_11<T>;
     <T>(list: string | List<T>): take_mixed_11<T>;
 };
-type take_string_01 = {
-    (n: number): take_string_11;
-};
-type take_list_01<T> = {
-    (n: number): take_list_11<T>;
-};
-type take_mixed_01<T> = {
-    (n: number): take_mixed_11<T>;
-};
 type take_string_11 = string;
 type take_list_11<T> = T[];
 type take_mixed_11<T> = string | T[];

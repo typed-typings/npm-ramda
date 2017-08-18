@@ -26,8 +26,5 @@ type intersperse_00 = {
 type intersperse_10<T> = {
     <U>(list: List<U>): intersperse_11<T, U>;
 };
-type intersperse_01<U> = {
-    <T>(separator: T): intersperse_11<T, U>;
-};
 type intersperse_11<T, U> = Array<T | U>;
 export = intersperse;

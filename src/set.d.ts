@@ -89,32 +89,6 @@ type set_general_100<V> = {
     <$SEL extends "11">(): (fn: any, target: V) => set_general_111<V>;
     (fn: any, target: V): set_general_111<V>;
 };
-type set_number_010<N extends number, U extends {
-        [index: number]: any;
-    }> = {
-    (lens: PseudoLens<N>): set_number_110<N, U>;
-    <$SEL extends "1">(): (lens: PseudoLens<N>) => set_number_110<N, U>;
-    <$SEL extends "11">(): (lens: PseudoLens<N>, target: U) => set_number_111<U>;
-    (lens: PseudoLens<N>, target: U): set_number_111<U>;
-};
-type set_string_010<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): set_string_110<K, U>;
-    <$SEL extends "1">(): (lens: PseudoLens<K>) => set_string_110<K, U>;
-    <$SEL extends "11">(): (lens: PseudoLens<K>, target: U) => set_string_111<K, U>;
-    (lens: PseudoLens<K>, target: U): set_string_111<K, U>;
-};
-type set_manual_010<T> = {
-    <U>(lens: ManualLens<T, U>): set_manual_110<T, U>;
-    <$SEL extends "1">(): <U>(lens: ManualLens<T, U>) => set_manual_110<T, U>;
-    <$SEL extends "11">(): <U>(lens: ManualLens<T, U>, target: U) => set_manual_111<U>;
-    <U>(lens: ManualLens<T, U>, target: U): set_manual_111<U>;
-};
-type set_general_010 = {
-    <V>(lens: PseudoLens<any> | ManualLens<any, V>): set_general_110<V>;
-    <$SEL extends "1">(): <V>(lens: PseudoLens<any> | ManualLens<any, V>) => set_general_110<V>;
-    <$SEL extends "11">(): <V>(lens: PseudoLens<any> | ManualLens<any, V>, target: V) => set_general_111<V>;
-    <V>(lens: PseudoLens<any> | ManualLens<any, V>, target: V): set_general_111<V>;
-};
 type set_number_110<N extends number, U extends {
         [index: number]: any;
     }> = {
@@ -128,60 +102,6 @@ type set_manual_110<T, U> = {
 };
 type set_general_110<V> = {
     (target: V): set_general_111<V>;
-};
-type set_number_001<U extends {
-        [index: number]: any;
-    }> = {
-    <N extends number>(lens: PseudoLens<N>): set_number_101<N, U>;
-    <$SEL extends "1">(): <N extends number>(lens: PseudoLens<N>) => set_number_101<N, U>;
-    <$SEL extends "11">(): <N extends number>(lens: PseudoLens<N>, value: U[NumberToString[N]]) => set_number_111<U>;
-    <N extends number>(lens: PseudoLens<N>, value: U[NumberToString[N]]): set_number_111<U>;
-};
-type set_string_001<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): set_string_101<K, U>;
-    <$SEL extends "1">(): (lens: PseudoLens<K>) => set_string_101<K, U>;
-    <$SEL extends "11">(): (lens: PseudoLens<K>, value: U[K]) => set_string_111<K, U>;
-    (lens: PseudoLens<K>, value: U[K]): set_string_111<K, U>;
-};
-type set_manual_001<U> = {
-    <T>(lens: ManualLens<T, U>): set_manual_101<T, U>;
-    <$SEL extends "1">(): <T>(lens: ManualLens<T, U>) => set_manual_101<T, U>;
-    <$SEL extends "11">(): <T>(lens: ManualLens<T, U>, value: T) => set_manual_111<U>;
-    <T>(lens: ManualLens<T, U>, value: T): set_manual_111<U>;
-};
-type set_general_001<V> = {
-    (lens: PseudoLens<any> | ManualLens<any, V>): set_general_101<V>;
-    <$SEL extends "1">(): (lens: PseudoLens<any> | ManualLens<any, V>) => set_general_101<V>;
-    <$SEL extends "11">(): (lens: PseudoLens<any> | ManualLens<any, V>, fn: any) => set_general_111<V>;
-    (lens: PseudoLens<any> | ManualLens<any, V>, fn: any): set_general_111<V>;
-};
-type set_number_101<N extends number, U extends {
-        [index: number]: any;
-    }> = {
-    (value: U[NumberToString[N]]): set_number_111<U>;
-};
-type set_string_101<K extends string, U extends Record<K, any>> = {
-    (value: U[K]): set_string_111<K, U>;
-};
-type set_manual_101<T, U> = {
-    (value: T): set_manual_111<U>;
-};
-type set_general_101<V> = {
-    (fn: any): set_general_111<V>;
-};
-type set_number_011<N extends number, U extends {
-        [index: number]: any;
-    }> = {
-    (lens: PseudoLens<N>): set_number_111<U>;
-};
-type set_string_011<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): set_string_111<K, U>;
-};
-type set_manual_011<T, U> = {
-    (lens: ManualLens<T, U>): set_manual_111<U>;
-};
-type set_general_011<V> = {
-    (lens: PseudoLens<any> | ManualLens<any, V>): set_general_111<V>;
 };
 type set_number_111<U extends {
         [index: number]: any;

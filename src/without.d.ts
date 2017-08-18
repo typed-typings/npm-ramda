@@ -28,8 +28,5 @@ type without_00 = {
 type without_10<T> = {
     (b: List<T>): without_11<T>;
 };
-type without_01<T> = {
-    (a: List<T>): without_11<T>;
-};
 type without_11<T> = T[];
 export = without;

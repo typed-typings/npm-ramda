@@ -38,32 +38,6 @@ type unless_000 = {
     <$SEL extends "111", $KIND extends "general">(): <T, U>(pred: Predicate<T>, whenFalseFn: Morphism<T, U>, value: T) => unless_general_111<T, U>;
     <T, U>(pred: Predicate<T>, whenFalseFn: Morphism<T, U>, value: T): unless_general_111<T, U>;
 };
-type unless_010<T, U> = {
-    <V extends T>(pred: (value: T) => value is V): unless_predicate_110<T, U, V>;
-    (pred: Predicate<T>): unless_general_110<T, U>;
-    <V extends T>(pred: (value: T) => value is V, value: T): unless_predicate_111<T, U, V>;
-    <$SEL extends "1", $KIND extends "predicate">(): <V extends T>(pred: (value: T) => value is V) => unless_predicate_110<T, U, V>;
-    <$SEL extends "1", $KIND extends "general">(): (pred: Predicate<T>) => unless_general_110<T, U>;
-    <$SEL extends "11", $KIND extends "predicate">(): <V extends T>(pred: (value: T) => value is V, value: T) => unless_predicate_111<T, U, V>;
-    <$SEL extends "11", $KIND extends "general">(): (pred: Predicate<T>, value: T) => unless_general_111<T, U>;
-    (pred: Predicate<T>, value: T): unless_general_111<T, U>;
-};
-type unless_001<T> = {
-    <V extends T>(pred: (value: T) => value is V): unless_predicate_101<T, V>;
-    (pred: Predicate<T>): unless_general_101<T>;
-    <U, V extends T>(pred: (value: T) => value is V, whenFalseFn: Morphism<T, U>): unless_predicate_111<T, U, V>;
-    <$SEL extends "1", $KIND extends "predicate">(): <V extends T>(pred: (value: T) => value is V) => unless_predicate_101<T, V>;
-    <$SEL extends "1", $KIND extends "general">(): (pred: Predicate<T>) => unless_general_101<T>;
-    <$SEL extends "11", $KIND extends "predicate">(): <U, V extends T>(pred: (value: T) => value is V, whenFalseFn: Morphism<T, U>) => unless_predicate_111<T, U, V>;
-    <$SEL extends "11", $KIND extends "general">(): <U>(pred: Predicate<T>, whenFalseFn: Morphism<T, U>) => unless_general_111<T, U>;
-    <U>(pred: Predicate<T>, whenFalseFn: Morphism<T, U>): unless_general_111<T, U>;
-};
-type unless_011<T, U> = {
-    <V extends T>(pred: (value: T) => value is V): unless_predicate_111<T, U, V>;
-    <$SEL extends "1", $KIND extends "predicate">(): <V extends T>(pred: (value: T) => value is V) => unless_predicate_111<T, U, V>;
-    <$SEL extends "1", $KIND extends "general">(): (pred: Predicate<T>) => unless_general_111<T, U>;
-    (pred: Predicate<T>): unless_general_111<T, U>;
-};
 type unless_predicate_100<T, V extends T> = {
     <U>(whenFalseFn: Morphism<T, U>): unless_predicate_110<T, U, V>;
     <$SEL extends "1">(): <U>(whenFalseFn: Morphism<T, U>) => unless_predicate_110<T, U, V>;
@@ -81,12 +55,6 @@ type unless_predicate_110<T, U, V extends T> = {
 };
 type unless_general_110<T, U> = {
     (value: T): unless_general_111<T, U>;
-};
-type unless_predicate_101<T, V extends T> = {
-    <U>(whenFalseFn: Morphism<T, U>): unless_predicate_111<T, U, V>;
-};
-type unless_general_101<T> = {
-    <U>(whenFalseFn: Morphism<T, U>): unless_general_111<T, U>;
 };
 type unless_predicate_111<T, U, V extends T> = V | U;
 type unless_general_111<T, U> = T | U;

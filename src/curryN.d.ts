@@ -101,30 +101,6 @@ type curryN_6arity_10 = {
 type curryN_variadic_10 = {
     <R>(fn: Variadic<R>): curryN_variadic_11<R>;
 };
-type curryN_0arity_01<R> = {
-    (n: 0): curryN_0arity_11<R>;
-};
-type curryN_1arity_01<T1, R> = {
-    (n: 1): curryN_1arity_11<T1, R>;
-};
-type curryN_2arity_01<T1, T2, R> = {
-    (n: 2): curryN_2arity_11<T1, T2, R>;
-};
-type curryN_3arity_01<T1, T2, T3, R> = {
-    (n: 3): curryN_3arity_11<T1, T2, T3, R>;
-};
-type curryN_4arity_01<T1, T2, T3, T4, R> = {
-    (n: 4): curryN_4arity_11<T1, T2, T3, T4, R>;
-};
-type curryN_5arity_01<T1, T2, T3, T4, T5, R> = {
-    (n: 5): curryN_5arity_11<T1, T2, T3, T4, T5, R>;
-};
-type curryN_6arity_01<T1, T2, T3, T4, T5, T6, R> = {
-    (n: 6): curryN_6arity_11<T1, T2, T3, T4, T5, T6, R>;
-};
-type curryN_variadic_01<R> = {
-    (n: number): curryN_variadic_11<R>;
-};
 type curryN_0arity_11<R> = CurriedFunction0<R>;
 type curryN_1arity_11<T1, R> = CurriedFunction1<T1, R>;
 type curryN_2arity_11<T1, T2, R> = CurriedFunction2<T1, T2, R>;

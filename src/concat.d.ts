@@ -48,15 +48,6 @@ type concat_list_10<T> = {
 type concat_mixed_10<T> = {
     <U>(b: U[] | string): concat_mixed_11<T, U>;
 };
-type concat_string_01 = {
-    (a: string): concat_string_11;
-};
-type concat_list_01<U> = {
-    <T>(a: T[]): concat_list_11<T, U>;
-};
-type concat_mixed_01<U> = {
-    <T>(a: T[] | string): concat_mixed_11<T, U>;
-};
 type concat_string_11 = string;
 type concat_list_11<T, U> = Array<T | U>;
 type concat_mixed_11<T, U> = Array<T | U> | string;

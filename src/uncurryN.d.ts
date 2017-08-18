@@ -54,24 +54,6 @@ type uncurryN_00 = {
     <$SEL extends "11", $KIND extends "variadic">(): <R = any>(n: number, fn: Variadic<any>) => uncurryN_variadic_11<R>;
     <R = any>(n: number, fn: Variadic<any>): uncurryN_variadic_11<R>;
 };
-type uncurryN_01 = {
-    <R = any>(n: 0): uncurryN_0arity_11<R>;
-    <R = any, T1 = any>(n: 1): uncurryN_1arity_11<R, T1>;
-    <R = any, T1 = any, T2 = any>(n: 2): uncurryN_2arity_11<R, T1, T2>;
-    <R = any, T1 = any, T2 = any, T3 = any>(n: 3): uncurryN_3arity_11<R, T1, T2, T3>;
-    <R = any, T1 = any, T2 = any, T3 = any, T4 = any>(n: 4): uncurryN_4arity_11<R, T1, T2, T3, T4>;
-    <R = any, T1 = any, T2 = any, T3 = any, T4 = any, T5 = any>(n: 5): uncurryN_5arity_11<R, T1, T2, T3, T4, T5>;
-    <R = any, T1 = any, T2 = any, T3 = any, T4 = any, T5 = any, T6 = any>(n: 6): uncurryN_6arity_11<R, T1, T2, T3, T4, T5, T6>;
-    <$SEL extends "1", $KIND extends "0arity">(): <R = any>(n: 0) => uncurryN_0arity_11<R>;
-    <$SEL extends "1", $KIND extends "1arity">(): <R = any, T1 = any>(n: 1) => uncurryN_1arity_11<R, T1>;
-    <$SEL extends "1", $KIND extends "2arity">(): <R = any, T1 = any, T2 = any>(n: 2) => uncurryN_2arity_11<R, T1, T2>;
-    <$SEL extends "1", $KIND extends "3arity">(): <R = any, T1 = any, T2 = any, T3 = any>(n: 3) => uncurryN_3arity_11<R, T1, T2, T3>;
-    <$SEL extends "1", $KIND extends "4arity">(): <R = any, T1 = any, T2 = any, T3 = any, T4 = any>(n: 4) => uncurryN_4arity_11<R, T1, T2, T3, T4>;
-    <$SEL extends "1", $KIND extends "5arity">(): <R = any, T1 = any, T2 = any, T3 = any, T4 = any, T5 = any>(n: 5) => uncurryN_5arity_11<R, T1, T2, T3, T4, T5>;
-    <$SEL extends "1", $KIND extends "6arity">(): <R = any, T1 = any, T2 = any, T3 = any, T4 = any, T5 = any, T6 = any>(n: 6) => uncurryN_6arity_11<R, T1, T2, T3, T4, T5, T6>;
-    <$SEL extends "1", $KIND extends "variadic">(): <R = any>(n: number) => uncurryN_variadic_11<R>;
-    <R = any>(n: number): uncurryN_variadic_11<R>;
-};
 type uncurryN_0arity_10 = {
     <R = any>(fn: Variadic<any>): uncurryN_0arity_11<R>;
 };

@@ -29,8 +29,5 @@ type mergeDeepLeft_00 = {
 type mergeDeepLeft_10 = {
     (right: object): mergeDeepLeft_11;
 };
-type mergeDeepLeft_01 = {
-    (left: object): mergeDeepLeft_11;
-};
 type mergeDeepLeft_11 = object;
 export = mergeDeepLeft;

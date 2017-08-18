@@ -35,15 +35,6 @@ type splitEvery_10 = {
     <$SEL extends "1", $KIND extends "mixed">(): <T>(list: string | List<T>) => splitEvery_mixed_11<T>;
     <T>(list: string | List<T>): splitEvery_mixed_11<T>;
 };
-type splitEvery_string_01 = {
-    (n: number): splitEvery_string_11;
-};
-type splitEvery_list_01<T> = {
-    (n: number): splitEvery_list_11<T>;
-};
-type splitEvery_mixed_01<T> = {
-    (n: number): splitEvery_mixed_11<T>;
-};
 type splitEvery_string_11 = string[];
 type splitEvery_list_11<T> = T[][];
 type splitEvery_mixed_11<T> = string[] | T[][];

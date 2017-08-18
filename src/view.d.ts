@@ -58,20 +58,6 @@ type view_manual_10<T, U> = {
 type view_general_10<X, V> = {
     (target: V): view_general_11<X, V>;
 };
-type view_number_01<U extends {
-        [index: number]: any;
-    }> = {
-    <N extends number>(lens: PseudoLens<N>): view_number_11<N, U>;
-};
-type view_string_01<K extends string, U extends Record<K, any>> = {
-    (lens: PseudoLens<K>): view_string_11<K, U>;
-};
-type view_manual_01<U> = {
-    <T>(lens: ManualLens<T, U>): view_manual_11<T>;
-};
-type view_general_01<V> = {
-    <X>(lens: PseudoLens<any> | ManualLens<X, V>): view_general_11<X, V>;
-};
 type view_number_11<N extends number, U extends {
         [index: number]: any;
     }> = U[NumberToString[N]];

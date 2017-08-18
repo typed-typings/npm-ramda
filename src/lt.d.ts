@@ -30,8 +30,5 @@ type lt_00 = {
 type lt_10<T extends Ordered> = {
     (b: T): lt_11;
 };
-type lt_01<T extends Ordered> = {
-    (a: T): lt_11;
-};
 type lt_11 = boolean;
 export = lt;

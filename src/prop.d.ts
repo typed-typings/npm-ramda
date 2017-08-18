@@ -41,15 +41,6 @@ type prop_record_10<K extends string> = {
 type prop_general_10 = {
     <T>(object: {}): prop_general_11<T>;
 };
-type prop_keyof_01<T extends {}> = {
-    <K extends keyof T>(key: K): prop_keyof_11<T, K>;
-};
-type prop_record_01<K extends string, T extends Record<K, any>> = {
-    (key: K): prop_record_11<K, T>;
-};
-type prop_general_01 = {
-    <T>(key: Property): prop_general_11<T>;
-};
 type prop_keyof_11<T extends {}, K extends keyof T> = T[K];
 type prop_record_11<K extends string, T extends Record<K, any>> = T[K];
 type prop_general_11<T> = T | undefined;
