@@ -38,7 +38,8 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
   }
 
   if (!basename.startsWith('$')) {
-    bind_member_jsdoc_and_add_export_equal();
+    bind_member_jsdoc();
+    add_export_equal();
   }
 
   if (function_name === 'path') {
@@ -58,11 +59,29 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
 
   return members;
 
-  function bind_member_jsdoc_and_add_export_equal() {
+  function add_export_equal() {
+    const target_member = members.find(member => {
+      switch (member.kind) {
+        case dts.ElementKind.VariableDeclaration:
+        case dts.ElementKind.FunctionDeclaration:
+          return true;
+        default:
+          return false;
+      }
+    }) as undefined | dts.IVariableDeclaration | dts.IFunctionDeclaration;
+    if (target_member === undefined) {
+      throw new Error(`Cannot find element to set export equal in ${filename}`);
+    }
+    members.push(dts.create_export_equal({ value: target_member.name! }));
+  }
+
+  function bind_member_jsdoc() {
     const target_member_index = members.findIndex(member => {
       switch (member.kind) {
-        case dts.ElementKind.FunctionDeclaration:
         case dts.ElementKind.VariableDeclaration:
+          return function_name === '__';
+        case dts.ElementKind.TypeDeclaration:
+        case dts.ElementKind.FunctionDeclaration:
           return true;
         default:
           return false;
@@ -73,9 +92,14 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
     }
     const target_member = members[target_member_index] as
       | dts.IVariableDeclaration
-      | dts.IFunctionDeclaration;
-    members[target_member_index] = bind_jsdoc(filename, target_member);
-    members.push(dts.create_export_equal({ value: target_member.name! }));
+      | dts.IFunctionDeclaration
+      | dts.ITypeDeclaration;
+    if (target_member.kind === dts.ElementKind.TypeDeclaration) {
+      const target_overloads = (target_member.type as dts.IObjectType).members!;
+      bind_jsdoc(filename, target_overloads[0]);
+    } else {
+      bind_jsdoc(filename, members[target_member_index]);
+    }
   }
 
   function push_r_ts_members() {
