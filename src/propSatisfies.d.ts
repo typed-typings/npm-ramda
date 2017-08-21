@@ -1,25 +1,25 @@
 import { Predicate, Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
-/**
- * Returns `true` if the specified object property satisfies the given
- * predicate; `false` otherwise.
- *
- * @func
- * @memberOf R
- * @since v0.16.0
- * @category Logic
- * @sig (a -> Boolean) -> String -> {String: a} -> Boolean
- * @param {Function} pred
- * @param {String} name
- * @param {*} obj
- * @return {Boolean}
- * @see R.propEq, R.propIs
- * @example
- *
- *      R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
- */
 declare const propSatisfies: propSatisfies_000;
 type propSatisfies_000 = {
+    /**
+     * Returns `true` if the specified object property satisfies the given
+     * predicate; `false` otherwise.
+     *
+     * @func
+     * @memberOf R
+     * @since v0.16.0
+     * @category Logic
+     * @sig (a -> Boolean) -> String -> {String: a} -> Boolean
+     * @param {Function} pred
+     * @param {String} name
+     * @param {*} obj
+     * @return {Boolean}
+     * @see R.propEq, R.propIs
+     * @example
+     *
+     *      R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true
+     */
     <T extends {}, K extends keyof T>(fn: Predicate<T[K]>): propSatisfies_keyof_100<T, K>;
     <K extends string, T extends Record<K, any>>(fn: Predicate<T[K]>): propSatisfies_record_100<K, T>;
     <V>(fn: Predicate<V>): propSatisfies_general_100<V>;

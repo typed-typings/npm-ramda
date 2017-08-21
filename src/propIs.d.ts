@@ -1,27 +1,27 @@
 import { Constructor, Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
-/**
- * Returns `true` if the specified object property is of the given type;
- * `false` otherwise.
- *
- * @func
- * @memberOf R
- * @since v0.16.0
- * @category Type
- * @sig Type -> String -> Object -> Boolean
- * @param {Function} type
- * @param {String} name
- * @param {*} obj
- * @return {Boolean}
- * @see R.is, R.propSatisfies
- * @example
- *
- *      R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
- *      R.propIs(Number, 'x', {x: 'foo'});    //=> false
- *      R.propIs(Number, 'x', {});            //=> false
- */
 declare const propIs: propIs_000;
 type propIs_000 = {
+    /**
+     * Returns `true` if the specified object property is of the given type;
+     * `false` otherwise.
+     *
+     * @func
+     * @memberOf R
+     * @since v0.16.0
+     * @category Type
+     * @sig Type -> String -> Object -> Boolean
+     * @param {Function} type
+     * @param {String} name
+     * @param {*} obj
+     * @return {Boolean}
+     * @see R.is, R.propSatisfies
+     * @example
+     *
+     *      R.propIs(Number, 'x', {x: 1, y: 2});  //=> true
+     *      R.propIs(Number, 'x', {x: 'foo'});    //=> false
+     *      R.propIs(Number, 'x', {});            //=> false
+     */
     <T>(constructor: Constructor<T>): propIs_guard_100<T>;
     (constructor: Constructor<any>): propIs_general_100;
     <K extends string>(_constructor: PH, key: K): propIs_guard_010<K>;

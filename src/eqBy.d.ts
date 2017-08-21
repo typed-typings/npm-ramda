@@ -1,24 +1,24 @@
 import { Morphism } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
-/**
- * Takes a function and two values in its domain and returns `true` if the
- * values map to the same value in the codomain; `false` otherwise.
- *
- * @func
- * @memberOf R
- * @since v0.18.0
- * @category Relation
- * @sig (a -> b) -> a -> a -> Boolean
- * @param {Function} f
- * @param {*} x
- * @param {*} y
- * @return {Boolean}
- * @example
- *
- *      R.eqBy(Math.abs, 5, -5); //=> true
- */
 declare const eqBy: eqBy_000;
 type eqBy_000 = {
+    /**
+     * Takes a function and two values in its domain and returns `true` if the
+     * values map to the same value in the codomain; `false` otherwise.
+     *
+     * @func
+     * @memberOf R
+     * @since v0.18.0
+     * @category Relation
+     * @sig (a -> b) -> a -> a -> Boolean
+     * @param {Function} f
+     * @param {*} x
+     * @param {*} y
+     * @return {Boolean}
+     * @example
+     *
+     *      R.eqBy(Math.abs, 5, -5); //=> true
+     */
     <T>(fn: Morphism<T, any>): eqBy_100<T>;
     <T>(_fn: PH, a: T): eqBy_010<T>;
     <T>(fn: Morphism<T, any>, a: T): eqBy_110<T>;

@@ -1,23 +1,23 @@
 import { List, Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
-/**
- * Returns a partial copy of an object omitting the keys specified.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Object
- * @sig [String] -> {String: *} -> {String: *}
- * @param {Array} names an array of String property names to omit from the new object
- * @param {Object} obj The object to copy from
- * @return {Object} A new object with properties from `names` not on it.
- * @see R.pick
- * @example
- *
- *      R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
- */
 declare const omit: omit_00;
 type omit_00 = {
+    /**
+     * Returns a partial copy of an object omitting the keys specified.
+     *
+     * @func
+     * @memberOf R
+     * @since v0.1.0
+     * @category Object
+     * @sig [String] -> {String: *} -> {String: *}
+     * @param {Array} names an array of String property names to omit from the new object
+     * @param {Object} obj The object to copy from
+     * @return {Object} A new object with properties from `names` not on it.
+     * @see R.pick
+     * @example
+     *
+     *      R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+     */
     (keys: List<Property>): omit_10;
     <T>(_keys: PH, object: T): omit_01<T>;
     <$SEL extends "1">(): (keys: List<Property>) => omit_10;

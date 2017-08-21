@@ -1,24 +1,24 @@
 import { Omit } from "./$operation";
 import { Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
-/**
- * Returns a new object that does not contain a `prop` property.
- *
- * @func
- * @memberOf R
- * @since v0.10.0
- * @category Object
- * @sig String -> {k: v} -> {k: v}
- * @param {String} prop The name of the property to dissociate
- * @param {Object} obj The object to clone
- * @return {Object} A new object equivalent to the original but without the specified property
- * @see R.assoc
- * @example
- *
- *      R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
- */
 declare const dissoc: dissoc_00;
 type dissoc_00 = {
+    /**
+     * Returns a new object that does not contain a `prop` property.
+     *
+     * @func
+     * @memberOf R
+     * @since v0.10.0
+     * @category Object
+     * @sig String -> {k: v} -> {k: v}
+     * @param {String} prop The name of the property to dissociate
+     * @param {Object} obj The object to clone
+     * @return {Object} A new object equivalent to the original but without the specified property
+     * @see R.assoc
+     * @example
+     *
+     *      R.dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+     */
     <T extends {}, K extends keyof T>(property: K): dissoc_keyof_10<T, K>;
     <V extends string>(property: V): dissoc_record_10<V>;
     (property: Property): dissoc_general_10;
