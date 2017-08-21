@@ -1,3 +1,4 @@
+declare const pipeP: typeof $;
 /**
  * Performs left-to-right composition of one or more Promise-returning
  * functions. The leftmost function may have any arity; the remaining functions
@@ -16,7 +17,6 @@
  *      //  followersForUser :: String -> Promise [User]
  *      var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
  */
-declare const pipeP: typeof $;
 declare function $<V1, R1>(fn1: (v1: V1) => PromiseLike<R1> | R1): (v1: V1) => PromiseLike<R1>;
 declare function $<V1, V2, R1>(fn1: (v1: V1, v2: V2) => PromiseLike<R1> | R1): (v1: V1, v2: V2) => PromiseLike<R1>;
 declare function $<V1, V2, V3, R1>(fn1: (v1: V1, v2: V2, v3: V3) => PromiseLike<R1> | R1): (v1: V1, v2: V2, v3: V3) => PromiseLike<R1>;

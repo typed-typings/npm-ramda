@@ -1,4 +1,5 @@
 import { Chain } from "./$types";
+declare const composeK: typeof $;
 /**
  * Returns the right-to-left Kleisli composition of the provided functions,
  * each of which must return a value of a type supported by [`chain`](#chain).
@@ -29,7 +30,6 @@ import { Chain } from "./$types";
  *       getStateCode({}); //=> Maybe.Nothing()
  * @symb R.composeK(f, g, h)(a) = R.chain(f, R.chain(g, h(a)))
  */
-declare const composeK: typeof $;
 declare function $<V1, R1>(fn1: (v1: Chain<V1>) => Chain<R1>): (v1: Chain<V1>) => Chain<R1>;
 declare function $<V1, R1, R2>(fn2: (v: Chain<R1>) => Chain<R2>, fn1: (v1: Chain<V1>) => Chain<R1>): (v1: Chain<V1>) => Chain<R2>;
 declare function $<V1, R1, R2, R3>(fn3: (v: Chain<R2>) => Chain<R3>, fn2: (v: Chain<R1>) => Chain<R2>, fn1: (v1: Chain<V1>) => Chain<R1>): (v1: Chain<V1>) => Chain<R3>;

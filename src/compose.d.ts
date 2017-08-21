@@ -1,3 +1,4 @@
+declare const compose: typeof $;
 /**
  * Performs right-to-left function composition. The rightmost function may have
  * any arity; the remaining functions must be unary.
@@ -22,7 +23,6 @@
  *
  * @symb R.compose(f, g, h)(a, b) = f(g(h(a, b)))
  */
-declare const compose: typeof $;
 declare function $<V1, R1>(fn1: (v1: V1) => R1): (v1: V1) => R1;
 declare function $<V1, V2, R1>(fn1: (v1: V1, v2: V2) => R1): (v1: V1, v2: V2) => R1;
 declare function $<V1, V2, V3, R1>(fn1: (v1: V1, v2: V2, v3: V3) => R1): (v1: V1, v2: V2, v3: V3) => R1;
