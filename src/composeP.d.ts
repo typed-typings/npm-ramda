@@ -1,3 +1,4 @@
+declare const composeP: typeof $;
 /**
  * Performs right-to-left composition of one or more Promise-returning
  * functions. The rightmost function may have any arity; the remaining
@@ -32,7 +33,6 @@
  *      followersForUser('JOE').then(followers => console.log('Followers:', followers))
  *      // Followers: ["STEVE","SUZY"]
  */
-declare const composeP: typeof $;
 declare function $<V1, R1>(fn1: (v1: V1) => PromiseLike<R1> | R1): (v1: V1) => PromiseLike<R1>;
 declare function $<V1, V2, R1>(fn1: (v1: V1, v2: V2) => PromiseLike<R1> | R1): (v1: V1, v2: V2) => PromiseLike<R1>;
 declare function $<V1, V2, V3, R1>(fn1: (v1: V1, v2: V2, v3: V3) => PromiseLike<R1> | R1): (v1: V1, v2: V2, v3: V3) => PromiseLike<R1>;

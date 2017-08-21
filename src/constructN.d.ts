@@ -1,42 +1,42 @@
 import { CurriedFunction0, CurriedFunction1, CurriedFunction2, CurriedFunction3, CurriedFunction4, CurriedFunction5, CurriedFunction6 } from "./$curriedFunctions";
 import { Constructor, Variadic } from "./$types";
-/**
- * Wraps a constructor function inside a curried function that can be called
- * with the same arguments and returns the same type. The arity of the function
- * returned is specified to allow using variadic constructor functions.
- *
- * @func
- * @memberOf R
- * @since v0.4.0
- * @category Function
- * @sig Number -> (* -> {*}) -> (* -> {*})
- * @param {Number} n The arity of the constructor function.
- * @param {Function} Fn The constructor function to wrap.
- * @return {Function} A wrapped, curried constructor function.
- * @example
- *
- *      // Variadic Constructor function
- *      function Salad() {
- *        this.ingredients = arguments;
- *      };
- *      Salad.prototype.recipe = function() {
- *        var instructions = R.map((ingredient) => (
- *          'Add a whollop of ' + ingredient, this.ingredients)
- *        )
- *        return R.join('\n', instructions)
- *      }
- *
- *      var ThreeLayerSalad = R.constructN(3, Salad)
- *
- *      // Notice we no longer need the 'new' keyword, and the constructor is curried for 3 arguments.
- *      var salad = ThreeLayerSalad('Mayonnaise')('Potato Chips')('Ketchup')
- *      console.log(salad.recipe());
- *      // Add a whollop of Mayonnaise
- *      // Add a whollop of Potato Chips
- *      // Add a whollop of Potato Ketchup
- */
 declare const constructN: constructN_00;
 type constructN_00 = {
+    /**
+     * Wraps a constructor function inside a curried function that can be called
+     * with the same arguments and returns the same type. The arity of the function
+     * returned is specified to allow using variadic constructor functions.
+     *
+     * @func
+     * @memberOf R
+     * @since v0.4.0
+     * @category Function
+     * @sig Number -> (* -> {*}) -> (* -> {*})
+     * @param {Number} n The arity of the constructor function.
+     * @param {Function} Fn The constructor function to wrap.
+     * @return {Function} A wrapped, curried constructor function.
+     * @example
+     *
+     *      // Variadic Constructor function
+     *      function Salad() {
+     *        this.ingredients = arguments;
+     *      };
+     *      Salad.prototype.recipe = function() {
+     *        var instructions = R.map((ingredient) => (
+     *          'Add a whollop of ' + ingredient, this.ingredients)
+     *        )
+     *        return R.join('\n', instructions)
+     *      }
+     *
+     *      var ThreeLayerSalad = R.constructN(3, Salad)
+     *
+     *      // Notice we no longer need the 'new' keyword, and the constructor is curried for 3 arguments.
+     *      var salad = ThreeLayerSalad('Mayonnaise')('Potato Chips')('Ketchup')
+     *      console.log(salad.recipe());
+     *      // Add a whollop of Mayonnaise
+     *      // Add a whollop of Potato Chips
+     *      // Add a whollop of Potato Ketchup
+     */
     (n: 0): constructN_0arity_10;
     (n: 1): constructN_1arity_10;
     (n: 2): constructN_2arity_10;
