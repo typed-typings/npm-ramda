@@ -29,17 +29,17 @@ type assocPath_000 = {
     (path: Path, value: any): assocPath_110;
     <$SEL extends "1">(): (path: Path) => assocPath_100;
     <$SEL extends "11">(): (path: Path, value: any) => assocPath_110;
-    <$SEL extends "111">(): <T extends {}>(path: Path, value: any, object: T) => assocPath_111<T>;
-    <T extends {}>(path: Path, value: any, object: T): assocPath_111<T>;
+    <$SEL extends "111">(): <T extends object>(path: Path, value: any, object: T) => assocPath_111<T>;
+    <T extends object>(path: Path, value: any, object: T): assocPath_111<T>;
 };
 type assocPath_100 = {
     (value: any): assocPath_110;
     <$SEL extends "1">(): (value: any) => assocPath_110;
-    <$SEL extends "11">(): <T extends {}>(value: any, object: T) => assocPath_111<T>;
-    <T extends {}>(value: any, object: T): assocPath_111<T>;
+    <$SEL extends "11">(): <T extends object>(value: any, object: T) => assocPath_111<T>;
+    <T extends object>(value: any, object: T): assocPath_111<T>;
 };
 type assocPath_110 = {
-    <T extends {}>(object: T): assocPath_111<T>;
+    <T extends object>(object: T): assocPath_111<T>;
 };
-type assocPath_111<T extends {}> = T;
+type assocPath_111<T extends object> = T;
 export = assocPath;

@@ -23,11 +23,11 @@ type dissocPath_00 = {
      */
     (path: Path): dissocPath_10;
     <$SEL extends "1">(): (path: Path) => dissocPath_10;
-    <$SEL extends "11">(): <T extends {}>(path: Path, object: T) => dissocPath_11<T>;
-    <T extends {}>(path: Path, object: T): dissocPath_11<T>;
+    <$SEL extends "11">(): <T extends object>(path: Path, object: T) => dissocPath_11<T>;
+    <T extends object>(path: Path, object: T): dissocPath_11<T>;
 };
 type dissocPath_10 = {
-    <T extends {}>(object: T): dissocPath_11<T>;
+    <T extends object>(object: T): dissocPath_11<T>;
 };
-type dissocPath_11<T extends {}> = DeepPartial<T>;
+type dissocPath_11<T extends object> = DeepPartial<T>;
 export = dissocPath;
