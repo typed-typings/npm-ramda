@@ -22,10 +22,10 @@ type dissocPath_00 = {
      *      R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
      */
     (path: Path): dissocPath_10;
-    <T extends {}>(path: Path, object: T): dissocPath_11<T>;
+    <T extends object>(path: Path, object: T): dissocPath_11<T>;
 };
 type dissocPath_10 = {
-    <T extends {}>(object: T): dissocPath_11<T>;
+    <T extends object>(object: T): dissocPath_11<T>;
 };
-type dissocPath_11<T extends {}> = DeepPartial<T>;
+type dissocPath_11<T extends object> = DeepPartial<T>;
 export = dissocPath;
