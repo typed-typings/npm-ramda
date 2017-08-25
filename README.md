@@ -15,7 +15,7 @@ Typing compatible with ramda version v0.24.1
 ## Features
 
 - support placeholder ( `R.__` )
-- support partial import ( `import * as map from "ramda/src/map"` )
+- support partial import ( `import map = require("ramda/src/map")` )
 - support selectable overloads ( use 0-param: `R.map<"11", "list">()` )
 
 ## Usage
