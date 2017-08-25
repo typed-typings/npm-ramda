@@ -267,6 +267,8 @@ import * as R from '../ramda/dist/index';
   R.assoc('c')(3, { a: 1, b: 2 }); //=> {a: 1, b: 2, c: 3}
   // @dts-jest:pass -> { a: number; b: number; } & Record<"c", number>
   R.assoc('c', 3)({ a: 1, b: 2 }); //=> {a: 1, b: 2, c: 3}
+  // @dts-jest:fail -> Argument of type '2' is not assignable to parameter of type 'object'.
+  R.assoc(1, [], 2);
 })();
 
 // @dts-jest:group assocPath
