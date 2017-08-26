@@ -1,1 +1,1 @@
-declare function T(): true
+declare function T(): true;
