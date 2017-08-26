@@ -1,1 +1,1 @@
-declare function F(): false
+declare function F(): false;
