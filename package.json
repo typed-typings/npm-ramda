@@ -48,7 +48,7 @@
     "gulp-rename": "1.2.2",
     "gulp-util": "3.0.8",
     "jest": "20.0.4",
-    "prettier": "1.5.3",
+    "prettier": "1.6.0-beta2",
     "prettier-config-ikatyang": "1.1.1",
     "ramda": "0.24.1",
     "run-sequence": "2.1.0",
