@@ -16,37 +16,37 @@ declare const a_b_c_d_e_f_to_any_promise: (
   f: object,
 ) => Promise<any>;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(boolean_to_number_promise);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(a_b_c_d_e_f_to_any_promise);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(string_to_boolean_promise, boolean_to_number_promise);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(a_b_c_d_e_f_to_any_promise, boolean_to_number_promise);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   number_to_string_promise,
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   a_b_c_d_e_f_to_any_promise,
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   string_to_number_promise,
   number_to_string_promise,
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   a_b_c_d_e_f_to_any_promise,
   number_to_string_promise,
@@ -54,7 +54,7 @@ R_pipeP(
   boolean_to_number_promise,
 );
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   boolean_to_string_promise,
   string_to_number_promise,
@@ -62,7 +62,7 @@ R_pipeP(
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   a_b_c_d_e_f_to_any_promise,
   string_to_number_promise,
@@ -71,7 +71,7 @@ R_pipeP(
   boolean_to_number_promise,
 );
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   number_to_boolean_promise,
   boolean_to_string_promise,
@@ -80,7 +80,7 @@ R_pipeP(
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pipeP(
   a_b_c_d_e_f_to_any_promise,
   boolean_to_string_promise,

@@ -17,22 +17,22 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:fail
+// @dts-jest:fail:snap
 R_pickBy(string_string_object_to_boolean)(string_number_record);
-// @dts-jest:fail
+// @dts-jest:fail:snap
 R_pickBy(string_string_object_to_boolean, string_number_record);
 
-// @dts-jest:fail
+// @dts-jest:fail:snap
 R_pickBy(string_string_object_to_boolean)(a_1_b_2_c_3);
-// @dts-jest:fail
+// @dts-jest:fail:snap
 R_pickBy(string_string_object_to_boolean, a_1_b_2_c_3);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pickBy(number_string_object_to_boolean)(string_number_record);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pickBy(number_string_object_to_boolean, string_number_record);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pickBy(number_string_object_to_boolean)(a_1_b_2_c_3);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pickBy(number_string_object_to_boolean, a_1_b_2_c_3);

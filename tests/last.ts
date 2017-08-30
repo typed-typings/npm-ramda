@@ -4,9 +4,9 @@ declare const string: string;
 declare const string_array: string[];
 declare const number_array: number[];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_last(string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_last(string_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_last(number_array);

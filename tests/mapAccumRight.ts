@@ -7,9 +7,9 @@ declare const string_number_to_string_number_tuple: (
 ) => [string, number];
 declare const string_array: string[];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_mapAccumRight(string_number_to_string_number_tuple, number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_mapAccumRight(string_number_to_string_number_tuple)(number)(string_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_mapAccumRight(string_number_to_string_number_tuple, number, string_array);

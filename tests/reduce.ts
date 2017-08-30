@@ -4,9 +4,9 @@ declare const number_array: number[];
 declare const object: object;
 declare const object_number_to_object: (acc: object, val: number) => object;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_reduce(object_number_to_object, object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_reduce(object_number_to_object)(object)(number_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_reduce(object_number_to_object, object, number_array);

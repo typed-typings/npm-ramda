@@ -2,7 +2,7 @@ import * as R_union from '../ramda/dist/src/union';
 
 declare const number_array: number[];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_union(number_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_union(number_array, number_array);

@@ -6,17 +6,17 @@ declare const string_array: string[];
 declare const string_dictionary: Dictionary<string>;
 declare const string_filterable: Filterable<string>;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_filter(string_predicate, string_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_filter(string_predicate)(string_array);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_filter(string_predicate, string_dictionary);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_filter(string_predicate)(string_dictionary);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_filter(string_predicate, string_filterable);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_filter(string_predicate)(string_filterable);

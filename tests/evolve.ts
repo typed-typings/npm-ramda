@@ -7,7 +7,7 @@ declare const a_b_number_to_number: {
   b: Morphism<number, number>;
 };
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_evolve(a_b_number_to_number)(a_1_b_2_c_3);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_evolve(a_b_number_to_number, a_1_b_2_c_3);

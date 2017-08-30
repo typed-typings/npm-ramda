@@ -5,12 +5,12 @@ declare const path: Path;
 declare const object: object;
 declare const a_b_c_d_e: { a: { b: { c: { d: { e: number } } } } };
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissocPath(path, object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissocPath(path)(object);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissocPath(path, a_b_c_d_e);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissocPath(path)(a_b_c_d_e);

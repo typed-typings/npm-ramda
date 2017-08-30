@@ -7,9 +7,9 @@ declare const keyed_number_dictionary_tap: KeyedObjectTap<
   Dictionary<number>
 >;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_forEachObjIndexed(keyed_number_dictionary_tap);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_forEachObjIndexed(keyed_number_dictionary_tap)(number_dictionary);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_forEachObjIndexed(keyed_number_dictionary_tap, number_dictionary);

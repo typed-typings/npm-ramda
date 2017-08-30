@@ -11,15 +11,15 @@ declare const curried_string_boolean_number_to_object: CurriedFunction3<
   object
 >;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 curried_string_boolean_number_to_object(string)(boolean)(number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 curried_string_boolean_number_to_object(string, boolean, number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 curried_string_boolean_number_to_object(R___, boolean, number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 curried_string_boolean_number_to_object(string, R___, number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 curried_string_boolean_number_to_object(R___, R___, number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 curried_string_boolean_number_to_object(string)(R___, number);

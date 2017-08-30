@@ -5,7 +5,7 @@ declare const path: Path;
 declare const number_value: number;
 declare const object: object;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_assocPath(path, number_value, object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_assocPath(path)(number_value)(object);

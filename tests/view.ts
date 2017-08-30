@@ -10,27 +10,27 @@ declare const a_1_b_2_c_3: { a: 1; b: 2; c: 3 };
 declare const number_array: number[];
 declare const string_number_tuple: [string, number];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(menual_lens_number_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(menual_lens_number_object)(object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(menual_lens_number_object, object);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_a);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_a)(a_1_b_2_c_3);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_a, a_1_b_2_c_3);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_1);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_1)(string_number_tuple);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_1, string_number_tuple);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_1)(number_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_view(pseudo_lens_1, number_array);

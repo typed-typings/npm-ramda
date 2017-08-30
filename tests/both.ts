@@ -3,7 +3,7 @@ import * as R_both from '../ramda/dist/src/both';
 
 declare const string_predicate: Predicate<string>;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_both(string_predicate);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_both(string_predicate, string_predicate);

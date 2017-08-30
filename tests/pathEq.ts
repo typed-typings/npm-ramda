@@ -5,9 +5,9 @@ declare const path: Path;
 declare const number: number;
 declare const object: object;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pathEq(path, number);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pathEq(path)(number)(object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_pathEq(path, number, object);

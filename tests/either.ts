@@ -3,7 +3,7 @@ import * as R_either from '../ramda/dist/src/either';
 
 declare const string_predicate: Predicate<string>;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_either(string_predicate);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_either(string_predicate, string_predicate);

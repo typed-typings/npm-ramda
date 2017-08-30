@@ -13,11 +13,11 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(string_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(seven_string_to_number);

@@ -5,9 +5,9 @@ declare const string_to_object_string_tuple_or_false: (
 ) => [object, string] | false;
 declare const string: string;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_unfold(string_to_object_string_tuple_or_false);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_unfold(string_to_object_string_tuple_or_false)(string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_unfold(string_to_object_string_tuple_or_false, string);

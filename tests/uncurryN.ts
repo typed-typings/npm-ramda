@@ -13,20 +13,20 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN(0, string_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN(1, number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN(4, number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN(7, seven_string_to_number);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN<object>(0, string_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN<string, number>(1, number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN<boolean, number, number>(4, number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_uncurryN<number>(7, seven_string_to_number);

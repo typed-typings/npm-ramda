@@ -16,11 +16,11 @@ declare const new_7_string_to_number: new (
   v7: string,
 ) => number;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_string_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_7_string_to_number);

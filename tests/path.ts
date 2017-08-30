@@ -9,15 +9,15 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_path(path);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_path(path)(object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_path(path, object);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_path(['a', 'b', 'c'])(a_1_b_2_c_3);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_path(['a', 'b', 'c'], a_1_b_2_c_3);

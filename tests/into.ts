@@ -13,20 +13,20 @@ declare const num_str_transformer_to_str_num_to_str: (
   x: Transformer<number, string, string>,
 ) => (x: string, y: number) => string;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_into(object, str_obj_transformer_to_obj_str_to_obj);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_into(object)(str_obj_transformer_to_obj_str_to_obj);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_into(str_obj_transformer, str_obj_transformer_to_obj_str_to_obj);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_into(str_obj_transformer)(str_obj_transformer_to_obj_str_to_obj);
 
 // @dts-jest:skip
 R_into(string, num_str_transformer_to_str_num_to_str);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_into(string)(num_str_transformer_to_str_num_to_str);
 // @dts-jest:skip
 R_into(num_str_transformer, num_str_transformer_to_str_num_to_str);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_into(num_str_transformer)(num_str_transformer_to_str_num_to_str);

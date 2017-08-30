@@ -6,13 +6,13 @@ declare const number_array: number[];
 declare const string_number_tuple: [string, number];
 declare const number_boolean_object_tuple: [number, boolean, object];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_head(string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_head(string_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_head(number_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_head(string_number_tuple);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_head(number_boolean_object_tuple);
