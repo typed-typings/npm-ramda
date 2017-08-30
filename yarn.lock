@@ -783,7 +783,7 @@ dts-element@2.2.1:
 
 dts-jest@ikatyang/dts-jest#dist:
   version "22.0.0-dev"
-  resolved "https://codeload.github.com/ikatyang/dts-jest/tar.gz/c49026a49a852073ca569d3b7602f00715de3b74"
+  resolved "https://codeload.github.com/ikatyang/dts-jest/tar.gz/3f434864492f6a4d94bb1b559b9d10a0c494d6fb"
   dependencies:
     globby "^6.1.0"
     jest-snapshot-parser "^1.0.0"
@@ -791,7 +791,6 @@ dts-jest@ikatyang/dts-jest#dist:
     make-dir "^1.0.0"
     pretty-format "^20.0.3"
     ts-comment "^1.1.0"
-    tsconfig-extends "^1.0.1"
     tslib "^1.7.1"
     yargs "^8.0.2"
 
@@ -3179,10 +3178,6 @@ ts-node@3.3.0:
     tsconfig "^6.0.0"
     v8flags "^3.0.0"
     yn "^2.0.0"
-
-tsconfig-extends@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/tsconfig-extends/-/tsconfig-extends-1.0.1.tgz#f5e5a4c3520a284c5642a7fb57713cbb7ae42f0f"
 
 tsconfig@^6.0.0:
   version "6.0.0"
