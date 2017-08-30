@@ -1,4 +1,4 @@
-import * as R_identical from '../ramda/dist/src/identical';
+import R_identical = require('../ramda/dist/src/identical');
 
 declare const string: string;
 

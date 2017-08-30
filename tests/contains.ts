@@ -1,4 +1,4 @@
-import * as R_contains from '../ramda/dist/src/contains';
+import R_contains = require('../ramda/dist/src/contains');
 
 declare const string: string;
 declare const string_array: string[];

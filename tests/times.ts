@@ -1,4 +1,4 @@
-import * as R_times from '../ramda/dist/src/times';
+import R_times = require('../ramda/dist/src/times');
 
 declare const number_to_object: (x: number) => object;
 declare const number: number;

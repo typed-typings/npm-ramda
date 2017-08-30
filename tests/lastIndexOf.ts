@@ -1,4 +1,4 @@
-import * as R_lastIndexOf from '../ramda/dist/src/lastIndexOf';
+import R_lastIndexOf = require('../ramda/dist/src/lastIndexOf');
 
 declare const string: string;
 declare const string_array: string[];

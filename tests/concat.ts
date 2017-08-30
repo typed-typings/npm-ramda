@@ -1,5 +1,5 @@
 import { List } from '../ramda/dist/src/$types';
-import * as R_concat from '../ramda/dist/src/concat';
+import R_concat = require('../ramda/dist/src/concat');
 
 declare const string: string;
 declare const object_array: object[];

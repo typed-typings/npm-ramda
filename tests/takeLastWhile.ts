@@ -1,4 +1,4 @@
-import * as R_takeLastWhile from '../ramda/dist/src/takeLastWhile';
+import R_takeLastWhile = require('../ramda/dist/src/takeLastWhile');
 
 declare const string_to_boolean: (x: string) => boolean;
 declare const string_array: string[];

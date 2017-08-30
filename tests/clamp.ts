@@ -1,4 +1,4 @@
-import * as R_clamp from '../ramda/dist/src/clamp';
+import R_clamp = require('../ramda/dist/src/clamp');
 
 declare const number: number;
 

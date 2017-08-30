@@ -1,4 +1,4 @@
-import * as R_max from '../ramda/dist/src/max';
+import R_max = require('../ramda/dist/src/max');
 
 declare const number: number;
 declare const string: string;

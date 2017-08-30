@@ -1,5 +1,5 @@
 import { Morphism } from '../ramda/dist/src/$types';
-import * as R_cond from '../ramda/dist/src/cond';
+import R_cond = require('../ramda/dist/src/cond');
 
 declare const string_number_to_boolean: (a: string, b: number) => boolean;
 declare const string_to_boolean: Morphism<string, boolean>;

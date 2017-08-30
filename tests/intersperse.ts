@@ -1,4 +1,4 @@
-import * as R_intersperse from '../ramda/dist/src/intersperse';
+import R_intersperse = require('../ramda/dist/src/intersperse');
 
 declare const object_array: object[];
 declare const string: string;

@@ -1,4 +1,4 @@
-import * as R_length from '../ramda/dist/src/length';
+import R_length = require('../ramda/dist/src/length');
 
 declare const string: string;
 declare const string_array: string[];

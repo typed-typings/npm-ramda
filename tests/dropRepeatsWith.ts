@@ -1,4 +1,4 @@
-import * as R_dropRepeatsWith from '../ramda/dist/src/dropRepeatsWith';
+import R_dropRepeatsWith = require('../ramda/dist/src/dropRepeatsWith');
 
 declare const string_to_number: (x: string) => number;
 declare const string_array: string[];

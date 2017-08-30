@@ -1,4 +1,4 @@
-import * as R_flip from '../ramda/dist/src/flip';
+import R_flip = require('../ramda/dist/src/flip');
 
 declare const string_number_to_object: (x: string, y: number) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;

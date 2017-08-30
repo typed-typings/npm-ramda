@@ -1,4 +1,4 @@
-import * as R_o from '../ramda/dist/src/o';
+import R_o = require('../ramda/dist/src/o');
 
 declare const number_to_string: (x: number) => string;
 declare const boolean_to_number: (x: boolean) => number;

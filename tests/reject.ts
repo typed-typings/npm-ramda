@@ -1,5 +1,5 @@
 import { Dictionary, Filterable, Predicate } from '../ramda/dist/src/$types';
-import * as R_reject from '../ramda/dist/src/reject';
+import R_reject = require('../ramda/dist/src/reject');
 
 declare const string_predicate: Predicate<string>;
 declare const string_array: string[];

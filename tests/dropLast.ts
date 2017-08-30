@@ -1,4 +1,4 @@
-import * as R_dropLast from '../ramda/dist/src/dropLast';
+import R_dropLast = require('../ramda/dist/src/dropLast');
 
 declare const number: number;
 declare const string: string;

@@ -1,4 +1,4 @@
-import * as R_assoc from '../ramda/dist/src/assoc';
+import R_assoc = require('../ramda/dist/src/assoc');
 
 declare const symbol_property: symbol;
 declare const string_property: string;

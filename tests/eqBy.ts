@@ -1,4 +1,4 @@
-import * as R_eqBy from '../ramda/dist/src/eqBy';
+import R_eqBy = require('../ramda/dist/src/eqBy');
 
 declare const string_to_number: (x: string) => number;
 declare const string: string;

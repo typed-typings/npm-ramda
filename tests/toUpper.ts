@@ -1,4 +1,4 @@
-import * as R_toUpper from '../ramda/dist/src/toUpper';
+import R_toUpper = require('../ramda/dist/src/toUpper');
 
 declare const string: string;
 

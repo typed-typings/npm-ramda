@@ -1,4 +1,4 @@
-import * as R_nthArg from '../ramda/dist/src/nthArg';
+import R_nthArg = require('../ramda/dist/src/nthArg');
 
 declare const number: number;
 declare const object_array: object[];

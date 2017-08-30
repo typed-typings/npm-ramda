@@ -1,4 +1,4 @@
-import * as R_mergeDeepWithKey from '../ramda/dist/src/mergeDeepWithKey';
+import R_mergeDeepWithKey = require('../ramda/dist/src/mergeDeepWithKey');
 
 declare const string_string_string_to_number: (
   key: string,

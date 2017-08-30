@@ -1,4 +1,4 @@
-import * as R_curryN from '../ramda/dist/src/curryN';
+import R_curryN = require('../ramda/dist/src/curryN');
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;

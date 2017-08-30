@@ -1,4 +1,4 @@
-import * as R_applySpec from '../ramda/dist/src/applySpec';
+import R_applySpec = require('../ramda/dist/src/applySpec');
 
 interface Name {
   firstname: string;

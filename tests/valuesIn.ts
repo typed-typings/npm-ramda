@@ -1,4 +1,4 @@
-import * as R_valuesIn from '../ramda/dist/src/valuesIn';
+import R_valuesIn = require('../ramda/dist/src/valuesIn');
 
 declare const object: object;
 declare const a_1_b_2_c_3: {

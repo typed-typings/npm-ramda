@@ -1,5 +1,5 @@
 import { Path } from '../ramda/dist/src/$types';
-import * as R_dissocPath from '../ramda/dist/src/dissocPath';
+import R_dissocPath = require('../ramda/dist/src/dissocPath');
 
 declare const path: Path;
 declare const object: object;

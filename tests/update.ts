@@ -1,4 +1,4 @@
-import * as R_update from '../ramda/dist/src/update';
+import R_update = require('../ramda/dist/src/update');
 
 declare const string_array: string[];
 declare const boolean: boolean;

@@ -1,4 +1,4 @@
-import * as R_insertAll from '../ramda/dist/src/insertAll';
+import R_insertAll = require('../ramda/dist/src/insertAll');
 
 declare const object_array: object[];
 declare const string_array: string[];

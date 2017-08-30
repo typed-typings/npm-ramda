@@ -1,4 +1,4 @@
-import * as R_mathMod from '../ramda/dist/src/mathMod';
+import R_mathMod = require('../ramda/dist/src/mathMod');
 
 declare const number: number;
 

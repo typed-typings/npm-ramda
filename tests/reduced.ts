@@ -1,5 +1,5 @@
 import { Reduced } from '../ramda/dist/src/$types';
-import * as R_reduced from '../ramda/dist/src/reduced';
+import R_reduced = require('../ramda/dist/src/reduced');
 
 declare const object: object;
 declare const reduced_object: Reduced<object>;

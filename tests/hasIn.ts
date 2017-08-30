@@ -1,5 +1,5 @@
 import { Property } from '../ramda/dist/src/$types';
-import * as R_hasIn from '../ramda/dist/src/hasIn';
+import R_hasIn = require('../ramda/dist/src/hasIn');
 
 declare const property: Property;
 declare const object: object;

@@ -1,5 +1,5 @@
 import { Variadic } from '../ramda/dist/src/$types';
-import * as R_nAry from '../ramda/dist/src/nAry';
+import R_nAry = require('../ramda/dist/src/nAry');
 
 declare const number: number;
 declare const string_number_symbol_to_boolean: (

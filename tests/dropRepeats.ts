@@ -1,4 +1,4 @@
-import * as R_dropRepeats from '../ramda/dist/src/dropRepeats';
+import R_dropRepeats = require('../ramda/dist/src/dropRepeats');
 
 declare const string_array: string[];
 

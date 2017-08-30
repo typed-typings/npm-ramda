@@ -1,5 +1,5 @@
 import { Chain } from '../ramda/dist/src/$types';
-import * as R_composeK from '../ramda/dist/src/composeK';
+import R_composeK = require('../ramda/dist/src/composeK');
 
 declare const chain_boolean_to_chain_number: (
   x: Chain<boolean>,

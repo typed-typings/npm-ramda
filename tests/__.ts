@@ -1,5 +1,5 @@
 import { CurriedFunction3 } from '../ramda/dist/src/$curriedFunctions';
-import * as R___ from '../ramda/dist/src/__';
+import R___ = require('../ramda/dist/src/__');
 
 declare const boolean: boolean;
 declare const number: number;

@@ -1,4 +1,4 @@
-import * as R_dropWhile from '../ramda/dist/src/dropWhile';
+import R_dropWhile = require('../ramda/dist/src/dropWhile');
 
 declare const string_to_boolean: (x: string) => boolean;
 declare const string_array: string[];

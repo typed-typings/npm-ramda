@@ -1,4 +1,4 @@
-import * as R_reduceWhile from '../ramda/dist/src/reduceWhile';
+import R_reduceWhile = require('../ramda/dist/src/reduceWhile');
 
 declare const number_array: number[];
 declare const object: object;

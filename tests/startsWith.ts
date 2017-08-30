@@ -1,4 +1,4 @@
-import * as R_startsWith from '../ramda/dist/src/startsWith';
+import R_startsWith = require('../ramda/dist/src/startsWith');
 
 declare const string: string;
 declare const boolean_array: boolean[];

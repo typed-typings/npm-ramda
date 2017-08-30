@@ -1,4 +1,4 @@
-import * as R_reduceBy from '../ramda/dist/src/reduceBy';
+import R_reduceBy = require('../ramda/dist/src/reduceBy');
 
 declare const number_array: number[];
 declare const object: object;

@@ -1,4 +1,4 @@
-import * as R_pipeP from '../ramda/dist/src/pipeP';
+import R_pipeP = require('../ramda/dist/src/pipeP');
 
 declare const boolean_to_number_promise: (x: boolean) => Promise<number>;
 declare const boolean_to_string_promise: (x: boolean) => Promise<string>;

@@ -1,4 +1,4 @@
-import * as R_gt from '../ramda/dist/src/gt';
+import R_gt = require('../ramda/dist/src/gt');
 
 declare const string: string;
 declare const number: number;

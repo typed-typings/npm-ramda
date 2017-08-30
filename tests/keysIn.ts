@@ -1,4 +1,4 @@
-import * as R_keysIn from '../ramda/dist/src/keysIn';
+import R_keysIn = require('../ramda/dist/src/keysIn');
 
 declare const a_1_b_2_c_3: {
   a: 1;

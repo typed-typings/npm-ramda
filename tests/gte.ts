@@ -1,4 +1,4 @@
-import * as R_gte from '../ramda/dist/src/gte';
+import R_gte = require('../ramda/dist/src/gte');
 
 declare const string: string;
 declare const number: number;

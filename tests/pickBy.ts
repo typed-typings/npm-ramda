@@ -1,4 +1,4 @@
-import * as R_pickBy from '../ramda/dist/src/pickBy';
+import R_pickBy = require('../ramda/dist/src/pickBy');
 
 declare const number_string_object_to_boolean: (
   x: number,

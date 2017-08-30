@@ -1,4 +1,4 @@
-import * as R_partialRight from '../ramda/dist/src/partialRight';
+import R_partialRight = require('../ramda/dist/src/partialRight');
 
 declare const number_string_to_object: (a: number, b: string) => object;
 declare const number: number;

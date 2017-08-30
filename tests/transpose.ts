@@ -1,5 +1,5 @@
 import { List } from '../ramda/dist/src/$types';
-import * as R_transpose from '../ramda/dist/src/transpose';
+import R_transpose = require('../ramda/dist/src/transpose');
 
 declare const number_array_array: number[][];
 declare const number_list_list: List<List<number>>;

@@ -1,4 +1,4 @@
-import * as R_tryCatch from '../ramda/dist/src/tryCatch';
+import R_tryCatch = require('../ramda/dist/src/tryCatch');
 
 declare const T_to_T: <T>(x: T) => T;
 

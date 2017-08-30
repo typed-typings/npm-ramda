@@ -1,4 +1,4 @@
-import * as R_split from '../ramda/dist/src/split';
+import R_split = require('../ramda/dist/src/split');
 
 declare const regex: RegExp;
 declare const string: string;

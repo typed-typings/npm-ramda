@@ -1,4 +1,4 @@
-import * as R_compose from '../ramda/dist/src/compose';
+import R_compose = require('../ramda/dist/src/compose');
 
 declare const boolean_to_number: (x: boolean) => number;
 declare const boolean_to_string: (x: boolean) => string;

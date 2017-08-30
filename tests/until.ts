@@ -1,4 +1,4 @@
-import * as R_until from '../ramda/dist/src/until';
+import R_until = require('../ramda/dist/src/until');
 
 declare const number_to_boolean: (x: number) => boolean;
 declare const number_to_number: (x: number) => number;

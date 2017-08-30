@@ -1,4 +1,4 @@
-import * as R_uniqBy from '../ramda/dist/src/uniqBy';
+import R_uniqBy = require('../ramda/dist/src/uniqBy');
 
 declare const number_to_object: (x: number) => object;
 declare const number_array: number[];

@@ -1,4 +1,4 @@
-import * as R_uncurryN from '../ramda/dist/src/uncurryN';
+import R_uncurryN = require('../ramda/dist/src/uncurryN');
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;

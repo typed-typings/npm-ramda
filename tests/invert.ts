@@ -1,4 +1,4 @@
-import * as R_invert from '../ramda/dist/src/invert';
+import R_invert = require('../ramda/dist/src/invert');
 
 declare const number_object_record: { [number: number]: object };
 

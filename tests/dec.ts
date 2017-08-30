@@ -1,4 +1,4 @@
-import * as R_dec from '../ramda/dist/src/dec';
+import R_dec = require('../ramda/dist/src/dec');
 
 declare const number: number;
 

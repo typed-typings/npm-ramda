@@ -1,4 +1,4 @@
-import * as R_pick from '../ramda/dist/src/pick';
+import R_pick = require('../ramda/dist/src/pick');
 
 declare const object: object;
 declare const string: string;

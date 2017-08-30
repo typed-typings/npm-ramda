@@ -1,4 +1,4 @@
-import * as R_call from '../ramda/dist/src/call';
+import R_call = require('../ramda/dist/src/call');
 
 declare const number_and_string_to_boolean: (a: number, b: string) => boolean;
 declare const number_and_string: [number, string];

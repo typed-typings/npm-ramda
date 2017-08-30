@@ -1,4 +1,4 @@
-import * as R_nth from '../ramda/dist/src/nth';
+import R_nth = require('../ramda/dist/src/nth');
 
 declare const number: number;
 declare const string: string;

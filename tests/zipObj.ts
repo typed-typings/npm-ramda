@@ -1,4 +1,4 @@
-import * as R_zipObj from '../ramda/dist/src/zipObj';
+import R_zipObj = require('../ramda/dist/src/zipObj');
 
 declare const number_array: number[];
 declare const string_array: string[];

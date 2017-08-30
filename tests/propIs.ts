@@ -1,4 +1,4 @@
-import * as R_propIs from '../ramda/dist/src/propIs';
+import R_propIs = require('../ramda/dist/src/propIs');
 
 declare const object: object;
 

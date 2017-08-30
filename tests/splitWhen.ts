@@ -1,5 +1,5 @@
 import { List } from '../ramda/dist/src/$types';
-import * as R_splitWhen from '../ramda/dist/src/splitWhen';
+import R_splitWhen = require('../ramda/dist/src/splitWhen');
 
 declare const string: string;
 declare const string_to_boolean: (x: string) => boolean;

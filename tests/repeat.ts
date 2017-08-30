@@ -1,4 +1,4 @@
-import * as R_repeat from '../ramda/dist/src/repeat';
+import R_repeat = require('../ramda/dist/src/repeat');
 
 declare const string: string;
 declare const number: number;

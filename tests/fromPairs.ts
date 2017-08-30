@@ -1,4 +1,4 @@
-import * as R_fromPairs from '../ramda/dist/src/fromPairs';
+import R_fromPairs = require('../ramda/dist/src/fromPairs');
 
 declare const number_object_tuple: [number, object];
 

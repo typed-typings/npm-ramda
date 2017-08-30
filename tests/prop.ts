@@ -1,5 +1,5 @@
 import { Placeholder } from '../ramda/dist/src/$placeholder';
-import * as R_prop from '../ramda/dist/src/prop';
+import R_prop = require('../ramda/dist/src/prop');
 
 declare const placeholder: Placeholder;
 declare const a_b_number_record: Record<'a' | 'b', number>;

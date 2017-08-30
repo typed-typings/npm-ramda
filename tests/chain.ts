@@ -1,5 +1,5 @@
 import { Chain, List } from '../ramda/dist/src/$types';
-import * as R_chain from '../ramda/dist/src/chain';
+import R_chain = require('../ramda/dist/src/chain');
 
 declare const number_array: number[];
 declare const number_to_string_string_tuple: (x: number) => [string, string];

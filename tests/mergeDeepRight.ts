@@ -1,4 +1,4 @@
-import * as R_mergeDeepRight from '../ramda/dist/src/mergeDeepRight';
+import R_mergeDeepRight = require('../ramda/dist/src/mergeDeepRight');
 
 declare const a_1: { a: 1 };
 declare const b_2: { b: 2 };

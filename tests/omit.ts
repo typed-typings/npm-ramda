@@ -1,4 +1,4 @@
-import * as R_omit from '../ramda/dist/src/omit';
+import R_omit = require('../ramda/dist/src/omit');
 
 declare const object: object;
 declare const string: string;

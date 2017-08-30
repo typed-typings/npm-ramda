@@ -1,4 +1,4 @@
-import * as R_uniqWith from '../ramda/dist/src/uniqWith';
+import R_uniqWith = require('../ramda/dist/src/uniqWith');
 
 declare const number_number_to_boolean: (x: number, y: number) => boolean;
 declare const number_array: number[];

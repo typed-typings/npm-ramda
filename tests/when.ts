@@ -1,4 +1,4 @@
-import * as R_when from '../ramda/dist/src/when';
+import R_when = require('../ramda/dist/src/when');
 
 declare const number_to_boolean: (x: number) => boolean;
 declare const number_to_string: (x: number) => string;

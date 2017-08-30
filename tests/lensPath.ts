@@ -1,5 +1,5 @@
 import { Path } from '../ramda/dist/src/$types';
-import * as R_lensPath from '../ramda/dist/src/lensPath';
+import R_lensPath = require('../ramda/dist/src/lensPath');
 
 declare const path: Path;
 

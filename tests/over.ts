@@ -1,5 +1,5 @@
 import { ManualLens, PseudoLens } from '../ramda/dist/src/$types';
-import * as R_over from '../ramda/dist/src/over';
+import R_over = require('../ramda/dist/src/over');
 
 declare const menual_lens_number_object: ManualLens<number, object>;
 declare const pseudo_lens_a: PseudoLens<'a'>;

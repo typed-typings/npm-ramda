@@ -1,5 +1,5 @@
 import { Dictionary } from '../ramda/dist/src/$types';
-import * as R_where from '../ramda/dist/src/where';
+import R_where = require('../ramda/dist/src/where');
 
 declare const dictionary_of_number_to_boolean: Dictionary<
   (x: number) => boolean

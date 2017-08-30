@@ -1,4 +1,4 @@
-import * as R_type from '../ramda/dist/src/type';
+import R_type = require('../ramda/dist/src/type');
 
 declare const boolean: boolean;
 declare const number: number;

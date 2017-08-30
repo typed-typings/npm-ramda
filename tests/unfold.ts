@@ -1,4 +1,4 @@
-import * as R_unfold from '../ramda/dist/src/unfold';
+import R_unfold = require('../ramda/dist/src/unfold');
 
 declare const string_to_object_string_tuple_or_false: (
   x: string,

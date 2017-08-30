@@ -1,4 +1,4 @@
-import * as R_complement from '../ramda/dist/src/complement';
+import R_complement = require('../ramda/dist/src/complement');
 
 declare const string: string;
 declare const string_string_to_boolean: (a: string, b: string) => boolean;

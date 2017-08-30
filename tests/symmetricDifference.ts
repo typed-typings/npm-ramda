@@ -1,4 +1,4 @@
-import * as R_symmetricDifference from '../ramda/dist/src/symmetricDifference';
+import R_symmetricDifference = require('../ramda/dist/src/symmetricDifference');
 
 declare const number_array: number[];
 

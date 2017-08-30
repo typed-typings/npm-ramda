@@ -1,4 +1,4 @@
-import * as R_lens from '../ramda/dist/src/lens';
+import R_lens = require('../ramda/dist/src/lens');
 
 declare const object_to_string: (x: object) => string;
 declare const string_object_to_object: (x: string, y: object) => object;

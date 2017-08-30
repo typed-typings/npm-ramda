@@ -1,5 +1,5 @@
 import { List } from '../ramda/dist/src/$types';
-import * as R_sort from '../ramda/dist/src/sort';
+import R_sort = require('../ramda/dist/src/sort');
 
 declare const string: string;
 declare const string_string_to_number: (x: string, y: string) => number;

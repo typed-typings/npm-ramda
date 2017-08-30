@@ -1,4 +1,4 @@
-import * as R_mapAccumRight from '../ramda/dist/src/mapAccumRight';
+import R_mapAccumRight = require('../ramda/dist/src/mapAccumRight');
 
 declare const number: number;
 declare const string_number_to_string_number_tuple: (

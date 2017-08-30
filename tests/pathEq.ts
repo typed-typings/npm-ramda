@@ -1,5 +1,5 @@
 import { Path } from '../ramda/dist/src/$types';
-import * as R_pathEq from '../ramda/dist/src/pathEq';
+import R_pathEq = require('../ramda/dist/src/pathEq');
 
 declare const path: Path;
 declare const number: number;

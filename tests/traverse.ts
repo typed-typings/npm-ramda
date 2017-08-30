@@ -1,5 +1,5 @@
 import { Applicative, Traversable } from '../ramda/dist/src/$types';
-import * as R_traverse from '../ramda/dist/src/traverse';
+import R_traverse = require('../ramda/dist/src/traverse');
 
 declare const number_array: number[];
 declare const number_applicative: Applicative<number>;

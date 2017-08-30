@@ -1,4 +1,4 @@
-import * as R_unapply from '../ramda/dist/src/unapply';
+import R_unapply = require('../ramda/dist/src/unapply');
 
 declare const number_array_to_string: (nums: number[]) => string;
 declare const number_array: number[];

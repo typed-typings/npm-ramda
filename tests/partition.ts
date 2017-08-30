@@ -1,4 +1,4 @@
-import * as R_partition from '../ramda/dist/src/partition';
+import R_partition = require('../ramda/dist/src/partition');
 
 declare const number_to_boolean: (x: number) => boolean;
 declare const number_array: number[];

@@ -1,5 +1,5 @@
 import { Predicate } from '../ramda/dist/src/$types';
-import * as R_anyPass from '../ramda/dist/src/anyPass';
+import R_anyPass = require('../ramda/dist/src/anyPass');
 
 declare const string_predicate: Predicate<string>;
 declare const string_number_preficate: (x: string, y: number) => boolean;

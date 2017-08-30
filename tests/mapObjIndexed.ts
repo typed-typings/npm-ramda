@@ -1,5 +1,5 @@
 import { Placeholder } from '../ramda/dist/src/$placeholder';
-import * as R_mapObjIndexed from '../ramda/dist/src/mapObjIndexed';
+import R_mapObjIndexed = require('../ramda/dist/src/mapObjIndexed');
 
 declare const placeholder: Placeholder;
 declare const number_string_object_to_boolean: (

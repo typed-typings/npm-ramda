@@ -1,4 +1,4 @@
-import * as R_remove from '../ramda/dist/src/remove';
+import R_remove = require('../ramda/dist/src/remove');
 
 declare const boolean_array: boolean[];
 declare const number: number;

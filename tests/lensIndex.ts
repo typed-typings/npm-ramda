@@ -1,4 +1,4 @@
-import * as R_lensIndex from '../ramda/dist/src/lensIndex';
+import R_lensIndex = require('../ramda/dist/src/lensIndex');
 
 declare const number: number;
 

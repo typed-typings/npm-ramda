@@ -1,4 +1,4 @@
-import * as R_always from '../ramda/dist/src/always';
+import R_always = require('../ramda/dist/src/always');
 
 declare const string: string;
 

@@ -1,5 +1,5 @@
 import { Path } from '../ramda/dist/src/$types';
-import * as R_assocPath from '../ramda/dist/src/assocPath';
+import R_assocPath = require('../ramda/dist/src/assocPath');
 
 declare const path: Path;
 declare const number_value: number;

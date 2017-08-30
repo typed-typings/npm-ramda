@@ -1,4 +1,4 @@
-import * as R_indexBy from '../ramda/dist/src/indexBy';
+import R_indexBy = require('../ramda/dist/src/indexBy');
 
 declare const object_to_string: (x: object) => string;
 declare const object_array: object[];

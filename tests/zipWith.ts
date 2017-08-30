@@ -1,4 +1,4 @@
-import * as R_zipWith from '../ramda/dist/src/zipWith';
+import R_zipWith = require('../ramda/dist/src/zipWith');
 
 declare const number_string_to_object: (x: number, y: string) => object;
 declare const number_array: number[];

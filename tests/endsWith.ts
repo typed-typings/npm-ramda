@@ -1,4 +1,4 @@
-import * as R_endsWith from '../ramda/dist/src/endsWith';
+import R_endsWith = require('../ramda/dist/src/endsWith');
 
 declare const string: string;
 declare const boolean_array: boolean[];

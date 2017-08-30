@@ -1,4 +1,4 @@
-import * as R_pipe from '../ramda/dist/src/pipe';
+import R_pipe = require('../ramda/dist/src/pipe');
 
 declare const boolean_to_number: (x: boolean) => number;
 declare const boolean_to_string: (x: boolean) => string;

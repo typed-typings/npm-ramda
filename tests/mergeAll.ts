@@ -1,4 +1,4 @@
-import * as R_mergeAll from '../ramda/dist/src/mergeAll';
+import R_mergeAll = require('../ramda/dist/src/mergeAll');
 
 declare const a_1: { a: 1 };
 declare const b_2: { b: 2 };

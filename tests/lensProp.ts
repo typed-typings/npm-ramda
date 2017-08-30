@@ -1,5 +1,5 @@
 import { Property } from '../ramda/dist/src/$types';
-import * as R_lensProp from '../ramda/dist/src/lensProp';
+import R_lensProp = require('../ramda/dist/src/lensProp');
 
 declare const property: Property;
 

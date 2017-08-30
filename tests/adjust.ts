@@ -1,5 +1,5 @@
 import { Morphism } from '../ramda/dist/src/$types';
-import * as R_adjust from '../ramda/dist/src/adjust';
+import R_adjust = require('../ramda/dist/src/adjust');
 
 declare const string_to_string: Morphism<string, string>;
 declare const string_to_number: Morphism<string, number>;

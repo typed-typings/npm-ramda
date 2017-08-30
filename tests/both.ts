@@ -1,5 +1,5 @@
 import { Predicate } from '../ramda/dist/src/$types';
-import * as R_both from '../ramda/dist/src/both';
+import R_both = require('../ramda/dist/src/both');
 
 declare const string_predicate: Predicate<string>;
 

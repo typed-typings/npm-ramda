@@ -1,4 +1,4 @@
-import * as R_intersection from '../ramda/dist/src/intersection';
+import R_intersection = require('../ramda/dist/src/intersection');
 
 declare const number_array: number[];
 

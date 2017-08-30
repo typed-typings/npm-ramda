@@ -1,4 +1,4 @@
-import * as R_propEq from '../ramda/dist/src/propEq';
+import R_propEq = require('../ramda/dist/src/propEq');
 
 declare const string: string;
 declare const object: object;

@@ -1,4 +1,4 @@
-import * as R_objOf from '../ramda/dist/src/objOf';
+import R_objOf = require('../ramda/dist/src/objOf');
 
 declare const string: string;
 declare const object: object;

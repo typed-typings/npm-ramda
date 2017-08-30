@@ -1,4 +1,4 @@
-import * as R_minBy from '../ramda/dist/src/minBy';
+import R_minBy = require('../ramda/dist/src/minBy');
 
 declare const object_to_number: (x: object) => number;
 declare const object: object;

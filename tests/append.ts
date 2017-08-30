@@ -1,4 +1,4 @@
-import * as R_append from '../ramda/dist/src/append';
+import R_append = require('../ramda/dist/src/append');
 
 declare const string: string;
 declare const number: number;

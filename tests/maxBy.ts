@@ -1,4 +1,4 @@
-import * as R_maxBy from '../ramda/dist/src/maxBy';
+import R_maxBy = require('../ramda/dist/src/maxBy');
 
 declare const object_to_number: (x: object) => number;
 declare const object: object;

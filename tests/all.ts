@@ -1,5 +1,5 @@
 import { Predicate } from '../ramda/dist/src/$types';
-import * as R_all from '../ramda/dist/src/all';
+import R_all = require('../ramda/dist/src/all');
 
 declare const string_predicate: Predicate<string>;
 declare const string_array: string[];

@@ -1,4 +1,4 @@
-import * as R_dropLastWhile from '../ramda/dist/src/dropLastWhile';
+import R_dropLastWhile = require('../ramda/dist/src/dropLastWhile');
 
 declare const string_to_boolean: (x: string) => boolean;
 declare const string_array: string[];

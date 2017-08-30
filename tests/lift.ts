@@ -1,4 +1,4 @@
-import * as R_lift from '../ramda/dist/src/lift';
+import R_lift = require('../ramda/dist/src/lift');
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;

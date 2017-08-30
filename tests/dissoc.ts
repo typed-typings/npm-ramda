@@ -1,4 +1,4 @@
-import * as R_dissoc from '../ramda/dist/src/dissoc';
+import R_dissoc = require('../ramda/dist/src/dissoc');
 
 declare const string_property: string;
 declare const object: object;

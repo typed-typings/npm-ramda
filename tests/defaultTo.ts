@@ -1,4 +1,4 @@
-import * as R_defaultTo from '../ramda/dist/src/defaultTo';
+import R_defaultTo = require('../ramda/dist/src/defaultTo');
 
 declare const string: string;
 declare const number_or_undefined: number | undefined;

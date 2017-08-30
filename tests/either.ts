@@ -1,5 +1,5 @@
 import { Predicate } from '../ramda/dist/src/$types';
-import * as R_either from '../ramda/dist/src/either';
+import R_either = require('../ramda/dist/src/either');
 
 declare const string_predicate: Predicate<string>;
 

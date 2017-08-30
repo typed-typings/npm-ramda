@@ -1,4 +1,4 @@
-import * as R_groupWith from '../ramda/dist/src/groupWith';
+import R_groupWith = require('../ramda/dist/src/groupWith');
 
 declare const string_to_boolean: (x: string) => boolean;
 declare const string_array: string[];
