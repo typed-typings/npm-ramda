@@ -1,10 +1,10 @@
-import * as R_equals from '../ramda/dist/src/equals';
+import R_equals = require('../ramda/dist/src/equals');
 
 declare const string: string;
 
-// @dts-jest:pass -> (b: string) => boolean
+// @dts-jest:pass:snap -> (b: string) => boolean
 R_equals(string);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_equals(string)(string);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_equals(string, string);

@@ -1,4 +1,4 @@
-import * as R_liftN from '../ramda/dist/src/liftN';
+import R_liftN = require('../ramda/dist/src/liftN');
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;
@@ -13,11 +13,11 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass -> () => object[]
+// @dts-jest:pass:snap -> () => object[]
 R_liftN(0, string_to_object);
-// @dts-jest:pass -> CurriedFunction1<number[] | ArrayLike<number>, string[]>
+// @dts-jest:pass:snap -> CurriedFunction1<number[] | ArrayLike<number>, string[]>
 R_liftN(1, number_boolean_to_string);
-// @dts-jest:pass -> CurriedFunction4<number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, boolean[]>
+// @dts-jest:pass:snap -> CurriedFunction4<number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, boolean[]>
 R_liftN(4, number_args_to_boolean);
-// @dts-jest:pass -> (...args: any[]) => number[]
+// @dts-jest:pass:snap -> (...args: any[]) => number[]
 R_liftN(7, seven_string_to_number);

@@ -1,4 +1,4 @@
-import * as R_pipe from '../ramda/dist/src/pipe';
+import R_pipe = require('../ramda/dist/src/pipe');
 
 declare const boolean_to_number: (x: boolean) => number;
 declare const boolean_to_string: (x: boolean) => string;
@@ -16,29 +16,29 @@ declare const a_b_c_d_e_f_to_any: (
   f: object,
 ) => any;
 
-// @dts-jest:pass -> (v1: boolean) => number
+// @dts-jest:pass:snap -> (v1: boolean) => number
 R_pipe(boolean_to_number);
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => any
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => any
 R_pipe(a_b_c_d_e_f_to_any);
 
-// @dts-jest:pass -> (v1: string) => number
+// @dts-jest:pass:snap -> (v1: string) => number
 R_pipe(string_to_boolean, boolean_to_number);
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
 R_pipe(a_b_c_d_e_f_to_any, boolean_to_number);
 
-// @dts-jest:pass -> (v1: number) => number
+// @dts-jest:pass:snap -> (v1: number) => number
 R_pipe(number_to_string, string_to_boolean, boolean_to_number);
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
 R_pipe(a_b_c_d_e_f_to_any, string_to_boolean, boolean_to_number);
 
-// @dts-jest:pass -> (v1: string) => number
+// @dts-jest:pass:snap -> (v1: string) => number
 R_pipe(
   string_to_number,
   number_to_string,
   string_to_boolean,
   boolean_to_number,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
 R_pipe(
   a_b_c_d_e_f_to_any,
   number_to_string,
@@ -46,7 +46,7 @@ R_pipe(
   boolean_to_number,
 );
 
-// @dts-jest:pass -> (v1: boolean) => number
+// @dts-jest:pass:snap -> (v1: boolean) => number
 R_pipe(
   boolean_to_string,
   string_to_number,
@@ -54,7 +54,7 @@ R_pipe(
   string_to_boolean,
   boolean_to_number,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
 R_pipe(
   a_b_c_d_e_f_to_any,
   string_to_number,
@@ -63,7 +63,7 @@ R_pipe(
   boolean_to_number,
 );
 
-// @dts-jest:pass -> (v1: number) => number
+// @dts-jest:pass:snap -> (v1: number) => number
 R_pipe(
   number_to_boolean,
   boolean_to_string,
@@ -72,7 +72,7 @@ R_pipe(
   string_to_boolean,
   boolean_to_number,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
 R_pipe(
   a_b_c_d_e_f_to_any,
   boolean_to_string,

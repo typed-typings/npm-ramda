@@ -1,6 +1,6 @@
-import * as R_median from '../ramda/dist/src/median';
+import R_median = require('../ramda/dist/src/median');
 
 declare const number_array: number[];
 
-// @dts-jest:pass -> number
+// @dts-jest:pass:snap -> number
 R_median(number_array);
