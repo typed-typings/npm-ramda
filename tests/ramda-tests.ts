@@ -4,6 +4,8 @@ import * as R from '../ramda/dist/index';
  * @dts-jest enable:test-value
  */
 
+ // regex literal is not available due to https://github.com/Microsoft/TypeScript/issues/18071 (fixed in v2.6)
+
 // tslint:disable max-file-line-count comment-format naming-convention
 
 // @dts-jest:group __
@@ -1659,11 +1661,11 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group match
 (() => {
   // @dts-jest:pass:snap
-  R.match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+  R.match(new RegExp('([a-z]a)', 'g'), 'bananas'); //=> ['ba', 'na', 'na']
   // @dts-jest:pass:snap
-  R.match(/a/, 'b'); //=> []
+  R.match(new RegExp('a'), 'b'); //=> []
   // @dts-jest:fail:snap
-  R.match(/a/, null); //=> :error
+  R.match(new RegExp('a'), null); //=> :error
 })();
 
 // @dts-jest:group mathMod
@@ -2561,15 +2563,15 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.replace('foo')('bar')('foo foo foo'); //=> 'bar foo foo'
   // @dts-jest:pass:snap
-  R.replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
+  R.replace(new RegExp('foo'), 'bar', 'foo foo foo'); //=> 'bar foo foo'
 
   // Use the 'g' (global) flag to replace all occurrences:
   // @dts-jest:pass:snap
-  R.replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+  R.replace(new RegExp('foo', 'g'), 'bar', 'foo foo foo'); //=> 'bar bar bar'
   // @dts-jest:pass:snap
-  R.replace(/foo/g, 'bar')('foo foo foo'); //=> 'bar bar bar'
+  R.replace(new RegExp('foo', 'g'), 'bar')('foo foo foo'); //=> 'bar bar bar'
   // @dts-jest:pass:snap
-  R.replace(/foo/g)('bar')('foo foo foo'); //=> 'bar bar bar'
+  R.replace(new RegExp('foo', 'g'))('bar')('foo foo foo'); //=> 'bar bar bar'
 })();
 
 // @dts-jest:group reverse
@@ -2889,9 +2891,9 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group test
 (() => {
   // @dts-jest:pass:snap
-  R.test(/^x/, 'xyz'); //=> true
+  R.test(new RegExp('^x'), 'xyz'); //=> true
   // @dts-jest:pass:snap
-  R.test(/^y/)('xyz'); //=> false
+  R.test(new RegExp('^y'))('xyz'); //=> false
 })();
 
 // @dts-jest:group times
@@ -3027,7 +3029,7 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.type([]); //=> 'Array'
   // @dts-jest:pass:snap
-  R.type(/[A-z]/); //=> 'RegExp'
+  R.type(new RegExp('[A-z]')); //=> 'RegExp'
 })();
 
 // @dts-jest:group unapply

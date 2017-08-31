@@ -760,11 +760,11 @@ exports[`mapAccumRight R.mapAccumRight(append, '0', digits) 1`] = `"[string[], s
 
 exports[`mapObjIndexed R.mapObjIndexed(prependKeyAndDouble, values) 1`] = `"Record<string, string>"`;
 
-exports[`match R.match(/([a-z]a)/g, 'bananas') 1`] = `"string[]"`;
+exports[`match R.match(new RegExp('([a-z]a)', 'g'), 'bananas') 1`] = `"string[]"`;
 
-exports[`match R.match(/a/, 'b') 1`] = `"string[]"`;
+exports[`match R.match(new RegExp('a'), 'b') 1`] = `"string[]"`;
 
-exports[`match R.match(/a/, null) 1`] = `"Argument of type 'null' is not assignable to parameter of type 'string'."`;
+exports[`match R.match(new RegExp('a'), null) 1`] = `"Argument of type 'null' is not assignable to parameter of type 'string'."`;
 
 exports[`mathMod R.mathMod(-17, 5) 1`] = `"number"`;
 
@@ -1189,13 +1189,13 @@ exports[`replace R.replace('foo', 'bar')('foo foo foo') 1`] = `"string"`;
 
 exports[`replace R.replace('foo', 'bar', 'foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/, 'bar', 'foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo'), 'bar', 'foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/g)('bar')('foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo', 'g'))('bar')('foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/g, 'bar')('foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo', 'g'), 'bar')('foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/g, 'bar', 'foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo', 'g'), 'bar', 'foo foo foo') 1`] = `"string"`;
 
 exports[`reverse R.reverse([]) 1`] = `"never[]"`;
 
@@ -1320,9 +1320,9 @@ exports[`takeWhile R.takeWhile(isNotFour, [1, 2, 3, 4]) 1`] = `"number[]"`;
 
 exports[`tap R.tap(sayX, 100) 1`] = `"number"`;
 
-exports[`test R.test(/^x/, 'xyz') 1`] = `"boolean"`;
+exports[`test R.test(new RegExp('^x'), 'xyz') 1`] = `"boolean"`;
 
-exports[`test R.test(/^y/)('xyz') 1`] = `"boolean"`;
+exports[`test R.test(new RegExp('^y'))('xyz') 1`] = `"boolean"`;
 
 exports[`times R.times(R.identity)(5) 1`] = `"number[]"`;
 
@@ -1376,8 +1376,6 @@ exports[`tryCatch R.tryCatch<any>(R.prop('x'), R.F)(null) 1`] = `"any"`;
 
 exports[`type R.type('s') 1`] = `"\\"String\\""`;
 
-exports[`type R.type(/[A-z]/) 1`] = `"string"`;
-
 exports[`type R.type([]) 1`] = `"string"`;
 
 exports[`type R.type({}) 1`] = `"string"`;
@@ -1385,6 +1383,8 @@ exports[`type R.type({}) 1`] = `"string"`;
 exports[`type R.type(1) 1`] = `"\\"Number\\""`;
 
 exports[`type R.type(false) 1`] = `"\\"Boolean\\""`;
+
+exports[`type R.type(new RegExp('[A-z]')) 1`] = `"string"`;
 
 exports[`type R.type(null) 1`] = `"\\"Null\\""`;
 
