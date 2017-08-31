@@ -53,7 +53,7 @@
     "tslint-config-ikatyang": "2.3.0",
     "tslint-config-prettier": "1.4.0",
     "tslint-plugin-prettier": "1.1.0",
-    "typescript": "2.4.2",
+    "typescript": "2.5.2",
     "yargs": "8.0.2"
   }
 }
