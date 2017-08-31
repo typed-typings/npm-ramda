@@ -39,7 +39,7 @@ If you use the package through a script tag, install with the `--global` flag in
 
 ## Testing
 
-This project uses [dts-jest](https://github.com/ikatyang/dts-jest) to test types and values simultaneously, so as to ensure our types are up to date.
+This project uses [dts-jest](https://github.com/ikatyang/dts-jest) to test types and values simultaneously, so as to ensure our types are always up to date.
 
 ```sh
 # test
