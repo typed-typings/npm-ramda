@@ -39,12 +39,6 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/gulp-diff@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/gulp-diff/-/gulp-diff-1.0.0.tgz#6ed98a61d11693e4acbce88d4f011701d3fc8010"
-  dependencies:
-    "@types/node" "*"
-
 "@types/gulp-rename@0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/gulp-rename/-/gulp-rename-0.0.32.tgz#602828783f97f190e438937dfa6a579eb0198e63"
