@@ -1346,7 +1346,7 @@ exports[`toString R.toString({ foo: 1, bar: 2, baz: 3 }) 1`] = `"string"`;
 
 exports[`toString R.toString(42) 1`] = `"string"`;
 
-exports[`toString R.toString(new Date('2001-02-03T04: 05: 06Z')) 1`] = `"string"`;
+exports[`toString R.toString(new Date('2001-02-03T04:05:06Z')) 1`] = `"string"`;
 
 exports[`toString R.toString(new Point(1, 2)) 1`] = `"string"`;
 

@@ -2948,13 +2948,13 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.toString(42); //=> '42'
   // @dts-jest:pass:snap
-  R.toString('abc'); //=> 'abc'
+  R.toString('abc'); //=> '"abc"'
   // @dts-jest:pass:snap
   R.toString([1, 2, 3]); //=> '[1, 2, 3]'
   // @dts-jest:pass:snap
   R.toString({ foo: 1, bar: 2, baz: 3 }); //=> '{"bar": 2, "baz": 3, "foo": 1}'
   // @dts-jest:pass:snap
-  R.toString(new Date('2001-02-03T04: 05: 06Z')); //=> "new Date('2001-02-03T04: 05: 06.000Z')"
+  R.toString(new Date('2001-02-03T04:05:06Z')); //=> 'new Date("2001-02-03T04:05:06.000Z")'
 })();
 
 // @dts-jest:group toUpper
@@ -3068,9 +3068,9 @@ import * as R from '../ramda/dist/index';
   R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
   const b = R.unfold(f);
   // @dts-jest:pass:snap
-  b; //=> [-10, -20, -30, -40, -50]
+  b;
   // @dts-jest:pass:snap
-  b(10);
+  b(10); //=> [-10, -20, -30, -40, -50]
 })();
 
 // @dts-jest:group union
@@ -3095,7 +3095,7 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.uniq([1, 1, 2, 1]); //=> [1, 2]
   // @dts-jest:pass:snap
-  R.uniq([{}, {}]); //=> [{}, {}]
+  R.uniq([{}, {}]); //=> [{}]
   // @dts-jest:pass:snap
   R.uniq([1, '1']); //=> [1, '1']
 })();
@@ -3223,13 +3223,13 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.where(spec2, { x: 2, y: 7 }); //=> false
   // @dts-jest:pass:snap
-  R.where(spec2, { x: 3, y: 8 }); //=> true
+  R.where(spec2, { x: 3, y: 8 }); //=> false
 
   const xs = [{ x: 2, y: 1 }, { x: 10, y: 2 }, { x: 8, y: 3 }, { x: 10, y: 4 }];
   // @dts-jest:pass:snap
-  R.filter(R.where({ x: R.equals(10) }), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+  R.filter(R.where({ x: R.equals(10) }), xs); //=> [{x: 10, y: 2}, {x: 10, y: 4}]
   // @dts-jest:pass:snap
-  R.filter(R.where({ x: R.equals(10) }))(xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
+  R.filter(R.where({ x: R.equals(10) }))(xs); //=> [{x: 10, y: 2}, {x: 10, y: 4}]
 })();
 
 // @dts-jest:group whereEq
