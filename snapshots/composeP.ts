@@ -1,4 +1,4 @@
-import * as R_composeP from '../ramda/dist/src/composeP';
+import R_composeP = require('../ramda/dist/src/composeP');
 
 declare const boolean_to_number_promise: (x: boolean) => Promise<number>;
 declare const boolean_to_string_promise: (x: boolean) => Promise<string>;
@@ -16,37 +16,37 @@ declare const a_b_c_d_e_f_to_any_promise: (
   f: object,
 ) => Promise<any>;
 
-// @dts-jest:pass -> (v1: boolean) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: boolean) => PromiseLike<number>
 R_composeP(boolean_to_number_promise);
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<any>
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<any>
 R_composeP(a_b_c_d_e_f_to_any_promise);
 
-// @dts-jest:pass -> (v1: string) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: string) => PromiseLike<number>
 R_composeP(boolean_to_number_promise, string_to_boolean_promise);
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
 R_composeP(boolean_to_number_promise, a_b_c_d_e_f_to_any_promise);
 
-// @dts-jest:pass -> (v1: number) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: number) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   a_b_c_d_e_f_to_any_promise,
 );
 
-// @dts-jest:pass -> (v1: string) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: string) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
   string_to_number_promise,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
@@ -54,7 +54,7 @@ R_composeP(
   a_b_c_d_e_f_to_any_promise,
 );
 
-// @dts-jest:pass -> (v1: boolean) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: boolean) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
@@ -62,7 +62,7 @@ R_composeP(
   string_to_number_promise,
   boolean_to_string_promise,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
@@ -71,7 +71,7 @@ R_composeP(
   a_b_c_d_e_f_to_any_promise,
 );
 
-// @dts-jest:pass -> (v1: number) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: number) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
@@ -80,7 +80,7 @@ R_composeP(
   boolean_to_string_promise,
   number_to_boolean_promise,
 );
-// @dts-jest:pass -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
+// @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>
 R_composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,

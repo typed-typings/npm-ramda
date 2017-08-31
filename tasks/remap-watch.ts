@@ -6,64 +6,62 @@ import * as path from 'path';
 import { generate_remap_content } from './utils/generate-remap-content';
 
 export const remap_watch = (_callback: (error?: any) => void) => {
-  gulp.watch('./tests/__snapshots__/*.ts.snap', event => {
+  gulp.watch(['./tests/*.ts', './tests/__snapshots__/*.ts.snap'], event => {
     const input_relative_filename = path.relative(process.cwd(), event.path);
-    gulp_util.log(
-      `Detected '${gulp_util.colors.cyan(
-        input_relative_filename,
-      )}' ${event.type}`,
-    );
 
-    const output_relative_filename = input_relative_filename
-      .replace('tests/__snapshots__/', 'snapshots/')
+    log('Detected', input_relative_filename, event.type);
+
+    const input_test_relative_filename = input_relative_filename
+      .replace('/__snapshots__/', '/')
       .replace(/\.snap$/, '');
+
+    const output_relative_filename = input_test_relative_filename.replace(
+      'tests/',
+      'snapshots/',
+    );
 
     switch (event.type) {
       case 'added':
       case 'changed':
       case 'renamed':
-        const remapped_snapshot = generate_remap_content(
-          input_relative_filename,
-        );
-        fs.writeFile(
-          output_relative_filename,
-          remapped_snapshot,
-          'utf8',
-          (error: any) => {
-            if (!error) {
-              gulp_util.log(
-                `Remapping '${gulp_util.colors.cyan(
-                  output_relative_filename,
-                )}' complete`,
-              );
-            } else {
-              gulp_util.log(
-                `Remapping '${gulp_util.colors.cyan(
-                  output_relative_filename,
-                )}' failed: ${error}`,
-              );
+        try {
+          const remapped_snapshot = generate_remap_content(
+            input_test_relative_filename,
+          );
+          try {
+            const target_content = fs.readFileSync(
+              output_relative_filename,
+              'utf8',
+            );
+            if (target_content === remapped_snapshot) {
+              log('Remapping', output_relative_filename, 'no change');
+              return;
             }
-            gulp_util.log('Watching for file changes.');
-          },
-        );
+            // tslint:disable-next-line:no-empty
+          } catch (e) {}
+          fs.writeFile(
+            output_relative_filename,
+            remapped_snapshot,
+            'utf8',
+            (error: any) => {
+              if (!error) {
+                log('Remapping', output_relative_filename, 'complete');
+              } else {
+                log('Remapping', output_relative_filename, `failed: ${error}`);
+              }
+            },
+          );
+        } catch (e) {
+          log('Remapping', output_relative_filename, `failed: ${e.message}`);
+        }
         break;
       case 'deleted':
         del(input_relative_filename)
           .then(() => {
-            gulp_util.log(
-              `Deleting '${gulp_util.colors.cyan(
-                output_relative_filename,
-              )}' complete`,
-            );
-            gulp_util.log('Watching for file changes.');
+            log('Deleting', output_relative_filename, 'complete');
           })
           .catch(error => {
-            gulp_util.log(
-              `Deleting '${gulp_util.colors.cyan(
-                output_relative_filename,
-              )}' failed: ${error}`,
-            );
-            gulp_util.log('Watching for file changes.');
+            log('Deleting', output_relative_filename, `failed: ${error}`);
           });
         break;
       default:
@@ -71,3 +69,8 @@ export const remap_watch = (_callback: (error?: any) => void) => {
     }
   });
 };
+
+function log(title: string, filename: string, content: string) {
+  gulp_util.log(`${title} '${gulp_util.colors.cyan(filename)}' ${content}`);
+  gulp_util.log('Watching for file changes.');
+}

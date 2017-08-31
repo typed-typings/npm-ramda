@@ -1,11 +1,11 @@
-import * as R_contains from '../ramda/dist/src/contains';
+import R_contains = require('../ramda/dist/src/contains');
 
 declare const string: string;
 declare const string_array: string[];
 
-// @dts-jest:pass -> (list: string[] | ArrayLike<string>) => boolean
+// @dts-jest:pass:snap -> (list: string[] | ArrayLike<string>) => boolean
 R_contains(string);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_contains(string, string);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_contains(string, string_array);

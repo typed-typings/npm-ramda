@@ -1,13 +1,13 @@
 import { Path } from '../ramda/dist/src/$types';
-import * as R_pathEq from '../ramda/dist/src/pathEq';
+import R_pathEq = require('../ramda/dist/src/pathEq');
 
 declare const path: Path;
 declare const number: number;
 declare const object: object;
 
-// @dts-jest:pass -> (object: {}) => boolean
+// @dts-jest:pass:snap -> (object: {}) => boolean
 R_pathEq(path, number);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_pathEq(path)(number)(object);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_pathEq(path, number, object);

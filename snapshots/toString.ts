@@ -1,9 +1,9 @@
-import * as R_toString from '../ramda/dist/src/toString';
+import R_toString = require('../ramda/dist/src/toString');
 
 declare const number: number;
 declare const object: object;
 
-// @dts-jest:pass -> string
+// @dts-jest:pass:snap -> string
 R_toString(number);
-// @dts-jest:pass -> string
+// @dts-jest:pass:snap -> string
 R_toString(object);

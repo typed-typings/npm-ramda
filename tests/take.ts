@@ -1,10 +1,10 @@
-import * as R_take from '../ramda/dist/src/take';
+import R_take = require('../ramda/dist/src/take');
 
 declare const number: number;
 declare const string: string;
 declare const boolean_array: boolean[];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_take(number, string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_take(number, boolean_array);

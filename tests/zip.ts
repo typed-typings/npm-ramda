@@ -1,11 +1,11 @@
-import * as R_zip from '../ramda/dist/src/zip';
+import R_zip = require('../ramda/dist/src/zip');
 
 declare const number_array: number[];
 declare const string_array: string[];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_zip(number_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_zip(number_array)(string_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_zip(number_array, string_array);

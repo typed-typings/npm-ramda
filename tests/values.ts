@@ -1,4 +1,4 @@
-import * as R_values from '../ramda/dist/src/values';
+import R_values = require('../ramda/dist/src/values');
 
 declare const object: object;
 declare const a_1_b_2_c_3: {
@@ -7,7 +7,7 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_values(object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_values(a_1_b_2_c_3);

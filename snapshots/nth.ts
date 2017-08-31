@@ -1,15 +1,15 @@
-import * as R_nth from '../ramda/dist/src/nth';
+import R_nth = require('../ramda/dist/src/nth');
 
 declare const number: number;
 declare const string: string;
 declare const object_array: object[];
 
-// @dts-jest:pass -> string
+// @dts-jest:pass:snap -> string
 R_nth(number)(string);
-// @dts-jest:pass -> string
+// @dts-jest:pass:snap -> string
 R_nth(number, string);
 
-// @dts-jest:pass -> object | undefined
+// @dts-jest:pass:snap -> object | undefined
 R_nth(number)(object_array);
-// @dts-jest:pass -> object | undefined
+// @dts-jest:pass:snap -> object | undefined
 R_nth(number, object_array);

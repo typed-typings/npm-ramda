@@ -3,13 +3,13 @@
   "moduleFileExtensions": ["ts", "js", "json"],
   "testRegex": "/tests/.+\\.ts$",
   "transform": {"/tests/.+\\.ts$": "dts-jest/transform"},
+  "moduleNameMapper": {
+    "../ramda/dist": "<rootDir>/node_modules/ramda"
+  },
   "globals": {
     "_dts_jest_": {
-      "tsconfig": {
-        "strict": true,
-        "target": 5,
-        "types": []
-      }
+      "enclosing_declaration": true,
+      "compiler_options": "./tsconfig.test.json"
     }
   }
 }

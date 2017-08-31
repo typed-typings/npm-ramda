@@ -1,13 +1,13 @@
-import * as R_endsWith from '../ramda/dist/src/endsWith';
+import R_endsWith = require('../ramda/dist/src/endsWith');
 
 declare const string: string;
 declare const boolean_array: boolean[];
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_endsWith(string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_endsWith(string, string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_endsWith(boolean_array);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_endsWith(boolean_array, boolean_array);

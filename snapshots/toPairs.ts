@@ -1,4 +1,4 @@
-import * as R_toPairs from '../ramda/dist/src/toPairs';
+import R_toPairs = require('../ramda/dist/src/toPairs');
 
 declare const a_1_b_2_c_3: {
   a: 1;
@@ -7,7 +7,7 @@ declare const a_1_b_2_c_3: {
 };
 declare const string_number_record: Record<string, number>;
 
-// @dts-jest:pass -> ["a" | "b" | "c", 1 | 2 | 3][]
+// @dts-jest:pass:snap -> ["a" | "b" | "c", 1 | 2 | 3][]
 R_toPairs(a_1_b_2_c_3);
-// @dts-jest:pass -> [string, number][]
+// @dts-jest:pass:snap -> [string, number][]
 R_toPairs(string_number_record);

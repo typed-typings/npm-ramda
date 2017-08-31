@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_reduceWhile(
-      object_number_to_boolean,
-      object_number_to_object,
-      object,
-      number_array,
-    ) 1`] = `"object"`;
+    object_number_to_boolean,
+    object_number_to_object,
+    object,
+    number_array,
+  ) 1`] = `"object"`;
 
 exports[`R_reduceWhile(object_number_to_boolean)(object_number_to_object)(object)(
-      number_array,
-    ) 1`] = `"object"`;
+    number_array,
+  ) 1`] = `"object"`;
 
 exports[`R_reduceWhile(object_number_to_boolean, object_number_to_object, object) 1`] = `"(values: number[] | ArrayLike<number>) => object"`;

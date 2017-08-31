@@ -1,10 +1,10 @@
 import { List } from '../ramda/dist/src/$types';
-import * as R_reverse from '../ramda/dist/src/reverse';
+import R_reverse = require('../ramda/dist/src/reverse');
 
 declare const string: string;
 declare const number_list: List<number>;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_reverse(string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_reverse(number_list);

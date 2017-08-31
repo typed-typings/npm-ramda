@@ -1,4 +1,4 @@
-import * as R_construct from '../ramda/dist/src/construct';
+import R_construct = require('../ramda/dist/src/construct');
 
 declare const new_string_to_object: new (x: string) => object;
 declare const new_number_boolean_to_string: new (
@@ -16,11 +16,11 @@ declare const new_7_string_to_number: new (
   v7: string,
 ) => number;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_string_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_construct(new_7_string_to_number);

@@ -11,36 +11,36 @@ exports[`add R.add(2, 3) 1`] = `"number"`;
 exports[`add R.add(7)(10) 1`] = `"number"`;
 
 exports[`addIndex R.addIndex<number, number, number[], number[]>(R.map)(squareEnds)([
-        8,
-        5,
-        3,
-        0,
-        9,
-      ]) 1`] = `"number[]"`;
+      8,
+      5,
+      3,
+      0,
+      9,
+    ]) 1`] = `"number[]"`;
 
 exports[`addIndex R.addIndex<number, number, number[], number[]>(R.map)(squareEnds, [
-        8,
-        5,
-        3,
-        0,
-        9,
-      ]) 1`] = `"number[]"`;
+      8,
+      5,
+      3,
+      0,
+      9,
+    ]) 1`] = `"number[]"`;
 
 exports[`addIndex R.addIndex<number, void, number[], number[]>(R.forEach)(plusFive)([
-        1,
-        2,
-        3,
-      ]) 1`] = `"number[]"`;
+      1,
+      2,
+      3,
+    ]) 1`] = `"number[]"`;
 
 exports[`addIndex filterIndexed(lastTwo)([8, 6, 7, 5, 3, 0, 9]) 1`] = `"number[]"`;
 
 exports[`addIndex filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]) 1`] = `"number[]"`;
 
 exports[`addIndex reduceIndexed(
-        (acc: string, val: string, idx: number) => \`\${acc},\${idx}-\${val}\`,
-        '',
-        ['f', 'o', 'o', 'b', 'a', 'r'],
-      ) 1`] = `"any"`;
+      (acc: string, val: string, idx: number) => \`\${acc},\${idx}-\${val}\`,
+      '',
+      ['f', 'o', 'o', 'b', 'a', 'r'],
+    ) 1`] = `"any"`;
 
 exports[`addIndex reduceIndexed(objectify)({}, ['a', 'b', 'c']) 1`] = `"Record<string, number>"`;
 
@@ -429,16 +429,16 @@ exports[`fromPairs R.fromPairs([['a', 1], ['b', 2], ['c', 3]]) 1`] = `"Dictionar
 exports[`groupBy byGrade(students) 1`] = `"Dictionary<{ score: number; name: string; }[]>"`;
 
 exports[`groupWith R.groupWith((a: number, b: number) => a % 2 === b % 2, [
-        0,
-        1,
-        1,
-        2,
-        3,
-        5,
-        8,
-        13,
-        21,
-      ]) 1`] = `"number[][]"`;
+      0,
+      1,
+      1,
+      2,
+      3,
+      5,
+      8,
+      13,
+      21,
+    ]) 1`] = `"number[][]"`;
 
 exports[`groupWith R.groupWith(R.eqBy<string>(isVowel), 'aestiou') 1`] = `"string[]"`;
 
@@ -529,16 +529,16 @@ exports[`indexOf R.indexOf(10)([1, 2, 3, 4]) 1`] = `"number"`;
 exports[`init R.init(['fi', 'fo', 'fum']) 1`] = `"string[]"`;
 
 exports[`innerJoin R.innerJoin(
-        (data: Data, id: number) => data.id === id,
-        [
-          { id: 824, name: 'Richie Furay' },
-          { id: 956, name: 'Dewey Martin' },
-          { id: 313, name: 'Bruce Palmer' },
-          { id: 456, name: 'Stephen Stills' },
-          { id: 177, name: 'Neil Young' },
-        ],
-        [177, 456, 999],
-      ) 1`] = `"{ id: number; name: string; }[]"`;
+      (data: Data, id: number) => data.id === id,
+      [
+        { id: 824, name: 'Richie Furay' },
+        { id: 956, name: 'Dewey Martin' },
+        { id: 313, name: 'Bruce Palmer' },
+        { id: 456, name: 'Stephen Stills' },
+        { id: 177, name: 'Neil Young' },
+      ],
+      [177, 456, 999],
+    ) 1`] = `"{ id: number; name: string; }[]"`;
 
 exports[`insert R.insert(2)(5)([1, 2, 3, 4]) 1`] = `"number[]"`;
 
@@ -760,11 +760,11 @@ exports[`mapAccumRight R.mapAccumRight(append, '0', digits) 1`] = `"[string[], s
 
 exports[`mapObjIndexed R.mapObjIndexed(prependKeyAndDouble, values) 1`] = `"Record<string, string>"`;
 
-exports[`match R.match(/([a-z]a)/g, 'bananas') 1`] = `"string[]"`;
+exports[`match R.match(new RegExp('([a-z]a)', 'g'), 'bananas') 1`] = `"string[]"`;
 
-exports[`match R.match(/a/, 'b') 1`] = `"string[]"`;
+exports[`match R.match(new RegExp('a'), 'b') 1`] = `"string[]"`;
 
-exports[`match R.match(/a/, null) 1`] = `"Argument of type 'null' is not assignable to parameter of type 'string'."`;
+exports[`match R.match(new RegExp('a'), null) 1`] = `"Argument of type 'null' is not assignable to parameter of type 'string'."`;
 
 exports[`mathMod R.mathMod(-17, 5) 1`] = `"number"`;
 
@@ -839,43 +839,43 @@ exports[`mergeAll R.mergeAll([{ foo: 1 }, { bar: 2 }, { baz: 3 }]) 1`] = `"objec
 exports[`mergeAll R.mergeAll([{ foo: 1 }, { foo: 2 }, { bar: 2 }]) 1`] = `"object"`;
 
 exports[`mergeDeepLeft R.mergeDeepLeft(
-        { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
-        { age: 40, contact: { email: 'baa@example.com' } },
-      ) 1`] = `"object"`;
+      { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
+      { age: 40, contact: { email: 'baa@example.com' } },
+    ) 1`] = `"object"`;
 
 exports[`mergeDeepRight R.mergeDeepRight(
-        { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
-        { age: 40, contact: { email: 'baa@example.com' } },
-      ) 1`] = `"object"`;
+      { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
+      { age: 40, contact: { email: 'baa@example.com' } },
+    ) 1`] = `"object"`;
 
 exports[`mergeDeepWith R.mergeDeepWith(
-        R.concat,
-        { a: true, c: { values: [10, 20] } },
-        { b: true, c: { values: [15, 35] } },
-      ) 1`] = `"object"`;
+      R.concat,
+      { a: true, c: { values: [10, 20] } },
+      { b: true, c: { values: [15, 35] } },
+    ) 1`] = `"object"`;
 
 exports[`mergeDeepWithKey R.mergeDeepWithKey(
-        concatValues,
-        { a: true, c: { thing: 'foo', values: [10, 20] } },
-        { b: true, c: { thing: 'bar', values: [15, 35] } },
-      ) 1`] = `"object"`;
+      concatValues,
+      { a: true, c: { thing: 'foo', values: [10, 20] } },
+      { b: true, c: { thing: 'bar', values: [15, 35] } },
+    ) 1`] = `"object"`;
 
 exports[`mergeWith R.mergeWith(
-        R.concat,
-        { a: true, values: [10, 20] },
-        { b: true, values: [15, 35] },
-      ) 1`] = `"Pick<{ a: boolean; values: number[]; }, \\"a\\"> & Pick<{ b: boolean; values: number[]; }, \\"b\\"> & Record<\\"values\\", string | any[]>"`;
+      R.concat,
+      { a: true, values: [10, 20] },
+      { b: true, values: [15, 35] },
+    ) 1`] = `"Pick<{ a: boolean; values: number[]; }, \\"a\\"> & Pick<{ b: boolean; values: number[]; }, \\"b\\"> & Record<\\"values\\", string | any[]>"`;
 
 exports[`mergeWithKey R.mergeWithKey(
-        concatValues,
-        { a: true, thing: 'foo', values: [10, 20] },
-        { b: true, thing: 'bar', values: [15, 35] },
-      ) 1`] = `"Pick<{ a: boolean; thing: string; values: number[]; }, \\"a\\"> & Pick<{ b: boolean; thing: string; values: number[]; }, \\"b\\"> & Record<\\"values\\" | \\"thing\\", string | number[]>"`;
+      concatValues,
+      { a: true, thing: 'foo', values: [10, 20] },
+      { b: true, thing: 'bar', values: [15, 35] },
+    ) 1`] = `"Pick<{ a: boolean; thing: string; values: number[]; }, \\"a\\"> & Pick<{ b: boolean; thing: string; values: number[]; }, \\"b\\"> & Record<\\"values\\" | \\"thing\\", string | number[]>"`;
 
 exports[`mergeWithKey R.mergeWithKey(concatValues)(
-        { a: true, thing: 'foo', values: [10, 20] },
-        { b: true, thing: 'bar', values: [15, 35] },
-      ) 1`] = `"Pick<{ a: boolean; thing: string; values: number[]; }, \\"a\\"> & Pick<{ b: boolean; thing: string; values: number[]; }, \\"b\\"> & Record<\\"values\\" | \\"thing\\", string | number[]>"`;
+      { a: true, thing: 'foo', values: [10, 20] },
+      { b: true, thing: 'bar', values: [15, 35] },
+    ) 1`] = `"Pick<{ a: boolean; thing: string; values: number[]; }, \\"a\\"> & Pick<{ b: boolean; thing: string; values: number[]; }, \\"b\\"> & Record<\\"values\\" | \\"thing\\", string | number[]>"`;
 
 exports[`min R.min('a', 'z') 1`] = `"\\"a\\" | \\"z\\""`;
 
@@ -1008,12 +1008,12 @@ exports[`pathOr R.pathOr('N/A', ['a', 'b'])({ a: { b: 2 } }) 1`] = `"string | {}
 exports[`pathSatisfies R.pathSatisfies((a: any) => a !== 1, ['a', 'b', 'c'], { a: { b: { c: 2 } } }) 1`] = `"boolean"`;
 
 exports[`pathSatisfies R.pathSatisfies((a: any) => a === 'bar', ['a', 'b', 'c'], {
-        a: { b: { c: 'foo' } },
-      }) 1`] = `"boolean"`;
+      a: { b: { c: 'foo' } },
+    }) 1`] = `"boolean"`;
 
 exports[`pathSatisfies R.pathSatisfies((a: any) => a === 'foo', ['a', 'b', 'c'], {
-        a: { b: { c: 'foo' } },
-      }) 1`] = `"boolean"`;
+      a: { b: { c: 'foo' } },
+    }) 1`] = `"boolean"`;
 
 exports[`pathSatisfies R.pathSatisfies((a: any) => a === 1)(['a', 'b', 'c'])({ a: { b: { c: 1 } } }) 1`] = `"boolean"`;
 
@@ -1061,15 +1061,15 @@ exports[`pipe f(3, 4) 1`] = `"number"`;
 exports[`pipe squareThenDoubleThenTriple(5) 1`] = `"number"`;
 
 exports[`pipeP R.pipeP(
-        (m: number) => Promise.resolve(R.multiply(2, m)),
-        (m: number) => Promise.resolve(m / 2),
-        R.multiply(5),
-      )(10) 1`] = `"PromiseLike<number>"`;
+      (m: number) => Promise.resolve(R.multiply(2, m)),
+      (m: number) => Promise.resolve(m / 2),
+      R.multiply(5),
+    )(10) 1`] = `"PromiseLike<number>"`;
 
 exports[`pipeP R.pipeP(
-        (m: number) => Promise.resolve(R.multiply(2, m)),
-        (m: number) => Promise.resolve(m / 2),
-      )(10) 1`] = `"PromiseLike<number>"`;
+      (m: number) => Promise.resolve(R.multiply(2, m)),
+      (m: number) => Promise.resolve(m / 2),
+    )(10) 1`] = `"PromiseLike<number>"`;
 
 exports[`pluck R.pluck('a')([{ a: 1 }, { a: 2 }]) 1`] = `"number[]"`;
 
@@ -1189,13 +1189,13 @@ exports[`replace R.replace('foo', 'bar')('foo foo foo') 1`] = `"string"`;
 
 exports[`replace R.replace('foo', 'bar', 'foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/, 'bar', 'foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo'), 'bar', 'foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/g)('bar')('foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo', 'g'))('bar')('foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/g, 'bar')('foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo', 'g'), 'bar')('foo foo foo') 1`] = `"string"`;
 
-exports[`replace R.replace(/foo/g, 'bar', 'foo foo foo') 1`] = `"string"`;
+exports[`replace R.replace(new RegExp('foo', 'g'), 'bar', 'foo foo foo') 1`] = `"string"`;
 
 exports[`reverse R.reverse([]) 1`] = `"never[]"`;
 
@@ -1236,9 +1236,9 @@ exports[`sortBy sortByAgeDescending(people) 1`] = `"Person[]"`;
 exports[`sortBy sortByNameCaseInsensitive(people) 1`] = `"Person[]"`;
 
 exports[`sortWith R.sortWith<Person>(
-        [R.descend(R.prop('age')), R.ascend(R.prop('name'))],
-        people,
-      ) 1`] = `"Person[]"`;
+      [R.descend(R.prop('age')), R.ascend(R.prop('name'))],
+      people,
+    ) 1`] = `"Person[]"`;
 
 exports[`sortWith ageNameSort(people) 1`] = `"Person[]"`;
 
@@ -1320,9 +1320,9 @@ exports[`takeWhile R.takeWhile(isNotFour, [1, 2, 3, 4]) 1`] = `"number[]"`;
 
 exports[`tap R.tap(sayX, 100) 1`] = `"number"`;
 
-exports[`test R.test(/^x/, 'xyz') 1`] = `"boolean"`;
+exports[`test R.test(new RegExp('^x'), 'xyz') 1`] = `"boolean"`;
 
-exports[`test R.test(/^y/)('xyz') 1`] = `"boolean"`;
+exports[`test R.test(new RegExp('^y'))('xyz') 1`] = `"boolean"`;
 
 exports[`times R.times(R.identity)(5) 1`] = `"number[]"`;
 
@@ -1346,7 +1346,7 @@ exports[`toString R.toString({ foo: 1, bar: 2, baz: 3 }) 1`] = `"string"`;
 
 exports[`toString R.toString(42) 1`] = `"string"`;
 
-exports[`toString R.toString(new Date('2001-02-03T04: 05: 06Z')) 1`] = `"string"`;
+exports[`toString R.toString(new Date('2001-02-03T04:05:06Z')) 1`] = `"string"`;
 
 exports[`toString R.toString(new Point(1, 2)) 1`] = `"string"`;
 
@@ -1376,8 +1376,6 @@ exports[`tryCatch R.tryCatch<any>(R.prop('x'), R.F)(null) 1`] = `"any"`;
 
 exports[`type R.type('s') 1`] = `"\\"String\\""`;
 
-exports[`type R.type(/[A-z]/) 1`] = `"string"`;
-
 exports[`type R.type([]) 1`] = `"string"`;
 
 exports[`type R.type({}) 1`] = `"string"`;
@@ -1385,6 +1383,8 @@ exports[`type R.type({}) 1`] = `"string"`;
 exports[`type R.type(1) 1`] = `"\\"Number\\""`;
 
 exports[`type R.type(false) 1`] = `"\\"Boolean\\""`;
+
+exports[`type R.type(new RegExp('[A-z]')) 1`] = `"string"`;
 
 exports[`type R.type(null) 1`] = `"\\"Null\\""`;
 
