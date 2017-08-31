@@ -6,6 +6,7 @@
   },
   "include": [
     "gulpfile.ts",
+    "scripts/**/*.ts",
     "templates/**/*.ts",
     "tests/**/*.ts",
     "tasks/**/*.ts"
