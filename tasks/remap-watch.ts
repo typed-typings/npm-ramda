@@ -37,7 +37,7 @@ export const remap_watch = (_callback: (error?: any) => void) => {
               log('Remapping', output_relative_filename, 'no change');
               return;
             }
-          // tslint:disable-next-line:no-empty
+            // tslint:disable-next-line:no-empty
           } catch (e) {}
           fs.writeFile(
             output_relative_filename,

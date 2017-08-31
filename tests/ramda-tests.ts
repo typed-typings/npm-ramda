@@ -4,7 +4,7 @@ import * as R from '../ramda/dist/index';
  * @dts-jest enable:test-value
  */
 
- // regex literal is not available due to https://github.com/Microsoft/TypeScript/issues/18071 (fixed in v2.6)
+// regex literal is not available due to https://github.com/Microsoft/TypeScript/issues/18071 (fixed in v2.6)
 
 // tslint:disable max-file-line-count comment-format naming-convention
 
@@ -540,6 +540,7 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group construct
 (() => {
   class Circle {
+    // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
   }
   // @dts-jest:pass:snap
@@ -549,6 +550,7 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group constructN
 (() => {
   class Circle {
+    // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
   }
   // @dts-jest:pass:snap

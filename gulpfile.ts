@@ -1,7 +1,5 @@
 import * as del from 'del';
 import * as gulp from 'gulp';
-import * as gulp_diff from 'gulp-diff';
-import * as gulp_rename from 'gulp-rename';
 import * as gulp_run from 'run-sequence';
 import { build_watch } from './tasks/build-watch';
 import { remap_watch } from './tasks/remap-watch';
