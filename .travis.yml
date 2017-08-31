@@ -13,7 +13,8 @@ script:
 - yarn run lint
 - yarn run lint-dts
 - yarn run test-utils -- --ci --verbose --coverage
-- yarn run test -- --ci --verbose
+- yarn run test -- --ci --verbose --testPathPattern='/tests/ramda-tests.ts'
+- yarn run test -- --ci --verbose --testPathPattern='/tests/[a-z_]+.ts'
 - yarn run remap -- --check --list-different
 
 after_success:
