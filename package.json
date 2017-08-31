@@ -19,7 +19,8 @@
     "build-watch": "gulp build-watch",
     "remap": "dts-jest-remap ./tests/*.ts --outDir ./snapshots",
     "remap-watch": "gulp remap-watch",
-    "jsdoc": "ts-node ./scripts/migrate-jsdoc.ts v0.24.1 ./templates"
+    "jsdoc": "ts-node ./scripts/migrate-jsdoc.ts v0.24.1 ./templates",
+    "release-tags": "bash ./scripts/release-tags.sh"
   },
   "devDependencies": {
     "@types/del": "3.0.0",
