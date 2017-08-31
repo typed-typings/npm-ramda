@@ -760,9 +760,9 @@ dts-element@2.2.1:
   dependencies:
     typescript "~2.4.1"
 
-dts-jest@ikatyang/dts-jest#dist:
-  version "22.0.0-dev"
-  resolved "https://codeload.github.com/ikatyang/dts-jest/tar.gz/0122f91994fadf6a60caa3663b7be8c8bc7cb24f"
+dts-jest@22.0.0:
+  version "22.0.0"
+  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-22.0.0.tgz#b6ad4de9ecfab9f80f907c59f14987e8738afcac"
   dependencies:
     globby "^6.1.0"
     jest-snapshot-parser "^1.0.0"
