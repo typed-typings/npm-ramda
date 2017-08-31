@@ -1,52 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_compose(
-      boolean_to_number,
-      string_to_boolean,
-      number_to_string,
-      a_b_c_d_e_f_to_any,
-    ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+    boolean_to_number,
+    string_to_boolean,
+    number_to_string,
+    a_b_c_d_e_f_to_any,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
 
 exports[`R_compose(
-      boolean_to_number,
-      string_to_boolean,
-      number_to_string,
-      string_to_number,
-      a_b_c_d_e_f_to_any,
-    ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+    boolean_to_number,
+    string_to_boolean,
+    number_to_string,
+    string_to_number,
+    a_b_c_d_e_f_to_any,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
 
 exports[`R_compose(
-      boolean_to_number,
-      string_to_boolean,
-      number_to_string,
-      string_to_number,
-      boolean_to_string,
-      a_b_c_d_e_f_to_any,
-    ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+    boolean_to_number,
+    string_to_boolean,
+    number_to_string,
+    string_to_number,
+    boolean_to_string,
+    a_b_c_d_e_f_to_any,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
 
 exports[`R_compose(
-      boolean_to_number,
-      string_to_boolean,
-      number_to_string,
-      string_to_number,
-      boolean_to_string,
-      number_to_boolean,
-    ) 1`] = `"(v1: number) => number"`;
+    boolean_to_number,
+    string_to_boolean,
+    number_to_string,
+    string_to_number,
+    boolean_to_string,
+    number_to_boolean,
+  ) 1`] = `"(v1: number) => number"`;
 
 exports[`R_compose(
-      boolean_to_number,
-      string_to_boolean,
-      number_to_string,
-      string_to_number,
-      boolean_to_string,
-    ) 1`] = `"(v1: boolean) => number"`;
+    boolean_to_number,
+    string_to_boolean,
+    number_to_string,
+    string_to_number,
+    boolean_to_string,
+  ) 1`] = `"(v1: boolean) => number"`;
 
 exports[`R_compose(
-      boolean_to_number,
-      string_to_boolean,
-      number_to_string,
-      string_to_number,
-    ) 1`] = `"(v1: string) => number"`;
+    boolean_to_number,
+    string_to_boolean,
+    number_to_string,
+    string_to_number,
+  ) 1`] = `"(v1: string) => number"`;
 
 exports[`R_compose(a_b_c_d_e_f_to_any) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => any"`;
 

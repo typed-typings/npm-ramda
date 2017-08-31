@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_cond([
-      [string_to_boolean, string_boolean_to_number],
-      [string_number_to_boolean, string_to_number],
-    ]) 1`] = `
+    [string_to_boolean, string_boolean_to_number],
+    [string_number_to_boolean, string_to_number],
+  ]) 1`] = `
 "Argument of type '([(a: string, b: number) => boolean, Morphism<string, number>] | [Morphism<string, boolean>, (a: ...' is not assignable to parameter of type '[(v1: string, v2: number, v3: {}, v4: {}, v5: {}, v6: {}) => boolean, (v1: string, v2: number, v3...'.
   Type '[(a: string, b: number) => boolean, Morphism<string, number>] | [Morphism<string, boolean>, (a: s...' is not assignable to type '[(v1: string, v2: number, v3: {}, v4: {}, v5: {}, v6: {}) => boolean, (v1: string, v2: number, v3...'.
     Type '[Morphism<string, boolean>, (a: string, b: boolean) => number]' is not assignable to type '[(v1: string, v2: number, v3: {}, v4: {}, v5: {}, v6: {}) => boolean, (v1: string, v2: number, v3...'.
@@ -13,11 +13,11 @@ exports[`R_cond([
 `;
 
 exports[`R_cond([
-      [string_to_boolean, string_to_number],
-      [string_number_to_boolean, string_to_number],
-    ]) 1`] = `"(v1: string, v2: number) => number"`;
+    [string_to_boolean, string_to_number],
+    [string_number_to_boolean, string_to_number],
+  ]) 1`] = `"(v1: string, v2: number) => number"`;
 
 exports[`R_cond([
-      [string_to_boolean, string_to_number],
-      [string_to_boolean, string_to_number],
-    ]) 1`] = `"(v1: string) => number"`;
+    [string_to_boolean, string_to_number],
+    [string_to_boolean, string_to_number],
+  ]) 1`] = `"(v1: string) => number"`;

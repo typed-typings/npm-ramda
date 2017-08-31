@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_traverse(
-      number_applicative.of,
-      number_to_string_applicative,
-      number_traverable,
-    ) 1`] = `"Applicative<Traversable<string>>"`;
+    number_applicative.of,
+    number_to_string_applicative,
+    number_traverable,
+  ) 1`] = `"Applicative<Traversable<string>>"`;
 
 exports[`R_traverse(number_applicative.of)(number_to_string_applicative)(
-      number_traverable,
-    ) 1`] = `"Applicative<Traversable<string>>"`;
+    number_traverable,
+  ) 1`] = `"Applicative<Traversable<string>>"`;
 
 exports[`R_traverse(number_applicative.of)(number_to_string_applicative)(number_array) 1`] = `"Applicative<string[]>"`;
 
