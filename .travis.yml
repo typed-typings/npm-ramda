@@ -12,11 +12,9 @@ before_script:
 script:
 - yarn run lint
 - yarn run lint-dts
-- yarn run build-check
-- yarn run remap-check
-- yarn run test-utils -- --verbose --coverage
-- yarn run test -- --verbose
-- yarn run test-actual -- --verbose -u
+- yarn run test-utils -- --ci --verbose --coverage
+- yarn run test -- --ci --verbose
+- yarn run remap -- --check --list-different
 
 after_success:
 - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/deploy.sh; fi
