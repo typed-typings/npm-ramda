@@ -704,9 +704,9 @@ dts-element@2.2.1:
   dependencies:
     typescript "~2.4.1"
 
-dts-jest@22.0.0:
-  version "22.0.0"
-  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-22.0.0.tgz#b6ad4de9ecfab9f80f907c59f14987e8738afcac"
+dts-jest@22.0.1:
+  version "22.0.1"
+  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-22.0.1.tgz#09797e622235798ad7b3b44ab5bb592728661621"
   dependencies:
     globby "^6.1.0"
     jest-snapshot-parser "^1.0.0"
