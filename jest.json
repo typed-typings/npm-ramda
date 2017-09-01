@@ -11,5 +11,9 @@
       "enclosing_declaration": true,
       "compiler_options": "./tsconfig.test.json"
     }
-  }
+  },
+  "reporters": [
+    "default",
+    "dts-jest/reporter"
+  ]
 }
