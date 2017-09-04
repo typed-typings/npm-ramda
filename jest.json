@@ -9,7 +9,8 @@
   "globals": {
     "_dts_jest_": {
       "enclosing_declaration": true,
-      "compiler_options": "./tsconfig.test.json"
+      "compiler_options": "./tsconfig.test.json",
+      "typescript": "<cwd>/node_modules/typescript/lib/typescript"
     }
   },
   "reporters": [
