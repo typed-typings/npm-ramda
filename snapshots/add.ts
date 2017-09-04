@@ -1,8 +1,8 @@
-import * as R_add from '../ramda/dist/src/add';
+import R_add = require('../ramda/dist/src/add');
 
 declare const number: number;
 
-// @dts-jest:pass -> number
+// @dts-jest:pass:snap -> number
 R_add(number, number);
-// @dts-jest:pass -> number
+// @dts-jest:pass:snap -> number
 R_add(number)(number);

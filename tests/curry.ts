@@ -1,4 +1,4 @@
-import * as R_curry from '../ramda/dist/src/curry';
+import R_curry = require('../ramda/dist/src/curry');
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;
@@ -13,11 +13,11 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(string_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_curry(seven_string_to_number);

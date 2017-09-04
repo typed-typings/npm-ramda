@@ -15,7 +15,7 @@ Typing compatible with ramda version v0.24.1
 ## Features
 
 - support placeholder ( `R.__` )
-- support partial import ( `import * as map from "ramda/src/map"` )
+- support partial import ( `import map = require("ramda/src/map")` )
 - support selectable overloads ( use 0-param: `R.map<"11", "list">()` )
 
 ## Usage
@@ -39,41 +39,33 @@ If you use the package through a script tag, install with the `--global` flag in
 
 ## Testing
 
+This project uses [dts-jest](https://github.com/ikatyang/dts-jest) to test types and values simultaneously, so as to ensure our types are always up to date.
+
+```sh
+# test
+yarn run test
+
+# test with watching mode
+yarn run test -- --watch
+```
+
+After you changed some tests/types, you have to run `yarn run remap` to update the diff-friendly snapshots, and you can see their diff clearly in generated files (`./snapshots/*.ts`).
+
+(You can also run `yarn run remap-watch` to use it in watching mode.)
+
+test files:
+
+- unit tests: `./tests/*.ts` (test types)
+- integration tests: `./tests/ramda-tests.ts` (test types and values)
+
+## Building types
+
 ```sh
 # build types (./templates/*.ts -> ./ramda/dist/**/*.d.ts)
 yarn run build
 
 # build types with watching mode
 yarn run build-watch
-
-# check if generated definitions are valid
-yarn run build-check
-
-# snapshot test for types
-yarn run test
-
-# snapshot test for types with watching mode
-yarn run test -- --watch
-
-# test utils
-yarn run test-utils
-
-# actual test
-yarn run test-actual
-
-# NOTE: test files
-#   unit tests -> ./tests/*.ts
-#   actual tests -> ./tests/ramda-tests.ts
-#   integration tests -> ./tests/ramda-tests.ts
-
-# remap snapshots (./tests/__snapshots__/*.ts.snap -> ./snapshots/*.ts)
-yarn run remap
-
-# remap snapshots with watching mode
-yarn run remap-watch
-
-# check if snapshot is outdated
-yarn run remap-check
 ```
 
 ## FAQ

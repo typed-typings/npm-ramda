@@ -1,52 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_pipe(
-      a_b_c_d_e_f_to_any,
-      boolean_to_string,
-      string_to_number,
-      number_to_string,
-      string_to_boolean,
-      boolean_to_number,
-    ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+    a_b_c_d_e_f_to_any,
+    boolean_to_string,
+    string_to_number,
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
 
 exports[`R_pipe(
-      a_b_c_d_e_f_to_any,
-      number_to_string,
-      string_to_boolean,
-      boolean_to_number,
-    ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+    a_b_c_d_e_f_to_any,
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
 
 exports[`R_pipe(
-      a_b_c_d_e_f_to_any,
-      string_to_number,
-      number_to_string,
-      string_to_boolean,
-      boolean_to_number,
-    ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+    a_b_c_d_e_f_to_any,
+    string_to_number,
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
 
 exports[`R_pipe(
-      boolean_to_string,
-      string_to_number,
-      number_to_string,
-      string_to_boolean,
-      boolean_to_number,
-    ) 1`] = `"(v1: boolean) => number"`;
+    boolean_to_string,
+    string_to_number,
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: boolean) => number"`;
 
 exports[`R_pipe(
-      number_to_boolean,
-      boolean_to_string,
-      string_to_number,
-      number_to_string,
-      string_to_boolean,
-      boolean_to_number,
-    ) 1`] = `"(v1: number) => number"`;
+    number_to_boolean,
+    boolean_to_string,
+    string_to_number,
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: number) => number"`;
 
 exports[`R_pipe(
-      string_to_number,
-      number_to_string,
-      string_to_boolean,
-      boolean_to_number,
-    ) 1`] = `"(v1: string) => number"`;
+    string_to_number,
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: string) => number"`;
 
 exports[`R_pipe(a_b_c_d_e_f_to_any) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => any"`;
 

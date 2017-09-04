@@ -1,6 +1,6 @@
-import * as R_not from '../ramda/dist/src/not';
+import R_not = require('../ramda/dist/src/not');
 
 declare const string: string;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_not(string);

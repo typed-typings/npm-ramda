@@ -1,4 +1,4 @@
-import * as R_flip from '../ramda/dist/src/flip';
+import R_flip = require('../ramda/dist/src/flip');
 
 declare const string_number_to_object: (x: string, y: number) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;
@@ -13,11 +13,11 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_flip(string_number_to_object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_flip(number_boolean_to_string);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_flip(number_args_to_boolean);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_flip(seven_string_to_number);

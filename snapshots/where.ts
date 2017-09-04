@@ -1,5 +1,5 @@
 import { Dictionary } from '../ramda/dist/src/$types';
-import * as R_where from '../ramda/dist/src/where';
+import R_where = require('../ramda/dist/src/where');
 
 declare const dictionary_of_number_to_boolean: Dictionary<
   (x: number) => boolean
@@ -16,28 +16,28 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass -> (object: Dictionary<any>) => boolean
+// @dts-jest:pass:snap -> (object: Dictionary<any>) => boolean
 R_where(a_b_c_number_to_boolean);
 
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(a_b_c_number_to_boolean)(a_1_b_2_c_3);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(a_b_c_number_to_boolean, a_1_b_2_c_3);
 
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(a_b_c_number_to_boolean)(number_dictionary);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(a_b_c_number_to_boolean, number_dictionary);
 
-// @dts-jest:pass -> (object: Dictionary<any>) => boolean
+// @dts-jest:pass:snap -> (object: Dictionary<any>) => boolean
 R_where(dictionary_of_number_to_boolean);
 
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(dictionary_of_number_to_boolean)(a_1_b_2_c_3);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(dictionary_of_number_to_boolean, a_1_b_2_c_3);
 
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(dictionary_of_number_to_boolean)(number_dictionary);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_where(dictionary_of_number_to_boolean, number_dictionary);

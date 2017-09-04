@@ -1,10 +1,10 @@
-import * as R_identical from '../ramda/dist/src/identical';
+import R_identical = require('../ramda/dist/src/identical');
 
 declare const string: string;
 
-// @dts-jest:pass -> (b: string) => boolean
+// @dts-jest:pass:snap -> (b: string) => boolean
 R_identical(string);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_identical(string)(string);
-// @dts-jest:pass -> boolean
+// @dts-jest:pass:snap -> boolean
 R_identical(string, string);

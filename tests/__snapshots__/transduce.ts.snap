@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_transduce(
-      number_object_transformer_identity,
-      object_number_to_object,
-      object,
-      number_array,
-    ) 1`] = `"object"`;
+    number_object_transformer_identity,
+    object_number_to_object,
+    object,
+    number_array,
+  ) 1`] = `"object"`;
 
 exports[`R_transduce(
-      number_object_transformer_identity,
-      object_number_to_object,
-      object,
-    ) 1`] = `"(values: number[]) => object"`;
+    number_object_transformer_identity,
+    object_number_to_object,
+    object,
+  ) 1`] = `"(values: number[]) => object"`;
 
 exports[`R_transduce(number_object_transformer_identity)(object_number_to_object)(
-      object,
-    )(number_array) 1`] = `"object"`;
+    object,
+  )(number_array) 1`] = `"object"`;

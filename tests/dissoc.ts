@@ -1,4 +1,4 @@
-import * as R_dissoc from '../ramda/dist/src/dissoc';
+import R_dissoc = require('../ramda/dist/src/dissoc');
 
 declare const string_property: string;
 declare const object: object;
@@ -8,12 +8,12 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissoc(string_property, object);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissoc(string_property)(object);
 
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissoc('a', a_1_b_2_c_3);
-// @dts-jest:pass
+// @dts-jest:pass:snap
 R_dissoc('a')(a_1_b_2_c_3);

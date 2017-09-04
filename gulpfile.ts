@@ -1,7 +1,5 @@
 import * as del from 'del';
 import * as gulp from 'gulp';
-import * as gulp_diff from 'gulp-diff';
-import * as gulp_rename from 'gulp-rename';
 import * as gulp_run from 'run-sequence';
 import {
   build_dt_chores,
@@ -35,24 +33,10 @@ gulp.task('build-watch', ['build'], build_watch);
 gulp.task('clean-remap', async () => del('./snapshots/'));
 gulp.task('remap', ['clean-remap'], () =>
   gulp
-    .src('./tests/__snapshots__/*.ts.snap')
+    .src('./tests/*.ts')
     .pipe(create_transform(generate_remap_content))
-    .pipe(gulp_rename({ extname: '' }))
     .pipe(gulp.dest('./snapshots')),
 );
-gulp.task('remap-check', () => {
-  function on_error() {
-    throw new Error('Detected outdated remapped-snapshots');
-  }
-  return gulp
-    .src('./tests/__snapshots__/*.ts.snap')
-    .pipe(create_transform(generate_remap_content))
-    .pipe(gulp_rename({ extname: '' }))
-    .pipe(gulp_diff('./snapshots'))
-    .on('error', on_error)
-    .pipe(gulp_diff.reporter({ fail: true }))
-    .on('error', on_error);
-});
 
 gulp.task('remap-watch', ['remap'], remap_watch);
 
