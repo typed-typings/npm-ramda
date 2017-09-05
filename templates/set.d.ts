@@ -1,9 +1,8 @@
-import { NumberToString } from './$operation';
 import { ManualLens, PseudoLens } from './$types';
 
 export function $number<N extends number, U extends { [index: number]: any }>(
   lens: PseudoLens<N>,
-  value: U[NumberToString[N]],
+  value: U[N],
   target: U,
 ): U;
 export function $string<K extends string, U extends Record<K, any>>(
