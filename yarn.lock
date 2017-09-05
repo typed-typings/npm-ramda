@@ -740,15 +740,15 @@ dts-element@2.2.1:
   dependencies:
     typescript "~2.4.1"
 
-dts-jest@22.0.2:
-  version "22.0.2"
-  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-22.0.2.tgz#48bbe677a410f7585a186bfa0993850e855d5cd7"
+dts-jest@22.0.3:
+  version "22.0.3"
+  resolved "https://registry.yarnpkg.com/dts-jest/-/dts-jest-22.0.3.tgz#4954401b594b3b4c4f2b38f9dc34df184555b6ff"
   dependencies:
     globby "^6.1.0"
     jest-snapshot-parser "^1.0.0"
     lodash.intersection "^4.4.0"
     make-dir "^1.0.0"
-    pretty-format "^20.0.3"
+    pretty-format "^21.0.0"
     ts-comment "^1.1.0"
     tslib "^1.7.1"
     yargs "^8.0.2"
