@@ -3,7 +3,3 @@
 exports[`R_dissoc('a')(a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"b\\" | \\"c\\">"`;
 
 exports[`R_dissoc('a', a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"b\\" | \\"c\\">"`;
-
-exports[`R_dissoc(string_property)(object) 1`] = `"Pick<object, any>"`;
-
-exports[`R_dissoc(string_property, object) 1`] = `"Pick<object, any>"`;
