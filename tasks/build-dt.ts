@@ -1,3 +1,5 @@
+import * as child_process from 'child_process';
+import del = require('del');
 import * as fs from 'fs';
 import * as gulp from 'gulp';
 import * as gulp_prettier from 'gulp-plugin-prettier';
@@ -70,21 +72,39 @@ export const build_dt_chores = () =>
     .pipe(gulp.dest(dt_ramda_dirname));
 
 export const build_dt_tests = () => {
+  const temp_dirname = 'temp';
+  const remapped_filename = `${test_filename}.remapped`;
+
+  const commands = [
+    `rm -rf ${temp_dirname}`,
+    `mkdir ${temp_dirname}`,
+    `cp tests/${test_filename} ${temp_dirname}/`,
+    `node_modules/.bin/jest -c ./jest.dt.json -u --silent`,
+    `node_modules/.bin/dts-jest-remap ${temp_dirname}/${test_filename} --rename ${remapped_filename}`,
+  ];
+
+  child_process.execSync(commands.join(' && '));
+
   const linter = new tslint.Linter({ fix: true });
 
-  const snapshot_filename = `snapshots/${test_filename}`;
   const output_filename = `${dt_ramda_dirname}/${test_filename}`;
+
+  const output_content = prettier.format(
+    fs
+      .readFileSync(`${temp_dirname}/${remapped_filename}`, 'utf8')
+      .replace(`'../ramda/dist/index'`, `'ramda'`)
+      .replace(/\/\/ @dts-jest:fail.+/g, '// $ExpectError')
+      .replace(/\/\/ @dts-jest:pass:snap ->/g, '// $ExpectType'),
+    prettier_options,
+  );
+
+  fs.writeFileSync(output_filename, output_content);
 
   linter.lint(
     output_filename,
-    prettier.format(
-      fs
-        .readFileSync(snapshot_filename, 'utf8')
-        .replace(`'../ramda/dist/index'`, `'ramda'`)
-        .replace(/\/\/ @dts-jest:fail ->.+/g, '// $ExpectError')
-        .replace(/\/\/ @dts-jest:pass ->/g, '// $ExpectType'),
-      prettier_options,
-    ),
+    output_content,
     tslint.Linter.findConfiguration(null, output_filename).results,
   );
+
+  del.sync(temp_dirname);
 };

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ./DefinitelyTyped
-yarn
+yarn install --force
 cd ..
 
 yarn run build-dt

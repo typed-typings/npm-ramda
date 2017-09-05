@@ -3,6 +3,8 @@
     "rules": {
       "ban-types": false,
       "callable-types": false,
-      "interface-over-type-literal": false
+      "interface-over-type-literal": false,
+      "unified-signatures": false,
+      "no-unnecessary-type-assertion": false
     }
 }
