@@ -24,13 +24,13 @@ R_view(pseudo_lens_a)(a_1_b_2_c_3);
 // @dts-jest:pass:snap -> 1
 R_view(pseudo_lens_a, a_1_b_2_c_3);
 
-// @dts-jest:pass:snap -> <U extends { [index: number]: any; }>(target: U) => U["1"]
+// @dts-jest:pass:snap -> <U extends { [index: number]: any; }>(target: U) => U[1]
 R_view(pseudo_lens_1);
 // @dts-jest:pass:snap -> number
 R_view(pseudo_lens_1)(string_number_tuple);
 // @dts-jest:pass:snap -> number
 R_view(pseudo_lens_1, string_number_tuple);
-// @dts-jest:pass:snap -> any
+// @dts-jest:pass:snap -> number
 R_view(pseudo_lens_1)(number_array);
-// @dts-jest:pass:snap -> any
+// @dts-jest:pass:snap -> number
 R_view(pseudo_lens_1, number_array);

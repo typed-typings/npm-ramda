@@ -694,7 +694,7 @@ exports[`lensIndex R.set(R.__, 'x', ['a', 'b', 'c'])(headLens) 1`] = `"string[]"
 
 exports[`lensIndex R.set(headLens, 'x', ['a', 'b', 'c']) 1`] = `"string[]"`;
 
-exports[`lensIndex R.view(headLens, ['a', 'b', 'c']) 1`] = `"any"`;
+exports[`lensIndex R.view(headLens, ['a', 'b', 'c']) 1`] = `"string"`;
 
 exports[`lensPath R.over(xyLens, R.negate, { x: { y: 2, z: 3 } }) 1`] = `"{ x: { y: number; z: number; }; }"`;
 
@@ -1456,7 +1456,7 @@ exports[`values R.values({ a: 1, b: 2, c: 3 }) 1`] = `"number[]"`;
 
 exports[`valuesIn R.valuesIn(f) 1`] = `"string[]"`;
 
-exports[`view R.view(headLens, ['a', 'b', 'c']) 1`] = `"any"`;
+exports[`view R.view(headLens, ['a', 'b', 'c']) 1`] = `"string"`;
 
 exports[`when truncate('0123456789ABC') 1`] = `"string"`;
 

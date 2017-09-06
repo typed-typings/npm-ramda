@@ -6,13 +6,13 @@ exports[`R_view(menual_lens_number_object)(object) 1`] = `"number"`;
 
 exports[`R_view(menual_lens_number_object, object) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_1) 1`] = `"<U extends { [index: number]: any; }>(target: U) => U[\\"1\\"]"`;
+exports[`R_view(pseudo_lens_1) 1`] = `"<U extends { [index: number]: any; }>(target: U) => U[1]"`;
 
-exports[`R_view(pseudo_lens_1)(number_array) 1`] = `"any"`;
+exports[`R_view(pseudo_lens_1)(number_array) 1`] = `"number"`;
 
 exports[`R_view(pseudo_lens_1)(string_number_tuple) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_1, number_array) 1`] = `"any"`;
+exports[`R_view(pseudo_lens_1, number_array) 1`] = `"number"`;
 
 exports[`R_view(pseudo_lens_1, string_number_tuple) 1`] = `"number"`;
 
