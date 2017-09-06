@@ -16,6 +16,7 @@ script:
 - yarn run test -- --ci --testPathPattern='/tests/ramda-tests.ts' --verbose=false
 - yarn run test -- --ci --testPathPattern='/tests/[a-z_]+.ts'
 - yarn run remap -- --check --list-different
+- yarn run test-dt
 
 after_success:
 - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./scripts/deploy.sh; fi

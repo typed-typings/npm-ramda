@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "definitely-typed",
+  "version": "0.0.0-dt",
+  "scripts": {
+    "lint": "dtslint types ramda"
+  },
+  "devDependencies": {
+    "dtslint": "Microsoft/dtslint#production"
+  }
+}

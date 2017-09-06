@@ -13,3 +13,6 @@ export const output_sub_dirname = 'src';
 export const output_relative_dirname = `./ramda/dist${output_dirname_postfix}`;
 export const output_relative_sub_dirname = `${output_relative_dirname}/${output_sub_dirname}`;
 export const output_extname = '.d.ts';
+
+export const dt_dirname = 'DefinitelyTyped';
+export const dt_ramda_dirname = `${dt_dirname}/types/ramda`;

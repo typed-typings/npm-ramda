@@ -203,6 +203,7 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
       {
         selectable,
         placeholder,
+        inline_return_type: true,
       },
     );
 

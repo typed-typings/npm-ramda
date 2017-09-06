@@ -134,7 +134,7 @@ exports[`binary takesTwoArgs(1, 2, 3) 1`] = `"Expected 2 arguments, but got 3."`
 
 exports[`binary takesTwoArgs.length 1`] = `"number"`;
 
-exports[`bind R.bind(console.log, console) 1`] = `"(message?: any, ...optionalParams: any[]) => void"`;
+exports[`bind R.bind(Array.isArray, Array) 1`] = `"(arg: any) => arg is any[]"`;
 
 exports[`both R.both(gt10)(even)(101) 1`] = `"boolean"`;
 

@@ -305,8 +305,8 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group bind
 (() => {
-  // @dts-jest:pass:snap -> (message?: any, ...optionalParams: any[]) => void
-  R.bind(console.log, console);
+  // @dts-jest:pass:snap -> (arg: any) => arg is any[]
+  R.bind(Array.isArray, Array);
 })();
 
 // @dts-jest:group both
