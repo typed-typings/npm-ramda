@@ -1503,7 +1503,7 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group lensIndex
 (() => {
   const headLens = R.lensIndex(0);
-  // @dts-jest:pass:snap -> any
+  // @dts-jest:pass:snap -> string
   R.view(headLens, ['a', 'b', 'c']); //=> 'a'
 
   // @dts-jest:pass:snap -> string[]
@@ -3195,7 +3195,7 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group view
 (() => {
   const headLens = R.lensIndex(0);
-  // @dts-jest:pass:snap -> any
+  // @dts-jest:pass:snap -> string
   R.view(headLens, ['a', 'b', 'c']); //=> 'a'
 })();
 
