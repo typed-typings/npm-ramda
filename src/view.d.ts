@@ -1,4 +1,3 @@
-import { NumberToString } from "./$operation";
 import { ManualLens, PseudoLens } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
 declare const view: view_00;
@@ -71,7 +70,7 @@ type view_general_01<V> = {
 };
 type view_number_11<N extends number, U extends {
         [index: number]: any;
-    }> = U[NumberToString[N]];
+    }> = U[N];
 type view_string_11<K extends string, U extends Record<K, any>> = U[K];
 type view_manual_11<T> = T;
 type view_general_11<X, V> = X | V[any];
