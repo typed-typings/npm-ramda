@@ -50,9 +50,13 @@
   version "2.0.29"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-2.0.29.tgz#5002e14f75e2d71e564281df0431c8c1b4a2a36a"
 
-"@types/node@*", "@types/node@8.0.26":
+"@types/node@*":
   version "8.0.26"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.26.tgz#4d58be925306fd22b1141085535a0268b8beb189"
+
+"@types/node@8.0.27":
+  version "8.0.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.27.tgz#13fbe7e92afeecebb843d7cea6c15b521e0000e1"
 
 "@types/orchestrator@*":
   version "0.3.0"
