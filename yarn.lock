@@ -50,11 +50,7 @@
   version "2.0.29"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-2.0.29.tgz#5002e14f75e2d71e564281df0431c8c1b4a2a36a"
 
-"@types/node@*":
-  version "8.0.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.26.tgz#4d58be925306fd22b1141085535a0268b8beb189"
-
-"@types/node@8.0.28":
+"@types/node@*", "@types/node@8.0.28":
   version "8.0.28"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
 
@@ -1699,16 +1695,7 @@ jest-config@^21.0.2:
     jest-validate "^21.0.2"
     pretty-format "^21.0.2"
 
-jest-diff@^21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-21.0.0.tgz#b996ba2963a783125e6bc59fd5623bce67df7f17"
-  dependencies:
-    chalk "^2.0.1"
-    diff "^3.2.0"
-    jest-get-type "^21.0.0"
-    pretty-format "^21.0.0"
-
-jest-diff@^21.0.2:
+jest-diff@^21.0.0, jest-diff@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-21.0.2.tgz#751014f36ad5d505f6affce5542fde0e444ee50a"
   dependencies:
@@ -1725,15 +1712,7 @@ jest-docblock@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-21.0.2.tgz#66f69ddb440799fc32f91d0ac3d8d35e99e2032f"
 
-jest-environment-jsdom@^21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/jest-environment-jsdom/-/jest-environment-jsdom-21.0.0.tgz#1d53e34b1656254b8c539700e35360d8f8ebb579"
-  dependencies:
-    jest-mock "^21.0.0"
-    jest-util "^21.0.0"
-    jsdom "^9.12.0"
-
-jest-environment-jsdom@^21.0.2:
+jest-environment-jsdom@^21.0.0, jest-environment-jsdom@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-environment-jsdom/-/jest-environment-jsdom-21.0.2.tgz#6f6ab5bd71970d1900fbd47a46701c0a07fa3be5"
   dependencies:
@@ -1800,15 +1779,7 @@ jest-jasmine2@^21.0.2:
     jest-snapshot "^21.0.2"
     p-cancelable "^0.3.0"
 
-jest-matcher-utils@^21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-21.0.0.tgz#493dc25b9ed6a23a61802ca20656f0f1c16f15b1"
-  dependencies:
-    chalk "^2.0.1"
-    jest-get-type "^21.0.0"
-    pretty-format "^21.0.0"
-
-jest-matcher-utils@^21.0.2:
+jest-matcher-utils@^21.0.0, jest-matcher-utils@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-21.0.2.tgz#eb6736a45b698546d71f7e1ffbbd36587eeb27bc"
   dependencies:
@@ -1816,15 +1787,7 @@ jest-matcher-utils@^21.0.2:
     jest-get-type "^21.0.2"
     pretty-format "^21.0.2"
 
-jest-message-util@^21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/jest-message-util/-/jest-message-util-21.0.0.tgz#cd49c2e91d7a227e622884c418185a1a7cbe1fd6"
-  dependencies:
-    chalk "^2.0.1"
-    micromatch "^2.3.11"
-    slash "^1.0.0"
-
-jest-message-util@^21.0.2:
+jest-message-util@^21.0.0, jest-message-util@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-message-util/-/jest-message-util-21.0.2.tgz#81242e07d426ad54c15f3d7c55b072e9db7b39a9"
   dependencies:
@@ -1840,11 +1803,7 @@ jest-mock@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-mock/-/jest-mock-21.0.2.tgz#5e92902450e1ce78be3864cc4d50dbd5d1582fbd"
 
-jest-regex-util@^21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/jest-regex-util/-/jest-regex-util-21.0.0.tgz#f13c382a1c55515c20471390ab38e5d71cbd320e"
-
-jest-regex-util@^21.0.2:
+jest-regex-util@^21.0.0, jest-regex-util@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-regex-util/-/jest-regex-util-21.0.2.tgz#06248c07b53ff444223ebe8e33a25bc051ac976f"
 
@@ -1913,18 +1872,7 @@ jest-snapshot-parser@^1.0.0:
   dependencies:
     tslib "^1.7.1"
 
-jest-snapshot@^21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/jest-snapshot/-/jest-snapshot-21.0.0.tgz#00b582b13ef42112bd431b498e37f7829b30cd66"
-  dependencies:
-    chalk "^2.0.1"
-    jest-diff "^21.0.0"
-    jest-matcher-utils "^21.0.0"
-    mkdirp "^0.5.1"
-    natural-compare "^1.4.0"
-    pretty-format "^21.0.0"
-
-jest-snapshot@^21.0.2:
+jest-snapshot@^21.0.0, jest-snapshot@^21.0.2:
   version "21.0.2"
   resolved "https://registry.yarnpkg.com/jest-snapshot/-/jest-snapshot-21.0.2.tgz#5b8f4dd05c1759381db835451fba4bcd85a55611"
   dependencies:
@@ -3300,13 +3248,13 @@ tslib@^1.0.0, tslib@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.7.1.tgz#bc8004164691923a79fe8378bbeb3da2017538ec"
 
-tslint-config-ikatyang@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/tslint-config-ikatyang/-/tslint-config-ikatyang-2.3.0.tgz#6f8e1bb6e75c5ec0666d31ebddd9e81059376c45"
+tslint-config-ikatyang@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslint-config-ikatyang/-/tslint-config-ikatyang-2.4.0.tgz#b77ed21682a645a546e0c0fda7cfb0682b991654"
   dependencies:
     tslint-consistent-codestyle "~1.6.0"
     tslint-eslint-rules "~4.1.0"
-    tslint-plugin-ikatyang "~1.0.0"
+    tslint-plugin-ikatyang "~1.1.1"
 
 tslint-config-prettier@1.5.0:
   version "1.5.0"
@@ -3327,9 +3275,9 @@ tslint-eslint-rules@~4.1.0:
     tslib "^1.0.0"
     tsutils "^1.4.0"
 
-tslint-plugin-ikatyang@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/tslint-plugin-ikatyang/-/tslint-plugin-ikatyang-1.0.0.tgz#fb70140938879435f084696fe98193e7e8561093"
+tslint-plugin-ikatyang@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/tslint-plugin-ikatyang/-/tslint-plugin-ikatyang-1.1.1.tgz#a7815bba6267b7f820fd52aa6baec5041ac721f5"
   dependencies:
     lodash.camelcase "^4.3.0"
     lodash.kebabcase "^4.1.1"
