@@ -1,4 +1,4 @@
-import * as del from 'del';
+import del = require('del');
 import * as fs from 'fs';
 import * as gulp from 'gulp';
 import * as gulp_util from 'gulp-util';
