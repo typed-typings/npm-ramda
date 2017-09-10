@@ -1,6 +1,6 @@
-import * as del from 'del';
+import del = require('del');
 import * as gulp from 'gulp';
-import * as gulp_run from 'run-sequence';
+import gulp_run = require('run-sequence');
 import { build_watch } from './tasks/build-watch';
 import { remap_watch } from './tasks/remap-watch';
 import {

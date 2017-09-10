@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as gulp_rename from 'gulp-rename';
+import gulp_rename = require('gulp-rename');
 import {
   glob_index,
   output_extname,

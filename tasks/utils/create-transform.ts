@@ -1,5 +1,5 @@
 import * as gulp_util from 'gulp-util';
-import * as through from 'through2';
+import through = require('through2');
 
 export function create_transform(transformer: (filename: string) => string) {
   return through.obj((file: gulp_util.File, _encoding, callback) => {

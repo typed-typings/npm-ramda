@@ -1,5 +1,5 @@
 import * as gulp_util from 'gulp-util';
-import * as yargs from 'yargs';
+import yargs = require('yargs');
 
 export function get_options() {
   const options = {

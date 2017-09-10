@@ -1,5 +1,5 @@
 import * as dts from 'dts-element';
-import * as glob from 'glob';
+import glob = require('glob');
 import * as path from 'path';
 import {
   glob_templates,
