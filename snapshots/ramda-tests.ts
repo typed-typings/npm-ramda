@@ -2285,6 +2285,14 @@ import * as R from '../ramda/dist/index';
   R.pluck('a')([{ a: 1 }, { a: 2 }]); //=> [1, 2]
   // @dts-jest:pass:snap -> number[]
   R.pluck(0)([[1, 2], [3, 4]]); //=> [1, 3]
+  // @dts-jest:pass:snap -> Record<"a", string>
+  R.pluck(
+    'value',
+    R.pick(['a'])({
+      a: { value: 'some_value' },
+      b: { value: 'some_value' },
+    }),
+  ); //=> { a: 'some_value' }
 })();
 
 // @dts-jest:group prepend

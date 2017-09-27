@@ -1071,6 +1071,14 @@ exports[`pipeP R.pipeP(
       (m: number) => Promise.resolve(m / 2),
     )(10) 1`] = `"PromiseLike<number>"`;
 
+exports[`pluck R.pluck(
+      'value',
+      R.pick(['a'])({
+        a: { value: 'some_value' },
+        b: { value: 'some_value' },
+      }),
+    ) 1`] = `"Record<\\"a\\", string>"`;
+
 exports[`pluck R.pluck('a')([{ a: 1 }, { a: 2 }]) 1`] = `"number[]"`;
 
 exports[`pluck R.pluck('a', [{ a: 1 }, { a: 2 }]) 1`] = `"number[]"`;
