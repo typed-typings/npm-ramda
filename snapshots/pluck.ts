@@ -23,7 +23,7 @@ R_pluck(placeholder, [a_number_record, a_number_record]);
 // @dts-jest:pass:snap -> number[]
 R_pluck(placeholder, [a_number_record, a_number_record])('a');
 
-// @dts-jest:pass:snap -> Record<"x" | "y" | "z", true | "string" | 1>
+// @dts-jest:pass:snap -> { x: 1; y: true; z: "string"; }
 R_pluck('a', x_y_z_with_a_record);
 
 // @dts-jest:pass:snap -> string[]

@@ -2285,7 +2285,7 @@ import * as R from '../ramda/dist/index';
   R.pluck('a')([{ a: 1 }, { a: 2 }]); //=> [1, 2]
   // @dts-jest:pass:snap -> number[]
   R.pluck(0)([[1, 2], [3, 4]]); //=> [1, 3]
-  // @dts-jest:pass:snap -> Record<"a", string>
+  // @dts-jest:pass:snap -> { a: string; }
   R.pluck(
     'value',
     R.pick(['a'])({

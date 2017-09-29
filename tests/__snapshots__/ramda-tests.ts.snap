@@ -1077,7 +1077,7 @@ exports[`pluck R.pluck(
         a: { value: 'some_value' },
         b: { value: 'some_value' },
       }),
-    ) 1`] = `"Record<\\"a\\", string>"`;
+    ) 1`] = `"{ a: string; }"`;
 
 exports[`pluck R.pluck('a')([{ a: 1 }, { a: 2 }]) 1`] = `"number[]"`;
 
