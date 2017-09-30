@@ -1083,6 +1083,11 @@ exports[`pluck R.pluck('a')([{ a: 1 }, { a: 2 }]) 1`] = `"number[]"`;
 
 exports[`pluck R.pluck('a', [{ a: 1 }, { a: 2 }]) 1`] = `"number[]"`;
 
+exports[`pluck R.pluck('value', {
+      a: { value: 'some_value' },
+      b: { value: 123 },
+    }) 1`] = `"{ a: string; b: number; }"`;
+
 exports[`pluck R.pluck(0)([[1, 2], [3, 4]]) 1`] = `"number[]"`;
 
 exports[`pluck R.pluck(0, [[1, 2], [3, 4]]) 1`] = `"number[]"`;

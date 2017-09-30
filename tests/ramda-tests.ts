@@ -2293,6 +2293,11 @@ import * as R from '../ramda/dist/index';
       b: { value: 'some_value' },
     }),
   ); //=> { a: 'some_value' }
+  // @dts-jest:pass:snap
+  R.pluck('value', {
+    a: { value: 'some_value' },
+    b: { value: 123 },
+  }); //=> { a: 'some_value', b: 123 }
 })();
 
 // @dts-jest:group prepend
