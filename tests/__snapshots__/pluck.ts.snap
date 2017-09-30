@@ -6,6 +6,8 @@ exports[`R_pluck('a')([a_number_record, a_number_record]) 1`] = `"number[]"`;
 
 exports[`R_pluck('a', [a_number_record, a_number_record]) 1`] = `"number[]"`;
 
+exports[`R_pluck('a', x_y_z_with_a_record) 1`] = `"{ x: 1; y: true; z: \\"string\\"; }"`;
+
 exports[`R_pluck(0, [string_array]) 1`] = `"string[]"`;
 
 exports[`R_pluck(placeholder, [a_number_record, a_number_record]) 1`] = `"<K extends \\"a\\">(key: K) => Record<\\"a\\", number>[K][]"`;

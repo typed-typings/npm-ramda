@@ -1,4 +1,4 @@
-import { List, Property } from './$types';
+import { Dictionary, List, Property } from './$types';
 
 export function $list<U>(index: number, list: List<List<U>>): U[];
 export function $keyof<T, K extends keyof T>(
@@ -9,4 +9,8 @@ export function $record<K extends string, V, T extends Record<K, V>>(
   key: K,
   list: List<T>,
 ): Array<T[K]>;
+export function $object<
+  K extends string,
+  T extends Dictionary<Dictionary<any>>
+>(key: K, object: T): { [P in keyof T]: T[P][K] };
 export function $general(key: Property, list: List<any>): any[];
