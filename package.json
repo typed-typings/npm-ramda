@@ -27,7 +27,7 @@
     "@types/gulp": "3.8.33",
     "@types/gulp-rename": "0.0.32",
     "@types/gulp-util": "3.0.31",
-    "@types/jest": "21.1.1",
+    "@types/jest": "21.1.2",
     "@types/node": "8.0.31",
     "@types/ramda": "ikatyang/types-ramda#v0.24.1-dist",
     "@types/run-sequence": "0.0.29",
