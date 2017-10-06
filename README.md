@@ -64,7 +64,8 @@ If using partial imports:
        ]
      }
   }
-}```
+}
+```
 
 ## Testing
 
