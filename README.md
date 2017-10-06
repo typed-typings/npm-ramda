@@ -37,6 +37,35 @@ yarn add --dev types/npm-ramda#dist-placeholder # contains placeholder
 
 If you use the package through a script tag, install with the `--global` flag instead.
 
+If not using npm/yarn, you may need to add these typings to `paths` in `tsconfig.json`:
+
+For the full package:
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths" : {
+       "ramda": [
+         "location-of-types/npm-ramda-package/index"
+       ]
+     }
+  }
+}
+```
+
+If using partial imports:
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths" : {
+       "ramda/src/*": [
+         "location-of-types/npm-ramda-package/src/*"
+       ]
+     }
+  }
+}```
+
 ## Testing
 
 This project uses [dts-jest](https://github.com/ikatyang/dts-jest) to test types and values simultaneously, so as to ensure our types are always up to date.
