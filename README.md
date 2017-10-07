@@ -29,13 +29,16 @@ npm install --save-dev types/npm-ramda#dist
 # using yarn
 yarn add --dev types/npm-ramda#dist
 
+# using jspm
+jspm install --dev github:types/npm-ramda@dist
+
 # you can also choose which version to install using #<branch/commit/tag>
 yarn add --dev types/npm-ramda#dist-simple # contains basic features
 yarn add --dev types/npm-ramda#dist-selectable # contains selectable-overloads
 yarn add --dev types/npm-ramda#dist-placeholder # contains placeholder
 ```
 
-If you use the package through a script tag, install with the `--global` flag instead.
+If you load Ramda via a script tag, install with the `--global` flag instead.
 
 If not using npm/yarn, you may need to add these typings to `paths` in `tsconfig.json`:
 
