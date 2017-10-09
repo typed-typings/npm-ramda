@@ -3139,9 +3139,9 @@ ts-comment@^1.1.0:
   dependencies:
     typescript "^2.4.0"
 
-ts-jest@21.1.0:
-  version "21.1.0"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-21.1.0.tgz#f8d1a6dfadd6e65f8ced525c638eac3543842d3c"
+ts-jest@21.1.1:
+  version "21.1.1"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-21.1.1.tgz#a63380127e59e112a113106237f302d17c72cd48"
   dependencies:
     babel-core "^6.24.1"
     babel-plugin-istanbul "^4.1.4"
