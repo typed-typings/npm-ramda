@@ -2998,7 +2998,9 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap -> boolean
   R.tryCatch(R.prop('x'), R.F)({ x: true }); //=> true
   // @dts-jest:pass:snap -> any
-  R.tryCatch<any>(R.prop('x'), R.F)(null); //=> false
+  R.tryCatch<any>(R.prop('x'), R.F)(null); //=> undefined
+  // @dts-jest:pass:snap -> any
+  R.tryCatch((o: any) => o.x, R.F)(null); //=> false
 })();
 
 // @dts-jest:group type
