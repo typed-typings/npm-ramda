@@ -3308,3 +3308,20 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap -> void[]
   R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
 })();
+
+// @dts-jest:group issue-273
+(() => {
+  const mapKeyPairs = R.curry(
+    (
+      fn: (key: string) => string,
+      obj: { [k: string]: any } | { [k: number]: any },
+    ) => R.map(R.adjust<0, [string, any]>(fn, 0), R.toPairs(obj)),
+  );
+
+  const mapKey = R.pipe(mapKeyPairs, R.fromPairs);
+
+  // @dts-jest:pass:snap -> [string, any][]
+  mapKeyPairs((key: string) => `x${key}`, { a: 1, b: 2, c: 3 }); //=> [['xa', 1], ['xb', 2], ['xc', 3]]
+  // @dts-jest:pass:snap -> Dictionary<any>
+  mapKey((key: string) => `x${key}`, { a: 1, b: 2, c: 3 }); //=> { xa: 1, xb: 2, xc: 3 }
+})();

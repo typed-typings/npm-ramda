@@ -648,6 +648,10 @@ exports[`isNil R.isNil(null) 1`] = `"boolean"`;
 
 exports[`isNil R.isNil(undefined) 1`] = `"boolean"`;
 
+exports[`issue-273 mapKey((key: string) => \`x\${key}\`, { a: 1, b: 2, c: 3 }) 1`] = `"Dictionary<any>"`;
+
+exports[`issue-273 mapKeyPairs((key: string) => \`x\${key}\`, { a: 1, b: 2, c: 3 }) 1`] = `"[string, any][]"`;
+
 exports[`join R.join('|', [1, 2, 3]) 1`] = `"string"`;
 
 exports[`join spacer(['a', 2, 3.4]) 1`] = `"string"`;
