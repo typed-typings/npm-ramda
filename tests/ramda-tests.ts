@@ -1257,34 +1257,6 @@ import * as R from '../ramda/dist/index';
   R.intersection([1, 2, 4])([1, 2, 3]); //=> [1,2]
 })();
 
-// @dts-jest:group intersectionWith
-(() => {
-  interface Field {
-    id: number;
-    name: string;
-  }
-  const buffaloSpringfield = [
-    { id: 824, name: 'Richie Furay' },
-    { id: 956, name: 'Dewey Martin' },
-    { id: 313, name: 'Bruce Palmer' },
-    { id: 456, name: 'Stephen Stills' },
-    { id: 177, name: 'Neil Young' },
-  ];
-  const csny = [
-    { id: 204, name: 'David Crosby' },
-    { id: 456, name: 'Stephen Stills' },
-    { id: 539, name: 'Graham Nash' },
-    { id: 177, name: 'Neil Young' },
-  ];
-
-  // @dts-jest:pass:snap
-  R.intersectionWith<Field>(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
-  // @dts-jest:pass:snap
-  R.intersectionWith<Field>(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
-  // @dts-jest:pass:snap
-  R.intersectionWith<Field>(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny); //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
-})();
-
 // @dts-jest:group intersperse
 (() => {
   // @dts-jest:pass:snap
