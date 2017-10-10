@@ -224,6 +224,15 @@ import * as R from '../ramda/dist/index';
   R.apply(Math.max)(nums); //=> 42
 })();
 
+// @dts-jest:group applyTo
+(() => {
+  const t42 = R.applyTo(42);
+  // @dts-jest:pass:snap -> number
+  t42(R.identity); //=> 42
+  // @dts-jest:pass:snap -> number
+  t42(R.add(1)); //=> 43
+})();
+
 // @dts-jest:group applySpec
 (() => {
   interface T {
