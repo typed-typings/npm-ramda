@@ -16,8 +16,8 @@ associated function with the supplied arguments.
 @example
 
      var getMetrics = R.applySpec({
-                                     sum: R.add,
-                                     nested: { mul: R.multiply }
-                                  });
+       sum: R.add,
+       nested: { mul: R.multiply }
+     });
      getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
 @symb R.applySpec({ x: f, y: { z: g } })(a, b) = { x: f(a, b), y: { z: g(a, b) } }

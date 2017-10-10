@@ -13,7 +13,7 @@ not removed, so `xs'` may contain duplicates if `xs` contains duplicates.
 @memberOf R
 @since v0.24.0
 @category Relation
-@sig (a -> b -> Boolean) -> [a] -> [b] -> [a]
+@sig ((a, b) -> Boolean) -> [a] -> [b] -> [a]
 @param {Function} pred
 @param {Array} xs
 @param {Array} ys

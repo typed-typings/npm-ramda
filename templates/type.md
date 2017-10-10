@@ -20,3 +20,4 @@ attempt to distinguish user Object types any further, reporting them all as
      R.type([]); //=> "Array"
      R.type(/[A-z]/); //=> "RegExp"
      R.type(() => {}); //=> "Function"
+     R.type(undefined); //=> "Undefined"

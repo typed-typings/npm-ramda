@@ -1,6 +1,6 @@
 Creates a new object out of a list of keys and a list of values.
 Key/value pairing is truncated to the length of the shorter of the two lists.
-Note: `zipObj` is equivalent to `pipe(zipWith(pair), fromPairs)`.
+Note: `zipObj` is equivalent to `pipe(zip, fromPairs)`.
 
 @func
 @memberOf R

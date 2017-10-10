@@ -15,6 +15,7 @@ functions such as [`filter`](#filter) and [`find`](#find).
 @param {Object} spec
 @param {Object} testObj
 @return {Boolean}
+@see R.propSatisfies, R.whereEq
 @example
 
      // pred :: Object -> Boolean
