@@ -1142,6 +1142,8 @@ exports[`propIs R.propIs(Number, 'x', {}) 1`] = `"boolean"`;
 
 exports[`propOr R.prop('favoriteLibrary', alice) 1`] = `"string | undefined"`;
 
+exports[`propOr R.propOr([], 'detail', undefined) 1`] = `"{} | never[]"`;
+
 exports[`propSatisfies R.propSatisfies((x: number) => x > 0, 'x', { x: 1, y: 2 }) 1`] = `"boolean"`;
 
 exports[`propSatisfies R.propSatisfies<'x', XY>((x: number) => x > 0)('x')({ x: 1, y: 2 }) 1`] = `"boolean"`;

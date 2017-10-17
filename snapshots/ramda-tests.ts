@@ -2406,6 +2406,9 @@ import * as R from '../ramda/dist/index';
   R.prop('favoriteLibrary', alice); //=> undefined
   // @dts-jest:skip string
   R.propOr('Ramda', 'favoriteLibrary', alice); //=> 'Ramda'
+
+  // @dts-jest:pass:snap -> {} | never[]
+  R.propOr([], 'detail', undefined); //=> []
 })();
 
 // @dts-jest:group propSatisfies
