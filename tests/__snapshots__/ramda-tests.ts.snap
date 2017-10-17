@@ -953,7 +953,7 @@ exports[`o R.o(R.multiply(10), R.add(10))(-4) 1`] = `"number"`;
 
 exports[`o yellGreeting({ first: 'James', last: 'Bond' }) 1`] = `"string"`;
 
-exports[`objOf matchPhrases(['foo', 'bar', 'baz']) 1`] = `"Record<\\"must\\", {}>"`;
+exports[`objOf matchPhrases(['foo', 'bar', 'baz']) 1`] = `"Record<\\"must\\", Record<\\"match_phrase\\", {}>[]>"`;
 
 exports[`of R.of([1]) 1`] = `"number[][]"`;
 
@@ -1053,6 +1053,8 @@ exports[`pickBy R.pickBy(containsBackground, colors) 1`] = `"Partial<{ 1: { colo
 exports[`pickBy R.pickBy(isPositive, { a: 1, b: 2, c: -1, d: 0, e: 5 }) 1`] = `"Partial<{ a: number; b: number; c: number; d: number; e: number; }>"`;
 
 exports[`pickBy R.pickBy(isUpperCase, { a: 1, b: 2, A: 3, B: 4 }) 1`] = `"Partial<{ a: number; b: number; A: number; B: number; }>"`;
+
+exports[`pipe R.pipe(() => ({ x: { y: 1 } }), R.path(['x', 'y'])) 1`] = `"() => {} | undefined"`;
 
 exports[`pipe R.pipe(R.split(''), R.adjust(R.toUpper, 0), R.join(''))('str') 1`] = `"string"`;
 

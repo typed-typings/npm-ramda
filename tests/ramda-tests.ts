@@ -2015,12 +2015,12 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group objOf
 (() => {
-  const matchPhrases = R.compose(
+  const matchPhrases = R.pipe(
+    R.map(R.objOf('match_phrase'))<'1', 'list'>(),
     R.objOf('must'),
-    R.map(R.objOf('match_phrase')),
   );
   // @dts-jest:pass:snap
-  matchPhrases(['foo', 'bar', 'baz']);
+  matchPhrases(['foo', 'bar', 'baz']); //=> {"must": [{"match_phrase": "foo"}, {"match_phrase": "bar"}, {"match_phrase": "baz"}]}
 })();
 
 // @dts-jest:group of
@@ -2253,6 +2253,8 @@ import * as R from '../ramda/dist/index';
     // @dts-jest:pass:snap
     squareThenDoubleThenTriple(5); //=> 150
   })();
+  // @dts-jest:pass:snap
+  R.pipe(() => ({ x: { y: 1 } }), R.path(['x', 'y']));
 })();
 
 // @dts-jest:group:skip pipeK
