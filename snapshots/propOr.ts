@@ -12,6 +12,8 @@ R_propOr(defaults, 'a')(a_b_number_record);
 
 // @dts-jest:pass:snap -> number | "defaults"
 R_propOr(defaults, 'a', a_b_number_record);
+// @dts-jest:pass:snap -> {} | "defaults"
+R_propOr(defaults, 'a', undefined);
 
 // @dts-jest:pass:snap -> <K extends "a" | "b">(key: K) => "defaults" | Record<"a" | "b", number>[K]
 R_propOr(defaults, placeholder, a_b_number_record);
