@@ -49,9 +49,9 @@
     "@types/orchestrator" "*"
     "@types/vinyl" "*"
 
-"@types/jest@21.1.3":
-  version "21.1.3"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.3.tgz#158d13cc3fa6b2f34d78118677af77754fe5b3fe"
+"@types/jest@21.1.4":
+  version "21.1.4"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.4.tgz#83c5c474dd6dee5bef9d014ff36787edfd4ab5a7"
 
 "@types/minimatch@*":
   version "2.0.29"
@@ -3139,9 +3139,9 @@ ts-comment@^1.1.0:
   dependencies:
     typescript "^2.4.0"
 
-ts-jest@21.1.2:
-  version "21.1.2"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-21.1.2.tgz#3f5aa88125d9f6e9ae07b745e20062d069c22ad9"
+ts-jest@21.1.3:
+  version "21.1.3"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-21.1.3.tgz#cc3c552e7e8a67db9ededc28c00ae98223614ddc"
   dependencies:
     babel-core "^6.24.1"
     babel-plugin-istanbul "^4.1.4"
@@ -3188,9 +3188,9 @@ tslint-config-ikatyang@2.4.0:
     tslint-eslint-rules "~4.1.0"
     tslint-plugin-ikatyang "~1.1.1"
 
-tslint-config-prettier@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.5.0.tgz#76645425edcc34d9b6835ba58266eaf90fdbfeda"
+tslint-config-prettier@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.6.0.tgz#fec1ee8fb07e8f033c63fed6b135af997f31962a"
 
 tslint-consistent-codestyle@~1.6.0:
   version "1.6.0"
