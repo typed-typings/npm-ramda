@@ -539,6 +539,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group construct
 (() => {
+  // tslint:disable-next-line:no-unnecessary-class
   class Circle {
     // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
@@ -549,6 +550,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group constructN
 (() => {
+  // tslint:disable-next-line:no-unnecessary-class
   class Circle {
     // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
