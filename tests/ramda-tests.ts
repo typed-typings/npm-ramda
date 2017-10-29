@@ -548,6 +548,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group construct
 (() => {
+  // tslint:disable-next-line:no-unnecessary-class
   class Circle {
     // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
@@ -558,6 +559,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group constructN
 (() => {
+  // tslint:disable-next-line:no-unnecessary-class
   class Circle {
     // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
@@ -2387,6 +2389,9 @@ import * as R from '../ramda/dist/index';
   R.prop('favoriteLibrary', alice); //=> undefined
   // @dts-jest:skip string
   R.propOr('Ramda', 'favoriteLibrary', alice); //=> 'Ramda'
+
+  // @dts-jest:pass:snap
+  R.propOr([], 'detail', undefined); //=> []
 })();
 
 // @dts-jest:group propSatisfies
@@ -3290,4 +3295,21 @@ import * as R from '../ramda/dist/index';
   R.zipWith(f)([1, 2, 3], ['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
   // @dts-jest:pass:snap
   R.zipWith(f, [1, 2, 3])(['a', 'b', 'c']); //=> [f(1, 'a'), f(2, 'b'), f(3, 'c')]
+})();
+
+// @dts-jest:group issue-273
+(() => {
+  const mapKeyPairs = R.curry(
+    (
+      fn: (key: string) => string,
+      obj: { [k: string]: any } | { [k: number]: any },
+    ) => R.map(R.adjust<0, [string, any]>(fn, 0), R.toPairs(obj)),
+  );
+
+  const mapKey = R.pipe(mapKeyPairs, R.fromPairs);
+
+  // @dts-jest:pass:snap
+  mapKeyPairs((key: string) => `x${key}`, { a: 1, b: 2, c: 3 }); //=> [['xa', 1], ['xb', 2], ['xc', 3]]
+  // @dts-jest:pass:snap
+  mapKey((key: string) => `x${key}`, { a: 1, b: 2, c: 3 }); //=> { xa: 1, xb: 2, xc: 3 }
 })();

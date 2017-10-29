@@ -6,6 +6,8 @@ exports[`R_propOr(defaults, 'a')(a_b_number_record) 1`] = `"number | \\"defaults
 
 exports[`R_propOr(defaults, 'a', a_b_number_record) 1`] = `"number | \\"defaults\\""`;
 
+exports[`R_propOr(defaults, 'a', undefined) 1`] = `"{} | \\"defaults\\""`;
+
 exports[`R_propOr(defaults, placeholder, a_b_number_record) 1`] = `"<K extends \\"a\\" | \\"b\\">(key: K) => \\"defaults\\" | Record<\\"a\\" | \\"b\\", number>[K]"`;
 
 exports[`R_propOr(defaults, placeholder, a_b_number_record)('a') 1`] = `"number | \\"defaults\\""`;
