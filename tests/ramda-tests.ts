@@ -2039,6 +2039,8 @@ import * as R from '../ramda/dist/index';
   R.omit(['a', 'd'], { a: 1, b: 2, c: 3, d: 4 }); //=> {b: 2, c: 3}
   // @dts-jest:pass:snap
   R.omit(['a', 'd'])({ a: 1, b: 2, c: 3, d: 4 }); //=> {b: 2, c: 3}
+  // @dts-jest:fail:snap
+  R.omit('ad', { a: 1, b: 2, c: 3, d: 4 });
 })();
 
 // @dts-jest:group once

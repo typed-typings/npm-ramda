@@ -959,6 +959,8 @@ exports[`of R.of([1]) 1`] = `"number[][]"`;
 
 exports[`of R.of(1) 1`] = `"number[]"`;
 
+exports[`omit R.omit('ad', { a: 1, b: 2, c: 3, d: 4 }) 1`] = `"Argument of type '\\"ad\\"' is not assignable to parameter of type 'Property[]'."`;
+
 exports[`omit R.omit(['a', 'd'])({ a: 1, b: 2, c: 3, d: 4 }) 1`] = `"Partial<{ a: number; b: number; c: number; d: number; }>"`;
 
 exports[`omit R.omit(['a', 'd'], { a: 1, b: 2, c: 3, d: 4 }) 1`] = `"Partial<{ a: number; b: number; c: number; d: number; }>"`;
