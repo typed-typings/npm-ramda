@@ -1,3 +1,3 @@
-import { List, Property } from './$types';
+import { Property } from './$types';
 
-export function $<T>(keys: List<Property>, object: T): Partial<T>;
+export function $<T>(keys: Property[], object: T): Partial<T>;

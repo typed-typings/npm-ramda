@@ -2039,6 +2039,8 @@ import * as R from '../ramda/dist/index';
   R.omit(['a', 'd'], { a: 1, b: 2, c: 3, d: 4 }); //=> {b: 2, c: 3}
   // @dts-jest:pass:snap -> Partial<{ a: number; b: number; c: number; d: number; }>
   R.omit(['a', 'd'])({ a: 1, b: 2, c: 3, d: 4 }); //=> {b: 2, c: 3}
+  // @dts-jest:fail:snap -> Argument of type '"ad"' is not assignable to parameter of type 'Property[]'.
+  R.omit('ad', { a: 1, b: 2, c: 3, d: 4 });
 })();
 
 // @dts-jest:group once
