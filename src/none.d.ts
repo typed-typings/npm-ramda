@@ -20,9 +20,10 @@ type none_00 = {
      * @example
      *
      *      var isEven = n => n % 2 === 0;
+     *      var isOdd = n => n % 2 === 1;
      *
      *      R.none(isEven, [1, 3, 5, 7, 9, 11]); //=> true
-     *      R.none(isEven, [1, 3, 5, 7, 8, 11]); //=> false
+     *      R.none(isOdd, [1, 3, 5, 7, 8, 11]); //=> false
      */
     <T>(fn: Predicate<T>): none_10<T>;
     <T>(_fn: PH, list: List<T>): none_01<T>;

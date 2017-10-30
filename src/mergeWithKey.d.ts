@@ -12,7 +12,7 @@ type mergeWithKey_000 = {
      * @memberOf R
      * @since v0.19.0
      * @category Object
-     * @sig (String -> a -> a -> a) -> {a} -> {a} -> {a}
+     * @sig ((String, a, a) -> a) -> {a} -> {a} -> {a}
      * @param {Function} fn
      * @param {Object} l
      * @param {Object} r

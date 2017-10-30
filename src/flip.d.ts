@@ -9,7 +9,7 @@ type flip_0 = {
      * @memberOf R
      * @since v0.1.0
      * @category Function
-     * @sig (a -> b -> c -> ... -> z) -> (b -> a -> c -> ... -> z)
+     * @sig ((a, b, c, ...) -> z) -> (b -> a -> c -> ... -> z)
      * @param {Function} fn The function to invoke with its first two parameters reversed.
      * @return {*} The result of invoking `fn` with its first two parameters' order reversed.
      * @example

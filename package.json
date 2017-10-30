@@ -1,6 +1,6 @@
 {
   "name": "@types/ramda",
-  "version": "0.24.3",
+  "version": "0.25.0",
   "description": "TypeScript's type definitions for Ramda",
   "keywords": [
     "ramda",
@@ -19,7 +19,7 @@
     "build-watch": "gulp build-watch",
     "remap": "dts-jest-remap ./tests/*.ts --outDir ./snapshots",
     "remap-watch": "gulp remap-watch",
-    "jsdoc": "ts-node ./scripts/migrate-jsdoc.ts v0.24.1 ./templates"
+    "jsdoc": "ts-node ./scripts/migrate-jsdoc.ts v$npm_package_version ./templates"
   },
   "devDependencies": {
     "@types/del": "3.0.0",
@@ -44,7 +44,7 @@
     "jest": "21.2.1",
     "prettier": "1.7.4",
     "prettier-config-ikatyang": "1.1.1",
-    "ramda": "0.24.1",
+    "ramda": "0.25.0",
     "run-sequence": "2.2.0",
     "through2": "2.0.3",
     "ts-jest": "21.1.4",
