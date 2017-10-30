@@ -19,6 +19,7 @@ type where_00 = {
      * @param {Object} spec
      * @param {Object} testObj
      * @return {Boolean}
+     * @see R.propSatisfies, R.whereEq
      * @example
      *
      *      // pred :: Object -> Boolean

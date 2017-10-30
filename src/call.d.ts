@@ -19,7 +19,7 @@ import { Variadic } from "./$types";
  *
  *      R.call(R.add, 1, 2); //=> 3
  *
- *      var indentN = R.pipe(R.times(R.always(' ')),
+ *      var indentN = R.pipe(R.repeat(' '),
  *                           R.join(''),
  *                           R.replace(/^(?!$)/gm));
  *
