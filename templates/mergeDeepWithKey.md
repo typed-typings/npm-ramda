@@ -11,7 +11,7 @@ of the resulting object.
 @memberOf R
 @since v0.24.0
 @category Object
-@sig (String -> a -> a -> a) -> {a} -> {a} -> {a}
+@sig ((String, a, a) -> a) -> {a} -> {a} -> {a}
 @param {Function} fn
 @param {Object} lObj
 @param {Object} rObj

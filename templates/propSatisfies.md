@@ -1,5 +1,6 @@
 Returns `true` if the specified object property satisfies the given
-predicate; `false` otherwise.
+predicate; `false` otherwise. You can test multiple properties with
+[`R.where`](#where).
 
 @func
 @memberOf R
@@ -10,7 +11,7 @@ predicate; `false` otherwise.
 @param {String} name
 @param {*} obj
 @return {Boolean}
-@see R.propEq, R.propIs
+@see R.where, R.propEq, R.propIs
 @example
 
      R.propSatisfies(x => x > 0, 'x', {x: 1, y: 2}); //=> true

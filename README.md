@@ -8,7 +8,7 @@ TypeScript's type definitions for [Ramda](https://github.com/ramda/ramda)
 
 ## Status
 
-Typing compatible with Ramda v0.24.1 and TypeScript v2.5+
+Typing compatible with Ramda v0.25.0 and TypeScript v2.5+
 
 ***Note***: many of the functions in Ramda are still hard to properly type in Ramda, with issues mainly centered around partial application, currying, and composition, especially so in the presence of generics. And yes, those are probably why you'd be using Ramda in the first place, making these issues particularly problematic to type Ramda for TypeScript. A few links to issues at TS can be found [below](#Roadmap).
 

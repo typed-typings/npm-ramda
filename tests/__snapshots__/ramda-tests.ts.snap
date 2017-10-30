@@ -108,6 +108,10 @@ exports[`apply R.apply(Math.max, nums) 1`] = `"number"`;
 
 exports[`applySpec getMetrics(2, 4) 1`] = `"T"`;
 
+exports[`applyTo t42(R.add(1)) 1`] = `"number"`;
+
+exports[`applyTo t42(R.identity) 1`] = `"number"`;
+
 exports[`ascend R.sort(R.__, people)(byAge) 1`] = `"{ name: string; age: number; }[]"`;
 
 exports[`ascend R.sort(byAge, people) 1`] = `"{}[]"`;
@@ -563,12 +567,6 @@ exports[`intersection R.intersection([1, 2, 3, 4], [7, 6, 5, 4, 3]) 1`] = `"numb
 exports[`intersection R.intersection([1, 2, 4])([1, 2, 3]) 1`] = `"number[]"`;
 
 exports[`intersection R.intersection([1, 2, 4], [1, 2, 3]) 1`] = `"number[]"`;
-
-exports[`intersectionWith R.intersectionWith<Field>(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny) 1`] = `"Field[]"`;
-
-exports[`intersectionWith R.intersectionWith<Field>(R.eqBy(R.prop('id')))(buffaloSpringfield, csny) 1`] = `"Field[]"`;
-
-exports[`intersectionWith R.intersectionWith<Field>(R.eqBy(R.prop('id')), buffaloSpringfield, csny) 1`] = `"Field[]"`;
 
 exports[`intersperse R.intersperse(',', ['foo', 'bar']) 1`] = `"string[]"`;
 
@@ -1388,6 +1386,8 @@ exports[`transpose R.transpose<string | number>([[1, 2, 3], ['a', 'b', 'c']]) 1`
 exports[`trim R.map(R.trim, R.split(',', 'x, y, z')) 1`] = `"string[]"`;
 
 exports[`trim R.trim('   xyz  ') 1`] = `"string"`;
+
+exports[`tryCatch R.tryCatch((o: any) => o.x, R.F)(null) 1`] = `"any"`;
 
 exports[`tryCatch R.tryCatch(R.prop('x'), R.F)({ x: true }) 1`] = `"boolean"`;
 

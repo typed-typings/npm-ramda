@@ -14,7 +14,7 @@ spec.
 @param {Object} spec
 @param {Object} testObj
 @return {Boolean}
-@see R.where
+@see R.propEq, R.where
 @example
 
      // pred :: Object -> Boolean

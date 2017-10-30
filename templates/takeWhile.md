@@ -13,8 +13,9 @@ Acts as a transducer if a transformer is given in list position.
 @since v0.1.0
 @category List
 @sig (a -> Boolean) -> [a] -> [a]
+@sig (a -> Boolean) -> String -> String
 @param {Function} fn The function called per iteration.
-@param {Array} list The collection to iterate over.
+@param {Array} xs The collection to iterate over.
 @return {Array} A new array.
 @see R.dropWhile, R.transduce, R.addIndex
 @example
@@ -22,3 +23,5 @@ Acts as a transducer if a transformer is given in list position.
      var isNotFour = x => x !== 4;
 
      R.takeWhile(isNotFour, [1, 2, 3, 4, 3, 2, 1]); //=> [1, 2, 3]
+
+     R.takeWhile(x => x !== 'd' , 'Ramda'); //=> 'Ram'

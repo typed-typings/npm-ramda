@@ -5,7 +5,7 @@ the supplied predicate.
 @memberOf R
 @since v0.8.0
 @category Object
-@sig (v, k -> Boolean) -> {k: v} -> {k: v}
+@sig ((v, k) -> Boolean) -> {k: v} -> {k: v}
 @param {Function} pred A predicate to determine whether or not a key
        should be included on the output object.
 @param {Object} obj The object to copy from
