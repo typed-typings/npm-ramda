@@ -21,7 +21,7 @@ type reduceRight_000 = {
      * @memberOf R
      * @since v0.1.0
      * @category List
-     * @sig (a, b -> b) -> b -> [a] -> b
+     * @sig ((a, b) -> b) -> b -> [a] -> b
      * @param {Function} fn The iterator function. Receives two values, the current element from the array
      *        and the accumulator.
      * @param {*} acc The accumulator value.
@@ -31,15 +31,15 @@ type reduceRight_000 = {
      * @example
      *
      *      R.reduceRight(R.subtract, 0, [1, 2, 3, 4]) // => (1 - (2 - (3 - (4 - 0)))) = -2
-     *          -               -2
-     *         / \              / \
-     *        1   -            1   3
-     *           / \              / \
-     *          2   -     ==>    2  -1
-     *             / \              / \
-     *            3   -            3   4
-     *               / \              / \
-     *              4   0            4   0
+     *      //    -               -2
+     *      //   / \              / \
+     *      //  1   -            1   3
+     *      //     / \              / \
+     *      //    2   -     ==>    2  -1
+     *      //       / \              / \
+     *      //      3   -            3   4
+     *      //         / \              / \
+     *      //        4   0            4   0
      *
      * @symb R.reduceRight(f, a, [b, c, d]) = f(b, f(c, f(d, a)))
      */

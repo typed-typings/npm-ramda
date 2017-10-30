@@ -23,6 +23,7 @@ type type_0 = {
      *      R.type([]); //=> "Array"
      *      R.type(/[A-z]/); //=> "RegExp"
      *      R.type(() => {}); //=> "Function"
+     *      R.type(undefined); //=> "Undefined"
      */
     (value: null): type_null_1;
     (value: undefined): type_undefined_1;
