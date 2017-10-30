@@ -5,6 +5,8 @@ type tap_00 = {
     /**
      * Runs the given function with the supplied object, then returns the object.
      *
+     * Acts as a transducer if a transformer is given as second parameter.
+     *
      * @func
      * @memberOf R
      * @since v0.1.0

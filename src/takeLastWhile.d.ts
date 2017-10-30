@@ -14,8 +14,9 @@ type takeLastWhile_00 = {
      * @since v0.16.0
      * @category List
      * @sig (a -> Boolean) -> [a] -> [a]
+     * @sig (a -> Boolean) -> String -> String
      * @param {Function} fn The function called per iteration.
-     * @param {Array} list The collection to iterate over.
+     * @param {Array} xs The collection to iterate over.
      * @return {Array} A new array.
      * @see R.dropLastWhile, R.addIndex
      * @example
@@ -23,6 +24,8 @@ type takeLastWhile_00 = {
      *      var isNotOne = x => x !== 1;
      *
      *      R.takeLastWhile(isNotOne, [1, 2, 3, 4]); //=> [2, 3, 4]
+     *
+     *      R.takeLastWhile(x => x !== 'R' , 'Ramda'); //=> 'amda'
      */
     <T>(fn: Predicate<T>): takeLastWhile_10<T>;
     <T>(_fn: PH, list: List<T>): takeLastWhile_01<T>;

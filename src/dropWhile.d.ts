@@ -17,8 +17,9 @@ type dropWhile_00 = {
      * @since v0.9.0
      * @category List
      * @sig (a -> Boolean) -> [a] -> [a]
+     * @sig (a -> Boolean) -> String -> String
      * @param {Function} fn The function called per iteration.
-     * @param {Array} list The collection to iterate over.
+     * @param {Array} xs The collection to iterate over.
      * @return {Array} A new array.
      * @see R.takeWhile, R.transduce, R.addIndex
      * @example
@@ -26,6 +27,8 @@ type dropWhile_00 = {
      *      var lteTwo = x => x <= 2;
      *
      *      R.dropWhile(lteTwo, [1, 2, 3, 4, 3, 2, 1]); //=> [3, 4, 3, 2, 1]
+     *
+     *      R.dropWhile(x => x !== 'd' , 'Ramda'); //=> 'da'
      */
     <T>(fn: Predicate<T>): dropWhile_10<T>;
     <T>(_fn: PH, list: List<T>): dropWhile_01<T>;

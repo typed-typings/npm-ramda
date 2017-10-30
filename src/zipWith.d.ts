@@ -11,7 +11,7 @@ type zipWith_000 = {
      * @memberOf R
      * @since v0.1.0
      * @category List
-     * @sig (a,b -> c) -> [a] -> [b] -> [c]
+     * @sig ((a, b) -> c) -> [a] -> [b] -> [c]
      * @param {Function} fn The function used to combine the two elements into one value.
      * @param {Array} list1 The first array to consider.
      * @param {Array} list2 The second array to consider.
