@@ -224,6 +224,15 @@ import * as R from '../ramda/dist/index';
   R.apply(Math.max)(nums); //=> 42
 })();
 
+// @dts-jest:group applyTo
+(() => {
+  const t42 = R.applyTo(42);
+  // @dts-jest:pass:snap
+  t42(R.identity); //=> 42
+  // @dts-jest:pass:snap
+  t42(R.add(1)); //=> 43
+})();
+
 // @dts-jest:group applySpec
 (() => {
   interface T {
@@ -539,6 +548,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group construct
 (() => {
+  // tslint:disable-next-line:no-unnecessary-class
   class Circle {
     // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
@@ -549,6 +559,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group constructN
 (() => {
+  // tslint:disable-next-line:no-unnecessary-class
   class Circle {
     // tslint:disable-next-line:no-empty
     constructor(_r: number, ..._colors: string[]) {}
@@ -1255,34 +1266,6 @@ import * as R from '../ramda/dist/index';
   R.intersection([1, 2, 4], [1, 2, 3]); //=> [1,2]
   // @dts-jest:pass:snap
   R.intersection([1, 2, 4])([1, 2, 3]); //=> [1,2]
-})();
-
-// @dts-jest:group intersectionWith
-(() => {
-  interface Field {
-    id: number;
-    name: string;
-  }
-  const buffaloSpringfield = [
-    { id: 824, name: 'Richie Furay' },
-    { id: 956, name: 'Dewey Martin' },
-    { id: 313, name: 'Bruce Palmer' },
-    { id: 456, name: 'Stephen Stills' },
-    { id: 177, name: 'Neil Young' },
-  ];
-  const csny = [
-    { id: 204, name: 'David Crosby' },
-    { id: 456, name: 'Stephen Stills' },
-    { id: 539, name: 'Graham Nash' },
-    { id: 177, name: 'Neil Young' },
-  ];
-
-  // @dts-jest:pass:snap
-  R.intersectionWith<Field>(R.eqBy(R.prop('id')), buffaloSpringfield, csny);
-  // @dts-jest:pass:snap
-  R.intersectionWith<Field>(R.eqBy(R.prop('id')))(buffaloSpringfield, csny);
-  // @dts-jest:pass:snap
-  R.intersectionWith<Field>(R.eqBy(R.prop('id')))(buffaloSpringfield)(csny); //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
 })();
 
 // @dts-jest:group intersperse
@@ -2408,6 +2391,9 @@ import * as R from '../ramda/dist/index';
   R.prop('favoriteLibrary', alice); //=> undefined
   // @dts-jest:skip string
   R.propOr('Ramda', 'favoriteLibrary', alice); //=> 'Ramda'
+
+  // @dts-jest:pass:snap
+  R.propOr([], 'detail', undefined); //=> []
 })();
 
 // @dts-jest:group propSatisfies
@@ -3028,7 +3014,9 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.tryCatch(R.prop('x'), R.F)({ x: true }); //=> true
   // @dts-jest:pass:snap
-  R.tryCatch<any>(R.prop('x'), R.F)(null); //=> false
+  R.tryCatch<any>(R.prop('x'), R.F)(null); //=> undefined
+  // @dts-jest:pass:snap
+  R.tryCatch((o: any) => o.x, R.F)(null); //=> false
 })();
 
 // @dts-jest:group type

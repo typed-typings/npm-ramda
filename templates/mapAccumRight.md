@@ -13,7 +13,7 @@ return a tuple *[value, acc]*.
 @memberOf R
 @since v0.10.0
 @category List
-@sig (x-> acc -> (y, acc)) -> acc -> [x] -> ([y], acc)
+@sig ((x, acc) -> (y, acc)) -> acc -> [x] -> ([y], acc)
 @param {Function} fn The function to be called on every element of the input `list`.
 @param {*} acc The accumulator value.
 @param {Array} list The list to iterate over.

@@ -12,6 +12,8 @@ R_propOr(defaults, 'a')(a_b_number_record);
 
 // @dts-jest:pass:snap
 R_propOr(defaults, 'a', a_b_number_record);
+// @dts-jest:pass:snap
+R_propOr(defaults, 'a', undefined);
 
 // @dts-jest:pass:snap
 R_propOr(defaults, placeholder, a_b_number_record);

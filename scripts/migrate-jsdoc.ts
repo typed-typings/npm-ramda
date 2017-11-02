@@ -24,15 +24,18 @@ child_process.execSync(
   `git clone https://github.com/ramda/ramda.git ${temp_dir} --branch ${ramda_tag} --depth=1`,
 );
 
-const src_dir = `${temp_dir}/src`;
+const src_dir = `${temp_dir}/source`;
 const src_filenames = fs
   .readdirSync(src_dir)
-  .filter(filename => filename.endsWith('.js'));
+  .filter(
+    filename =>
+      filename.endsWith('.js') && path.basename(filename, '.js') !== 'index',
+  );
 
 src_filenames.forEach(filename => {
   const content = fs.readFileSync(`${src_dir}/${filename}`, 'utf8');
   const jsdoc = content.match(/\/\*\*([\s\S]+?)\*\//)![1]
-    .replace(/^ \* ?/gm, '')
+    .replace(/^ *\* ?/gm, '')
     .trim();
 
   const basename = path.basename(filename, '.js');

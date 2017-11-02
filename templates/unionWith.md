@@ -6,7 +6,7 @@ applying the supplied predicate to two list elements.
 @memberOf R
 @since v0.1.0
 @category Relation
-@sig (a -> a -> Boolean) -> [*] -> [*] -> [*]
+@sig ((a, a) -> Boolean) -> [*] -> [*] -> [*]
 @param {Function} pred A predicate used to test whether two items are equal.
 @param {Array} list1 The first list.
 @param {Array} list2 The second list.

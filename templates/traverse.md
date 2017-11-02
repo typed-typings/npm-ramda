@@ -3,7 +3,7 @@ function over a [Traversable](https://github.com/fantasyland/fantasy-land#traver
 then uses [`sequence`](#sequence) to transform the resulting Traversable of Applicative
 into an Applicative of Traversable.
 
-Dispatches to the `sequence` method of the third argument, if present.
+Dispatches to the `traverse` method of the third argument, if present.
 
 @func
 @memberOf R
