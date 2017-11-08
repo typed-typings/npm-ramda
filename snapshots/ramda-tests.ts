@@ -1998,11 +1998,8 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group objOf
 (() => {
-  const matchPhrases = R.pipe(
-    R.map(R.objOf('match_phrase'))<'1', 'list'>(),
-    R.objOf('must'),
-  );
-  // @dts-jest:pass:snap -> Record<"must", Record<"match_phrase", {}>[]>
+  const matchPhrases = R.pipe(R.map(R.objOf('match_phrase')), R.objOf('must'));
+  // @dts-jest:pass:snap -> Record<"must", Record<"match_phrase", {}>[] | Functor<Record<"match_phrase", {}>> | Record<any, Record<"match_phrase", {}>>>
   matchPhrases(['foo', 'bar', 'baz']); //=> {"must": [{"match_phrase": "foo"}, {"match_phrase": "bar"}, {"match_phrase": "baz"}]}
 })();
 
