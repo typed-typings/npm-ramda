@@ -49,7 +49,7 @@ export const create_composition_declarations = (
     }
 
     for (
-      let parameter_count = 1;
+      let parameter_count = 0;
       parameter_count <= max_parameter_count;
       parameter_count++
     ) {
