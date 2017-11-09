@@ -3067,7 +3067,8 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group unfold
 (() => {
-  const f = (n: number) => (n > 50 ? false : [-n, n + 10] as [number, number]);
+  const f = (n: number) =>
+    n > 50 ? false : ([-n, n + 10] as [number, number]);
   // @dts-jest:pass:snap
   R.unfold(f, 10); //=> [-10, -20, -30, -40, -50]
   const b = R.unfold(f);

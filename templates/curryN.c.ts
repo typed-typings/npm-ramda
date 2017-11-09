@@ -7,9 +7,8 @@ export default create_n_ary_declarations(
   args => `
     function $${args.curry_level}arity<${args.generics.join(',')}>(
       n: ${args.curry_level},
-      fn: (${[...args.parameters, '...args: any[]'].join(
-        ',',
-      )}) => ${args.return_type}
+      fn: (${[...args.parameters, '...args: any[]'].join(',')}) =>
+        ${args.return_type}
     ): CurriedFunction${args.curry_level}<${args.generics.join(',')}>;
   `,
   args => `

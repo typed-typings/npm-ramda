@@ -13,9 +13,9 @@ export const build_watch = (_callback: (error?: any) => void) => {
   gulp.watch(glob_templates, event => {
     const input_relative_filename = path.relative(process.cwd(), event.path);
     gulp_util.log(
-      `Detected '${gulp_util.colors.cyan(
-        input_relative_filename,
-      )}' ${event.type}`,
+      `Detected '${gulp_util.colors.cyan(input_relative_filename)}' ${
+        event.type
+      }`,
     );
 
     const output_relative_filename = input_relative_filename
