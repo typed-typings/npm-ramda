@@ -29,20 +29,20 @@ for (let i = 0; i <= max_curry_level; i++) {
   ].join(',')}>(
       after: (${current_variable_names
         .map(
-          (variable_name, index) => `
-        ${variable_name}: ${current_middle_generics[index]}
-      `,
+          (variable_name, index) =>
+            `${variable_name}: ${current_middle_generics[index]}`,
         )
         .join(',')}) => ${return_generic},
-      fns: ${current_input_generics.length === 0
-        ? `never[]`
-        : `[${current_input_generics
-            .map(
-              (input_generic, index) => `
-            Morphism<${input_generic}, ${middle_generics[index]}>
-          `,
-            )
-            .join(',')}]`}
+      fns: ${
+        current_input_generics.length === 0
+          ? `never[]`
+          : `[${current_input_generics
+              .map(
+                (input_generic, index) =>
+                  `Morphism<${input_generic}, ${middle_generics[index]}>`,
+              )
+              .join(',')}]`
+      }
     ): ${curried_function_name}<${[
     ...current_input_generics,
     return_generic,

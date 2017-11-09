@@ -70,5 +70,8 @@ export default dts.parse(`
   import {${import_curried_functions.join(',')}} from './$curriedFunctions';
   import {List, Variadic} from './$types';
   ${declarations.join('\n')}
-  function $variadic<${generic_return}>(after: Variadic<${generic_return}>, fns: List<Variadic<any>>): Variadic<${generic_return}>;
+  function $variadic<${generic_return}>(
+    after: Variadic<${generic_return}>,
+    fns: List<Variadic<any>>
+  ): Variadic<${generic_return}>;
 `).members;

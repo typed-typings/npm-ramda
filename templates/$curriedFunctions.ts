@@ -6,9 +6,13 @@ export const max_curry_level = 6;
 
 export default (selectable: boolean, placeholder: boolean) => [
   ...dts.parse(`
-    ${placeholder
-      ? `import {${placeholder_name} as ${placeholder_name_abbr}} from './$placeholder';`
-      : ''}
+    ${
+      placeholder
+        ? `import {${placeholder_name} as ${
+            placeholder_name_abbr
+          }} from './$placeholder';`
+        : ''
+    }
     export type CurriedFunction0<R> = () => R;
   `).members,
   ...create_curried_interfaces(max_curry_level, {

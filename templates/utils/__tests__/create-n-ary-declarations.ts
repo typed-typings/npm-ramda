@@ -25,9 +25,8 @@ function emit_n_ary_declarations(generate_additional?: (args: any) => string) {
     args => `
       function $${args.curry_level}arity<${args.generics.join(',')}>(
         n: ${args.curry_level},
-        fn: (${[...args.parameters, '...args: any[]'].join(
-          ',',
-        )}) => ${args.return_type}
+        fn: (${[...args.parameters, '...args: any[]'].join(',')}) =>
+          ${args.return_type}
       ): (${args.parameters.join(',')}) => ${args.return_type};
     `,
     generate_additional,

@@ -79,9 +79,9 @@ export const create_composition_declarations = (
               const function_name = current_sorted_function_names[index];
               const return_generic = current_sorted_return_generics[index];
               return index === entry_index
-                ? `${function_name}: (${entry_parameters}) => ${generate_function_return_type(
-                    return_generic,
-                  )}`
+                ? `${function_name}: (${
+                    entry_parameters
+                  }) => ${generate_function_return_type(return_generic)}`
                 : `${function_name}: (v: ${generate_function_parameter_type(
                     current_sorted_return_generics[
                       index + (kind === 'compose' ? 1 : -1)
