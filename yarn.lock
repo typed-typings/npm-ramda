@@ -76,9 +76,9 @@
   version "0.24.1"
   resolved "https://codeload.github.com/ikatyang/types-ramda/tar.gz/4e6f7df81ca0b0ec29a92a759304c00dccc0fd3a"
 
-"@types/run-sequence@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/run-sequence/-/run-sequence-0.0.29.tgz#6ad0f7383136e13925322e69fc41db77b30b2075"
+"@types/run-sequence@0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@types/run-sequence/-/run-sequence-0.0.30.tgz#b3a90c9fd29a5eede58135dd025eb3ac4bbb560e"
   dependencies:
     "@types/gulp" "*"
     "@types/node" "*"
