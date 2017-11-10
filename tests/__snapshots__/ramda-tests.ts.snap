@@ -744,6 +744,20 @@ exports[`map R.map(double, [1, 2, 3]) 1`] = `"number[]"`;
 
 exports[`map R.map(double, { a: 1, b: 2, c: 3 }) 1`] = `"Record<\\"a\\" | \\"b\\" | \\"c\\", number>"`;
 
+exports[`map R.pipe(
+      R.map(Number.parseInt)(),
+      R.reduce(R.max, 0), // no error
+    ) 1`] = `"(v1: {}) => any"`;
+
+exports[`map R.reduce(R.max, 0) 1`] = `
+"Argument of type 'reduce_110<any, any>' is not assignable to parameter of type '(v: map_mixed_11<number, any>) => any'.
+  Types of parameters 'values' and 'v' are incompatible.
+    Type 'map_mixed_11<number, any>' is not assignable to type 'List<any>'.
+      Type 'Functor<number>' is not assignable to type 'List<any>'.
+        Type 'Functor<number>' is not assignable to type 'ArrayLike<any>'.
+          Property 'length' is missing in type 'Functor<number>'."
+`;
+
 exports[`mapAccum R.mapAccum(append)('0')(digits) 1`] = `"[string, string[]]"`;
 
 exports[`mapAccum R.mapAccum(append)('0', digits) 1`] = `"[string, string[]]"`;

@@ -1604,6 +1604,18 @@ import * as R from '../ramda/dist/index';
   R.map(arrayify, { a: 1, b: 'c' }); //=> { a: [1], b: ['c'] }
   // @dts-jest:skip { a: number[], b: string[] }
   R.map(arrayify)({ a: 1, b: 'c' }); //=> { a: [1], b: ['c'] }
+
+  R.pipe(
+    R.map(Number.parseInt),
+    // @dts-jest:fail:snap
+    R.reduce(R.max, 0), // raises error (#311)
+  );
+
+  // @dts-jest:pass:snap
+  R.pipe(
+    R.map(Number.parseInt)(),
+    R.reduce(R.max, 0), // no error
+  );
 })();
 
 // @dts-jest:group mapAccum
