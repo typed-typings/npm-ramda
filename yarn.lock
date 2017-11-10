@@ -22,9 +22,9 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/gulp-rename@0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/gulp-rename/-/gulp-rename-0.0.32.tgz#602828783f97f190e438937dfa6a579eb0198e63"
+"@types/gulp-rename@0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/gulp-rename/-/gulp-rename-0.0.33.tgz#38d146e97786569f74f5391a1b1f9b5198674b6c"
   dependencies:
     "@types/node" "*"
 
@@ -76,9 +76,9 @@
   version "0.24.1"
   resolved "https://codeload.github.com/ikatyang/types-ramda/tar.gz/4e6f7df81ca0b0ec29a92a759304c00dccc0fd3a"
 
-"@types/run-sequence@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/run-sequence/-/run-sequence-0.0.29.tgz#6ad0f7383136e13925322e69fc41db77b30b2075"
+"@types/run-sequence@0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@types/run-sequence/-/run-sequence-0.0.30.tgz#b3a90c9fd29a5eede58135dd025eb3ac4bbb560e"
   dependencies:
     "@types/gulp" "*"
     "@types/node" "*"
@@ -2589,9 +2589,9 @@ prettier-config-ikatyang@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/prettier-config-ikatyang/-/prettier-config-ikatyang-1.1.1.tgz#9ccab4bc2d441e4c68b58dbe8f1a4e18213c3f2d"
 
-prettier@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.8.1.tgz#91064d778c08c85ac1cbe6b23195c34310d039f9"
+prettier@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.8.2.tgz#bff83e7fd573933c607875e5ba3abbdffb96aeb8"
 
 pretty-format@^21.0.0:
   version "21.0.0"
