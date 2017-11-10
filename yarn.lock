@@ -28,9 +28,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/gulp-util@3.0.33":
-  version "3.0.33"
-  resolved "https://registry.yarnpkg.com/@types/gulp-util/-/gulp-util-3.0.33.tgz#5acf714d32806cbb491ae8a4905745e39d4a17ba"
+"@types/gulp-util@3.0.34":
+  version "3.0.34"
+  resolved "https://registry.yarnpkg.com/@types/gulp-util/-/gulp-util-3.0.34.tgz#d1291ebf706d93f46eb8df11344bbfd96247697e"
   dependencies:
     "@types/node" "*"
     "@types/through2" "*"
