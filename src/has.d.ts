@@ -28,9 +28,9 @@ type has_00 = {
      */
     (property: Property): has_10;
     (_property: PH, object: {}): has_01;
-    <$SEL extends "1">(): (property: Property) => has_10;
-    <$SEL extends "01">(): (_property: PH, object: {}) => has_01;
     <$SEL extends "11">(): (property: Property, object: {}) => has_11;
+    <$SEL extends "01">(): (_property: PH, object: {}) => has_01;
+    <$SEL extends "1">(): (property: Property) => has_10;
     (property: Property, object: {}): has_11;
 };
 type has_10 = {

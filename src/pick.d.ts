@@ -28,15 +28,15 @@ type pick_00 = {
     <T extends {}>(_keys: PH, object: T): pick_general_01<T>;
     <T extends {}, K extends keyof T>(keys: List<K>, object: T): pick_keyof_11<T, K>;
     <U extends Record<V, any>, V extends string>(keys: List<V>, object: U): pick_record_11<U, V>;
-    <$SEL extends "1", $KIND extends "keyof">(): <T extends {}, K extends keyof T>(keys: List<K>) => pick_keyof_10<T, K>;
-    <$SEL extends "1", $KIND extends "record">(): <V extends string>(keys: List<V>) => pick_record_10<V>;
-    <$SEL extends "1", $KIND extends "general">(): (keys: List<Property>) => pick_general_10;
-    <$SEL extends "01", $KIND extends "keyof">(): <T extends {}>(_keys: PH, object: T) => pick_keyof_01<T>;
-    <$SEL extends "01", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(_keys: PH, object: U) => pick_record_01<U, V>;
-    <$SEL extends "01", $KIND extends "general">(): <T extends {}>(_keys: PH, object: T) => pick_general_01<T>;
-    <$SEL extends "11", $KIND extends "keyof">(): <T extends {}, K extends keyof T>(keys: List<K>, object: T) => pick_keyof_11<T, K>;
-    <$SEL extends "11", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(keys: List<V>, object: U) => pick_record_11<U, V>;
     <$SEL extends "11", $KIND extends "general">(): <T extends {}>(keys: List<Property>, object: T) => pick_general_11<T>;
+    <$SEL extends "11", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(keys: List<V>, object: U) => pick_record_11<U, V>;
+    <$SEL extends "11", $KIND extends "keyof">(): <T extends {}, K extends keyof T>(keys: List<K>, object: T) => pick_keyof_11<T, K>;
+    <$SEL extends "01", $KIND extends "general">(): <T extends {}>(_keys: PH, object: T) => pick_general_01<T>;
+    <$SEL extends "01", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(_keys: PH, object: U) => pick_record_01<U, V>;
+    <$SEL extends "01", $KIND extends "keyof">(): <T extends {}>(_keys: PH, object: T) => pick_keyof_01<T>;
+    <$SEL extends "1", $KIND extends "general">(): (keys: List<Property>) => pick_general_10;
+    <$SEL extends "1", $KIND extends "record">(): <V extends string>(keys: List<V>) => pick_record_10<V>;
+    <$SEL extends "1", $KIND extends "keyof">(): <T extends {}, K extends keyof T>(keys: List<K>) => pick_keyof_10<T, K>;
     <T extends {}>(keys: List<Property>, object: T): pick_general_11<T>;
 };
 type pick_keyof_10<T extends {}, K extends keyof T> = {

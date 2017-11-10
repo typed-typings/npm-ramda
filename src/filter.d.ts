@@ -37,25 +37,25 @@ type filter_00 = {
     <T>(fn: Predicate<T>, list: List<T>): filter_list_11<T>;
     <T, U extends Filterable<T>>(fn: Predicate<T>, filterable: U): filter_filterable_11<T, U>;
     <T, U extends Dictionary<T>>(fn: Predicate<T>, object: U): filter_object_11<T, U>;
-    <$SEL extends "1">(): <T>(fn: Predicate<T>) => filter_10<T>;
-    <$SEL extends "01", $KIND extends "list">(): <T>(_fn: PH, list: List<T>) => filter_list_01<T>;
-    <$SEL extends "01", $KIND extends "filterable">(): <T, U extends Filterable<T>>(_fn: PH, filterable: U) => filter_filterable_01<T, U>;
-    <$SEL extends "01", $KIND extends "object">(): <T, U extends Dictionary<T>>(_fn: PH, object: U) => filter_object_01<T, U>;
-    <$SEL extends "01", $KIND extends "mixed">(): <T, U extends List<T> | Filterable<T> | Dictionary<T>>(_fn: PH, target: U) => filter_mixed_01<T, U>;
-    <$SEL extends "11", $KIND extends "list">(): <T>(fn: Predicate<T>, list: List<T>) => filter_list_11<T>;
-    <$SEL extends "11", $KIND extends "filterable">(): <T, U extends Filterable<T>>(fn: Predicate<T>, filterable: U) => filter_filterable_11<T, U>;
-    <$SEL extends "11", $KIND extends "object">(): <T, U extends Dictionary<T>>(fn: Predicate<T>, object: U) => filter_object_11<T, U>;
     <$SEL extends "11", $KIND extends "mixed">(): <T, U extends List<T> | Filterable<T> | Dictionary<T>>(fn: Predicate<T>, target: U) => filter_mixed_11<T, U>;
+    <$SEL extends "11", $KIND extends "object">(): <T, U extends Dictionary<T>>(fn: Predicate<T>, object: U) => filter_object_11<T, U>;
+    <$SEL extends "11", $KIND extends "filterable">(): <T, U extends Filterable<T>>(fn: Predicate<T>, filterable: U) => filter_filterable_11<T, U>;
+    <$SEL extends "11", $KIND extends "list">(): <T>(fn: Predicate<T>, list: List<T>) => filter_list_11<T>;
+    <$SEL extends "01", $KIND extends "mixed">(): <T, U extends List<T> | Filterable<T> | Dictionary<T>>(_fn: PH, target: U) => filter_mixed_01<T, U>;
+    <$SEL extends "01", $KIND extends "object">(): <T, U extends Dictionary<T>>(_fn: PH, object: U) => filter_object_01<T, U>;
+    <$SEL extends "01", $KIND extends "filterable">(): <T, U extends Filterable<T>>(_fn: PH, filterable: U) => filter_filterable_01<T, U>;
+    <$SEL extends "01", $KIND extends "list">(): <T>(_fn: PH, list: List<T>) => filter_list_01<T>;
+    <$SEL extends "1">(): <T>(fn: Predicate<T>) => filter_10<T>;
     <T, U extends List<T> | Filterable<T> | Dictionary<T>>(fn: Predicate<T>, target: U): filter_mixed_11<T, U>;
 };
 type filter_10<T> = {
     (list: List<T>): filter_list_11<T>;
     <U extends Filterable<T>>(filterable: U): filter_filterable_11<T, U>;
     <U extends Dictionary<T>>(object: U): filter_object_11<T, U>;
-    <$SEL extends "1", $KIND extends "list">(): (list: List<T>) => filter_list_11<T>;
-    <$SEL extends "1", $KIND extends "filterable">(): <U extends Filterable<T>>(filterable: U) => filter_filterable_11<T, U>;
-    <$SEL extends "1", $KIND extends "object">(): <U extends Dictionary<T>>(object: U) => filter_object_11<T, U>;
     <$SEL extends "1", $KIND extends "mixed">(): <U extends List<T> | Filterable<T> | Dictionary<T>>(target: U) => filter_mixed_11<T, U>;
+    <$SEL extends "1", $KIND extends "object">(): <U extends Dictionary<T>>(object: U) => filter_object_11<T, U>;
+    <$SEL extends "1", $KIND extends "filterable">(): <U extends Filterable<T>>(filterable: U) => filter_filterable_11<T, U>;
+    <$SEL extends "1", $KIND extends "list">(): (list: List<T>) => filter_list_11<T>;
     <U extends List<T> | Filterable<T> | Dictionary<T>>(target: U): filter_mixed_11<T, U>;
 };
 type filter_list_01<T> = {

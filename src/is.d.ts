@@ -27,9 +27,9 @@ type is_00 = {
      */
     <T>(constructor: Constructor<T>): is_10<T>;
     (_constructor: PH, value: any): is_01;
-    <$SEL extends "1">(): <T>(constructor: Constructor<T>) => is_10<T>;
-    <$SEL extends "01">(): (_constructor: PH, value: any) => is_01;
     <$SEL extends "11">(): <T>(constructor: Constructor<T>, value: any) => value is T;
+    <$SEL extends "01">(): (_constructor: PH, value: any) => is_01;
+    <$SEL extends "1">(): <T>(constructor: Constructor<T>) => is_10<T>;
     <T>(constructor: Constructor<T>, value: any): value is T;
 };
 type is_10<T> = {

@@ -170,9 +170,9 @@ type path_00 = {
                 }>>): TResult;
     <T1 extends number, T2 extends number, T3 extends number, TResult>(path: [T1, T2, T3], obj: TResult[][][]): TResult;
     (_path: PH, object: {}): path_01;
-    <$SEL extends "1">(): (path: Path) => path_10;
-    <$SEL extends "01">(): (_path: PH, object: {}) => path_01;
     <$SEL extends "11">(): <T>(path: Path, object: {}) => path_11<T>;
+    <$SEL extends "01">(): (_path: PH, object: {}) => path_01;
+    <$SEL extends "1">(): (path: Path) => path_10;
     <T>(path: Path, object: {}): path_11<T>;
 };
 type path_10 = {

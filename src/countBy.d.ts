@@ -28,9 +28,9 @@ type countBy_00 = {
      */
     <T>(fn: Morphism<T, Property>): countBy_10<T>;
     <T>(_fn: PH, list: List<T>): countBy_01<T>;
-    <$SEL extends "1">(): <T>(fn: Morphism<T, Property>) => countBy_10<T>;
-    <$SEL extends "01">(): <T>(_fn: PH, list: List<T>) => countBy_01<T>;
     <$SEL extends "11">(): <T>(fn: Morphism<T, Property>, list: List<T>) => countBy_11;
+    <$SEL extends "01">(): <T>(_fn: PH, list: List<T>) => countBy_01<T>;
+    <$SEL extends "1">(): <T>(fn: Morphism<T, Property>) => countBy_10<T>;
     <T>(fn: Morphism<T, Property>, list: List<T>): countBy_11;
 };
 type countBy_10<T> = {

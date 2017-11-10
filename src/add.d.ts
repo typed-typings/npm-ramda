@@ -20,9 +20,9 @@ type add_00 = {
      */
     (a: number): add_10;
     (_a: PH, b: number): add_01;
-    <$SEL extends "1">(): (a: number) => add_10;
-    <$SEL extends "01">(): (_a: PH, b: number) => add_01;
     <$SEL extends "11">(): (a: number, b: number) => add_11;
+    <$SEL extends "01">(): (_a: PH, b: number) => add_01;
+    <$SEL extends "1">(): (a: number) => add_10;
     (a: number, b: number): add_11;
 };
 type add_10 = {

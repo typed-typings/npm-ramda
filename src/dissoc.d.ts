@@ -27,15 +27,15 @@ type dissoc_00 = {
     <T extends object>(_property: PH, object: T): dissoc_general_01<T>;
     <T extends object, K extends keyof T>(property: K, object: T): dissoc_keyof_11<T, K>;
     <U extends Record<V, any>, V extends string>(property: V, object: U): dissoc_record_11<U, V>;
-    <$SEL extends "1", $KIND extends "keyof">(): <T extends object, K extends keyof T>(property: K) => dissoc_keyof_10<T, K>;
-    <$SEL extends "1", $KIND extends "record">(): <V extends string>(property: V) => dissoc_record_10<V>;
-    <$SEL extends "1", $KIND extends "general">(): (property: Property) => dissoc_general_10;
-    <$SEL extends "01", $KIND extends "keyof">(): <T extends object>(_property: PH, object: T) => dissoc_keyof_01<T>;
-    <$SEL extends "01", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(_property: PH, object: U) => dissoc_record_01<U, V>;
-    <$SEL extends "01", $KIND extends "general">(): <T extends object>(_property: PH, object: T) => dissoc_general_01<T>;
-    <$SEL extends "11", $KIND extends "keyof">(): <T extends object, K extends keyof T>(property: K, object: T) => dissoc_keyof_11<T, K>;
-    <$SEL extends "11", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(property: V, object: U) => dissoc_record_11<U, V>;
     <$SEL extends "11", $KIND extends "general">(): <T extends object>(property: Property, object: T) => dissoc_general_11<T>;
+    <$SEL extends "11", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(property: V, object: U) => dissoc_record_11<U, V>;
+    <$SEL extends "11", $KIND extends "keyof">(): <T extends object, K extends keyof T>(property: K, object: T) => dissoc_keyof_11<T, K>;
+    <$SEL extends "01", $KIND extends "general">(): <T extends object>(_property: PH, object: T) => dissoc_general_01<T>;
+    <$SEL extends "01", $KIND extends "record">(): <U extends Record<V, any>, V extends string>(_property: PH, object: U) => dissoc_record_01<U, V>;
+    <$SEL extends "01", $KIND extends "keyof">(): <T extends object>(_property: PH, object: T) => dissoc_keyof_01<T>;
+    <$SEL extends "1", $KIND extends "general">(): (property: Property) => dissoc_general_10;
+    <$SEL extends "1", $KIND extends "record">(): <V extends string>(property: V) => dissoc_record_10<V>;
+    <$SEL extends "1", $KIND extends "keyof">(): <T extends object, K extends keyof T>(property: K) => dissoc_keyof_10<T, K>;
     <T extends object>(property: Property, object: T): dissoc_general_11<T>;
 };
 type dissoc_keyof_10<T extends object, K extends keyof T> = {

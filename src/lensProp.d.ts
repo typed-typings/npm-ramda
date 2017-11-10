@@ -22,8 +22,8 @@ type lensProp_0 = {
      *      R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
      */
     <K extends string | number>(property: K): lensProp_key_1<K>;
-    <$SEL extends "1", $KIND extends "key">(): <K extends string | number>(property: K) => lensProp_key_1<K>;
     <$SEL extends "1", $KIND extends "general">(): <T, U>(property: Property) => lensProp_general_1<T, U>;
+    <$SEL extends "1", $KIND extends "key">(): <K extends string | number>(property: K) => lensProp_key_1<K>;
     <T, U>(property: Property): lensProp_general_1<T, U>;
 };
 type lensProp_key_1<K extends string | number> = PseudoLens<K>;

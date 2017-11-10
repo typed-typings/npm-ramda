@@ -21,9 +21,9 @@ type intersperse_00 = {
      */
     <T>(separator: T): intersperse_10<T>;
     <U>(_separator: PH, list: List<U>): intersperse_01<U>;
-    <$SEL extends "1">(): <T>(separator: T) => intersperse_10<T>;
-    <$SEL extends "01">(): <U>(_separator: PH, list: List<U>) => intersperse_01<U>;
     <$SEL extends "11">(): <T, U>(separator: T, list: List<U>) => intersperse_11<T, U>;
+    <$SEL extends "01">(): <U>(_separator: PH, list: List<U>) => intersperse_01<U>;
+    <$SEL extends "1">(): <T>(separator: T) => intersperse_10<T>;
     <T, U>(separator: T, list: List<U>): intersperse_11<T, U>;
 };
 type intersperse_10<T> = {

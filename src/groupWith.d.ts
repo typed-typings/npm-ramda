@@ -34,9 +34,9 @@ type groupWith_00 = {
      */
     <T>(fn: Comparator<T, boolean>): groupWith_10<T>;
     <T, U extends List<T>>(_fn: PH, list: U): groupWith_01<T, U>;
-    <$SEL extends "1">(): <T>(fn: Comparator<T, boolean>) => groupWith_10<T>;
-    <$SEL extends "01">(): <T, U extends List<T>>(_fn: PH, list: U) => groupWith_01<T, U>;
     <$SEL extends "11">(): <T, U extends List<T>>(fn: Comparator<T, boolean>, list: U) => groupWith_11<T, U>;
+    <$SEL extends "01">(): <T, U extends List<T>>(_fn: PH, list: U) => groupWith_01<T, U>;
+    <$SEL extends "1">(): <T>(fn: Comparator<T, boolean>) => groupWith_10<T>;
     <T, U extends List<T>>(fn: Comparator<T, boolean>, list: U): groupWith_11<T, U>;
 };
 type groupWith_10<T> = {

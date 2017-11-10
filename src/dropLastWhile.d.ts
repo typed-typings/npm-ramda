@@ -29,9 +29,9 @@ type dropLastWhile_00 = {
      */
     <T>(fn: Predicate<T>): dropLastWhile_10<T>;
     <T>(_fn: PH, list: List<T>): dropLastWhile_01<T>;
-    <$SEL extends "1">(): <T>(fn: Predicate<T>) => dropLastWhile_10<T>;
-    <$SEL extends "01">(): <T>(_fn: PH, list: List<T>) => dropLastWhile_01<T>;
     <$SEL extends "11">(): <T>(fn: Predicate<T>, list: List<T>) => dropLastWhile_11<T>;
+    <$SEL extends "01">(): <T>(_fn: PH, list: List<T>) => dropLastWhile_01<T>;
+    <$SEL extends "1">(): <T>(fn: Predicate<T>) => dropLastWhile_10<T>;
     <T>(fn: Predicate<T>, list: List<T>): dropLastWhile_11<T>;
 };
 type dropLastWhile_10<T> = {

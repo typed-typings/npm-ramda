@@ -22,9 +22,9 @@ type applyTo_00 = {
      */
     <T>(value: T): applyTo_10<T>;
     <T, R>(_value: PH, fn: (value: T) => R): applyTo_01<T, R>;
-    <$SEL extends "1">(): <T>(value: T) => applyTo_10<T>;
-    <$SEL extends "01">(): <T, R>(_value: PH, fn: (value: T) => R) => applyTo_01<T, R>;
     <$SEL extends "11">(): <T, R>(value: T, fn: (value: T) => R) => applyTo_11<R>;
+    <$SEL extends "01">(): <T, R>(_value: PH, fn: (value: T) => R) => applyTo_01<T, R>;
+    <$SEL extends "1">(): <T>(value: T) => applyTo_10<T>;
     <T, R>(value: T, fn: (value: T) => R): applyTo_11<R>;
 };
 type applyTo_10<T> = {

@@ -31,29 +31,29 @@ type mergeWith_000 = {
     <U>(_fn: PH, _left: PH, right: U): mergeWith_001<U>;
     <T, U>(_fn: PH, left: T, right: U): mergeWith_011<T, U>;
     <U, V, W>(fn: (a: V, b: V) => W, _left: PH, right: U): mergeWith_101<U, V, W>;
-    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_100<V, W>;
-    <$SEL extends "01">(): <T>(_fn: PH, left: T) => mergeWith_010<T>;
-    <$SEL extends "11">(): <T, V, W>(fn: (a: V, b: V) => W, left: T) => mergeWith_110<T, V, W>;
-    <$SEL extends "001">(): <U>(_fn: PH, _left: PH, right: U) => mergeWith_001<U>;
-    <$SEL extends "011">(): <T, U>(_fn: PH, left: T, right: U) => mergeWith_011<T, U>;
-    <$SEL extends "101">(): <U, V, W>(fn: (a: V, b: V) => W, _left: PH, right: U) => mergeWith_101<U, V, W>;
     <$SEL extends "111">(): <T, U, V, W>(fn: (a: V, b: V) => W, left: T, right: U) => mergeWith_111<T, U, W>;
+    <$SEL extends "101">(): <U, V, W>(fn: (a: V, b: V) => W, _left: PH, right: U) => mergeWith_101<U, V, W>;
+    <$SEL extends "011">(): <T, U>(_fn: PH, left: T, right: U) => mergeWith_011<T, U>;
+    <$SEL extends "001">(): <U>(_fn: PH, _left: PH, right: U) => mergeWith_001<U>;
+    <$SEL extends "11">(): <T, V, W>(fn: (a: V, b: V) => W, left: T) => mergeWith_110<T, V, W>;
+    <$SEL extends "01">(): <T>(_fn: PH, left: T) => mergeWith_010<T>;
+    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_100<V, W>;
     <T, U, V, W>(fn: (a: V, b: V) => W, left: T, right: U): mergeWith_111<T, U, W>;
 };
 type mergeWith_100<V, W> = {
     <T>(left: T): mergeWith_110<T, V, W>;
     <U>(_left: PH, right: U): mergeWith_101<U, V, W>;
-    <$SEL extends "1">(): <T>(left: T) => mergeWith_110<T, V, W>;
-    <$SEL extends "01">(): <U>(_left: PH, right: U) => mergeWith_101<U, V, W>;
     <$SEL extends "11">(): <T, U>(left: T, right: U) => mergeWith_111<T, U, W>;
+    <$SEL extends "01">(): <U>(_left: PH, right: U) => mergeWith_101<U, V, W>;
+    <$SEL extends "1">(): <T>(left: T) => mergeWith_110<T, V, W>;
     <T, U>(left: T, right: U): mergeWith_111<T, U, W>;
 };
 type mergeWith_010<T> = {
     <V, W>(fn: (a: V, b: V) => W): mergeWith_110<T, V, W>;
     <U>(_fn: PH, right: U): mergeWith_011<T, U>;
-    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_110<T, V, W>;
-    <$SEL extends "01">(): <U>(_fn: PH, right: U) => mergeWith_011<T, U>;
     <$SEL extends "11">(): <U, V, W>(fn: (a: V, b: V) => W, right: U) => mergeWith_111<T, U, W>;
+    <$SEL extends "01">(): <U>(_fn: PH, right: U) => mergeWith_011<T, U>;
+    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_110<T, V, W>;
     <U, V, W>(fn: (a: V, b: V) => W, right: U): mergeWith_111<T, U, W>;
 };
 type mergeWith_110<T, V, W> = {
@@ -62,9 +62,9 @@ type mergeWith_110<T, V, W> = {
 type mergeWith_001<U> = {
     <V, W>(fn: (a: V, b: V) => W): mergeWith_101<U, V, W>;
     <T>(_fn: PH, left: T): mergeWith_011<T, U>;
-    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_101<U, V, W>;
-    <$SEL extends "01">(): <T>(_fn: PH, left: T) => mergeWith_011<T, U>;
     <$SEL extends "11">(): <T, V, W>(fn: (a: V, b: V) => W, left: T) => mergeWith_111<T, U, W>;
+    <$SEL extends "01">(): <T>(_fn: PH, left: T) => mergeWith_011<T, U>;
+    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_101<U, V, W>;
     <T, V, W>(fn: (a: V, b: V) => W, left: T): mergeWith_111<T, U, W>;
 };
 type mergeWith_101<U, V, W> = {

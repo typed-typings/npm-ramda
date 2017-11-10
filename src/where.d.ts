@@ -39,9 +39,9 @@ type where_00 = {
      */
     (spec: Dictionary<Predicate<any>>): where_10;
     (_spec: PH, object: Dictionary<any>): where_01;
-    <$SEL extends "1">(): (spec: Dictionary<Predicate<any>>) => where_10;
-    <$SEL extends "01">(): (_spec: PH, object: Dictionary<any>) => where_01;
     <$SEL extends "11">(): (spec: Dictionary<Predicate<any>>, object: Dictionary<any>) => where_11;
+    <$SEL extends "01">(): (_spec: PH, object: Dictionary<any>) => where_01;
+    <$SEL extends "1">(): (spec: Dictionary<Predicate<any>>) => where_10;
     (spec: Dictionary<Predicate<any>>, object: Dictionary<any>): where_11;
 };
 type where_10 = {

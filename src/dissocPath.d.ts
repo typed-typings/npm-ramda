@@ -24,9 +24,9 @@ type dissocPath_00 = {
      */
     (path: Path): dissocPath_10;
     <T extends object>(_path: PH, object: T): dissocPath_01<T>;
-    <$SEL extends "1">(): (path: Path) => dissocPath_10;
-    <$SEL extends "01">(): <T extends object>(_path: PH, object: T) => dissocPath_01<T>;
     <$SEL extends "11">(): <T extends object>(path: Path, object: T) => dissocPath_11<T>;
+    <$SEL extends "01">(): <T extends object>(_path: PH, object: T) => dissocPath_01<T>;
+    <$SEL extends "1">(): (path: Path) => dissocPath_10;
     <T extends object>(path: Path, object: T): dissocPath_11<T>;
 };
 type dissocPath_10 = {

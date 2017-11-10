@@ -32,9 +32,9 @@ type both_00 = {
      */
     <F extends Variadic<boolean>>(fn1: F): both_10<F>;
     <F extends Variadic<boolean>>(_fn1: PH, fn2: F): both_01<F>;
-    <$SEL extends "1">(): <F extends Variadic<boolean>>(fn1: F) => both_10<F>;
-    <$SEL extends "01">(): <F extends Variadic<boolean>>(_fn1: PH, fn2: F) => both_01<F>;
     <$SEL extends "11">(): <F extends Variadic<boolean>>(fn1: F, fn2: F) => both_11<F>;
+    <$SEL extends "01">(): <F extends Variadic<boolean>>(_fn1: PH, fn2: F) => both_01<F>;
+    <$SEL extends "1">(): <F extends Variadic<boolean>>(fn1: F) => both_10<F>;
     <F extends Variadic<boolean>>(fn1: F, fn2: F): both_11<F>;
 };
 type both_10<F extends Variadic<boolean>> = {

@@ -30,8 +30,8 @@ type binary_0 = {
      * @symb R.binary(f)(a, b, c) = f(a, b)
      */
     <T, U, R>(fn: (a: T, b: U, ...args: any[]) => R): binary_base_1<T, U, R>;
-    <$SEL extends "1", $KIND extends "base">(): <T, U, R>(fn: (a: T, b: U, ...args: any[]) => R) => binary_base_1<T, U, R>;
     <$SEL extends "1", $KIND extends "variadic">(): <R>(fn: Variadic<R>) => binary_variadic_1<R>;
+    <$SEL extends "1", $KIND extends "base">(): <T, U, R>(fn: (a: T, b: U, ...args: any[]) => R) => binary_base_1<T, U, R>;
     <R>(fn: Variadic<R>): binary_variadic_1<R>;
 };
 type binary_base_1<T, U, R> = (a: T, b: U) => R;

@@ -20,9 +20,9 @@ type omit_00 = {
      */
     (keys: List<Property>): omit_10;
     <T>(_keys: PH, object: T): omit_01<T>;
-    <$SEL extends "1">(): (keys: List<Property>) => omit_10;
-    <$SEL extends "01">(): <T>(_keys: PH, object: T) => omit_01<T>;
     <$SEL extends "11">(): <T>(keys: List<Property>, object: T) => omit_11<T>;
+    <$SEL extends "01">(): <T>(_keys: PH, object: T) => omit_01<T>;
+    <$SEL extends "1">(): (keys: List<Property>) => omit_10;
     <T>(keys: List<Property>, object: T): omit_11<T>;
 };
 type omit_10 = {

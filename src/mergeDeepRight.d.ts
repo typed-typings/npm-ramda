@@ -24,9 +24,9 @@ type mergeDeepRight_00 = {
      */
     (left: object): mergeDeepRight_10;
     (_left: PH, right: object): mergeDeepRight_01;
-    <$SEL extends "1">(): (left: object) => mergeDeepRight_10;
-    <$SEL extends "01">(): (_left: PH, right: object) => mergeDeepRight_01;
     <$SEL extends "11">(): (left: object, right: object) => mergeDeepRight_11;
+    <$SEL extends "01">(): (_left: PH, right: object) => mergeDeepRight_01;
+    <$SEL extends "1">(): (left: object) => mergeDeepRight_10;
     (left: object, right: object): mergeDeepRight_11;
 };
 type mergeDeepRight_10 = {

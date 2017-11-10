@@ -28,9 +28,9 @@ type modulo_00 = {
      */
     (a: number): modulo_10;
     (_a: PH, b: number): modulo_01;
-    <$SEL extends "1">(): (a: number) => modulo_10;
-    <$SEL extends "01">(): (_a: PH, b: number) => modulo_01;
     <$SEL extends "11">(): (a: number, b: number) => modulo_11;
+    <$SEL extends "01">(): (_a: PH, b: number) => modulo_01;
+    <$SEL extends "1">(): (a: number) => modulo_10;
     (a: number, b: number): modulo_11;
 };
 type modulo_10 = {

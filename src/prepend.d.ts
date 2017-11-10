@@ -21,9 +21,9 @@ type prepend_00 = {
      */
     <T>(value: T): prepend_10<T>;
     <U>(_value: PH, list: List<U>): prepend_01<U>;
-    <$SEL extends "1">(): <T>(value: T) => prepend_10<T>;
-    <$SEL extends "01">(): <U>(_value: PH, list: List<U>) => prepend_01<U>;
     <$SEL extends "11">(): <T, U>(value: T, list: List<U>) => prepend_11<T, U>;
+    <$SEL extends "01">(): <U>(_value: PH, list: List<U>) => prepend_01<U>;
+    <$SEL extends "1">(): <T>(value: T) => prepend_10<T>;
     <T, U>(value: T, list: List<U>): prepend_11<T, U>;
 };
 type prepend_10<T> = {

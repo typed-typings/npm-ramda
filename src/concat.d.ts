@@ -37,15 +37,15 @@ type concat_00 = {
     <U>(_a: PH, b: U[] | string): concat_mixed_01<U>;
     (a: string, b: string): concat_string_11;
     <T, U>(a: T[], b: U[]): concat_list_11<T, U>;
-    <$SEL extends "1", $KIND extends "string">(): (a: string) => concat_string_10;
-    <$SEL extends "1", $KIND extends "list">(): <T>(a: T[]) => concat_list_10<T>;
-    <$SEL extends "1", $KIND extends "mixed">(): <T>(a: T[] | string) => concat_mixed_10<T>;
-    <$SEL extends "01", $KIND extends "string">(): (_a: PH, b: string) => concat_string_01;
-    <$SEL extends "01", $KIND extends "list">(): <U>(_a: PH, b: U[]) => concat_list_01<U>;
-    <$SEL extends "01", $KIND extends "mixed">(): <U>(_a: PH, b: U[] | string) => concat_mixed_01<U>;
-    <$SEL extends "11", $KIND extends "string">(): (a: string, b: string) => concat_string_11;
-    <$SEL extends "11", $KIND extends "list">(): <T, U>(a: T[], b: U[]) => concat_list_11<T, U>;
     <$SEL extends "11", $KIND extends "mixed">(): <T, U>(a: T[] | string, b: U[] | string) => concat_mixed_11<T, U>;
+    <$SEL extends "11", $KIND extends "list">(): <T, U>(a: T[], b: U[]) => concat_list_11<T, U>;
+    <$SEL extends "11", $KIND extends "string">(): (a: string, b: string) => concat_string_11;
+    <$SEL extends "01", $KIND extends "mixed">(): <U>(_a: PH, b: U[] | string) => concat_mixed_01<U>;
+    <$SEL extends "01", $KIND extends "list">(): <U>(_a: PH, b: U[]) => concat_list_01<U>;
+    <$SEL extends "01", $KIND extends "string">(): (_a: PH, b: string) => concat_string_01;
+    <$SEL extends "1", $KIND extends "mixed">(): <T>(a: T[] | string) => concat_mixed_10<T>;
+    <$SEL extends "1", $KIND extends "list">(): <T>(a: T[]) => concat_list_10<T>;
+    <$SEL extends "1", $KIND extends "string">(): (a: string) => concat_string_10;
     <T, U>(a: T[] | string, b: U[] | string): concat_mixed_11<T, U>;
 };
 type concat_string_10 = {

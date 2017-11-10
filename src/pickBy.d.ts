@@ -24,9 +24,9 @@ type pickBy_00 = {
      */
     <T extends {}, U extends Dictionary<T>>(fn: KeyedObjectMorphism<T, boolean, keyof U>): pickBy_10<T, U>;
     <T extends {}, U extends Dictionary<T>>(_fn: PH, object: U): pickBy_01<T, U>;
-    <$SEL extends "1">(): <T extends {}, U extends Dictionary<T>>(fn: KeyedObjectMorphism<T, boolean, keyof U>) => pickBy_10<T, U>;
-    <$SEL extends "01">(): <T extends {}, U extends Dictionary<T>>(_fn: PH, object: U) => pickBy_01<T, U>;
     <$SEL extends "11">(): <T extends {}, U extends Dictionary<T>>(fn: KeyedObjectMorphism<T, boolean, keyof U>, object: U) => pickBy_11<T, U>;
+    <$SEL extends "01">(): <T extends {}, U extends Dictionary<T>>(_fn: PH, object: U) => pickBy_01<T, U>;
+    <$SEL extends "1">(): <T extends {}, U extends Dictionary<T>>(fn: KeyedObjectMorphism<T, boolean, keyof U>) => pickBy_10<T, U>;
     <T extends {}, U extends Dictionary<T>>(fn: KeyedObjectMorphism<T, boolean, keyof U>, object: U): pickBy_11<T, U>;
 };
 type pickBy_10<T extends {}, U extends Dictionary<T>> = {

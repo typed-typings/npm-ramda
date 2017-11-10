@@ -19,9 +19,9 @@ type range_00 = {
      */
     (from: number): range_10;
     (_from: PH, to: number): range_01;
-    <$SEL extends "1">(): (from: number) => range_10;
-    <$SEL extends "01">(): (_from: PH, to: number) => range_01;
     <$SEL extends "11">(): (from: number, to: number) => range_11;
+    <$SEL extends "01">(): (_from: PH, to: number) => range_01;
+    <$SEL extends "1">(): (from: number) => range_10;
     (from: number, to: number): range_11;
 };
 type range_10 = {

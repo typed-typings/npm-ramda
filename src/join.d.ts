@@ -22,9 +22,9 @@ type join_00 = {
      */
     (separator: string): join_10;
     (_separator: PH, list: any[]): join_01;
-    <$SEL extends "1">(): (separator: string) => join_10;
-    <$SEL extends "01">(): (_separator: PH, list: any[]) => join_01;
     <$SEL extends "11">(): (separator: string, list: any[]) => join_11;
+    <$SEL extends "01">(): (_separator: PH, list: any[]) => join_01;
+    <$SEL extends "1">(): (separator: string) => join_10;
     (separator: string, list: any[]): join_11;
 };
 type join_10 = {
