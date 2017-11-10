@@ -29,29 +29,29 @@ type slice_000 = {
     (from: number, to: number): slice_110;
     (from: number, to: number, str: string): slice_string_111;
     <T>(from: number, to: number, list: List<T>): slice_list_111<T>;
-    <$SEL extends "1">(): (from: number) => slice_100;
-    <$SEL extends "11">(): (from: number, to: number) => slice_110;
-    <$SEL extends "111", $KIND extends "string">(): (from: number, to: number, str: string) => slice_string_111;
-    <$SEL extends "111", $KIND extends "list">(): <T>(from: number, to: number, list: List<T>) => slice_list_111<T>;
     <$SEL extends "111", $KIND extends "mixed">(): <T>(from: number, to: number, list: string | List<T>) => slice_mixed_111<T>;
+    <$SEL extends "111", $KIND extends "list">(): <T>(from: number, to: number, list: List<T>) => slice_list_111<T>;
+    <$SEL extends "111", $KIND extends "string">(): (from: number, to: number, str: string) => slice_string_111;
+    <$SEL extends "11">(): (from: number, to: number) => slice_110;
+    <$SEL extends "1">(): (from: number) => slice_100;
     <T>(from: number, to: number, list: string | List<T>): slice_mixed_111<T>;
 };
 type slice_100 = {
     (to: number): slice_110;
     (to: number, str: string): slice_string_111;
     <T>(to: number, list: List<T>): slice_list_111<T>;
-    <$SEL extends "1">(): (to: number) => slice_110;
-    <$SEL extends "11", $KIND extends "string">(): (to: number, str: string) => slice_string_111;
-    <$SEL extends "11", $KIND extends "list">(): <T>(to: number, list: List<T>) => slice_list_111<T>;
     <$SEL extends "11", $KIND extends "mixed">(): <T>(to: number, list: string | List<T>) => slice_mixed_111<T>;
+    <$SEL extends "11", $KIND extends "list">(): <T>(to: number, list: List<T>) => slice_list_111<T>;
+    <$SEL extends "11", $KIND extends "string">(): (to: number, str: string) => slice_string_111;
+    <$SEL extends "1">(): (to: number) => slice_110;
     <T>(to: number, list: string | List<T>): slice_mixed_111<T>;
 };
 type slice_110 = {
     (str: string): slice_string_111;
     <T>(list: List<T>): slice_list_111<T>;
-    <$SEL extends "1", $KIND extends "string">(): (str: string) => slice_string_111;
-    <$SEL extends "1", $KIND extends "list">(): <T>(list: List<T>) => slice_list_111<T>;
     <$SEL extends "1", $KIND extends "mixed">(): <T>(list: string | List<T>) => slice_mixed_111<T>;
+    <$SEL extends "1", $KIND extends "list">(): <T>(list: List<T>) => slice_list_111<T>;
+    <$SEL extends "1", $KIND extends "string">(): (str: string) => slice_string_111;
     <T>(list: string | List<T>): slice_mixed_111<T>;
 };
 type slice_string_111 = string;

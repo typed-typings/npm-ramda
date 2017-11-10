@@ -49,15 +49,15 @@ type reduce_000 = {
      */
     <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U): reduce_100<T, U>;
     <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U): reduce_110<T, U>;
-    <$SEL extends "1">(): <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U) => reduce_100<T, U>;
-    <$SEL extends "11">(): <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduce_110<T, U>;
     <$SEL extends "111">(): <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, values: List<T>) => reduce_111<U>;
+    <$SEL extends "11">(): <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduce_110<T, U>;
+    <$SEL extends "1">(): <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U) => reduce_100<T, U>;
     <T, U>(fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, values: List<T>): reduce_111<U>;
 };
 type reduce_100<T, U> = {
     (initial: U): reduce_110<T, U>;
-    <$SEL extends "1">(): (initial: U) => reduce_110<T, U>;
     <$SEL extends "11">(): (initial: U, values: List<T>) => reduce_111<U>;
+    <$SEL extends "1">(): (initial: U) => reduce_110<T, U>;
     (initial: U, values: List<T>): reduce_111<U>;
 };
 type reduce_110<T, U> = {

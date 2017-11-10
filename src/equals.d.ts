@@ -26,8 +26,8 @@ type equals_00 = {
      *      R.equals(a, b); //=> true
      */
     <T>(a: T): equals_10<T>;
-    <$SEL extends "1">(): <T>(a: T) => equals_10<T>;
     <$SEL extends "11">(): <T>(a: T, b: T) => equals_11;
+    <$SEL extends "1">(): <T>(a: T) => equals_10<T>;
     <T>(a: T, b: T): equals_11;
 };
 type equals_10<T> = {

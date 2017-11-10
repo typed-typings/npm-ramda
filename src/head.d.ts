@@ -24,9 +24,9 @@ type head_0 = {
      */
     (str: string): head_string_1;
     <T extends [any]>(list: T): head_tuple_1<T>;
-    <$SEL extends "1", $KIND extends "string">(): (str: string) => head_string_1;
-    <$SEL extends "1", $KIND extends "tuple">(): <T extends [any]>(list: T) => head_tuple_1<T>;
     <$SEL extends "1", $KIND extends "general">(): <T extends List<any>>(list: T) => head_general_1<T>;
+    <$SEL extends "1", $KIND extends "tuple">(): <T extends [any]>(list: T) => head_tuple_1<T>;
+    <$SEL extends "1", $KIND extends "string">(): (str: string) => head_string_1;
     <T extends List<any>>(list: T): head_general_1<T>;
 };
 type head_string_1 = string;

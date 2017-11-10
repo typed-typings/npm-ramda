@@ -22,8 +22,8 @@ type sort_00 = {
      *      R.sort(diff, [4,2,7,5]); //=> [2, 4, 5, 7]
      */
     <T>(fn: Comparator<T, number>): sort_10<T>;
-    <$SEL extends "1">(): <T>(fn: Comparator<T, number>) => sort_10<T>;
     <$SEL extends "11">(): <T>(fn: Comparator<T, number>, list: List<T>) => sort_11<T>;
+    <$SEL extends "1">(): <T>(fn: Comparator<T, number>) => sort_10<T>;
     <T>(fn: Comparator<T, number>, list: List<T>): sort_11<T>;
 };
 type sort_10<T> = {

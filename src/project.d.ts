@@ -25,12 +25,12 @@ type project_00 = {
     (keys: Property[]): project_general_10;
     <T, K extends keyof T>(keys: List<K>, list: List<T>): project_keyof_11<T, K>;
     <K extends string, T extends Record<K, any>>(keys: List<K>, list: List<T>): project_record_11<K, T>;
-    <$SEL extends "1", $KIND extends "keyof">(): <T, K extends keyof T>(keys: List<K>) => project_keyof_10<T, K>;
-    <$SEL extends "1", $KIND extends "record">(): <K extends string>(keys: List<K>) => project_record_10<K>;
-    <$SEL extends "1", $KIND extends "general">(): (keys: Property[]) => project_general_10;
-    <$SEL extends "11", $KIND extends "keyof">(): <T, K extends keyof T>(keys: List<K>, list: List<T>) => project_keyof_11<T, K>;
-    <$SEL extends "11", $KIND extends "record">(): <K extends string, T extends Record<K, any>>(keys: List<K>, list: List<T>) => project_record_11<K, T>;
     <$SEL extends "11", $KIND extends "general">(): (keys: Property[], object: List<any>) => project_general_11;
+    <$SEL extends "11", $KIND extends "record">(): <K extends string, T extends Record<K, any>>(keys: List<K>, list: List<T>) => project_record_11<K, T>;
+    <$SEL extends "11", $KIND extends "keyof">(): <T, K extends keyof T>(keys: List<K>, list: List<T>) => project_keyof_11<T, K>;
+    <$SEL extends "1", $KIND extends "general">(): (keys: Property[]) => project_general_10;
+    <$SEL extends "1", $KIND extends "record">(): <K extends string>(keys: List<K>) => project_record_10<K>;
+    <$SEL extends "1", $KIND extends "keyof">(): <T, K extends keyof T>(keys: List<K>) => project_keyof_10<T, K>;
     (keys: Property[], object: List<any>): project_general_11;
 };
 type project_keyof_10<T, K extends keyof T> = {

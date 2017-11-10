@@ -24,8 +24,8 @@ type repeat_00 = {
      * @symb R.repeat(a, 2) = [a, a]
      */
     <T>(value: T): repeat_10<T>;
-    <$SEL extends "1">(): <T>(value: T) => repeat_10<T>;
     <$SEL extends "11">(): <T>(value: T, count: number) => repeat_11<T>;
+    <$SEL extends "1">(): <T>(value: T) => repeat_10<T>;
     <T>(value: T, count: number): repeat_11<T>;
 };
 type repeat_10<T> = {

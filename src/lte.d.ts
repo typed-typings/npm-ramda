@@ -23,8 +23,8 @@ type lte_00 = {
      *      R.lte('z', 'a'); //=> false
      */
     <T extends Ordered>(a: T): lte_10<T>;
-    <$SEL extends "1">(): <T extends Ordered>(a: T) => lte_10<T>;
     <$SEL extends "11">(): <T extends Ordered>(a: T, b: T) => lte_11;
+    <$SEL extends "1">(): <T extends Ordered>(a: T) => lte_10<T>;
     <T extends Ordered>(a: T, b: T): lte_11;
 };
 type lte_10<T extends Ordered> = {

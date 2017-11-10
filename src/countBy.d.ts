@@ -26,8 +26,8 @@ type countBy_00 = {
      *      R.countBy(R.toLower)(letters);   //=> {'a': 3, 'b': 2, 'c': 1}
      */
     <T>(fn: Morphism<T, Property>): countBy_10<T>;
-    <$SEL extends "1">(): <T>(fn: Morphism<T, Property>) => countBy_10<T>;
     <$SEL extends "11">(): <T>(fn: Morphism<T, Property>, list: List<T>) => countBy_11;
+    <$SEL extends "1">(): <T>(fn: Morphism<T, Property>) => countBy_10<T>;
     <T>(fn: Morphism<T, Property>, list: List<T>): countBy_11;
 };
 type countBy_10<T> = {

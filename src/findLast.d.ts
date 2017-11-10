@@ -24,8 +24,8 @@ type findLast_00 = {
      *      R.findLast(R.propEq('a', 4))(xs); //=> undefined
      */
     <T>(fn: Predicate<T>): findLast_10<T>;
-    <$SEL extends "1">(): <T>(fn: Predicate<T>) => findLast_10<T>;
     <$SEL extends "11">(): <T>(fn: Predicate<T>, list: List<T>) => findLast_11<T>;
+    <$SEL extends "1">(): <T>(fn: Predicate<T>) => findLast_10<T>;
     <T>(fn: Predicate<T>, list: List<T>): findLast_11<T>;
 };
 type findLast_10<T> = {

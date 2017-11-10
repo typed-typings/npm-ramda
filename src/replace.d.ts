@@ -22,15 +22,15 @@ type replace_000 = {
      */
     (pattern: RegExp | string): replace_100;
     (pattern: RegExp | string, replacement: string): replace_110;
-    <$SEL extends "1">(): (pattern: RegExp | string) => replace_100;
-    <$SEL extends "11">(): (pattern: RegExp | string, replacement: string) => replace_110;
     <$SEL extends "111">(): (pattern: RegExp | string, replacement: string, str: string) => replace_111;
+    <$SEL extends "11">(): (pattern: RegExp | string, replacement: string) => replace_110;
+    <$SEL extends "1">(): (pattern: RegExp | string) => replace_100;
     (pattern: RegExp | string, replacement: string, str: string): replace_111;
 };
 type replace_100 = {
     (replacement: string): replace_110;
-    <$SEL extends "1">(): (replacement: string) => replace_110;
     <$SEL extends "11">(): (replacement: string, str: string) => replace_111;
+    <$SEL extends "1">(): (replacement: string) => replace_110;
     (replacement: string, str: string): replace_111;
 };
 type replace_110 = {

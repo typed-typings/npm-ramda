@@ -21,15 +21,15 @@ type remove_000 = {
      */
     (start: number): remove_100;
     (start: number, counter: number): remove_110;
-    <$SEL extends "1">(): (start: number) => remove_100;
-    <$SEL extends "11">(): (start: number, counter: number) => remove_110;
     <$SEL extends "111">(): <T>(start: number, counter: number, list: T[]) => remove_111<T>;
+    <$SEL extends "11">(): (start: number, counter: number) => remove_110;
+    <$SEL extends "1">(): (start: number) => remove_100;
     <T>(start: number, counter: number, list: T[]): remove_111<T>;
 };
 type remove_100 = {
     (counter: number): remove_110;
-    <$SEL extends "1">(): (counter: number) => remove_110;
     <$SEL extends "11">(): <T>(counter: number, list: T[]) => remove_111<T>;
+    <$SEL extends "1">(): (counter: number) => remove_110;
     <T>(counter: number, list: T[]): remove_111<T>;
 };
 type remove_110 = {

@@ -20,8 +20,8 @@ type join_00 = {
      *      R.join('|', [1, 2, 3]);    //=> '1|2|3'
      */
     (separator: string): join_10;
-    <$SEL extends "1">(): (separator: string) => join_10;
     <$SEL extends "11">(): (separator: string, list: any[]) => join_11;
+    <$SEL extends "1">(): (separator: string) => join_10;
     (separator: string, list: any[]): join_11;
 };
 type join_10 = {

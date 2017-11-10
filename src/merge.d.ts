@@ -25,8 +25,8 @@ type merge_00 = {
      * @symb R.merge({ x: 1, y: 2 }, { y: 5, z: 3 }) = { x: 1, y: 5, z: 3 }
      */
     <T>(a: T): merge_10<T>;
-    <$SEL extends "1">(): <T>(a: T) => merge_10<T>;
     <$SEL extends "11">(): <T, U>(a: T, b: U) => merge_11<T, U>;
+    <$SEL extends "1">(): <T>(a: T) => merge_10<T>;
     <T, U>(a: T, b: U): merge_11<T, U>;
 };
 type merge_10<T> = {

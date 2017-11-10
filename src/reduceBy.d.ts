@@ -48,24 +48,24 @@ type reduceBy_0000 = {
     <T, U>(valueFn: (accumulator: U, value: T) => Reduced<U> | U): reduceBy_1000<T, U>;
     <T, U>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U): reduceBy_1100<T, U>;
     <T, U, K extends string>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, keyFn: Morphism<T, K>): reduceBy_1110<T, U, K>;
-    <$SEL extends "1">(): <T, U>(valueFn: (accumulator: U, value: T) => Reduced<U> | U) => reduceBy_1000<T, U>;
-    <$SEL extends "11">(): <T, U>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduceBy_1100<T, U>;
-    <$SEL extends "111">(): <T, U, K extends string>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, keyFn: Morphism<T, K>) => reduceBy_1110<T, U, K>;
     <$SEL extends "1111">(): <T, U, K extends string>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, keyFn: Morphism<T, K>, values: List<T>) => reduceBy_1111<U, K>;
+    <$SEL extends "111">(): <T, U, K extends string>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, keyFn: Morphism<T, K>) => reduceBy_1110<T, U, K>;
+    <$SEL extends "11">(): <T, U>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduceBy_1100<T, U>;
+    <$SEL extends "1">(): <T, U>(valueFn: (accumulator: U, value: T) => Reduced<U> | U) => reduceBy_1000<T, U>;
     <T, U, K extends string>(valueFn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, keyFn: Morphism<T, K>, values: List<T>): reduceBy_1111<U, K>;
 };
 type reduceBy_1000<T, U> = {
     (initial: U): reduceBy_1100<T, U>;
     <K extends string>(initial: U, keyFn: Morphism<T, K>): reduceBy_1110<T, U, K>;
-    <$SEL extends "1">(): (initial: U) => reduceBy_1100<T, U>;
-    <$SEL extends "11">(): <K extends string>(initial: U, keyFn: Morphism<T, K>) => reduceBy_1110<T, U, K>;
     <$SEL extends "111">(): <K extends string>(initial: U, keyFn: Morphism<T, K>, values: List<T>) => reduceBy_1111<U, K>;
+    <$SEL extends "11">(): <K extends string>(initial: U, keyFn: Morphism<T, K>) => reduceBy_1110<T, U, K>;
+    <$SEL extends "1">(): (initial: U) => reduceBy_1100<T, U>;
     <K extends string>(initial: U, keyFn: Morphism<T, K>, values: List<T>): reduceBy_1111<U, K>;
 };
 type reduceBy_1100<T, U> = {
     <K extends string>(keyFn: Morphism<T, K>): reduceBy_1110<T, U, K>;
-    <$SEL extends "1">(): <K extends string>(keyFn: Morphism<T, K>) => reduceBy_1110<T, U, K>;
     <$SEL extends "11">(): <K extends string>(keyFn: Morphism<T, K>, values: List<T>) => reduceBy_1111<U, K>;
+    <$SEL extends "1">(): <K extends string>(keyFn: Morphism<T, K>) => reduceBy_1110<T, U, K>;
     <K extends string>(keyFn: Morphism<T, K>, values: List<T>): reduceBy_1111<U, K>;
 };
 type reduceBy_1110<T, U, K extends string> = {

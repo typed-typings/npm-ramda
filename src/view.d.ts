@@ -31,16 +31,16 @@ type view_00 = {
         }>(lens: PseudoLens<N>, target: U): view_number_11<N, U>;
     <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, target: U): view_string_11<K, U>;
     <T, U>(lens: ManualLens<T, U>, target: U): view_manual_11<T>;
-    <$SEL extends "1", $KIND extends "number">(): <N extends number>(lens: PseudoLens<N>) => view_number_10<N>;
-    <$SEL extends "1", $KIND extends "string">(): <K extends string>(lens: PseudoLens<K>) => view_string_10<K>;
-    <$SEL extends "1", $KIND extends "manual">(): <T, U>(lens: ManualLens<T, U>) => view_manual_10<T, U>;
-    <$SEL extends "1", $KIND extends "general">(): <X, V>(lens: PseudoLens<any> | ManualLens<X, V>) => view_general_10<X, V>;
+    <$SEL extends "11", $KIND extends "general">(): <X, V>(lens: PseudoLens<any> | ManualLens<X, V>, target: V) => view_general_11<X, V>;
+    <$SEL extends "11", $KIND extends "manual">(): <T, U>(lens: ManualLens<T, U>, target: U) => view_manual_11<T>;
+    <$SEL extends "11", $KIND extends "string">(): <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, target: U) => view_string_11<K, U>;
     <$SEL extends "11", $KIND extends "number">(): <N extends number, U extends {
             [index: number]: any;
         }>(lens: PseudoLens<N>, target: U) => view_number_11<N, U>;
-    <$SEL extends "11", $KIND extends "string">(): <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, target: U) => view_string_11<K, U>;
-    <$SEL extends "11", $KIND extends "manual">(): <T, U>(lens: ManualLens<T, U>, target: U) => view_manual_11<T>;
-    <$SEL extends "11", $KIND extends "general">(): <X, V>(lens: PseudoLens<any> | ManualLens<X, V>, target: V) => view_general_11<X, V>;
+    <$SEL extends "1", $KIND extends "general">(): <X, V>(lens: PseudoLens<any> | ManualLens<X, V>) => view_general_10<X, V>;
+    <$SEL extends "1", $KIND extends "manual">(): <T, U>(lens: ManualLens<T, U>) => view_manual_10<T, U>;
+    <$SEL extends "1", $KIND extends "string">(): <K extends string>(lens: PseudoLens<K>) => view_string_10<K>;
+    <$SEL extends "1", $KIND extends "number">(): <N extends number>(lens: PseudoLens<N>) => view_number_10<N>;
     <X, V>(lens: PseudoLens<any> | ManualLens<X, V>, target: V): view_general_11<X, V>;
 };
 type view_number_10<N extends number> = {

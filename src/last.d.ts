@@ -22,8 +22,8 @@ type last_0 = {
      *      R.last(''); //=> ''
      */
     (str: string): last_string_1;
-    <$SEL extends "1", $KIND extends "string">(): (str: string) => last_string_1;
     <$SEL extends "1", $KIND extends "general">(): <T extends List<any>>(list: T) => last_general_1<T>;
+    <$SEL extends "1", $KIND extends "string">(): (str: string) => last_string_1;
     <T extends List<any>>(list: T): last_general_1<T>;
 };
 type last_string_1 = string;

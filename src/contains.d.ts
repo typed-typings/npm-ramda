@@ -22,8 +22,8 @@ type contains_00 = {
      *      R.contains([42], [[42]]); //=> true
      */
     <T>(value: T): contains_10<T>;
-    <$SEL extends "1">(): <T>(value: T) => contains_10<T>;
     <$SEL extends "11">(): <T>(value: T, list: List<T>) => contains_11;
+    <$SEL extends "1">(): <T>(value: T) => contains_10<T>;
     <T>(value: T, list: List<T>): contains_11;
 };
 type contains_10<T> = {

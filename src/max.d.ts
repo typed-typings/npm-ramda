@@ -19,8 +19,8 @@ type max_00 = {
      *      R.max('a', 'b'); //=> 'b'
      */
     <T extends Ordered>(a: T): max_10<T>;
-    <$SEL extends "1">(): <T extends Ordered>(a: T) => max_10<T>;
     <$SEL extends "11">(): <T extends Ordered>(a: T, b: T) => max_11<T>;
+    <$SEL extends "1">(): <T extends Ordered>(a: T) => max_10<T>;
     <T extends Ordered>(a: T, b: T): max_11<T>;
 };
 type max_10<T extends Ordered> = {

@@ -23,8 +23,8 @@ type bind_00 = {
      * @symb R.bind(f, o)(a, b) = f.call(o, a, b)
      */
     <T extends Function>(fn: T): bind_10<T>;
-    <$SEL extends "1">(): <T extends Function>(fn: T) => bind_10<T>;
     <$SEL extends "11">(): <T extends Function>(fn: T, context: any) => bind_11<T>;
+    <$SEL extends "1">(): <T extends Function>(fn: T) => bind_10<T>;
     <T extends Function>(fn: T, context: any): bind_11<T>;
 };
 type bind_10<T extends Function> = {

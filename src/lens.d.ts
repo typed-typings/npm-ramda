@@ -25,8 +25,8 @@ type lens_00 = {
      *      R.over(xLens, R.negate, {x: 1, y: 2});  //=> {x: -1, y: 2}
      */
     <T, U>(getter: (target: U) => T): lens_10<T, U>;
-    <$SEL extends "1">(): <T, U>(getter: (target: U) => T) => lens_10<T, U>;
     <$SEL extends "11">(): <T, U>(getter: (target: U) => T, setter: (focus: T, target: U) => U) => lens_11<T, U>;
+    <$SEL extends "1">(): <T, U>(getter: (target: U) => T) => lens_10<T, U>;
     <T, U>(getter: (target: U) => T, setter: (focus: T, target: U) => U): lens_11<T, U>;
 };
 type lens_10<T, U> = {

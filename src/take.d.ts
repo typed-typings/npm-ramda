@@ -47,18 +47,18 @@ type take_00 = {
     (n: number): take_10;
     (n: number, str: string): take_string_11;
     <T>(n: number, list: List<T>): take_list_11<T>;
-    <$SEL extends "1">(): (n: number) => take_10;
-    <$SEL extends "11", $KIND extends "string">(): (n: number, str: string) => take_string_11;
-    <$SEL extends "11", $KIND extends "list">(): <T>(n: number, list: List<T>) => take_list_11<T>;
     <$SEL extends "11", $KIND extends "mixed">(): <T>(n: number, list: string | List<T>) => take_mixed_11<T>;
+    <$SEL extends "11", $KIND extends "list">(): <T>(n: number, list: List<T>) => take_list_11<T>;
+    <$SEL extends "11", $KIND extends "string">(): (n: number, str: string) => take_string_11;
+    <$SEL extends "1">(): (n: number) => take_10;
     <T>(n: number, list: string | List<T>): take_mixed_11<T>;
 };
 type take_10 = {
     (str: string): take_string_11;
     <T>(list: List<T>): take_list_11<T>;
-    <$SEL extends "1", $KIND extends "string">(): (str: string) => take_string_11;
-    <$SEL extends "1", $KIND extends "list">(): <T>(list: List<T>) => take_list_11<T>;
     <$SEL extends "1", $KIND extends "mixed">(): <T>(list: string | List<T>) => take_mixed_11<T>;
+    <$SEL extends "1", $KIND extends "list">(): <T>(list: List<T>) => take_list_11<T>;
+    <$SEL extends "1", $KIND extends "string">(): (str: string) => take_string_11;
     <T>(list: string | List<T>): take_mixed_11<T>;
 };
 type take_string_11 = string;

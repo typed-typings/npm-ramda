@@ -26,8 +26,8 @@ type has_00 = {
      *      pointHas('z');  //=> false
      */
     (property: Property): has_10;
-    <$SEL extends "1">(): (property: Property) => has_10;
     <$SEL extends "11">(): (property: Property, object: {}) => has_11;
+    <$SEL extends "1">(): (property: Property) => has_10;
     (property: Property, object: {}): has_11;
 };
 type has_10 = {

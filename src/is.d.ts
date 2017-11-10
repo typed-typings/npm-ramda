@@ -25,8 +25,8 @@ type is_00 = {
      *      R.is(Number, {}); //=> false
      */
     <T>(constructor: Constructor<T>): is_10<T>;
-    <$SEL extends "1">(): <T>(constructor: Constructor<T>) => is_10<T>;
     <$SEL extends "11">(): <T>(constructor: Constructor<T>, value: any) => value is T;
+    <$SEL extends "1">(): <T>(constructor: Constructor<T>) => is_10<T>;
     <T>(constructor: Constructor<T>, value: any): value is T;
 };
 type is_10<T> = {

@@ -24,8 +24,8 @@ type forEachObjIndexed_00 = {
      * @symb R.forEachObjIndexed(f, {x: a, y: b}) = {x: a, y: b}
      */
     <T, U extends Dictionary<T>>(fn: KeyedObjectTap<T, U>): forEachObjIndexed_10<T, U>;
-    <$SEL extends "1">(): <T, U extends Dictionary<T>>(fn: KeyedObjectTap<T, U>) => forEachObjIndexed_10<T, U>;
     <$SEL extends "11">(): <T, U extends Dictionary<T>>(fn: KeyedObjectTap<T, U>, list: U) => forEachObjIndexed_11<T, U>;
+    <$SEL extends "1">(): <T, U extends Dictionary<T>>(fn: KeyedObjectTap<T, U>) => forEachObjIndexed_10<T, U>;
     <T, U extends Dictionary<T>>(fn: KeyedObjectTap<T, U>, list: U): forEachObjIndexed_11<T, U>;
 };
 type forEachObjIndexed_10<T, U extends Dictionary<T>> = {

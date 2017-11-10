@@ -23,8 +23,8 @@ type gte_00 = {
      *      R.gte('z', 'a'); //=> true
      */
     <T extends Ordered>(a: T): gte_10<T>;
-    <$SEL extends "1">(): <T extends Ordered>(a: T) => gte_10<T>;
     <$SEL extends "11">(): <T extends Ordered>(a: T, b: T) => gte_11;
+    <$SEL extends "1">(): <T extends Ordered>(a: T) => gte_10<T>;
     <T extends Ordered>(a: T, b: T): gte_11;
 };
 type gte_10<T extends Ordered> = {

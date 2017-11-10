@@ -24,15 +24,15 @@ type eqProps_000 = {
      */
     (property: Property): eqProps_100;
     <T>(property: Property, a: T): eqProps_110<T>;
-    <$SEL extends "1">(): (property: Property) => eqProps_100;
-    <$SEL extends "11">(): <T>(property: Property, a: T) => eqProps_110<T>;
     <$SEL extends "111">(): <T>(property: Property, a: T, b: T) => eqProps_111;
+    <$SEL extends "11">(): <T>(property: Property, a: T) => eqProps_110<T>;
+    <$SEL extends "1">(): (property: Property) => eqProps_100;
     <T>(property: Property, a: T, b: T): eqProps_111;
 };
 type eqProps_100 = {
     <T>(a: T): eqProps_110<T>;
-    <$SEL extends "1">(): <T>(a: T) => eqProps_110<T>;
     <$SEL extends "11">(): <T>(a: T, b: T) => eqProps_111;
+    <$SEL extends "1">(): <T>(a: T) => eqProps_110<T>;
     <T>(a: T, b: T): eqProps_111;
 };
 type eqProps_110<T> = {

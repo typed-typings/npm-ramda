@@ -27,8 +27,8 @@ type any_00 = {
      *      R.any(lessThan2)([1, 2]); //=> true
      */
     <T>(fn: Predicate<T>): any_10<T>;
-    <$SEL extends "1">(): <T>(fn: Predicate<T>) => any_10<T>;
     <$SEL extends "11">(): <T>(fn: Predicate<T>, list: List<T>) => any_11;
+    <$SEL extends "1">(): <T>(fn: Predicate<T>) => any_10<T>;
     <T>(fn: Predicate<T>, list: List<T>): any_11;
 };
 type any_10<T> = {

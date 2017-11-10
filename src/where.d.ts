@@ -37,8 +37,8 @@ type where_00 = {
      *      pred({a: 'foo', b: 'xxx', x: 11, y: 20}); //=> false
      */
     (spec: Dictionary<Predicate<any>>): where_10;
-    <$SEL extends "1">(): (spec: Dictionary<Predicate<any>>) => where_10;
     <$SEL extends "11">(): (spec: Dictionary<Predicate<any>>, object: Dictionary<any>) => where_11;
+    <$SEL extends "1">(): (spec: Dictionary<Predicate<any>>) => where_10;
     (spec: Dictionary<Predicate<any>>, object: Dictionary<any>): where_11;
 };
 type where_10 = {

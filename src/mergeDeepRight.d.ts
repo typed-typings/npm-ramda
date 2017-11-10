@@ -22,8 +22,8 @@ type mergeDeepRight_00 = {
      *      //=> { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
      */
     (left: object): mergeDeepRight_10;
-    <$SEL extends "1">(): (left: object) => mergeDeepRight_10;
     <$SEL extends "11">(): (left: object, right: object) => mergeDeepRight_11;
+    <$SEL extends "1">(): (left: object) => mergeDeepRight_10;
     (left: object, right: object): mergeDeepRight_11;
 };
 type mergeDeepRight_10 = {

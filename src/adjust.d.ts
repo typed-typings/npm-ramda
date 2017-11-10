@@ -34,33 +34,33 @@ type adjust_000 = {
     <T, U>(fn: Morphism<T, U>, index: number): adjust_general_110<T, U>;
     <T, U>(fn: Morphism<T, U>, index: number, list: List<T>): adjust_list_111<T, U>;
     <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>, index: N, tuple: X): adjust_tuple_111<X>;
-    <$SEL extends "1", $KIND extends "list">(): <T, U>(fn: Morphism<T, U>) => adjust_list_100<T, U>;
-    <$SEL extends "1", $KIND extends "tuple">(): <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>) => adjust_tuple_100<N, X>;
-    <$SEL extends "1", $KIND extends "general">(): <T, U>(fn: Morphism<T, U>) => adjust_general_100<T, U>;
-    <$SEL extends "11", $KIND extends "list">(): <T, U>(fn: Morphism<T, U>, index: number) => adjust_list_110<T, U>;
-    <$SEL extends "11", $KIND extends "tuple">(): <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>, index: N) => adjust_tuple_110<N, X>;
-    <$SEL extends "11", $KIND extends "general">(): <T, U>(fn: Morphism<T, U>, index: number) => adjust_general_110<T, U>;
-    <$SEL extends "111", $KIND extends "list">(): <T, U>(fn: Morphism<T, U>, index: number, list: List<T>) => adjust_list_111<T, U>;
-    <$SEL extends "111", $KIND extends "tuple">(): <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>, index: N, tuple: X) => adjust_tuple_111<X>;
     <$SEL extends "111", $KIND extends "general">(): <T, U, X extends [any]>(fn: Morphism<T, U>, index: number, list: List<T> | X) => adjust_general_111<T, U, X>;
+    <$SEL extends "111", $KIND extends "tuple">(): <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>, index: N, tuple: X) => adjust_tuple_111<X>;
+    <$SEL extends "111", $KIND extends "list">(): <T, U>(fn: Morphism<T, U>, index: number, list: List<T>) => adjust_list_111<T, U>;
+    <$SEL extends "11", $KIND extends "general">(): <T, U>(fn: Morphism<T, U>, index: number) => adjust_general_110<T, U>;
+    <$SEL extends "11", $KIND extends "tuple">(): <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>, index: N) => adjust_tuple_110<N, X>;
+    <$SEL extends "11", $KIND extends "list">(): <T, U>(fn: Morphism<T, U>, index: number) => adjust_list_110<T, U>;
+    <$SEL extends "1", $KIND extends "general">(): <T, U>(fn: Morphism<T, U>) => adjust_general_100<T, U>;
+    <$SEL extends "1", $KIND extends "tuple">(): <N extends number, X extends [any]>(fn: Morphism<X[N], X[N]>) => adjust_tuple_100<N, X>;
+    <$SEL extends "1", $KIND extends "list">(): <T, U>(fn: Morphism<T, U>) => adjust_list_100<T, U>;
     <T, U, X extends [any]>(fn: Morphism<T, U>, index: number, list: List<T> | X): adjust_general_111<T, U, X>;
 };
 type adjust_list_100<T, U> = {
     (index: number): adjust_list_110<T, U>;
-    <$SEL extends "1">(): (index: number) => adjust_list_110<T, U>;
     <$SEL extends "11">(): (index: number, list: List<T>) => adjust_list_111<T, U>;
+    <$SEL extends "1">(): (index: number) => adjust_list_110<T, U>;
     (index: number, list: List<T>): adjust_list_111<T, U>;
 };
 type adjust_tuple_100<N extends number, X extends [any]> = {
     (index: N): adjust_tuple_110<N, X>;
-    <$SEL extends "1">(): (index: N) => adjust_tuple_110<N, X>;
     <$SEL extends "11">(): (index: N, tuple: X) => adjust_tuple_111<X>;
+    <$SEL extends "1">(): (index: N) => adjust_tuple_110<N, X>;
     (index: N, tuple: X): adjust_tuple_111<X>;
 };
 type adjust_general_100<T, U> = {
     (index: number): adjust_general_110<T, U>;
-    <$SEL extends "1">(): (index: number) => adjust_general_110<T, U>;
     <$SEL extends "11">(): <X extends [any]>(index: number, list: List<T> | X) => adjust_general_111<T, U, X>;
+    <$SEL extends "1">(): (index: number) => adjust_general_110<T, U>;
     <X extends [any]>(index: number, list: List<T> | X): adjust_general_111<T, U, X>;
 };
 type adjust_list_110<T, U> = {

@@ -23,8 +23,8 @@ type dropRepeatsWith_00 = {
      *      R.dropRepeatsWith(R.eqBy(Math.abs), l); //=> [1, 3, 4, -5, 3]
      */
     <T>(fn: Morphism<T, any>): dropRepeatsWith_10<T>;
-    <$SEL extends "1">(): <T>(fn: Morphism<T, any>) => dropRepeatsWith_10<T>;
     <$SEL extends "11">(): <T>(fn: Morphism<T, any>, list: List<T>) => dropRepeatsWith_11<T>;
+    <$SEL extends "1">(): <T>(fn: Morphism<T, any>) => dropRepeatsWith_10<T>;
     <T>(fn: Morphism<T, any>, list: List<T>): dropRepeatsWith_11<T>;
 };
 type dropRepeatsWith_10<T> = {

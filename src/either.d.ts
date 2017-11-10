@@ -29,8 +29,8 @@ type either_00 = {
      *      f(8); //=> true
      */
     <F extends Variadic<boolean>>(fn1: F): either_10<F>;
-    <$SEL extends "1">(): <F extends Variadic<boolean>>(fn1: F) => either_10<F>;
     <$SEL extends "11">(): <F extends Variadic<boolean>>(fn1: F, fn2: F) => either_11<F>;
+    <$SEL extends "1">(): <F extends Variadic<boolean>>(fn1: F) => either_10<F>;
     <F extends Variadic<boolean>>(fn1: F, fn2: F): either_11<F>;
 };
 type either_10<F extends Variadic<boolean>> = {

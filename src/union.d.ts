@@ -19,8 +19,8 @@ type union_00 = {
      *      R.union([1, 2, 3], [2, 3, 4]); //=> [1, 2, 3, 4]
      */
     <T>(a: List<T>): union_10<T>;
-    <$SEL extends "1">(): <T>(a: List<T>) => union_10<T>;
     <$SEL extends "11">(): <T>(a: List<T>, b: List<T>) => union_11<T>;
+    <$SEL extends "1">(): <T>(a: List<T>) => union_10<T>;
     <T>(a: List<T>, b: List<T>): union_11<T>;
 };
 type union_10<T> = {

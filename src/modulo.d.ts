@@ -26,8 +26,8 @@ type modulo_00 = {
      *      isOdd(21); //=> 1
      */
     (a: number): modulo_10;
-    <$SEL extends "1">(): (a: number) => modulo_10;
     <$SEL extends "11">(): (a: number, b: number) => modulo_11;
+    <$SEL extends "1">(): (a: number) => modulo_10;
     (a: number, b: number): modulo_11;
 };
 type modulo_10 = {

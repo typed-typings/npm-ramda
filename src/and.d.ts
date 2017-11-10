@@ -20,8 +20,8 @@ type and_00 = {
      *      R.and(false, false); //=> false
      */
     <T>(a: T): and_10<T>;
-    <$SEL extends "1">(): <T>(a: T) => and_10<T>;
     <$SEL extends "11">(): <T, U>(a: T, b: U) => and_11<T, U>;
+    <$SEL extends "1">(): <T>(a: T) => and_10<T>;
     <T, U>(a: T, b: U): and_11<T, U>;
 };
 type and_10<T> = {

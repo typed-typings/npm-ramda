@@ -23,15 +23,15 @@ type clamp_000 = {
      */
     <T extends Ordered>(min: T): clamp_100<T>;
     <T extends Ordered>(min: T, max: T): clamp_110<T>;
-    <$SEL extends "1">(): <T extends Ordered>(min: T) => clamp_100<T>;
-    <$SEL extends "11">(): <T extends Ordered>(min: T, max: T) => clamp_110<T>;
     <$SEL extends "111">(): <T extends Ordered>(min: T, max: T, value: T) => clamp_111<T>;
+    <$SEL extends "11">(): <T extends Ordered>(min: T, max: T) => clamp_110<T>;
+    <$SEL extends "1">(): <T extends Ordered>(min: T) => clamp_100<T>;
     <T extends Ordered>(min: T, max: T, value: T): clamp_111<T>;
 };
 type clamp_100<T extends Ordered> = {
     (max: T): clamp_110<T>;
-    <$SEL extends "1">(): (max: T) => clamp_110<T>;
     <$SEL extends "11">(): (max: T, value: T) => clamp_111<T>;
+    <$SEL extends "1">(): (max: T) => clamp_110<T>;
     (max: T, value: T): clamp_111<T>;
 };
 type clamp_110<T extends Ordered> = {

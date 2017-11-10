@@ -17,8 +17,8 @@ type range_00 = {
      *      R.range(50, 53);  //=> [50, 51, 52]
      */
     (from: number): range_10;
-    <$SEL extends "1">(): (from: number) => range_10;
     <$SEL extends "11">(): (from: number, to: number) => range_11;
+    <$SEL extends "1">(): (from: number) => range_10;
     (from: number, to: number): range_11;
 };
 type range_10 = {

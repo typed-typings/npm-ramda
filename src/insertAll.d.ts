@@ -21,15 +21,15 @@ type insertAll_000 = {
      */
     (index: number): insertAll_100;
     <T>(index: number, values: List<T>): insertAll_110<T>;
-    <$SEL extends "1">(): (index: number) => insertAll_100;
-    <$SEL extends "11">(): <T>(index: number, values: List<T>) => insertAll_110<T>;
     <$SEL extends "111">(): <T, U>(index: number, values: List<T>, list: List<U>) => insertAll_111<T, U>;
+    <$SEL extends "11">(): <T>(index: number, values: List<T>) => insertAll_110<T>;
+    <$SEL extends "1">(): (index: number) => insertAll_100;
     <T, U>(index: number, values: List<T>, list: List<U>): insertAll_111<T, U>;
 };
 type insertAll_100 = {
     <T>(values: List<T>): insertAll_110<T>;
-    <$SEL extends "1">(): <T>(values: List<T>) => insertAll_110<T>;
     <$SEL extends "11">(): <T, U>(values: List<T>, list: List<U>) => insertAll_111<T, U>;
+    <$SEL extends "1">(): <T>(values: List<T>) => insertAll_110<T>;
     <T, U>(values: List<T>, list: List<U>): insertAll_111<T, U>;
 };
 type insertAll_110<T> = {

@@ -22,8 +22,8 @@ type tap_00 = {
      * @symb R.tap(f, a) = a
      */
     <T>(fn: Tap<T>): tap_10<T>;
-    <$SEL extends "1">(): <T>(fn: Tap<T>) => tap_10<T>;
     <$SEL extends "11">(): <T>(fn: Tap<T>, value: T) => tap_11<T>;
+    <$SEL extends "1">(): <T>(fn: Tap<T>) => tap_10<T>;
     <T>(fn: Tap<T>, value: T): tap_11<T>;
 };
 type tap_10<T> = {

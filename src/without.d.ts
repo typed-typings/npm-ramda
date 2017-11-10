@@ -21,8 +21,8 @@ type without_00 = {
      *      R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
      */
     <T>(a: List<T>): without_10<T>;
-    <$SEL extends "1">(): <T>(a: List<T>) => without_10<T>;
     <$SEL extends "11">(): <T>(a: List<T>, b: List<T>) => without_11<T>;
+    <$SEL extends "1">(): <T>(a: List<T>) => without_10<T>;
     <T>(a: List<T>, b: List<T>): without_11<T>;
 };
 type without_10<T> = {

@@ -28,15 +28,15 @@ type o_000 = {
      */
     <T2, R>(a: Morphism<T2, R>): o_100<T2, R>;
     <T1, T2, R>(a: Morphism<T2, R>, b: Morphism<T1, T2>): o_110<T1, T2, R>;
-    <$SEL extends "1">(): <T2, R>(a: Morphism<T2, R>) => o_100<T2, R>;
-    <$SEL extends "11">(): <T1, T2, R>(a: Morphism<T2, R>, b: Morphism<T1, T2>) => o_110<T1, T2, R>;
     <$SEL extends "111">(): <T1, T2, R>(a: Morphism<T2, R>, b: Morphism<T1, T2>, value: T1) => o_111<R>;
+    <$SEL extends "11">(): <T1, T2, R>(a: Morphism<T2, R>, b: Morphism<T1, T2>) => o_110<T1, T2, R>;
+    <$SEL extends "1">(): <T2, R>(a: Morphism<T2, R>) => o_100<T2, R>;
     <T1, T2, R>(a: Morphism<T2, R>, b: Morphism<T1, T2>, value: T1): o_111<R>;
 };
 type o_100<T2, R> = {
     <T1>(b: Morphism<T1, T2>): o_110<T1, T2, R>;
-    <$SEL extends "1">(): <T1>(b: Morphism<T1, T2>) => o_110<T1, T2, R>;
     <$SEL extends "11">(): <T1>(b: Morphism<T1, T2>, value: T1) => o_111<R>;
+    <$SEL extends "1">(): <T1>(b: Morphism<T1, T2>) => o_110<T1, T2, R>;
     <T1>(b: Morphism<T1, T2>, value: T1): o_111<R>;
 };
 type o_110<T1, T2, R> = {

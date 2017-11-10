@@ -26,8 +26,8 @@ type find_00 = {
      *      R.find(R.propEq('a', 4))(xs); //=> undefined
      */
     <T>(fn: Predicate<T>): find_10<T>;
-    <$SEL extends "1">(): <T>(fn: Predicate<T>) => find_10<T>;
     <$SEL extends "11">(): <T>(fn: Predicate<T>, list: List<T>) => find_11<T>;
+    <$SEL extends "1">(): <T>(fn: Predicate<T>) => find_10<T>;
     <T>(fn: Predicate<T>, list: List<T>): find_11<T>;
 };
 type find_10<T> = {

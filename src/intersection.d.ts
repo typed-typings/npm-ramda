@@ -19,8 +19,8 @@ type intersection_00 = {
      *      R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
      */
     <T>(a: List<T>): intersection_10<T>;
-    <$SEL extends "1">(): <T>(a: List<T>) => intersection_10<T>;
     <$SEL extends "11">(): <T>(a: List<T>, b: List<T>) => intersection_11<T>;
+    <$SEL extends "1">(): <T>(a: List<T>) => intersection_10<T>;
     <T>(a: List<T>, b: List<T>): intersection_11<T>;
 };
 type intersection_10<T> = {

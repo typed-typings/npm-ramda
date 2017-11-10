@@ -28,15 +28,15 @@ type ifElse_000 = {
      */
     <T>(pred: Predicate<T>): ifElse_100<T>;
     <T, U>(pred: Predicate<T>, onTrue: Morphism<T, U>): ifElse_110<T, U>;
-    <$SEL extends "1">(): <T>(pred: Predicate<T>) => ifElse_100<T>;
-    <$SEL extends "11">(): <T, U>(pred: Predicate<T>, onTrue: Morphism<T, U>) => ifElse_110<T, U>;
     <$SEL extends "111">(): <T, U, V>(pred: Predicate<T>, onTrue: Morphism<T, U>, onFalse: Morphism<T, V>) => ifElse_111<T, U, V>;
+    <$SEL extends "11">(): <T, U>(pred: Predicate<T>, onTrue: Morphism<T, U>) => ifElse_110<T, U>;
+    <$SEL extends "1">(): <T>(pred: Predicate<T>) => ifElse_100<T>;
     <T, U, V>(pred: Predicate<T>, onTrue: Morphism<T, U>, onFalse: Morphism<T, V>): ifElse_111<T, U, V>;
 };
 type ifElse_100<T> = {
     <U>(onTrue: Morphism<T, U>): ifElse_110<T, U>;
-    <$SEL extends "1">(): <U>(onTrue: Morphism<T, U>) => ifElse_110<T, U>;
     <$SEL extends "11">(): <U, V>(onTrue: Morphism<T, U>, onFalse: Morphism<T, V>) => ifElse_111<T, U, V>;
+    <$SEL extends "1">(): <U>(onTrue: Morphism<T, U>) => ifElse_110<T, U>;
     <U, V>(onTrue: Morphism<T, U>, onFalse: Morphism<T, V>): ifElse_111<T, U, V>;
 };
 type ifElse_110<T, U> = {

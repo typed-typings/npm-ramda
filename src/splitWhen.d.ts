@@ -21,8 +21,8 @@ type splitWhen_00 = {
      *      R.splitWhen(R.equals(2), [1, 2, 3, 1, 2, 3]);   //=> [[1], [2, 3, 1, 2, 3]]
      */
     <T>(fn: Predicate<T>): splitWhen_10<T>;
-    <$SEL extends "1">(): <T>(fn: Predicate<T>) => splitWhen_10<T>;
     <$SEL extends "11">(): <T>(fn: Predicate<T>, list: List<T>) => splitWhen_11<T>;
+    <$SEL extends "1">(): <T>(fn: Predicate<T>) => splitWhen_10<T>;
     <T>(fn: Predicate<T>, list: List<T>): splitWhen_11<T>;
 };
 type splitWhen_10<T> = {

@@ -23,8 +23,8 @@ type divide_00 = {
      *      reciprocal(4);   //=> 0.25
      */
     (a: number): divide_10;
-    <$SEL extends "1">(): (a: number) => divide_10;
     <$SEL extends "11">(): (a: number, b: number) => divide_11;
+    <$SEL extends "1">(): (a: number) => divide_10;
     (a: number, b: number): divide_11;
 };
 type divide_10 = {

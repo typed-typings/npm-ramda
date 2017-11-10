@@ -20,8 +20,8 @@ type symmetricDifference_00 = {
      *      R.symmetricDifference([7,6,5,4,3], [1,2,3,4]); //=> [7,6,5,1,2]
      */
     <T>(a: List<T>): symmetricDifference_10<T>;
-    <$SEL extends "1">(): <T>(a: List<T>) => symmetricDifference_10<T>;
     <$SEL extends "11">(): <T>(a: List<T>, b: List<T>) => symmetricDifference_11<T>;
+    <$SEL extends "1">(): <T>(a: List<T>) => symmetricDifference_10<T>;
     <T>(a: List<T>, b: List<T>): symmetricDifference_11<T>;
 };
 type symmetricDifference_10<T> = {

@@ -25,15 +25,15 @@ type symmetricDifferenceWith_000 = {
      */
     <T>(fn: Comparator<T, boolean>): symmetricDifferenceWith_100<T>;
     <T>(fn: Comparator<T, boolean>, a: List<T>): symmetricDifferenceWith_110<T>;
-    <$SEL extends "1">(): <T>(fn: Comparator<T, boolean>) => symmetricDifferenceWith_100<T>;
-    <$SEL extends "11">(): <T>(fn: Comparator<T, boolean>, a: List<T>) => symmetricDifferenceWith_110<T>;
     <$SEL extends "111">(): <T>(fn: Comparator<T, boolean>, a: List<T>, b: List<T>) => symmetricDifferenceWith_111<T>;
+    <$SEL extends "11">(): <T>(fn: Comparator<T, boolean>, a: List<T>) => symmetricDifferenceWith_110<T>;
+    <$SEL extends "1">(): <T>(fn: Comparator<T, boolean>) => symmetricDifferenceWith_100<T>;
     <T>(fn: Comparator<T, boolean>, a: List<T>, b: List<T>): symmetricDifferenceWith_111<T>;
 };
 type symmetricDifferenceWith_100<T> = {
     (a: List<T>): symmetricDifferenceWith_110<T>;
-    <$SEL extends "1">(): (a: List<T>) => symmetricDifferenceWith_110<T>;
     <$SEL extends "11">(): (a: List<T>, b: List<T>) => symmetricDifferenceWith_111<T>;
+    <$SEL extends "1">(): (a: List<T>) => symmetricDifferenceWith_110<T>;
     (a: List<T>, b: List<T>): symmetricDifferenceWith_111<T>;
 };
 type symmetricDifferenceWith_110<T> = {

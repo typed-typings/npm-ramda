@@ -28,8 +28,8 @@ type ap_00 = {
      * @symb R.ap([f, g], [a, b]) = [f(a), f(b), g(a), g(b)]
      */
     <T, U>(fns: Array<Morphism<T, U>>): ap_10<T, U>;
-    <$SEL extends "1">(): <T, U>(fns: Array<Morphism<T, U>>) => ap_10<T, U>;
     <$SEL extends "11">(): <T, U>(fns: Array<Morphism<T, U>>, list: List<T>) => ap_11<U>;
+    <$SEL extends "1">(): <T, U>(fns: Array<Morphism<T, U>>) => ap_10<T, U>;
     <T, U>(fns: Array<Morphism<T, U>>, list: List<T>): ap_11<U>;
 };
 type ap_10<T, U> = {

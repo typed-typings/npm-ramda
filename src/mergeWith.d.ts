@@ -26,15 +26,15 @@ type mergeWith_000 = {
      */
     <V, W>(fn: (a: V, b: V) => W): mergeWith_100<V, W>;
     <T, V, W>(fn: (a: V, b: V) => W, left: T): mergeWith_110<T, V, W>;
-    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_100<V, W>;
-    <$SEL extends "11">(): <T, V, W>(fn: (a: V, b: V) => W, left: T) => mergeWith_110<T, V, W>;
     <$SEL extends "111">(): <T, U, V, W>(fn: (a: V, b: V) => W, left: T, right: U) => mergeWith_111<T, U, W>;
+    <$SEL extends "11">(): <T, V, W>(fn: (a: V, b: V) => W, left: T) => mergeWith_110<T, V, W>;
+    <$SEL extends "1">(): <V, W>(fn: (a: V, b: V) => W) => mergeWith_100<V, W>;
     <T, U, V, W>(fn: (a: V, b: V) => W, left: T, right: U): mergeWith_111<T, U, W>;
 };
 type mergeWith_100<V, W> = {
     <T>(left: T): mergeWith_110<T, V, W>;
-    <$SEL extends "1">(): <T>(left: T) => mergeWith_110<T, V, W>;
     <$SEL extends "11">(): <T, U>(left: T, right: U) => mergeWith_111<T, U, W>;
+    <$SEL extends "1">(): <T>(left: T) => mergeWith_110<T, V, W>;
     <T, U>(left: T, right: U): mergeWith_111<T, U, W>;
 };
 type mergeWith_110<T, V, W> = {

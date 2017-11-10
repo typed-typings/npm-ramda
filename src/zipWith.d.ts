@@ -27,15 +27,15 @@ type zipWith_000 = {
      */
     <T, U, R>(fn: (x: T, y: U) => R): zipWith_100<T, U, R>;
     <T, U, R>(fn: (x: T, y: U) => R, a: List<T>): zipWith_110<T, U, R>;
-    <$SEL extends "1">(): <T, U, R>(fn: (x: T, y: U) => R) => zipWith_100<T, U, R>;
-    <$SEL extends "11">(): <T, U, R>(fn: (x: T, y: U) => R, a: List<T>) => zipWith_110<T, U, R>;
     <$SEL extends "111">(): <T, U, R>(fn: (x: T, y: U) => R, a: List<T>, b: List<U>) => zipWith_111<R>;
+    <$SEL extends "11">(): <T, U, R>(fn: (x: T, y: U) => R, a: List<T>) => zipWith_110<T, U, R>;
+    <$SEL extends "1">(): <T, U, R>(fn: (x: T, y: U) => R) => zipWith_100<T, U, R>;
     <T, U, R>(fn: (x: T, y: U) => R, a: List<T>, b: List<U>): zipWith_111<R>;
 };
 type zipWith_100<T, U, R> = {
     (a: List<T>): zipWith_110<T, U, R>;
-    <$SEL extends "1">(): (a: List<T>) => zipWith_110<T, U, R>;
     <$SEL extends "11">(): (a: List<T>, b: List<U>) => zipWith_111<R>;
+    <$SEL extends "1">(): (a: List<T>) => zipWith_110<T, U, R>;
     (a: List<T>, b: List<U>): zipWith_111<R>;
 };
 type zipWith_110<T, U, R> = {

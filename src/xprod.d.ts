@@ -20,8 +20,8 @@ type xprod_00 = {
      * @symb R.xprod([a, b], [c, d]) = [[a, c], [a, d], [b, c], [b, d]]
      */
     <T>(a: List<T>): xprod_10<T>;
-    <$SEL extends "1">(): <T>(a: List<T>) => xprod_10<T>;
     <$SEL extends "11">(): <T, U>(a: List<T>, b: List<U>) => xprod_11<T, U>;
+    <$SEL extends "1">(): <T>(a: List<T>) => xprod_10<T>;
     <T, U>(a: List<T>, b: List<U>): xprod_11<T, U>;
 };
 type xprod_10<T> = {

@@ -21,10 +21,10 @@ type zipObj_00 = {
     <T extends string>(a: List<T>): zipObj_string_10<T>;
     (a: List<Property>): zipObj_general_10;
     <T extends string, U>(a: List<T>, b: List<U>): zipObj_string_11<T, U>;
-    <$SEL extends "1", $KIND extends "string">(): <T extends string>(a: List<T>) => zipObj_string_10<T>;
-    <$SEL extends "1", $KIND extends "general">(): (a: List<Property>) => zipObj_general_10;
-    <$SEL extends "11", $KIND extends "string">(): <T extends string, U>(a: List<T>, b: List<U>) => zipObj_string_11<T, U>;
     <$SEL extends "11", $KIND extends "general">(): <U>(a: List<Property>, b: List<U>) => zipObj_general_11<U>;
+    <$SEL extends "11", $KIND extends "string">(): <T extends string, U>(a: List<T>, b: List<U>) => zipObj_string_11<T, U>;
+    <$SEL extends "1", $KIND extends "general">(): (a: List<Property>) => zipObj_general_10;
+    <$SEL extends "1", $KIND extends "string">(): <T extends string>(a: List<T>) => zipObj_string_10<T>;
     <U>(a: List<Property>, b: List<U>): zipObj_general_11<U>;
 };
 type zipObj_string_10<T extends string> = {

@@ -33,24 +33,24 @@ type reduceWhile_0000 = {
     <T, U>(pred: (accumulator: U, value: T) => boolean): reduceWhile_1000<T, U>;
     <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U): reduceWhile_1100<T, U>;
     <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U): reduceWhile_1110<T, U>;
-    <$SEL extends "1">(): <T, U>(pred: (accumulator: U, value: T) => boolean) => reduceWhile_1000<T, U>;
-    <$SEL extends "11">(): <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U) => reduceWhile_1100<T, U>;
-    <$SEL extends "111">(): <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduceWhile_1110<T, U>;
     <$SEL extends "1111">(): <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, values: List<T>) => reduceWhile_1111<U>;
+    <$SEL extends "111">(): <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduceWhile_1110<T, U>;
+    <$SEL extends "11">(): <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U) => reduceWhile_1100<T, U>;
+    <$SEL extends "1">(): <T, U>(pred: (accumulator: U, value: T) => boolean) => reduceWhile_1000<T, U>;
     <T, U>(pred: (accumulator: U, value: T) => boolean, fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, values: List<T>): reduceWhile_1111<U>;
 };
 type reduceWhile_1000<T, U> = {
     (fn: (accumulator: U, value: T) => Reduced<U> | U): reduceWhile_1100<T, U>;
     (fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U): reduceWhile_1110<T, U>;
-    <$SEL extends "1">(): (fn: (accumulator: U, value: T) => Reduced<U> | U) => reduceWhile_1100<T, U>;
-    <$SEL extends "11">(): (fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduceWhile_1110<T, U>;
     <$SEL extends "111">(): (fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, values: List<T>) => reduceWhile_1111<U>;
+    <$SEL extends "11">(): (fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U) => reduceWhile_1110<T, U>;
+    <$SEL extends "1">(): (fn: (accumulator: U, value: T) => Reduced<U> | U) => reduceWhile_1100<T, U>;
     (fn: (accumulator: U, value: T) => Reduced<U> | U, initial: U, values: List<T>): reduceWhile_1111<U>;
 };
 type reduceWhile_1100<T, U> = {
     (initial: U): reduceWhile_1110<T, U>;
-    <$SEL extends "1">(): (initial: U) => reduceWhile_1110<T, U>;
     <$SEL extends "11">(): (initial: U, values: List<T>) => reduceWhile_1111<U>;
+    <$SEL extends "1">(): (initial: U) => reduceWhile_1110<T, U>;
     (initial: U, values: List<T>): reduceWhile_1111<U>;
 };
 type reduceWhile_1110<T, U> = {

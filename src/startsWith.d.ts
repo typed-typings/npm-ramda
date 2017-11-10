@@ -21,8 +21,8 @@ type startsWith_00 = {
      *      R.startsWith(['b'], ['a', 'b', 'c'])    //=> false
      */
     <T extends List<any>>(prefix: T): startsWith_10<T>;
-    <$SEL extends "1">(): <T extends List<any>>(prefix: T) => startsWith_10<T>;
     <$SEL extends "11">(): <T extends List<any>>(prefix: T, list: T) => startsWith_11;
+    <$SEL extends "1">(): <T extends List<any>>(prefix: T) => startsWith_10<T>;
     <T extends List<any>>(prefix: T, list: T): startsWith_11;
 };
 type startsWith_10<T extends List<any>> = {

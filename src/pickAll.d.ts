@@ -22,10 +22,10 @@ type pickAll_00 = {
     <T extends {}, K extends keyof T>(keys: List<K>): pickAll_pick_10<T, K>;
     (keys: List<Property>): pickAll_general_10;
     <T extends {}, K extends keyof T>(keys: List<K>, object: T): pickAll_pick_11<T, K>;
-    <$SEL extends "1", $KIND extends "pick">(): <T extends {}, K extends keyof T>(keys: List<K>) => pickAll_pick_10<T, K>;
-    <$SEL extends "1", $KIND extends "general">(): (keys: List<Property>) => pickAll_general_10;
-    <$SEL extends "11", $KIND extends "pick">(): <T extends {}, K extends keyof T>(keys: List<K>, object: T) => pickAll_pick_11<T, K>;
     <$SEL extends "11", $KIND extends "general">(): <T extends {}>(keys: List<Property>, object: T) => pickAll_general_11<T>;
+    <$SEL extends "11", $KIND extends "pick">(): <T extends {}, K extends keyof T>(keys: List<K>, object: T) => pickAll_pick_11<T, K>;
+    <$SEL extends "1", $KIND extends "general">(): (keys: List<Property>) => pickAll_general_10;
+    <$SEL extends "1", $KIND extends "pick">(): <T extends {}, K extends keyof T>(keys: List<K>) => pickAll_pick_10<T, K>;
     <T extends {}>(keys: List<Property>, object: T): pickAll_general_11<T>;
 };
 type pickAll_pick_10<T extends {}, K extends keyof T> = {

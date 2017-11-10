@@ -26,8 +26,8 @@ type unfold_00 = {
      * @symb R.unfold(f, x) = [f(x)[0], f(f(x)[1])[0], f(f(f(x)[1])[1])[0], ...]
      */
     <T, R>(fn: (seed: T) => [R, T] | false): unfold_10<T, R>;
-    <$SEL extends "1">(): <T, R>(fn: (seed: T) => [R, T] | false) => unfold_10<T, R>;
     <$SEL extends "11">(): <T, R>(fn: (seed: T) => [R, T] | false, initial: T) => unfold_11<R>;
+    <$SEL extends "1">(): <T, R>(fn: (seed: T) => [R, T] | false) => unfold_10<T, R>;
     <T, R>(fn: (seed: T) => [R, T] | false, initial: T): unfold_11<R>;
 };
 type unfold_10<T, R> = {

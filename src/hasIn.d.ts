@@ -28,8 +28,8 @@ type hasIn_00 = {
      *      R.hasIn('area', square);  //=> true
      */
     (property: Property): hasIn_10;
-    <$SEL extends "1">(): (property: Property) => hasIn_10;
     <$SEL extends "11">(): (property: Property, object: {}) => hasIn_11;
+    <$SEL extends "1">(): (property: Property) => hasIn_10;
     (property: Property, object: {}): hasIn_11;
 };
 type hasIn_10 = {

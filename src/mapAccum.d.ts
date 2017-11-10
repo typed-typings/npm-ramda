@@ -37,15 +37,15 @@ type mapAccum_000 = {
      */
     <T, U, R>(fn: (accumulator: U, value: T) => [U, R]): mapAccum_100<T, U, R>;
     <T, U, R>(fn: (accumulator: U, value: T) => [U, R], initial: U): mapAccum_110<T, U, R>;
-    <$SEL extends "1">(): <T, U, R>(fn: (accumulator: U, value: T) => [U, R]) => mapAccum_100<T, U, R>;
-    <$SEL extends "11">(): <T, U, R>(fn: (accumulator: U, value: T) => [U, R], initial: U) => mapAccum_110<T, U, R>;
     <$SEL extends "111">(): <T, U, R>(fn: (accumulator: U, value: T) => [U, R], initial: U, list: List<T>) => mapAccum_111<U, R>;
+    <$SEL extends "11">(): <T, U, R>(fn: (accumulator: U, value: T) => [U, R], initial: U) => mapAccum_110<T, U, R>;
+    <$SEL extends "1">(): <T, U, R>(fn: (accumulator: U, value: T) => [U, R]) => mapAccum_100<T, U, R>;
     <T, U, R>(fn: (accumulator: U, value: T) => [U, R], initial: U, list: List<T>): mapAccum_111<U, R>;
 };
 type mapAccum_100<T, U, R> = {
     (initial: U): mapAccum_110<T, U, R>;
-    <$SEL extends "1">(): (initial: U) => mapAccum_110<T, U, R>;
     <$SEL extends "11">(): (initial: U, list: List<T>) => mapAccum_111<U, R>;
+    <$SEL extends "1">(): (initial: U) => mapAccum_110<T, U, R>;
     (initial: U, list: List<T>): mapAccum_111<U, R>;
 };
 type mapAccum_110<T, U, R> = {

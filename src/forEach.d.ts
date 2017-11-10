@@ -36,8 +36,8 @@ type forEach_00 = {
      * @symb R.forEach(f, [a, b, c]) = [a, b, c]
      */
     <T>(fn: Tap<T>): forEach_10<T>;
-    <$SEL extends "1">(): <T>(fn: Tap<T>) => forEach_10<T>;
     <$SEL extends "11">(): <T, U extends List<T>>(fn: Tap<T>, list: U) => forEach_11<T, U>;
+    <$SEL extends "1">(): <T>(fn: Tap<T>) => forEach_10<T>;
     <T, U extends List<T>>(fn: Tap<T>, list: U): forEach_11<T, U>;
 };
 type forEach_10<T> = {

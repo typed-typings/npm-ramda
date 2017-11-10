@@ -21,8 +21,8 @@ type multiply_00 = {
      *      R.multiply(2, 5);  //=> 10
      */
     (a: number): multiply_10;
-    <$SEL extends "1">(): (a: number) => multiply_10;
     <$SEL extends "11">(): (a: number, b: number) => multiply_11;
+    <$SEL extends "1">(): (a: number) => multiply_10;
     (a: number, b: number): multiply_11;
 };
 type multiply_10 = {

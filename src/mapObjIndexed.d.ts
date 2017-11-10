@@ -23,8 +23,8 @@ type mapObjIndexed_00 = {
      *      R.mapObjIndexed(prependKeyAndDouble, values); //=> { x: 'x2', y: 'y4', z: 'z6' }
      */
     <T, U, K extends string>(fn: KeyedObjectMorphism<T, U, K>): mapObjIndexed_10<T, U, K>;
-    <$SEL extends "1">(): <T, U, K extends string>(fn: KeyedObjectMorphism<T, U, K>) => mapObjIndexed_10<T, U, K>;
     <$SEL extends "11">(): <T, U, K extends string>(fn: KeyedObjectMorphism<T, U, K>, object: Record<K, T>) => mapObjIndexed_11<U, K>;
+    <$SEL extends "1">(): <T, U, K extends string>(fn: KeyedObjectMorphism<T, U, K>) => mapObjIndexed_10<T, U, K>;
     <T, U, K extends string>(fn: KeyedObjectMorphism<T, U, K>, object: Record<K, T>): mapObjIndexed_11<U, K>;
 };
 type mapObjIndexed_10<T, U, K extends string> = {

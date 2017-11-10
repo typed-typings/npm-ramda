@@ -21,18 +21,18 @@ type splitEvery_00 = {
     (n: number): splitEvery_10;
     (n: number, str: string): splitEvery_string_11;
     <T>(n: number, list: List<T>): splitEvery_list_11<T>;
-    <$SEL extends "1">(): (n: number) => splitEvery_10;
-    <$SEL extends "11", $KIND extends "string">(): (n: number, str: string) => splitEvery_string_11;
-    <$SEL extends "11", $KIND extends "list">(): <T>(n: number, list: List<T>) => splitEvery_list_11<T>;
     <$SEL extends "11", $KIND extends "mixed">(): <T>(n: number, list: string | List<T>) => splitEvery_mixed_11<T>;
+    <$SEL extends "11", $KIND extends "list">(): <T>(n: number, list: List<T>) => splitEvery_list_11<T>;
+    <$SEL extends "11", $KIND extends "string">(): (n: number, str: string) => splitEvery_string_11;
+    <$SEL extends "1">(): (n: number) => splitEvery_10;
     <T>(n: number, list: string | List<T>): splitEvery_mixed_11<T>;
 };
 type splitEvery_10 = {
     (str: string): splitEvery_string_11;
     <T>(list: List<T>): splitEvery_list_11<T>;
-    <$SEL extends "1", $KIND extends "string">(): (str: string) => splitEvery_string_11;
-    <$SEL extends "1", $KIND extends "list">(): <T>(list: List<T>) => splitEvery_list_11<T>;
     <$SEL extends "1", $KIND extends "mixed">(): <T>(list: string | List<T>) => splitEvery_mixed_11<T>;
+    <$SEL extends "1", $KIND extends "list">(): <T>(list: List<T>) => splitEvery_list_11<T>;
+    <$SEL extends "1", $KIND extends "string">(): (str: string) => splitEvery_string_11;
     <T>(list: string | List<T>): splitEvery_mixed_11<T>;
 };
 type splitEvery_string_11 = string[];

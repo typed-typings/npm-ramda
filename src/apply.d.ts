@@ -22,8 +22,8 @@ type apply_00 = {
      * @symb R.apply(f, [a, b, c]) = f(a, b, c)
      */
     <T>(fn: Variadic<T>): apply_10<T>;
-    <$SEL extends "1">(): <T>(fn: Variadic<T>) => apply_10<T>;
     <$SEL extends "11">(): <T>(fn: Variadic<T>, args: any[]) => apply_11<T>;
+    <$SEL extends "1">(): <T>(fn: Variadic<T>) => apply_10<T>;
     <T>(fn: Variadic<T>, args: any[]): apply_11<T>;
 };
 type apply_10<T> = {

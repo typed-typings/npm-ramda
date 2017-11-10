@@ -20,8 +20,8 @@ type applyTo_00 = {
      *      t42(R.add(1)); //=> 43
      */
     <T>(value: T): applyTo_10<T>;
-    <$SEL extends "1">(): <T>(value: T) => applyTo_10<T>;
     <$SEL extends "11">(): <T, R>(value: T, fn: (value: T) => R) => applyTo_11<R>;
+    <$SEL extends "1">(): <T>(value: T) => applyTo_10<T>;
     <T, R>(value: T, fn: (value: T) => R): applyTo_11<R>;
 };
 type applyTo_10<T> = {

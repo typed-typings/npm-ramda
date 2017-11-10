@@ -27,15 +27,15 @@ type maxBy_000 = {
      */
     <T>(fn: Morphism<T, Ordered>): maxBy_100<T>;
     <T>(fn: Morphism<T, Ordered>, a: T): maxBy_110<T>;
-    <$SEL extends "1">(): <T>(fn: Morphism<T, Ordered>) => maxBy_100<T>;
-    <$SEL extends "11">(): <T>(fn: Morphism<T, Ordered>, a: T) => maxBy_110<T>;
     <$SEL extends "111">(): <T>(fn: Morphism<T, Ordered>, a: T, b: T) => maxBy_111<T>;
+    <$SEL extends "11">(): <T>(fn: Morphism<T, Ordered>, a: T) => maxBy_110<T>;
+    <$SEL extends "1">(): <T>(fn: Morphism<T, Ordered>) => maxBy_100<T>;
     <T>(fn: Morphism<T, Ordered>, a: T, b: T): maxBy_111<T>;
 };
 type maxBy_100<T> = {
     (a: T): maxBy_110<T>;
-    <$SEL extends "1">(): (a: T) => maxBy_110<T>;
     <$SEL extends "11">(): (a: T, b: T) => maxBy_111<T>;
+    <$SEL extends "1">(): (a: T) => maxBy_110<T>;
     (a: T, b: T): maxBy_111<T>;
 };
 type maxBy_110<T> = {

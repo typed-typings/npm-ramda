@@ -25,15 +25,15 @@ type update_000 = {
      */
     (index: number): update_100;
     <T>(index: number, value: T): update_110<T>;
-    <$SEL extends "1">(): (index: number) => update_100;
-    <$SEL extends "11">(): <T>(index: number, value: T) => update_110<T>;
     <$SEL extends "111">(): <T, U>(index: number, value: T, list: List<U>) => update_111<T, U>;
+    <$SEL extends "11">(): <T>(index: number, value: T) => update_110<T>;
+    <$SEL extends "1">(): (index: number) => update_100;
     <T, U>(index: number, value: T, list: List<U>): update_111<T, U>;
 };
 type update_100 = {
     <T>(value: T): update_110<T>;
-    <$SEL extends "1">(): <T>(value: T) => update_110<T>;
     <$SEL extends "11">(): <T, U>(value: T, list: List<U>) => update_111<T, U>;
+    <$SEL extends "1">(): <T>(value: T) => update_110<T>;
     <T, U>(value: T, list: List<U>): update_111<T, U>;
 };
 type update_110<T> = {

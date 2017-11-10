@@ -30,8 +30,8 @@ type partial_00 = {
      * @symb R.partial(f, [a, b])(c, d) = f(a, b, c, d)
      */
     <T>(fn: Variadic<T>): partial_10<T>;
-    <$SEL extends "1">(): <T>(fn: Variadic<T>) => partial_10<T>;
     <$SEL extends "11">(): <T>(fn: Variadic<T>, args: any[]) => partial_11<T>;
+    <$SEL extends "1">(): <T>(fn: Variadic<T>) => partial_10<T>;
     <T>(fn: Variadic<T>, args: any[]): partial_11<T>;
 };
 type partial_10<T> = {

@@ -21,8 +21,8 @@ type zip_00 = {
      * @symb R.zip([a, b, c], [d, e, f]) = [[a, d], [b, e], [c, f]]
      */
     <T>(a: List<T>): zip_10<T>;
-    <$SEL extends "1">(): <T>(a: List<T>) => zip_10<T>;
     <$SEL extends "11">(): <T, U>(a: List<T>, b: List<U>) => zip_11<T, U>;
+    <$SEL extends "1">(): <T>(a: List<T>) => zip_10<T>;
     <T, U>(a: List<T>, b: List<U>): zip_11<T, U>;
 };
 type zip_10<T> = {

@@ -34,8 +34,8 @@ type sortBy_00 = {
      *      sortByNameCaseInsensitive(people); //=> [alice, bob, clara]
      */
     <T>(fn: Morphism<T, Ordered>): sortBy_10<T>;
-    <$SEL extends "1">(): <T>(fn: Morphism<T, Ordered>) => sortBy_10<T>;
     <$SEL extends "11">(): <T>(fn: Morphism<T, Ordered>, list: List<T>) => sortBy_11<T>;
+    <$SEL extends "1">(): <T>(fn: Morphism<T, Ordered>) => sortBy_10<T>;
     <T>(fn: Morphism<T, Ordered>, list: List<T>): sortBy_11<T>;
 };
 type sortBy_10<T> = {

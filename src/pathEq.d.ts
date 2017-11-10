@@ -27,15 +27,15 @@ type pathEq_000 = {
      */
     (path: Path): pathEq_100;
     (path: Path, value: any): pathEq_110;
-    <$SEL extends "1">(): (path: Path) => pathEq_100;
-    <$SEL extends "11">(): (path: Path, value: any) => pathEq_110;
     <$SEL extends "111">(): (path: Path, value: any, object: {}) => pathEq_111;
+    <$SEL extends "11">(): (path: Path, value: any) => pathEq_110;
+    <$SEL extends "1">(): (path: Path) => pathEq_100;
     (path: Path, value: any, object: {}): pathEq_111;
 };
 type pathEq_100 = {
     (value: any): pathEq_110;
-    <$SEL extends "1">(): (value: any) => pathEq_110;
     <$SEL extends "11">(): (value: any, object: {}) => pathEq_111;
+    <$SEL extends "1">(): (value: any) => pathEq_110;
     (value: any, object: {}): pathEq_111;
 };
 type pathEq_110 = {

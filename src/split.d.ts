@@ -21,8 +21,8 @@ type split_00 = {
      *      R.split('.', 'a.b.c.xyz.d'); //=> ['a', 'b', 'c', 'xyz', 'd']
      */
     (separator: RegExp | string): split_10;
-    <$SEL extends "1">(): (separator: RegExp | string) => split_10;
     <$SEL extends "11">(): (separator: RegExp | string, str: string) => split_11;
+    <$SEL extends "1">(): (separator: RegExp | string) => split_10;
     (separator: RegExp | string, str: string): split_11;
 };
 type split_10 = {

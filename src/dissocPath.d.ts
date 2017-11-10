@@ -22,8 +22,8 @@ type dissocPath_00 = {
      *      R.dissocPath(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
      */
     (path: Path): dissocPath_10;
-    <$SEL extends "1">(): (path: Path) => dissocPath_10;
     <$SEL extends "11">(): <T extends object>(path: Path, object: T) => dissocPath_11<T>;
+    <$SEL extends "1">(): (path: Path) => dissocPath_10;
     <T extends object>(path: Path, object: T): dissocPath_11<T>;
 };
 type dissocPath_10 = {

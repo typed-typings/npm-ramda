@@ -21,8 +21,8 @@ type lastIndexOf_00 = {
      *      R.lastIndexOf(10, [1,2,3,4]); //=> -1
      */
     <T>(target: T): lastIndexOf_10<T>;
-    <$SEL extends "1">(): <T>(target: T) => lastIndexOf_10<T>;
     <$SEL extends "11">(): <T>(target: T, list: List<T>) => lastIndexOf_11;
+    <$SEL extends "1">(): <T>(target: T) => lastIndexOf_10<T>;
     <T>(target: T, list: List<T>): lastIndexOf_11;
 };
 type lastIndexOf_10<T> = {

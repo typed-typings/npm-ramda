@@ -29,8 +29,8 @@ type evolve_00 = {
      *      R.evolve(transformations, tomato); //=> {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
      */
     <T>(transformations: Evolver<T>): evolve_10<T>;
-    <$SEL extends "1">(): <T>(transformations: Evolver<T>) => evolve_10<T>;
     <$SEL extends "11">(): <T, U extends T>(transformations: Evolver<T>, object: U) => evolve_11<T, U>;
+    <$SEL extends "1">(): <T>(transformations: Evolver<T>) => evolve_10<T>;
     <T, U extends T>(transformations: Evolver<T>, object: U): evolve_11<T, U>;
 };
 type evolve_10<T> = {
