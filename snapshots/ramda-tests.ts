@@ -1604,6 +1604,18 @@ import * as R from '../ramda/dist/index';
   R.map(arrayify, { a: 1, b: 'c' }); //=> { a: [1], b: ['c'] }
   // @dts-jest:skip { a: number[], b: string[] }
   R.map(arrayify)({ a: 1, b: 'c' }); //=> { a: [1], b: ['c'] }
+
+  R.pipe(
+    R.map(Number.parseInt),
+    // @dts-jest:fail:snap -> Argument of type 'reduce_110<any, any>' is not assignable to parameter of type '(v: map_mixed_11<number, any>) => any'.
+    R.reduce(R.max, 0), // raises error (#311)
+  );
+
+  // @dts-jest:pass:snap -> (v1: {}) => any
+  R.pipe(
+    R.map(Number.parseInt)(),
+    R.reduce(R.max, 0), // no error
+  );
 })();
 
 // @dts-jest:group mapAccum
