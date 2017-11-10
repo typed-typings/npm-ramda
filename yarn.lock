@@ -22,9 +22,9 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/gulp-rename@0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@types/gulp-rename/-/gulp-rename-0.0.32.tgz#602828783f97f190e438937dfa6a579eb0198e63"
+"@types/gulp-rename@0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/gulp-rename/-/gulp-rename-0.0.33.tgz#38d146e97786569f74f5391a1b1f9b5198674b6c"
   dependencies:
     "@types/node" "*"
 
