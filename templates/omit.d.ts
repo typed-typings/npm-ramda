@@ -1,7 +1,11 @@
 import { Omit } from './$operation';
 import { List, Property } from './$types';
 
-export function $string<T, K extends keyof T>(
+export function $keyof<T, K extends keyof T>(
+  key: List<K>,
+  object: T,
+): Omit<T, K>;
+export function $record<T extends Record<K, any>, K extends string>(
   key: List<K>,
   object: T,
 ): Omit<T, K>;
