@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`R_omit(['a', 'b'])({ a: 1, b: 2, c: 3 }) 1`] = `"Partial<{ a: number; b: number; c: number; }>"`;
+
+exports[`R_omit(['a', 'b'], { a: 1, b: 2, c: 3 }) 1`] = `"Pick<{ a: number; b: number; c: number; }, \\"c\\">"`;
+
 exports[`R_omit([string])(object) 1`] = `"object"`;
 
 exports[`R_omit([string])(object) 2`] = `"object"`;

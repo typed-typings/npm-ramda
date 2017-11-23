@@ -2025,7 +2025,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group omit
 (() => {
-  // @dts-jest:pass:snap -> Partial<{ a: number; b: number; c: number; d: number; }>
+  // @dts-jest:pass:snap -> Pick<{ a: number; b: number; c: number; d: number; }, "b" | "c">
   R.omit(['a', 'd'], { a: 1, b: 2, c: 3, d: 4 }); //=> {b: 2, c: 3}
   // @dts-jest:pass:snap -> Partial<{ a: number; b: number; c: number; d: number; }>
   R.omit(['a', 'd'])({ a: 1, b: 2, c: 3, d: 4 }); //=> {b: 2, c: 3}
