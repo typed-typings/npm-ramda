@@ -12,3 +12,8 @@ R_omit([string], object);
 R_omit([string])(object);
 // @dts-jest:pass:snap
 R_omit([string], object);
+
+// @dts-jest:pass:snap
+R_omit(['a', 'b'], { a: 1, b: 2, c: 3 });
+// @dts-jest:pass:snap
+R_omit(['a', 'b'])({ a: 1, b: 2, c: 3 });
