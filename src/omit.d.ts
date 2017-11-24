@@ -1,3 +1,4 @@
+import { Omit } from "./$operation";
 import { List, Property } from "./$types";
 import { Placeholder as PH } from "./$placeholder";
 declare const omit: omit_00;
@@ -18,15 +19,35 @@ type omit_00 = {
      *
      *      R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
      */
-    (keys: List<Property>): omit_10;
-    <T>(_keys: PH, object: T): omit_01<T>;
-    <T>(keys: List<Property>, object: T): omit_11<T>;
+    <T, K extends keyof T>(key: List<K>): omit_keyof_10<T, K>;
+    <K extends string>(key: List<K>): omit_record_10<K>;
+    (keys: List<Property>): omit_general_10;
+    <T>(_key: PH, object: T): omit_keyof_01<T>;
+    <T extends Record<K, any>, K extends string>(_key: PH, object: T): omit_record_01<T, K>;
+    <T>(_keys: PH, object: T): omit_general_01<T>;
+    <T, K extends keyof T>(key: List<K>, object: T): omit_keyof_11<T, K>;
+    <T extends Record<K, any>, K extends string>(key: List<K>, object: T): omit_record_11<T, K>;
+    <T>(keys: List<Property>, object: T): omit_general_11<T>;
 };
-type omit_10 = {
-    <T>(object: T): omit_11<T>;
+type omit_keyof_10<T, K extends keyof T> = {
+    (object: T): omit_keyof_11<T, K>;
 };
-type omit_01<T> = {
-    (keys: List<Property>): omit_11<T>;
+type omit_record_10<K extends string> = {
+    <T extends Record<K, any>>(object: T): omit_record_11<T, K>;
 };
-type omit_11<T> = Partial<T>;
+type omit_general_10 = {
+    <T>(object: T): omit_general_11<T>;
+};
+type omit_keyof_01<T> = {
+    <K extends keyof T>(key: List<K>): omit_keyof_11<T, K>;
+};
+type omit_record_01<T extends Record<K, any>, K extends string> = {
+    (key: List<K>): omit_record_11<T, K>;
+};
+type omit_general_01<T> = {
+    (keys: List<Property>): omit_general_11<T>;
+};
+type omit_keyof_11<T, K extends keyof T> = Omit<T, K>;
+type omit_record_11<T extends Record<K, any>, K extends string> = Omit<T, K>;
+type omit_general_11<T> = Partial<T>;
 export = omit;
