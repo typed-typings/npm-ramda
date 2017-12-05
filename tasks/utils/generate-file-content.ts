@@ -158,9 +158,9 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
         ) === -1
       ) {
         throw new Error(
-          `Exported multi-overload functions in ${
-            filename
-          } should end with ${valid_last_overload_names.join(' / ')}}`,
+          `Exported multi-overload functions in ${filename} should end with ${valid_last_overload_names.join(
+            ' / ',
+          )}}`,
         );
       }
     }
@@ -177,9 +177,7 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
       );
       if (!is_exist_simultaneously) {
         throw new Error(
-          `Exported multi-overload functions in ${
-            filename
-          } should have ${overload_names_should_exist_simultaneously.join(
+          `Exported multi-overload functions in ${filename} should have ${overload_names_should_exist_simultaneously.join(
             ' / ',
           )} simultaneously`,
         );
@@ -190,9 +188,7 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
       !placeholder || functions[0].type!.parameters!.length <= 1
         ? []
         : dts.parse(`
-        import {${placeholder_name} as ${
-            placeholder_name_abbr
-          }} from './$placeholder';
+        import {${placeholder_name} as ${placeholder_name_abbr}} from './$placeholder';
       `).members;
 
     const curried_declarations = dts_fp.create_curried_declarations(
@@ -221,9 +217,7 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
 
     if (!special_case && !is_valid_export_default(declarations)) {
       throw new Error(
-        `Template.ts should default-export an array of declarations: ${
-          filename
-        }`,
+        `Template.ts should default-export an array of declarations: ${filename}`,
       );
     }
 
