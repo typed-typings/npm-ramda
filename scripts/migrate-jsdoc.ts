@@ -21,9 +21,7 @@ if (!fs.existsSync(output_dir)) {
 
 const temp_dir = `${__dirname}/temp`;
 child_process.execSync(
-  `git clone https://github.com/ramda/ramda.git ${temp_dir} --branch ${
-    ramda_tag
-  } --depth=1`,
+  `git clone https://github.com/ramda/ramda.git ${temp_dir} --branch ${ramda_tag} --depth=1`,
 );
 
 const src_dir = `${temp_dir}/source`;

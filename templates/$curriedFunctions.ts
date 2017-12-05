@@ -8,9 +8,7 @@ export default (selectable: boolean, placeholder: boolean) => [
   ...dts.parse(`
     ${
       placeholder
-        ? `import {${placeholder_name} as ${
-            placeholder_name_abbr
-          }} from './$placeholder';`
+        ? `import {${placeholder_name} as ${placeholder_name_abbr}} from './$placeholder';`
         : ''
     }
     export type CurriedFunction0<R> = () => R;
