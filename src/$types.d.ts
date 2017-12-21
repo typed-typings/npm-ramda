@@ -19,7 +19,7 @@ export interface KeyValuePair<K, V> extends ArrayLike<K | V> {
     "1": V;
 }
 export type List<T> = T[] | ArrayLike<T>;
-export type NestedList<T> = List<T | List<T>>;
+export type NestedList<T> = List<T | List<T> | List<List<T>>>;
 export interface Dictionary<T> {
     [key: string]: T;
 }
