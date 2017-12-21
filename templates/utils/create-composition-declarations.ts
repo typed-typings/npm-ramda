@@ -9,11 +9,14 @@ export const create_composition_declarations = (
   // istanbul ignore next
   generate_function_parameter_type: (generic: string) => string = x => x,
   // istanbul ignore next
-  generate_function_return_type: (generic: string) => string = x => x,
-  // istanbul ignore next
-  generate_composed_return_type: (
+  generate_function_return_type: (
     generic: string,
-  ) => string = generate_function_return_type,
+    index: number,
+  ) => string = x => x,
+  // istanbul ignore next
+  generate_composed_return_type = generate_function_return_type as (
+    generic: string,
+  ) => string,
 ) => {
   const function_names = R.repeat(0, max_function_count).map(
     (_, index) => `fn${index + 1}`,
@@ -81,12 +84,16 @@ export const create_composition_declarations = (
               return index === entry_index
                 ? `${function_name}: (${entry_parameters}) => ${generate_function_return_type(
                     return_generic,
+                    index,
                   )}`
                 : `${function_name}: (v: ${generate_function_parameter_type(
                     current_sorted_return_generics[
                       index + (kind === 'compose' ? 1 : -1)
                     ],
-                  )}) => ${generate_function_return_type(return_generic)}`;
+                  )}) => ${generate_function_return_type(
+                    return_generic,
+                    index,
+                  )}`;
             })
             .join(',')}
         ): (${entry_parameters}) => ${generate_composed_return_type(
