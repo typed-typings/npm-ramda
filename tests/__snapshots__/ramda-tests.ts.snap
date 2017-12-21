@@ -412,6 +412,8 @@ exports[`findLastIndex R.findLastIndex(R.propEq('a', 1))(xs) 1`] = `"number"`;
 
 exports[`findLastIndex R.findLastIndex(R.propEq('a', 4))(xs) 1`] = `"number"`;
 
+exports[`flatten R.flatten(['a', ['b'], [['c']]]) 1`] = `"string[]"`;
+
 exports[`flatten R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]) as number[] 1`] = `"number[]"`;
 
 exports[`flatten R.flatten([1, 2, [3, 4], 5]) 1`] = `"number[]"`;

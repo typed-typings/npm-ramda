@@ -966,6 +966,8 @@ import * as R from '../ramda/dist/index';
   R.flatten([1, 2, [3, 4], 5]); //=> [1, 2, 3, 4, 5]
   // @dts-jest:pass:snap -> number[]
   R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]) as number[]; //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  // @dts-jest:pass:snap -> string[]
+  R.flatten(['a', ['b'], [['c']]]); //=> ['a', 'b', 'c']
 })();
 
 // @dts-jest:group flip
