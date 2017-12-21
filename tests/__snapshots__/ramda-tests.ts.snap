@@ -1089,6 +1089,11 @@ exports[`pipeP R.pipeP(
       (m: number) => Promise.resolve(m / 2),
     )(10) 1`] = `"PromiseLike<number>"`;
 
+exports[`pipeP R.pipeP(() => 1) 1`] = `
+"Argument of type '() => number' is not assignable to parameter of type '(v1: {}, v2: {}, v3: {}, v4: {}, v5: {}, v6: {}) => PromiseLike<{}>'.
+  Type 'number' is not assignable to type 'PromiseLike<{}>'."
+`;
+
 exports[`pluck R.pluck(
       'value',
       R.pick(['a'])({

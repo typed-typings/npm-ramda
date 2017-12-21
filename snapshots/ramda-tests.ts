@@ -2267,6 +2267,8 @@ import * as R from '../ramda/dist/index';
     (m: number) => Promise.resolve(m / 2),
     R.multiply(5),
   )(10);
+  // @dts-jest:fail:snap -> Argument of type '() => number' is not assignable to parameter of type '(v1: {}, v2: {}, v3: {}, v4: {}, v5: {}, v6: {}) => PromiseLike<{}>'.
+  R.pipeP(() => 1);
 })();
 
 // @dts-jest:group pluck
