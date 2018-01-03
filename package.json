@@ -32,7 +32,7 @@
     "@types/ramda": "ikatyang/types-ramda#v0.24.1-dist",
     "@types/run-sequence": "0.0.30",
     "@types/through2": "2.0.33",
-    "@types/yargs": "10.0.0",
+    "@types/yargs": "10.0.1",
     "del": "3.0.0",
     "dts-element": "2.2.1",
     "dts-element-fp": "1.1.2",
