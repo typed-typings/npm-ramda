@@ -45,7 +45,7 @@
     "prettier": "1.9.2",
     "prettier-config-ikatyang": "1.1.1",
     "ramda": "0.25.0",
-    "run-sequence": "2.2.0",
+    "run-sequence": "2.2.1",
     "through2": "2.0.3",
     "ts-jest": "21.2.4",
     "ts-node": "4.1.0",
