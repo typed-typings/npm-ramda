@@ -47,7 +47,7 @@
     "ramda": "0.25.0",
     "run-sequence": "2.2.1",
     "through2": "2.0.3",
-    "ts-jest": "21.2.4",
+    "ts-jest": "22.0.2",
     "ts-node": "4.1.0",
     "tslint": "5.9.0",
     "tslint-config-ikatyang": "2.5.1",
