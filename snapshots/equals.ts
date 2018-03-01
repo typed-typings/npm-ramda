@@ -8,3 +8,8 @@ R_equals(string);
 R_equals(string)(string);
 // @dts-jest:pass:snap -> boolean
 R_equals(string, string);
+
+// @dts-jest:pass:snap -> <T>(b: T | undefined) => boolean
+R_equals(undefined);
+// @dts-jest:pass:snap -> <T>(b: T | null) => boolean
+R_equals(null);
