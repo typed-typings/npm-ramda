@@ -116,4 +116,4 @@ If you'd like to help out, two good places to start are the [issues](https://git
 as well as the [tests](https://github.com/types/npm-ramda/blob/master/tests/ramda-tests.ts).
 
 Do note that all of the typings are now being generated (automatically) using the
-[tempaltes](https://github.com/types/npm-ramda/tree/master/templates#readme).
+[templates](https://github.com/types/npm-ramda/tree/master/templates#readme).
