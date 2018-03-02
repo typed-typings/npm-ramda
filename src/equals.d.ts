@@ -26,15 +26,35 @@ type equals_00 = {
      *      var b = {}; b.v = b;
      *      R.equals(a, b); //=> true
      */
-    <T>(a: T): equals_10<T>;
-    <T>(_a: PH, b: T): equals_01<T>;
-    <T>(a: T, b: T): equals_11;
+    (a: null): equals_null_10;
+    (a: undefined): equals_undefined_10;
+    <T>(a: T): equals_general_10<T>;
+    <T>(_a: PH, b: T | null): equals_null_01<T>;
+    <T>(_a: PH, b: T | undefined): equals_undefined_01<T>;
+    <T>(_a: PH, b: T): equals_general_01<T>;
+    <T>(a: null, b: T | null): equals_null_11;
+    <T>(a: undefined, b: T | undefined): equals_undefined_11;
+    <T>(a: T, b: T): equals_general_11;
 };
-type equals_10<T> = {
-    (b: T): equals_11;
+type equals_null_10 = {
+    <T>(b: T | null): equals_null_11;
 };
-type equals_01<T> = {
-    (a: T): equals_11;
+type equals_undefined_10 = {
+    <T>(b: T | undefined): equals_undefined_11;
 };
-type equals_11 = boolean;
+type equals_general_10<T> = {
+    (b: T): equals_general_11;
+};
+type equals_null_01<T> = {
+    (a: null): equals_null_11;
+};
+type equals_undefined_01<T> = {
+    (a: undefined): equals_undefined_11;
+};
+type equals_general_01<T> = {
+    (a: T): equals_general_11;
+};
+type equals_null_11 = boolean;
+type equals_undefined_11 = boolean;
+type equals_general_11 = boolean;
 export = equals;
