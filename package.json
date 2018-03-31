@@ -10,7 +10,7 @@
   "repository": "https://github.com/types/npm-ramda",
   "homepage": "https://github.com/types/npm-ramda#readme",
   "scripts": {
-    "prepublish": "yarn run build",
+    "prepack": "yarn run build",
     "lint": "tslint --project ./tsconfig.json",
     "lint-dts": "tslint -c ./templates/tslint.json \"templates/**/*.d.ts\"",
     "test": "jest --config ./jest.json",
