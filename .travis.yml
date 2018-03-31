@@ -12,6 +12,7 @@ before_script:
 script:
 - yarn run lint
 - yarn run lint-dts
+- yarn run build
 - yarn run test-utils -- --ci --verbose --coverage
 - yarn run test -- --ci --testPathPattern='/tests/ramda-tests.ts' --verbose=false
 - yarn run test -- --ci --testPathPattern='/tests/[a-z_]+.ts'
