@@ -1,15 +1,29 @@
-import { Functor, List, Morphism } from './$types';
+import { Functor, List, Morphism, Tuple } from './$types';
 
 export function $list<T, U>(fn: Morphism<T, U>, list: List<T>): U[];
-export function $functor<T, U>(
+export function $tuple<T, U, O extends Tuple>(
   fn: Morphism<T, U>,
-  functor: Functor<T>,
-): Functor<U>;
-export function $object<T, U, K extends string>(
+  tuple: O,
+): T extends U ? (T extends O[number] ? O : never) : never;
+export function $functor<T, U, O extends Functor<any>>(
   fn: Morphism<T, U>,
-  object: Record<K, T>,
-): Record<K, U>;
-export function $mixed<T, U, K extends string>(
+  functor: O,
+): O extends Functor<T> ? Functor<U> : never;
+export function $object<T, U, O extends Record<string, any>>(
   fn: Morphism<T, U>,
-  target: List<T> | Functor<T> | Record<K, T>,
-): U[] | Functor<U> | Record<K, U>;
+  object: O,
+): O extends Record<infer K, T> ? Record<K, U> : never;
+export function $allInOne<
+  T,
+  U,
+  O extends List<any> | Tuple | Functor<any> | Record<string, any>
+>(
+  fn: Morphism<T, U>,
+  target: O,
+): O extends Tuple
+  ? T extends U ? (T extends O[number] ? O : never) : never
+  : O extends List<T>
+    ? U[]
+    : O extends Functor<T>
+      ? Functor<U>
+      : O extends Record<infer K, T> ? Record<K, U> : never;

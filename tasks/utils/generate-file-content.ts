@@ -129,6 +129,8 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
   }
 
   function push_curry_members(the_members: dts.ITopLevelMember[]) {
+    const raw_hoist_name = 'allInOne';
+
     const imports = the_members.filter(
       (member): member is dts.IImportNamed =>
         member.kind === dts.ElementKind.ImportNamed,
@@ -150,7 +152,12 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
         function_name,
       ) === -1
     ) {
-      const valid_last_overload_names = ['$mixed', '$general', '$variadic'];
+      const valid_last_overload_names = [
+        '$mixed',
+        '$general',
+        '$variadic',
+        `$${raw_hoist_name}`,
+      ];
       if (
         functions.length > 1 &&
         valid_last_overload_names.indexOf(
@@ -203,6 +210,9 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
       {
         selectable,
         placeholder,
+        hoist_name: functions.find(x => x.name === `$${raw_hoist_name}`)
+          ? raw_hoist_name
+          : undefined,
       },
     );
 

@@ -1,3 +1,4 @@
-import { NestedList } from './$types';
+import { Flatten } from './$operation';
+import { List } from './$types';
 
-export function $<T>(list: NestedList<T>): T[];
+export function $<T extends List<any>>(list: T): Array<Flatten<T>>;

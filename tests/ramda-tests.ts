@@ -472,7 +472,7 @@ import * as R from '../ramda/dist/index';
     const g3 = R.all((i: string) => i === 'smaller');
     const g = R.compose<number[], number[], number[], string[], boolean>(
       g3,
-      g2,
+      g2<'1', 'list'>(),
       g1,
       g0,
     );
@@ -965,7 +965,7 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap
   R.flatten([1, 2, [3, 4], 5]); //=> [1, 2, 3, 4, 5]
   // @dts-jest:pass:snap
-  R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]) as number[]; //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]); //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   // @dts-jest:pass:snap
   R.flatten(['a', ['b'], [['c']]]); //=> ['a', 'b', 'c']
 })();
@@ -1019,7 +1019,13 @@ import * as R from '../ramda/dist/index';
     const score = student.score;
     return score < 65
       ? 'F'
-      : score < 70 ? 'D' : score < 80 ? 'C' : score < 90 ? 'B' : 'A';
+      : score < 70
+        ? 'D'
+        : score < 80
+          ? 'C'
+          : score < 90
+            ? 'B'
+            : 'A';
   });
   const students = [
     { name: 'Abby', score: 84 },
@@ -1174,7 +1180,10 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group ifElse
 (() => {
   // Flatten all arrays in the list but leave other values alone.
-  const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
+  const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity))<
+    '1',
+    'list'
+  >();
 
   // @dts-jest:pass:snap
   flattenArrays([[0], [[10], [8]], 1234, {}]); //=> [[0], [10, 8], 1234, {}]
@@ -1284,7 +1293,7 @@ import * as R from '../ramda/dist/index';
 (() => {
   const numbers = [1, 2, 3, 4];
   const transducer = R.compose<number[], number[], number[]>(
-    R.map(R.add(1))<'1', 'list'>(),
+    R.map(R.add(1)),
     R.take(2),
   );
 
@@ -1615,7 +1624,7 @@ import * as R from '../ramda/dist/index';
 
   // @dts-jest:pass:snap
   R.pipe(
-    R.map(Number.parseInt)(),
+    R.map(Number.parseInt)<'1', 'list'>(),
     R.reduce(R.max, 0), // no error
   );
 })();
@@ -2478,7 +2487,13 @@ import * as R from '../ramda/dist/index';
     const score = student.score;
     return score < 65
       ? 'F'
-      : score < 70 ? 'D' : score < 80 ? 'C' : score < 90 ? 'B' : 'A';
+      : score < 70
+        ? 'D'
+        : score < 80
+          ? 'C'
+          : score < 90
+            ? 'B'
+            : 'A';
   });
   const students = [
     { name: 'Lucy', score: 92 },
@@ -3319,7 +3334,11 @@ import * as R from '../ramda/dist/index';
     (
       fn: (key: string) => string,
       obj: { [k: string]: any } | { [k: number]: any },
-    ) => R.map(R.adjust<0, [string, any]>(fn, 0), R.toPairs(obj)),
+    ) =>
+      R.map<[string, any], [string, any], [string, any][]>(
+        R.adjust(fn, 0),
+        R.toPairs(obj),
+      ),
   );
 
   const mapKey = R.pipe(mapKeyPairs, R.fromPairs);

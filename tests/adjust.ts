@@ -21,6 +21,6 @@ R_adjust(string_to_string, number)(string_array);
 R_adjust(string_to_string, number, string_array);
 
 // @dts-jest:pass:snap
-R_adjust<'111', 'tuple'>()(string_to_string, 0, string_number_tuple);
-// @dts-jest:fail:snap
-R_adjust<'111', 'tuple'>()(string_to_string, 1, string_number_tuple);
+R_adjust()(string_to_string, 0, string_number_tuple);
+// @dts-jest:pass:snap
+R_adjust()(string_to_string, 1, string_number_tuple);
