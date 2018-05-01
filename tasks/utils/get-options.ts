@@ -32,7 +32,9 @@ export function get_options() {
   const dirname_postfixes =
     kinds.length === 0
       ? [no_kind]
-      : kinds.length === all_kinds.length ? [] : kinds;
+      : kinds.length === all_kinds.length
+        ? []
+        : kinds;
 
   return {
     ...options,
