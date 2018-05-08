@@ -864,9 +864,9 @@ dts-element-fp@1.2.0:
   dependencies:
     ramda "^0.25.0"
 
-dts-element@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/dts-element/-/dts-element-2.3.0.tgz#5f194943ecc20395c742b08dbcce9b0ddad95e0a"
+dts-element@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/dts-element/-/dts-element-2.3.2.tgz#7d19ff5d355f6fae8fa184f8800655e749a62078"
   dependencies:
     typescript "~2.8.1"
 

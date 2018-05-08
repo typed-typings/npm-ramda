@@ -1622,7 +1622,7 @@ import * as R from '../ramda/dist/index';
     R.reduce(R.max, 0), // raises error (#311)
   );
 
-  // @dts-jest:pass:snap -> (v1: R.List<string>) => R.Ordered
+  // @dts-jest:pass:snap -> (v1: {}) => R.Ordered
   R.pipe(
     R.map(Number.parseInt)<'1', 'list'>(),
     R.reduce(R.max, 0), // no error
@@ -2022,7 +2022,7 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group objOf
 (() => {
   const matchPhrases = R.pipe(R.map(R.objOf('match_phrase')), R.objOf('must'));
-  // @dts-jest:pass:snap -> Record<"must", Record<"match_phrase", {}>[] | R.Functor<Record<"match_phrase", {}>> | Record<string, Record<"match_phrase", {}>>>
+  // @dts-jest:pass:snap -> Record<"must", R.Functor<Record<"match_phrase", {}>> | Record<string, Record<"match_phrase", {}>> | Record<"match_phrase", {}>[]>
   matchPhrases(['foo', 'bar', 'baz']); //=> {"must": [{"match_phrase": "foo"}, {"match_phrase": "bar"}, {"match_phrase": "baz"}]}
 })();
 

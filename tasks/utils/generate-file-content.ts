@@ -1,3 +1,4 @@
+import assert = require('assert');
 import * as dts from 'dts-element';
 import * as dts_fp from 'dts-element-fp';
 import * as fs from 'fs';
@@ -191,6 +192,13 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
       }
     }
 
+    const has_all_in_one =
+      functions[functions.length - 1].name === `$${raw_hoist_name}`;
+
+    if (has_all_in_one) {
+      functions.splice(-1, 1, create_all_in_one(functions.slice(0, -1)));
+    }
+
     const placeholder_imports =
       !placeholder || functions[0].type!.parameters!.length <= 1
         ? []
@@ -216,6 +224,12 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
       },
     );
 
+    if (has_all_in_one) {
+      add_all_in_one_selectables(
+        curried_declarations.filter(dts.is_type_declaration),
+      );
+    }
+
     members.push(...imports, ...placeholder_imports, ...curried_declarations);
   }
 
@@ -239,4 +253,185 @@ function get_top_level_members(filename: string): dts.ITopLevelMember[] {
   ): export_default is dts.ITopLevelMember[] {
     return export_default instanceof Array;
   }
+
+  function create_all_in_one(
+    functions: dts.IFunctionDeclaration[],
+  ): dts.IFunctionDeclaration {
+    if (functions.length < 2) {
+      throw new Error(
+        `There must be at least 2 functions so as to create $allInOne. (${filename})`,
+      );
+    }
+
+    const function_types = functions.map(func => func.type!);
+
+    const generic_names = function_types[0].generics!.map(x => x.name);
+    const parameters = function_types[0].parameters!;
+
+    function_types.slice(1).forEach(function_type => {
+      if (function_type.generics!.some((x, i) => x.name !== generic_names[i])) {
+        throw new Error(
+          `Generic names for creating $allInOne should be the same. (${filename})`,
+        );
+      }
+      assert.deepEqual(
+        function_type.parameters!.map(x => x.type),
+        parameters!.map(x => x.type),
+        `Parameters for creating $allInOne should be the same. (${filename})`,
+      );
+    });
+
+    const generic_extends = function_types.map(function_type =>
+      function_type.generics!.map(x => x.extends),
+    );
+    const generic_extends_is_deep_equal = generic_extends[0].map((x, index) =>
+      generic_extends.slice(1).every(y => deep_equal(y[index], x)),
+    );
+    const return_types = function_types.map(
+      function_type => function_type.return!,
+    );
+
+    return dts.create_function_declaration({
+      name: '$allInOne',
+      export: true,
+      type: dts.create_function_type({
+        parameters,
+        generics: generic_names.map((name, index) => {
+          const extend_types = generic_extends
+            .map(x => x[index])
+            .filter(is_non_null);
+          return dts.create_generic_declaration({
+            name,
+            extends:
+              extend_types.length === 0
+                ? undefined
+                : dts.create_union_type({ types: deduplicate(extend_types) }),
+          });
+        }),
+        return: (function recursive(index): dts.IType {
+          return create_nested_conditional_type(
+            generic_names,
+            // remove same constraint
+            generic_extends[index].map(
+              (x, i) => (generic_extends_is_deep_equal[i] ? undefined : x),
+            ),
+            return_types[index] as Exclude<dts.IType, dts.ITypePredicate>,
+            index === return_types.length - 1
+              ? dts.never_type
+              : recursive(index + 1),
+          );
+        })(0),
+      }),
+    });
+  }
 }
+
+function is_non_null<T>(x: T): x is NonNullable<T> {
+  return x !== null && x !== undefined;
+}
+
+function create_nested_conditional_type(
+  generic_names: string[],
+  generic_extends: (undefined | dts.IType)[],
+  true_type: dts.IType,
+  false_type: dts.IType,
+): dts.IType {
+  assert.equal(generic_names.length, generic_extends.length);
+
+  if (generic_extends.length === 0) {
+    return true_type;
+  }
+
+  const next_type = create_nested_conditional_type(
+    generic_names.slice(1),
+    generic_extends.slice(1),
+    true_type,
+    false_type,
+  );
+
+  if (generic_extends[0] === undefined) {
+    return next_type;
+  }
+
+  return dts.create_conditional_type({
+    check: dts.create_general_type({ name: generic_names[0] }),
+    extends: generic_extends[0]!,
+    true: next_type,
+    false: false_type,
+  });
+}
+
+function deep_equal(obj1: any, obj2: any) {
+  try {
+    assert.deepStrictEqual(obj1, obj2);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function deduplicate<T>(array: T[]): T[] {
+  const new_array: T[] = [];
+
+  for (const value of array) {
+    if (new_array.findIndex(x => deep_equal(x, value)) === -1) {
+      new_array.push(value);
+    }
+  }
+
+  return new_array;
+}
+
+function add_all_in_one_selectables(type_declarations: dts.ITypeDeclaration[]) {
+  type_declarations
+    .filter(type_declaration =>
+      /_allInOne_(?!(0+|1+)$)/.test(type_declaration.name),
+    )
+    .forEach(type_declaration => {
+      const mask = type_declaration.name.match(/_allInOne_(\d+)/)![1];
+      const target_function_types = type_declarations
+        .filter(
+          x => x !== type_declaration && new RegExp(`_${mask}$`).test(x.name),
+        )
+        .map(x => {
+          const function_type = (((x.type as dts.IObjectType)
+            .members![0] as dts.IObjectMember)
+            .owned as dts.IFunctionDeclaration).type!;
+          return dts.create_function_type({
+            generics: [
+              dts.create_generic_declaration({
+                name: '$SEL',
+                extends: dts.create_literal_type({
+                  value: function_type
+                    .parameters!.map(
+                      parameter => (parameter.name[0] === '_' ? '0' : '1'),
+                    )
+                    .join(''),
+                }),
+              }),
+              dts.create_generic_declaration({
+                name: '$KIND',
+                extends: dts.create_literal_type({
+                  value: x.name.split('_')[1],
+                }),
+              }),
+            ],
+            return: function_type,
+          });
+        });
+      (type_declaration.type as dts.IObjectType).members!.splice(
+        -2,
+        0,
+        ...target_function_types.map(x =>
+          dts.create_object_member({
+            owned: dts.create_function_declaration({
+              name: undefined,
+              type: x,
+            }),
+          }),
+        ),
+      );
+    });
+}
+
+// tslint:disable-next-line:max-file-line-count

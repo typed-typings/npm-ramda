@@ -749,7 +749,7 @@ exports[`map R.map(double, { a: 1, b: 2, c: 3 }) 1`] = `"Record<\\"a\\" | \\"b\\
 exports[`map R.pipe(
       R.map(Number.parseInt)<'1', 'list'>(),
       R.reduce(R.max, 0), // no error
-    ) 1`] = `"(v1: R.List<string>) => R.Ordered"`;
+    ) 1`] = `"(v1: {}) => R.Ordered"`;
 
 exports[`map R.reduce(R.max, 0) 1`] = `
 "Argument of type 'reduce_110<Ordered, Ordered>' is not assignable to parameter of type '(v: number[] | Functor<number> | Record<string, number>) => Ordered'.
@@ -967,7 +967,7 @@ exports[`o R.o(R.multiply(10), R.add(10))(-4) 1`] = `"number"`;
 
 exports[`o yellGreeting({ first: 'James', last: 'Bond' }) 1`] = `"string"`;
 
-exports[`objOf matchPhrases(['foo', 'bar', 'baz']) 1`] = `"Record<\\"must\\", Record<\\"match_phrase\\", {}>[] | R.Functor<Record<\\"match_phrase\\", {}>> | Record<string, Record<\\"match_phrase\\", {}>>>"`;
+exports[`objOf matchPhrases(['foo', 'bar', 'baz']) 1`] = `"Record<\\"must\\", R.Functor<Record<\\"match_phrase\\", {}>> | Record<string, Record<\\"match_phrase\\", {}>> | Record<\\"match_phrase\\", {}>[]>"`;
 
 exports[`of R.of([1]) 1`] = `"number[][]"`;
 
