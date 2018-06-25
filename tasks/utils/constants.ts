@@ -10,6 +10,8 @@ const { selectable, placeholder, output_dirname_postfix } = get_options();
 export { selectable, placeholder };
 
 export const output_sub_dirname = 'src';
+export const output_es_sub_dirname = 'es';
 export const output_relative_dirname = `./ramda/dist${output_dirname_postfix}`;
 export const output_relative_sub_dirname = `${output_relative_dirname}/${output_sub_dirname}`;
+export const output_relative_es_sub_dirname = `${output_relative_dirname}/${output_es_sub_dirname}`;
 export const output_extname = '.d.ts';

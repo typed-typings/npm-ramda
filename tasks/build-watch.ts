@@ -6,6 +6,7 @@ import {
   input_relative_dirname,
   output_relative_sub_dirname,
 } from './utils/constants';
+import { generate_es_files } from './utils/generate-es-files';
 import { generate_files } from './utils/generate-files';
 import { generate_index } from './utils/generate-index';
 
@@ -25,12 +26,14 @@ export const build_watch = (_callback: (error?: any) => void) => {
     switch (event.type) {
       case 'changed':
         generate_files(input_relative_filename, on_error, on_end);
+        generate_es_files(input_relative_filename, on_error, on_end);
         break;
       case 'added':
       case 'deleted':
       case 'renamed':
         generate_index();
         generate_files(input_relative_filename, on_error, on_end);
+        generate_es_files(input_relative_filename, on_error, on_end);
         break;
       default:
         throw new Error(`Unexpected event type '${event.type}'`);
