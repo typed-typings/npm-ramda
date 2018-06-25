@@ -8,13 +8,17 @@ import {
   output_relative_dirname,
 } from './tasks/utils/constants';
 import { create_transform } from './tasks/utils/create-transform';
+import { generate_es_files } from './tasks/utils/generate-es-files';
 import { generate_files } from './tasks/utils/generate-files';
 import { generate_index } from './tasks/utils/generate-index';
 import { generate_remap_content } from './tasks/utils/generate-remap-content';
 
 gulp.task('clean', async () => del(`${output_relative_dirname}/`));
 gulp.task('build-index', generate_index);
-gulp.task('build-files', () => generate_files(glob_templates));
+gulp.task('build-es-files', () => generate_es_files(glob_templates));
+gulp.task('build-files', ['build-es-files'], () =>
+  generate_files(glob_templates),
+);
 
 gulp.task('build', ['clean'], (callback: (error?: any) => void) =>
   gulp_run(['build-index', 'build-files'], callback),
