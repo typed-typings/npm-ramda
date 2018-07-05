@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`R_cond([
+    [nothing_to_boolean, nothing_to_string],
+    [nothing_to_boolean, nothing_to_string],
+  ])() 1`] = `"string"`;
+
+exports[`R_cond([
     [string_to_boolean, string_boolean_to_number],
     [string_number_to_boolean, string_to_number],
   ]) 1`] = `

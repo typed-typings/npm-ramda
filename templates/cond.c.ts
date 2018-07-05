@@ -2,7 +2,7 @@ import { max_curry_level } from './$curriedFunctions';
 import { create_n_ary_declarations } from './utils/create-n-ary-declarations';
 
 export default create_n_ary_declarations(
-  1,
+  0,
   max_curry_level,
   args => `
     function $${args.curry_level}arity<${args.generics.join(',')}>(
