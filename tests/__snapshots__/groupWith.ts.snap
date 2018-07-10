@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_groupWith(string_to_boolean) 1`] = `"<U extends string[] | ArrayLike<string>>(list: U) => U[]"`;
+exports[`R.groupWith(string_to_boolean) 1`] = `"<U extends string[] | ArrayLike<string>>(list: U) => U[]"`;
 
-exports[`R_groupWith(string_to_boolean, string) 1`] = `"string[]"`;
+exports[`R.groupWith(string_to_boolean, string) 1`] = `"string[]"`;
 
-exports[`R_groupWith(string_to_boolean, string_array) 1`] = `"string[][]"`;
+exports[`R.groupWith(string_to_boolean, string_array) 1`] = `"string[][]"`;

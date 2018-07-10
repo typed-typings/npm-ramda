@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`curried_string_boolean_number_to_object(R___, R___, number) 1`] = `"CurriedFunction2<string, boolean, object>"`;
+exports[`curried_string_boolean_number_to_object(R.__, R.__, number) 1`] = `"CurriedFunction2<string, boolean, object>"`;
 
-exports[`curried_string_boolean_number_to_object(R___, boolean, number) 1`] = `"CurriedFunction1<string, object>"`;
+exports[`curried_string_boolean_number_to_object(R.__, boolean, number) 1`] = `"CurriedFunction1<string, object>"`;
 
-exports[`curried_string_boolean_number_to_object(string)(R___, number) 1`] = `"CurriedFunction1<boolean, object>"`;
+exports[`curried_string_boolean_number_to_object(string)(R.__, number) 1`] = `"CurriedFunction1<boolean, object>"`;
 
 exports[`curried_string_boolean_number_to_object(string)(boolean)(number) 1`] = `"object"`;
 
-exports[`curried_string_boolean_number_to_object(string, R___, number) 1`] = `"CurriedFunction1<boolean, object>"`;
+exports[`curried_string_boolean_number_to_object(string, R.__, number) 1`] = `"CurriedFunction1<boolean, object>"`;
 
 exports[`curried_string_boolean_number_to_object(string, boolean, number) 1`] = `"object"`;

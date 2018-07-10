@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_insert(number)(object)(object_array) 1`] = `"object[]"`;
+exports[`R.insert(number)(object)(object_array) 1`] = `"object[]"`;
 
-exports[`R_insert(number)(string)(object_array) 1`] = `"(string | object)[]"`;
+exports[`R.insert(number)(string)(object_array) 1`] = `"(string | object)[]"`;
 
-exports[`R_insert(number, object) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (object | U)[]"`;
+exports[`R.insert(number, object) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (object | U)[]"`;
 
-exports[`R_insert(number, object, object_array) 1`] = `"object[]"`;
+exports[`R.insert(number, object, object_array) 1`] = `"object[]"`;
 
-exports[`R_insert(number, string) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (string | U)[]"`;
+exports[`R.insert(number, string) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (string | U)[]"`;
 
-exports[`R_insert(number, string, object_array) 1`] = `"(string | object)[]"`;
+exports[`R.insert(number, string, object_array) 1`] = `"(string | object)[]"`;

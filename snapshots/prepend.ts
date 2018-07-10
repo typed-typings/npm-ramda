@@ -1,14 +1,14 @@
-import R_prepend = require('../ramda/dist/src/prepend');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number: number;
 declare const number_array: number[];
 
 // @dts-jest:pass:snap -> (string | number)[]
-R_prepend(string)(number_array);
+R.prepend(string)(number_array);
 // @dts-jest:pass:snap -> (string | number)[]
-R_prepend(string, number_array);
+R.prepend(string, number_array);
 // @dts-jest:pass:snap -> number[]
-R_prepend(number)(number_array);
+R.prepend(number)(number_array);
 // @dts-jest:pass:snap -> number[]
-R_prepend(number, number_array);
+R.prepend(number, number_array);

@@ -1,11 +1,11 @@
-import R_repeat = require('../ramda/dist/src/repeat');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number: number;
 
 // @dts-jest:pass:snap -> (count: number) => string[]
-R_repeat(string);
+R.repeat(string);
 // @dts-jest:pass:snap -> string[]
-R_repeat(string)(number);
+R.repeat(string)(number);
 // @dts-jest:pass:snap -> string[]
-R_repeat(string, number);
+R.repeat(string, number);

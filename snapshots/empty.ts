@@ -1,12 +1,12 @@
-import R_empty = require('../ramda/dist/src/empty');
+import * as R from '../ramda/dist/index';
 
 declare const object: object;
 declare const string: string;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap -> {}
-R_empty(object);
+R.empty(object);
 // @dts-jest:pass:snap -> string
-R_empty(string);
+R.empty(string);
 // @dts-jest:pass:snap -> string[]
-R_empty(string_array);
+R.empty(string_array);

@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_multiply(number)(number) 1`] = `"number"`;
+exports[`R.multiply(number)(number) 1`] = `"number"`;
 
-exports[`R_multiply(number, number) 1`] = `"number"`;
+exports[`R.multiply(number, number) 1`] = `"number"`;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_repeat(string) 1`] = `"(count: number) => string[]"`;
+exports[`R.repeat(string) 1`] = `"(count: number) => string[]"`;
 
-exports[`R_repeat(string)(number) 1`] = `"string[]"`;
+exports[`R.repeat(string)(number) 1`] = `"string[]"`;
 
-exports[`R_repeat(string, number) 1`] = `"string[]"`;
+exports[`R.repeat(string, number) 1`] = `"string[]"`;

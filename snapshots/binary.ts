@@ -1,14 +1,13 @@
-import { Variadic } from '../ramda/dist/src/$types';
-import R_binary = require('../ramda/dist/src/binary');
+import * as R from '../ramda/dist/index';
 
 declare const string_number_symbol_to_boolean: (
   a: string,
   b: number,
   c: symbol,
 ) => boolean;
-declare const object_variadic: Variadic<object>;
+declare const object_variadic: R.Variadic<object>;
 
 // @dts-jest:pass:snap -> (a: string, b: number) => boolean
-R_binary(string_number_symbol_to_boolean);
+R.binary(string_number_symbol_to_boolean);
 // @dts-jest:pass:snap -> (a: any, b: any) => object
-R_binary(object_variadic);
+R.binary(object_variadic);

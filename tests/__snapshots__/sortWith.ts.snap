@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_sortWith([object_object_to_number]) 1`] = `"(list: List<object>) => object[]"`;
+exports[`R.sortWith([object_object_to_number]) 1`] = `"(list: object[] | ArrayLike<object>) => object[]"`;
 
-exports[`R_sortWith([object_object_to_number])(object_list) 1`] = `"object[]"`;
+exports[`R.sortWith([object_object_to_number])(object_list) 1`] = `"object[]"`;
 
-exports[`R_sortWith([object_object_to_number], object_list) 1`] = `"object[]"`;
+exports[`R.sortWith([object_object_to_number], object_list) 1`] = `"object[]"`;
 
-exports[`R_sortWith([string_string_to_number]) 1`] = `"(list: List<string>) => string[]"`;
+exports[`R.sortWith([string_string_to_number]) 1`] = `"(list: string[] | ArrayLike<string>) => string[]"`;
 
-exports[`R_sortWith([string_string_to_number])(string) 1`] = `"string[]"`;
+exports[`R.sortWith([string_string_to_number])(string) 1`] = `"string[]"`;
 
-exports[`R_sortWith([string_string_to_number], string) 1`] = `"string[]"`;
+exports[`R.sortWith([string_string_to_number], string) 1`] = `"string[]"`;

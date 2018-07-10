@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_forEachObjIndexed(keyed_number_dictionary_tap) 1`] = `"(list: Dictionary<number>) => Dictionary<number>"`;
+exports[`R.forEachObjIndexed(keyed_number_dictionary_tap) 1`] = `"(list: Dictionary<number>) => Dictionary<number>"`;
 
-exports[`R_forEachObjIndexed(keyed_number_dictionary_tap)(number_dictionary) 1`] = `"Dictionary<number>"`;
+exports[`R.forEachObjIndexed(keyed_number_dictionary_tap)(number_dictionary) 1`] = `"Dictionary<number>"`;
 
-exports[`R_forEachObjIndexed(keyed_number_dictionary_tap, number_dictionary) 1`] = `"Dictionary<number>"`;
+exports[`R.forEachObjIndexed(keyed_number_dictionary_tap, number_dictionary) 1`] = `"Dictionary<number>"`;

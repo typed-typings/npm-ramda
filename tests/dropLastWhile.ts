@@ -1,9 +1,9 @@
-import R_dropLastWhile = require('../ramda/dist/src/dropLastWhile');
+import * as R from '../ramda/dist/index';
 
 declare const string_to_boolean: (x: string) => boolean;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_dropLastWhile(string_to_boolean);
+R.dropLastWhile(string_to_boolean);
 // @dts-jest:pass:snap
-R_dropLastWhile(string_to_boolean, string_array);
+R.dropLastWhile(string_to_boolean, string_array);

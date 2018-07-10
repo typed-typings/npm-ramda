@@ -1,9 +1,9 @@
-import R_identity = require('../ramda/dist/src/identity');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number: number;
 
 // @dts-jest:pass:snap -> string
-R_identity(string);
+R.identity(string);
 // @dts-jest:pass:snap -> number
-R_identity(number);
+R.identity(number);

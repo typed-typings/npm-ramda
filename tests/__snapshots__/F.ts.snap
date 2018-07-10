@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_F() 1`] = `"false"`;
+exports[`R.F() 1`] = `"false"`;

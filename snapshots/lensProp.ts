@@ -1,13 +1,12 @@
-import { Property } from '../ramda/dist/src/$types';
-import R_lensProp = require('../ramda/dist/src/lensProp');
+import * as R from '../ramda/dist/index';
 
-declare const property: Property;
+declare const property: R.Property;
 
 // @dts-jest:pass:snap -> PseudoLens<1>
-R_lensProp(1);
+R.lensProp(1);
 // @dts-jest:pass:snap -> PseudoLens<"x">
-R_lensProp('x');
+R.lensProp('x');
 // @dts-jest:pass:snap -> ManualLens<{}, {}>
-R_lensProp(property);
+R.lensProp(property);
 // @dts-jest:pass:snap -> ManualLens<number, object>
-R_lensProp<number, object>(property);
+R.lensProp<number, object>(property);

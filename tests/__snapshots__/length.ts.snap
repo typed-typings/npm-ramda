@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_length(string) 1`] = `"number"`;
+exports[`R.length(string) 1`] = `"number"`;
 
-exports[`R_length(string_array) 1`] = `"number"`;
+exports[`R.length(string_array) 1`] = `"number"`;

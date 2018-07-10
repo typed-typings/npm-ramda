@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_match(regex) 1`] = `"(str: string) => string[]"`;
+exports[`R.match(regex) 1`] = `"(str: string) => string[]"`;
 
-exports[`R_match(regex)(string) 1`] = `"string[]"`;
+exports[`R.match(regex)(string) 1`] = `"string[]"`;
 
-exports[`R_match(regex, string) 1`] = `"string[]"`;
+exports[`R.match(regex, string) 1`] = `"string[]"`;

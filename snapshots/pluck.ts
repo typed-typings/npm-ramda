@@ -1,7 +1,5 @@
-import { Placeholder } from '../ramda/dist/src/$placeholder';
-import R_pluck = require('../ramda/dist/src/pluck');
+import * as R from '../ramda/dist/index';
 
-declare const placeholder: Placeholder;
 declare const a_number_record: Record<'a', number>;
 declare const string_array: string[];
 declare const x_y_z_with_a_record: {
@@ -11,20 +9,20 @@ declare const x_y_z_with_a_record: {
 };
 
 // @dts-jest:pass:snap -> <V, T extends Record<"a", V>>(list: T[] | ArrayLike<T>) => T["a"][]
-R_pluck('a');
+R.pluck('a');
 // @dts-jest:pass:snap -> number[]
-R_pluck('a')([a_number_record, a_number_record]);
+R.pluck('a')([a_number_record, a_number_record]);
 
 // @dts-jest:pass:snap -> number[]
-R_pluck('a', [a_number_record, a_number_record]);
+R.pluck('a', [a_number_record, a_number_record]);
 
 // @dts-jest:pass:snap -> <K extends "a">(key: K) => Record<"a", number>[K][]
-R_pluck(placeholder, [a_number_record, a_number_record]);
+R.pluck(R.__, [a_number_record, a_number_record]);
 // @dts-jest:pass:snap -> number[]
-R_pluck(placeholder, [a_number_record, a_number_record])('a');
+R.pluck(R.__, [a_number_record, a_number_record])('a');
 
 // @dts-jest:pass:snap -> { x: 1; y: true; z: "string"; }
-R_pluck('a', x_y_z_with_a_record);
+R.pluck('a', x_y_z_with_a_record);
 
 // @dts-jest:pass:snap -> string[]
-R_pluck(0, [string_array]);
+R.pluck(0, [string_array]);

@@ -1,4 +1,4 @@
-import R_pipeP = require('../ramda/dist/src/pipeP');
+import * as R from '../ramda/dist/index';
 
 declare const boolean_to_number_promise: (x: boolean) => Promise<number>;
 declare const boolean_to_string_promise: (x: boolean) => Promise<string>;
@@ -17,37 +17,37 @@ declare const a_b_c_d_e_f_to_any_promise: (
 ) => Promise<any>;
 
 // @dts-jest:pass:snap
-R_pipeP(boolean_to_number_promise);
+R.pipeP(boolean_to_number_promise);
 // @dts-jest:pass:snap
-R_pipeP(a_b_c_d_e_f_to_any_promise);
+R.pipeP(a_b_c_d_e_f_to_any_promise);
 
 // @dts-jest:pass:snap
-R_pipeP(string_to_boolean_promise, boolean_to_number_promise);
+R.pipeP(string_to_boolean_promise, boolean_to_number_promise);
 // @dts-jest:pass:snap
-R_pipeP(a_b_c_d_e_f_to_any_promise, boolean_to_number_promise);
+R.pipeP(a_b_c_d_e_f_to_any_promise, boolean_to_number_promise);
 
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   number_to_string_promise,
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   a_b_c_d_e_f_to_any_promise,
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
 
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   string_to_number_promise,
   number_to_string_promise,
   string_to_boolean_promise,
   boolean_to_number_promise,
 );
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   a_b_c_d_e_f_to_any_promise,
   number_to_string_promise,
   string_to_boolean_promise,
@@ -55,7 +55,7 @@ R_pipeP(
 );
 
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   boolean_to_string_promise,
   string_to_number_promise,
   number_to_string_promise,
@@ -63,7 +63,7 @@ R_pipeP(
   boolean_to_number_promise,
 );
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   a_b_c_d_e_f_to_any_promise,
   string_to_number_promise,
   number_to_string_promise,
@@ -72,7 +72,7 @@ R_pipeP(
 );
 
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   number_to_boolean_promise,
   boolean_to_string_promise,
   string_to_number_promise,
@@ -81,7 +81,7 @@ R_pipeP(
   boolean_to_number_promise,
 );
 // @dts-jest:pass:snap
-R_pipeP(
+R.pipeP(
   a_b_c_d_e_f_to_any_promise,
   boolean_to_string_promise,
   string_to_number_promise,

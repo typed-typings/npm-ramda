@@ -1,14 +1,14 @@
-import R_invoker = require('../ramda/dist/src/invoker');
+import * as R from '../ramda/dist/index';
 
 // @dts-jest:pass:snap
-R_invoker(0);
+R.invoker(0);
 // @dts-jest:pass:snap
-R_invoker(1);
+R.invoker(1);
 // @dts-jest:pass:snap
-R_invoker(2);
+R.invoker(2);
 // @dts-jest:pass:snap
-R_invoker(5);
+R.invoker(5);
 // @dts-jest:pass:snap
-R_invoker(6);
+R.invoker(6);
 // @dts-jest:pass:snap
-R_invoker(7);
+R.invoker(7);

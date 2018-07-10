@@ -1,11 +1,11 @@
-import R_max = require('../ramda/dist/src/max');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_max(string);
+R.max(string);
 // @dts-jest:pass:snap
-R_max(number);
+R.max(number);
 // @dts-jest:pass:snap
-R_max(number, number);
+R.max(number, number);

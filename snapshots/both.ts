@@ -1,9 +1,8 @@
-import { Predicate } from '../ramda/dist/src/$types';
-import R_both = require('../ramda/dist/src/both');
+import * as R from '../ramda/dist/index';
 
-declare const string_predicate: Predicate<string>;
+declare const string_predicate: R.Predicate<string>;
 
 // @dts-jest:pass:snap -> (fn2: (value: string) => boolean) => (value: string) => boolean
-R_both(string_predicate);
+R.both(string_predicate);
 // @dts-jest:pass:snap -> (value: string) => boolean
-R_both(string_predicate, string_predicate);
+R.both(string_predicate, string_predicate);

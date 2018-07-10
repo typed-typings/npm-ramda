@@ -1,11 +1,11 @@
-import R_join = require('../ramda/dist/src/join');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number_array: string[];
 
 // @dts-jest:pass:snap
-R_join(string);
+R.join(string);
 // @dts-jest:pass:snap
-R_join(string)(number_array);
+R.join(string)(number_array);
 // @dts-jest:pass:snap
-R_join(string, number_array);
+R.join(string, number_array);

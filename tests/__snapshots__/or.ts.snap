@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_or(string)(number) 1`] = `"string | number"`;
+exports[`R.or(string)(number) 1`] = `"string | number"`;
 
-exports[`R_or(string, number) 1`] = `"string | number"`;
+exports[`R.or(string, number) 1`] = `"string | number"`;

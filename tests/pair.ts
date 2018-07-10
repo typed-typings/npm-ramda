@@ -1,11 +1,11 @@
-import R_pair = require('../ramda/dist/src/pair');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const object: object;
 
 // @dts-jest:pass:snap
-R_pair(number);
+R.pair(number);
 // @dts-jest:pass:snap
-R_pair(number)(object);
+R.pair(number)(object);
 // @dts-jest:pass:snap
-R_pair(number, object);
+R.pair(number, object);

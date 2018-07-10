@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_equals(null) 1`] = `"<T>(b: T | null) => boolean"`;
+exports[`R.equals(null) 1`] = `"<T>(b: T | null) => boolean"`;
 
-exports[`R_equals(string) 1`] = `"(b: string) => boolean"`;
+exports[`R.equals(string) 1`] = `"(b: string) => boolean"`;
 
-exports[`R_equals(string)(string) 1`] = `"boolean"`;
+exports[`R.equals(string)(string) 1`] = `"boolean"`;
 
-exports[`R_equals(string, string) 1`] = `"boolean"`;
+exports[`R.equals(string, string) 1`] = `"boolean"`;
 
-exports[`R_equals(undefined) 1`] = `"<T>(b: T | undefined) => boolean"`;
+exports[`R.equals(undefined) 1`] = `"<T>(b: T | undefined) => boolean"`;

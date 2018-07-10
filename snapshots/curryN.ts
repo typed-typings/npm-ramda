@@ -1,4 +1,4 @@
-import R_curryN = require('../ramda/dist/src/curryN');
+import * as R from '../ramda/dist/index';
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;
@@ -14,10 +14,10 @@ declare const seven_string_to_number: (
 ) => number;
 
 // @dts-jest:pass:snap -> () => object
-R_curryN(0, string_to_object);
+R.curryN(0, string_to_object);
 // @dts-jest:pass:snap -> CurriedFunction1<number, string>
-R_curryN(1, number_boolean_to_string);
+R.curryN(1, number_boolean_to_string);
 // @dts-jest:pass:snap -> CurriedFunction4<number, number, number, number, boolean>
-R_curryN(4, number_args_to_boolean);
+R.curryN(4, number_args_to_boolean);
 // @dts-jest:pass:snap -> (...args: any[]) => number
-R_curryN(7, seven_string_to_number);
+R.curryN(7, seven_string_to_number);

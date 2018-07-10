@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_groupBy(object_to_string) 1`] = `"(list: object[] | ArrayLike<object>) => Dictionary<object[]>"`;
+exports[`R.groupBy(object_to_string) 1`] = `"(list: object[] | ArrayLike<object>) => Dictionary<object[]>"`;
 
-exports[`R_groupBy(object_to_string)(object_array) 1`] = `"Dictionary<object[]>"`;
+exports[`R.groupBy(object_to_string)(object_array) 1`] = `"Dictionary<object[]>"`;
 
-exports[`R_groupBy(object_to_string, object_array) 1`] = `"Dictionary<object[]>"`;
+exports[`R.groupBy(object_to_string, object_array) 1`] = `"Dictionary<object[]>"`;

@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_flatten(nested_object_list) 1`] = `"object[]"`;
+exports[`R.flatten(nested_object_list) 1`] = `"object[]"`;
 
-exports[`R_flatten(string_array) 1`] = `"string[]"`;
+exports[`R.flatten(string_array) 1`] = `"string[]"`;

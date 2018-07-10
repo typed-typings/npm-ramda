@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_isNil 1`] = `"(value: any) => value is null | undefined"`;
+exports[`R.isNil 1`] = `"(value: any) => value is null | undefined"`;
 
-exports[`R_isNil(string) 1`] = `"boolean"`;
+exports[`R.isNil(string) 1`] = `"boolean"`;

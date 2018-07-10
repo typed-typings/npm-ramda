@@ -1,7 +1,6 @@
-import { Path } from '../ramda/dist/src/$types';
-import R_path = require('../ramda/dist/src/path');
+import * as R from '../ramda/dist/index';
 
-declare const path: Path;
+declare const path: R.Path;
 declare const object: object;
 declare const a_1_b_2_c_3: {
   a: 1;
@@ -10,14 +9,14 @@ declare const a_1_b_2_c_3: {
 };
 
 // @dts-jest:pass:snap
-R_path(path);
+R.path(path);
 
 // @dts-jest:pass:snap
-R_path(path)(object);
+R.path(path)(object);
 // @dts-jest:pass:snap
-R_path(path, object);
+R.path(path, object);
 
 // @dts-jest:pass:snap
-R_path(['a', 'b', 'c'])(a_1_b_2_c_3);
+R.path(['a', 'b', 'c'])(a_1_b_2_c_3);
 // @dts-jest:pass:snap
-R_path(['a', 'b', 'c'], a_1_b_2_c_3);
+R.path(['a', 'b', 'c'], a_1_b_2_c_3);

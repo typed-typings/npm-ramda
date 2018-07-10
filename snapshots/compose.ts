@@ -1,4 +1,4 @@
-import R_compose = require('../ramda/dist/src/compose');
+import * as R from '../ramda/dist/index';
 
 declare const boolean_to_number: (x: boolean) => number;
 declare const boolean_to_string: (x: boolean) => string;
@@ -17,29 +17,29 @@ declare const a_b_c_d_e_f_to_any: (
 ) => any;
 
 // @dts-jest:pass:snap -> (v1: boolean) => number
-R_compose(boolean_to_number);
+R.compose(boolean_to_number);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => any
-R_compose(a_b_c_d_e_f_to_any);
+R.compose(a_b_c_d_e_f_to_any);
 
 // @dts-jest:pass:snap -> (v1: string) => number
-R_compose(boolean_to_number, string_to_boolean);
+R.compose(boolean_to_number, string_to_boolean);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R_compose(boolean_to_number, a_b_c_d_e_f_to_any);
+R.compose(boolean_to_number, a_b_c_d_e_f_to_any);
 
 // @dts-jest:pass:snap -> (v1: number) => number
-R_compose(boolean_to_number, string_to_boolean, number_to_string);
+R.compose(boolean_to_number, string_to_boolean, number_to_string);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R_compose(boolean_to_number, string_to_boolean, a_b_c_d_e_f_to_any);
+R.compose(boolean_to_number, string_to_boolean, a_b_c_d_e_f_to_any);
 
 // @dts-jest:pass:snap -> (v1: string) => number
-R_compose(
+R.compose(
   boolean_to_number,
   string_to_boolean,
   number_to_string,
   string_to_number,
 );
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R_compose(
+R.compose(
   boolean_to_number,
   string_to_boolean,
   number_to_string,
@@ -47,7 +47,7 @@ R_compose(
 );
 
 // @dts-jest:pass:snap -> (v1: boolean) => number
-R_compose(
+R.compose(
   boolean_to_number,
   string_to_boolean,
   number_to_string,
@@ -55,7 +55,7 @@ R_compose(
   boolean_to_string,
 );
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R_compose(
+R.compose(
   boolean_to_number,
   string_to_boolean,
   number_to_string,
@@ -64,7 +64,7 @@ R_compose(
 );
 
 // @dts-jest:pass:snap -> (v1: number) => number
-R_compose(
+R.compose(
   boolean_to_number,
   string_to_boolean,
   number_to_string,
@@ -73,7 +73,7 @@ R_compose(
   number_to_boolean,
 );
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R_compose(
+R.compose(
   boolean_to_number,
   string_to_boolean,
   number_to_string,

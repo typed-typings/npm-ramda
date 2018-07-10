@@ -1,4 +1,4 @@
-import R_mapAccum = require('../ramda/dist/src/mapAccum');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const number_string_to_number_string_tuple: (
@@ -8,8 +8,8 @@ declare const number_string_to_number_string_tuple: (
 declare const string_array: string[];
 
 // @dts-jest:pass:snap -> (list: string[] | ArrayLike<string>) => [number, string[]]
-R_mapAccum(number_string_to_number_string_tuple, number);
+R.mapAccum(number_string_to_number_string_tuple, number);
 // @dts-jest:pass:snap -> [number, string[]]
-R_mapAccum(number_string_to_number_string_tuple)(number)(string_array);
+R.mapAccum(number_string_to_number_string_tuple)(number)(string_array);
 // @dts-jest:pass:snap -> [number, string[]]
-R_mapAccum(number_string_to_number_string_tuple, number, string_array);
+R.mapAccum(number_string_to_number_string_tuple, number, string_array);

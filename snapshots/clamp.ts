@@ -1,10 +1,10 @@
-import R_clamp = require('../ramda/dist/src/clamp');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap -> (value: number) => number
-R_clamp(number, number);
+R.clamp(number, number);
 // @dts-jest:pass:snap -> (value: number) => number
-R_clamp(number)(number);
+R.clamp(number)(number);
 // @dts-jest:pass:snap -> number
-R_clamp(number, number, number);
+R.clamp(number, number, number);

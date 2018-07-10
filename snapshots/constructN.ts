@@ -1,4 +1,4 @@
-import R_constructN = require('../ramda/dist/src/constructN');
+import * as R from '../ramda/dist/index';
 
 declare const new_string_to_object: new (x: string) => object;
 declare const new_number_boolean_to_string: new (
@@ -17,10 +17,10 @@ declare const new_7_string_to_number: new (
 ) => number;
 
 // @dts-jest:pass:snap -> () => object
-R_constructN(0, new_string_to_object);
+R.constructN(0, new_string_to_object);
 // @dts-jest:pass:snap -> CurriedFunction1<number, string>
-R_constructN(1, new_number_boolean_to_string);
+R.constructN(1, new_number_boolean_to_string);
 // @dts-jest:pass:snap -> CurriedFunction4<number, number, number, number, boolean>
-R_constructN(4, new_number_args_to_boolean);
+R.constructN(4, new_number_args_to_boolean);
 // @dts-jest:pass:snap -> (...args: any[]) => number
-R_constructN(7, new_7_string_to_number);
+R.constructN(7, new_7_string_to_number);

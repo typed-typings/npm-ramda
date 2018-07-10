@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_type(any) 1`] = `"string"`;
+exports[`R.type(any) 1`] = `"string"`;
 
-exports[`R_type(boolean) 1`] = `"\\"Boolean\\""`;
+exports[`R.type(boolean) 1`] = `"\\"Boolean\\""`;
 
-exports[`R_type(number) 1`] = `"\\"Number\\""`;
+exports[`R.type(number) 1`] = `"\\"Number\\""`;
 
-exports[`R_type(object) 1`] = `"string"`;
+exports[`R.type(object) 1`] = `"string"`;

@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_fromPairs([number_object_tuple]) 1`] = `"Dictionary<object>"`;
+exports[`R.fromPairs([number_object_tuple]) 1`] = `"Dictionary<object>"`;

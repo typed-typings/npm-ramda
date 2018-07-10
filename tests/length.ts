@@ -1,9 +1,9 @@
-import R_length = require('../ramda/dist/src/length');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_length(string);
+R.length(string);
 // @dts-jest:pass:snap
-R_length(string_array);
+R.length(string_array);

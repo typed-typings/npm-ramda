@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_merge(a_1)(b_2) 1`] = `"Pick<{ a: 1; }, \\"a\\"> & { b: 2; }"`;
+exports[`R.merge(a_1)(b_2) 1`] = `"Pick<{ a: 1; }, \\"a\\"> & { b: 2; }"`;
 
-exports[`R_merge(a_1, b_2) 1`] = `"Pick<{ a: 1; }, \\"a\\"> & { b: 2; }"`;
+exports[`R.merge(a_1, b_2) 1`] = `"Pick<{ a: 1; }, \\"a\\"> & { b: 2; }"`;
 
-exports[`R_merge(a_1_c_1)(b_2_c_2) 1`] = `"Pick<{ a: 1; c: 1; }, \\"a\\"> & { b: 2; c: 2; }"`;
+exports[`R.merge(a_1_c_1)(b_2_c_2) 1`] = `"Pick<{ a: 1; c: 1; }, \\"a\\"> & { b: 2; c: 2; }"`;
 
-exports[`R_merge(a_1_c_1, b_2_c_2) 1`] = `"Pick<{ a: 1; c: 1; }, \\"a\\"> & { b: 2; c: 2; }"`;
+exports[`R.merge(a_1_c_1, b_2_c_2) 1`] = `"Pick<{ a: 1; c: 1; }, \\"a\\"> & { b: 2; c: 2; }"`;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_mapAccumRight(string_number_to_string_number_tuple)(number)(string_array) 1`] = `"[string[], number]"`;
+exports[`R.mapAccumRight(string_number_to_string_number_tuple)(number)(string_array) 1`] = `"[string[], number]"`;
 
-exports[`R_mapAccumRight(string_number_to_string_number_tuple, number) 1`] = `"(list: string[] | ArrayLike<string>) => [string[], number]"`;
+exports[`R.mapAccumRight(string_number_to_string_number_tuple, number) 1`] = `"(list: string[] | ArrayLike<string>) => [string[], number]"`;
 
-exports[`R_mapAccumRight(string_number_to_string_number_tuple, number, string_array) 1`] = `"[string[], number]"`;
+exports[`R.mapAccumRight(string_number_to_string_number_tuple, number, string_array) 1`] = `"[string[], number]"`;

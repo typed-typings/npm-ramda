@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_is(String) 1`] = `"(value: any) => value is String"`;
+exports[`R.is(String) 1`] = `"(value: any) => value is String"`;
 
-exports[`R_is(String)(string) 1`] = `"boolean"`;
+exports[`R.is(String)(string) 1`] = `"boolean"`;
 
-exports[`R_is(String, string) 1`] = `"boolean"`;
+exports[`R.is(String, string) 1`] = `"boolean"`;

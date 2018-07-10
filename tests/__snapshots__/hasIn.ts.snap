@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_hasIn(property) 1`] = `"(object: {}) => boolean"`;
+exports[`R.hasIn(property) 1`] = `"(object: {}) => boolean"`;
 
-exports[`R_hasIn(property)(object) 1`] = `"boolean"`;
+exports[`R.hasIn(property)(object) 1`] = `"boolean"`;
 
-exports[`R_hasIn(property, object) 1`] = `"boolean"`;
+exports[`R.hasIn(property, object) 1`] = `"boolean"`;

@@ -1,6 +1,6 @@
-import R_dec = require('../ramda/dist/src/dec');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_dec(number);
+R.dec(number);

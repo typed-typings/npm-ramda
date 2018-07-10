@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_view(menual_lens_number_object) 1`] = `"(target: object) => number"`;
+exports[`R.view(menual_lens_number_object) 1`] = `"(target: object) => number"`;
 
-exports[`R_view(menual_lens_number_object)(object) 1`] = `"number"`;
+exports[`R.view(menual_lens_number_object)(object) 1`] = `"number"`;
 
-exports[`R_view(menual_lens_number_object, object) 1`] = `"number"`;
+exports[`R.view(menual_lens_number_object, object) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_1) 1`] = `"<U extends { [index: number]: any; }>(target: U) => U[1]"`;
+exports[`R.view(pseudo_lens_1) 1`] = `"<U extends { [index: number]: any; }>(target: U) => U[1]"`;
 
-exports[`R_view(pseudo_lens_1)(number_array) 1`] = `"number"`;
+exports[`R.view(pseudo_lens_1)(number_array) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_1)(string_number_tuple) 1`] = `"number"`;
+exports[`R.view(pseudo_lens_1)(string_number_tuple) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_1, number_array) 1`] = `"number"`;
+exports[`R.view(pseudo_lens_1, number_array) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_1, string_number_tuple) 1`] = `"number"`;
+exports[`R.view(pseudo_lens_1, string_number_tuple) 1`] = `"number"`;
 
-exports[`R_view(pseudo_lens_a) 1`] = `"<U extends Record<\\"a\\", any>>(target: U) => U[\\"a\\"]"`;
+exports[`R.view(pseudo_lens_a) 1`] = `"<U extends Record<\\"a\\", any>>(target: U) => U[\\"a\\"]"`;
 
-exports[`R_view(pseudo_lens_a)(a_1_b_2_c_3) 1`] = `"1"`;
+exports[`R.view(pseudo_lens_a)(a_1_b_2_c_3) 1`] = `"1"`;
 
-exports[`R_view(pseudo_lens_a, a_1_b_2_c_3) 1`] = `"1"`;
+exports[`R.view(pseudo_lens_a, a_1_b_2_c_3) 1`] = `"1"`;

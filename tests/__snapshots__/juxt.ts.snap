@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_juxt([string_string_to_number]) 1`] = `"(...args: string[]) => number[]"`;
+exports[`R.juxt([string_string_to_number]) 1`] = `"(...args: string[]) => number[]"`;
 
-exports[`R_juxt([string_string_to_number])(string, string) 1`] = `"number[]"`;
+exports[`R.juxt([string_string_to_number])(string, string) 1`] = `"number[]"`;

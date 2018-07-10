@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_constructN(0, new_string_to_object) 1`] = `"() => object"`;
+exports[`R.constructN(0, new_string_to_object) 1`] = `"() => object"`;
 
-exports[`R_constructN(1, new_number_boolean_to_string) 1`] = `"CurriedFunction1<number, string>"`;
+exports[`R.constructN(1, new_number_boolean_to_string) 1`] = `"CurriedFunction1<number, string>"`;
 
-exports[`R_constructN(4, new_number_args_to_boolean) 1`] = `"CurriedFunction4<number, number, number, number, boolean>"`;
+exports[`R.constructN(4, new_number_args_to_boolean) 1`] = `"CurriedFunction4<number, number, number, number, boolean>"`;
 
-exports[`R_constructN(7, new_7_string_to_number) 1`] = `"(...args: any[]) => number"`;
+exports[`R.constructN(7, new_7_string_to_number) 1`] = `"(...args: any[]) => number"`;

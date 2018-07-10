@@ -1,12 +1,12 @@
-import R_last = require('../ramda/dist/src/last');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 declare const number_array: number[];
 
 // @dts-jest:pass:snap
-R_last(string);
+R.last(string);
 // @dts-jest:pass:snap
-R_last(string_array);
+R.last(string_array);
 // @dts-jest:pass:snap
-R_last(number_array);
+R.last(number_array);

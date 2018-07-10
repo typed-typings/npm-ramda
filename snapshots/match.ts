@@ -1,11 +1,11 @@
-import R_match = require('../ramda/dist/src/match');
+import * as R from '../ramda/dist/index';
 
 declare const regex: RegExp;
 declare const string: string;
 
 // @dts-jest:pass:snap -> (str: string) => string[]
-R_match(regex);
+R.match(regex);
 // @dts-jest:pass:snap -> string[]
-R_match(regex)(string);
+R.match(regex)(string);
 // @dts-jest:pass:snap -> string[]
-R_match(regex, string);
+R.match(regex, string);

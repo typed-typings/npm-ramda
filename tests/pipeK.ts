@@ -1,40 +1,43 @@
-import { Chain } from '../ramda/dist/src/$types';
-import R_pipeK = require('../ramda/dist/src/pipeK');
+import * as R from '../ramda/dist/index';
 
 declare const chain_boolean_to_chain_number: (
-  x: Chain<boolean>,
-) => Chain<number>;
+  x: R.Chain<boolean>,
+) => R.Chain<number>;
 declare const chain_boolean_to_chain_string: (
-  x: Chain<boolean>,
-) => Chain<string>;
+  x: R.Chain<boolean>,
+) => R.Chain<string>;
 declare const chain_number_to_chain_boolean: (
-  x: Chain<number>,
-) => Chain<boolean>;
-declare const chain_number_to_chain_string: (x: Chain<number>) => Chain<string>;
+  x: R.Chain<number>,
+) => R.Chain<boolean>;
+declare const chain_number_to_chain_string: (
+  x: R.Chain<number>,
+) => R.Chain<string>;
 declare const chain_string_to_chain_boolean: (
-  x: Chain<string>,
-) => Chain<boolean>;
-declare const chain_string_to_chain_number: (x: Chain<string>) => Chain<number>;
+  x: R.Chain<string>,
+) => R.Chain<boolean>;
+declare const chain_string_to_chain_number: (
+  x: R.Chain<string>,
+) => R.Chain<number>;
 
 // @dts-jest:pass:snap
-R_pipeK(chain_boolean_to_chain_number);
+R.pipeK(chain_boolean_to_chain_number);
 // @dts-jest:pass:snap
-R_pipeK(chain_string_to_chain_boolean, chain_boolean_to_chain_number);
+R.pipeK(chain_string_to_chain_boolean, chain_boolean_to_chain_number);
 // @dts-jest:pass:snap
-R_pipeK(
+R.pipeK(
   chain_number_to_chain_string,
   chain_string_to_chain_boolean,
   chain_boolean_to_chain_number,
 );
 // @dts-jest:pass:snap
-R_pipeK(
+R.pipeK(
   chain_string_to_chain_number,
   chain_number_to_chain_string,
   chain_string_to_chain_boolean,
   chain_boolean_to_chain_number,
 );
 // @dts-jest:pass:snap
-R_pipeK(
+R.pipeK(
   chain_boolean_to_chain_string,
   chain_string_to_chain_number,
   chain_number_to_chain_string,
@@ -42,7 +45,7 @@ R_pipeK(
   chain_boolean_to_chain_number,
 );
 // @dts-jest:pass:snap
-R_pipeK(
+R.pipeK(
   chain_number_to_chain_boolean,
   chain_boolean_to_chain_string,
   chain_string_to_chain_number,

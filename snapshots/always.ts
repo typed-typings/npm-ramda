@@ -1,8 +1,8 @@
-import R_always = require('../ramda/dist/src/always');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 
 // @dts-jest:pass:snap -> () => string
-R_always(string);
+R.always(string);
 // @dts-jest:pass:snap -> string
-R_always(string)();
+R.always(string)();

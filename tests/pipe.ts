@@ -1,4 +1,4 @@
-import R_pipe = require('../ramda/dist/src/pipe');
+import * as R from '../ramda/dist/index';
 
 declare const boolean_to_number: (x: boolean) => number;
 declare const boolean_to_string: (x: boolean) => string;
@@ -17,29 +17,29 @@ declare const a_b_c_d_e_f_to_any: (
 ) => any;
 
 // @dts-jest:pass:snap
-R_pipe(boolean_to_number);
+R.pipe(boolean_to_number);
 // @dts-jest:pass:snap
-R_pipe(a_b_c_d_e_f_to_any);
+R.pipe(a_b_c_d_e_f_to_any);
 
 // @dts-jest:pass:snap
-R_pipe(string_to_boolean, boolean_to_number);
+R.pipe(string_to_boolean, boolean_to_number);
 // @dts-jest:pass:snap
-R_pipe(a_b_c_d_e_f_to_any, boolean_to_number);
+R.pipe(a_b_c_d_e_f_to_any, boolean_to_number);
 
 // @dts-jest:pass:snap
-R_pipe(number_to_string, string_to_boolean, boolean_to_number);
+R.pipe(number_to_string, string_to_boolean, boolean_to_number);
 // @dts-jest:pass:snap
-R_pipe(a_b_c_d_e_f_to_any, string_to_boolean, boolean_to_number);
+R.pipe(a_b_c_d_e_f_to_any, string_to_boolean, boolean_to_number);
 
 // @dts-jest:pass:snap
-R_pipe(
+R.pipe(
   string_to_number,
   number_to_string,
   string_to_boolean,
   boolean_to_number,
 );
 // @dts-jest:pass:snap
-R_pipe(
+R.pipe(
   a_b_c_d_e_f_to_any,
   number_to_string,
   string_to_boolean,
@@ -47,7 +47,7 @@ R_pipe(
 );
 
 // @dts-jest:pass:snap
-R_pipe(
+R.pipe(
   boolean_to_string,
   string_to_number,
   number_to_string,
@@ -55,7 +55,7 @@ R_pipe(
   boolean_to_number,
 );
 // @dts-jest:pass:snap
-R_pipe(
+R.pipe(
   a_b_c_d_e_f_to_any,
   string_to_number,
   number_to_string,
@@ -64,7 +64,7 @@ R_pipe(
 );
 
 // @dts-jest:pass:snap
-R_pipe(
+R.pipe(
   number_to_boolean,
   boolean_to_string,
   string_to_number,
@@ -73,7 +73,7 @@ R_pipe(
   boolean_to_number,
 );
 // @dts-jest:pass:snap
-R_pipe(
+R.pipe(
   a_b_c_d_e_f_to_any,
   boolean_to_string,
   string_to_number,

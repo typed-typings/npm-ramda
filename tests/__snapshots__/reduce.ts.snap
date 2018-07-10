@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_reduce(object_number_to_object)(object)(number_array) 1`] = `"object"`;
+exports[`R.reduce(object_number_to_object)(object)(number_array) 1`] = `"object"`;
 
-exports[`R_reduce(object_number_to_object, object) 1`] = `"(values: number[] | ArrayLike<number>) => object"`;
+exports[`R.reduce(object_number_to_object, object) 1`] = `"(values: number[] | ArrayLike<number>) => object"`;
 
-exports[`R_reduce(object_number_to_object, object, number_array) 1`] = `"object"`;
+exports[`R.reduce(object_number_to_object, object, number_array) 1`] = `"object"`;

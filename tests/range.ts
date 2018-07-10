@@ -1,10 +1,10 @@
-import R_range = require('../ramda/dist/src/range');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_range(number);
+R.range(number);
 // @dts-jest:pass:snap
-R_range(number)(number);
+R.range(number)(number);
 // @dts-jest:pass:snap
-R_range(number, number);
+R.range(number, number);

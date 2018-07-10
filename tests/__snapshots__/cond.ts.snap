@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_cond([
+exports[`R.cond([
     [nothing_to_boolean, nothing_to_string],
     [nothing_to_boolean, nothing_to_string],
   ])() 1`] = `"string"`;
 
-exports[`R_cond([
+exports[`R.cond([
     [string_to_boolean, string_boolean_to_number],
     [string_number_to_boolean, string_to_number],
   ]) 1`] = `
@@ -17,12 +17,12 @@ exports[`R_cond([
           Type 'number' is not assignable to type 'boolean'."
 `;
 
-exports[`R_cond([
+exports[`R.cond([
     [string_to_boolean, string_to_number],
     [string_number_to_boolean, string_to_number],
   ]) 1`] = `"(v1: string, v2: number) => number"`;
 
-exports[`R_cond([
+exports[`R.cond([
     [string_to_boolean, string_to_number],
     [string_to_boolean, string_to_number],
   ]) 1`] = `"(v1: string) => number"`;

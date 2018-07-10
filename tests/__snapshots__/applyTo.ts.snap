@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_applyTo(string) 1`] = `"<R>(fn: (value: string) => R) => R"`;
+exports[`R.applyTo(string) 1`] = `"<R>(fn: (value: string) => R) => R"`;
 
-exports[`R_applyTo(string)(string_to_number) 1`] = `"number"`;
+exports[`R.applyTo(string)(string_to_number) 1`] = `"number"`;
 
-exports[`R_applyTo(string, string_to_number) 1`] = `"number"`;
+exports[`R.applyTo(string, string_to_number) 1`] = `"number"`;

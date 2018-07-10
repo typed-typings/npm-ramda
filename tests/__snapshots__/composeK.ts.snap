@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_composeK(
+exports[`R.composeK(
     chain_boolean_to_chain_number,
     chain_string_to_chain_boolean,
     chain_number_to_chain_string,
@@ -9,7 +9,7 @@ exports[`R_composeK(
     chain_number_to_chain_boolean,
   ) 1`] = `"(v1: Chain<number>) => Chain<number>"`;
 
-exports[`R_composeK(
+exports[`R.composeK(
     chain_boolean_to_chain_number,
     chain_string_to_chain_boolean,
     chain_number_to_chain_string,
@@ -17,19 +17,19 @@ exports[`R_composeK(
     chain_boolean_to_chain_string,
   ) 1`] = `"(v1: Chain<boolean>) => Chain<number>"`;
 
-exports[`R_composeK(
+exports[`R.composeK(
     chain_boolean_to_chain_number,
     chain_string_to_chain_boolean,
     chain_number_to_chain_string,
     chain_string_to_chain_number,
   ) 1`] = `"(v1: Chain<string>) => Chain<number>"`;
 
-exports[`R_composeK(
+exports[`R.composeK(
     chain_boolean_to_chain_number,
     chain_string_to_chain_boolean,
     chain_number_to_chain_string,
   ) 1`] = `"(v1: Chain<number>) => Chain<number>"`;
 
-exports[`R_composeK(chain_boolean_to_chain_number) 1`] = `"(v1: Chain<boolean>) => Chain<number>"`;
+exports[`R.composeK(chain_boolean_to_chain_number) 1`] = `"(v1: Chain<boolean>) => Chain<number>"`;
 
-exports[`R_composeK(chain_boolean_to_chain_number, chain_string_to_chain_boolean) 1`] = `"(v1: Chain<string>) => Chain<number>"`;
+exports[`R.composeK(chain_boolean_to_chain_number, chain_string_to_chain_boolean) 1`] = `"(v1: Chain<string>) => Chain<number>"`;

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_endsWith(boolean_array) 1`] = `"(list: boolean[]) => boolean"`;
+exports[`R.endsWith(boolean_array) 1`] = `"(list: boolean[]) => boolean"`;
 
-exports[`R_endsWith(boolean_array, boolean_array) 1`] = `"boolean"`;
+exports[`R.endsWith(boolean_array, boolean_array) 1`] = `"boolean"`;
 
-exports[`R_endsWith(string) 1`] = `"(list: string) => boolean"`;
+exports[`R.endsWith(string) 1`] = `"(list: string) => boolean"`;
 
-exports[`R_endsWith(string, string) 1`] = `"boolean"`;
+exports[`R.endsWith(string, string) 1`] = `"boolean"`;

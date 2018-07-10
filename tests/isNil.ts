@@ -1,9 +1,9 @@
-import R_isNil = require('../ramda/dist/src/isNil');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_isNil;
+R.isNil;
 
 // @dts-jest:pass:snap
-R_isNil(string);
+R.isNil(string);

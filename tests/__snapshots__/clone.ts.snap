@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_clone(number) 1`] = `"number"`;
+exports[`R.clone(number) 1`] = `"number"`;
 
-exports[`R_clone(string_list) 1`] = `"List<string>"`;
+exports[`R.clone(string_list) 1`] = `"string[] | ArrayLike<string>"`;

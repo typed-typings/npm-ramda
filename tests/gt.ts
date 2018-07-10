@@ -1,11 +1,11 @@
-import R_gt = require('../ramda/dist/src/gt');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_gt(string);
+R.gt(string);
 // @dts-jest:pass:snap
-R_gt(string, string);
+R.gt(string, string);
 // @dts-jest:pass:snap
-R_gt(number, number);
+R.gt(number, number);

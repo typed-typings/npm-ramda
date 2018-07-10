@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_clamp(number)(number) 1`] = `"(value: number) => number"`;
+exports[`R.clamp(number)(number) 1`] = `"(value: number) => number"`;
 
-exports[`R_clamp(number, number) 1`] = `"(value: number) => number"`;
+exports[`R.clamp(number, number) 1`] = `"(value: number) => number"`;
 
-exports[`R_clamp(number, number, number) 1`] = `"number"`;
+exports[`R.clamp(number, number, number) 1`] = `"number"`;

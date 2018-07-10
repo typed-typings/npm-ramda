@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_omit(['a', 'b'])({ a: 1, b: 2, c: 3 }) 1`] = `"Pick<{ a: number; b: number; c: number; }, \\"c\\">"`;
+exports[`R.omit(['a', 'b'])({ a: 1, b: 2, c: 3 }) 1`] = `"Pick<{ a: number; b: number; c: number; }, \\"c\\">"`;
 
-exports[`R_omit(['a', 'b'], { a: 1, b: 2, c: 3 }) 1`] = `"Pick<{ a: number; b: number; c: number; }, \\"c\\">"`;
+exports[`R.omit(['a', 'b'], { a: 1, b: 2, c: 3 }) 1`] = `"Pick<{ a: number; b: number; c: number; }, \\"c\\">"`;
 
-exports[`R_omit([string])(object) 1`] = `"Pick<object, never>"`;
+exports[`R.omit([string])(object) 1`] = `"Pick<object, never>"`;
 
-exports[`R_omit([string])(object) 2`] = `"Pick<object, never>"`;
+exports[`R.omit([string])(object) 2`] = `"Pick<object, never>"`;
 
-exports[`R_omit([string], object) 1`] = `"Pick<object, never>"`;
+exports[`R.omit([string], object) 1`] = `"Pick<object, never>"`;
 
-exports[`R_omit([string], object) 2`] = `"Pick<object, never>"`;
+exports[`R.omit([string], object) 2`] = `"Pick<object, never>"`;

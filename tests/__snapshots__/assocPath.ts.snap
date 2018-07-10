@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_assocPath(path)(number_value)(object) 1`] = `"object"`;
+exports[`R.assocPath(path)(number_value)(object) 1`] = `"object"`;
 
-exports[`R_assocPath(path, number_value, object) 1`] = `"object"`;
+exports[`R.assocPath(path, number_value, object) 1`] = `"object"`;

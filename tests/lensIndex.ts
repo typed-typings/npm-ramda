@@ -1,8 +1,8 @@
-import R_lensIndex = require('../ramda/dist/src/lensIndex');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_lensIndex(0);
+R.lensIndex(0);
 // @dts-jest:pass:snap
-R_lensIndex(number);
+R.lensIndex(number);

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_dissocPath(path)(a_b_c_d_e) 1`] = `"{ a?: DeepPartial | undefined; }"`;
+exports[`R.dissocPath(path)(a_b_c_d_e) 1`] = `"{ a?: DeepPartial | undefined; }"`;
 
-exports[`R_dissocPath(path)(object) 1`] = `"object"`;
+exports[`R.dissocPath(path)(object) 1`] = `"object"`;
 
-exports[`R_dissocPath(path, a_b_c_d_e) 1`] = `"{ a?: DeepPartial | undefined; }"`;
+exports[`R.dissocPath(path, a_b_c_d_e) 1`] = `"{ a?: DeepPartial | undefined; }"`;
 
-exports[`R_dissocPath(path, object) 1`] = `"object"`;
+exports[`R.dissocPath(path, object) 1`] = `"object"`;

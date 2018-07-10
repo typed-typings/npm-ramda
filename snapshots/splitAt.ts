@@ -1,16 +1,15 @@
-import { List } from '../ramda/dist/src/$types';
-import R_splitAt = require('../ramda/dist/src/splitAt');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const string: string;
-declare const object_list: List<object>;
+declare const object_list: R.List<object>;
 
 // @dts-jest:pass:snap -> [string, string]
-R_splitAt(number)(string);
+R.splitAt(number)(string);
 // @dts-jest:pass:snap -> [string, string]
-R_splitAt(number, string);
+R.splitAt(number, string);
 
 // @dts-jest:pass:snap -> [object[], object[]]
-R_splitAt(number)(object_list);
+R.splitAt(number)(object_list);
 // @dts-jest:pass:snap -> [object[], object[]]
-R_splitAt(number, object_list);
+R.splitAt(number, object_list);

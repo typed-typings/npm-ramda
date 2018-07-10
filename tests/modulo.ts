@@ -1,8 +1,8 @@
-import R_modulo = require('../ramda/dist/src/modulo');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_modulo(number, number);
+R.modulo(number, number);
 // @dts-jest:pass:snap
-R_modulo(number)(number);
+R.modulo(number)(number);

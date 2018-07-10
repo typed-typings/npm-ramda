@@ -1,6 +1,6 @@
-import R_of = require('../ramda/dist/src/of');
+import * as R from '../ramda/dist/index';
 
 declare const object: object;
 
 // @dts-jest:pass:snap -> object[]
-R_of(object);
+R.of(object);

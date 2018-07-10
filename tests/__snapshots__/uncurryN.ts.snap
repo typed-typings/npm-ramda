@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_uncurryN(0, string_to_object) 1`] = `"() => any"`;
+exports[`R.uncurryN(0, string_to_object) 1`] = `"() => any"`;
 
-exports[`R_uncurryN(1, number_boolean_to_string) 1`] = `"CurriedFunction1<any, any>"`;
+exports[`R.uncurryN(1, number_boolean_to_string) 1`] = `"CurriedFunction1<any, any>"`;
 
-exports[`R_uncurryN(4, number_args_to_boolean) 1`] = `"CurriedFunction4<any, any, any, any, any>"`;
+exports[`R.uncurryN(4, number_args_to_boolean) 1`] = `"CurriedFunction4<any, any, any, any, any>"`;
 
-exports[`R_uncurryN(7, seven_string_to_number) 1`] = `"(...args: any[]) => any"`;
+exports[`R.uncurryN(7, seven_string_to_number) 1`] = `"(...args: any[]) => any"`;
 
-exports[`R_uncurryN<boolean, number, number>(4, number_args_to_boolean) 1`] = `"CurriedFunction4<number, number, any, any, boolean>"`;
+exports[`R.uncurryN<boolean, number, number>(4, number_args_to_boolean) 1`] = `"CurriedFunction4<number, number, any, any, boolean>"`;
 
-exports[`R_uncurryN<number>(7, seven_string_to_number) 1`] = `"(...args: any[]) => number"`;
+exports[`R.uncurryN<number>(7, seven_string_to_number) 1`] = `"(...args: any[]) => number"`;
 
-exports[`R_uncurryN<object>(0, string_to_object) 1`] = `"() => object"`;
+exports[`R.uncurryN<object>(0, string_to_object) 1`] = `"() => object"`;
 
-exports[`R_uncurryN<string, number>(1, number_boolean_to_string) 1`] = `"CurriedFunction1<number, string>"`;
+exports[`R.uncurryN<string, number>(1, number_boolean_to_string) 1`] = `"CurriedFunction1<number, string>"`;

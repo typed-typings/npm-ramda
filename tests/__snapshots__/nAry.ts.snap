@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_nAry(1, object_variadic) 1`] = `"(v1: any) => object"`;
+exports[`R.nAry(1, object_variadic) 1`] = `"(v1: any) => object"`;
 
-exports[`R_nAry(1, string_number_symbol_to_boolean) 1`] = `"(v1: string) => boolean"`;
+exports[`R.nAry(1, string_number_symbol_to_boolean) 1`] = `"(v1: string) => boolean"`;
 
-exports[`R_nAry(number, object_variadic) 1`] = `"Variadic<object>"`;
+exports[`R.nAry(number, object_variadic) 1`] = `"(...args: any[]) => object"`;
 
-exports[`R_nAry(number, string_number_symbol_to_boolean) 1`] = `"Variadic<boolean>"`;
+exports[`R.nAry(number, string_number_symbol_to_boolean) 1`] = `"(...args: any[]) => boolean"`;

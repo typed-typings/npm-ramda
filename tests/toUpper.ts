@@ -1,6 +1,6 @@
-import R_toUpper = require('../ramda/dist/src/toUpper');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_toUpper(string);
+R.toUpper(string);

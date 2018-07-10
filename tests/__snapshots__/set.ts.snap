@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_set(menual_lens_number_object)(number)(object) 1`] = `"object"`;
+exports[`R.set(menual_lens_number_object)(number)(object) 1`] = `"object"`;
 
-exports[`R_set(menual_lens_number_object, number) 1`] = `"(target: object) => object"`;
+exports[`R.set(menual_lens_number_object, number) 1`] = `"(target: object) => object"`;
 
-exports[`R_set(menual_lens_number_object, number, object) 1`] = `"object"`;
+exports[`R.set(menual_lens_number_object, number, object) 1`] = `"object"`;
 
-exports[`R_set(pseudo_lens_1)(number)(number_array) 1`] = `"{}"`;
+exports[`R.set(pseudo_lens_1)(number)(number_array) 1`] = `"{}"`;
 
-exports[`R_set(pseudo_lens_1)(number)(string_number_tuple) 1`] = `"{}"`;
+exports[`R.set(pseudo_lens_1)(number)(string_number_tuple) 1`] = `"{}"`;
 
-exports[`R_set(pseudo_lens_1, number) 1`] = `"(target: {}) => {}"`;
+exports[`R.set(pseudo_lens_1, number) 1`] = `"(target: {}) => {}"`;
 
-exports[`R_set(pseudo_lens_1, number, number_array) 1`] = `"number[]"`;
+exports[`R.set(pseudo_lens_1, number, number_array) 1`] = `"number[]"`;
 
-exports[`R_set(pseudo_lens_1, number, string_number_tuple) 1`] = `"[string, number]"`;
+exports[`R.set(pseudo_lens_1, number, string_number_tuple) 1`] = `"[string, number]"`;
 
-exports[`R_set(pseudo_lens_a)(number)(a_1_b_2_c_3) 1`] = `"Record<\\"a\\", any>"`;
+exports[`R.set(pseudo_lens_a)(number)(a_1_b_2_c_3) 1`] = `"Record<\\"a\\", any>"`;
 
-exports[`R_set(pseudo_lens_a, number) 1`] = `"(target: Record<\\"a\\", any>) => Record<\\"a\\", any>"`;
+exports[`R.set(pseudo_lens_a, number) 1`] = `"(target: Record<\\"a\\", any>) => Record<\\"a\\", any>"`;
 
-exports[`R_set(pseudo_lens_a, number, a_1_b_2_c_3) 1`] = `"{ a: 1; b: 2; c: 3; }"`;
+exports[`R.set(pseudo_lens_a, number, a_1_b_2_c_3) 1`] = `"{ a: 1; b: 2; c: 3; }"`;

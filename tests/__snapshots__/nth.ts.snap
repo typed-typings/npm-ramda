@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_nth(number)(object_array) 1`] = `"object | undefined"`;
+exports[`R.nth(number)(object_array) 1`] = `"object | undefined"`;
 
-exports[`R_nth(number)(string) 1`] = `"string"`;
+exports[`R.nth(number)(string) 1`] = `"string"`;
 
-exports[`R_nth(number, object_array) 1`] = `"object | undefined"`;
+exports[`R.nth(number, object_array) 1`] = `"object | undefined"`;
 
-exports[`R_nth(number, string) 1`] = `"string"`;
+exports[`R.nth(number, string) 1`] = `"string"`;

@@ -1,11 +1,11 @@
-import R_lastIndexOf = require('../ramda/dist/src/lastIndexOf');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_lastIndexOf(string);
+R.lastIndexOf(string);
 // @dts-jest:pass:snap
-R_lastIndexOf(string, string);
+R.lastIndexOf(string, string);
 // @dts-jest:pass:snap
-R_lastIndexOf(string, string_array);
+R.lastIndexOf(string, string_array);

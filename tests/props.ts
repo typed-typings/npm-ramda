@@ -1,18 +1,16 @@
-import { Placeholder } from '../ramda/dist/src/$placeholder';
-import R_props = require('../ramda/dist/src/props');
+import * as R from '../ramda/dist/index';
 
-declare const placeholder: Placeholder;
 declare const a_b_c_number_record: Record<'a' | 'b' | 'c', number>;
 
 // @dts-jest:pass:snap
-R_props(['a', 'b']);
+R.props(['a', 'b']);
 // @dts-jest:pass:snap
-R_props(['a', 'b'])(a_b_c_number_record);
+R.props(['a', 'b'])(a_b_c_number_record);
 
 // @dts-jest:pass:snap
-R_props(['a', 'b'], a_b_c_number_record);
+R.props(['a', 'b'], a_b_c_number_record);
 
 // @dts-jest:pass:snap
-R_props(placeholder, a_b_c_number_record);
+R.props(R.__, a_b_c_number_record);
 // @dts-jest:pass:snap
-R_props(placeholder, a_b_c_number_record)(['a', 'b']);
+R.props(R.__, a_b_c_number_record)(['a', 'b']);

@@ -1,6 +1,6 @@
-import R_trim = require('../ramda/dist/src/trim');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_trim(string);
+R.trim(string);

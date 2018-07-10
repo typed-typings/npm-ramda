@@ -1,9 +1,9 @@
-import R_tap = require('../ramda/dist/src/tap');
+import * as R from '../ramda/dist/index';
 
 declare const string_to_void: (x: string) => void;
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_tap(string_to_void);
+R.tap(string_to_void);
 // @dts-jest:pass:snap
-R_tap(string_to_void, string);
+R.tap(string_to_void, string);

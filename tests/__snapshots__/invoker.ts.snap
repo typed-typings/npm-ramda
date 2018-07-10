@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_invoker(0) 1`] = `"<N extends string, V extends Record<N, Function>, R>(method: N) => CurriedFunction1<V, R>"`;
+exports[`R.invoker(0) 1`] = `"<N extends string, V extends Record<N, Function>, R>(method: N) => CurriedFunction1<V, R>"`;
 
-exports[`R_invoker(1) 1`] = `"<N extends string, V extends Record<N, Function>, T1, R>(method: N) => CurriedFunction2<T1, V, R>"`;
+exports[`R.invoker(1) 1`] = `"<N extends string, V extends Record<N, Function>, T1, R>(method: N) => CurriedFunction2<T1, V, R>"`;
 
-exports[`R_invoker(2) 1`] = `"<N extends string, V extends Record<N, Function>, T1, T2, R>(method: N) => CurriedFunction3<T1, T2, V, R>"`;
+exports[`R.invoker(2) 1`] = `"<N extends string, V extends Record<N, Function>, T1, T2, R>(method: N) => CurriedFunction3<T1, T2, V, R>"`;
 
-exports[`R_invoker(5) 1`] = `"<N extends string, V extends Record<N, Function>, T1, T2, T3, T4, T5, R>(method: N) => CurriedFunction6<T1, T2, T3, T4, T5, V, R>"`;
+exports[`R.invoker(5) 1`] = `"<N extends string, V extends Record<N, Function>, T1, T2, T3, T4, T5, R>(method: N) => CurriedFunction6<T1, T2, T3, T4, T5, V, R>"`;
 
-exports[`R_invoker(6) 1`] = `"<N extends string, R>(method: N) => (...args: any[]) => R"`;
+exports[`R.invoker(6) 1`] = `"<N extends string, R>(method: N) => (...args: any[]) => R"`;
 
-exports[`R_invoker(7) 1`] = `"<N extends string, R>(method: N) => (...args: any[]) => R"`;
+exports[`R.invoker(7) 1`] = `"<N extends string, R>(method: N) => (...args: any[]) => R"`;

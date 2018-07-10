@@ -1,10 +1,10 @@
-import R_dropLast = require('../ramda/dist/src/dropLast');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const string: string;
 declare const boolean_array: boolean[];
 
 // @dts-jest:pass:snap
-R_dropLast(number, string);
+R.dropLast(number, string);
 // @dts-jest:pass:snap
-R_dropLast(number, boolean_array);
+R.dropLast(number, boolean_array);

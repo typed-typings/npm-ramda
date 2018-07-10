@@ -1,15 +1,15 @@
-import R_equals = require('../ramda/dist/src/equals');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_equals(string);
+R.equals(string);
 // @dts-jest:pass:snap
-R_equals(string)(string);
+R.equals(string)(string);
 // @dts-jest:pass:snap
-R_equals(string, string);
+R.equals(string, string);
 
 // @dts-jest:pass:snap
-R_equals(undefined);
+R.equals(undefined);
 // @dts-jest:pass:snap
-R_equals(null);
+R.equals(null);
