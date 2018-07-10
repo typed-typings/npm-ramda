@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.takeWhile(string_to_boolean) 1`] = `"(list: string[] | ArrayLike<string>) => string[]"`;
+exports[`R.takeWhile(string_to_boolean) 1`] = `"(list: R.List<string>) => string[]"`;
 
 exports[`R.takeWhile(string_to_boolean, string_array) 1`] = `"string[]"`;

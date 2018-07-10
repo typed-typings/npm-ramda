@@ -15,7 +15,7 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass:snap -> (object: Dictionary<any>) => boolean
+// @dts-jest:pass:snap -> (object: R.Dictionary<any>) => boolean
 R.where(a_b_c_number_to_boolean);
 
 // @dts-jest:pass:snap -> boolean
@@ -28,7 +28,7 @@ R.where(a_b_c_number_to_boolean)(number_dictionary);
 // @dts-jest:pass:snap -> boolean
 R.where(a_b_c_number_to_boolean, number_dictionary);
 
-// @dts-jest:pass:snap -> (object: Dictionary<any>) => boolean
+// @dts-jest:pass:snap -> (object: R.Dictionary<any>) => boolean
 R.where(dictionary_of_number_to_boolean);
 
 // @dts-jest:pass:snap -> boolean

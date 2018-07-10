@@ -2,4 +2,4 @@
 
 exports[`R.allPass([string_predicate, string_number_preficate]) 1`] = `"(x: string, y: number) => boolean"`;
 
-exports[`R.allPass([string_predicate, string_predicate]) 1`] = `"(value: string) => boolean"`;
+exports[`R.allPass([string_predicate, string_predicate]) 1`] = `"R.Morphism<string, boolean>"`;

@@ -9,7 +9,7 @@ R.dissocPath(path, object);
 // @dts-jest:pass:snap -> object
 R.dissocPath(path)(object);
 
-// @dts-jest:pass:snap -> { a?: DeepPartial | undefined; }
+// @dts-jest:pass:snap -> R.DeepPartial<{ a: { b: { c: { d: { e: number; }; }; }; }; }>
 R.dissocPath(path, a_b_c_d_e);
-// @dts-jest:pass:snap -> { a?: DeepPartial | undefined; }
+// @dts-jest:pass:snap -> R.DeepPartial<{ a: { b: { c: { d: { e: number; }; }; }; }; }>
 R.dissocPath(path)(a_b_c_d_e);

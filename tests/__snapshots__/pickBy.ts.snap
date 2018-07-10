@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.pickBy(number_string_object_to_boolean)(a_1_b_2_c_3) 1`] = `"Partial<Dictionary<number>>"`;
+exports[`R.pickBy(number_string_object_to_boolean)(a_1_b_2_c_3) 1`] = `"Partial<R.Dictionary<number>>"`;
 
-exports[`R.pickBy(number_string_object_to_boolean)(string_number_record) 1`] = `"Partial<Dictionary<number>>"`;
+exports[`R.pickBy(number_string_object_to_boolean)(string_number_record) 1`] = `"Partial<R.Dictionary<number>>"`;
 
 exports[`R.pickBy(number_string_object_to_boolean, a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
 

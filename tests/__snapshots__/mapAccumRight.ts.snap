@@ -2,6 +2,6 @@
 
 exports[`R.mapAccumRight(string_number_to_string_number_tuple)(number)(string_array) 1`] = `"[string[], number]"`;
 
-exports[`R.mapAccumRight(string_number_to_string_number_tuple, number) 1`] = `"(list: string[] | ArrayLike<string>) => [string[], number]"`;
+exports[`R.mapAccumRight(string_number_to_string_number_tuple, number) 1`] = `"(list: R.List<string>) => [string[], number]"`;
 
 exports[`R.mapAccumRight(string_number_to_string_number_tuple, number, string_array) 1`] = `"[string[], number]"`;

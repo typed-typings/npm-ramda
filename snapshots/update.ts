@@ -5,7 +5,7 @@ declare const boolean: boolean;
 declare const string: string;
 declare const number: number;
 
-// @dts-jest:pass:snap -> <U>(list: U[] | ArrayLike<U>) => (boolean | U)[]
+// @dts-jest:pass:snap -> <U>(list: R.List<U>) => (boolean | U)[]
 R.update(number, boolean);
 // @dts-jest:pass:snap -> (string | boolean)[]
 R.update(number)(boolean)(string_array);

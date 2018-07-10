@@ -13,20 +13,20 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass:snap -> () => any
+// @dts-jest:pass:snap -> R.CurriedFunction0<any>
 R.uncurryN(0, string_to_object);
-// @dts-jest:pass:snap -> CurriedFunction1<any, any>
+// @dts-jest:pass:snap -> R.CurriedFunction1<any, any>
 R.uncurryN(1, number_boolean_to_string);
-// @dts-jest:pass:snap -> CurriedFunction4<any, any, any, any, any>
+// @dts-jest:pass:snap -> R.CurriedFunction4<any, any, any, any, any>
 R.uncurryN(4, number_args_to_boolean);
-// @dts-jest:pass:snap -> (...args: any[]) => any
+// @dts-jest:pass:snap -> R.Variadic<any>
 R.uncurryN(7, seven_string_to_number);
 
-// @dts-jest:pass:snap -> () => object
+// @dts-jest:pass:snap -> R.CurriedFunction0<object>
 R.uncurryN<object>(0, string_to_object);
-// @dts-jest:pass:snap -> CurriedFunction1<number, string>
+// @dts-jest:pass:snap -> R.CurriedFunction1<number, string>
 R.uncurryN<string, number>(1, number_boolean_to_string);
-// @dts-jest:pass:snap -> CurriedFunction4<number, number, any, any, boolean>
+// @dts-jest:pass:snap -> R.CurriedFunction4<number, number, any, any, boolean>
 R.uncurryN<boolean, number, number>(4, number_args_to_boolean);
-// @dts-jest:pass:snap -> (...args: any[]) => number
+// @dts-jest:pass:snap -> R.Variadic<number>
 R.uncurryN<number>(7, seven_string_to_number);

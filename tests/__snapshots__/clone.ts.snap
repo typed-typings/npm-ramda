@@ -2,4 +2,4 @@
 
 exports[`R.clone(number) 1`] = `"number"`;
 
-exports[`R.clone(string_list) 1`] = `"string[] | ArrayLike<string>"`;
+exports[`R.clone(string_list) 1`] = `"R.List<string>"`;

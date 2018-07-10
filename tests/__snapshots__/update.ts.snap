@@ -4,7 +4,7 @@ exports[`R.update(number)(boolean)(string_array) 1`] = `"(string | boolean)[]"`;
 
 exports[`R.update(number)(string)(string_array) 1`] = `"string[]"`;
 
-exports[`R.update(number, boolean) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (boolean | U)[]"`;
+exports[`R.update(number, boolean) 1`] = `"<U>(list: R.List<U>) => (boolean | U)[]"`;
 
 exports[`R.update(number, boolean, string_array) 1`] = `"(string | boolean)[]"`;
 

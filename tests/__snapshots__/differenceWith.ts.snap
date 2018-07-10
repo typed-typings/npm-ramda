@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.differenceWith(number_number_to_boolean, number_array) 1`] = `"(b: number[] | ArrayLike<number>) => number[]"`;
+exports[`R.differenceWith(number_number_to_boolean, number_array) 1`] = `"(b: R.List<number>) => number[]"`;
 
 exports[`R.differenceWith(number_number_to_boolean, number_array, number_array) 1`] = `"number[]"`;

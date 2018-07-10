@@ -7,7 +7,7 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass:snap -> any[]
+// @dts-jest:pass:snap -> never[]
 R.values(object);
 // @dts-jest:pass:snap -> (1 | 2 | 3)[]
 R.values(a_1_b_2_c_3);

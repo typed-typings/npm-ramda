@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.sequence(any_applicative.of, [any_applicative]) 1`] = `"Applicative<{}[]>"`;
+exports[`R.sequence(any_applicative.of, [any_applicative]) 1`] = `"R.Applicative<{}[]>"`;
 
-exports[`R.sequence(any_applicative.of, any_applicative_traverable) 1`] = `"Applicative<Traversable<{}>>"`;
+exports[`R.sequence(any_applicative.of, any_applicative_traverable) 1`] = `"R.Applicative<R.Traversable<{}>>"`;
 
-exports[`R.sequence(number_applicative.of, [number_applicative]) 1`] = `"Applicative<{}[]>"`;
+exports[`R.sequence(number_applicative.of, [number_applicative]) 1`] = `"R.Applicative<{}[]>"`;
 
-exports[`R.sequence(number_applicative.of, any_applicative_traverable) 1`] = `"Applicative<Traversable<{}>>"`;
+exports[`R.sequence(number_applicative.of, any_applicative_traverable) 1`] = `"R.Applicative<R.Traversable<{}>>"`;
 
-exports[`R.sequence<number>(any_applicative.of, [any_applicative]) 1`] = `"Applicative<number[]>"`;
+exports[`R.sequence<number>(any_applicative.of, [any_applicative]) 1`] = `"R.Applicative<number[]>"`;
 
-exports[`R.sequence<number>(any_applicative.of, any_applicative_traverable) 1`] = `"Applicative<Traversable<number>>"`;
+exports[`R.sequence<number>(any_applicative.of, any_applicative_traverable) 1`] = `"R.Applicative<R.Traversable<number>>"`;

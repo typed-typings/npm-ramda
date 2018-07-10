@@ -13,11 +13,11 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass:snap -> () => object[]
+// @dts-jest:pass:snap -> R.CurriedFunction0<object[]>
 R.liftN(0, string_to_object);
-// @dts-jest:pass:snap -> CurriedFunction1<number[] | ArrayLike<number>, string[]>
+// @dts-jest:pass:snap -> R.CurriedFunction1<R.List<number>, string[]>
 R.liftN(1, number_boolean_to_string);
-// @dts-jest:pass:snap -> CurriedFunction4<number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, boolean[]>
+// @dts-jest:pass:snap -> R.CurriedFunction4<R.List<number>, R.List<number>, R.List<number>, R.List<number>, boolean[]>
 R.liftN(4, number_args_to_boolean);
-// @dts-jest:pass:snap -> (...args: any[]) => number[]
+// @dts-jest:pass:snap -> R.Variadic<number[]>
 R.liftN(7, seven_string_to_number);

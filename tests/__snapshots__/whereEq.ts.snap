@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.whereEq(number_dictionary) 1`] = `"(object: Dictionary<number>) => boolean"`;
+exports[`R.whereEq(number_dictionary) 1`] = `"(object: R.Dictionary<number>) => boolean"`;
 
 exports[`R.whereEq(number_dictionary)(a_1_b_2_c_3) 1`] = `"boolean"`;
 

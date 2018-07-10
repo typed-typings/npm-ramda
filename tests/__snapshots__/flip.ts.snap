@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.flip(number_args_to_boolean) 1`] = `"CurriedFunction2<number, number, boolean>"`;
+exports[`R.flip(number_args_to_boolean) 1`] = `"R.CurriedFunction2<number, number, boolean>"`;
 
-exports[`R.flip(number_boolean_to_string) 1`] = `"CurriedFunction2<boolean, number, string>"`;
+exports[`R.flip(number_boolean_to_string) 1`] = `"R.CurriedFunction2<boolean, number, string>"`;
 
 exports[`R.flip(seven_string_to_number) 1`] = `"(v2: string, v1: string, ...args: any[]) => number"`;
 
-exports[`R.flip(string_number_to_object) 1`] = `"CurriedFunction2<number, string, object>"`;
+exports[`R.flip(string_number_to_object) 1`] = `"R.CurriedFunction2<number, string, object>"`;

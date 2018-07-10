@@ -2,6 +2,6 @@
 
 exports[`R.innerJoin(object_number_to_boolean)(object_array)(number_array) 1`] = `"object[]"`;
 
-exports[`R.innerJoin(object_number_to_boolean, object_array) 1`] = `"(ys: number[] | ArrayLike<number>) => object[]"`;
+exports[`R.innerJoin(object_number_to_boolean, object_array) 1`] = `"(ys: R.List<number>) => object[]"`;
 
 exports[`R.innerJoin(object_number_to_boolean, object_array, number_array) 1`] = `"object[]"`;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.lastIndexOf(string) 1`] = `"(list: string[] | ArrayLike<string>) => number"`;
+exports[`R.lastIndexOf(string) 1`] = `"(list: R.List<string>) => number"`;
 
 exports[`R.lastIndexOf(string, string) 1`] = `"number"`;
 

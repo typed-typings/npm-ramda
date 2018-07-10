@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.findLastIndex(string_predicate) 1`] = `"(list: string[] | ArrayLike<string>) => number"`;
+exports[`R.findLastIndex(string_predicate) 1`] = `"(list: R.List<string>) => number"`;
 
 exports[`R.findLastIndex(string_predicate)(string_array) 1`] = `"number"`;
 

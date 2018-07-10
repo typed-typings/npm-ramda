@@ -2,6 +2,6 @@
 
 exports[`R.zipWith(number_string_to_object)(number_array)(string_array) 1`] = `"object[]"`;
 
-exports[`R.zipWith(number_string_to_object, number_array) 1`] = `"(b: string[] | ArrayLike<string>) => object[]"`;
+exports[`R.zipWith(number_string_to_object, number_array) 1`] = `"(b: R.List<string>) => object[]"`;
 
 exports[`R.zipWith(number_string_to_object, number_array, string_array) 1`] = `"object[]"`;

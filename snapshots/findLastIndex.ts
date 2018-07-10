@@ -3,7 +3,7 @@ import * as R from '../ramda/dist/index';
 declare const string_predicate: R.Predicate<string>;
 declare const string_array: string[];
 
-// @dts-jest:pass:snap -> (list: string[] | ArrayLike<string>) => number
+// @dts-jest:pass:snap -> (list: R.List<string>) => number
 R.findLastIndex(string_predicate);
 // @dts-jest:pass:snap -> number
 R.findLastIndex(string_predicate)(string_array);

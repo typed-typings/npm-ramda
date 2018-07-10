@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.project(['a']) 1`] = `"<T extends Record<\\"a\\", any>>(list: T[] | ArrayLike<T>) => Pick<T, \\"a\\">[]"`;
+exports[`R.project(['a']) 1`] = `"<T extends Record<\\"a\\", any>>(list: R.List<T>) => Pick<T, \\"a\\">[]"`;
 
 exports[`R.project(['a'])([a_b_number_record, a_b_number_record]) 1`] = `"Pick<Record<\\"a\\" | \\"b\\", number>, \\"a\\">[]"`;
 
 exports[`R.project(['a'], [a_b_number_record, a_b_number_record]) 1`] = `"Pick<Record<\\"a\\" | \\"b\\", number>, \\"a\\">[]"`;
 
-exports[`R.project(R.__, [a_b_number_record, a_b_number_record]) 1`] = `"<K extends \\"a\\" | \\"b\\">(keys: K[] | ArrayLike<K>) => Pick<Record<\\"a\\" | \\"b\\", number>, K>[]"`;
+exports[`R.project(R.__, [a_b_number_record, a_b_number_record]) 1`] = `"<K extends \\"a\\" | \\"b\\">(keys: R.List<K>) => Pick<Record<\\"a\\" | \\"b\\", number>, K>[]"`;
 
 exports[`R.project(R.__, [a_b_number_record, a_b_number_record])(['a']) 1`] = `"Pick<Record<\\"a\\" | \\"b\\", number>, \\"a\\">[]"`;

@@ -7,7 +7,7 @@ declare const string_number_to_string_number_tuple: (
 ) => [string, number];
 declare const string_array: string[];
 
-// @dts-jest:pass:snap -> (list: string[] | ArrayLike<string>) => [string[], number]
+// @dts-jest:pass:snap -> (list: R.List<string>) => [string[], number]
 R.mapAccumRight(string_number_to_string_number_tuple, number);
 // @dts-jest:pass:snap -> [string[], number]
 R.mapAccumRight(string_number_to_string_number_tuple)(number)(string_array);

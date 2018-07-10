@@ -10,12 +10,12 @@ R.reject(string_predicate, string_array);
 // @dts-jest:pass:snap -> string[]
 R.reject(string_predicate)(string_array);
 
-// @dts-jest:pass:snap -> Partial<Dictionary<string>>
+// @dts-jest:pass:snap -> Partial<R.Dictionary<string>>
 R.reject(string_predicate, string_dictionary);
-// @dts-jest:pass:snap -> Partial<Dictionary<string>>
+// @dts-jest:pass:snap -> Partial<R.Dictionary<string>>
 R.reject(string_predicate)(string_dictionary);
 
-// @dts-jest:pass:snap -> Filterable<string>
+// @dts-jest:pass:snap -> R.Filterable<string>
 R.reject(string_predicate, string_filterable);
-// @dts-jest:pass:snap -> Filterable<string>
+// @dts-jest:pass:snap -> R.Filterable<string>
 R.reject(string_predicate)(string_filterable);

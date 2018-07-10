@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.lensProp('x') 1`] = `"PseudoLens<\\"x\\">"`;
+exports[`R.lensProp('x') 1`] = `"R.PseudoLens<\\"x\\">"`;
 
-exports[`R.lensProp(1) 1`] = `"PseudoLens<1>"`;
+exports[`R.lensProp(1) 1`] = `"R.PseudoLens<1>"`;
 
-exports[`R.lensProp(property) 1`] = `"ManualLens<{}, {}>"`;
+exports[`R.lensProp(property) 1`] = `"R.ManualLens<{}, {}>"`;
 
-exports[`R.lensProp<number, object>(property) 1`] = `"ManualLens<number, object>"`;
+exports[`R.lensProp<number, object>(property) 1`] = `"R.ManualLens<number, object>"`;

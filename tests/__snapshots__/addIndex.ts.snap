@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.addIndex(string_to_number_list_mapper) 1`] = `"CurriedFunction2<(v1: string, index: number, target: string[] | ArrayLike<string>) => number, string[] | ArrayLike<string>, number[]>"`;
+exports[`R.addIndex(string_to_number_list_mapper) 1`] = `"R.CurriedFunction2<(v1: string, index: number, target: R.List<string>) => number, R.List<string>, number[]>"`;
 
-exports[`R.addIndex(string_to_number_list_mapper)(string_to_number) 1`] = `"CurriedFunction1<string[] | ArrayLike<string>, number[]>"`;
+exports[`R.addIndex(string_to_number_list_mapper)(string_to_number) 1`] = `"R.CurriedFunction1<R.List<string>, number[]>"`;
 
 exports[`R.addIndex(string_to_number_list_mapper)(string_to_number, string_array) 1`] = `"number[]"`;
 
-exports[`R.addIndex(string_to_number_object_mapper) 1`] = `"CurriedFunction2<(v1: string, index: number, target: Record<string, string>) => number, Record<string, string>, Record<string, number>>"`;
+exports[`R.addIndex(string_to_number_object_mapper) 1`] = `"R.CurriedFunction2<(v1: string, index: number, target: Record<string, string>) => number, Record<string, string>, Record<string, number>>"`;
 
-exports[`R.addIndex(string_to_number_object_mapper)(string_to_number) 1`] = `"CurriedFunction1<Record<string, string>, Record<string, number>>"`;
+exports[`R.addIndex(string_to_number_object_mapper)(string_to_number) 1`] = `"R.CurriedFunction1<Record<string, string>, Record<string, number>>"`;
 
 exports[`R.addIndex(string_to_number_object_mapper)(string_to_number, string_object) 1`] = `"Record<string, number>"`;

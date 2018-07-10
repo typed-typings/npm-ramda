@@ -2,6 +2,6 @@
 
 exports[`R.reduce(object_number_to_object)(object)(number_array) 1`] = `"object"`;
 
-exports[`R.reduce(object_number_to_object, object) 1`] = `"(values: number[] | ArrayLike<number>) => object"`;
+exports[`R.reduce(object_number_to_object, object) 1`] = `"(values: R.List<number>) => object"`;
 
 exports[`R.reduce(object_number_to_object, object, number_array) 1`] = `"object"`;

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.curryN(0, string_to_object) 1`] = `"() => object"`;
+exports[`R.curryN(0, string_to_object) 1`] = `"R.CurriedFunction0<object>"`;
 
-exports[`R.curryN(1, number_boolean_to_string) 1`] = `"CurriedFunction1<number, string>"`;
+exports[`R.curryN(1, number_boolean_to_string) 1`] = `"R.CurriedFunction1<number, string>"`;
 
-exports[`R.curryN(4, number_args_to_boolean) 1`] = `"CurriedFunction4<number, number, number, number, boolean>"`;
+exports[`R.curryN(4, number_args_to_boolean) 1`] = `"R.CurriedFunction4<number, number, number, number, boolean>"`;
 
-exports[`R.curryN(7, seven_string_to_number) 1`] = `"(...args: any[]) => number"`;
+exports[`R.curryN(7, seven_string_to_number) 1`] = `"R.Variadic<number>"`;

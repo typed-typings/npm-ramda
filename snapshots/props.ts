@@ -10,7 +10,7 @@ R.props(['a', 'b'])(a_b_c_number_record);
 // @dts-jest:pass:snap -> number[]
 R.props(['a', 'b'], a_b_c_number_record);
 
-// @dts-jest:pass:snap -> <K extends "a" | "b" | "c">(keys: K[] | ArrayLike<K>) => Record<"a" | "b" | "c", number>[K][]
+// @dts-jest:pass:snap -> <K extends "a" | "b" | "c">(keys: R.List<K>) => Record<"a" | "b" | "c", number>[K][]
 R.props(R.__, a_b_c_number_record);
 // @dts-jest:pass:snap -> number[]
 R.props(R.__, a_b_c_number_record)(['a', 'b']);

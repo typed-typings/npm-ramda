@@ -7,7 +7,7 @@ declare const a_1_b_2_c_3: {
   c: 3;
 };
 
-// @dts-jest:pass:snap -> (object: Dictionary<number>) => boolean
+// @dts-jest:pass:snap -> (object: R.Dictionary<number>) => boolean
 R.whereEq(number_dictionary);
 // @dts-jest:pass:snap -> boolean
 R.whereEq(number_dictionary)(a_1_b_2_c_3);

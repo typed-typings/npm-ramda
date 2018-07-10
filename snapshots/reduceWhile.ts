@@ -5,7 +5,7 @@ declare const object: object;
 declare const object_number_to_object: (acc: object, val: number) => object;
 declare const object_number_to_boolean: (acc: object, val: number) => boolean;
 
-// @dts-jest:pass:snap -> (values: number[] | ArrayLike<number>) => object
+// @dts-jest:pass:snap -> (values: R.List<number>) => object
 R.reduceWhile(object_number_to_boolean, object_number_to_object, object);
 // @dts-jest:pass:snap -> object
 R.reduceWhile(object_number_to_boolean)(object_number_to_object)(object)(

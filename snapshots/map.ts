@@ -15,7 +15,7 @@ R.map(string_to_number, string_object);
 // @dts-jest:pass:snap -> Record<string, number>
 R.map(string_to_number)(string_object);
 
-// @dts-jest:pass:snap -> Functor<number>
+// @dts-jest:pass:snap -> R.Functor<number>
 R.map(string_to_number, string_functor);
-// @dts-jest:pass:snap -> Functor<number>
+// @dts-jest:pass:snap -> R.Functor<number>
 R.map(string_to_number)(string_functor);

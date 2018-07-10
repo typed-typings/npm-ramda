@@ -2,4 +2,4 @@
 
 exports[`R.values(a_1_b_2_c_3) 1`] = `"(1 | 2 | 3)[]"`;
 
-exports[`R.values(object) 1`] = `"any[]"`;
+exports[`R.values(object) 1`] = `"never[]"`;

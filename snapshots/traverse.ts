@@ -7,17 +7,17 @@ declare const number_to_string_applicative: (
   x: number,
 ) => R.Applicative<string>;
 
-// @dts-jest:pass:snap -> Applicative<string[]>
+// @dts-jest:pass:snap -> R.Applicative<string[]>
 R.traverse(number_applicative.of, number_to_string_applicative, number_array);
-// @dts-jest:pass:snap -> Applicative<string[]>
+// @dts-jest:pass:snap -> R.Applicative<string[]>
 R.traverse(number_applicative.of)(number_to_string_applicative)(number_array);
-// @dts-jest:pass:snap -> Applicative<Traversable<string>>
+// @dts-jest:pass:snap -> R.Applicative<R.Traversable<string>>
 R.traverse(
   number_applicative.of,
   number_to_string_applicative,
   number_traverable,
 );
-// @dts-jest:pass:snap -> Applicative<Traversable<string>>
+// @dts-jest:pass:snap -> R.Applicative<R.Traversable<string>>
 R.traverse(number_applicative.of)(number_to_string_applicative)(
   number_traverable,
 );

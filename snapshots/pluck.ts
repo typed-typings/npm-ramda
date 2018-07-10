@@ -8,7 +8,7 @@ declare const x_y_z_with_a_record: {
   z: { a: 'string' };
 };
 
-// @dts-jest:pass:snap -> <V, T extends Record<"a", V>>(list: T[] | ArrayLike<T>) => T["a"][]
+// @dts-jest:pass:snap -> <V, T extends Record<"a", V>>(list: R.List<T>) => T["a"][]
 R.pluck('a');
 // @dts-jest:pass:snap -> number[]
 R.pluck('a')([a_number_record, a_number_record]);

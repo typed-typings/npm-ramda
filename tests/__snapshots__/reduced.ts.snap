@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.reduced(object) 1`] = `"Reduced<object>"`;
+exports[`R.reduced(object) 1`] = `"R.Reduced<object>"`;
 
-exports[`R.reduced(reduced_object) 1`] = `"Reduced<object>"`;
+exports[`R.reduced(reduced_object) 1`] = `"R.Reduced<object>"`;

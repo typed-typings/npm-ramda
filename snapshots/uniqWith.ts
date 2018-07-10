@@ -5,14 +5,14 @@ declare const number_array: number[];
 declare const string_string_to_boolean: (x: string, y: string) => boolean;
 declare const string_array: string[];
 
-// @dts-jest:pass:snap -> (list: number[] | ArrayLike<number>) => number[]
+// @dts-jest:pass:snap -> (list: R.List<number>) => number[]
 R.uniqWith(number_number_to_boolean);
 // @dts-jest:pass:snap -> number[]
 R.uniqWith(number_number_to_boolean)(number_array);
 // @dts-jest:pass:snap -> number[]
 R.uniqWith(number_number_to_boolean, number_array);
 
-// @dts-jest:pass:snap -> (list: string[] | ArrayLike<string>) => string[]
+// @dts-jest:pass:snap -> (list: R.List<string>) => string[]
 R.uniqWith(string_string_to_boolean);
 // @dts-jest:pass:snap -> string[]
 R.uniqWith(string_string_to_boolean)(string_array);

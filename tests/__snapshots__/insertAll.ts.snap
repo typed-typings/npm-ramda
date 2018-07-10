@@ -4,7 +4,7 @@ exports[`R.insertAll(number)(string_array)(object_array) 1`] = `"(string | objec
 
 exports[`R.insertAll(number)(string_array)(string_array) 1`] = `"string[]"`;
 
-exports[`R.insertAll(number, string_array) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (string | U)[]"`;
+exports[`R.insertAll(number, string_array) 1`] = `"<U>(list: R.List<U>) => (string | U)[]"`;
 
 exports[`R.insertAll(number, string_array, object_array) 1`] = `"(string | object)[]"`;
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.zip(number_array) 1`] = `"<U>(b: U[] | ArrayLike<U>) => [number, U][]"`;
+exports[`R.zip(number_array) 1`] = `"<U>(b: R.List<U>) => [number, U][]"`;
 
 exports[`R.zip(number_array)(string_array) 1`] = `"[number, string][]"`;
 

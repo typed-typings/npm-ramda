@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.where(a_b_c_number_to_boolean) 1`] = `"(object: Dictionary<any>) => boolean"`;
+exports[`R.where(a_b_c_number_to_boolean) 1`] = `"(object: R.Dictionary<any>) => boolean"`;
 
 exports[`R.where(a_b_c_number_to_boolean)(a_1_b_2_c_3) 1`] = `"boolean"`;
 
@@ -10,7 +10,7 @@ exports[`R.where(a_b_c_number_to_boolean, a_1_b_2_c_3) 1`] = `"boolean"`;
 
 exports[`R.where(a_b_c_number_to_boolean, number_dictionary) 1`] = `"boolean"`;
 
-exports[`R.where(dictionary_of_number_to_boolean) 1`] = `"(object: Dictionary<any>) => boolean"`;
+exports[`R.where(dictionary_of_number_to_boolean) 1`] = `"(object: R.Dictionary<any>) => boolean"`;
 
 exports[`R.where(dictionary_of_number_to_boolean)(a_1_b_2_c_3) 1`] = `"boolean"`;
 

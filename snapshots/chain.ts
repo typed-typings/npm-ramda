@@ -9,23 +9,23 @@ declare const string_to_number_list_to_object: (
 ) => (list: R.List<number>) => object;
 declare const number_list_to_string: (list: R.List<number>) => string;
 
-// @dts-jest:pass:snap -> (list: number[] | ArrayLike<number>) => string[]
+// @dts-jest:pass:snap -> (list: R.List<number>) => string[]
 R.chain(number_to_string_string_tuple);
 // @dts-jest:pass:snap -> string[]
 R.chain(number_to_string_string_tuple)(number_array);
 // @dts-jest:pass:snap -> string[]
 R.chain(number_to_string_string_tuple, number_array);
 
-// @dts-jest:pass:snap -> (list: Chain<number>) => Chain<string>
+// @dts-jest:pass:snap -> (list: R.Chain<number>) => R.Chain<string>
 R.chain(number_chain_to_string_chain);
-// @dts-jest:pass:snap -> Chain<string>
+// @dts-jest:pass:snap -> R.Chain<string>
 R.chain(number_chain_to_string_chain)(number_chain);
-// @dts-jest:pass:snap -> Chain<string>
+// @dts-jest:pass:snap -> R.Chain<string>
 R.chain(number_chain_to_string_chain, number_chain);
 
-// @dts-jest:pass:snap -> (monad: (value: number[] | ArrayLike<number>) => string) => (value: number[] | ArrayLike<number>) => object
+// @dts-jest:pass:snap -> (monad: R.Morphism<R.List<number>, string>) => R.Morphism<R.List<number>, object>
 R.chain(string_to_number_list_to_object);
-// @dts-jest:pass:snap -> (value: number[] | ArrayLike<number>) => object
+// @dts-jest:pass:snap -> R.Morphism<R.List<number>, object>
 R.chain(string_to_number_list_to_object)(number_list_to_string);
-// @dts-jest:pass:snap -> (value: number[] | ArrayLike<number>) => object
+// @dts-jest:pass:snap -> R.Morphism<R.List<number>, object>
 R.chain(string_to_number_list_to_object, number_list_to_string);

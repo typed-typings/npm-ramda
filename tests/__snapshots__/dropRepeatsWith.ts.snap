@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.dropRepeatsWith(string_to_number) 1`] = `"(list: string[] | ArrayLike<string>) => string[]"`;
+exports[`R.dropRepeatsWith(string_to_number) 1`] = `"(list: R.List<string>) => string[]"`;
 
 exports[`R.dropRepeatsWith(string_to_number)(string_array) 1`] = `"string[]"`;
 

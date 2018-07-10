@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.ifElse(string_to_boolean)(string_to_number)(string_to_object) 1`] = `"(value: string) => number | object"`;
+exports[`R.ifElse(string_to_boolean)(string_to_number)(string_to_object) 1`] = `"R.Morphism<string, number | object>"`;
 
-exports[`R.ifElse(string_to_boolean, string_to_number) 1`] = `"<V>(onFalse: (value: string) => V) => (value: string) => number | V"`;
+exports[`R.ifElse(string_to_boolean, string_to_number) 1`] = `"<V>(onFalse: R.Morphism<string, V>) => R.Morphism<string, number | V>"`;
 
-exports[`R.ifElse(string_to_boolean, string_to_number, string_to_object) 1`] = `"(value: string) => number | object"`;
+exports[`R.ifElse(string_to_boolean, string_to_number, string_to_object) 1`] = `"R.Morphism<string, number | object>"`;

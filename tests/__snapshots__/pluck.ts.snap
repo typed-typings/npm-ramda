@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.pluck('a') 1`] = `"<V, T extends Record<\\"a\\", V>>(list: T[] | ArrayLike<T>) => T[\\"a\\"][]"`;
+exports[`R.pluck('a') 1`] = `"<V, T extends Record<\\"a\\", V>>(list: R.List<T>) => T[\\"a\\"][]"`;
 
 exports[`R.pluck('a')([a_number_record, a_number_record]) 1`] = `"number[]"`;
 
