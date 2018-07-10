@@ -1,1 +1,3 @@
-export function $<T, K extends keyof T>(object: T): K[];
+import { KeyOf } from './$operation';
+
+export function $<T>(object: T): Array<KeyOf<T>>;
