@@ -26,7 +26,9 @@ export interface NumberStringMap {
   [n: number]: string;
 }
 
-export type NumberToString<T extends number> = T extends never ? never : NumberStringMap[T];
+export type NumberToString<T extends number> = T extends never
+  ? never
+  : NumberStringMap[T];
 
 // symbols are un-enumerable even if it's "enumerable"
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties#Detection_Table

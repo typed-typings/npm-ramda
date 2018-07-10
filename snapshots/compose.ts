@@ -22,14 +22,28 @@ R.compose(boolean_to_number);
 R.compose(a_b_c_d_e_f_to_any);
 
 // @dts-jest:pass:snap -> (v1: string) => number
-R.compose(boolean_to_number, string_to_boolean);
+R.compose(
+  boolean_to_number,
+  string_to_boolean,
+);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R.compose(boolean_to_number, a_b_c_d_e_f_to_any);
+R.compose(
+  boolean_to_number,
+  a_b_c_d_e_f_to_any,
+);
 
 // @dts-jest:pass:snap -> (v1: number) => number
-R.compose(boolean_to_number, string_to_boolean, number_to_string);
+R.compose(
+  boolean_to_number,
+  string_to_boolean,
+  number_to_string,
+);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R.compose(boolean_to_number, string_to_boolean, a_b_c_d_e_f_to_any);
+R.compose(
+  boolean_to_number,
+  string_to_boolean,
+  a_b_c_d_e_f_to_any,
+);
 
 // @dts-jest:pass:snap -> (v1: string) => number
 R.compose(

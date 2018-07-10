@@ -22,9 +22,15 @@ R.composeP(boolean_to_number_promise);
 R.composeP(a_b_c_d_e_f_to_any_promise);
 
 // @dts-jest:pass:snap
-R.composeP(boolean_to_number_promise, string_to_boolean_promise);
+R.composeP(
+  boolean_to_number_promise,
+  string_to_boolean_promise,
+);
 // @dts-jest:pass:snap
-R.composeP(boolean_to_number_promise, a_b_c_d_e_f_to_any_promise);
+R.composeP(
+  boolean_to_number_promise,
+  a_b_c_d_e_f_to_any_promise,
+);
 
 // @dts-jest:pass:snap
 R.composeP(

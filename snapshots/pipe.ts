@@ -22,14 +22,28 @@ R.pipe(boolean_to_number);
 R.pipe(a_b_c_d_e_f_to_any);
 
 // @dts-jest:pass:snap -> (v1: string) => number
-R.pipe(string_to_boolean, boolean_to_number);
+R.pipe(
+  string_to_boolean,
+  boolean_to_number,
+);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R.pipe(a_b_c_d_e_f_to_any, boolean_to_number);
+R.pipe(
+  a_b_c_d_e_f_to_any,
+  boolean_to_number,
+);
 
 // @dts-jest:pass:snap -> (v1: number) => number
-R.pipe(number_to_string, string_to_boolean, boolean_to_number);
+R.pipe(
+  number_to_string,
+  string_to_boolean,
+  boolean_to_number,
+);
 // @dts-jest:pass:snap -> (v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number
-R.pipe(a_b_c_d_e_f_to_any, string_to_boolean, boolean_to_number);
+R.pipe(
+  a_b_c_d_e_f_to_any,
+  string_to_boolean,
+  boolean_to_number,
+);
 
 // @dts-jest:pass:snap -> (v1: string) => number
 R.pipe(

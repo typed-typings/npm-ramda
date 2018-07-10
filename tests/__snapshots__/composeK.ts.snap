@@ -30,6 +30,9 @@ exports[`R.composeK(
     chain_number_to_chain_string,
   ) 1`] = `"(v1: R.Chain<number>) => R.Chain<number>"`;
 
-exports[`R.composeK(chain_boolean_to_chain_number) 1`] = `"(v1: R.Chain<boolean>) => R.Chain<number>"`;
+exports[`R.composeK(
+    chain_boolean_to_chain_number,
+    chain_string_to_chain_boolean,
+  ) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;
 
-exports[`R.composeK(chain_boolean_to_chain_number, chain_string_to_chain_boolean) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;
+exports[`R.composeK(chain_boolean_to_chain_number) 1`] = `"(v1: R.Chain<boolean>) => R.Chain<number>"`;

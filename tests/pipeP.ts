@@ -22,9 +22,15 @@ R.pipeP(boolean_to_number_promise);
 R.pipeP(a_b_c_d_e_f_to_any_promise);
 
 // @dts-jest:pass:snap
-R.pipeP(string_to_boolean_promise, boolean_to_number_promise);
+R.pipeP(
+  string_to_boolean_promise,
+  boolean_to_number_promise,
+);
 // @dts-jest:pass:snap
-R.pipeP(a_b_c_d_e_f_to_any_promise, boolean_to_number_promise);
+R.pipeP(
+  a_b_c_d_e_f_to_any_promise,
+  boolean_to_number_promise,
+);
 
 // @dts-jest:pass:snap
 R.pipeP(

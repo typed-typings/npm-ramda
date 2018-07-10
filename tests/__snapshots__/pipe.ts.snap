@@ -2,6 +2,11 @@
 
 exports[`R.pipe(
     a_b_c_d_e_f_to_any,
+    boolean_to_number,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+
+exports[`R.pipe(
+    a_b_c_d_e_f_to_any,
     boolean_to_string,
     string_to_number,
     number_to_string,
@@ -12,6 +17,12 @@ exports[`R.pipe(
 exports[`R.pipe(
     a_b_c_d_e_f_to_any,
     number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
+
+exports[`R.pipe(
+    a_b_c_d_e_f_to_any,
     string_to_boolean,
     boolean_to_number,
   ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
@@ -42,6 +53,17 @@ exports[`R.pipe(
   ) 1`] = `"(v1: number) => number"`;
 
 exports[`R.pipe(
+    number_to_string,
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: number) => number"`;
+
+exports[`R.pipe(
+    string_to_boolean,
+    boolean_to_number,
+  ) 1`] = `"(v1: string) => number"`;
+
+exports[`R.pipe(
     string_to_number,
     number_to_string,
     string_to_boolean,
@@ -50,12 +72,4 @@ exports[`R.pipe(
 
 exports[`R.pipe(a_b_c_d_e_f_to_any) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => any"`;
 
-exports[`R.pipe(a_b_c_d_e_f_to_any, boolean_to_number) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
-
-exports[`R.pipe(a_b_c_d_e_f_to_any, string_to_boolean, boolean_to_number) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => number"`;
-
 exports[`R.pipe(boolean_to_number) 1`] = `"(v1: boolean) => number"`;
-
-exports[`R.pipe(number_to_string, string_to_boolean, boolean_to_number) 1`] = `"(v1: number) => number"`;
-
-exports[`R.pipe(string_to_boolean, boolean_to_number) 1`] = `"(v1: string) => number"`;

@@ -2,6 +2,11 @@
 
 exports[`R.pipeP(
     a_b_c_d_e_f_to_any_promise,
+    boolean_to_number_promise,
+  ) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>"`;
+
+exports[`R.pipeP(
+    a_b_c_d_e_f_to_any_promise,
     boolean_to_string_promise,
     string_to_number_promise,
     number_to_string_promise,
@@ -54,6 +59,11 @@ exports[`R.pipeP(
   ) 1`] = `"(v1: number) => PromiseLike<number>"`;
 
 exports[`R.pipeP(
+    string_to_boolean_promise,
+    boolean_to_number_promise,
+  ) 1`] = `"(v1: string) => PromiseLike<number>"`;
+
+exports[`R.pipeP(
     string_to_number_promise,
     number_to_string_promise,
     string_to_boolean_promise,
@@ -62,8 +72,4 @@ exports[`R.pipeP(
 
 exports[`R.pipeP(a_b_c_d_e_f_to_any_promise) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<any>"`;
 
-exports[`R.pipeP(a_b_c_d_e_f_to_any_promise, boolean_to_number_promise) 1`] = `"(v1: null, v2: undefined, v3: boolean, v4: number, v5: string, v6: object) => PromiseLike<number>"`;
-
 exports[`R.pipeP(boolean_to_number_promise) 1`] = `"(v1: boolean) => PromiseLike<number>"`;
-
-exports[`R.pipeP(string_to_boolean_promise, boolean_to_number_promise) 1`] = `"(v1: string) => PromiseLike<number>"`;

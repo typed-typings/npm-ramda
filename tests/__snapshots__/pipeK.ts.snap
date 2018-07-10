@@ -24,6 +24,11 @@ exports[`R.pipeK(
   ) 1`] = `"(v1: R.Chain<number>) => R.Chain<number>"`;
 
 exports[`R.pipeK(
+    chain_string_to_chain_boolean,
+    chain_boolean_to_chain_number,
+  ) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;
+
+exports[`R.pipeK(
     chain_string_to_chain_number,
     chain_number_to_chain_string,
     chain_string_to_chain_boolean,
@@ -31,5 +36,3 @@ exports[`R.pipeK(
   ) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;
 
 exports[`R.pipeK(chain_boolean_to_chain_number) 1`] = `"(v1: R.Chain<boolean>) => R.Chain<number>"`;
-
-exports[`R.pipeK(chain_string_to_chain_boolean, chain_boolean_to_chain_number) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;

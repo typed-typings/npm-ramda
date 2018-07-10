@@ -22,7 +22,10 @@ declare const chain_string_to_chain_number: (
 // @dts-jest:pass:snap
 R.pipeK(chain_boolean_to_chain_number);
 // @dts-jest:pass:snap
-R.pipeK(chain_string_to_chain_boolean, chain_boolean_to_chain_number);
+R.pipeK(
+  chain_string_to_chain_boolean,
+  chain_boolean_to_chain_number,
+);
 // @dts-jest:pass:snap
 R.pipeK(
   chain_number_to_chain_string,
