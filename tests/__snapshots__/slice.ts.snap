@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_slice(number)(number)(object_list) 1`] = `"object[]"`;
+exports[`R.slice(number)(number)(object_list) 1`] = `"object[]"`;
 
-exports[`R_slice(number)(number)(string) 1`] = `"string"`;
+exports[`R.slice(number)(number)(string) 1`] = `"string"`;
 
-exports[`R_slice(number, number, object_list) 1`] = `"object[]"`;
+exports[`R.slice(number, number, object_list) 1`] = `"object[]"`;
 
-exports[`R_slice(number, number, string) 1`] = `"string"`;
+exports[`R.slice(number, number, string) 1`] = `"string"`;

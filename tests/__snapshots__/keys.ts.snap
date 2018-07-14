@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_keys(a_1_b_2_c_3) 1`] = `"(\\"a\\" | \\"b\\" | \\"c\\")[]"`;
+exports[`R.keys(a_1_b_2_c_3) 1`] = `"(\\"a\\" | \\"b\\" | \\"c\\")[]"`;
 
-exports[`R_keys(string_number_record) 1`] = `"string[]"`;
+exports[`R.keys(string_number_record) 1`] = `"string[]"`;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_last(number_array) 1`] = `"number | undefined"`;
+exports[`R.last(number_array) 1`] = `"number | undefined"`;
 
-exports[`R_last(string) 1`] = `"string"`;
+exports[`R.last(string) 1`] = `"string"`;
 
-exports[`R_last(string_array) 1`] = `"string | undefined"`;
+exports[`R.last(string_array) 1`] = `"string | undefined"`;

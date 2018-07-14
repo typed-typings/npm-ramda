@@ -1,14 +1,13 @@
-import { Variadic } from '../ramda/dist/src/$types';
-import R_unary = require('../ramda/dist/src/unary');
+import * as R from '../ramda/dist/index';
 
 declare const string_number_symbol_to_boolean: (
   a: string,
   b: number,
   c: symbol,
 ) => boolean;
-declare const object_variadic: Variadic<object>;
+declare const object_variadic: R.Variadic<object>;
 
 // @dts-jest:pass:snap
-R_unary(string_number_symbol_to_boolean);
+R.unary(string_number_symbol_to_boolean);
 // @dts-jest:pass:snap
-R_unary(object_variadic);
+R.unary(object_variadic);

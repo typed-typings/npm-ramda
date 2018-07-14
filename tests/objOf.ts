@@ -1,13 +1,13 @@
-import R_objOf = require('../ramda/dist/src/objOf');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const object: object;
 
 // @dts-jest:pass:snap
-R_objOf(string);
+R.objOf(string);
 // @dts-jest:pass:snap
-R_objOf(string, object);
+R.objOf(string, object);
 // @dts-jest:pass:snap
-R_objOf('key');
+R.objOf('key');
 // @dts-jest:pass:snap
-R_objOf('key', object);
+R.objOf('key', object);

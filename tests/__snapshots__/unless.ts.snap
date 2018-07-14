@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_unless(number_is_1)(number_to_string)(number) 1`] = `"string | 1"`;
+exports[`R.unless(number_is_1)(number_to_string)(number) 1`] = `"string | 1"`;
 
-exports[`R_unless(number_is_1, number_to_string) 1`] = `"(value: number) => string | 1"`;
+exports[`R.unless(number_is_1, number_to_string) 1`] = `"(value: number) => string | 1"`;
 
-exports[`R_unless(number_is_1, number_to_string, number) 1`] = `"string | 1"`;
+exports[`R.unless(number_is_1, number_to_string, number) 1`] = `"string | 1"`;
 
-exports[`R_unless(number_to_boolean)(number_to_string)(number) 1`] = `"string | number"`;
+exports[`R.unless(number_to_boolean)(number_to_string)(number) 1`] = `"string | number"`;
 
-exports[`R_unless(number_to_boolean, number_to_string) 1`] = `"(value: number) => string | number"`;
+exports[`R.unless(number_to_boolean, number_to_string) 1`] = `"(value: number) => string | number"`;
 
-exports[`R_unless(number_to_boolean, number_to_string, number) 1`] = `"string | number"`;
+exports[`R.unless(number_to_boolean, number_to_string, number) 1`] = `"string | number"`;

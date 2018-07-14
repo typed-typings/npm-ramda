@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_insertAll(number)(string_array)(object_array) 1`] = `"(string | object)[]"`;
+exports[`R.insertAll(number)(string_array)(object_array) 1`] = `"(string | object)[]"`;
 
-exports[`R_insertAll(number)(string_array)(string_array) 1`] = `"string[]"`;
+exports[`R.insertAll(number)(string_array)(string_array) 1`] = `"string[]"`;
 
-exports[`R_insertAll(number, string_array) 1`] = `"<U>(list: U[] | ArrayLike<U>) => (string | U)[]"`;
+exports[`R.insertAll(number, string_array) 1`] = `"<U>(list: R.List<U>) => (string | U)[]"`;
 
-exports[`R_insertAll(number, string_array, object_array) 1`] = `"(string | object)[]"`;
+exports[`R.insertAll(number, string_array, object_array) 1`] = `"(string | object)[]"`;
 
-exports[`R_insertAll(number, string_array, string_array) 1`] = `"string[]"`;
+exports[`R.insertAll(number, string_array, string_array) 1`] = `"string[]"`;

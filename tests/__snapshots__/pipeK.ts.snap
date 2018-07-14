@@ -1,35 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_pipeK(
+exports[`R.pipeK(
     chain_boolean_to_chain_string,
     chain_string_to_chain_number,
     chain_number_to_chain_string,
     chain_string_to_chain_boolean,
     chain_boolean_to_chain_number,
-  ) 1`] = `"(v1: Chain<boolean>) => Chain<number>"`;
+  ) 1`] = `"(v1: R.Chain<boolean>) => R.Chain<number>"`;
 
-exports[`R_pipeK(
+exports[`R.pipeK(
     chain_number_to_chain_boolean,
     chain_boolean_to_chain_string,
     chain_string_to_chain_number,
     chain_number_to_chain_string,
     chain_string_to_chain_boolean,
     chain_boolean_to_chain_number,
-  ) 1`] = `"(v1: Chain<number>) => Chain<number>"`;
+  ) 1`] = `"(v1: R.Chain<number>) => R.Chain<number>"`;
 
-exports[`R_pipeK(
+exports[`R.pipeK(
     chain_number_to_chain_string,
     chain_string_to_chain_boolean,
     chain_boolean_to_chain_number,
-  ) 1`] = `"(v1: Chain<number>) => Chain<number>"`;
+  ) 1`] = `"(v1: R.Chain<number>) => R.Chain<number>"`;
 
-exports[`R_pipeK(
+exports[`R.pipeK(
+    chain_string_to_chain_boolean,
+    chain_boolean_to_chain_number,
+  ) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;
+
+exports[`R.pipeK(
     chain_string_to_chain_number,
     chain_number_to_chain_string,
     chain_string_to_chain_boolean,
     chain_boolean_to_chain_number,
-  ) 1`] = `"(v1: Chain<string>) => Chain<number>"`;
+  ) 1`] = `"(v1: R.Chain<string>) => R.Chain<number>"`;
 
-exports[`R_pipeK(chain_boolean_to_chain_number) 1`] = `"(v1: Chain<boolean>) => Chain<number>"`;
-
-exports[`R_pipeK(chain_string_to_chain_boolean, chain_boolean_to_chain_number) 1`] = `"(v1: Chain<string>) => Chain<number>"`;
+exports[`R.pipeK(chain_boolean_to_chain_number) 1`] = `"(v1: R.Chain<boolean>) => R.Chain<number>"`;

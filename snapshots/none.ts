@@ -1,10 +1,9 @@
-import { Predicate } from '../ramda/dist/src/$types';
-import R_none = require('../ramda/dist/src/none');
+import * as R from '../ramda/dist/index';
 
-declare const string_predicate: Predicate<string>;
+declare const string_predicate: R.Predicate<string>;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap -> boolean
-R_none(string_predicate)(string_array);
+R.none(string_predicate)(string_array);
 // @dts-jest:pass:snap -> boolean
-R_none(string_predicate, string_array);
+R.none(string_predicate, string_array);

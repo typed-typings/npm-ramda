@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_liftN(0, string_to_object) 1`] = `"() => object[]"`;
+exports[`R.liftN(0, string_to_object) 1`] = `"R.CurriedFunction0<object[]>"`;
 
-exports[`R_liftN(1, number_boolean_to_string) 1`] = `"CurriedFunction1<number[] | ArrayLike<number>, string[]>"`;
+exports[`R.liftN(1, number_boolean_to_string) 1`] = `"R.CurriedFunction1<R.List<number>, string[]>"`;
 
-exports[`R_liftN(4, number_args_to_boolean) 1`] = `"CurriedFunction4<number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, boolean[]>"`;
+exports[`R.liftN(4, number_args_to_boolean) 1`] = `"R.CurriedFunction4<R.List<number>, R.List<number>, R.List<number>, R.List<number>, boolean[]>"`;
 
-exports[`R_liftN(7, seven_string_to_number) 1`] = `"(...args: any[]) => number[]"`;
+exports[`R.liftN(7, seven_string_to_number) 1`] = `"R.Variadic<number[]>"`;

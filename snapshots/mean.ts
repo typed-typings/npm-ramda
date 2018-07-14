@@ -1,6 +1,6 @@
-import R_mean = require('../ramda/dist/src/mean');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 
 // @dts-jest:pass:snap -> number
-R_mean(number_array);
+R.mean(number_array);

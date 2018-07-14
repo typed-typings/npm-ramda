@@ -1,8 +1,8 @@
-import R_mathMod = require('../ramda/dist/src/mathMod');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap -> number
-R_mathMod(number, number);
+R.mathMod(number, number);
 // @dts-jest:pass:snap -> number
-R_mathMod(number)(number);
+R.mathMod(number)(number);

@@ -1,4 +1,4 @@
-import R_keys = require('../ramda/dist/src/keys');
+import * as R from '../ramda/dist/index';
 
 declare const a_1_b_2_c_3: {
   a: 1;
@@ -8,6 +8,6 @@ declare const a_1_b_2_c_3: {
 declare const string_number_record: Record<string, number>;
 
 // @dts-jest:pass:snap -> ("a" | "b" | "c")[]
-R_keys(a_1_b_2_c_3);
+R.keys(a_1_b_2_c_3);
 // @dts-jest:pass:snap -> string[]
-R_keys(string_number_record);
+R.keys(string_number_record);

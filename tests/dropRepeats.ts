@@ -1,6 +1,6 @@
-import R_dropRepeats = require('../ramda/dist/src/dropRepeats');
+import * as R from '../ramda/dist/index';
 
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_dropRepeats(string_array);
+R.dropRepeats(string_array);

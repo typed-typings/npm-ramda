@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_prepend(number)(number_array) 1`] = `"number[]"`;
+exports[`R.prepend(number)(number_array) 1`] = `"number[]"`;
 
-exports[`R_prepend(number, number_array) 1`] = `"number[]"`;
+exports[`R.prepend(number, number_array) 1`] = `"number[]"`;
 
-exports[`R_prepend(string)(number_array) 1`] = `"(string | number)[]"`;
+exports[`R.prepend(string)(number_array) 1`] = `"(string | number)[]"`;
 
-exports[`R_prepend(string, number_array) 1`] = `"(string | number)[]"`;
+exports[`R.prepend(string, number_array) 1`] = `"(string | number)[]"`;

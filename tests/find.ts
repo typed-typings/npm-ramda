@@ -1,12 +1,11 @@
-import { Predicate } from '../ramda/dist/src/$types';
-import R_find = require('../ramda/dist/src/find');
+import * as R from '../ramda/dist/index';
 
-declare const string_predicate: Predicate<string>;
+declare const string_predicate: R.Predicate<string>;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_find(string_predicate);
+R.find(string_predicate);
 // @dts-jest:pass:snap
-R_find(string_predicate)(string_array);
+R.find(string_predicate)(string_array);
 // @dts-jest:pass:snap
-R_find(string_predicate, string_array);
+R.find(string_predicate, string_array);

@@ -1,9 +1,9 @@
-import R_init = require('../ramda/dist/src/init');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_init(string);
+R.init(string);
 // @dts-jest:pass:snap
-R_init(string_array);
+R.init(string_array);

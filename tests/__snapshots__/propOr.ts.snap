@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_propOr(defaults, 'a') 1`] = `"<T extends Record<\\"a\\", any>>(object: T) => \\"defaults\\" | T[\\"a\\"]"`;
+exports[`R.propOr(defaults, 'a') 1`] = `"<T extends Record<\\"a\\", any>>(object: T) => \\"defaults\\" | T[\\"a\\"]"`;
 
-exports[`R_propOr(defaults, 'a')(a_b_number_record) 1`] = `"number | \\"defaults\\""`;
+exports[`R.propOr(defaults, 'a')(a_b_number_record) 1`] = `"number | \\"defaults\\""`;
 
-exports[`R_propOr(defaults, 'a', a_b_number_record) 1`] = `"number | \\"defaults\\""`;
+exports[`R.propOr(defaults, 'a', a_b_number_record) 1`] = `"number | \\"defaults\\""`;
 
-exports[`R_propOr(defaults, 'a', undefined) 1`] = `"{} | \\"defaults\\""`;
+exports[`R.propOr(defaults, 'a', undefined) 1`] = `"{} | \\"defaults\\""`;
 
-exports[`R_propOr(defaults, placeholder, a_b_number_record) 1`] = `"<K extends \\"a\\" | \\"b\\">(key: K) => \\"defaults\\" | Record<\\"a\\" | \\"b\\", number>[K]"`;
+exports[`R.propOr(defaults, R.__, a_b_number_record) 1`] = `"<K extends \\"a\\" | \\"b\\">(key: K) => \\"defaults\\" | Record<\\"a\\" | \\"b\\", number>[K]"`;
 
-exports[`R_propOr(defaults, placeholder, a_b_number_record)('a') 1`] = `"number | \\"defaults\\""`;
+exports[`R.propOr(defaults, R.__, a_b_number_record)('a') 1`] = `"number | \\"defaults\\""`;

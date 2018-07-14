@@ -1,16 +1,15 @@
-import { Dictionary } from '../ramda/dist/src/$types';
-import R_whereEq = require('../ramda/dist/src/whereEq');
+import * as R from '../ramda/dist/index';
 
-declare const number_dictionary: Dictionary<number>;
+declare const number_dictionary: R.Dictionary<number>;
 declare const a_1_b_2_c_3: {
   a: 1;
   b: 2;
   c: 3;
 };
 
-// @dts-jest:pass:snap -> (object: Dictionary<number>) => boolean
-R_whereEq(number_dictionary);
+// @dts-jest:pass:snap -> (object: R.Dictionary<number>) => boolean
+R.whereEq(number_dictionary);
 // @dts-jest:pass:snap -> boolean
-R_whereEq(number_dictionary)(a_1_b_2_c_3);
+R.whereEq(number_dictionary)(a_1_b_2_c_3);
 // @dts-jest:pass:snap -> boolean
-R_whereEq(number_dictionary, a_1_b_2_c_3);
+R.whereEq(number_dictionary, a_1_b_2_c_3);

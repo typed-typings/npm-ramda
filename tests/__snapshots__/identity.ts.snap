@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_identity(number) 1`] = `"number"`;
+exports[`R.identity(number) 1`] = `"number"`;
 
-exports[`R_identity(string) 1`] = `"string"`;
+exports[`R.identity(string) 1`] = `"string"`;

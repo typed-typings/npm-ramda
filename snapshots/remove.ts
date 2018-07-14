@@ -1,11 +1,11 @@
-import R_remove = require('../ramda/dist/src/remove');
+import * as R from '../ramda/dist/index';
 
 declare const boolean_array: boolean[];
 declare const number: number;
 
 // @dts-jest:pass:snap -> <T>(list: T[]) => T[]
-R_remove(number, number);
+R.remove(number, number);
 // @dts-jest:pass:snap -> boolean[]
-R_remove(number)(number)(boolean_array);
+R.remove(number)(number)(boolean_array);
 // @dts-jest:pass:snap -> boolean[]
-R_remove(number, number, boolean_array);
+R.remove(number, number, boolean_array);

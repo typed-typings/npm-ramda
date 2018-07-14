@@ -99,7 +99,7 @@ import * as R from '../ramda/dist/index';
   (() => {
     const reduceIndexed = R.addIndex<'1', 'v2x1'>()(R.reduce);
 
-    // @dts-jest:pass:snap -> any
+    // @dts-jest:pass:snap -> {}
     reduceIndexed(
       (acc: string, val: string, idx: number) => `${acc},${idx}-${val}`,
       '',
@@ -428,11 +428,36 @@ import * as R from '../ramda/dist/index';
   const double = (x: number): number => x + x;
   (() => {
     const f0 = R.compose(Math.pow);
-    const f1 = R.compose(R.negate, Math.pow);
-    const f2 = R.compose(R.inc, R.negate, Math.pow);
-    const f3 = R.compose(R.inc, R.inc, R.negate, Math.pow);
-    const f4 = R.compose(R.inc, R.inc, R.inc, R.negate, Math.pow);
-    const f5 = R.compose(R.inc, R.inc, R.inc, R.inc, R.negate, Math.pow);
+    const f1 = R.compose(
+      R.negate,
+      Math.pow,
+    );
+    const f2 = R.compose(
+      R.inc,
+      R.negate,
+      Math.pow,
+    );
+    const f3 = R.compose(
+      R.inc,
+      R.inc,
+      R.negate,
+      Math.pow,
+    );
+    const f4 = R.compose(
+      R.inc,
+      R.inc,
+      R.inc,
+      R.negate,
+      Math.pow,
+    );
+    const f5 = R.compose(
+      R.inc,
+      R.inc,
+      R.inc,
+      R.inc,
+      R.negate,
+      Math.pow,
+    );
 
     // @dts-jest:pass:snap -> number
     f0(3, 4); // -(3^4) + 1
@@ -449,11 +474,17 @@ import * as R from '../ramda/dist/index';
   })();
   (() => {
     // @dts-jest:pass:snap -> (v1: number) => number
-    R.compose<number, number, number>(double, R.identity);
+    R.compose<number, number, number>(
+      double,
+      R.identity,
+    );
   })();
   (() => {
     const fn = (a: string, b: number, c: string) => [a, b, c];
-    const gn = R.compose(R.length, fn);
+    const gn = R.compose(
+      R.length,
+      fn,
+    );
 
     // @dts-jest:pass:snap -> number
     gn('Hello', 4, 'world');
@@ -461,9 +492,15 @@ import * as R from '../ramda/dist/index';
   (() => {
     const limit10 = (x: number): boolean => x >= 10;
     // @dts-jest:pass:snap -> (v1: number) => boolean
-    R.compose(limit10, double);
+    R.compose(
+      limit10,
+      double,
+    );
     // @dts-jest:pass:snap -> boolean
-    R.compose(limit10, double)(10);
+    R.compose(
+      limit10,
+      double,
+    )(10);
 
     // akward example that bounces types between number and string
     const g0 = (list: number[]) => R.map(R.inc, list);
@@ -513,9 +550,15 @@ import * as R from '../ramda/dist/index';
   const lookupFollowers = (user: User) => Promise.resolve(user.followers);
 
   // @dts-jest:pass:snap -> (v1: string) => PromiseLike<string[]>
-  R.composeP(lookupFollowers, lookupUser);
+  R.composeP(
+    lookupFollowers,
+    lookupUser,
+  );
   // @dts-jest:pass:snap -> PromiseLike<string[]>
-  R.composeP(lookupFollowers, lookupUser)('JOE');
+  R.composeP(
+    lookupFollowers,
+    lookupUser,
+  )('JOE');
 })();
 
 // @dts-jest:group concat
@@ -603,16 +646,16 @@ import * as R from '../ramda/dist/index';
 (() => {
   const numbers = [1, 1.1, 1.2, 2, 3, 2.2];
   const letters = R.split('', 'abcABCaaaBBc');
-  // @dts-jest:pass:snap -> Dictionary<number>
+  // @dts-jest:pass:snap -> R.Dictionary<number>
   R.countBy(Math.floor)(numbers); //=> {'1': 3, '2': 2, '3': 1}
-  // @dts-jest:pass:snap -> Dictionary<number>
+  // @dts-jest:pass:snap -> R.Dictionary<number>
   R.countBy(R.toLower)(letters); //=> {'a': 5, 'b': 4, 'c': 3}
 })();
 
 // @dts-jest:group curry
 (() => {
   const addTwo = R.curry((x: number, y: number) => x + y);
-  // @dts-jest:pass:snap -> CurriedFunction1<number, number>
+  // @dts-jest:pass:snap -> R.CurriedFunction1<number, number>
   addTwo(3);
   // @dts-jest:pass:snap -> number
   addTwo(3)(1);
@@ -622,11 +665,11 @@ import * as R from '../ramda/dist/index';
   addThree(3, 2, 1);
   // @dts-jest:pass:snap -> number
   addThree(3)(2)(1);
-  // @dts-jest:pass:snap -> CurriedFunction1<number, number>
+  // @dts-jest:pass:snap -> R.CurriedFunction1<number, number>
   addThree(3, 2);
-  // @dts-jest:pass:snap -> CurriedFunction1<number, number>
+  // @dts-jest:pass:snap -> R.CurriedFunction1<number, number>
   addThree(3)(2);
-  // @dts-jest:pass:snap -> CurriedFunction2<number, number, number>
+  // @dts-jest:pass:snap -> R.CurriedFunction2<number, number, number>
   addThree(3);
 
   const xy = R.curry(<X, Y>(x: X, y: Y) => ({ x, y }));
@@ -654,7 +697,7 @@ import * as R from '../ramda/dist/index';
   const sumArgs = (...args: number[]) => R.sum(args);
   const curriedAddFourNumbers = R.curryN(4, sumArgs);
 
-  // @dts-jest:pass:snap -> CurriedFunction4<number, number, number, number, number>
+  // @dts-jest:pass:snap -> R.CurriedFunction4<number, number, number, number, number>
   curriedAddFourNumbers;
   // @dts-jest:pass:snap -> number
   curriedAddFourNumbers(1, 2)(3)(4); //=> 10
@@ -732,9 +775,9 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group dissocPath
 (() => {
-  // @dts-jest:pass:snap -> { a?: DeepPartial | undefined; }
+  // @dts-jest:pass:snap -> R.DeepPartial<{ a: { b: { c: number; }; }; }>
   R.dissocPath(['a', 'b', 'c'], { a: { b: { c: 42 } } }); //=> {a: {b: {}}}
-  // @dts-jest:pass:snap -> { a?: DeepPartial | undefined; }
+  // @dts-jest:pass:snap -> R.DeepPartial<{ a: { b: { c: number; }; }; }>
   R.dissocPath(['a', 'b', 'c'])({ a: { b: { c: 42 } } }); //=> {a: {b: {}}}
 })();
 
@@ -1003,13 +1046,13 @@ import * as R from '../ramda/dist/index';
   };
   // @dts-jest:pass:snap -> { x: number; y: number; }
   R.forEachObjIndexed(printKeyConcatValue, { x: 1, y: 2 });
-  // @dts-jest:pass:snap -> Dictionary<number>
+  // @dts-jest:pass:snap -> R.Dictionary<number>
   R.forEachObjIndexed(printKeyConcatValue)({ x: 1, y: 2 });
 })();
 
 // @dts-jest:group fromPairs
 (() => {
-  // @dts-jest:pass:snap -> Dictionary<number>
+  // @dts-jest:pass:snap -> R.Dictionary<number>
   R.fromPairs([['a', 1], ['b', 2], ['c', 3]]); //=> {a: 1, b: 2, c: 3}
 })();
 
@@ -1019,14 +1062,20 @@ import * as R from '../ramda/dist/index';
     const score = student.score;
     return score < 65
       ? 'F'
-      : score < 70 ? 'D' : score < 80 ? 'C' : score < 90 ? 'B' : 'A';
+      : score < 70
+        ? 'D'
+        : score < 80
+          ? 'C'
+          : score < 90
+            ? 'B'
+            : 'A';
   });
   const students = [
     { name: 'Abby', score: 84 },
     { name: 'Eddy', score: 58 },
     { name: 'Jack', score: 69 },
   ];
-  // @dts-jest:pass:snap -> Dictionary<{ score: number; name: string; }[]>
+  // @dts-jest:pass:snap -> R.Dictionary<{ score: number; name: string; }[]>
   byGrade(students);
 })();
 
@@ -1184,7 +1233,11 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group inc
 (() => {
-  const f = R.pipe(Math.pow, R.negate, R.inc);
+  const f = R.pipe(
+    Math.pow,
+    R.negate,
+    R.inc,
+  );
   // @dts-jest:pass:snap -> number
   f(3, 4); // -(3^4) + 1
 })();
@@ -1192,11 +1245,11 @@ import * as R from '../ramda/dist/index';
 // @dts-jest:group indexBy
 (() => {
   const list = [{ id: 'xyz', title: 'A' }, { id: 'abc', title: 'B' }];
-  // @dts-jest:pass:snap -> Dictionary<{}>
+  // @dts-jest:pass:snap -> R.Dictionary<{}>
   R.indexBy(R.prop('id'), list);
-  // @dts-jest:pass:snap -> Dictionary<{}>
+  // @dts-jest:pass:snap -> R.Dictionary<{}>
   R.indexBy(R.prop('id'))(list);
-  // @dts-jest:pass:snap -> Dictionary<{ id: string; }>
+  // @dts-jest:pass:snap -> R.Dictionary<{ id: string; }>
   R.indexBy<{ id: string }>(R.prop('id'))(list);
 })();
 
@@ -1309,7 +1362,7 @@ import * as R from '../ramda/dist/index';
     second: 'jake',
     third: 'alice',
   };
-  // @dts-jest:pass:snap -> Dictionary<string[]>
+  // @dts-jest:pass:snap -> R.Dictionary<string[]>
   R.invert(raceResultsByFirstName); //=> { 'alice': ['first', 'third'], 'jake': ['second'] }
 })();
 
@@ -1319,12 +1372,12 @@ import * as R from '../ramda/dist/index';
     first: 'alice',
     second: 'jake',
   };
-  // @dts-jest:pass:snap -> Dictionary<string>
+  // @dts-jest:pass:snap -> R.Dictionary<string>
   R.invertObj(raceResults0); //=> { 'alice': 'first', 'jake': 'second' }
 
   // Alternatively:
   const raceResults1 = ['alice', 'jake'];
-  // @dts-jest:pass:snap -> Dictionary<string>
+  // @dts-jest:pass:snap -> R.Dictionary<string>
   R.invertObj(raceResults1); //=> { 'alice': '0', 'jake': '1' }
 })();
 
@@ -1609,11 +1662,11 @@ import * as R from '../ramda/dist/index';
 
   R.pipe(
     R.map(Number.parseInt),
-    // @dts-jest:fail:snap -> Argument of type 'reduce_110<any, any>' is not assignable to parameter of type '(v: map_mixed_11<number, any>) => any'.
+    // @dts-jest:fail:snap -> Argument of type 'reduce_110<Ordered, Ordered>' is not assignable to parameter of type '(v: map_mixed_11<number, string>) => Ordered'.
     R.reduce(R.max, 0), // raises error (#311)
   );
 
-  // @dts-jest:pass:snap -> (v1: {}) => any
+  // @dts-jest:pass:snap -> (v1: {}) => R.Ordered
   R.pipe(
     R.map(Number.parseInt)(),
     R.reduce(R.max, 0), // no error
@@ -1787,7 +1840,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group merge
 (() => {
-  // @dts-jest:pass:snap -> Pick<{ name: string; age: number; }, "name"> & { age: number; }
+  // @dts-jest:pass:snap -> R.Merge<{ name: string; age: number; }, { age: number; }>
   R.merge({ name: 'fred', age: 10 }, { age: 40 }); //=> { 'name': 'fred', 'age': 40 }
 
   const resetToDefault = R.flip(R.merge)({ x: 0 });
@@ -1845,7 +1898,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group mergeWith
 (() => {
-  // @dts-jest:pass:snap -> Pick<{ a: boolean; values: number[]; }, "a"> & Pick<{ b: boolean; values: number[]; }, "b"> & Record<"values", string | any[]>
+  // @dts-jest:pass:snap -> Pick<{ a: boolean; values: number[]; }, "a"> & Pick<{ b: boolean; values: number[]; }, "b"> & Record<"values", string | {}[]>
   R.mergeWith(
     R.concat,
     { a: true, values: [10, 20] },
@@ -2012,8 +2065,11 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group objOf
 (() => {
-  const matchPhrases = R.pipe(R.map(R.objOf('match_phrase')), R.objOf('must'));
-  // @dts-jest:pass:snap -> Record<"must", Record<"match_phrase", {}>[] | Functor<Record<"match_phrase", {}>> | Record<any, Record<"match_phrase", {}>>>
+  const matchPhrases = R.pipe(
+    R.map(R.objOf('match_phrase')),
+    R.objOf('must'),
+  );
+  // @dts-jest:pass:snap -> Record<"must", Record<"match_phrase", {}>[] | R.Functor<Record<"match_phrase", {}>> | Record<string, Record<"match_phrase", {}>>>
   matchPhrases(['foo', 'bar', 'baz']); //=> {"must": [{"match_phrase": "foo"}, {"match_phrase": "bar"}, {"match_phrase": "baz"}]}
 })();
 
@@ -2063,7 +2119,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group pair
 (() => {
-  // @dts-jest:pass:snap -> KeyValuePair<"foo", string>
+  // @dts-jest:pass:snap -> R.KeyValuePair<"foo", string>
   R.pair('foo', 'bar'); //=> ['foo', 'bar']
 
   const p = R.pair('foo', 1);
@@ -2109,9 +2165,9 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group partition
 (() => {
-  // @dts-jest:pass:snap -> [(string[] | ArrayLike<string>)[], (string[] | ArrayLike<string>)[]]
+  // @dts-jest:pass:snap -> [R.List<string>[], R.List<string>[]]
   R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']);
-  // @dts-jest:pass:snap -> [(string[] | ArrayLike<string>)[], (string[] | ArrayLike<string>)[]]
+  // @dts-jest:pass:snap -> [R.List<string>[], R.List<string>[]]
   R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']);
   // @dts-jest:pass:snap -> [number[], number[]]
   R.partition((x: number) => x > 2, [1, 2, 3, 4]);
@@ -2224,31 +2280,57 @@ import * as R from '../ramda/dist/index';
     const shout = (x: number): string => (x >= 10 ? 'big' : 'small');
     const double = (x: number): number => x + x;
     // @dts-jest:pass:snap -> (v1: number) => string
-    R.pipe(double, double, shout);
+    R.pipe(
+      double,
+      double,
+      shout,
+    );
     // @dts-jest:pass:snap -> string
-    R.pipe(double, double, shout)(10);
+    R.pipe(
+      double,
+      double,
+      shout,
+    )(10);
 
     // @dts-jest:pass:snap -> string
-    R.pipe(R.split(''), R.adjust(R.toUpper, 0), R.join(''))('str');
+    R.pipe(
+      R.split(''),
+      R.adjust(R.toUpper, 0),
+      R.join(''),
+    )('str');
 
-    const f = R.pipe(Math.pow, R.negate, R.inc);
+    const f = R.pipe(
+      Math.pow,
+      R.negate,
+      R.inc,
+    );
     // @dts-jest:pass:snap -> number
     f(3, 4); // -(3^4) + 1
 
     // test for type degeneration if the first function has generics
     // @dts-jest:skip (x0: number) => number
-    R.pipe(R.identity, double);
+    R.pipe(
+      R.identity,
+      double,
+    );
   })();
   (() => {
     const double = (x: number): number => x + x;
     const triple = (x: number): number => x * 3;
     const square = (x: number): number => x * x;
-    const squareThenDoubleThenTriple = R.pipe(square, double, triple);
+    const squareThenDoubleThenTriple = R.pipe(
+      square,
+      double,
+      triple,
+    );
     // @dts-jest:pass:snap -> number
     squareThenDoubleThenTriple(5); //=> 150
   })();
   // @dts-jest:pass:snap -> () => {} | undefined
-  R.pipe(() => ({ x: { y: 1 } }), R.path(['x', 'y']));
+  R.pipe(
+    () => ({ x: { y: 1 } }),
+    R.path(['x', 'y']),
+  );
 })();
 
 // @dts-jest:group:skip pipeK
@@ -2431,7 +2513,10 @@ import * as R from '../ramda/dist/index';
   // @dts-jest:pass:snap -> any[]
   R.props(['c', 'a', 'b'], { b: 2, a: 1 }); //=> [undefined, 1, 2]
 
-  const fullName = R.compose(R.join(' '), R.props(['first', 'last']));
+  const fullName = R.compose(
+    R.join(' '),
+    R.props(['first', 'last']),
+  );
   // @dts-jest:pass:snap -> string
   fullName({ last: 'Bullet-Tooth', age: 33, first: 'Tony' }); //=> 'Tony Bullet-Tooth'
 })();
@@ -2478,7 +2563,13 @@ import * as R from '../ramda/dist/index';
     const score = student.score;
     return score < 65
       ? 'F'
-      : score < 70 ? 'D' : score < 80 ? 'C' : score < 90 ? 'B' : 'A';
+      : score < 70
+        ? 'D'
+        : score < 80
+          ? 'C'
+          : score < 90
+            ? 'B'
+            : 'A';
   });
   const students = [
     { name: 'Lucy', score: 92 },
@@ -2496,7 +2587,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group reduced
 (() => {
-  // @dts-jest:pass:snap -> Reduced<number>
+  // @dts-jest:pass:snap -> R.Reduced<number>
   R.reduced(123);
 })();
 
@@ -2660,10 +2751,16 @@ import * as R from '../ramda/dist/index';
     age: number;
   }
   const sortByNameCaseInsensitive = R.sortBy<Person>(
-    R.compose(R.toLower, R.prop('name')),
+    R.compose(
+      R.toLower,
+      R.prop('name'),
+    ),
   );
   const sortByAgeDescending = R.sortBy<Person>(
-    R.compose(R.negate, R.prop('age')),
+    R.compose(
+      R.negate,
+      R.prop('age'),
+    ),
   );
   const sortByAgeAscending = R.sortBy<Person>(R.prop('age'));
   const alice = {
@@ -3052,7 +3149,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group unapply
 (() => {
-  // @dts-jest:pass:snap -> (...args: any[]) => string
+  // @dts-jest:pass:snap -> R.Variadic<string>
   R.unapply(JSON.stringify);
   // @dts-jest:pass:snap -> string
   R.unapply(JSON.stringify)(1, 2, 3); //=> '[1,2,3]'
@@ -3152,9 +3249,9 @@ import * as R from '../ramda/dist/index';
   }
 
   const coerceArray = R.unless(isArrayLike, R.of);
-  // @dts-jest:pass:snap -> any[] | ArrayLike<any>
+  // @dts-jest:pass:snap -> R.List<any>
   coerceArray([1, 2, 3]); //=> [1, 2, 3]
-  // @dts-jest:pass:snap -> any[] | ArrayLike<any>
+  // @dts-jest:pass:snap -> R.List<any>
   coerceArray(1); //=> [1]
 })();
 
@@ -3220,7 +3317,11 @@ import * as R from '../ramda/dist/index';
 (() => {
   const truncate = R.when<string, string>(
     R.propSatisfies(R.gt(R.__, 10), 'length'),
-    R.pipe(R.take(10), R.append('…'), R.join('')),
+    R.pipe(
+      R.take(10),
+      R.append('…'),
+      R.join(''),
+    ),
   );
   // @dts-jest:pass:snap -> string
   truncate('12345'); //=> '12345'
@@ -3247,16 +3348,16 @@ import * as R from '../ramda/dist/index';
   R.where(spec2, { x: 3, y: 8 }); //=> false
 
   const xs = [{ x: 2, y: 1 }, { x: 10, y: 2 }, { x: 8, y: 3 }, { x: 10, y: 4 }];
-  // @dts-jest:pass:snap -> Dictionary<any>[]
+  // @dts-jest:pass:snap -> R.Dictionary<any>[]
   R.filter(R.where({ x: R.equals(10) }), xs); //=> [{x: 10, y: 2}, {x: 10, y: 4}]
-  // @dts-jest:pass:snap -> Dictionary<any>[]
+  // @dts-jest:pass:snap -> R.Dictionary<any>[]
   R.filter(R.where({ x: R.equals(10) }))(xs); //=> [{x: 10, y: 2}, {x: 10, y: 4}]
 })();
 
 // @dts-jest:group whereEq
 (() => {
   const pred = R.whereEq({ a: 1, b: 2 });
-  // @dts-jest:pass:snap -> (object: Dictionary<number>) => boolean
+  // @dts-jest:pass:snap -> (object: R.Dictionary<number>) => boolean
   pred;
   // @dts-jest:pass:snap -> boolean
   pred({ a: 1 }); //=> false
@@ -3322,10 +3423,13 @@ import * as R from '../ramda/dist/index';
     ) => R.map(R.adjust<0, [string, any]>(fn, 0), R.toPairs(obj)),
   );
 
-  const mapKey = R.pipe(mapKeyPairs, R.fromPairs);
+  const mapKey = R.pipe(
+    mapKeyPairs,
+    R.fromPairs,
+  );
 
   // @dts-jest:pass:snap -> [string, any][]
   mapKeyPairs((key: string) => `x${key}`, { a: 1, b: 2, c: 3 }); //=> [['xa', 1], ['xb', 2], ['xc', 3]]
-  // @dts-jest:pass:snap -> Dictionary<any>
+  // @dts-jest:pass:snap -> R.Dictionary<any>
   mapKey((key: string) => `x${key}`, { a: 1, b: 2, c: 3 }); //=> { xa: 1, xb: 2, xc: 3 }
 })();

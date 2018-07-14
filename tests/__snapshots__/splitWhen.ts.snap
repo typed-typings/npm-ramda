@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_splitWhen(object_to_boolean) 1`] = `"(list: List<object>) => [object[], object[]]"`;
+exports[`R.splitWhen(object_to_boolean) 1`] = `"(list: R.List<object>) => [object[], object[]]"`;
 
-exports[`R_splitWhen(object_to_boolean)(object_list) 1`] = `"[object[], object[]]"`;
+exports[`R.splitWhen(object_to_boolean)(object_list) 1`] = `"[object[], object[]]"`;
 
-exports[`R_splitWhen(object_to_boolean, object_list) 1`] = `"[object[], object[]]"`;
+exports[`R.splitWhen(object_to_boolean, object_list) 1`] = `"[object[], object[]]"`;
 
-exports[`R_splitWhen(string_to_boolean) 1`] = `"(list: List<string>) => [string[], string[]]"`;
+exports[`R.splitWhen(string_to_boolean) 1`] = `"(list: R.List<string>) => [string[], string[]]"`;
 
-exports[`R_splitWhen(string_to_boolean)(string) 1`] = `"[string[], string[]]"`;
+exports[`R.splitWhen(string_to_boolean)(string) 1`] = `"[string[], string[]]"`;
 
-exports[`R_splitWhen(string_to_boolean, string) 1`] = `"[string[], string[]]"`;
+exports[`R.splitWhen(string_to_boolean, string) 1`] = `"[string[], string[]]"`;

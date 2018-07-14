@@ -1,12 +1,11 @@
-import { Property } from '../ramda/dist/src/$types';
-import R_has = require('../ramda/dist/src/has');
+import * as R from '../ramda/dist/index';
 
-declare const property: Property;
+declare const property: R.Property;
 declare const object: object;
 
 // @dts-jest:pass:snap
-R_has(property);
+R.has(property);
 // @dts-jest:pass:snap
-R_has(property)(object);
+R.has(property)(object);
 // @dts-jest:pass:snap
-R_has(property, object);
+R.has(property, object);

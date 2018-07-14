@@ -1,9 +1,9 @@
-import R_unnest = require('../ramda/dist/src/unnest');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 declare const number_array_array: number[][];
 
 // @dts-jest:pass:snap -> number[]
-R_unnest(number_array);
+R.unnest(number_array);
 // @dts-jest:pass:snap -> number[]
-R_unnest(number_array_array);
+R.unnest(number_array_array);

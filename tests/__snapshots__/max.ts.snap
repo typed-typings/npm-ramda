@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_max(number) 1`] = `"(b: number) => number"`;
+exports[`R.max(number) 1`] = `"(b: number) => number"`;
 
-exports[`R_max(number, number) 1`] = `"number"`;
+exports[`R.max(number, number) 1`] = `"number"`;
 
-exports[`R_max(string) 1`] = `"(b: string) => string"`;
+exports[`R.max(string) 1`] = `"(b: string) => string"`;

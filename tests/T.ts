@@ -1,4 +1,4 @@
-import R_T = require('../ramda/dist/src/T');
+import * as R from '../ramda/dist/index';
 
 // @dts-jest:pass:snap
-R_T();
+R.T();

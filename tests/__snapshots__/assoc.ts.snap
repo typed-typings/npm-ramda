@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_assoc(string_property)(number_value)(object) 1`] = `"object & Record<string, number>"`;
+exports[`R.assoc(string_property)(number_value)(object) 1`] = `"object & Record<string, number>"`;
 
-exports[`R_assoc(string_property, number_value, object) 1`] = `"object & Record<string, number>"`;
+exports[`R.assoc(string_property, number_value, object) 1`] = `"object & Record<string, number>"`;
 
-exports[`R_assoc(symbol_property)(number_value)(object) 1`] = `"object"`;
+exports[`R.assoc(symbol_property)(number_value)(object) 1`] = `"object"`;
 
-exports[`R_assoc(symbol_property, number_value, object) 1`] = `"object"`;
+exports[`R.assoc(symbol_property, number_value, object) 1`] = `"object"`;

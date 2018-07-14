@@ -1,20 +1,19 @@
-import { Applicative, Traversable } from '../ramda/dist/src/$types';
-import R_sequence = require('../ramda/dist/src/sequence');
+import * as R from '../ramda/dist/index';
 
-declare const any_applicative: Applicative<any>;
-declare const number_applicative: Applicative<number>;
-declare const any_applicative_traverable: Traversable<Applicative<any>>;
-
-// @dts-jest:pass:snap
-R_sequence(number_applicative.of, [number_applicative]);
-// @dts-jest:pass:snap
-R_sequence(any_applicative.of, [any_applicative]);
-// @dts-jest:pass:snap
-R_sequence<number>(any_applicative.of, [any_applicative]);
+declare const any_applicative: R.Applicative<any>;
+declare const number_applicative: R.Applicative<number>;
+declare const any_applicative_traverable: R.Traversable<R.Applicative<any>>;
 
 // @dts-jest:pass:snap
-R_sequence(number_applicative.of, any_applicative_traverable);
+R.sequence(number_applicative.of, [number_applicative]);
 // @dts-jest:pass:snap
-R_sequence(any_applicative.of, any_applicative_traverable);
+R.sequence(any_applicative.of, [any_applicative]);
 // @dts-jest:pass:snap
-R_sequence<number>(any_applicative.of, any_applicative_traverable);
+R.sequence<number>(any_applicative.of, [any_applicative]);
+
+// @dts-jest:pass:snap
+R.sequence(number_applicative.of, any_applicative_traverable);
+// @dts-jest:pass:snap
+R.sequence(any_applicative.of, any_applicative_traverable);
+// @dts-jest:pass:snap
+R.sequence<number>(any_applicative.of, any_applicative_traverable);

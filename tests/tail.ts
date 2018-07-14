@@ -1,9 +1,9 @@
-import R_tail = require('../ramda/dist/src/tail');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_tail(string);
+R.tail(string);
 // @dts-jest:pass:snap
-R_tail(string_array);
+R.tail(string_array);

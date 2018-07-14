@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_head(number_array) 1`] = `"number | undefined"`;
+exports[`R.head(number_array) 1`] = `"number | undefined"`;
 
-exports[`R_head(number_boolean_object_tuple) 1`] = `"number"`;
+exports[`R.head(number_boolean_object_tuple) 1`] = `"number"`;
 
-exports[`R_head(string) 1`] = `"string"`;
+exports[`R.head(string) 1`] = `"string"`;
 
-exports[`R_head(string_array) 1`] = `"string | undefined"`;
+exports[`R.head(string_array) 1`] = `"string | undefined"`;
 
-exports[`R_head(string_number_tuple) 1`] = `"string"`;
+exports[`R.head(string_number_tuple) 1`] = `"string"`;

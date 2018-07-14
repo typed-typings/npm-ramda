@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_xprod(number_array) 1`] = `"<U>(b: U[] | ArrayLike<U>) => [number, U][]"`;
+exports[`R.xprod(number_array) 1`] = `"<U>(b: R.List<U>) => [number, U][]"`;
 
-exports[`R_xprod(number_array)(string_array) 1`] = `"[number, string][]"`;
+exports[`R.xprod(number_array)(string_array) 1`] = `"[number, string][]"`;
 
-exports[`R_xprod(number_array, string_array) 1`] = `"[number, string][]"`;
+exports[`R.xprod(number_array, string_array) 1`] = `"[number, string][]"`;

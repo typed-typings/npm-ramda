@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_apply(number_and_string_to_boolean)(number_and_string) 1`] = `"boolean"`;
+exports[`R.apply(number_and_string_to_boolean)(number_and_string) 1`] = `"boolean"`;
 
-exports[`R_apply(number_and_string_to_boolean, number_and_string) 1`] = `"boolean"`;
+exports[`R.apply(number_and_string_to_boolean, number_and_string) 1`] = `"boolean"`;

@@ -1,11 +1,11 @@
-import R_lte = require('../ramda/dist/src/lte');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_lte(string);
+R.lte(string);
 // @dts-jest:pass:snap
-R_lte(string, string);
+R.lte(string, string);
 // @dts-jest:pass:snap
-R_lte(number, number);
+R.lte(number, number);

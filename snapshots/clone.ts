@@ -1,10 +1,9 @@
-import { List } from '../ramda/dist/src/$types';
-import R_clone = require('../ramda/dist/src/clone');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
-declare const string_list: List<string>;
+declare const string_list: R.List<string>;
 
 // @dts-jest:pass:snap -> number
-R_clone(number);
-// @dts-jest:pass:snap -> List<string>
-R_clone(string_list);
+R.clone(number);
+// @dts-jest:pass:snap -> R.List<string>
+R.clone(string_list);

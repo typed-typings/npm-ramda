@@ -1,11 +1,11 @@
-import R_split = require('../ramda/dist/src/split');
+import * as R from '../ramda/dist/index';
 
 declare const regex: RegExp;
 declare const string: string;
 
 // @dts-jest:pass:snap
-R_split(regex);
+R.split(regex);
 // @dts-jest:pass:snap
-R_split(regex)(string);
+R.split(regex)(string);
 // @dts-jest:pass:snap
-R_split(regex, string);
+R.split(regex, string);

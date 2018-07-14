@@ -1,10 +1,10 @@
-import R_takeLast = require('../ramda/dist/src/takeLast');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const string: string;
 declare const boolean_array: boolean[];
 
 // @dts-jest:pass:snap
-R_takeLast(number, string);
+R.takeLast(number, string);
 // @dts-jest:pass:snap
-R_takeLast(number, boolean_array);
+R.takeLast(number, boolean_array);

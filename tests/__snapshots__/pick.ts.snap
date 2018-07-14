@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_pick(['a', 'c'])(a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"a\\" | \\"c\\">"`;
+exports[`R.pick(['a', 'c'])(a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"a\\" | \\"c\\">"`;
 
-exports[`R_pick(['a', 'c'], a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"a\\" | \\"c\\">"`;
+exports[`R.pick(['a', 'c'], a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"a\\" | \\"c\\">"`;
 
-exports[`R_pick([string])(object) 1`] = `"Pick<object, string>"`;
+exports[`R.pick([string])(object) 1`] = `"Pick<object, string>"`;
 
-exports[`R_pick([string], object) 1`] = `"Pick<object, string>"`;
+exports[`R.pick([string], object) 1`] = `"Pick<object, string>"`;

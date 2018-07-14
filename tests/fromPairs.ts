@@ -1,6 +1,6 @@
-import R_fromPairs = require('../ramda/dist/src/fromPairs');
+import * as R from '../ramda/dist/index';
 
 declare const number_object_tuple: [number, object];
 
 // @dts-jest:pass:snap
-R_fromPairs([number_object_tuple]);
+R.fromPairs([number_object_tuple]);

@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_converge(any_args_to_object) 1`] = `"<T1>(fns: [(v1: T1) => any]) => CurriedFunction1<T1, object>"`;
+exports[`R.converge(any_args_to_object) 1`] = `"<T1>(fns: [(v1: T1) => any]) => R.CurriedFunction1<T1, object>"`;
 
-exports[`R_converge(string_number_boolean_to_object) 1`] = `"<T1>(fns: [(v1: T1) => string, (v1: T1) => number, (v1: T1) => boolean]) => CurriedFunction1<T1, object>"`;
+exports[`R.converge(string_number_boolean_to_object) 1`] = `"<T1>(fns: [(v1: T1) => string, (v1: T1) => number, (v1: T1) => boolean]) => R.CurriedFunction1<T1, object>"`;
 
-exports[`R_converge(string_number_boolean_to_object)([
+exports[`R.converge(string_number_boolean_to_object)([
     string_to_string,
     string_to_number,
     string_to_boolean,
-  ]) 1`] = `"CurriedFunction1<string, object>"`;
+  ]) 1`] = `"R.CurriedFunction1<string, object>"`;
 
-exports[`R_converge(string_number_boolean_to_object, [
+exports[`R.converge(string_number_boolean_to_object, [
     string_to_string,
     string_to_number,
     string_to_boolean,
-  ]) 1`] = `"CurriedFunction1<string, object>"`;
+  ]) 1`] = `"R.CurriedFunction1<string, object>"`;
 
-exports[`R_converge<'1', 'i2f2'>()(any_args_to_object) 1`] = `"<T1, T2>(fns: [(v1: T1, v2: T2) => any, (v1: T1, v2: T2) => any]) => CurriedFunction2<T1, T2, object>"`;
+exports[`R.converge<'1', 'i2f2'>()(any_args_to_object) 1`] = `"<T1, T2>(fns: [(v1: T1, v2: T2) => any, (v1: T1, v2: T2) => any]) => R.CurriedFunction2<T1, T2, object>"`;
 
-exports[`R_converge<'1', 'variadic'>()(any_args_to_object) 1`] = `"(fns: ((...args: any[]) => any)[] | ArrayLike<(...args: any[]) => any>) => (...args: any[]) => object"`;
+exports[`R.converge<'1', 'variadic'>()(any_args_to_object) 1`] = `"(fns: R.List<R.Variadic<any>>) => R.Variadic<object>"`;

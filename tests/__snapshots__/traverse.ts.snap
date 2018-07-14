@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_traverse(
+exports[`R.traverse(
     number_applicative.of,
     number_to_string_applicative,
     number_traverable,
-  ) 1`] = `"Applicative<Traversable<string>>"`;
+  ) 1`] = `"R.Applicative<R.Traversable<string>>"`;
 
-exports[`R_traverse(number_applicative.of)(number_to_string_applicative)(
+exports[`R.traverse(number_applicative.of)(number_to_string_applicative)(
     number_traverable,
-  ) 1`] = `"Applicative<Traversable<string>>"`;
+  ) 1`] = `"R.Applicative<R.Traversable<string>>"`;
 
-exports[`R_traverse(number_applicative.of)(number_to_string_applicative)(number_array) 1`] = `"Applicative<string[]>"`;
+exports[`R.traverse(number_applicative.of)(number_to_string_applicative)(number_array) 1`] = `"R.Applicative<string[]>"`;
 
-exports[`R_traverse(number_applicative.of, number_to_string_applicative, number_array) 1`] = `"Applicative<string[]>"`;
+exports[`R.traverse(number_applicative.of, number_to_string_applicative, number_array) 1`] = `"R.Applicative<string[]>"`;

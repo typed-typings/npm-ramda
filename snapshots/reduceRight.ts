@@ -1,12 +1,12 @@
-import R_reduceRight = require('../ramda/dist/src/reduceRight');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 declare const object: object;
 declare const number_object_to_object: (val: number, acc: object) => object;
 
-// @dts-jest:pass:snap -> (values: number[] | ArrayLike<number>) => object
-R_reduceRight(number_object_to_object, object);
+// @dts-jest:pass:snap -> (values: R.List<number>) => object
+R.reduceRight(number_object_to_object, object);
 // @dts-jest:pass:snap -> object
-R_reduceRight(number_object_to_object)(object)(number_array);
+R.reduceRight(number_object_to_object)(object)(number_array);
 // @dts-jest:pass:snap -> object
-R_reduceRight(number_object_to_object, object, number_array);
+R.reduceRight(number_object_to_object, object, number_array);

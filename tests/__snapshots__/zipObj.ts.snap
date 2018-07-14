@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_zipObj(['a', 'b']) 1`] = `"<U>(b: U[] | ArrayLike<U>) => Record<\\"a\\" | \\"b\\", U>"`;
+exports[`R.zipObj(['a', 'b']) 1`] = `"<U>(b: R.List<U>) => Record<\\"a\\" | \\"b\\", U>"`;
 
-exports[`R_zipObj(['a', 'b'])(number_array) 1`] = `"Record<\\"a\\" | \\"b\\", number>"`;
+exports[`R.zipObj(['a', 'b'])(number_array) 1`] = `"Record<\\"a\\" | \\"b\\", number>"`;
 
-exports[`R_zipObj(['a', 'b'], number_array) 1`] = `"Record<\\"a\\" | \\"b\\", number>"`;
+exports[`R.zipObj(['a', 'b'], number_array) 1`] = `"Record<\\"a\\" | \\"b\\", number>"`;
 
-exports[`R_zipObj(number_array) 1`] = `"<U>(b: U[] | ArrayLike<U>) => Record<string, U>"`;
+exports[`R.zipObj(number_array) 1`] = `"<U>(b: R.List<U>) => Record<string, U>"`;
 
-exports[`R_zipObj(number_array)(string_array) 1`] = `"Record<string, string>"`;
+exports[`R.zipObj(number_array)(string_array) 1`] = `"Record<string, string>"`;
 
-exports[`R_zipObj(number_array, string_array) 1`] = `"Record<string, string>"`;
+exports[`R.zipObj(number_array, string_array) 1`] = `"Record<string, string>"`;

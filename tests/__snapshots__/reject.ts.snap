@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_reject(string_predicate)(string_array) 1`] = `"string[]"`;
+exports[`R.reject(string_predicate)(string_array) 1`] = `"string[]"`;
 
-exports[`R_reject(string_predicate)(string_dictionary) 1`] = `"Partial<Dictionary<string>>"`;
+exports[`R.reject(string_predicate)(string_dictionary) 1`] = `"Partial<R.Dictionary<string>>"`;
 
-exports[`R_reject(string_predicate)(string_filterable) 1`] = `"Filterable<string>"`;
+exports[`R.reject(string_predicate)(string_filterable) 1`] = `"R.Filterable<string>"`;
 
-exports[`R_reject(string_predicate, string_array) 1`] = `"string[]"`;
+exports[`R.reject(string_predicate, string_array) 1`] = `"string[]"`;
 
-exports[`R_reject(string_predicate, string_dictionary) 1`] = `"Partial<Dictionary<string>>"`;
+exports[`R.reject(string_predicate, string_dictionary) 1`] = `"Partial<R.Dictionary<string>>"`;
 
-exports[`R_reject(string_predicate, string_filterable) 1`] = `"Filterable<string>"`;
+exports[`R.reject(string_predicate, string_filterable) 1`] = `"R.Filterable<string>"`;

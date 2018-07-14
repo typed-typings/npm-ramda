@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_unapply(number_array_to_string) 1`] = `"(...args: any[]) => string"`;
+exports[`R.unapply(number_array_to_string) 1`] = `"R.Variadic<string>"`;
 
-exports[`R_unapply(number_array_to_string)(...number_array) 1`] = `"string"`;
+exports[`R.unapply(number_array_to_string)(...number_array) 1`] = `"string"`;

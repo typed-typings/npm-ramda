@@ -1,8 +1,8 @@
-import R_difference = require('../ramda/dist/src/difference');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 
 // @dts-jest:pass:snap
-R_difference(number_array);
+R.difference(number_array);
 // @dts-jest:pass:snap
-R_difference(number_array, number_array);
+R.difference(number_array, number_array);

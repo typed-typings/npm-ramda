@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_adjust(string_to_number)(number, string_array) 1`] = `"(string | number)[]"`;
+exports[`R.adjust(string_to_number)(number, string_array) 1`] = `"(string | number)[]"`;
 
-exports[`R_adjust(string_to_number, number)(string_array) 1`] = `"(string | number)[]"`;
+exports[`R.adjust(string_to_number, number)(string_array) 1`] = `"(string | number)[]"`;
 
-exports[`R_adjust(string_to_number, number, string_array) 1`] = `"(string | number)[]"`;
+exports[`R.adjust(string_to_number, number, string_array) 1`] = `"(string | number)[]"`;
 
-exports[`R_adjust(string_to_string)(number, string_array) 1`] = `"string[]"`;
+exports[`R.adjust(string_to_string)(number, string_array) 1`] = `"string[]"`;
 
-exports[`R_adjust(string_to_string, number)(string_array) 1`] = `"string[]"`;
+exports[`R.adjust(string_to_string, number)(string_array) 1`] = `"string[]"`;
 
-exports[`R_adjust(string_to_string, number, string_array) 1`] = `"string[]"`;
+exports[`R.adjust(string_to_string, number, string_array) 1`] = `"string[]"`;
 
-exports[`R_adjust<'111', 'tuple'>()(string_to_string, 0, string_number_tuple) 1`] = `"[string, number]"`;
+exports[`R.adjust<'111', 'tuple'>()(string_to_string, 0, string_number_tuple) 1`] = `"[string, number]"`;
 
-exports[`R_adjust<'111', 'tuple'>()(string_to_string, 1, string_number_tuple) 1`] = `
+exports[`R.adjust<'111', 'tuple'>()(string_to_string, 1, string_number_tuple) 1`] = `
 "Argument of type 'Morphism<string, string>' is not assignable to parameter of type 'Morphism<number, number>'.
   Types of parameters 'value' and 'value' are incompatible.
     Type 'number' is not assignable to type 'string'."

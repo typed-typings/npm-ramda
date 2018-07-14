@@ -1,7 +1,7 @@
-import R_nthArg = require('../ramda/dist/src/nthArg');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 declare const object_array: object[];
 
 // @dts-jest:pass:snap -> object
-R_nthArg(number)(...object_array);
+R.nthArg(number)(...object_array);

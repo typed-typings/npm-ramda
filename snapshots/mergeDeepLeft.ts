@@ -1,12 +1,12 @@
-import R_mergeDeepLeft = require('../ramda/dist/src/mergeDeepLeft');
+import * as R from '../ramda/dist/index';
 
 declare const a_1: { a: 1 };
 declare const b_2: { b: 2 };
 
 // @dts-jest:pass:snap -> (right: object) => object
-R_mergeDeepLeft(a_1);
+R.mergeDeepLeft(a_1);
 
 // @dts-jest:pass:snap -> object
-R_mergeDeepLeft(a_1)(b_2);
+R.mergeDeepLeft(a_1)(b_2);
 // @dts-jest:pass:snap -> object
-R_mergeDeepLeft(a_1, b_2);
+R.mergeDeepLeft(a_1, b_2);

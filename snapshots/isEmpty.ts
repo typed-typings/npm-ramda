@@ -1,6 +1,6 @@
-import R_isEmpty = require('../ramda/dist/src/isEmpty');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 
 // @dts-jest:pass:snap -> boolean
-R_isEmpty(string);
+R.isEmpty(string);

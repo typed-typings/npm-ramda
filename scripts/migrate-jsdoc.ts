@@ -34,7 +34,8 @@ const src_filenames = fs
 
 src_filenames.forEach(filename => {
   const content = fs.readFileSync(`${src_dir}/${filename}`, 'utf8');
-  const jsdoc = content.match(/\/\*\*([\s\S]+?)\*\//)![1]
+  const jsdoc = content
+    .match(/\/\*\*([\s\S]+?)\*\//)![1]
     .replace(/^ *\* ?/gm, '')
     .trim();
 

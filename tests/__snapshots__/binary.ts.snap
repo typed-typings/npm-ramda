@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_binary(object_variadic) 1`] = `"(a: any, b: any) => object"`;
+exports[`R.binary(object_variadic) 1`] = `"(a: any, b: any) => object"`;
 
-exports[`R_binary(string_number_symbol_to_boolean) 1`] = `"(a: string, b: number) => boolean"`;
+exports[`R.binary(string_number_symbol_to_boolean) 1`] = `"(a: string, b: number) => boolean"`;

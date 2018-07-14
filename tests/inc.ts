@@ -1,6 +1,6 @@
-import R_inc = require('../ramda/dist/src/inc');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_inc(number);
+R.inc(number);

@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_valuesIn(a_1_b_2_c_3) 1`] = `"(1 | 2 | 3)[]"`;
+exports[`R.valuesIn(a_1_b_2_c_3) 1`] = `"(1 | 2 | 3)[]"`;
 
-exports[`R_valuesIn(object) 1`] = `"any[]"`;
+exports[`R.valuesIn(object) 1`] = `"never[]"`;

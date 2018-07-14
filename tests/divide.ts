@@ -1,8 +1,8 @@
-import R_divide = require('../ramda/dist/src/divide');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_divide(number, number);
+R.divide(number, number);
 // @dts-jest:pass:snap
-R_divide(number)(number);
+R.divide(number)(number);

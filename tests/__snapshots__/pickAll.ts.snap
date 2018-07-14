@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_pickAll(['a', 'c', 'f'])(a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
+exports[`R.pickAll(['a', 'c', 'f'])(a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
 
-exports[`R_pickAll(['a', 'c', 'f'], a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
+exports[`R.pickAll(['a', 'c', 'f'], a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
 
-exports[`R_pickAll(['a', 'c'])(a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
+exports[`R.pickAll(['a', 'c'])(a_1_b_2_c_3) 1`] = `"Partial<{ a: 1; b: 2; c: 3; }>"`;
 
-exports[`R_pickAll(['a', 'c'], a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"a\\" | \\"c\\">"`;
+exports[`R.pickAll(['a', 'c'], a_1_b_2_c_3) 1`] = `"Pick<{ a: 1; b: 2; c: 3; }, \\"a\\" | \\"c\\">"`;
 
-exports[`R_pickAll([string])(object) 1`] = `"object"`;
+exports[`R.pickAll([string])(object) 1`] = `"object"`;
 
-exports[`R_pickAll([string], object) 1`] = `"object"`;
+exports[`R.pickAll([string], object) 1`] = `"object"`;

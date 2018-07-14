@@ -1,18 +1,18 @@
-import R_zipObj = require('../ramda/dist/src/zipObj');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_zipObj(number_array);
+R.zipObj(number_array);
 // @dts-jest:pass:snap
-R_zipObj(number_array)(string_array);
+R.zipObj(number_array)(string_array);
 // @dts-jest:pass:snap
-R_zipObj(number_array, string_array);
+R.zipObj(number_array, string_array);
 
 // @dts-jest:pass:snap
-R_zipObj(['a', 'b']);
+R.zipObj(['a', 'b']);
 // @dts-jest:pass:snap
-R_zipObj(['a', 'b'])(number_array);
+R.zipObj(['a', 'b'])(number_array);
 // @dts-jest:pass:snap
-R_zipObj(['a', 'b'], number_array);
+R.zipObj(['a', 'b'], number_array);

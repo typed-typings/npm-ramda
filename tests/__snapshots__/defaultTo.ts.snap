@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_defaultTo(string)(number_or_undefined) 1`] = `"string | number"`;
+exports[`R.defaultTo(string)(number_or_undefined) 1`] = `"string | number"`;
 
-exports[`R_defaultTo(string)(undefined) 1`] = `"string"`;
+exports[`R.defaultTo(string)(undefined) 1`] = `"string"`;
 
-exports[`R_defaultTo(string, number_or_undefined) 1`] = `"string | number"`;
+exports[`R.defaultTo(string, number_or_undefined) 1`] = `"string | number"`;
 
-exports[`R_defaultTo(string, undefined) 1`] = `"string"`;
+exports[`R.defaultTo(string, undefined) 1`] = `"string"`;

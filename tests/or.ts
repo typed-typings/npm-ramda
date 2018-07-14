@@ -1,9 +1,9 @@
-import R_or = require('../ramda/dist/src/or');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_or(string)(number);
+R.or(string)(number);
 // @dts-jest:pass:snap
-R_or(string, number);
+R.or(string, number);

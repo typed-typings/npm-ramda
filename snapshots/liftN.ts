@@ -1,4 +1,4 @@
-import R_liftN = require('../ramda/dist/src/liftN');
+import * as R from '../ramda/dist/index';
 
 declare const string_to_object: (x: string) => object;
 declare const number_boolean_to_string: (x: number, y: boolean) => string;
@@ -13,11 +13,11 @@ declare const seven_string_to_number: (
   v7: string,
 ) => number;
 
-// @dts-jest:pass:snap -> () => object[]
-R_liftN(0, string_to_object);
-// @dts-jest:pass:snap -> CurriedFunction1<number[] | ArrayLike<number>, string[]>
-R_liftN(1, number_boolean_to_string);
-// @dts-jest:pass:snap -> CurriedFunction4<number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, number[] | ArrayLike<number>, boolean[]>
-R_liftN(4, number_args_to_boolean);
-// @dts-jest:pass:snap -> (...args: any[]) => number[]
-R_liftN(7, seven_string_to_number);
+// @dts-jest:pass:snap -> R.CurriedFunction0<object[]>
+R.liftN(0, string_to_object);
+// @dts-jest:pass:snap -> R.CurriedFunction1<R.List<number>, string[]>
+R.liftN(1, number_boolean_to_string);
+// @dts-jest:pass:snap -> R.CurriedFunction4<R.List<number>, R.List<number>, R.List<number>, R.List<number>, boolean[]>
+R.liftN(4, number_args_to_boolean);
+// @dts-jest:pass:snap -> R.Variadic<number[]>
+R.liftN(7, seven_string_to_number);

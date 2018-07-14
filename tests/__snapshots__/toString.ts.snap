@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_toString(number) 1`] = `"string"`;
+exports[`R.toString(number) 1`] = `"string"`;
 
-exports[`R_toString(object) 1`] = `"string"`;
+exports[`R.toString(object) 1`] = `"string"`;

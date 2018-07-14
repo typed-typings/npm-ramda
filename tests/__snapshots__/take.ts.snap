@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_take(number, boolean_array) 1`] = `"boolean[]"`;
+exports[`R.take(number, boolean_array) 1`] = `"boolean[]"`;
 
-exports[`R_take(number, string) 1`] = `"string"`;
+exports[`R.take(number, string) 1`] = `"string"`;

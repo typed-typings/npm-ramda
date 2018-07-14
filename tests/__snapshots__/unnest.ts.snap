@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_unnest(number_array) 1`] = `"number[]"`;
+exports[`R.unnest(number_array) 1`] = `"number[]"`;
 
-exports[`R_unnest(number_array_array) 1`] = `"number[]"`;
+exports[`R.unnest(number_array_array) 1`] = `"number[]"`;

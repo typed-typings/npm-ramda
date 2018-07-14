@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_mapObjIndexed(number_string_object_to_boolean) 1`] = `"(object: Record<string, number>) => Record<string, boolean>"`;
+exports[`R.mapObjIndexed(R.__, a_1_b_2_c_3)(number_string_object_to_boolean) 1`] = `"Record<\\"a\\" | \\"b\\" | \\"c\\", boolean>"`;
 
-exports[`R_mapObjIndexed(number_string_object_to_boolean, a_1_b_2_c_3) 1`] = `"Record<string, boolean>"`;
+exports[`R.mapObjIndexed(number_string_object_to_boolean) 1`] = `"(object: Record<string, number>) => Record<string, boolean>"`;
 
-exports[`R_mapObjIndexed(number_string_object_to_boolean, string_number_record) 1`] = `"Record<string, boolean>"`;
+exports[`R.mapObjIndexed(number_string_object_to_boolean, a_1_b_2_c_3) 1`] = `"Record<string, boolean>"`;
 
-exports[`R_mapObjIndexed(placeholder, a_1_b_2_c_3)(number_string_object_to_boolean) 1`] = `"Record<\\"a\\" | \\"b\\" | \\"c\\", boolean>"`;
+exports[`R.mapObjIndexed(number_string_object_to_boolean, string_number_record) 1`] = `"Record<string, boolean>"`;

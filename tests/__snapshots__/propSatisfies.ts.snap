@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_propSatisfies(number_to_boolean, 'a') 1`] = `"(object: Record<\\"a\\", any>) => boolean"`;
+exports[`R.propSatisfies(number_to_boolean, 'a') 1`] = `"(object: Record<\\"a\\", any>) => boolean"`;
 
-exports[`R_propSatisfies(number_to_boolean, 'a')(a_b_number_record) 1`] = `"boolean"`;
+exports[`R.propSatisfies(number_to_boolean, 'a')(a_b_number_record) 1`] = `"boolean"`;
 
-exports[`R_propSatisfies(number_to_boolean, 'a', a_b_number_record) 1`] = `"boolean"`;
+exports[`R.propSatisfies(number_to_boolean, 'a', a_b_number_record) 1`] = `"boolean"`;
 
-exports[`R_propSatisfies(number_to_boolean, placeholder, a_b_number_record) 1`] = `"(key: \\"a\\" | \\"b\\") => boolean"`;
+exports[`R.propSatisfies(number_to_boolean, R.__, a_b_number_record) 1`] = `"(key: \\"a\\" | \\"b\\") => boolean"`;
 
-exports[`R_propSatisfies(number_to_boolean, placeholder, a_b_number_record)('a') 1`] = `"boolean"`;
+exports[`R.propSatisfies(number_to_boolean, R.__, a_b_number_record)('a') 1`] = `"boolean"`;

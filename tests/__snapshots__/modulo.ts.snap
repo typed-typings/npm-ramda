@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_modulo(number)(number) 1`] = `"number"`;
+exports[`R.modulo(number)(number) 1`] = `"number"`;
 
-exports[`R_modulo(number, number) 1`] = `"number"`;
+exports[`R.modulo(number, number) 1`] = `"number"`;

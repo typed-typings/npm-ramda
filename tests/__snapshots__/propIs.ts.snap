@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_propIs(Number)('a') 1`] = `"<U extends {}>(object: U) => object is U & Record<\\"a\\", Number>"`;
+exports[`R.propIs(Number)('a') 1`] = `"<U extends {}>(object: U) => object is U & Record<\\"a\\", Number>"`;
 
-exports[`R_propIs(Number)('a')(object) 1`] = `"boolean"`;
+exports[`R.propIs(Number)('a')(object) 1`] = `"boolean"`;
 
-exports[`R_propIs(Number, 'a') 1`] = `"<U extends {}>(object: U) => object is U & Record<\\"a\\", Number>"`;
+exports[`R.propIs(Number, 'a') 1`] = `"<U extends {}>(object: U) => object is U & Record<\\"a\\", Number>"`;
 
-exports[`R_propIs(Number, 'a', object) 1`] = `"boolean"`;
+exports[`R.propIs(Number, 'a', object) 1`] = `"boolean"`;

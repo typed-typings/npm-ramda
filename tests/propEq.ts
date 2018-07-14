@@ -1,11 +1,11 @@
-import R_propEq = require('../ramda/dist/src/propEq');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const object: object;
 
 // @dts-jest:pass:snap
-R_propEq(string, string);
+R.propEq(string, string);
 // @dts-jest:pass:snap
-R_propEq(string)(string)(object);
+R.propEq(string)(string)(object);
 // @dts-jest:pass:snap
-R_propEq(string, string, object);
+R.propEq(string, string, object);

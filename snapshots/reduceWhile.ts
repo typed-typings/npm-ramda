@@ -1,18 +1,18 @@
-import R_reduceWhile = require('../ramda/dist/src/reduceWhile');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 declare const object: object;
 declare const object_number_to_object: (acc: object, val: number) => object;
 declare const object_number_to_boolean: (acc: object, val: number) => boolean;
 
-// @dts-jest:pass:snap -> (values: number[] | ArrayLike<number>) => object
-R_reduceWhile(object_number_to_boolean, object_number_to_object, object);
+// @dts-jest:pass:snap -> (values: R.List<number>) => object
+R.reduceWhile(object_number_to_boolean, object_number_to_object, object);
 // @dts-jest:pass:snap -> object
-R_reduceWhile(object_number_to_boolean)(object_number_to_object)(object)(
+R.reduceWhile(object_number_to_boolean)(object_number_to_object)(object)(
   number_array,
 );
 // @dts-jest:pass:snap -> object
-R_reduceWhile(
+R.reduceWhile(
   object_number_to_boolean,
   object_number_to_object,
   object,

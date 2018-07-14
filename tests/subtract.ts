@@ -1,8 +1,8 @@
-import R_subtract = require('../ramda/dist/src/subtract');
+import * as R from '../ramda/dist/index';
 
 declare const number: number;
 
 // @dts-jest:pass:snap
-R_subtract(number, number);
+R.subtract(number, number);
 // @dts-jest:pass:snap
-R_subtract(number)(number);
+R.subtract(number)(number);

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_o(number_to_string)(boolean_to_number)(boolean) 1`] = `"string"`;
+exports[`R.o(number_to_string)(boolean_to_number)(boolean) 1`] = `"string"`;
 
-exports[`R_o(number_to_string, boolean_to_number) 1`] = `"(value: boolean) => string"`;
+exports[`R.o(number_to_string, boolean_to_number) 1`] = `"(value: boolean) => string"`;
 
-exports[`R_o(number_to_string, boolean_to_number, boolean) 1`] = `"string"`;
+exports[`R.o(number_to_string, boolean_to_number, boolean) 1`] = `"string"`;

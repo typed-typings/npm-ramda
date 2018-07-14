@@ -1,11 +1,11 @@
-import R_indexOf = require('../ramda/dist/src/indexOf');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 
-// @dts-jest:pass:snap -> (list: string[] | ArrayLike<string>) => number
-R_indexOf(string);
+// @dts-jest:pass:snap -> (list: R.List<string>) => number
+R.indexOf(string);
 // @dts-jest:pass:snap -> number
-R_indexOf(string, string);
+R.indexOf(string, string);
 // @dts-jest:pass:snap -> number
-R_indexOf(string, string_array);
+R.indexOf(string, string_array);

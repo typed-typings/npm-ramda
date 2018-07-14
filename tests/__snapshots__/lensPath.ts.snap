@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_lensPath(path) 1`] = `"ManualLens<{}, {}>"`;
+exports[`R.lensPath(path) 1`] = `"R.ManualLens<{}, {}>"`;
 
-exports[`R_lensPath<object, number[]>(path) 1`] = `"ManualLens<object, number[]>"`;
+exports[`R.lensPath<object, number[]>(path) 1`] = `"R.ManualLens<object, number[]>"`;

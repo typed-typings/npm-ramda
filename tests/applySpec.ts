@@ -1,4 +1,4 @@
-import R_applySpec = require('../ramda/dist/src/applySpec');
+import * as R from '../ramda/dist/index';
 
 interface Name {
   firstname: string;
@@ -10,11 +10,11 @@ declare const name_spec: { [K in keyof Name]: (fullname: string) => Name[K] };
 declare const fullname: string;
 
 // @dts-jest:pass:snap
-R_applySpec(name_spec);
+R.applySpec(name_spec);
 // @dts-jest:pass:snap
-R_applySpec(name_spec)(fullname);
+R.applySpec(name_spec)(fullname);
 
 // @dts-jest:pass:snap
-R_applySpec<Name>(name_spec);
+R.applySpec<Name>(name_spec);
 // @dts-jest:pass:snap
-R_applySpec<Name>(name_spec)(fullname);
+R.applySpec<Name>(name_spec)(fullname);

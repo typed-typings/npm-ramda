@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_findIndex(string_predicate) 1`] = `"(list: string[] | ArrayLike<string>) => number"`;
+exports[`R.findIndex(string_predicate) 1`] = `"(list: R.List<string>) => number"`;
 
-exports[`R_findIndex(string_predicate)(string_array) 1`] = `"number"`;
+exports[`R.findIndex(string_predicate)(string_array) 1`] = `"number"`;
 
-exports[`R_findIndex(string_predicate, string_array) 1`] = `"number"`;
+exports[`R.findIndex(string_predicate, string_array) 1`] = `"number"`;

@@ -1,22 +1,23 @@
-import { Applicative, Traversable } from '../ramda/dist/src/$types';
-import R_traverse = require('../ramda/dist/src/traverse');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
-declare const number_applicative: Applicative<number>;
-declare const number_traverable: Traversable<number>;
-declare const number_to_string_applicative: (x: number) => Applicative<string>;
+declare const number_applicative: R.Applicative<number>;
+declare const number_traverable: R.Traversable<number>;
+declare const number_to_string_applicative: (
+  x: number,
+) => R.Applicative<string>;
 
-// @dts-jest:pass:snap -> Applicative<string[]>
-R_traverse(number_applicative.of, number_to_string_applicative, number_array);
-// @dts-jest:pass:snap -> Applicative<string[]>
-R_traverse(number_applicative.of)(number_to_string_applicative)(number_array);
-// @dts-jest:pass:snap -> Applicative<Traversable<string>>
-R_traverse(
+// @dts-jest:pass:snap -> R.Applicative<string[]>
+R.traverse(number_applicative.of, number_to_string_applicative, number_array);
+// @dts-jest:pass:snap -> R.Applicative<string[]>
+R.traverse(number_applicative.of)(number_to_string_applicative)(number_array);
+// @dts-jest:pass:snap -> R.Applicative<R.Traversable<string>>
+R.traverse(
   number_applicative.of,
   number_to_string_applicative,
   number_traverable,
 );
-// @dts-jest:pass:snap -> Applicative<Traversable<string>>
-R_traverse(number_applicative.of)(number_to_string_applicative)(
+// @dts-jest:pass:snap -> R.Applicative<R.Traversable<string>>
+R.traverse(number_applicative.of)(number_to_string_applicative)(
   number_traverable,
 );

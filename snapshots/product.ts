@@ -1,6 +1,6 @@
-import R_product = require('../ramda/dist/src/product');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 
 // @dts-jest:pass:snap -> number
-R_product(number_array);
+R.product(number_array);

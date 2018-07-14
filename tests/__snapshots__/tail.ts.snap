@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_tail(string) 1`] = `"string"`;
+exports[`R.tail(string) 1`] = `"string"`;
 
-exports[`R_tail(string_array) 1`] = `"string[]"`;
+exports[`R.tail(string_array) 1`] = `"string[]"`;

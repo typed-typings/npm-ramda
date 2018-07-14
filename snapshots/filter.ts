@@ -1,22 +1,21 @@
-import { Dictionary, Filterable, Predicate } from '../ramda/dist/src/$types';
-import R_filter = require('../ramda/dist/src/filter');
+import * as R from '../ramda/dist/index';
 
-declare const string_predicate: Predicate<string>;
+declare const string_predicate: R.Predicate<string>;
 declare const string_array: string[];
-declare const string_dictionary: Dictionary<string>;
-declare const string_filterable: Filterable<string>;
+declare const string_dictionary: R.Dictionary<string>;
+declare const string_filterable: R.Filterable<string>;
 
 // @dts-jest:pass:snap -> string[]
-R_filter(string_predicate, string_array);
+R.filter(string_predicate, string_array);
 // @dts-jest:pass:snap -> string[]
-R_filter(string_predicate)(string_array);
+R.filter(string_predicate)(string_array);
 
-// @dts-jest:pass:snap -> Partial<Dictionary<string>>
-R_filter(string_predicate, string_dictionary);
-// @dts-jest:pass:snap -> Partial<Dictionary<string>>
-R_filter(string_predicate)(string_dictionary);
+// @dts-jest:pass:snap -> Partial<R.Dictionary<string>>
+R.filter(string_predicate, string_dictionary);
+// @dts-jest:pass:snap -> Partial<R.Dictionary<string>>
+R.filter(string_predicate)(string_dictionary);
 
-// @dts-jest:pass:snap -> Filterable<string>
-R_filter(string_predicate, string_filterable);
-// @dts-jest:pass:snap -> Filterable<string>
-R_filter(string_predicate)(string_filterable);
+// @dts-jest:pass:snap -> R.Filterable<string>
+R.filter(string_predicate, string_filterable);
+// @dts-jest:pass:snap -> R.Filterable<string>
+R.filter(string_predicate)(string_filterable);

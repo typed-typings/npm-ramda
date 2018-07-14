@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_complement(string_string_to_boolean) 1`] = `"(...args: any[]) => boolean"`;
+exports[`R.complement(string_string_to_boolean) 1`] = `"R.Variadic<boolean>"`;
 
-exports[`R_complement(string_string_to_boolean)(string, string) 1`] = `"boolean"`;
+exports[`R.complement(string_string_to_boolean)(string, string) 1`] = `"boolean"`;

@@ -1,6 +1,6 @@
-import R_invert = require('../ramda/dist/src/invert');
+import * as R from '../ramda/dist/index';
 
 declare const number_object_record: { [number: number]: object };
 
-// @dts-jest:pass:snap -> Dictionary<string[]>
-R_invert(number_object_record);
+// @dts-jest:pass:snap -> R.Dictionary<string[]>
+R.invert(number_object_record);

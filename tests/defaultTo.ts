@@ -1,13 +1,13 @@
-import R_defaultTo = require('../ramda/dist/src/defaultTo');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const number_or_undefined: number | undefined;
 
 // @dts-jest:pass:snap
-R_defaultTo(string)(undefined);
+R.defaultTo(string)(undefined);
 // @dts-jest:pass:snap
-R_defaultTo(string, undefined);
+R.defaultTo(string, undefined);
 // @dts-jest:pass:snap
-R_defaultTo(string)(number_or_undefined);
+R.defaultTo(string)(number_or_undefined);
 // @dts-jest:pass:snap
-R_defaultTo(string, number_or_undefined);
+R.defaultTo(string, number_or_undefined);

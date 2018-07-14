@@ -864,11 +864,11 @@ dts-element-fp@1.1.2:
   dependencies:
     ramda "^0.25.0"
 
-dts-element@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/dts-element/-/dts-element-2.2.1.tgz#3c3986813464082a16dc94c026114b6d26fb4f9f"
+dts-element@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/dts-element/-/dts-element-2.3.2.tgz#7d19ff5d355f6fae8fa184f8800655e749a62078"
   dependencies:
-    typescript "~2.4.1"
+    typescript "~2.8.1"
 
 dts-jest@22.0.3:
   version "22.0.3"
@@ -2766,9 +2766,9 @@ prettier-config-ikatyang@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/prettier-config-ikatyang/-/prettier-config-ikatyang-1.1.1.tgz#9ccab4bc2d441e4c68b58dbe8f1a4e18213c3f2d"
 
-prettier@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.10.0.tgz#0b89c9b0d55d0862d9c977e4b459696bdea564fb"
+prettier@1.13.7:
+  version "1.13.7"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.7.tgz#850f3b8af784a49a6ea2d2eaa7ed1428a34b7281"
 
 pretty-format@^21.0.0:
   version "21.0.0"
@@ -3498,17 +3498,17 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-typescript@2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
+typescript@2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
 
 typescript@^2.4.0:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.2.tgz#038a95f7d9bbb420b1bf35ba31d4c5c1dd3ffe34"
 
-typescript@~2.4.1:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
+typescript@~2.8.1:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.4.tgz#0b1db68e6bdfb0b767fa2ab642136a35b059b199"
 
 uglify-js@^2.6:
   version "2.8.29"

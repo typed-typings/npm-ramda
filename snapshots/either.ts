@@ -1,9 +1,8 @@
-import { Predicate } from '../ramda/dist/src/$types';
-import R_either = require('../ramda/dist/src/either');
+import * as R from '../ramda/dist/index';
 
-declare const string_predicate: Predicate<string>;
+declare const string_predicate: R.Predicate<string>;
 
-// @dts-jest:pass:snap -> (fn2: (value: string) => boolean) => (value: string) => boolean
-R_either(string_predicate);
-// @dts-jest:pass:snap -> (value: string) => boolean
-R_either(string_predicate, string_predicate);
+// @dts-jest:pass:snap -> (fn2: R.Morphism<string, boolean>) => R.Morphism<string, boolean>
+R.either(string_predicate);
+// @dts-jest:pass:snap -> R.Morphism<string, boolean>
+R.either(string_predicate, string_predicate);

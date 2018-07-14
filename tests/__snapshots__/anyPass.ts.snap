@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_anyPass([string_predicate, string_number_preficate]) 1`] = `"(x: string, y: number) => boolean"`;
+exports[`R.anyPass([string_predicate, string_number_preficate]) 1`] = `"(x: string, y: number) => boolean"`;
 
-exports[`R_anyPass([string_predicate, string_predicate]) 1`] = `"(value: string) => boolean"`;
+exports[`R.anyPass([string_predicate, string_predicate]) 1`] = `"R.Morphism<string, boolean>"`;

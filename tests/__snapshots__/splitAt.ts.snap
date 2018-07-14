@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_splitAt(number)(object_list) 1`] = `"[object[], object[]]"`;
+exports[`R.splitAt(number)(object_list) 1`] = `"[object[], object[]]"`;
 
-exports[`R_splitAt(number)(string) 1`] = `"[string, string]"`;
+exports[`R.splitAt(number)(string) 1`] = `"[string, string]"`;
 
-exports[`R_splitAt(number, object_list) 1`] = `"[object[], object[]]"`;
+exports[`R.splitAt(number, object_list) 1`] = `"[object[], object[]]"`;
 
-exports[`R_splitAt(number, string) 1`] = `"[string, string]"`;
+exports[`R.splitAt(number, string) 1`] = `"[string, string]"`;

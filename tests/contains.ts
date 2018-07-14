@@ -1,11 +1,11 @@
-import R_contains = require('../ramda/dist/src/contains');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const string_array: string[];
 
 // @dts-jest:pass:snap
-R_contains(string);
+R.contains(string);
 // @dts-jest:pass:snap
-R_contains(string, string);
+R.contains(string, string);
 // @dts-jest:pass:snap
-R_contains(string, string_array);
+R.contains(string, string_array);

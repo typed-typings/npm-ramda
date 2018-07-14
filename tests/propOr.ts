@@ -1,21 +1,19 @@
-import { Placeholder } from '../ramda/dist/src/$placeholder';
-import R_propOr = require('../ramda/dist/src/propOr');
+import * as R from '../ramda/dist/index';
 
-declare const placeholder: Placeholder;
 declare const a_b_number_record: Record<'a' | 'b', number>;
 declare const defaults: 'defaults';
 
 // @dts-jest:pass:snap
-R_propOr(defaults, 'a');
+R.propOr(defaults, 'a');
 // @dts-jest:pass:snap
-R_propOr(defaults, 'a')(a_b_number_record);
+R.propOr(defaults, 'a')(a_b_number_record);
 
 // @dts-jest:pass:snap
-R_propOr(defaults, 'a', a_b_number_record);
+R.propOr(defaults, 'a', a_b_number_record);
 // @dts-jest:pass:snap
-R_propOr(defaults, 'a', undefined);
+R.propOr(defaults, 'a', undefined);
 
 // @dts-jest:pass:snap
-R_propOr(defaults, placeholder, a_b_number_record);
+R.propOr(defaults, R.__, a_b_number_record);
 // @dts-jest:pass:snap
-R_propOr(defaults, placeholder, a_b_number_record)('a');
+R.propOr(defaults, R.__, a_b_number_record)('a');

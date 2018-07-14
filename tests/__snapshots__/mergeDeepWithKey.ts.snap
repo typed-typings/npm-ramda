@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_mergeDeepWithKey(string_string_string_to_number, a_1) 1`] = `"(right: object) => object"`;
+exports[`R.mergeDeepWithKey(string_string_string_to_number, a_1) 1`] = `"(right: object) => object"`;
 
-exports[`R_mergeDeepWithKey(string_string_string_to_number, a_1)(b_2) 1`] = `"object"`;
+exports[`R.mergeDeepWithKey(string_string_string_to_number, a_1)(b_2) 1`] = `"object"`;
 
-exports[`R_mergeDeepWithKey(string_string_string_to_number, a_1, b_2) 1`] = `"object"`;
+exports[`R.mergeDeepWithKey(string_string_string_to_number, a_1, b_2) 1`] = `"object"`;

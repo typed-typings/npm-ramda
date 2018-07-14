@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_evolve(a_b_number_to_number)(a_1_b_2_c_3) 1`] = `"{ a: 1; b: 2; c: 3; }"`;
+exports[`R.evolve(a_b_number_to_number)(a_1_b_2_c_3) 1`] = `"{ a: 1; b: 2; c: 3; }"`;
 
-exports[`R_evolve(a_b_number_to_number, a_1_b_2_c_3) 1`] = `"{ a: 1; b: 2; c: 3; }"`;
+exports[`R.evolve(a_b_number_to_number, a_1_b_2_c_3) 1`] = `"{ a: 1; b: 2; c: 3; }"`;

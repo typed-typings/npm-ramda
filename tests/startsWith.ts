@@ -1,13 +1,13 @@
-import R_startsWith = require('../ramda/dist/src/startsWith');
+import * as R from '../ramda/dist/index';
 
 declare const string: string;
 declare const boolean_array: boolean[];
 
 // @dts-jest:pass:snap
-R_startsWith(string);
+R.startsWith(string);
 // @dts-jest:pass:snap
-R_startsWith(string, string);
+R.startsWith(string, string);
 // @dts-jest:pass:snap
-R_startsWith(boolean_array);
+R.startsWith(boolean_array);
 // @dts-jest:pass:snap
-R_startsWith(boolean_array, boolean_array);
+R.startsWith(boolean_array, boolean_array);

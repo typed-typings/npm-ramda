@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_pair(number) 1`] = `"<V>(value: V) => KeyValuePair<number, V>"`;
+exports[`R.pair(number) 1`] = `"<V>(value: V) => R.KeyValuePair<number, V>"`;
 
-exports[`R_pair(number)(object) 1`] = `"KeyValuePair<number, object>"`;
+exports[`R.pair(number)(object) 1`] = `"R.KeyValuePair<number, object>"`;
 
-exports[`R_pair(number, object) 1`] = `"KeyValuePair<number, object>"`;
+exports[`R.pair(number, object) 1`] = `"R.KeyValuePair<number, object>"`;

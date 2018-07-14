@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_inc(number) 1`] = `"number"`;
+exports[`R.inc(number) 1`] = `"number"`;

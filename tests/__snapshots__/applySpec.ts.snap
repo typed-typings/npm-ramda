@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_applySpec(name_spec) 1`] = `"(...args: any[]) => {}"`;
+exports[`R.applySpec(name_spec) 1`] = `"R.Variadic<{}>"`;
 
-exports[`R_applySpec(name_spec)(fullname) 1`] = `"{}"`;
+exports[`R.applySpec(name_spec)(fullname) 1`] = `"{}"`;
 
-exports[`R_applySpec<Name>(name_spec) 1`] = `"(...args: any[]) => Name"`;
+exports[`R.applySpec<Name>(name_spec) 1`] = `"R.Variadic<Name>"`;
 
-exports[`R_applySpec<Name>(name_spec)(fullname) 1`] = `"Name"`;
+exports[`R.applySpec<Name>(name_spec)(fullname) 1`] = `"Name"`;

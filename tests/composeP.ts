@@ -1,4 +1,4 @@
-import R_composeP = require('../ramda/dist/src/composeP');
+import * as R from '../ramda/dist/index';
 
 declare const boolean_to_number_promise: (x: boolean) => Promise<number>;
 declare const boolean_to_string_promise: (x: boolean) => Promise<string>;
@@ -17,37 +17,43 @@ declare const a_b_c_d_e_f_to_any_promise: (
 ) => Promise<any>;
 
 // @dts-jest:pass:snap
-R_composeP(boolean_to_number_promise);
+R.composeP(boolean_to_number_promise);
 // @dts-jest:pass:snap
-R_composeP(a_b_c_d_e_f_to_any_promise);
+R.composeP(a_b_c_d_e_f_to_any_promise);
 
 // @dts-jest:pass:snap
-R_composeP(boolean_to_number_promise, string_to_boolean_promise);
+R.composeP(
+  boolean_to_number_promise,
+  string_to_boolean_promise,
+);
 // @dts-jest:pass:snap
-R_composeP(boolean_to_number_promise, a_b_c_d_e_f_to_any_promise);
+R.composeP(
+  boolean_to_number_promise,
+  a_b_c_d_e_f_to_any_promise,
+);
 
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
 );
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   a_b_c_d_e_f_to_any_promise,
 );
 
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
   string_to_number_promise,
 );
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
@@ -55,7 +61,7 @@ R_composeP(
 );
 
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
@@ -63,7 +69,7 @@ R_composeP(
   boolean_to_string_promise,
 );
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
@@ -72,7 +78,7 @@ R_composeP(
 );
 
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,
@@ -81,7 +87,7 @@ R_composeP(
   number_to_boolean_promise,
 );
 // @dts-jest:pass:snap
-R_composeP(
+R.composeP(
   boolean_to_number_promise,
   string_to_boolean_promise,
   number_to_string_promise,

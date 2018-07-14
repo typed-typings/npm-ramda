@@ -1,8 +1,8 @@
-import R_intersection = require('../ramda/dist/src/intersection');
+import * as R from '../ramda/dist/index';
 
 declare const number_array: number[];
 
-// @dts-jest:pass:snap -> (b: number[] | ArrayLike<number>) => number[]
-R_intersection(number_array);
+// @dts-jest:pass:snap -> (b: R.List<number>) => number[]
+R.intersection(number_array);
 // @dts-jest:pass:snap -> number[]
-R_intersection(number_array, number_array);
+R.intersection(number_array, number_array);

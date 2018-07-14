@@ -1,9 +1,8 @@
-import { Path } from '../ramda/dist/src/$types';
-import R_lensPath = require('../ramda/dist/src/lensPath');
+import * as R from '../ramda/dist/index';
 
-declare const path: Path;
+declare const path: R.Path;
 
-// @dts-jest:pass:snap -> ManualLens<{}, {}>
-R_lensPath(path);
-// @dts-jest:pass:snap -> ManualLens<object, number[]>
-R_lensPath<object, number[]>(path);
+// @dts-jest:pass:snap -> R.ManualLens<{}, {}>
+R.lensPath(path);
+// @dts-jest:pass:snap -> R.ManualLens<object, number[]>
+R.lensPath<object, number[]>(path);

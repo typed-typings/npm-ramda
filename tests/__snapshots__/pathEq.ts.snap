@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_pathEq(path)(number)(object) 1`] = `"boolean"`;
+exports[`R.pathEq(path)(number)(object) 1`] = `"boolean"`;
 
-exports[`R_pathEq(path, number) 1`] = `"(object: {}) => boolean"`;
+exports[`R.pathEq(path, number) 1`] = `"(object: {}) => boolean"`;
 
-exports[`R_pathEq(path, number, object) 1`] = `"boolean"`;
+exports[`R.pathEq(path, number, object) 1`] = `"boolean"`;

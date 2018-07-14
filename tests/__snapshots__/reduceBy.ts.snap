@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R_reduceBy(object_number_to_object)(object)(number_to_a_b_c)(number_array) 1`] = `"Partial<Record<\\"a\\" | \\"b\\" | \\"c\\", object>>"`;
+exports[`R.reduceBy(object_number_to_object)(object)(number_to_a_b_c)(number_array) 1`] = `"Partial<Record<\\"a\\" | \\"b\\" | \\"c\\", object>>"`;
 
-exports[`R_reduceBy(object_number_to_object)(object)(number_to_string)(number_array) 1`] = `"Partial<Record<string, object>>"`;
+exports[`R.reduceBy(object_number_to_object)(object)(number_to_string)(number_array) 1`] = `"Partial<Record<string, object>>"`;
 
-exports[`R_reduceBy(object_number_to_object, object, number_to_a_b_c) 1`] = `"(values: number[] | ArrayLike<number>) => Partial<Record<\\"a\\" | \\"b\\" | \\"c\\", object>>"`;
+exports[`R.reduceBy(object_number_to_object, object, number_to_a_b_c) 1`] = `"(values: R.List<number>) => Partial<Record<\\"a\\" | \\"b\\" | \\"c\\", object>>"`;
 
-exports[`R_reduceBy(object_number_to_object, object, number_to_a_b_c, number_array) 1`] = `"Partial<Record<\\"a\\" | \\"b\\" | \\"c\\", object>>"`;
+exports[`R.reduceBy(object_number_to_object, object, number_to_a_b_c, number_array) 1`] = `"Partial<Record<\\"a\\" | \\"b\\" | \\"c\\", object>>"`;
 
-exports[`R_reduceBy(object_number_to_object, object, number_to_string) 1`] = `"(values: number[] | ArrayLike<number>) => Partial<Record<string, object>>"`;
+exports[`R.reduceBy(object_number_to_object, object, number_to_string) 1`] = `"(values: R.List<number>) => Partial<Record<string, object>>"`;
 
-exports[`R_reduceBy(object_number_to_object, object, number_to_string, number_array) 1`] = `"Partial<Record<string, object>>"`;
+exports[`R.reduceBy(object_number_to_object, object, number_to_string, number_array) 1`] = `"Partial<Record<string, object>>"`;
