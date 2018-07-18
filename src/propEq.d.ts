@@ -28,14 +28,17 @@ type propEq_000 = {
      */
     (key: Property): propEq_100;
     (key: Property, value: any): propEq_110;
-    (key: Property, value: any, object: {}): propEq_111;
+    (key: Property, value: any, object: {
+    }): propEq_111;
 };
 type propEq_100 = {
     (value: any): propEq_110;
-    (value: any, object: {}): propEq_111;
+    (value: any, object: {
+    }): propEq_111;
 };
 type propEq_110 = {
-    (object: {}): propEq_111;
+    (object: {
+    }): propEq_111;
 };
 type propEq_111 = boolean;
 export = propEq;

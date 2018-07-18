@@ -21,7 +21,9 @@ type valuesIn_0 = {
      *      var f = new F();
      *      R.valuesIn(f); //=> ['X', 'Y']
      */
-    <T extends {}>(value: T): valuesIn_1<T>;
+    <T extends {
+    }>(value: T): valuesIn_1<T>;
 };
-type valuesIn_1<T extends {}> = Array<T[keyof T]>;
+type valuesIn_1<T extends {
+}> = Array<T[keyof T]>;
 export = valuesIn;

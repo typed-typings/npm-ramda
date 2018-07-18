@@ -19,23 +19,29 @@ type prop_00 = {
      *      R.prop('x', {x: 100}); //=> 100
      *      R.prop('x', {}); //=> undefined
      */
-    <T extends {}, K extends keyof T>(key: K): prop_keyof_10<T, K>;
+    <T extends {
+    }, K extends keyof T>(key: K): prop_keyof_10<T, K>;
     <K extends string>(key: K): prop_record_10<K>;
     (key: Property): prop_general_10;
-    <T extends {}, K extends keyof T>(key: K, object: T): prop_keyof_11<T, K>;
+    <T extends {
+    }, K extends keyof T>(key: K, object: T): prop_keyof_11<T, K>;
     <K extends string, T extends Record<K, any>>(key: K, object: T): prop_record_11<K, T>;
-    <T>(key: Property, object: {}): prop_general_11<T>;
+    <T>(key: Property, object: {
+    }): prop_general_11<T>;
 };
-type prop_keyof_10<T extends {}, K extends keyof T> = {
+type prop_keyof_10<T extends {
+}, K extends keyof T> = {
     (object: T): prop_keyof_11<T, K>;
 };
 type prop_record_10<K extends string> = {
     <T extends Record<K, any>>(object: T): prop_record_11<K, T>;
 };
 type prop_general_10 = {
-    <T>(object: {}): prop_general_11<T>;
+    <T>(object: {
+    }): prop_general_11<T>;
 };
-type prop_keyof_11<T extends {}, K extends keyof T> = T[K];
+type prop_keyof_11<T extends {
+}, K extends keyof T> = T[K];
 type prop_record_11<K extends string, T extends Record<K, any>> = T[K];
 type prop_general_11<T> = T | undefined;
 export = prop;

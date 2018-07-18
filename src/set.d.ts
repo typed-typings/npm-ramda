@@ -28,25 +28,25 @@ type set_000 = {
     <T, U>(lens: ManualLens<T, U>): set_manual_100<T, U>;
     <V>(lens: PseudoLens<any> | ManualLens<any, V>): set_general_100<V>;
     <N extends number, U extends {
-            [index: number]: any;
-        }>(lens: PseudoLens<N>, value: U[N]): set_number_110<N, U>;
+        [index: number]: any;
+    }>(lens: PseudoLens<N>, value: U[N]): set_number_110<N, U>;
     <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, value: U[K]): set_string_110<K, U>;
     <T, U>(lens: ManualLens<T, U>, value: T): set_manual_110<T, U>;
     <V>(lens: PseudoLens<any> | ManualLens<any, V>, fn: any): set_general_110<V>;
     <N extends number, U extends {
-            [index: number]: any;
-        }>(lens: PseudoLens<N>, value: U[N], target: U): set_number_111<U>;
+        [index: number]: any;
+    }>(lens: PseudoLens<N>, value: U[N], target: U): set_number_111<U>;
     <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, value: U[K], target: U): set_string_111<K, U>;
     <T, U>(lens: ManualLens<T, U>, value: T, target: U): set_manual_111<U>;
     <V>(lens: PseudoLens<any> | ManualLens<any, V>, fn: any, target: V): set_general_111<V>;
 };
 type set_number_100<N extends number> = {
     <U extends {
-            [index: number]: any;
-        }>(value: U[N]): set_number_110<N, U>;
+        [index: number]: any;
+    }>(value: U[N]): set_number_110<N, U>;
     <U extends {
-            [index: number]: any;
-        }>(value: U[N], target: U): set_number_111<U>;
+        [index: number]: any;
+    }>(value: U[N], target: U): set_number_111<U>;
 };
 type set_string_100<K extends string> = {
     <U extends Record<K, any>>(value: U[K]): set_string_110<K, U>;
@@ -61,8 +61,8 @@ type set_general_100<V> = {
     (fn: any, target: V): set_general_111<V>;
 };
 type set_number_110<N extends number, U extends {
-        [index: number]: any;
-    }> = {
+    [index: number]: any;
+}> = {
     (target: U): set_number_111<U>;
 };
 type set_string_110<K extends string, U extends Record<K, any>> = {
@@ -75,8 +75,8 @@ type set_general_110<V> = {
     (target: V): set_general_111<V>;
 };
 type set_number_111<U extends {
-        [index: number]: any;
-    }> = U;
+    [index: number]: any;
+}> = U;
 type set_string_111<K extends string, U extends Record<K, any>> = U;
 type set_manual_111<U> = U;
 type set_general_111<V> = V;

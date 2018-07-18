@@ -22,14 +22,17 @@ type pathOr_000 = {
      */
     <T>(defaults: T): pathOr_100<T>;
     <T>(defaults: T, path: Path): pathOr_110<T>;
-    <T, U>(defaults: T, path: Path, object: {}): pathOr_111<T, U>;
+    <T, U>(defaults: T, path: Path, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_100<T> = {
     (path: Path): pathOr_110<T>;
-    <U>(path: Path, object: {}): pathOr_111<T, U>;
+    <U>(path: Path, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_110<T> = {
-    <U>(object: {}): pathOr_111<T, U>;
+    <U>(object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_111<T, U> = T | U;
 export = pathOr;

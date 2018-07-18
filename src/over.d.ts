@@ -28,25 +28,25 @@ type over_000 = {
     <T, U>(lens: ManualLens<T, U>): over_manual_100<T, U>;
     <V>(lens: PseudoLens<any> | ManualLens<any, V>): over_general_100<V>;
     <N extends number, U extends {
-            [index: number]: any;
-        }>(lens: PseudoLens<N>, fn: Morphism<U[N], U[N]>): over_number_110<N, U>;
+        [index: number]: any;
+    }>(lens: PseudoLens<N>, fn: Morphism<U[N], U[N]>): over_number_110<N, U>;
     <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, fn: Morphism<U[K], U[K]>): over_string_110<K, U>;
     <T, U>(lens: ManualLens<T, U>, fn: Morphism<T, T>): over_manual_110<T, U>;
     <X, V>(lens: PseudoLens<any> | ManualLens<any, V>, fn: Morphism<X, X>): over_general_110<X, V>;
     <N extends number, U extends {
-            [index: number]: any;
-        }>(lens: PseudoLens<N>, fn: Morphism<U[N], U[N]>, target: U): over_number_111<U>;
+        [index: number]: any;
+    }>(lens: PseudoLens<N>, fn: Morphism<U[N], U[N]>, target: U): over_number_111<U>;
     <K extends string, U extends Record<K, any>>(lens: PseudoLens<K>, fn: Morphism<U[K], U[K]>, target: U): over_string_111<K, U>;
     <T, U>(lens: ManualLens<T, U>, fn: Morphism<T, T>, target: U): over_manual_111<U>;
     <X, V>(lens: PseudoLens<any> | ManualLens<any, V>, fn: Morphism<X, X>, target: V): over_general_111<V>;
 };
 type over_number_100<N extends number> = {
     <U extends {
-            [index: number]: any;
-        }>(fn: Morphism<U[N], U[N]>): over_number_110<N, U>;
+        [index: number]: any;
+    }>(fn: Morphism<U[N], U[N]>): over_number_110<N, U>;
     <U extends {
-            [index: number]: any;
-        }>(fn: Morphism<U[N], U[N]>, target: U): over_number_111<U>;
+        [index: number]: any;
+    }>(fn: Morphism<U[N], U[N]>, target: U): over_number_111<U>;
 };
 type over_string_100<K extends string> = {
     <U extends Record<K, any>>(fn: Morphism<U[K], U[K]>): over_string_110<K, U>;
@@ -61,8 +61,8 @@ type over_general_100<V> = {
     <X>(fn: Morphism<X, X>, target: V): over_general_111<V>;
 };
 type over_number_110<N extends number, U extends {
-        [index: number]: any;
-    }> = {
+    [index: number]: any;
+}> = {
     (target: U): over_number_111<U>;
 };
 type over_string_110<K extends string, U extends Record<K, any>> = {
@@ -75,8 +75,8 @@ type over_general_110<X, V> = {
     (target: V): over_general_111<V>;
 };
 type over_number_111<U extends {
-        [index: number]: any;
-    }> = U;
+    [index: number]: any;
+}> = U;
 type over_string_111<K extends string, U extends Record<K, any>> = U;
 type over_manual_111<U> = U;
 type over_general_111<V> = V;
