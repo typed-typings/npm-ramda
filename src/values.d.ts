@@ -17,7 +17,9 @@ type values_0 = {
      *
      *      R.values({a: 1, b: 2, c: 3}); //=> [1, 2, 3]
      */
-    <T extends {}>(value: T): values_1<T>;
+    <T extends {
+    }>(value: T): values_1<T>;
 };
-type values_1<T extends {}> = Array<T[keyof T]>;
+type values_1<T extends {
+}> = Array<T[keyof T]>;
 export = values;

@@ -22,19 +22,24 @@ type pathSatisfies_000 = {
      */
     (fn: Predicate<any>): pathSatisfies_100;
     (fn: Predicate<any>, path: Path): pathSatisfies_110;
-    <$SEL extends "111">(): (fn: Predicate<any>, path: Path, object: {}) => pathSatisfies_111;
+    <$SEL extends "111">(): (fn: Predicate<any>, path: Path, object: {
+    }) => pathSatisfies_111;
     <$SEL extends "11">(): (fn: Predicate<any>, path: Path) => pathSatisfies_110;
     <$SEL extends "1">(): (fn: Predicate<any>) => pathSatisfies_100;
-    (fn: Predicate<any>, path: Path, object: {}): pathSatisfies_111;
+    (fn: Predicate<any>, path: Path, object: {
+    }): pathSatisfies_111;
 };
 type pathSatisfies_100 = {
     (path: Path): pathSatisfies_110;
-    <$SEL extends "11">(): (path: Path, object: {}) => pathSatisfies_111;
+    <$SEL extends "11">(): (path: Path, object: {
+    }) => pathSatisfies_111;
     <$SEL extends "1">(): (path: Path) => pathSatisfies_110;
-    (path: Path, object: {}): pathSatisfies_111;
+    (path: Path, object: {
+    }): pathSatisfies_111;
 };
 type pathSatisfies_110 = {
-    (object: {}): pathSatisfies_111;
+    (object: {
+    }): pathSatisfies_111;
 };
 type pathSatisfies_111 = boolean;
 export = pathSatisfies;

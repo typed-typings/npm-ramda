@@ -1,3 +1,4 @@
+import { KeyOf } from "./$operation";
 declare const keys: keys_0;
 type keys_0 = {
     /**
@@ -18,7 +19,7 @@ type keys_0 = {
      *
      *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
      */
-    <T, K extends keyof T>(object: T): keys_1<T, K>;
+    <T>(object: T): keys_1<T>;
 };
-type keys_1<T, K extends keyof T> = K[];
+type keys_1<T> = Array<KeyOf<T>>;
 export = keys;

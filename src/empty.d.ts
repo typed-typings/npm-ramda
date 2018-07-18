@@ -34,6 +34,7 @@ type empty_0 = {
 };
 type empty_list_1<T> = T[];
 type empty_string_1 = string;
-type empty_object_1 = {};
+type empty_object_1 = {
+};
 type empty_general_1<T> = T;
 export = empty;

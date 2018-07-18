@@ -22,19 +22,24 @@ type pathOr_000 = {
      */
     <T>(defaults: T): pathOr_100<T>;
     <T>(defaults: T, path: Path): pathOr_110<T>;
-    <$SEL extends "111">(): <T, U>(defaults: T, path: Path, object: {}) => pathOr_111<T, U>;
+    <$SEL extends "111">(): <T, U>(defaults: T, path: Path, object: {
+    }) => pathOr_111<T, U>;
     <$SEL extends "11">(): <T>(defaults: T, path: Path) => pathOr_110<T>;
     <$SEL extends "1">(): <T>(defaults: T) => pathOr_100<T>;
-    <T, U>(defaults: T, path: Path, object: {}): pathOr_111<T, U>;
+    <T, U>(defaults: T, path: Path, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_100<T> = {
     (path: Path): pathOr_110<T>;
-    <$SEL extends "11">(): <U>(path: Path, object: {}) => pathOr_111<T, U>;
+    <$SEL extends "11">(): <U>(path: Path, object: {
+    }) => pathOr_111<T, U>;
     <$SEL extends "1">(): (path: Path) => pathOr_110<T>;
-    <U>(path: Path, object: {}): pathOr_111<T, U>;
+    <U>(path: Path, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_110<T> = {
-    <U>(object: {}): pathOr_111<T, U>;
+    <U>(object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_111<T, U> = T | U;
 export = pathOr;
