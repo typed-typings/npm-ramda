@@ -29,11 +29,14 @@ type hasIn_00 = {
      *      R.hasIn('area', square);  //=> true
      */
     (property: Property): hasIn_10;
-    (_property: PH, object: {}): hasIn_01;
-    (property: Property, object: {}): hasIn_11;
+    (_property: PH, object: {
+    }): hasIn_01;
+    (property: Property, object: {
+    }): hasIn_11;
 };
 type hasIn_10 = {
-    (object: {}): hasIn_11;
+    (object: {
+    }): hasIn_11;
 };
 type hasIn_01 = {
     (property: Property): hasIn_11;

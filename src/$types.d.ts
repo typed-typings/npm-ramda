@@ -29,6 +29,7 @@ export interface NestedDictionary<T> {
 export interface Ordered {
     valueOf(): string | number | boolean;
 }
+export type Tuple = [any] | [any, any] | [any, any, any] | [any, any, any, any] | [any, any, any, any, any] | [any, any, any, any, any, any];
 export interface ManualLens<T, U> {
     _fake_lens_getter: T;
     _fake_lens_setter: U;

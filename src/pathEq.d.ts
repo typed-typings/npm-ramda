@@ -29,23 +29,32 @@ type pathEq_000 = {
     (path: Path): pathEq_100;
     (_path: PH, value: any): pathEq_010;
     (path: Path, value: any): pathEq_110;
-    (_path: PH, _value: PH, object: {}): pathEq_001;
-    (_path: PH, value: any, object: {}): pathEq_011;
-    (path: Path, _value: PH, object: {}): pathEq_101;
-    (path: Path, value: any, object: {}): pathEq_111;
+    (_path: PH, _value: PH, object: {
+    }): pathEq_001;
+    (_path: PH, value: any, object: {
+    }): pathEq_011;
+    (path: Path, _value: PH, object: {
+    }): pathEq_101;
+    (path: Path, value: any, object: {
+    }): pathEq_111;
 };
 type pathEq_100 = {
     (value: any): pathEq_110;
-    (_value: PH, object: {}): pathEq_101;
-    (value: any, object: {}): pathEq_111;
+    (_value: PH, object: {
+    }): pathEq_101;
+    (value: any, object: {
+    }): pathEq_111;
 };
 type pathEq_010 = {
     (path: Path): pathEq_110;
-    (_path: PH, object: {}): pathEq_011;
-    (path: Path, object: {}): pathEq_111;
+    (_path: PH, object: {
+    }): pathEq_011;
+    (path: Path, object: {
+    }): pathEq_111;
 };
 type pathEq_110 = {
-    (object: {}): pathEq_111;
+    (object: {
+    }): pathEq_111;
 };
 type pathEq_001 = {
     (path: Path): pathEq_101;

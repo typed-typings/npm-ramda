@@ -27,11 +27,14 @@ type has_00 = {
      *      pointHas('z');  //=> false
      */
     (property: Property): has_10;
-    (_property: PH, object: {}): has_01;
-    (property: Property, object: {}): has_11;
+    (_property: PH, object: {
+    }): has_01;
+    (property: Property, object: {
+    }): has_11;
 };
 type has_10 = {
-    (object: {}): has_11;
+    (object: {
+    }): has_11;
 };
 type has_01 = {
     (property: Property): has_11;
