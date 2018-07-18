@@ -24,36 +24,53 @@ type pathOr_000 = {
     <T>(defaults: T): pathOr_100<T>;
     (_defaults: PH, path: Path): pathOr_010;
     <T>(defaults: T, path: Path): pathOr_110<T>;
-    (_defaults: PH, _path: PH, object: {}): pathOr_001;
-    (_defaults: PH, path: Path, object: {}): pathOr_011;
-    <T>(defaults: T, _path: PH, object: {}): pathOr_101<T>;
-    <$SEL extends "111">(): <T, U>(defaults: T, path: Path, object: {}) => pathOr_111<T, U>;
-    <$SEL extends "101">(): <T>(defaults: T, _path: PH, object: {}) => pathOr_101<T>;
-    <$SEL extends "011">(): (_defaults: PH, path: Path, object: {}) => pathOr_011;
-    <$SEL extends "001">(): (_defaults: PH, _path: PH, object: {}) => pathOr_001;
+    (_defaults: PH, _path: PH, object: {
+    }): pathOr_001;
+    (_defaults: PH, path: Path, object: {
+    }): pathOr_011;
+    <T>(defaults: T, _path: PH, object: {
+    }): pathOr_101<T>;
+    <$SEL extends "111">(): <T, U>(defaults: T, path: Path, object: {
+    }) => pathOr_111<T, U>;
+    <$SEL extends "101">(): <T>(defaults: T, _path: PH, object: {
+    }) => pathOr_101<T>;
+    <$SEL extends "011">(): (_defaults: PH, path: Path, object: {
+    }) => pathOr_011;
+    <$SEL extends "001">(): (_defaults: PH, _path: PH, object: {
+    }) => pathOr_001;
     <$SEL extends "11">(): <T>(defaults: T, path: Path) => pathOr_110<T>;
     <$SEL extends "01">(): (_defaults: PH, path: Path) => pathOr_010;
     <$SEL extends "1">(): <T>(defaults: T) => pathOr_100<T>;
-    <T, U>(defaults: T, path: Path, object: {}): pathOr_111<T, U>;
+    <T, U>(defaults: T, path: Path, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_100<T> = {
     (path: Path): pathOr_110<T>;
-    (_path: PH, object: {}): pathOr_101<T>;
-    <$SEL extends "11">(): <U>(path: Path, object: {}) => pathOr_111<T, U>;
-    <$SEL extends "01">(): (_path: PH, object: {}) => pathOr_101<T>;
+    (_path: PH, object: {
+    }): pathOr_101<T>;
+    <$SEL extends "11">(): <U>(path: Path, object: {
+    }) => pathOr_111<T, U>;
+    <$SEL extends "01">(): (_path: PH, object: {
+    }) => pathOr_101<T>;
     <$SEL extends "1">(): (path: Path) => pathOr_110<T>;
-    <U>(path: Path, object: {}): pathOr_111<T, U>;
+    <U>(path: Path, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_010 = {
     <T>(defaults: T): pathOr_110<T>;
-    (_defaults: PH, object: {}): pathOr_011;
-    <$SEL extends "11">(): <T, U>(defaults: T, object: {}) => pathOr_111<T, U>;
-    <$SEL extends "01">(): (_defaults: PH, object: {}) => pathOr_011;
+    (_defaults: PH, object: {
+    }): pathOr_011;
+    <$SEL extends "11">(): <T, U>(defaults: T, object: {
+    }) => pathOr_111<T, U>;
+    <$SEL extends "01">(): (_defaults: PH, object: {
+    }) => pathOr_011;
     <$SEL extends "1">(): <T>(defaults: T) => pathOr_110<T>;
-    <T, U>(defaults: T, object: {}): pathOr_111<T, U>;
+    <T, U>(defaults: T, object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_110<T> = {
-    <U>(object: {}): pathOr_111<T, U>;
+    <U>(object: {
+    }): pathOr_111<T, U>;
 };
 type pathOr_001 = {
     <T>(defaults: T): pathOr_101<T>;
