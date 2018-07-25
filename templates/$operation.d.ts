@@ -1,4 +1,4 @@
-import { Morphism } from './$types';
+import { Morphism, PropKey } from './$types';
 
 export type DeepPartial<T> = { [K in keyof T]?: DeepPartial<T[K]> };
 
@@ -6,13 +6,11 @@ export type DeepPartial<T> = { [K in keyof T]?: DeepPartial<T[K]> };
 export type Evolver<T> = Morphism<T, T> | { [K in keyof T]?: Evolver<T[K]> };
 
 // from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-export type Diff<T extends PropertyKey, U extends PropertyKey> = ({
-  [P in T]: P
-} &
+export type Diff<T extends PropKey, U extends PropKey> = ({ [P in T]: P } &
   { [P in U]: never } & { [x: string]: never })[T];
-export type Omit<T, K extends PropertyKey> = Pick<T, Diff<keyof T, K>>;
+export type Omit<T, K extends PropKey> = Pick<T, Diff<keyof T, K>>;
 
-export type Same<T extends PropertyKey, U extends PropertyKey> = Diff<
+export type Same<T extends PropKey, U extends PropKey> = Diff<
   T | U,
   Diff<T, U> | Diff<U, T>
 >;
