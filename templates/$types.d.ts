@@ -2,6 +2,7 @@
 
 export type Property = string | number | symbol;
 export type Path = List<Property>;
+export type PropKey = keyof any; // for backward compatibility (keyofStringsOnly)
 
 // general
 
@@ -14,12 +15,12 @@ export type IndexedListMorphism<T, U> = (
   index: number,
   list: List<T>,
 ) => U;
-export type IndexedObjectMorphism<T, U, K extends PropertyKey> = (
+export type IndexedObjectMorphism<T, U, K extends PropKey> = (
   value: T,
   index: number,
   object: Record<K, T>,
 ) => U;
-export type KeyedObjectMorphism<T, U, K extends PropertyKey> = (
+export type KeyedObjectMorphism<T, U, K extends PropKey> = (
   value: T,
   key: K,
   object: Record<K, T>,
