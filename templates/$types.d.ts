@@ -63,13 +63,11 @@ export interface Ordered {
   valueOf(): string | number | boolean;
 }
 
-export type Tuple =
-  | [any]
-  | [any, any]
-  | [any, any, any]
-  | [any, any, any, any]
-  | [any, any, any, any, any]
-  | [any, any, any, any, any, any];
+export interface Tuple {
+  0: any;
+  [index: number]: any;
+  readonly length: number;
+}
 
 // ramda
 

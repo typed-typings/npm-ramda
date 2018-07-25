@@ -18,20 +18,21 @@ export type Same<T extends PropertyKey, U extends PropertyKey> = Diff<
 >;
 export type Merge<T, U> = Omit<T, keyof U> & U;
 
-// prettier-ignore
 export interface NumberStringMap {
-   0:  '0',  1:  '1',  2:  '2',  3:  '3',  4:  '4',  5:  '5',  6:  '6',  7:  '7',  8:  '8',  9:  '9',
-  10: '10', 11: '11', 12: '12', 13: '13', 14: '14', 15: '15', 16: '16', 17: '17', 18: '18', 19: '19',
-  20: '20', 21: '21', 22: '22', 23: '23', 24: '24', 25: '25', 26: '26', 27: '27', 28: '28', 29: '29',
-  [n: number]: string;
+  0: '0';
+  1: '1';
+  2: '2';
+  3: '3';
+  4: '4';
+  5: '5';
 }
 
-export type NumberToString<T extends number> = T extends never
-  ? never
-  : NumberStringMap[T];
+export type NumberToString<T extends number> = T extends keyof NumberStringMap
+  ? NumberStringMap[T]
+  : never;
 
 // symbols are un-enumerable even if it's "enumerable"
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties#Detection_Table
-export type KeyOf<T> =
-  | Exclude<keyof T, number | symbol>
-  | NumberToString<Extract<keyof T, number>>;
+export type KeyOf<T, K = keyof T> =
+  | Extract<K, string>
+  | NumberToString<Extract<K, number>>;
