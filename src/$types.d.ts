@@ -4,8 +4,8 @@ export type Constructor<T> = new (...args: any[]) => T;
 export type Morphism<T, U> = (value: T) => U;
 export type NestedMorphism<T, U, V> = (value: T) => (value: U) => V;
 export type IndexedListMorphism<T, U> = (value: T, index: number, list: List<T>) => U;
-export type IndexedObjectMorphism<T, U, K extends string> = (value: T, index: number, object: Record<K, T>) => U;
-export type KeyedObjectMorphism<T, U, K extends string> = (value: T, key: K, object: Record<K, T>) => U;
+export type IndexedObjectMorphism<T, U, K extends PropertyKey> = (value: T, index: number, object: Record<K, T>) => U;
+export type KeyedObjectMorphism<T, U, K extends PropertyKey> = (value: T, key: K, object: Record<K, T>) => U;
 export type Tap<T> = (value: T) => void;
 export type KeyedObjectTap<T, U extends Dictionary<T>> = (value: T, key: string, object: U) => void;
 export type Predicate<T> = Morphism<T, boolean>;
@@ -29,7 +29,11 @@ export interface NestedDictionary<T> {
 export interface Ordered {
     valueOf(): string | number | boolean;
 }
-export type Tuple = [any] | [any, any] | [any, any, any] | [any, any, any, any] | [any, any, any, any, any] | [any, any, any, any, any, any];
+export interface Tuple {
+    "0": any;
+    [index: number]: any;
+    readonly length: number;
+}
 export interface ManualLens<T, U> {
     _fake_lens_getter: T;
     _fake_lens_setter: U;
