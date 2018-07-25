@@ -14,12 +14,12 @@ export type IndexedListMorphism<T, U> = (
   index: number,
   list: List<T>,
 ) => U;
-export type IndexedObjectMorphism<T, U, K extends string> = (
+export type IndexedObjectMorphism<T, U, K extends PropertyKey> = (
   value: T,
   index: number,
   object: Record<K, T>,
 ) => U;
-export type KeyedObjectMorphism<T, U, K extends string> = (
+export type KeyedObjectMorphism<T, U, K extends PropertyKey> = (
   value: T,
   key: K,
   object: Record<K, T>,
