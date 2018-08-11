@@ -1,3 +1,4 @@
+import { DeepMerge } from "./$operation";
 import { Placeholder as PH } from "./$placeholder";
 declare const mergeDeepRight: mergeDeepRight_00;
 type mergeDeepRight_00 = {
@@ -22,15 +23,15 @@ type mergeDeepRight_00 = {
      *                       { age: 40, contact: { email: 'baa@example.com' }});
      *      //=> { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
      */
-    (left: object): mergeDeepRight_10;
-    (_left: PH, right: object): mergeDeepRight_01;
-    (left: object, right: object): mergeDeepRight_11;
+    <T extends object>(left: T): mergeDeepRight_10<T>;
+    <U extends object>(_left: PH, right: U): mergeDeepRight_01<U>;
+    <T extends object, U extends object>(left: T, right: U): mergeDeepRight_11<T, U>;
 };
-type mergeDeepRight_10 = {
-    (right: object): mergeDeepRight_11;
+type mergeDeepRight_10<T extends object> = {
+    <U extends object>(right: U): mergeDeepRight_11<T, U>;
 };
-type mergeDeepRight_01 = {
-    (left: object): mergeDeepRight_11;
+type mergeDeepRight_01<U extends object> = {
+    <T extends object>(left: T): mergeDeepRight_11<T, U>;
 };
-type mergeDeepRight_11 = object;
+type mergeDeepRight_11<T extends object, U extends object> = DeepMerge<T, U>;
 export = mergeDeepRight;
