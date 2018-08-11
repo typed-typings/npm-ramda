@@ -5,16 +5,15 @@ export type DeepPartial<T> = {
 export type Evolver<T> = Morphism<T, T> | {
     [K in keyof T]?: Evolver<T[K]>;
 };
-export type Diff<T extends PropKey, U extends PropKey> = ({
-    [P in T]: P;
-} & {
-    [P in U]: never;
-} & {
-    [x: string]: never;
-})[T];
-export type Omit<T, K extends PropKey> = Pick<T, Diff<keyof T, K>>;
-export type Same<T extends PropKey, U extends PropKey> = Diff<T | U, Diff<T, U> | Diff<U, T>>;
+export type Omit<T, K extends PropKey> = Pick<T, Exclude<keyof T, K>>;
+export type Same<T extends PropKey, U extends PropKey> = Extract<T, U>;
 export type Merge<T, U> = Omit<T, keyof U> & U;
+export type DeepMerge<T, U> = {
+    "0": Omit<T, keyof U> & Omit<U, keyof T> & {
+        [K in Same<keyof T, keyof U>]: DeepMerge<T[K], U[K]>;
+    };
+    "1": U;
+}[T extends object ? U extends object ? 0 : 1 : 1];
 export interface NumberStringMap {
     "0": "0";
     "1": "1";
