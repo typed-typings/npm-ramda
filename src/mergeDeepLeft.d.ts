@@ -1,3 +1,4 @@
+import { DeepMerge } from "./$operation";
 import { Placeholder as PH } from "./$placeholder";
 declare const mergeDeepLeft: mergeDeepLeft_00;
 type mergeDeepLeft_00 = {
@@ -22,18 +23,18 @@ type mergeDeepLeft_00 = {
      *                      { age: 40, contact: { email: 'baa@example.com' }});
      *      //=> { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
      */
-    (left: object): mergeDeepLeft_10;
-    (_left: PH, right: object): mergeDeepLeft_01;
-    <$SEL extends "11">(): (left: object, right: object) => mergeDeepLeft_11;
-    <$SEL extends "01">(): (_left: PH, right: object) => mergeDeepLeft_01;
-    <$SEL extends "1">(): (left: object) => mergeDeepLeft_10;
-    (left: object, right: object): mergeDeepLeft_11;
+    <T extends object>(left: T): mergeDeepLeft_10<T>;
+    <U extends object>(_left: PH, right: U): mergeDeepLeft_01<U>;
+    <$SEL extends "11">(): <T extends object, U extends object>(left: T, right: U) => mergeDeepLeft_11<T, U>;
+    <$SEL extends "01">(): <U extends object>(_left: PH, right: U) => mergeDeepLeft_01<U>;
+    <$SEL extends "1">(): <T extends object>(left: T) => mergeDeepLeft_10<T>;
+    <T extends object, U extends object>(left: T, right: U): mergeDeepLeft_11<T, U>;
 };
-type mergeDeepLeft_10 = {
-    (right: object): mergeDeepLeft_11;
+type mergeDeepLeft_10<T extends object> = {
+    <U extends object>(right: U): mergeDeepLeft_11<T, U>;
 };
-type mergeDeepLeft_01 = {
-    (left: object): mergeDeepLeft_11;
+type mergeDeepLeft_01<U extends object> = {
+    <T extends object>(left: T): mergeDeepLeft_11<T, U>;
 };
-type mergeDeepLeft_11 = object;
+type mergeDeepLeft_11<T extends object, U extends object> = DeepMerge<U, T>;
 export = mergeDeepLeft;
