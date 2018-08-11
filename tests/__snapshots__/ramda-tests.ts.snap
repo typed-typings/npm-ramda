@@ -874,12 +874,12 @@ exports[`mergeAll R.mergeAll([{ foo: 1 }, { foo: 2 }, { bar: 2 }]) 1`] = `"objec
 exports[`mergeDeepLeft R.mergeDeepLeft(
       { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
       { age: 40, contact: { email: 'baa@example.com' } },
-    ) 1`] = `"object"`;
+    ) 1`] = `"Pick<{ age: number; contact: { email: string; }; }, never> & Pick<{ name: string; age: number; contact: { email: string; }; }, \\"name\\"> & { age: number; contact: Pick<{ email: string; }, never> & Pick<{ email: string; }, never> & any; }"`;
 
 exports[`mergeDeepRight R.mergeDeepRight(
       { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
       { age: 40, contact: { email: 'baa@example.com' } },
-    ) 1`] = `"object"`;
+    ) 1`] = `"Pick<{ name: string; age: number; contact: { email: string; }; }, \\"name\\"> & Pick<{ age: number; contact: { email: string; }; }, never> & { age: number; contact: Pick<{ email: string; }, never> & Pick<{ email: string; }, never> & any; }"`;
 
 exports[`mergeDeepWith R.mergeDeepWith(
       R.concat,

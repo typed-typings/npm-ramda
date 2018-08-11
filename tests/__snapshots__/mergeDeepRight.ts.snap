@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.mergeDeepRight(a_1) 1`] = `"(right: object) => object"`;
+exports[`R.mergeDeepRight(a_1) 1`] = `"<U extends object>(right: U) => { \\"0\\": Pick<{ a: 1; }, Exclude<\\"a\\", keyof U>> & Pick<U, Exclude<keyof U, \\"a\\">> & { [K in Extract<\\"a\\", keyof U>]: any[{ a: 1; }[K] extends object ? U[K] extends object ? 0 : 1 : 1]; }; \\"1\\": U; }[U extends object ? 0 : 1]"`;
 
-exports[`R.mergeDeepRight(a_1)(b_2) 1`] = `"object"`;
+exports[`R.mergeDeepRight(a_1)(b_2) 1`] = `"Pick<{ a: 1; }, \\"a\\"> & Pick<{ b: 2; }, \\"b\\"> & {}"`;
 
-exports[`R.mergeDeepRight(a_1, b_2) 1`] = `"object"`;
+exports[`R.mergeDeepRight(a_1, b_2) 1`] = `"Pick<{ a: 1; }, \\"a\\"> & Pick<{ b: 2; }, \\"b\\"> & {}"`;
+
+exports[`R.mergeDeepRight(a_1_x_y_1, b_1_x_z_1) 1`] = `"Pick<{ a: 1; x: { y: 1; }; }, \\"a\\"> & Pick<{ b: 1; x: { z: 1; }; }, \\"b\\"> & { x: Pick<{ y: 1; }, \\"y\\"> & Pick<{ z: 1; }, \\"z\\"> & any; }"`;

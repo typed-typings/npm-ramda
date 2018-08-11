@@ -1858,7 +1858,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group mergeDeepLeft
 (() => {
-  // @dts-jest:pass:snap -> object
+  // @dts-jest:pass:snap -> Pick<{ age: number; contact: { email: string; }; }, never> & Pick<{ name: string; age: number; contact: { email: string; }; }, "name"> & { age: number; contact: Pick<{ email: string; }, never> & Pick<{ email: string; }, never> & any; }
   R.mergeDeepLeft(
     { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
     { age: 40, contact: { email: 'baa@example.com' } },
@@ -1867,7 +1867,7 @@ import * as R from '../ramda/dist/index';
 
 // @dts-jest:group mergeDeepRight
 (() => {
-  // @dts-jest:pass:snap -> object
+  // @dts-jest:pass:snap -> Pick<{ name: string; age: number; contact: { email: string; }; }, "name"> & Pick<{ age: number; contact: { email: string; }; }, never> & { age: number; contact: Pick<{ email: string; }, never> & Pick<{ email: string; }, never> & any; }
   R.mergeDeepRight(
     { name: 'fred', age: 10, contact: { email: 'moo@example.com' } },
     { age: 40, contact: { email: 'baa@example.com' } },
