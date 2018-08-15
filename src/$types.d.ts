@@ -16,8 +16,8 @@ export type TypedVariadic<T, R> = (...args: T[]) => R;
 export type ListMapper<T, U> = (fn: Morphism<T, U>, list: List<T>) => U[];
 export type ObjectMapper<T, U, K extends string> = (fn: Morphism<T, U>, object: Record<K, T>) => Record<K, U>;
 export interface KeyValuePair<K, V> extends ArrayLike<K | V> {
-    "0": K;
-    "1": V;
+    0: K;
+    1: V;
 }
 export type List<T> = T[] | ArrayLike<T>;
 export type NestedList<T> = List<T | List<T> | List<List<T>>>;
@@ -31,7 +31,7 @@ export interface Ordered {
     valueOf(): string | number | boolean;
 }
 export interface Tuple {
-    "0": any;
+    0: any;
     [index: number]: any;
     readonly length: number;
 }
