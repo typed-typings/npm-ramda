@@ -7,7 +7,7 @@ declare const a_1_b_2_c_3: {
 };
 declare const string_number_record: Record<string, number>;
 
-// @dts-jest:pass:snap -> ["a" | "b" | "c", 2 | 1 | 3][]
+// @dts-jest:pass:snap -> ["a" | "b" | "c", 1 | 2 | 3][]
 R.toPairsIn(a_1_b_2_c_3);
 // @dts-jest:pass:snap -> [string, number][]
 R.toPairsIn(string_number_record);

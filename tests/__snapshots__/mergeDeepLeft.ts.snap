@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.mergeDeepLeft(a_1) 1`] = `"<U extends object>(right: U) => { \\"0\\": Pick<U, Exclude<keyof U, \\"a\\">> & Pick<{ a: 1; }, Exclude<\\"a\\", keyof U>> & { [K in Extract<keyof U, \\"a\\">]: any[U[K] extends object ? { a: 1; }[K] extends object ? 0 : 1 : 1]; }; \\"1\\": { a: 1; }; }[U extends object ? 0 : 1]"`;
+exports[`R.mergeDeepLeft(a_1) 1`] = `"<U extends object>(right: U) => { 0: Pick<U, Exclude<keyof U, \\"a\\">> & Pick<{ a: 1; }, Exclude<\\"a\\", keyof U>> & { [K in Extract<keyof U, \\"a\\">]: any[U[K] extends object ? { a: 1; }[K] extends object ? 0 : 1 : 1]; }; 1: { a: 1; }; }[U extends object ? 0 : 1]"`;
 
 exports[`R.mergeDeepLeft(a_1)(b_2) 1`] = `"Pick<{ b: 2; }, \\"b\\"> & Pick<{ a: 1; }, \\"a\\"> & {}"`;
 
