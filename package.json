@@ -34,7 +34,7 @@
     "@types/through2": "2.0.33",
     "@types/yargs": "10.0.1",
     "del": "3.0.0",
-    "dts-element": "2.3.2",
+    "dts-element": "2.3.3",
     "dts-element-fp": "1.1.2",
     "dts-jest": "22.0.3",
     "glob": "7.1.2",
