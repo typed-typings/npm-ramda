@@ -1,1 +1,1 @@
-export function $<T>(value: T): () => T;
+export function $<T>(value: T): (...args: any[]) => T;

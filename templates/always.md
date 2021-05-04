@@ -15,3 +15,4 @@ other languages and libraries.
 
      var t = R.always('Tee');
      t(); //=> 'Tee'
+     t('a'); //=> 'Tee'

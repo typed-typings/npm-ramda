@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`R.always(string) 1`] = `"() => string"`;
+exports[`R.always(string) 1`] = `"(...args: any[]) => string"`;
 
 exports[`R.always(string)() 1`] = `"string"`;
