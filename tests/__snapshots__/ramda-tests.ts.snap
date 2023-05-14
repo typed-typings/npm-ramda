@@ -1022,6 +1022,8 @@ exports[`partition R.partition((x: number) => x > 2)([1, 2, 3, 4]) 1`] = `"[numb
 
 exports[`partition R.partition((x: number) => x > 2, [1, 2, 3, 4]) 1`] = `"[number[], number[]]"`;
 
+exports[`partition R.partition((x: unknown): x is number => typeof x === 'number')([1, 'a', 2, 'b', 3, 4, 'c']) 1`] = `"[number[], unknown[]]"`;
+
 exports[`partition R.partition(R.contains('s'))(['sss', 'ttt', 'foo', 'bars']) 1`] = `"[R.List<string>[], R.List<string>[]]"`;
 
 exports[`partition R.partition(R.contains('s'), ['sss', 'ttt', 'foo', 'bars']) 1`] = `"[R.List<string>[], R.List<string>[]]"`;

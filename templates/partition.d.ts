@@ -1,5 +1,9 @@
 import { Dictionary, List, Predicate } from './$types';
 
+export function $list<T, P extends T>(
+  fn: (a: T) => a is P,
+  list: List<T>
+): [P[], T[]];
 export function $list<T>(fn: Predicate<T>, list: List<T>): [T[], T[]];
 export function $object<T, U extends Dictionary<T>>(
   fn: Predicate<T>,

@@ -20,3 +20,6 @@ that has a filter method such as `Array`.
 
      R.partition(R.contains('s'), { a: 'sss', b: 'ttt', foo: 'bars' });
      // => [ { a: 'sss', foo: 'bars' }, { b: 'ttt' }  ]
+
+     R.partition((value: unknown): value is number => typeof value === 'number', ['a', 'b', 1, 2, 'c']);
+     // => [ [1, 2], ['a', 'b', 'c']  ]
