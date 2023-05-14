@@ -2173,6 +2173,8 @@ import * as R from '../ramda/dist/index';
   R.partition((x: number) => x > 2, [1, 2, 3, 4]);
   // @dts-jest:pass:snap -> [number[], number[]]
   R.partition((x: number) => x > 2)([1, 2, 3, 4]);
+  // @dts-jest:pass:snap -> [number[], unknown[]]
+  R.partition((x: unknown): x is number => typeof x === 'number')([1, 'a', 2, 'b', 3, 4, 'c']);
   // @dts-jest:pass:snap -> [Partial<{ a: string; b: string; foo: string; }>, Partial<{ a: string; b: string; foo: string; }>]
   R.partition(R.contains('s'), { a: 'sss', b: 'ttt', foo: 'bars' }); //=> [ { a: 'sss', foo: 'bars' }, { b: 'ttt' } ]
 })();

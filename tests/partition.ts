@@ -7,6 +7,8 @@ declare const a_1_b_2_c_3: {
   b: 2;
   c: 3;
 };
+declare const number_type_guard: (x: unknown) => x is number;
+declare const unknown_array: unknown[];
 
 // @dts-jest:pass:snap
 R.partition(number_to_boolean)(number_array);
@@ -17,3 +19,8 @@ R.partition(number_to_boolean, number_array);
 R.partition(number_to_boolean)(a_1_b_2_c_3);
 // @dts-jest:pass:snap
 R.partition(number_to_boolean, a_1_b_2_c_3);
+
+// @dts-jest:pass:snap
+R.partition(number_type_guard)(unknown_array);
+// @dts-jest:pass:snap
+R.partition(number_type_guard, unknown_array);
